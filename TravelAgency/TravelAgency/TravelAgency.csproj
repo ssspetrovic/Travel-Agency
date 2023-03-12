@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MaterialDesignThemes" Version="4.8.0" />
     <PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.3" />
   </ItemGroup>
 
@@ -19,9 +20,9 @@
     <Folder Include="ModelView\" />
     <Folder Include="Service\" />
     <Folder Include="Repository\" />
-    <Folder Include="View\" />
     <Folder Include="Service\" />
     <Folder Include="Repository\" />
+    <Folder Include="View\" />
   </ItemGroup>
 
 </Project>
