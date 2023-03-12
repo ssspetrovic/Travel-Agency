@@ -87,6 +87,15 @@
                     Content="Create Account"
                     FontSize="16"
                     Style="{StaticResource MaterialDesignFlatButton}" />
+                <TextBlock Text="{Binding ErrorMessage}"
+                           x:Name="ErrorMessage"
+                           Foreground="DarkRed"
+                           FontSize="12"
+                           FontWeight="Medium"
+                           FontFamily="Montserrat"
+                           TextWrapping="Wrap"
+                           HorizontalAlignment="Center"
+                           Margin="0, 0, 0, 0"/>
             </StackPanel>
         </materialDesign:DialogHost>
     </materialDesign:Card>

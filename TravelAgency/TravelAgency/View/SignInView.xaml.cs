@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,6 +13,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TravelAgency.Model;
+using TravelAgency.Repository;
 
 namespace TravelAgency.View
 {
@@ -38,9 +41,45 @@ namespace TravelAgency.View
 
         private void SignInButton_OnClick(object sender, RoutedEventArgs e)
         {
-            MainView mainView = new MainView();
-            mainView.Show();
-            Close();
+            if (string.IsNullOrWhiteSpace(UsernameTextBox.Text))
+            {
+                ErrorMessage.Text = "You haven't entered the username.";
+                UsernameTextBox.Focus();
+            }
+
+            else if (string.IsNullOrEmpty(PasswordBox.Password))
+            {
+                ErrorMessage.Text = "You haven't entered the password.";
+                PasswordBox.Focus();
+            }
+
+            else
+            {
+                string username = UsernameTextBox.Text;
+                string password = PasswordBox.Password;
+
+                if (username.Length < 3 || password.Length < 3)
+                {
+                    ErrorMessage.Text = "Username or password is too short.";
+                }
+
+                else
+                {
+                    ErrorMessage.Text = "";
+                    IUserRepository userRepository = new UserRepository();
+                    var isValid = userRepository.AuthenticateUser(new System.Net.NetworkCredential(username, password));
+                    if (isValid)
+                    {
+                        MainView mainView = new MainView();
+                        mainView.Show();
+                        Close();
+                    }
+                    else
+                    {
+                        ErrorMessage.Text = "Incorrect username or password.";
+                    }
+                }
+            }
         }
     }
 }
