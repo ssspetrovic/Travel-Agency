@@ -67,7 +67,7 @@
                     FontSize="15"
                     Style="{StaticResource MaterialDesignOutlinedPasswordBox}" />
                 <Button
-                    x:Name="loginBtn"
+                    x:Name="SignInButton"
                     Width="300"
                     Height="53"
                     Margin="0,20,0,0"
