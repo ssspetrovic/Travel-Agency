@@ -11,4 +11,12 @@
     <PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Model\" />
+    <Folder Include="Controller\" />
+    <Folder Include="Data\" />
+    <Folder Include="Service\" />
+    <Folder Include="Repository\" />
+  </ItemGroup>
+
 </Project>
