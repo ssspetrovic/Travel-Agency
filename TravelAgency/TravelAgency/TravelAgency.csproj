@@ -12,9 +12,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Model\" />
     <Folder Include="Controller\" />
-    <Folder Include="Data\" />
+    <Folder Include="Model\" />
+    <Folder Include="Resources\Data\" />
+    <Folder Include="Model\" />
+    <Folder Include="ModelView\" />
+    <Folder Include="Service\" />
+    <Folder Include="Repository\" />
+    <Folder Include="View\" />
     <Folder Include="Service\" />
     <Folder Include="Repository\" />
   </ItemGroup>
