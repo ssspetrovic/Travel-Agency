@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -14,29 +15,36 @@ namespace TravelAgency.Repository
     {
         public bool AuthenticateUser(NetworkCredential credential)
         {
-            bool validUser;
             const string databaseFilePath = "./database.sqlite3";
 
-            using (var databaseConnection = new SqliteConnection("Data Source=" + databaseFilePath))
-            {
-                databaseConnection.Open();
-                var selectCommand = databaseConnection.CreateCommand();
-                selectCommand.CommandText = @"SELECT * FROM User WHERE Username = $Username AND Password = $Password";
+            using var databaseConnection = new SqliteConnection("Data Source=" + databaseFilePath);
+            databaseConnection.Open();
 
-                selectCommand.Parameters.AddWithValue("$Username", credential.UserName);
-                selectCommand.Parameters.AddWithValue("$Password", credential.Password);
-                using var selectReader = selectCommand.ExecuteReader();
+            var selectCommand = databaseConnection.CreateCommand();
+            selectCommand.CommandText = @"SELECT * FROM User WHERE Username = $Username AND Password = $Password";
 
-                var selectedUsers = new List<UserModel>();
+            selectCommand.Parameters.AddWithValue("$Username", credential.UserName);
+            selectCommand.Parameters.AddWithValue("$Password", credential.Password);
+            using var selectReader = selectCommand.ExecuteReader();
 
-                while (selectReader.Read())
-                {
-                    selectedUsers.Add(new UserModel(selectReader.GetInt32(0), selectReader.GetString(1), selectReader.GetString(2)));
-                }
+            return selectReader.Read() && selectReader["Username"] != DBNull.Value;
+        }
 
-                return validUser = selectedUsers.Capacity == 0 ? false : true;
-            }
+        public Role GetRole(string username)
+        {
+            const string databaseFilePath = "./database.sqlite3";
 
+            using var databaseConnection = new SqliteConnection("Data Source=" + databaseFilePath);
+            databaseConnection.Open();
+            var selectCommand = databaseConnection.CreateCommand();
+            selectCommand.CommandText = @"SELECT Role FROM User WHERE Username = $Username";
+
+            selectCommand.Parameters.AddWithValue("$Username", username);
+            using var selectReader = selectCommand.ExecuteReader();
+
+            selectReader.Read(); 
+            var role =(Role) Convert.ToInt32(selectReader["Role"]);
+            return role;
         }
 
         public void Add(UserModel userModel)
@@ -68,5 +76,7 @@ namespace TravelAgency.Repository
         {
             throw new NotImplementedException();
         }
+
+
     }
 }

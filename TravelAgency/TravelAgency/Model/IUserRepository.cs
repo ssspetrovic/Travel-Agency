@@ -10,6 +10,7 @@ namespace TravelAgency.Model
     internal interface IUserRepository
     {
         bool AuthenticateUser(NetworkCredential credential);
+        Role GetRole(string Username);
         void Add(UserModel userModel);
         void Edit(UserModel userModel);
         void Remove(int id);

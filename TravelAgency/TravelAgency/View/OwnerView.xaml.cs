@@ -17,9 +17,9 @@ namespace TravelAgency.View
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainView : Window
+    public partial class OwnerView : Window
     {
-        public MainView()
+        public OwnerView()
         {
             InitializeComponent();
         }

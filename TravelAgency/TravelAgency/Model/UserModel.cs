@@ -1,6 +1,13 @@
 ﻿
 namespace TravelAgency.Model
 {
+    public enum Role
+    {
+        Owner,
+        Guide,
+        Guest1,
+        Guest2
+    }
     public class UserModel
     {
         public int Id { get; set; }
@@ -9,7 +16,12 @@ namespace TravelAgency.Model
         public string Email { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
+        public Role Role { get; set; }
 
+        public UserModel()
+        {
+
+        }
 
         public UserModel(int id, string userName, string password)
         {
@@ -18,11 +30,12 @@ namespace TravelAgency.Model
             Password = password;
         }
 
-        public UserModel(int id, string username, string password, string email, string name, string surname) : this(id, username, password)
+        public UserModel(int id, string username, string password, string email, string name, string surname, Role role) : this(id, username, password)
         {
             Email = email;
             Name = name;
             Surname = surname;
+            Role = role;
         }
 
 

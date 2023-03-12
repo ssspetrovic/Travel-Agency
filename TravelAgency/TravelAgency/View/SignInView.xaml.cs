@@ -70,8 +70,28 @@ namespace TravelAgency.View
                     var isValid = userRepository.AuthenticateUser(new System.Net.NetworkCredential(username, password));
                     if (isValid)
                     {
-                        MainView mainView = new MainView();
-                        mainView.Show();
+                        Role currentRole = userRepository.GetRole(username);
+                        if (currentRole == Role.Owner)
+                        {
+                            OwnerView mainView = new OwnerView();
+                            mainView.Show();
+                            
+                        }
+                        else if (currentRole == Role.Guide)
+                        {
+                            GuideView guideView = new GuideView();
+                            guideView.Show();
+                        }
+                        else if (currentRole == Role.Guest1)
+                        {
+                            Guest1View guest1View = new Guest1View();
+                            guest1View.Show();
+                        }
+                        else
+                        {
+                            Guest2View guest2View = new Guest2View();
+                            guest2View.Show();
+                        }
                         Close();
                     }
                     else
