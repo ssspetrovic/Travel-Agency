@@ -17,9 +17,7 @@
     <Folder Include="Resources\Data\" />
     <Folder Include="ModelView\" />
     <Folder Include="Service\" />
-    <Folder Include="Repository\" />
     <Folder Include="Service\" />
-    <Folder Include="Repository\" />
   </ItemGroup>
 
 </Project>
