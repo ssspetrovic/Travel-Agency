@@ -23,12 +23,37 @@
         UniformCornerRadius="15">
         <materialDesign:DialogHost x:Name="DialogHost" CloseOnClickAway="True">
             <StackPanel>
+
                 <TextBlock
                     Margin="0,25,0,5"
                     HorizontalAlignment="Center"
                     FontSize="28"
                     FontWeight="Bold"
                     Text="Travel Agency" />
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    FontSize="16"
+                    FontWeight="SemiBold"
+                    Text="Sign in to your existing account" />
+                <TextBox
+                    x:Name="UsernameTextBox"
+                    Width="300"
+                    Margin="0,20,0,0"
+                    materialDesign:HintAssist.Hint="Enter Username"
+                    BorderBrush="{DynamicResource MaterialDesignDivider}"
+                    BorderThickness="2"
+                    FontSize="16"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+
+                <PasswordBox
+                    x:Name="PasswordBox"
+                    Width="300"
+                    Margin="0,20,0,0"
+                    materialDesign:HintAssist.Hint="Enter Password"
+                    BorderBrush="{DynamicResource MaterialDesignDivider}"
+                    BorderThickness="2"
+                    FontSize="16"
+                    Style="{StaticResource MaterialDesignOutlinedPasswordBox}" />
             </StackPanel>
         </materialDesign:DialogHost>
     </materialDesign:Card>
