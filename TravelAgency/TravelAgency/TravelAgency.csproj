@@ -14,9 +14,7 @@
 
   <ItemGroup>
     <Folder Include="Controller\" />
-    <Folder Include="Model\" />
     <Folder Include="Resources\Data\" />
-    <Folder Include="Model\" />
     <Folder Include="ModelView\" />
     <Folder Include="Service\" />
     <Folder Include="Repository\" />
