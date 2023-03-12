@@ -22,7 +22,6 @@
     <Folder Include="Repository\" />
     <Folder Include="Service\" />
     <Folder Include="Repository\" />
-    <Folder Include="View\" />
   </ItemGroup>
 
 </Project>
