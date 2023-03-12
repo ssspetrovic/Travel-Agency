@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Data.Sqlite;
 using TravelAgency.Model;
 
@@ -13,11 +8,10 @@ namespace TravelAgency.Repository
 {
     public class UserRepository : RepositoryBase, IUserRepository
     {
+        private const string DatabaseFilePath = "../../../Resources/Data/data.db";
         public bool AuthenticateUser(NetworkCredential credential)
         {
-            const string databaseFilePath = "./database.sqlite3";
-
-            using var databaseConnection = new SqliteConnection("Data Source=" + databaseFilePath);
+            using var databaseConnection = new SqliteConnection("Data Source=" + DatabaseFilePath);
             databaseConnection.Open();
 
             var selectCommand = databaseConnection.CreateCommand();
@@ -32,9 +26,7 @@ namespace TravelAgency.Repository
 
         public Role GetRole(string username)
         {
-            const string databaseFilePath = "./database.sqlite3";
-
-            using var databaseConnection = new SqliteConnection("Data Source=" + databaseFilePath);
+            using var databaseConnection = new SqliteConnection("Data Source=" + DatabaseFilePath);
             databaseConnection.Open();
             var selectCommand = databaseConnection.CreateCommand();
             selectCommand.CommandText = @"SELECT Role FROM User WHERE Username = $Username";
@@ -42,8 +34,8 @@ namespace TravelAgency.Repository
             selectCommand.Parameters.AddWithValue("$Username", username);
             using var selectReader = selectCommand.ExecuteReader();
 
-            selectReader.Read(); 
-            var role =(Role) Convert.ToInt32(selectReader["Role"]);
+            selectReader.Read();
+            var role = (Role)Convert.ToInt32(selectReader["Role"]);
             return role;
         }
 
@@ -76,7 +68,5 @@ namespace TravelAgency.Repository
         {
             throw new NotImplementedException();
         }
-
-
     }
 }

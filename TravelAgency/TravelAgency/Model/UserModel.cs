@@ -3,7 +3,7 @@ namespace TravelAgency.Model
 {
     public enum Role
     {
-        Owner,
+        Owner = 1,
         Guide,
         Guest1,
         Guest2
