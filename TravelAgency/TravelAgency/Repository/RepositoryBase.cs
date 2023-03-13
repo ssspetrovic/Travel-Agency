@@ -12,7 +12,7 @@ namespace TravelAgency.Repository
         private readonly string _connectionString;
         public RepositoryBase()
         {
-            _connectionString = "Server=(locl); Database=MVVMLoginDb; Integrated Security = true";
+            _connectionString = "Server=(local); Database=MVVMLoginDb; Integrated Security = true";
         }
 
         protected SqliteConnection GetConnection()
