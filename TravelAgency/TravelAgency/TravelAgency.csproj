@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FontAwesome.Sharp" Version="6.3.0" />
     <PackageReference Include="MaterialDesignThemes" Version="4.8.0" />
     <PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.3" />
   </ItemGroup>
@@ -15,6 +16,7 @@
   <ItemGroup>
     <Folder Include="Controller\" />
     <Folder Include="ModelView\" />
+    <Folder Include="Resources\Images\" />
     <Folder Include="Service\" />
     <Folder Include="Service\" />
   </ItemGroup>
