@@ -81,5 +81,10 @@ namespace TravelAgency.View.Controls.Guide
             signInView.Show();
             Close();
         }
+
+        private void Confirm_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

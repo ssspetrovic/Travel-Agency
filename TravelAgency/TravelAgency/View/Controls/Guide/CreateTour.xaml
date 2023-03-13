@@ -194,9 +194,224 @@
 
                         </Grid>
 
-                        <ContentControl Content=""
-                                        Grid.Row="2"
-                                        Margin="25"/>
+                        <Grid Grid.Row="2"
+                              Margin="25">
+                            <StackPanel Width="250"
+                                        Grid.Row="1"
+                                        Orientation="Vertical"
+                                        Margin="0, 0, 0, 0">
+                                <TextBlock Text="Tour Name"
+                                           Foreground="#68cbf8"
+                                           FontSize="12"
+                                           FontWeight="Medium"
+                                           TextWrapping="Wrap"
+                                           Margin="0, 5, 0, 0"/>
+                                <TextBox x:Name="NameText"
+                                         FontSize="13"
+                                         FontWeight="Medium"
+                                         Foreground="#68cbf8"
+                                         CaretBrush="#4fc3f7"
+                                         BorderThickness="0, 0, 0, 1"
+                                         Height="28"
+                                         VerticalContentAlignment="Center"
+                                         Margin="0, 5, 0, 0">
+                                </TextBox>
+                                <TextBlock Text="Location"
+                                           Foreground="#68cbf8"
+                                           FontSize="12"
+                                           FontWeight="Medium"
+                                           TextWrapping="Wrap"
+                                           Margin="0, 5, 0, 0"/>
+                                <ComboBox x:Name="ComboBoxLocation"
+                                         FontSize="13"
+                                         FontWeight="Medium"
+                                         Foreground="#68cbf8"
+                                         BorderThickness="0, 0, 0, 1"
+                                         Height="28"
+                                         VerticalContentAlignment="Center"
+                                         Margin="0, 5, 0, 0"
+                                         Background="Transparent">
+                                    <ComboBoxItem>Japan</ComboBoxItem>
+                                    <ComboBoxItem>Delhi</ComboBoxItem>
+                                    <ComboBoxItem>Shanghai</ComboBoxItem>
+                                    <ComboBoxItem>Sao Paulo</ComboBoxItem>
+                                    <ComboBoxItem>Mexico City</ComboBoxItem>
+                                    <ComboBoxItem>Cairo</ComboBoxItem>
+                                    <ComboBoxItem>Mumbai</ComboBoxItem>
+                                    <ComboBoxItem>Beijing</ComboBoxItem>
+                                    <ComboBoxItem>Osaka</ComboBoxItem>
+                                    <ComboBoxItem>New York</ComboBoxItem>
+                                    <ComboBoxItem>Buenos Aires</ComboBoxItem>
+                                    <ComboBoxItem>Chongqing</ComboBoxItem>
+                                    <ComboBoxItem>Istanbul</ComboBoxItem>
+                                    <ComboBoxItem>Kolkata</ComboBoxItem>
+                                    <ComboBoxItem>Manila</ComboBoxItem>
+                                </ComboBox>
+
+                                <TextBlock Text="Description"
+                                           Foreground="#68cbf8"
+                                           FontSize="12"
+                                           FontWeight="Medium"
+                                           TextWrapping="Wrap"
+                                           Margin="0, 5, 0, 0"/>
+                                <TextBox x:Name="DescriptionText"
+                                         FontSize="13"
+                                         FontWeight="Medium"
+                                         Foreground="#68cbf8"
+                                         CaretBrush="#4fc3f7"
+                                         BorderThickness="0, 0, 0, 1"
+                                         Height="28"
+                                         VerticalContentAlignment="Center"
+                                         Margin="0, 5, 0, 0"
+                                         Background="Transparent"/>
+                                <TextBlock Text="Language"
+                                           Foreground="#68cbf8"
+                                           FontSize="12"
+                                           FontWeight="Medium"
+                                           TextWrapping="Wrap"
+                                           Margin="0, 5, 0, 0"/>
+                                <ComboBox x:Name="ComboBoxLanguage"
+                                          FontSize="13"
+                                          FontWeight="Medium"
+                                          Foreground="#68cbf8"
+                                          BorderThickness="0, 0, 0, 1"
+                                          Height="28"
+                                          VerticalContentAlignment="Center"
+                                          Margin="0, 5, 0, 0"
+                                          Background="Transparent">
+                                    <ComboBoxItem>English</ComboBoxItem>
+                                    <ComboBoxItem>Spanish</ComboBoxItem>
+                                    <ComboBoxItem>French</ComboBoxItem>
+                                    <ComboBoxItem>Italian</ComboBoxItem>
+                                    <ComboBoxItem>Serbian</ComboBoxItem>
+                                    <ComboBoxItem>Portuguese</ComboBoxItem>
+                                    <ComboBoxItem>German</ComboBoxItem>
+                                    <ComboBoxItem>Chinese</ComboBoxItem>
+                                    <ComboBoxItem>Japanese</ComboBoxItem>
+                                    <ComboBoxItem>Indian</ComboBoxItem>
+                                </ComboBox>
+
+                                <TextBlock Text="Max. Number of Guests"
+                                           Foreground="#68cbf8"
+                                           FontSize="12"
+                                           FontWeight="Medium"
+                                           TextWrapping="Wrap"
+                                           Margin="0, 5, 0, 0"/>
+                                <TextBox x:Name="MaxGuestsText"
+                                         FontSize="13"
+                                         FontWeight="Medium"
+                                         Foreground="#68cbf8"
+                                         CaretBrush="#4fc3f7"
+                                         BorderThickness="0, 0, 0, 1"
+                                         Height="28"
+                                         VerticalContentAlignment="Center"
+                                         Margin="0, 5, 0, 0"
+                                         Background="Transparent"/>
+
+                                <TextBlock Text="Key Points"
+                                           Foreground="#68cbf8"
+                                           FontSize="12"
+                                           FontWeight="Medium"
+                                           TextWrapping="Wrap"
+                                           Margin="0, 5, 0, 0"/>
+                                <ComboBox x:Name="CheckBoxKeyPoints"
+                                         FontSize="13"
+                                         FontWeight="Medium"
+                                         Foreground="#68cbf8"
+                                         BorderThickness="0, 0, 0, 1"
+                                         Height="28"
+                                         VerticalContentAlignment="Center"
+                                         Margin="0, 5, 0, 0"
+                                         Background="Transparent">
+                                    <CheckBox Content="Japan"/>
+                                    <CheckBox Content="Delhi"/>
+                                    <CheckBox Content="Shanghai"/>
+                                    <CheckBox Content="Sao Paulo"/>
+                                    <CheckBox Content="Mexico City"/>
+                                    <CheckBox Content="Cairo"/>
+                                    <CheckBox Content="Mumbai"/>
+                                    <CheckBox Content="Beijing"/>
+                                    <CheckBox Content="Osaka"/>
+                                    <CheckBox Content="New York"/>
+                                    <CheckBox Content="Buenos Aires"/>
+                                    <CheckBox Content="Chongqing"/>
+                                    <CheckBox Content="Istanbul"/>
+                                    <CheckBox Content="Kolkata"/>
+                                    <CheckBox Content="Manila"/>
+                                </ComboBox>
+
+                                <TextBlock Text="Date"
+                                           Foreground="#68cbf8"
+                                           FontSize="12"
+                                           FontWeight="Medium"
+                                           TextWrapping="Wrap"
+                                           Margin="0, 5, 0, 0"/>
+                                <TextBox x:Name="DateText"
+                                         FontSize="13"
+                                         FontWeight="Medium"
+                                         Foreground="#68cbf8"
+                                         CaretBrush="#4fc3f7"
+                                         BorderThickness="0, 0, 0, 1"
+                                         Height="28"
+                                         VerticalContentAlignment="Center"
+                                         Margin="0, 5, 0, 0"
+                                         Background="Transparent"/>
+
+                                <TextBlock Text="Duration"
+                                           Foreground="#68cbf8"
+                                           FontSize="12"
+                                           FontWeight="Medium"
+                                           TextWrapping="Wrap"
+                                           Margin="0, 5, 0, 0"/>
+                                <TextBox x:Name="DurationText"
+                                         FontSize="13"
+                                         FontWeight="Medium"
+                                         Foreground="#68cbf8"
+                                         CaretBrush="#4fc3f7"
+                                         BorderThickness="0, 0, 0, 1"
+                                         Height="28"
+                                         VerticalContentAlignment="Center"
+                                         Margin="0, 5, 0, 0"
+                                         Background="Transparent"/>
+
+                                <TextBlock Text="Images"
+                                           Foreground="#68cbf8"
+                                           FontSize="12"
+                                           FontWeight="Medium"
+                                           TextWrapping="Wrap"
+                                           Margin="0, 5, 0, 0"/>
+                                <TextBox x:Name="ImagesText"
+                                         FontSize="13"
+                                         FontWeight="Medium"
+                                         Foreground="#68cbf8"
+                                         CaretBrush="#4fc3f7"
+                                         BorderThickness="0, 0, 0, 1"
+                                         Height="28"
+                                         VerticalContentAlignment="Center"
+                                         Margin="0, 5, 0, 0"
+                                         Background="Transparent"/>
+
+                                <TextBlock Text="{Binding ErrorMessage}"
+                                           Name="TxtErrorMessage"
+                                           Foreground="DarkRed"
+                                           FontSize="12"
+                                           FontWeight="Medium"
+                                           TextWrapping="Wrap"
+                                           Margin="0, 5, 0, 0"/>
+
+                                <Button x:Name ="BtnLogin" 
+                                        Click="Confirm_OnClick"
+                                        BorderThickness="0" 
+                                        Content="Create Tour" 
+                                        Foreground="#ffffff" 
+                                        Background="#68cbf8"
+                                        FontWeight="Medium"
+                                        FontSize="12" 
+                                        Cursor="Hand" 
+                                        Margin="0,5, 0, 0">
+                                </Button>
+                            </StackPanel>
+                        </Grid>
 
                     </Grid>
 
