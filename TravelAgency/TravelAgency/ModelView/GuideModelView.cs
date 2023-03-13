@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Threading;
 using System.Windows.Input;
 using TravelAgency.Model;
@@ -49,8 +50,8 @@ namespace TravelAgency.ModelView
 
         private void LoadCurrentUserData()
         {
-            var user = _userRepository.GetByUsername(Thread.CurrentPrincipal?.Identity?.Name);
-            if (Thread.CurrentPrincipal?.Identity?.Name != null)
+            var user = _userRepository.GetByUsername(Environment.UserName);
+            if (user != null)
             {
                 CurrentUserAccount.Username = user.UserName;
                 CurrentUserAccount.DisplayName = $"Welcome {user.Name} {user.Surname} ;)";

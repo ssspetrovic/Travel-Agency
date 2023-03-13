@@ -21,7 +21,6 @@
     <Folder Include="Controller\" />
     <Folder Include="Service\" />
     <Folder Include="Service\" />
-    <Folder Include="View\Controls\Guide\" />
     <Folder Include="View\Controls\Guest1\" />
     <Folder Include="View\Controls\Guest2\" />
     <Folder Include="View\Controls\Owner\" />

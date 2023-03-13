@@ -61,7 +61,30 @@ namespace TravelAgency.Repository
 
         public UserModel GetByUsername(string? username)
         {
-            throw new NotImplementedException();
+            UserModel user = null;
+            using var databaseConnection = new SqliteConnection("Data Source=" + DatabaseFilePath);
+            databaseConnection.Open();
+            var selectCommand = databaseConnection.CreateCommand();
+            selectCommand.CommandText = @"SELECT * FROM User WHERE Username = $Username";
+
+            selectCommand.Parameters.AddWithValue("$Username", username);
+            using var selectReader = selectCommand.ExecuteReader();
+
+            if (selectReader.Read())
+            {
+                user = new UserModel()
+                {
+                    Id = selectReader.GetInt32(0),
+                    UserName = selectReader.GetString(1),
+                    Password = string.Empty,
+                    Name = selectReader.GetString(3),
+                    Surname = selectReader.GetString(4),
+                    Email = selectReader.GetString(5),
+                    Role = (Role)selectReader.GetInt32(6)
+                };
+            }
+
+            return user;
         }
 
         public IEnumerable<UserModel> GetByAll()
