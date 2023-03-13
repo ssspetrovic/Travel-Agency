@@ -74,5 +74,12 @@ namespace TravelAgency.View.Controls.Guide
             monitorTour.Show();
             Close();
         }
+
+        private void Logout_OnClick(object sender, RoutedEventArgs e)
+        {
+            var signInView = new SignInView();
+            signInView.Show();
+            Close();
+        }
     }
 }

@@ -88,6 +88,14 @@
                             </StackPanel>
                         </RadioButton>
 
+                        <RadioButton Style="{StaticResource MenuButton}"
+                                     Foreground="#fffafa"
+                                     Click="Logout_OnClick">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:IconImage Icon="Running" Style="{StaticResource MenuButtonIcon}" Foreground ="#fffafa"/>
+                                <TextBlock Text="Logout" Style="{StaticResource MenuButtonText}"/>
+                            </StackPanel>
+                        </RadioButton>
 
                     </StackPanel>
                 </Border>

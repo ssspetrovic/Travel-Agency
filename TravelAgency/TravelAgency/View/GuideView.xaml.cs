@@ -47,6 +47,13 @@ namespace TravelAgency.View
             this.WindowState = WindowState.Minimized;
         }
 
+        private void Home_OnClick(object sender, RoutedEventArgs e)
+        {
+            var guideView = new GuideView();
+            guideView.Show();
+            Close();
+        }
+
         private void NewTour_OnClick(object sender, RoutedEventArgs e)
         {
             var createTour = new CreateTour();
@@ -58,6 +65,13 @@ namespace TravelAgency.View
         {
             var monitorTour = new MonitorTour();
             monitorTour.Show();
+            Close();
+        }
+
+        private void Logout_OnClick(object sender, RoutedEventArgs e)
+        {
+            var signInView = new SignInView();
+            signInView.Show();
             Close();
         }
     }
