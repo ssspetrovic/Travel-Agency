@@ -1,25 +1,33 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Interop;
-using TravelAgency.View.Controls.Guide;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
-namespace TravelAgency.View
+namespace TravelAgency.View.Controls.Guide
 {
     /// <summary>
-    /// Interaction logic for GuideView.xaml
+    /// Interaction logic for MonitorTour.xaml
     /// </summary>
-    public partial class GuideView 
+    public partial class MonitorTour : Window
     {
-        public GuideView()
+        public MonitorTour()
         {
             InitializeComponent();
-            this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
         }
 
         [DllImport("user32.dll")]
-        public static extern nint SendMessage(nint wnd,  int wMsg, nint wParam, nint lParam);
+        public static extern nint SendMessage(nint wnd, int wMsg, nint wParam, nint lParam);
 
         private void PanelControlBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -47,13 +55,19 @@ namespace TravelAgency.View
             this.WindowState = WindowState.Minimized;
         }
 
+        private void Home_OnClick(object sender, RoutedEventArgs e)
+        {
+            var guideView = new GuideView();
+            guideView.Show();
+            Close();
+        }
+
         private void NewTour_OnClick(object sender, RoutedEventArgs e)
         {
             var createTour = new CreateTour();
             createTour.Show();
             Close();
         }
-
         private void MonitorTour_OnClick(object sender, RoutedEventArgs e)
         {
             var monitorTour = new MonitorTour();

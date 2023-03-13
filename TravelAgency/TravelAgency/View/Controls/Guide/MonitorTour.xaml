@@ -1,5 +1,5 @@
 ﻿<Window
-    x:Class="TravelAgency.View.GuideView"
+    x:Class="TravelAgency.View.Controls.Guide.MonitorTour"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -35,7 +35,7 @@
                     <!--Content-->
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                    
+
                 <!--Navigation menu-->
                 <Border CornerRadius="10, 0, 0, 10"
                         Grid.Column="0">
@@ -62,7 +62,8 @@
 
                         <!--Options-->
                         <RadioButton Style="{StaticResource MenuButton}"
-                                     Foreground="#fffafa">
+                                     Foreground="#fffafa"
+                                     Click="Home_OnClick">
                             <StackPanel Orientation="Horizontal">
                                 <fa:IconImage Icon="Home" Style="{StaticResource MenuButtonIcon}" Foreground ="#fffafa"/>
                                 <TextBlock Text="Home" Style="{StaticResource MenuButtonText}"/>
@@ -143,12 +144,12 @@
 
                             <StackPanel Orientation="Horizontal"
                                         VerticalAlignment="Center">
-                                <fa:IconImage Icon="Home"
+                                <fa:IconImage Icon="Binoculars"
                                               Height="20"
                                               Width="20"
                                               Foreground="#4fc3f7"
                                               Margin="35, 0, 10, 0"/>
-                                <TextBlock Text="Dashboard"
+                                <TextBlock Text="Monitor Tour"
                                            Foreground="#4fc3f7"
                                            FontSize="18"
                                            VerticalAlignment="Center"
