@@ -59,7 +59,7 @@ namespace TravelAgency.Repository
             throw new NotImplementedException();
         }
 
-        public UserModel GetByUsername(string username)
+        public UserModel GetByUsername(string? username)
         {
             throw new NotImplementedException();
         }

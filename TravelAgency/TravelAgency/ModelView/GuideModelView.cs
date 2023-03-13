@@ -1,4 +1,5 @@
 ﻿
+using System.Threading;
 using System.Windows.Input;
 using TravelAgency.Model;
 using TravelAgency.Repository;
@@ -7,15 +8,15 @@ namespace TravelAgency.ModelView
 {
     public class GuideModelView : BaseModelView
     {
-        private UserModel _currentUserAccount;
-        private BaseModelView _currentChildView;
-        private string _caption;
+        private CurrentUserModel _currentUserAccount = null!;
+        private BaseModelView _currentChildView = null!;
+        private string _caption = null!;
 
-        private IUserRepository userRepository;
+        private readonly IUserRepository _userRepository;
 
-        public UserModel CurrentUserAccount
+        public CurrentUserModel CurrentUserAccount
         {
-            get { return _currentUserAccount; }
+            get => _currentUserAccount;
             set
             {
                 _currentUserAccount = value; 
@@ -25,7 +26,7 @@ namespace TravelAgency.ModelView
 
         public BaseModelView CurrentChildView
         {
-            get { return _currentChildView; }
+            get => _currentChildView;
             set
             {
                 _currentChildView = value;
@@ -35,7 +36,7 @@ namespace TravelAgency.ModelView
 
         public string Caption
         {
-            get { return _caption; }
+            get => _caption;
             set
             {
                 _caption = value;
@@ -46,10 +47,35 @@ namespace TravelAgency.ModelView
         public ICommand ShowGuideViewCommand { get; }
         public ICommand ShowHomeViewCommand { get; }
 
+        private void LoadCurrentUserData()
+        {
+            var user = _userRepository.GetByUsername(Thread.CurrentPrincipal?.Identity?.Name);
+            if (Thread.CurrentPrincipal?.Identity?.Name != null)
+            {
+                CurrentUserAccount.Username = user.UserName;
+                CurrentUserAccount.DisplayName = $"Welcome {user.Name} {user.Surname} ;)";
+            }
+            else
+            {
+                CurrentUserAccount.DisplayName = "Invalid user, not logged in";
+            }
+        }
+
+        private void ExecuteShowGuideViewCommand(object obj)
+        {
+            CurrentChildView = new GuideModelView();
+            Caption = "Guide";
+        }
+
         public GuideModelView()
         {
-            userRepository = new UserRepository();
-            CurrentUserAccount = new UserModel();
+            _userRepository = new UserRepository();
+            CurrentUserAccount = new CurrentUserModel();
+
+            ShowGuideViewCommand = new ModelViewCommand(ExecuteShowGuideViewCommand);
+
+            LoadCurrentUserData();
         }
+
     }
 }
