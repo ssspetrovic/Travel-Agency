@@ -8,10 +8,10 @@ namespace TravelAgency.Repository
 {
     public class UserRepository : RepositoryBase, IUserRepository
     {
-        private const string DatabaseFilePath = "../../../Resources/Data/data.db";
+        //private const string DatabaseFilePath = "../../../Resources/Data/data.db";
         public bool AuthenticateUser(NetworkCredential credential)
         {
-            using var databaseConnection = new SqliteConnection("Data Source=" + DatabaseFilePath);
+            using var databaseConnection = GetConnection();
             databaseConnection.Open();
 
             var selectCommand = databaseConnection.CreateCommand();
@@ -26,7 +26,7 @@ namespace TravelAgency.Repository
 
         public Role GetRole(string username)
         {
-            using var databaseConnection = new SqliteConnection("Data Source=" + DatabaseFilePath);
+            using var databaseConnection = GetConnection();
             databaseConnection.Open();
             var selectCommand = databaseConnection.CreateCommand();
             selectCommand.CommandText = @"SELECT Role FROM User WHERE Username = $Username";
@@ -62,7 +62,7 @@ namespace TravelAgency.Repository
         public UserModel GetByUsername(string? username)
         {
             UserModel user = null!;
-            using var databaseConnection = new SqliteConnection("Data Source=" + DatabaseFilePath);
+            using var databaseConnection = GetConnection();
             databaseConnection.Open();
             var selectCommand = databaseConnection.CreateCommand();
             selectCommand.CommandText = @"SELECT * FROM User WHERE Username = $Username";

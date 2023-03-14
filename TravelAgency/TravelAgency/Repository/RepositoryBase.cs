@@ -4,15 +4,17 @@ namespace TravelAgency.Repository
 {
     public abstract class RepositoryBase
     {
-        private readonly string _connectionString;
+        private const string ConnectionString = "Data Source=../../../Resources/Data/data.db";
+
+        //public const string DataBaseConnection = "Resources/Data/data.db";
         public RepositoryBase()
         {
-            _connectionString = "Server=(local); Database=MVVMLoginDb; Integrated Security = true";
+            //_connectionString = "Server=(local); Database=MVVMLoginDb; Integrated Security = true";
         }
 
-        protected SqliteConnection GetConnection()
+        protected static SqliteConnection GetConnection()
         {
-            return new SqliteConnection(_connectionString);
+            return new SqliteConnection(ConnectionString);
         }
     }
 }

@@ -7,12 +7,11 @@ namespace TravelAgency.Repository
 {
     public class TourRepository : RepositoryBase, ITourRepository
     {
-        private const string DatabaseFilePath = "../../../Resources/Data/data.db";
-
         public void Add(TourModel tourModel)
         {
-            using var databaseConnection = new SqliteConnection("Data Source=" + DatabaseFilePath);
+            using var databaseConnection = GetConnection();
             databaseConnection.Open();
+
             var idList = "";
             foreach (var keypoint in tourModel.KeyPoints)
             {
@@ -62,7 +61,7 @@ namespace TravelAgency.Repository
         public IEnumerable<TourModel> GetByAll()
         {
             IEnumerable<TourModel> tourList = new List<TourModel>();
-            using var databaseConnection = new SqliteConnection("Data Source=" + DatabaseFilePath);
+            using var databaseConnection = GetConnection();
             databaseConnection.Open();
 
             const string selectStatement = @"select * from Tour";

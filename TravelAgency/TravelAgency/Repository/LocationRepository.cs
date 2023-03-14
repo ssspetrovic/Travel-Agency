@@ -8,8 +8,6 @@ namespace TravelAgency.Repository
 {
     public class LocationRepository : RepositoryBase, ILocationRepository
     {
-        private const string DatabaseFilePath = "Resources/Data/data.db";
-
         public void Add(LocationModel locationModel)
         {
             throw new NotImplementedException();
@@ -32,7 +30,7 @@ namespace TravelAgency.Repository
 
         public LocationModel? GetByCity(string city)
         {
-            using var databaseConnection = new SqliteConnection("Data Source=" + DatabaseFilePath);
+            using var databaseConnection = GetConnection();
             databaseConnection.Open();
 
             const string selectStatement = @"select * from Location where City = $City ";
