@@ -28,7 +28,7 @@ namespace TravelAgency.Repository
             throw new NotImplementedException();
         }
 
-        public UserModel GetById(int id)
+        public LocationModel GetById(int id)
         {
             throw new NotImplementedException();
         }
@@ -52,9 +52,21 @@ namespace TravelAgency.Repository
             return null;
         }
 
-        public IEnumerable<UserModel> GetByAll()
+        public IEnumerable<LocationModel> GetByAll()
         {
             throw new NotImplementedException();
+        }
+
+        public List<LocationModel> GetByAllCities(List<string> cities)
+        {
+            var locations = new List<LocationModel>();
+            if (locations == null) 
+                throw new ArgumentNullException(nameof(locations));
+
+            foreach (var city in cities)
+                locations.Add(GetByCity(city) ?? throw new InvalidOperationException());
+
+            return locations;
         }
     }
 }

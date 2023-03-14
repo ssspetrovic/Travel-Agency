@@ -15,7 +15,8 @@
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    Loaded="WindowLoaded">
 
     <Window.DataContext>
         <modelView:GuideModelView/>
@@ -194,10 +195,11 @@
 
                         </Grid>
 
-                        <ContentControl Content=""
-                                        Grid.Row="2"
-                                        Margin="25"/>
 
+                        <Grid Grid.Row="2"
+                              Margin="25">
+                            <DataGrid Name="TourData"/>
+                        </Grid>
                     </Grid>
 
                 </Border>

@@ -232,7 +232,7 @@
                                              VerticalContentAlignment="Center"
                                              Margin="0, 5, 0, 0"
                                              Background="Transparent">
-                                        <ComboBoxItem>Japan</ComboBoxItem>
+                                        <ComboBoxItem>Tokyo</ComboBoxItem>
                                         <ComboBoxItem>Delhi</ComboBoxItem>
                                         <ComboBoxItem>Shanghai</ComboBoxItem>
                                         <ComboBoxItem>Sao Paulo</ComboBoxItem>
@@ -315,7 +315,7 @@
                                                FontWeight="Medium"
                                                TextWrapping="Wrap"
                                                Margin="0, 15, 0, 0"/>
-                                    <ComboBox x:Name="CheckBoxKeyPoints"
+                                    <ComboBox x:Name="ComboBoxKeyPoints"
                                              FontSize="13"
                                              FontWeight="Medium"
                                              Foreground="#68cbf8"
@@ -323,23 +323,38 @@
                                              Height="28"
                                              VerticalContentAlignment="Center"
                                              Margin="0, 5, 0, 0"
-                                             Background="Transparent">
-                                        <CheckBox Content="Japan"/>
-                                        <CheckBox Content="Delhi"/>
-                                        <CheckBox Content="Shanghai"/>
-                                        <CheckBox Content="Sao Paulo"/>
-                                        <CheckBox Content="Mexico City"/>
-                                        <CheckBox Content="Cairo"/>
-                                        <CheckBox Content="Mumbai"/>
-                                        <CheckBox Content="Beijing"/>
-                                        <CheckBox Content="Osaka"/>
-                                        <CheckBox Content="New York"/>
-                                        <CheckBox Content="Buenos Aires"/>
-                                        <CheckBox Content="Chongqing"/>
-                                        <CheckBox Content="Istanbul"/>
-                                        <CheckBox Content="Kolkata"/>
-                                        <CheckBox Content="Manila"/>
+                                             Background="Transparent"
+                                             MouseDoubleClick="AddKeyPoints_OnClick">
+                                        <ComboBoxItem Content="Tokyo"/>
+                                        <ComboBoxItem Content="Delhi"/>
+                                        <ComboBoxItem Content="Shanghai"/>
+                                        <ComboBoxItem Content="Sao Paulo"/>
+                                        <ComboBoxItem Content="Mexico City"/>
+                                        <ComboBoxItem Content="Cairo"/>
+                                        <ComboBoxItem Content="Mumbai"/>
+                                        <ComboBoxItem Content="Beijing"/>
+                                        <ComboBoxItem Content="Osaka"/>
+                                        <ComboBoxItem Content="New York"/>
+                                        <ComboBoxItem Content="Buenos Aires"/>
+                                        <ComboBoxItem Content="Chongqing"/>
+                                        <ComboBoxItem Content="Istanbul"/>
+                                        <ComboBoxItem Content="Kolkata"/>
+                                        <ComboBoxItem Content="Manila"/>
                                     </ComboBox>
+                                    <TextBlock x:Name="KeyPointsList"
+                                               Foreground="#68cbf8"
+                                               FontSize="12"
+                                               FontWeight="Medium"
+                                               TextWrapping="Wrap"
+                                               Margin="0, 15, 0, 0"/>
+                                    <Button Height="16"
+                                            Width="60"
+                                            Content="Clear"
+                                            FontSize="6"
+                                            Background="#68cbf8"
+                                            Foreground="#ffffff"
+                                            Click="DeleteKeyPoints_OnClick"/>
+
 
                                     <TextBlock Text="Date"
                                                Foreground="#68cbf8"

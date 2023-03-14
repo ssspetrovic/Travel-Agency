@@ -27,11 +27,11 @@ namespace TravelAgency.Model
         public Language Language { get; set; }
         public int MaxGuests { get; set; }
         public List<LocationModel> KeyPoints { get; set; }
-        public List<string>? Date { get; set; }
+        public string Date { get; set; }
         public float Duration { get; set; }
-        public List<Image> Images { get; set; }
+        public string Images { get; set; }
 
-        public TourModel(string name, LocationModel location, string? description, Language language, int maxGuests, List<LocationModel> keyPoints, List<string>? date, float duration, List<Image> images)
+        public TourModel(string name, LocationModel location, string? description, Language language, int maxGuests, List<LocationModel> keyPoints, string date, float duration, string images)
         {
             Name = name;
             Location = location;

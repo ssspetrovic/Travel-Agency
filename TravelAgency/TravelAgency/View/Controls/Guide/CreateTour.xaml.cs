@@ -14,6 +14,8 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TravelAgency.Model;
+using TravelAgency.Repository;
 
 namespace TravelAgency.View.Controls.Guide
 {
@@ -118,10 +120,10 @@ namespace TravelAgency.View.Controls.Guide
                         }
                         else
                         {
-                            if (CheckBoxKeyPoints.Text.Length == 0)
+                            if (KeyPointsList.Text.Length == 0)
                             {
                                 ErrorMessageText.Text = "Insert at least one key point.";
-                                CheckBoxKeyPoints.Focus();
+                                ComboBoxKeyPoints.Focus();
                             }
                             else
                             {
@@ -145,8 +147,22 @@ namespace TravelAgency.View.Controls.Guide
                                     else
                                     {
                                         ErrorMessageText.Text = "";
-                                        var createTour = new CreateTour();
-                                        createTour.Show();
+                                        var tourRepository = new TourRepository();
+                                        var locationRepository = new LocationRepository();
+                                        var currentLocation =
+                                            locationRepository.GetByCity(ComboBoxLocation.Text);
+                                        var maxGuests = int.Parse(MaxGuestsText.Text);
+                                        var duration = float.Parse(DurationText.Text);
+                                        var cities = new List<string>(KeyPointsList.Text.Split(','));
+                                        var locationList = locationRepository.GetByAllCities(cities);
+                                        //ErrorMessageText.Text = locationList.First().City;
+                                        //var dateList = new List<string>(DateList.Text.Split(','));
+                                        //var imageList = new List<string>(ImagesText.Text.Split(','));
+                                        var language = tourRepository.FindLanguage(ComboBoxLanguage.Text);
+                                        tourRepository.Add(new TourModel(NameText.Text, currentLocation, DescriptionText.Text, language, maxGuests,  locationList, DateList.Text, duration, ImagesText.Text));
+                                        ErrorMessageText.Text = "Tour Added Successfully.";
+                                        var guideView = new GuideView();
+                                        guideView.Show();
                                         Close();
                                     }
                                 }
@@ -159,7 +175,7 @@ namespace TravelAgency.View.Controls.Guide
 
         private void AddNewDate_OnClick(object sender, MouseButtonEventArgs e)
         {
-            bool hasText = false;
+            var hasText = false;
             if (DateList.Text.Contains(DatePick.Text))
             {
                 DateList.Text.Replace(DatePick.Text, "");
@@ -181,6 +197,32 @@ namespace TravelAgency.View.Controls.Guide
         private void DeleteDates_OnClick(object sender, RoutedEventArgs e)
         {
             DateList.Text = "";
+        }
+
+        private void AddKeyPoints_OnClick(object sender, MouseButtonEventArgs e)
+        {
+            var hasText = false;
+            if (KeyPointsList.Text.Contains(ComboBoxKeyPoints.Text))
+            {
+                KeyPointsList.Text.Replace(ComboBoxKeyPoints.Text, "");
+                hasText = true;
+            }
+
+            if (KeyPointsList.Text.Contains(",,"))
+                ComboBoxKeyPoints.Text.Replace(",,", ",");
+            if (KeyPointsList.Text.StartsWith(","))
+                KeyPointsList.Text.Remove(0, 1);
+            if (!hasText)
+                if (KeyPointsList.Text.Length == 0)
+                    KeyPointsList.Text += ComboBoxKeyPoints.Text;
+                else
+                    KeyPointsList.Text += "," + ComboBoxKeyPoints.Text;
+            ComboBoxKeyPoints.Text = "";
+        }
+
+        private void DeleteKeyPoints_OnClick(object sender, RoutedEventArgs e)
+        {
+            KeyPointsList.Text = "";
         }
     }
 }

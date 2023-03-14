@@ -12,8 +12,9 @@ namespace TravelAgency.Model
         void Add(TourModel tourModel);
         void Edit(TourModel tourModel);
         void Remove(int id);
-        UserModel GetById(int id);
-        UserModel GetByName(string? name);
-        IEnumerable<UserModel> GetByAll();
+        TourModel GetById(int id);
+        TourModel GetByName(string? name);
+        IEnumerable<TourModel> GetByAll();
+        Language FindLanguage(string language);
     }
 }

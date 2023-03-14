@@ -46,7 +46,6 @@ namespace TravelAgency.ModelView
         }
 
         public ICommand ShowGuideViewCommand { get; }
-        public ICommand ShowHomeViewCommand { get; }
 
         private void LoadCurrentUserData()
         {

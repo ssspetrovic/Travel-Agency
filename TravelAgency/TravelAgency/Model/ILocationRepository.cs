@@ -7,8 +7,9 @@ namespace TravelAgency.Model
         void Add(LocationModel locationModel);
         void Edit(LocationModel locationModel);
         void Remove(int id);
-        UserModel GetById(int id);
+        LocationModel GetById(int id);
         LocationModel? GetByCity(string city);
-        IEnumerable<UserModel> GetByAll();
+        IEnumerable<LocationModel> GetByAll();
+        List<LocationModel> GetByAllCities(List<string> cities);
     }
 }

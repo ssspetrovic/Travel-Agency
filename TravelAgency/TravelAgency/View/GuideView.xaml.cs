@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
+using TravelAgency.Repository;
 using TravelAgency.View.Controls.Guide;
 
 namespace TravelAgency.View
@@ -73,6 +74,12 @@ namespace TravelAgency.View
             var signInView = new SignInView();
             signInView.Show();
             Close();
+        }
+
+        private void WindowLoaded(object sender, RoutedEventArgs e)
+        {
+            var tourRepository = new TourRepository();
+            TourData.ItemsSource = tourRepository.GetByAll();
         }
     }
 }
