@@ -8,7 +8,7 @@ namespace TravelAgency.Model
         void Edit(LocationModel locationModel);
         void Remove(int id);
         UserModel GetById(int id);
-        LocationModel GetByCity(string city);
+        LocationModel? GetByCity(string city);
         IEnumerable<UserModel> GetByAll();
     }
 }
