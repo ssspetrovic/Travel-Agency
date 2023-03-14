@@ -108,5 +108,13 @@ namespace TravelAgency.View
                 }
             }
         }
+
+        private void UsernamePassword_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                SignInButton_OnClick(sender, e);
+            }
+        }
     }
 }
