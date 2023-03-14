@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -84,7 +85,102 @@ namespace TravelAgency.View.Controls.Guide
 
         private void Confirm_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            if (NameText.Text.Length < 3)
+            {
+                ErrorMessageText.Text = "Incorrect name.";
+                NameText.Focus();
+            }
+            else
+            {
+                if (ComboBoxLocation.Text.Length == 0)
+                {
+                    ErrorMessageText.Text = "Insert a location.";
+                    ComboBoxLocation.Focus();
+                }
+                else
+                {
+                    if (ComboBoxLanguage.Text.Length == 0)
+                    {
+                        ErrorMessageText.Text = "Insert a language.";
+                        ComboBoxLanguage.Focus();
+                    }
+                    else
+                    {
+                        if (MaxGuestsText.Text.Length == 0)
+                        {
+                            ErrorMessageText.Text = "Insert a number";
+                            MaxGuestsText.Focus();
+                        }
+                        else if (!Regex.IsMatch(MaxGuestsText.Text, @"^[0-9]+$"))
+                        {
+                            ErrorMessageText.Text = "You can only insert numbers.";
+                            MaxGuestsText.Focus();
+                        }
+                        else
+                        {
+                            if (CheckBoxKeyPoints.Text.Length == 0)
+                            {
+                                ErrorMessageText.Text = "Insert at least one key point.";
+                                CheckBoxKeyPoints.Focus();
+                            }
+                            else
+                            {
+                                if (DateList.Text.Length == 0)
+                                {
+                                    ErrorMessageText.Text = "Insert at least one date.";
+                                    DatePick.Focus();
+                                }
+                                else
+                                {
+                                    if (DurationText.Text.Length == 0)
+                                    {
+                                        ErrorMessageText.Text = "Insert a number.";
+                                        DurationText.Focus();
+                                    }
+                                    else if (!Regex.IsMatch(DurationText.Text, @"([0-9]*[.])?[0-9]+$"))
+                                    {
+                                        ErrorMessageText.Text = "You can only insert a number.";
+                                        DurationText.Focus();
+                                    }
+                                    else
+                                    {
+                                        ErrorMessageText.Text = "";
+                                        var createTour = new CreateTour();
+                                        createTour.Show();
+                                        Close();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void AddNewDate_OnClick(object sender, MouseButtonEventArgs e)
+        {
+            bool hasText = false;
+            if (DateList.Text.Contains(DatePick.Text))
+            {
+                DateList.Text.Replace(DatePick.Text, "");
+                hasText = true;
+            }
+
+            if (DateList.Text.Contains(",,"))
+                DateList.Text.Replace(",,", ",");
+            if (DateList.Text.StartsWith(","))
+                DateList.Text.Remove(0, 1);
+            if(!hasText)
+                if(DateList.Text.Length == 0)
+                    DateList.Text += DatePick.Text;
+                else
+                    DateList.Text += "," + DatePick.Text;
+            DatePick.Text = "";
+        }
+
+        private void DeleteDates_OnClick(object sender, RoutedEventArgs e)
+        {
+            DateList.Text = "";
         }
     }
 }

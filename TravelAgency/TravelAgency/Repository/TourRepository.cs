@@ -26,7 +26,7 @@ namespace TravelAgency.Repository
             insertCommand.Parameters.AddWithValue("$Description", tourModel.Description);
             insertCommand.Parameters.AddWithValue("$Language", tourModel.Language);
             insertCommand.Parameters.AddWithValue("$MaxGuests", tourModel.MaxGuests);
-            insertCommand.Parameters.AddWithValue("$Birthdate", tourModel.Birthdate);
+            insertCommand.Parameters.AddWithValue("$Birthdate", tourModel.Date);
             insertCommand.Parameters.AddWithValue("$Duration", tourModel.Duration);
             insertCommand.Parameters.AddWithValue("$Images", tourModel.Images);
             insertCommand.ExecuteNonQuery();
