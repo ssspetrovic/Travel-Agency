@@ -1,13 +1,14 @@
 ﻿using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TravelAgency.Model;
 
 namespace TravelAgency.Repository
 {
     public class LocationRepository : RepositoryBase, ILocationRepository
     {
-        private const string DatabaseFilePath = "../../../Resources/Data/data.db";
+        private const string DatabaseFilePath = "Resources/Data/data.db";
 
         public void Add(LocationModel locationModel)
         {
@@ -59,8 +60,7 @@ namespace TravelAgency.Repository
             if (locations == null) 
                 throw new ArgumentNullException(nameof(locations));
 
-            foreach (var city in cities)
-                locations.Add(GetByCity(city) ?? throw new InvalidOperationException());
+            locations.AddRange(cities.Select(city => GetByCity(city) ?? throw new InvalidOperationException()));
 
             return locations;
         }
