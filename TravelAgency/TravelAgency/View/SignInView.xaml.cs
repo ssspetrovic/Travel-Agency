@@ -55,8 +55,8 @@ namespace TravelAgency.View
 
             else
             {
-                string username = UsernameTextBox.Text;
-                string password = PasswordBox.Password;
+                var username = UsernameTextBox.Text;
+                var password = PasswordBox.Password;
 
                 if (username.Length < 3 || password.Length < 3)
                 {
@@ -70,27 +70,34 @@ namespace TravelAgency.View
                     var isValid = userRepository.AuthenticateUser(new System.Net.NetworkCredential(username, password));
                     if (isValid)
                     {
-                        Role currentRole = userRepository.GetRole(username);
-                        if (currentRole == Role.Owner)
+                        var currentRole = userRepository.GetRole(username);
+                        switch (currentRole)
                         {
-                            OwnerView mainView = new OwnerView();
-                            mainView.Show();
-                            
-                        }
-                        else if (currentRole == Role.Guide)
-                        {
-                            GuideView guideView = new GuideView();
-                            guideView.Show();
-                        }
-                        else if (currentRole == Role.Guest1)
-                        {
-                            Guest1View guest1View = new Guest1View();
-                            guest1View.Show();
-                        }
-                        else
-                        {
-                            Guest2View guest2View = new Guest2View();
-                            guest2View.Show();
+                            case Role.Owner:
+                                {
+                                    var mainView = new OwnerView();
+                                    mainView.Show();
+                                    break;
+                                }
+                            case Role.Guide:
+                                {
+                                    var guideView = new GuideView();
+                                    guideView.Show();
+                                    break;
+                                }
+                            case Role.Guest1:
+                                {
+                                    var guest1View = new Guest1View();
+                                    guest1View.Show();
+                                    break;
+                                }
+                            case Role.Guest2:
+                            default:
+                                {
+                                    var guest2View = new Guest2View();
+                                    guest2View.Show();
+                                    break;
+                                }
                         }
                         Close();
                     }
