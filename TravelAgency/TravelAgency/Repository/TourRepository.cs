@@ -65,7 +65,26 @@ namespace TravelAgency.Repository
 
         public IEnumerable<TourModel> GetByAll()
         {
-            throw new NotImplementedException();
+            IEnumerable<TourModel> tourList = new List<TourModel>();
+            using var databaseConnection = new SqliteConnection("Data Source=" + DatabaseFilePath);
+            databaseConnection.Open();
+
+            const string selectStatement = @"select * from Tour";
+            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
+            using var selectReader = selectCommand.ExecuteReader();
+
+            while (selectReader.Read())
+            {
+                //var locationRepository = new LocationRepository();
+                //var location = locationRepository.GetById(selectReader.GetInt32(1));
+                //tourList.Append(new TourModel(selectReader.GetString(0), location,
+                    //selectReader.GetString(2),
+                    //(Language)selectReader.GetInt32(3), selectReader.GetInt32(4), selectReader.GetString(5),
+                    //selectReader.GetString(6), selectReader.GetFloat(7), selectReader.GetString(8)));
+
+            }
+
+            return tourList;
         }
 
         public Language FindLanguage(string language)

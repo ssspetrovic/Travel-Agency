@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Interop;
 using TravelAgency.Repository;
@@ -79,7 +82,12 @@ namespace TravelAgency.View
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
             var tourRepository = new TourRepository();
-            TourData.ItemsSource = tourRepository.GetByAll();
+            //TourData.ItemsSource = tourRepository.GetByAll();
+            var noTours = new List<string>
+            {
+                "There are no tours at the moment.",
+                "Please create a new one."
+            };
         }
     }
 }

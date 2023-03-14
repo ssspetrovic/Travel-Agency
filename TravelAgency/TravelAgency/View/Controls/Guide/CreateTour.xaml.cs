@@ -173,7 +173,7 @@ namespace TravelAgency.View.Controls.Guide
             }
         }
 
-        private void AddNewDate_OnClick(object sender, MouseButtonEventArgs e)
+        private void AddNewDate_OnClick(object sender, RoutedEventArgs routedEventArgs)
         {
             var hasText = false;
             if (DateList.Text.Contains(DatePick.Text))
@@ -199,7 +199,7 @@ namespace TravelAgency.View.Controls.Guide
             DateList.Text = "";
         }
 
-        private void AddKeyPoints_OnClick(object sender, MouseButtonEventArgs e)
+        private void AddKeyPoints_OnClick(object sender, RoutedEventArgs routedEventArgs)
         {
             var hasText = false;
             if (KeyPointsList.Text.Contains(ComboBoxKeyPoints.Text))
@@ -223,6 +223,32 @@ namespace TravelAgency.View.Controls.Guide
         private void DeleteKeyPoints_OnClick(object sender, RoutedEventArgs e)
         {
             KeyPointsList.Text = "";
+        }
+
+        private void AddImages_OnClick(object sender, RoutedEventArgs routedEventArgs)
+        {
+            var hasText = false;
+            if (ImagesList.Text.Contains(ImagesText.Text))
+            {
+                ImagesList.Text.Replace(ImagesText.Text, "");
+                hasText = true;
+            }
+
+            if (ImagesList.Text.Contains(",,"))
+                ImagesList.Text.Replace(",,", ",");
+            if (ImagesList.Text.StartsWith(","))
+                ImagesList.Text.Remove(0, 1);
+            if(!hasText)
+                if (ImagesList.Text.Length == 0)
+                    ImagesList.Text += ImagesText.Text;
+                else
+                    ImagesList.Text += "," + ImagesText.Text;
+            ImagesText.Text = "";
+        }
+
+        private void DeleteImages_OnClick(object sender, RoutedEventArgs e)
+        {
+            ImagesList.Text = "";
         }
     }
 }

@@ -323,8 +323,7 @@
                                              Height="28"
                                              VerticalContentAlignment="Center"
                                              Margin="0, 5, 0, 0"
-                                             Background="Transparent"
-                                             MouseDoubleClick="AddKeyPoints_OnClick">
+                                             Background="Transparent">
                                         <ComboBoxItem Content="Tokyo"/>
                                         <ComboBoxItem Content="Delhi"/>
                                         <ComboBoxItem Content="Shanghai"/>
@@ -347,14 +346,25 @@
                                                FontWeight="Medium"
                                                TextWrapping="Wrap"
                                                Margin="0, 15, 0, 0"/>
-                                    <Button Height="16"
-                                            Width="60"
-                                            Content="Clear"
-                                            FontSize="6"
-                                            Background="#68cbf8"
-                                            Foreground="#ffffff"
-                                            Click="DeleteKeyPoints_OnClick"/>
 
+                                    <StackPanel Orientation="Horizontal"
+                                                HorizontalAlignment="Center">
+                                        <Button Height="16"
+                                                Width="60"
+                                                Content="Add"
+                                                FontSize="6"
+                                                Background="#68cbf8"
+                                                Foreground="#ffffff"
+                                                Click="AddKeyPoints_OnClick"
+                                                Margin="0,0,10,0"/>
+                                        <Button Height="16"
+                                                Width="60"
+                                                Content="Clear"
+                                                FontSize="6"
+                                                Background="#68cbf8"
+                                                Foreground="#ffffff"
+                                                Click="DeleteKeyPoints_OnClick"/>
+                                    </StackPanel>
 
                                     <TextBlock Text="Date"
                                                Foreground="#68cbf8"
@@ -367,8 +377,7 @@
                                                 Height="28"
                                                 BorderThickness="0, 0, 0, 1"
                                                 VerticalContentAlignment="Center"
-                                                Margin="0, 5, 0, 0"
-                                                MouseDoubleClick="AddNewDate_OnClick">
+                                                Margin="0, 5, 0, 0">
                                     </DatePicker>
 
                                     <TextBlock x:Name="DateList"
@@ -377,13 +386,26 @@
                                                FontWeight="Medium"
                                                TextWrapping="Wrap"
                                                Margin="0, 15, 0, 0"/>
-                                    <Button Height="16"
-                                            Width="60"
-                                            Content="Clear"
-                                            FontSize="6"
-                                            Background="#68cbf8"
-                                            Foreground="#ffffff"
-                                            Click="DeleteDates_OnClick"/>
+                                    <StackPanel Orientation="Horizontal"
+                                                HorizontalAlignment="Center">
+                                        <Button Height="16"
+                                                Width="60"
+                                                Content="Add"
+                                                FontSize="6"
+                                                Background="#68cbf8"
+                                                Foreground="#ffffff"
+                                                Click="AddNewDate_OnClick"
+                                                Margin="0,0,10,0"/>
+                                        <Button Height="16"
+                                                Width="60"
+                                                Content="Clear"
+                                                FontSize="6"
+                                                Background="#68cbf8"
+                                                Foreground="#ffffff"
+                                                Click="DeleteDates_OnClick"/>
+
+                                    </StackPanel>
+                                    
 
                                     <TextBlock Text="Duration"
                                                Foreground="#68cbf8"
@@ -418,6 +440,31 @@
                                              VerticalContentAlignment="Center"
                                              Margin="0, 5, 0, 0"
                                              Background="Transparent"/>
+                                    <TextBlock x:Name="ImagesList"
+                                               Foreground="#68cbf8"
+                                               FontSize="12"
+                                               FontWeight="Medium"
+                                               TextWrapping="Wrap"
+                                               Margin="0, 15, 0, 0"/>
+                                    <StackPanel Orientation="Horizontal"
+                                                HorizontalAlignment="Center">
+                                        <Button Height="16"
+                                                Width="60"
+                                                Content="Add"
+                                                FontSize="6"
+                                                Background="#68cbf8"
+                                                Foreground="#ffffff"
+                                                Click="AddImages_OnClick"
+                                                Margin="0,0,10,0"/>
+                                        <Button Height="16"
+                                                Width="60"
+                                                Content="Clear"
+                                                FontSize="6"
+                                                Background="#68cbf8"
+                                                Foreground="#ffffff"
+                                                Click="DeleteImages_OnClick"/>
+                                    </StackPanel>
+                                    
 
                                     <TextBlock Text="{Binding ErrorMessage}"
                                                Name="ErrorMessageText"
