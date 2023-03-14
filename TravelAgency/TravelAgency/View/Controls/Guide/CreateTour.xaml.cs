@@ -1,19 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Interop;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using TravelAgency.Model;
 using TravelAgency.Repository;
 
@@ -22,7 +12,7 @@ namespace TravelAgency.View.Controls.Guide
     /// <summary>
     /// Interaction logic for CreateTour.xaml
     /// </summary>
-    public partial class CreateTour : Window
+    public partial class CreateTour
     {
         public CreateTour()
         {
@@ -159,8 +149,15 @@ namespace TravelAgency.View.Controls.Guide
                                         //var dateList = new List<string>(DateList.Text.Split(','));
                                         //var imageList = new List<string>(ImagesText.Text.Split(','));
                                         var language = tourRepository.FindLanguage(ComboBoxLanguage.Text);
-                                        tourRepository.Add(new TourModel(NameText.Text, currentLocation, DescriptionText.Text, language, maxGuests,  locationList, DateList.Text, duration, ImagesText.Text));
-                                        ErrorMessageText.Text = "Tour Added Successfully.";
+                                        if (currentLocation != null)
+                                        {
+                                            tourRepository.Add(new TourModel(NameText.Text, currentLocation,
+                                                DescriptionText.Text, language, maxGuests, locationList, DateList.Text,
+                                                duration, ImagesText.Text));
+                                            ErrorMessageText.Text = "Tour Added Successfully.";
+                                        }
+                                        else
+                                            ErrorMessageText.Text = "UNSUCCESSFUL TOUR";
                                         var guideView = new GuideView();
                                         guideView.Show();
                                         Close();
@@ -178,14 +175,19 @@ namespace TravelAgency.View.Controls.Guide
             var hasText = false;
             if (DateList.Text.Contains(DatePick.Text))
             {
+                // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
                 DateList.Text.Replace(DatePick.Text, "");
                 hasText = true;
             }
 
+            // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
             if (DateList.Text.Contains(",,"))
                 DateList.Text.Replace(",,", ",");
+
+            // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
             if (DateList.Text.StartsWith(","))
                 DateList.Text.Remove(0, 1);
+
             if(!hasText)
                 if(DateList.Text.Length == 0)
                     DateList.Text += DatePick.Text;
@@ -204,14 +206,19 @@ namespace TravelAgency.View.Controls.Guide
             var hasText = false;
             if (KeyPointsList.Text.Contains(ComboBoxKeyPoints.Text))
             {
+                // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
                 KeyPointsList.Text.Replace(ComboBoxKeyPoints.Text, "");
                 hasText = true;
             }
 
+            // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
             if (KeyPointsList.Text.Contains(",,"))
                 ComboBoxKeyPoints.Text.Replace(",,", ",");
+
+            // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
             if (KeyPointsList.Text.StartsWith(","))
                 KeyPointsList.Text.Remove(0, 1);
+
             if (!hasText)
                 if (KeyPointsList.Text.Length == 0)
                     KeyPointsList.Text += ComboBoxKeyPoints.Text;
@@ -230,14 +237,19 @@ namespace TravelAgency.View.Controls.Guide
             var hasText = false;
             if (ImagesList.Text.Contains(ImagesText.Text))
             {
+                // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
                 ImagesList.Text.Replace(ImagesText.Text, "");
                 hasText = true;
             }
 
+            // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
             if (ImagesList.Text.Contains(",,"))
                 ImagesList.Text.Replace(",,", ",");
+
+            // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
             if (ImagesList.Text.StartsWith(","))
                 ImagesList.Text.Remove(0, 1);
+
             if(!hasText)
                 if (ImagesList.Text.Length == 0)
                     ImagesList.Text += ImagesText.Text;

@@ -170,8 +170,7 @@
                                         FlowDirection="RightToLeft"
                                         VerticalAlignment="Center"
                                         Margin="0, 0, 10, 0">
-                                <Button Style="{StaticResource IconButton}"
-                                        Foreground="#68cbf8">
+                                <Button Style="{StaticResource IconButton}">
                                     <fa:IconImage Icon="AngleDown"/>
                                 </Button>
 

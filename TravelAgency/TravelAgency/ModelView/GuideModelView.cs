@@ -1,6 +1,4 @@
 ﻿
-using System;
-using System.Threading;
 using System.Windows.Input;
 using TravelAgency.Model;
 using TravelAgency.Repository;
@@ -21,7 +19,7 @@ namespace TravelAgency.ModelView
             set
             {
                 _currentUserAccount = value; 
-                OnPropertyChanged(nameof(CurrentUserAccount));
+                OnPropertyChanged();
             }
         }
 
@@ -31,7 +29,7 @@ namespace TravelAgency.ModelView
             set
             {
                 _currentChildView = value;
-                OnPropertyChanged(nameof(CurrentChildView));
+                OnPropertyChanged();
             }
         }
 
@@ -41,7 +39,7 @@ namespace TravelAgency.ModelView
             set
             {
                 _caption = value;
-                OnPropertyChanged(nameof(Caption));
+                OnPropertyChanged();
             }
         }
 
@@ -49,16 +47,14 @@ namespace TravelAgency.ModelView
 
         private void LoadCurrentUserData()
         {
-            var user = _userRepository.GetByUsername(Environment.UserName);
-            if (user != null)
-            {
-                CurrentUserAccount.Username = user.UserName;
-                CurrentUserAccount.DisplayName = $"Welcome {user.Name} {user.Surname} ;)";
-            }
-            else
-            {
-                CurrentUserAccount.DisplayName = "Invalid user, not logged in";
-            }
+            //var user = _userRepository.GetByUsername(Environment.UserName);
+            //if ( != null)
+            //{
+            //    CurrentUserAccount.Username = user.UserName;
+            //    CurrentUserAccount.DisplayName = $"Welcome {user.Name} {user.Surname} ;)";
+            //}
+            CurrentUserAccount.DisplayName = "Invalid user, not logged in";
+            
         }
 
         private void ExecuteShowGuideViewCommand(object obj)

@@ -61,7 +61,7 @@ namespace TravelAgency.Repository
 
         public UserModel GetByUsername(string? username)
         {
-            UserModel user = null;
+            UserModel user = null!;
             using var databaseConnection = new SqliteConnection("Data Source=" + DatabaseFilePath);
             databaseConnection.Open();
             var selectCommand = databaseConnection.CreateCommand();

@@ -1,9 +1,6 @@
 ﻿using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TravelAgency.Model;
 
 namespace TravelAgency.Repository
@@ -14,9 +11,6 @@ namespace TravelAgency.Repository
 
         public void Add(TourModel tourModel)
         {
-
-            //tourRepository.Add(new TourModel(NameText.Text, currentLocation, DescriptionText.Text, language, maxGuests,  locationList, dateList, duration, imageList));
-
             using var databaseConnection = new SqliteConnection("Data Source=" + DatabaseFilePath);
             databaseConnection.Open();
             var idList = "";
@@ -24,6 +18,8 @@ namespace TravelAgency.Repository
             {
                 idList += "," + keypoint.Id.ToString();
             }
+
+            // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
             idList.Remove(0, 1);
 
             const string insertStatement =

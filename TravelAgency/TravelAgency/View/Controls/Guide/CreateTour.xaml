@@ -170,8 +170,7 @@
                                         FlowDirection="RightToLeft"
                                         VerticalAlignment="Center"
                                         Margin="0, 0, 10, 0">
-                                <Button Style="{StaticResource IconButton}"
-                                        Foreground="#68cbf8">
+                                <Button Style="{StaticResource IconButton}">
                                     <fa:IconImage Icon="AngleDown"/>
                                 </Button>
 
@@ -198,7 +197,6 @@
                               Margin="25">
                             <ScrollViewer>
                                 <StackPanel Width="250"
-                                            Grid.Row="1"
                                             Orientation="Vertical"
                                             Margin="0, 0, 0, 0">
                                     <TextBlock Text="Tour Name"
@@ -466,8 +464,7 @@
                                     </StackPanel>
                                     
 
-                                    <TextBlock Text="{Binding ErrorMessage}"
-                                               Name="ErrorMessageText"
+                                    <TextBlock Name="ErrorMessageText"
                                                Foreground="DarkRed"
                                                FontSize="12"
                                                FontWeight="Medium"

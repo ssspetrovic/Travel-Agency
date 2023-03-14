@@ -1,14 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TravelAgency.Model
+﻿namespace TravelAgency.Model
 {
     public class CurrentUserModel
     {
-        public string Username { get; set; }
-        public string DisplayName { get; set; }
+        public CurrentUserModel()
+        {
+
+        }
+        public CurrentUserModel(string username, string displayName)
+        {
+            Username = username;
+            DisplayName = displayName;
+        }
+
+        public string Username { get; set; } = null!;
+        public string DisplayName { get; set; } = null!;
     }
 }
