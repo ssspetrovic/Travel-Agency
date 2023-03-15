@@ -153,7 +153,7 @@ namespace TravelAgency.View.Controls.Guide
                                         {
                                             tourRepository.Add(new TourModel(NameText.Text, currentLocation,
                                                 DescriptionText.Text, language, maxGuests, locationList, DateList.Text,
-                                                duration, ImagesText.Text));
+                                                duration, ImagesList.Text));
                                             ErrorMessageText.Text = "Tour Added Successfully.";
                                         }
                                         else
@@ -184,15 +184,15 @@ namespace TravelAgency.View.Controls.Guide
             if (DateList.Text.Contains(",,"))
                 DateList.Text.Replace(",,", ",");
 
-            // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-            if (DateList.Text.StartsWith(","))
-                DateList.Text.Remove(0, 1);
-
             if(!hasText)
                 if(DateList.Text.Length == 0)
                     DateList.Text += DatePick.Text;
                 else
                     DateList.Text += "," + DatePick.Text;
+
+            if (DateList.Text.StartsWith(","))
+                DateList.Text = DateList.Text.Substring(1, DateList.Text.Length - 1);
+                
             DatePick.Text = "";
         }
 
@@ -215,15 +215,15 @@ namespace TravelAgency.View.Controls.Guide
             if (KeyPointsList.Text.Contains(",,"))
                 ComboBoxKeyPoints.Text.Replace(",,", ",");
 
-            // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-            if (KeyPointsList.Text.StartsWith(","))
-                KeyPointsList.Text.Remove(0, 1);
-
             if (!hasText)
                 if (KeyPointsList.Text.Length == 0)
                     KeyPointsList.Text += ComboBoxKeyPoints.Text;
                 else
                     KeyPointsList.Text += "," + ComboBoxKeyPoints.Text;
+
+            if (KeyPointsList.Text.StartsWith(","))
+                 KeyPointsList.Text =  KeyPointsList.Text.Substring(1, KeyPointsList.Text.Length - 1);
+
             ComboBoxKeyPoints.Text = "";
         }
 
@@ -246,15 +246,15 @@ namespace TravelAgency.View.Controls.Guide
             if (ImagesList.Text.Contains(",,"))
                 ImagesList.Text.Replace(",,", ",");
 
-            // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-            if (ImagesList.Text.StartsWith(","))
-                ImagesList.Text.Remove(0, 1);
-
             if(!hasText)
                 if (ImagesList.Text.Length == 0)
                     ImagesList.Text += ImagesText.Text;
                 else
                     ImagesList.Text += "," + ImagesText.Text;
+
+            if (ImagesList.Text.StartsWith(","))
+                ImagesList.Text = ImagesList.Text.Substring(1, ImagesList.Text.Length - 1);
+
             ImagesText.Text = "";
         }
 

@@ -23,9 +23,20 @@ namespace TravelAgency.Repository
             throw new NotImplementedException();
         }
 
-        public LocationModel GetById(int id)
+        public LocationModel? GetById(int id)
         {
-            throw new NotImplementedException();
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            const string selectStatement = "select * from Location where Id = $Id";
+            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
+            selectCommand.Parameters.AddWithValue("$Id", id);
+            using var selectReader = selectCommand.ExecuteReader();
+
+            if(selectReader.Read())
+                return new LocationModel(selectReader.GetInt32(0), selectReader.GetString(1),
+                    selectReader.GetString(2));
+            return null;
         }
 
         public LocationModel? GetByCity(string city)
@@ -39,10 +50,9 @@ namespace TravelAgency.Repository
             using var selectReader = selectCommand.ExecuteReader();
 
             if (selectReader.Read())
-            {
                 return new LocationModel(selectReader.GetInt32(0), selectReader.GetString(1),
                     selectReader.GetString(2));
-            }
+            
 
             return null;
         }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TravelAgency.Model;
 
 namespace TravelAgency.Repository
@@ -13,13 +14,12 @@ namespace TravelAgency.Repository
             databaseConnection.Open();
 
             var idList = "";
-            foreach (var keypoint in tourModel.KeyPoints)
+            foreach (var keyPoint in tourModel.KeyPoints)
             {
-                idList += "," + keypoint.Id.ToString();
+                idList += "," + keyPoint.Id.ToString();
             }
 
-            // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-            idList.Remove(0, 1);
+            idList = idList.Substring(1, idList.Length - 1);
 
             const string insertStatement =
                 @"insert into Tour(Name, Location_Id, Description, Language, MaxGuests, LocationList, Date, Duration, Images) 
@@ -60,7 +60,7 @@ namespace TravelAgency.Repository
 
         public IEnumerable<TourModel> GetByAll()
         {
-            IEnumerable<TourModel> tourList = new List<TourModel>();
+            List<TourModel> tourList = new List<TourModel>();
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
 
@@ -70,13 +70,22 @@ namespace TravelAgency.Repository
 
             while (selectReader.Read())
             {
-                //var locationRepository = new LocationRepository();
-                //var location = locationRepository.GetById(selectReader.GetInt32(1));
-                //tourList.Append(new TourModel(selectReader.GetString(0), location,
-                    //selectReader.GetString(2),
-                    //(Language)selectReader.GetInt32(3), selectReader.GetInt32(4), selectReader.GetString(5),
-                    //selectReader.GetString(6), selectReader.GetFloat(7), selectReader.GetString(8)));
+                var locationRepository = new LocationRepository();
+                var locationList = new List<LocationModel>();
 
+                foreach (var stringId in selectReader["KeyPoints"].ToString().Split(","))
+                {
+                    var id = int.Parse(stringId);
+                    var keyPoint = locationRepository.GetById(id);
+                    locationList.Add(keyPoint);
+
+                }
+
+                var location = locationRepository.GetById(selectReader.GetInt32(1));
+                tourList.Add(new TourModel(selectReader.GetString(0), location,
+                    selectReader.GetString(2),
+                    (Language)selectReader.GetInt32(3), selectReader.GetInt32(4), locationList,
+                    selectReader.GetString(6), selectReader.GetFloat(7), selectReader.GetString(8)));
             }
 
             return tourList;

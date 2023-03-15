@@ -193,10 +193,6 @@
 
                         </Grid>
 
-                        <ContentControl Content=""
-                                        Grid.Row="2"
-                                        Margin="25"/>
-
                     </Grid>
 
                 </Border>
