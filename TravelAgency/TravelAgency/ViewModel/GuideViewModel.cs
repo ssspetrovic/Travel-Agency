@@ -2,13 +2,14 @@
 using System.Windows.Input;
 using TravelAgency.Model;
 using TravelAgency.Repository;
+using TravelAgency.ViewModel;
 
-namespace TravelAgency.ModelView
+namespace TravelAgency.ViewModel
 {
-    public class GuideModelView : BaseModelView
+    public class GuideViewModel : BaseViewModel
     {
         private CurrentUserModel _currentUserAccount = null!;
-        private BaseModelView _currentChildView = null!;
+        private BaseViewModel _currentChildView = null!;
         private string _caption = null!;
 
         private readonly IUserRepository _userRepository;
@@ -23,7 +24,7 @@ namespace TravelAgency.ModelView
             }
         }
 
-        public BaseModelView CurrentChildView
+        public BaseViewModel CurrentChildView
         {
             get => _currentChildView;
             set
@@ -59,16 +60,16 @@ namespace TravelAgency.ModelView
 
         private void ExecuteShowGuideViewCommand(object obj)
         {
-            CurrentChildView = new GuideModelView();
+            CurrentChildView = new GuideViewModel();
             Caption = "Guide";
         }
 
-        public GuideModelView()
+        public GuideViewModel()
         {
             _userRepository = new UserRepository();
             CurrentUserAccount = new CurrentUserModel();
 
-            ShowGuideViewCommand = new ModelViewCommand(ExecuteShowGuideViewCommand);
+            ShowGuideViewCommand = new ViewModelCommand(ExecuteShowGuideViewCommand);
 
             LoadCurrentUserData();
         }

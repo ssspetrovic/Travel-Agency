@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace TravelAgency.ModelView
+namespace TravelAgency.ViewModel
 {
-    public class ModelViewCommand : ICommand
+    public class ViewModelCommand : ICommand
     {
         private readonly Action<object> _executeAction;
         private readonly Predicate<object> _canExecuteAction;
 
-        public ModelViewCommand(Action<object> executeAction)
+        public ViewModelCommand(Action<object> executeAction)
         {
             _executeAction = executeAction;
             _canExecuteAction = null!;
         }
 
-        public ModelViewCommand(Action<object> executeAction, Predicate<object> canExecuteAction)
+        public ViewModelCommand(Action<object> executeAction, Predicate<object> canExecuteAction)
         {
             _executeAction = executeAction;
             _canExecuteAction = canExecuteAction;
