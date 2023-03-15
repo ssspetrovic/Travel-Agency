@@ -69,11 +69,7 @@
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Id">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="test" />
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
+                                    
                                 </GridViewColumn>
                                 <GridViewColumn Header="Location">
                                     <GridViewColumn.CellTemplate>

@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TravelAgency.ModelView
+namespace TravelAgency.ViewModel
+
 {
-    internal class Guest2ModelView : BaseModelView
+    internal class Guest2ViewModel : BaseViewModel
     {
 
     }
