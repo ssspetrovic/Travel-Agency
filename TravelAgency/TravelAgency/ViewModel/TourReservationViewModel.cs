@@ -11,7 +11,6 @@ namespace TravelAgency.ViewModel
     internal class TourReservationViewModel : BaseViewModel
     {
         private string _name;
-
         public string Name
         {
             get => _name;
@@ -23,19 +22,17 @@ namespace TravelAgency.ViewModel
         }
 
         private LocationModel _location;
-
         public LocationModel Location
         {
             get => _location;
             set
             {
-                _location = value; 
+                _location = value;
                 OnPropertyChanged();
             }
         }
 
         private float _duration;
-
         public float Duration
         {
             get => _duration;
@@ -74,7 +71,7 @@ namespace TravelAgency.ViewModel
 
         public TourReservationViewModel()
         {
-            
+
         }
     }
 }
