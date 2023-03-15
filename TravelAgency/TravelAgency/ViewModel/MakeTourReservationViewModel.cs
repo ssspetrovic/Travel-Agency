@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using TravelAgency.Command;
 using TravelAgency.Model;
 
 namespace TravelAgency.ViewModel
 {
-    internal class TourReservationViewModel : BaseViewModel
+    internal class MakeTourReservationViewModel : BaseViewModel
     {
         private string _name;
 
@@ -29,7 +30,7 @@ namespace TravelAgency.ViewModel
             get => _location;
             set
             {
-                _location = value; 
+                _location = value;
                 OnPropertyChanged();
             }
         }
@@ -72,9 +73,9 @@ namespace TravelAgency.ViewModel
 
         public ICommand SubmitCommand { get; }
 
-        public TourReservationViewModel()
+        public MakeTourReservationViewModel(TourModel tour)
         {
-            
+            SubmitCommand = new MakeTourReservationCommand(this, tour);
         }
     }
 }
