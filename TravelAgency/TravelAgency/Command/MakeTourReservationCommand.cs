@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TravelAgency.Controller
+namespace TravelAgency.Command
 {
-    internal class BaseCommand
+    internal class MakeTourReservationCommand
     {
     }
 }
