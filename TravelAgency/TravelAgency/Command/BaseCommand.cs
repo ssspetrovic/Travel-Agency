@@ -7,17 +7,15 @@ using System.Windows.Input;
 
 namespace TravelAgency.Command
 {
-    internal class BaseCommand : ICommand
+    public abstract class BaseCommand : ICommand
     {
         public bool CanExecute(object? parameter)
         {
-            throw new NotImplementedException();
+            // TODO
+            return true;
         }
 
-        public void Execute(object? parameter)
-        {
-            throw new NotImplementedException();
-        }
+        public abstract void Execute(object? parameter);
 
         public event EventHandler? CanExecuteChanged;
     }
