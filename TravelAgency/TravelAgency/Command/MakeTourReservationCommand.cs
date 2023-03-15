@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TravelAgency.Model;
+using TravelAgency.ViewModel;
 
 namespace TravelAgency.Command
 {
@@ -11,7 +12,7 @@ namespace TravelAgency.Command
     {
         private readonly TourModel _tour;
 
-        public MakeTourReservationCommand(TourModel tour)
+        public MakeTourReservationCommand(MakeTourReservationViewModel makeTourReservationViewModel, TourModel tour)
         {
             _tour = tour;
         }
