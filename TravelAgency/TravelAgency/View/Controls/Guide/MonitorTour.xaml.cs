@@ -1,7 +1,11 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Data;
+using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
+using TravelAgency.Model;
 
 
 namespace TravelAgency.View.Controls.Guide
@@ -73,9 +77,17 @@ namespace TravelAgency.View.Controls.Guide
             Close();
         }
 
-        private void TourIsActive_OnClick(object sender, MouseEventArgs e)
+        private void TourIsActive_OnClick(object sender, RoutedEventArgs routedEventArgs)
         {
-
+            var cell = DataGrid1.SelectedCells[0];
+            var rowIndex = DataGrid1.Items.IndexOf(cell.Item);
+            System.Diagnostics.Debug.WriteLine(rowIndex);
+            var drv = (DataRowView) DataGrid1.SelectedItems[rowIndex]!;
+            System.Diagnostics.Debug.WriteLine(drv["Name"]);
+            // activeTourRepository.Add();
+            var activeTour = new ActiveTour();
+            activeTour.Show();
+            Close();
         }
     }
 }

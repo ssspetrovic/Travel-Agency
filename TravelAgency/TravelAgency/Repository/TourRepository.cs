@@ -1,7 +1,9 @@
 ﻿using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
+using System.Linq;
 using TravelAgency.Model;
 
 namespace TravelAgency.Repository
@@ -60,7 +62,6 @@ namespace TravelAgency.Repository
 
         public DataTable GetByAll(DataTable dt)
         {
-            var tourList = new List<TourModel>();
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
 
@@ -91,6 +92,33 @@ namespace TravelAgency.Repository
             }
 
             return 0;
+        }
+
+        public ObservableCollection<TourModel> GetAll()
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            const string selectStatement = @"select * from Tour";
+            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
+            using var selectReader = selectCommand.ExecuteReader();
+
+            var tourList = new ObservableCollection<TourModel>();
+            var locationRepository = new LocationRepository();
+
+
+            while (selectReader.Read())
+            {
+                var location = locationRepository.GetById(selectReader.GetInt32(1));
+                var keyPointsList = selectReader.GetString(5).Split(", ");
+                var cityList = keyPointsList.Where((t, i) => i % 2 == 1).ToList();
+                var keyPoints = locationRepository.GetByAllCities(cityList);
+                tourList.Add(new TourModel(selectReader.GetString(0),
+                    location!, selectReader.GetString(2), (Language) selectReader.GetInt32(3),  selectReader.GetInt32(4),
+                    keyPoints, selectReader.GetString(6), selectReader.GetFloat(7), selectReader.GetString(8)));
+            }
+
+            return tourList;
         }
     }
 }

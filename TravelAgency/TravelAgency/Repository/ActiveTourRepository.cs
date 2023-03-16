@@ -30,7 +30,7 @@ namespace TravelAgency.Repository
             throw new NotImplementedException();
         }
 
-        public DataTable GetByAll(DataTable dt)
+        public DataTable GetActiveTour(DataTable dt)
         {
             throw new NotImplementedException();
         }

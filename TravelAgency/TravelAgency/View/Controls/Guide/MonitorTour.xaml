@@ -225,62 +225,60 @@
                         </Grid>
 
                         <Grid Grid.Row="2" Margin="25">
-                            <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition Height="50" />
-                            </Grid.RowDefinitions>
-                            <ListView Margin="10" ItemsSource="{Binding ToursToday}">
-                                <ListView.View>
-                                    <GridView>
-                                        <GridViewColumn Width="200" DisplayMemberBinding="{Binding Path=Name}">
-                                            <GridViewColumnHeader HorizontalAlignment="Center" MouseEnter="TourIsActive_OnClick">Name</GridViewColumnHeader>
-                                        </GridViewColumn>
-                                        <GridViewColumn
-                                            Width="200"
-                                            DisplayMemberBinding="{Binding Path=Location_Id}"
-                                            Header="Location" />
-                                        <GridViewColumn
-                                            Width="200"
-                                            DisplayMemberBinding="{Binding Path=Description}"
-                                            Header="Description" />
-                                        <GridViewColumn
-                                            Width="200"
-                                            DisplayMemberBinding="{Binding Path=Language}"
-                                            Header="Language" />
-
-                                        <GridViewColumn
-                                            Width="200"
-                                            DisplayMemberBinding="{Binding Path=MaxGuests}"
-                                            Header="Max Guests" />
-                                        <GridViewColumn
-                                            Width="200"
-                                            DisplayMemberBinding="{Binding Path=LocationList}"
-                                            Header="Key Points" />
-                                        <GridViewColumn
-                                            Width="200"
-                                            DisplayMemberBinding="{Binding Path=Date}"
-                                            Header="Date" />
-                                        <GridViewColumn
-                                            Width="200"
-                                            DisplayMemberBinding="{Binding Path=Duration}"
-                                            Header="Duration" />
-                                        <GridViewColumn
-                                            Width="200"
-                                            DisplayMemberBinding="{Binding Path=Images}"
-                                            Header="Images" />
-                                    </GridView>
-                                </ListView.View>
-                            </ListView>
-                            <TextBlock
-                                Name="ErrorMessageText"
-                                Grid.Row="1"
-                                Margin="0,15,0,0"
-                                FontSize="12"
-                                FontWeight="Medium"
-                                Foreground="DarkRed"
-                                TextWrapping="Wrap" />
+                            <DataGrid
+                                Name="DataGrid1"
+                                Margin="10"
+                                AutoGenerateColumns="False"
+                                CanUserAddRows="False"
+                                ItemsSource="{Binding ToursToday}">
+                                <DataGrid.Columns>
+                                    <DataGridHyperlinkColumn
+                                        x:Name="NameDataText"
+                                        Binding="{Binding Path=Name}"
+                                        Header="Name"
+                                        IsReadOnly="True">
+                                        <DataGridHyperlinkColumn.ElementStyle>
+                                            <Style TargetType="TextBlock">
+                                                <EventSetter Event="Hyperlink.Click" Handler="TourIsActive_OnClick" />
+                                                <Setter Property="Tag" Value="{Binding Path=ToursToday}" />
+                                            </Style>
+                                        </DataGridHyperlinkColumn.ElementStyle>
+                                    </DataGridHyperlinkColumn>
+                                    <DataGridTextColumn
+                                        Binding="{Binding Path=Location_Id}"
+                                        Header="Location"
+                                        IsReadOnly="True" />
+                                    <DataGridTextColumn
+                                        Binding="{Binding Path=Description}"
+                                        Header="Description"
+                                        IsReadOnly="True" />
+                                    <DataGridTextColumn
+                                        Binding="{Binding Path=Language}"
+                                        Header="Language"
+                                        IsReadOnly="True" />
+                                    <DataGridTextColumn
+                                        Binding="{Binding Path=MaxGuests}"
+                                        Header="Max Guests"
+                                        IsReadOnly="True" />
+                                    <DataGridTextColumn
+                                        Binding="{Binding Path=LocationList}"
+                                        Header="Key Points"
+                                        IsReadOnly="True" />
+                                    <DataGridTextColumn
+                                        Binding="{Binding Path=Date}"
+                                        Header="Date"
+                                        IsReadOnly="True" />
+                                    <DataGridTextColumn
+                                        Binding="{Binding Path=Duration}"
+                                        Header="Duration"
+                                        IsReadOnly="True" />
+                                    <DataGridTextColumn
+                                        Binding="{Binding Path=Images}"
+                                        Header="Images"
+                                        IsReadOnly="True" />
+                                </DataGrid.Columns>
+                            </DataGrid>
                         </Grid>
-
                     </Grid>
 
                 </Border>

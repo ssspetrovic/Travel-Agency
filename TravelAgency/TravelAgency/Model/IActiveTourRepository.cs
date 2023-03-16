@@ -13,6 +13,6 @@ namespace TravelAgency.Model
         void Edit(ActiveTourModel activeTourModel);
         void Remove(int id);
         ActiveTourModel GetById(int id);
-        DataTable GetByAll(DataTable dt);
+        DataTable GetActiveTour(DataTable dt);
     }
 }
