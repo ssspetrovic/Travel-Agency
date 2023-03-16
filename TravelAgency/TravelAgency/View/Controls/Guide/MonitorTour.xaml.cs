@@ -1,18 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.InteropServices;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Interop;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+
 
 namespace TravelAgency.View.Controls.Guide
 {
@@ -20,7 +10,7 @@ namespace TravelAgency.View.Controls.Guide
     /// Interaction logic for MonitorTour.xaml
     /// </summary>
     
-    public partial class MonitorTour : Window
+    public partial class MonitorTour 
     {
         public MonitorTour()
         {
@@ -85,14 +75,6 @@ namespace TravelAgency.View.Controls.Guide
 
         private void TourIsActive_OnClick(object sender, MouseEventArgs e)
         {
-            if (IsActive == true)
-                ErrorMessageText.Text = "There is an active tour already!";
-            else
-            {
-                var activeTour = new ActiveTour();
-                activeTour.Show();
-                Close();
-            }
 
         }
     }
