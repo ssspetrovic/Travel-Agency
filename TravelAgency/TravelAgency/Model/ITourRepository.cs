@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Data;
 
 namespace TravelAgency.Model
 {
@@ -9,7 +9,7 @@ namespace TravelAgency.Model
         void Remove(int id);
         TourModel GetById(int id);
         TourModel GetByName(string? name);
-        IEnumerable<TourModel> GetByAll();
+        DataTable GetByAll(DataTable dt);
         Language FindLanguage(string language);
     }
 }

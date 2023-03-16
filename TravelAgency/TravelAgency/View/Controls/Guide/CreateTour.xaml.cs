@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -143,11 +144,8 @@ namespace TravelAgency.View.Controls.Guide
                                             locationRepository.GetByCity(ComboBoxLocation.Text);
                                         var maxGuests = int.Parse(MaxGuestsText.Text);
                                         var duration = float.Parse(DurationText.Text);
-                                        var cities = new List<string>(KeyPointsList.Text.Split(','));
+                                        var cities = new List<string>(KeyPointsList.Text.Split(", "));
                                         var locationList = locationRepository.GetByAllCities(cities);
-                                        //ErrorMessageText.Text = locationList.First().City;
-                                        //var dateList = new List<string>(DateList.Text.Split(','));
-                                        //var imageList = new List<string>(ImagesText.Text.Split(','));
                                         var language = tourRepository.FindLanguage(ComboBoxLanguage.Text);
                                         if (currentLocation != null)
                                         {
@@ -172,6 +170,7 @@ namespace TravelAgency.View.Controls.Guide
 
         private void AddNewDate_OnClick(object sender, RoutedEventArgs routedEventArgs)
         {
+            var date = Convert.ToDateTime(DatePick.Text).ToString("MM/dd/yyyy");
             var hasText = false;
             if (DateList.Text.Contains(DatePick.Text))
             {
@@ -181,17 +180,17 @@ namespace TravelAgency.View.Controls.Guide
             }
 
             // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-            if (DateList.Text.Contains(",,"))
-                DateList.Text.Replace(",,", ",");
+            if (DateList.Text.Contains(",, "))
+                DateList.Text.Replace(",, ", ", ");
 
             if(!hasText)
                 if(DateList.Text.Length == 0)
-                    DateList.Text += DatePick.Text;
+                    DateList.Text += date;
                 else
-                    DateList.Text += "," + DatePick.Text;
+                    DateList.Text += ", " + date;
 
-            if (DateList.Text.StartsWith(","))
-                DateList.Text = DateList.Text.Substring(1, DateList.Text.Length - 1);
+            if (DateList.Text.StartsWith(", "))
+                DateList.Text = DateList.Text.Substring(2, DateList.Text.Length - 2);
                 
             DatePick.Text = "";
         }
@@ -212,17 +211,17 @@ namespace TravelAgency.View.Controls.Guide
             }
 
             // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-            if (KeyPointsList.Text.Contains(",,"))
-                ComboBoxKeyPoints.Text.Replace(",,", ",");
+            if (KeyPointsList.Text.Contains(",, "))
+                ComboBoxKeyPoints.Text.Replace(",, ", ", ");
 
             if (!hasText)
                 if (KeyPointsList.Text.Length == 0)
                     KeyPointsList.Text += ComboBoxKeyPoints.Text;
                 else
-                    KeyPointsList.Text += "," + ComboBoxKeyPoints.Text;
+                    KeyPointsList.Text += ", " + ComboBoxKeyPoints.Text;
 
-            if (KeyPointsList.Text.StartsWith(","))
-                 KeyPointsList.Text =  KeyPointsList.Text.Substring(1, KeyPointsList.Text.Length - 1);
+            if (KeyPointsList.Text.StartsWith(", "))
+                 KeyPointsList.Text =  KeyPointsList.Text.Substring(2, KeyPointsList.Text.Length - 2);
 
             ComboBoxKeyPoints.Text = "";
         }
@@ -243,17 +242,17 @@ namespace TravelAgency.View.Controls.Guide
             }
 
             // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-            if (ImagesList.Text.Contains(",,"))
-                ImagesList.Text.Replace(",,", ",");
+            if (ImagesList.Text.Contains(",, "))
+                ImagesList.Text.Replace(",, ", ", ");
 
             if(!hasText)
                 if (ImagesList.Text.Length == 0)
                     ImagesList.Text += ImagesText.Text;
                 else
-                    ImagesList.Text += "," + ImagesText.Text;
+                    ImagesList.Text += ", " + ImagesText.Text;
 
-            if (ImagesList.Text.StartsWith(","))
-                ImagesList.Text = ImagesList.Text.Substring(1, ImagesList.Text.Length - 1);
+            if (ImagesList.Text.StartsWith(", "))
+                ImagesList.Text = ImagesList.Text.Substring(2, ImagesList.Text.Length - 2);
 
             ImagesText.Text = "";
         }

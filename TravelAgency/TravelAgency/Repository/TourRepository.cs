@@ -1,7 +1,7 @@
 ﻿using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Data;
 using TravelAgency.Model;
 
 namespace TravelAgency.Repository
@@ -16,7 +16,7 @@ namespace TravelAgency.Repository
             var idList = "";
             foreach (var keyPoint in tourModel.KeyPoints)
             {
-                idList += "," + keyPoint.Id.ToString();
+                idList += ", " + keyPoint.Id.ToString();
             }
 
             idList = idList.Substring(1, idList.Length - 1);
@@ -58,37 +58,17 @@ namespace TravelAgency.Repository
             throw new NotImplementedException();
         }
 
-        public IEnumerable<TourModel> GetByAll()
+        public DataTable GetByAll(DataTable dt)
         {
-            List<TourModel> tourList = new List<TourModel>();
+            var tourList = new List<TourModel>();
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
 
             const string selectStatement = @"select * from Tour";
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
-            using var selectReader = selectCommand.ExecuteReader();
 
-            while (selectReader.Read())
-            {
-                var locationRepository = new LocationRepository();
-                var locationList = new List<LocationModel>();
-
-                foreach (var stringId in selectReader["KeyPoints"].ToString().Split(","))
-                {
-                    var id = int.Parse(stringId);
-                    var keyPoint = locationRepository.GetById(id);
-                    locationList.Add(keyPoint);
-
-                }
-
-                var location = locationRepository.GetById(selectReader.GetInt32(1));
-                tourList.Add(new TourModel(selectReader.GetString(0), location,
-                    selectReader.GetString(2),
-                    (Language)selectReader.GetInt32(3), selectReader.GetInt32(4), locationList,
-                    selectReader.GetString(6), selectReader.GetFloat(7), selectReader.GetString(8)));
-            }
-
-            return tourList;
+            dt.Load(selectCommand.ExecuteReader());
+            return dt;
         }
 
         public Language FindLanguage(string language)

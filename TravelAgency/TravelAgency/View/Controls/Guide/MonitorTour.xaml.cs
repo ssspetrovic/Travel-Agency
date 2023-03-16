@@ -19,6 +19,7 @@ namespace TravelAgency.View.Controls.Guide
     /// <summary>
     /// Interaction logic for MonitorTour.xaml
     /// </summary>
+    
     public partial class MonitorTour : Window
     {
         public MonitorTour()
@@ -80,6 +81,19 @@ namespace TravelAgency.View.Controls.Guide
             var signInView = new SignInView();
             signInView.Show();
             Close();
+        }
+
+        private void TourIsActive_OnClick(object sender, MouseEventArgs e)
+        {
+            if (IsActive == true)
+                ErrorMessageText.Text = "There is an active tour already!";
+            else
+            {
+                var activeTour = new ActiveTour();
+                activeTour.Show();
+                Close();
+            }
+
         }
     }
 }
