@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Command\" />
     <Folder Include="Controller\" />
     <Folder Include="Service\" />
     <Folder Include="Service\" />
