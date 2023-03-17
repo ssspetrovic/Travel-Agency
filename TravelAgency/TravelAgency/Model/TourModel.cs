@@ -41,5 +41,19 @@ namespace TravelAgency.Model
             Duration = duration;
             Images = images;
         }
+
+        public TourModel(int id, string name, LocationModel location, string? description, Language language, int maxGuests, List<LocationModel> keyPoints, string date, float duration, string images)
+        {
+            Id = id;
+            Name = name;
+            Location = location;
+            Description = description;
+            Language = language;
+            MaxGuests = maxGuests;
+            KeyPoints = keyPoints;
+            Date = date;
+            Duration = duration;
+            Images = images;
+        }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
+using System.Windows;
 using TravelAgency.Model;
 
 namespace TravelAgency.Repository
@@ -56,7 +57,29 @@ namespace TravelAgency.Repository
 
         public TourModel GetByName(string? name)
         {
-            throw new NotImplementedException();
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+            TourModel? tourModel = null;
+
+            const string selectStatement = "select * from Tour where Name = $Name";
+            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
+            selectCommand.Parameters.AddWithValue("$Name", name);
+
+            using var selectReader = selectCommand.ExecuteReader();
+
+            if (!selectReader.Read()) return tourModel!;
+
+
+            var locationRepository = new LocationRepository();
+            var location = locationRepository.GetById(selectReader.GetInt32(2));
+            var keyPointsList = selectReader.GetString(6).Split(", ").ToList();
+            var keyPoints = locationRepository.GetByAllCities(keyPointsList);
+
+            tourModel = new TourModel(selectReader.GetInt32(0), selectReader.GetString(1),
+                location!, selectReader.GetString(3), (Language)selectReader.GetInt32(4), selectReader.GetInt32(5),
+                keyPoints!, selectReader.GetString(7), selectReader.GetFloat(8), selectReader.GetString(9));
+
+            return tourModel;
         }
 
         public DataTable GetByAll(DataTable dt)
@@ -64,7 +87,7 @@ namespace TravelAgency.Repository
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
 
-            const string selectStatement = @"select * from Tour";
+            const string selectStatement = "select * from Tour";
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
 
             dt.Load(selectCommand.ExecuteReader());
@@ -108,13 +131,13 @@ namespace TravelAgency.Repository
 
             while (selectReader.Read())
             {
-                var location = locationRepository.GetById(selectReader.GetInt32(1));
-                var keyPointsList = selectReader.GetString(5).Split(", ");
-                var cityList = keyPointsList.Where((_, i) => i % 2 == 1).ToList();
-                var keyPoints = locationRepository.GetByAllCities(cityList);
-                tourList.Add(new TourModel(selectReader.GetString(0),
-                    location!, selectReader.GetString(2), (Language) selectReader.GetInt32(3),  selectReader.GetInt32(4),
-                    keyPoints, selectReader.GetString(6), selectReader.GetFloat(7), selectReader.GetString(8)));
+                var location = locationRepository.GetById(selectReader.GetInt32(2));
+                var keyPointsList = selectReader.GetString(6).Split(", ");
+                var keyPoints = locationRepository.GetByAllCities(keyPointsList.ToList());
+
+                tourList.Add(new TourModel(selectReader.GetInt32(0), selectReader.GetString(1),
+                    location!, selectReader.GetString(3), (Language)selectReader.GetInt32(4), selectReader.GetInt32(5),
+                    keyPoints, selectReader.GetString(7), selectReader.GetFloat(8), selectReader.GetString(9)));
             }
 
             return tourList;

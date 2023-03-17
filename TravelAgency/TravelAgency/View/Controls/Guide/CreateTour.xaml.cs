@@ -150,7 +150,7 @@ namespace TravelAgency.View.Controls.Guide
                                         if (currentLocation != null)
                                         {
                                             tourRepository.Add(new TourModel(NameText.Text, currentLocation,
-                                                DescriptionText.Text, language, maxGuests, locationList, DateList.Text,
+                                                DescriptionText.Text, language, maxGuests, locationList!, DateList.Text,
                                                 duration, ImagesList.Text));
                                             ErrorMessageText.Text = "Tour Added Successfully.";
                                         }

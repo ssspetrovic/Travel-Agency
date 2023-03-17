@@ -275,6 +275,7 @@
                                         <ComboBoxItem>Istanbul</ComboBoxItem>
                                         <ComboBoxItem>Kolkata</ComboBoxItem>
                                         <ComboBoxItem>Manila</ComboBoxItem>
+                                        <ComboBoxItem>Bar</ComboBoxItem>
                                     </ComboBox>
 
                                     <TextBlock
@@ -375,6 +376,7 @@
                                         <ComboBoxItem Content="Istanbul" />
                                         <ComboBoxItem Content="Kolkata" />
                                         <ComboBoxItem Content="Manila" />
+                                        <ComboBoxItem Content="Bar" />
                                     </ComboBox>
                                     <TextBlock
                                         x:Name="KeyPointsList"

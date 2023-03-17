@@ -1,19 +1,26 @@
-﻿using System.Collections.Generic;
-
-namespace TravelAgency.Model
+﻿namespace TravelAgency.Model
 {
+    public enum TouristCheck
+    {
+        Unchecked,
+        Pinged,
+        Checked
+    }
     public class TouristModel : UserModel
     {
-        public List<LocationModel> KeyPoints { get; set; }
+        public TourModel Tour { get; set; }
+        public TouristCheck TouristCheck { get; set; }
 
-        public TouristModel(List<LocationModel> keyPoints)
+        public TouristModel(TourModel tour, TouristCheck touristCheck)
         {
-            KeyPoints = keyPoints;
+            Tour = tour;
+            TouristCheck = touristCheck;
         }
 
-        public TouristModel(string username, string password, string email, string name, string surname, Role role, List<LocationModel> keyPoints) : base(username, password, email, name, surname, role)
+        public TouristModel(string username, string password, string name, string surname, string email, Role role, TourModel tour, TouristCheck touristCheck) : base(username, password, name, surname, email, role)
         {
-            KeyPoints = keyPoints;
+            Tour = tour;
+            TouristCheck = touristCheck;
         }
 
     }
