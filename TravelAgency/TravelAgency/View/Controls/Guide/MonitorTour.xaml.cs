@@ -81,9 +81,9 @@ namespace TravelAgency.View.Controls.Guide
         {
             var cell = DataGrid1.SelectedCells[0];
             var rowIndex = DataGrid1.Items.IndexOf(cell.Item);
-            System.Diagnostics.Debug.WriteLine(rowIndex);
             var drv = (DataRowView) DataGrid1.SelectedItems[rowIndex]!;
-            System.Diagnostics.Debug.WriteLine(drv["Name"]);
+            MessageBox.Show("You selected Tour: " + drv["Name"].ToString());
+
             // activeTourRepository.Add();
             var activeTour = new ActiveTour();
             activeTour.Show();

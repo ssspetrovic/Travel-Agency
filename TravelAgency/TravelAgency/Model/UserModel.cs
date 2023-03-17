@@ -23,20 +23,21 @@ namespace TravelAgency.Model
 
         }
 
-        public UserModel(int id, string userName, string password)
+        public UserModel(string userName, string password)
         {
-            Id = id;
             UserName = userName;
             Password = password;
         }
 
-        public UserModel(int id, string username, string password, string email, string name, string surname, Role role) : this(id, username, password)
+        public UserModel(string username, string password, string email, string name, string surname, Role role) : this(username, password)
         {
             Email = email;
             Name = name;
             Surname = surname;
             Role = role;
         }
+
+        
 
 
     }
