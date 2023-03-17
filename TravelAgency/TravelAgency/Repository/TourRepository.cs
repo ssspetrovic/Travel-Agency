@@ -1,6 +1,5 @@
 ﻿using Microsoft.Data.Sqlite;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
@@ -111,7 +110,7 @@ namespace TravelAgency.Repository
             {
                 var location = locationRepository.GetById(selectReader.GetInt32(1));
                 var keyPointsList = selectReader.GetString(5).Split(", ");
-                var cityList = keyPointsList.Where((t, i) => i % 2 == 1).ToList();
+                var cityList = keyPointsList.Where((_, i) => i % 2 == 1).ToList();
                 var keyPoints = locationRepository.GetByAllCities(cityList);
                 tourList.Add(new TourModel(selectReader.GetString(0),
                     location!, selectReader.GetString(2), (Language) selectReader.GetInt32(3),  selectReader.GetInt32(4),
