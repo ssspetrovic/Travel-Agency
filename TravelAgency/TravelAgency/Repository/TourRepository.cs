@@ -137,7 +137,7 @@ namespace TravelAgency.Repository
 
                 tourList.Add(new TourModel(selectReader.GetInt32(0), selectReader.GetString(1),
                     location!, selectReader.GetString(3), (Language)selectReader.GetInt32(4), selectReader.GetInt32(5),
-                    keyPoints, selectReader.GetString(7), selectReader.GetFloat(8), selectReader.GetString(9)));
+                    keyPoints!, selectReader.GetString(7), selectReader.GetFloat(8), selectReader.GetString(9)));
             }
 
             return tourList;

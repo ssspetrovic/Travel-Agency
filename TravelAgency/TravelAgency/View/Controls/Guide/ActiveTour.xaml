@@ -162,7 +162,7 @@
                                     FontSize="18"
                                     FontWeight="Bold"
                                     Foreground="#4fc3f7"
-                                    Text="{Binding Path=ActiveTour}" />
+                                    Text="{Binding Path=ActiveTourName}" />
 
                             </StackPanel>
 
@@ -199,57 +199,19 @@
                         </Grid>
 
                         <Grid Grid.Row="2" Margin="25">
-                            <DataGrid
-                                Name="DataGrid"
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <ListBox
+                                Name="KeyPointsGrid"
                                 Margin="10"
-                                AutoGenerateColumns="False"
-                                ItemsSource="{Binding ToursToday}"
-                                SelectionUnit="Cell">
-                                <DataGrid.Columns>
-                                    <DataGridHyperlinkColumn
-                                        Binding="{Binding Path=Name}"
-                                        Header="Name"
-                                        IsReadOnly="True">
-                                        <DataGridHyperlinkColumn.ElementStyle>
-                                            <Style>
-                                                <EventSetter Event="Hyperlink.Click" Handler="TourIsActive_OnClick" />
-                                            </Style>
-                                        </DataGridHyperlinkColumn.ElementStyle>
-                                    </DataGridHyperlinkColumn>
-                                    <DataGridTextColumn
-                                        Binding="{Binding Path=Location_Id}"
-                                        Header="Location"
-                                        IsReadOnly="True" />
-                                    <DataGridTextColumn
-                                        Binding="{Binding Path=Description}"
-                                        Header="Description"
-                                        IsReadOnly="True" />
-                                    <DataGridTextColumn
-                                        Binding="{Binding Path=Language}"
-                                        Header="Language"
-                                        IsReadOnly="True" />
-                                    <DataGridTextColumn
-                                        Binding="{Binding Path=MaxGuests}"
-                                        Header="Max Guests"
-                                        IsReadOnly="True" />
-                                    <DataGridTextColumn
-                                        Binding="{Binding Path=LocationList}"
-                                        Header="Key Points"
-                                        IsReadOnly="True" />
-                                    <DataGridTextColumn
-                                        Binding="{Binding Path=Date}"
-                                        Header="Date"
-                                        IsReadOnly="True" />
-                                    <DataGridTextColumn
-                                        Binding="{Binding Path=Duration}"
-                                        Header="Duration"
-                                        IsReadOnly="True" />
-                                    <DataGridTextColumn
-                                        Binding="{Binding Path=Images}"
-                                        Header="Images"
-                                        IsReadOnly="True" />
-                                </DataGrid.Columns>
-                            </DataGrid>
+                                ItemsSource="{Binding KeyPoints}" />
+                            <ListBox
+                                Grid.Row="1"
+                                Name="Tourists"
+                                Margin="10"
+                                ItemsSource="{Binding Tourists}" />
                         </Grid>
 
                     </Grid>

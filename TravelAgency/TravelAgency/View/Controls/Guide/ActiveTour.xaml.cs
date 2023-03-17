@@ -62,5 +62,10 @@ namespace TravelAgency.View.Controls.Guide
         {
             throw new System.NotImplementedException();
         }
+
+        private void KeyPointPassed_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

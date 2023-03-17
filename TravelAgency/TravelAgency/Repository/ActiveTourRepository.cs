@@ -1,11 +1,6 @@
 ﻿using Microsoft.Data.Sqlite;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using TravelAgency.Model;
 
 namespace TravelAgency.Repository
@@ -25,10 +20,14 @@ namespace TravelAgency.Repository
                 keyPointsList += tour.Key.ToString() + ":" + tour.Value.ToString() + ", ";
             }
 
+            keyPointsList = keyPointsList.Remove(keyPointsList.Length - 2, 2);
+
             foreach (var tourist in activeTourModel.Tourists)
             {
                 touristsList += tourist.Name + ", ";
             }
+
+            touristsList = touristsList.Remove(touristsList.Length - 2, 2);
 
             const string insertStatement =
                 @"insert into ActiveTour(Name, KeyPointsList, Tourists) values ($Name, $KeyPointsList, $Tourists)";
@@ -57,7 +56,14 @@ namespace TravelAgency.Repository
 
         public DataTable GetActiveTour(DataTable dt)
         {
-            throw new NotImplementedException();
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            const string selectStatement = "select * from ActiveTour";
+            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
+
+            dt.Load(selectCommand.ExecuteReader());
+            return dt;
         }
 
         public bool IsActive()
@@ -70,6 +76,18 @@ namespace TravelAgency.Repository
             using var selectReader = selectCommand.ExecuteReader();
 
             return selectReader.Read();
+        }
+
+        public string GetActiveTourData(string column)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            var selectStatement = "select " + column + " from ActiveTour";
+            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
+            using var selectReader = selectCommand.ExecuteReader();
+
+            return selectReader.Read() ? selectReader.GetString(0) : "Error";
         }
     }
 }

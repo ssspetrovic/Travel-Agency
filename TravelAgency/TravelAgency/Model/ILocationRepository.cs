@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 
 namespace TravelAgency.Model
 {
@@ -9,7 +10,7 @@ namespace TravelAgency.Model
         void Remove(int id);
         LocationModel? GetById(int id);
         LocationModel? GetByCity(string city);
-        IEnumerable<LocationModel> GetByAll();
+        DataTable GetByAll(DataTable dt);
         List<LocationModel?> GetByAllCities(List<string> cities);
     }
 }
