@@ -69,6 +69,19 @@ namespace TravelAgency.View.Controls.Guide
             Close();
         }
 
+        private void ActiveTour_OnClick(object sender, RoutedEventArgs e)
+        {
+            var activeTourRepository = new ActiveTourRepository();
+            if (activeTourRepository.IsActive())
+            {
+                var activeTour = new ActiveTour();
+                activeTour.Show();
+                Close();
+            }
+            else
+                MessageBox.Show("There is no active tour!");
+        }
+
         private void Logout_OnClick(object sender, RoutedEventArgs e)
         {
             var signInView = new SignInView();

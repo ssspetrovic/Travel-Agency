@@ -98,6 +98,19 @@
                         </RadioButton>
 
                         <RadioButton
+                            Click="ActiveTour_OnClick"
+                            Foreground="#fffafa"
+                            Style="{StaticResource MenuButton}">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:IconImage
+                                    Foreground="#fffafa"
+                                    Icon="Plane"
+                                    Style="{StaticResource MenuButtonIcon}" />
+                                <TextBlock Style="{StaticResource MenuButtonText}" Text="Active Tour" />
+                            </StackPanel>
+                        </RadioButton>
+
+                        <RadioButton
                             Click="Logout_OnClick"
                             Foreground="#fffafa"
                             Style="{StaticResource MenuButton}">
