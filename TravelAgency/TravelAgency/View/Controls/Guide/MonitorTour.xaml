@@ -226,24 +226,23 @@
 
                         <Grid Grid.Row="2" Margin="25">
                             <DataGrid
-                                Name="DataGrid1"
+                                Name="MonitorDataGrid"
                                 Margin="10"
                                 AutoGenerateColumns="False"
                                 CanUserAddRows="False"
                                 ItemsSource="{Binding ToursToday}">
                                 <DataGrid.Columns>
-                                    <DataGridHyperlinkColumn
-                                        x:Name="NameDataText"
+                                    <DataGridTemplateColumn Header="Select Tour">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button Click="TourIsActive_OnClick" Foreground="#4fc3f7" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTextColumn
                                         Binding="{Binding Path=Name}"
                                         Header="Name"
-                                        IsReadOnly="True">
-                                        <DataGridHyperlinkColumn.ElementStyle>
-                                            <Style TargetType="TextBlock">
-                                                <EventSetter Event="Hyperlink.Click" Handler="TourIsActive_OnClick" />
-                                                <Setter Property="Tag" Value="{Binding Path=ToursToday}" />
-                                            </Style>
-                                        </DataGridHyperlinkColumn.ElementStyle>
-                                    </DataGridHyperlinkColumn>
+                                        IsReadOnly="True" />
                                     <DataGridTextColumn
                                         Binding="{Binding Path=Location_Id}"
                                         Header="Location"

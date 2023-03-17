@@ -8,7 +8,7 @@ namespace TravelAgency.Model
         void Edit(TourModel tourModel);
         void Remove(int id);
         TourModel GetById(int id);
-        TourModel GetByName(string? name);
+        TourModel? GetByName(string? name);
         DataTable GetByAll(DataTable dt);
         Language FindLanguage(string language);
     }

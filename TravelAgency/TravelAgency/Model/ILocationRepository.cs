@@ -10,6 +10,6 @@ namespace TravelAgency.Model
         LocationModel? GetById(int id);
         LocationModel? GetByCity(string city);
         IEnumerable<LocationModel> GetByAll();
-        List<LocationModel> GetByAllCities(List<string> cities);
+        List<LocationModel?> GetByAllCities(List<string> cities);
     }
 }

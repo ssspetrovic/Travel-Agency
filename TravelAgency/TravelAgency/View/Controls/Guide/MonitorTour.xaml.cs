@@ -1,11 +1,11 @@
-﻿using System;
-using System.Data;
+﻿using System.Data;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 using TravelAgency.Model;
+using TravelAgency.Repository;
 
 
 namespace TravelAgency.View.Controls.Guide
@@ -79,12 +79,29 @@ namespace TravelAgency.View.Controls.Guide
 
         private void TourIsActive_OnClick(object sender, RoutedEventArgs routedEventArgs)
         {
-            var cell = DataGrid1.SelectedCells[0];
-            var rowIndex = DataGrid1.Items.IndexOf(cell.Item);
-            var drv = (DataRowView) DataGrid1.SelectedItems[rowIndex]!;
-            MessageBox.Show("You selected Tour: " + drv["Name"].ToString());
+            var activeTourRepository = new ActiveTourRepository();
 
-            // activeTourRepository.Add();
+            if (!activeTourRepository.IsActive())
+            {
+                var drv = (DataRowView)MonitorDataGrid.SelectedItem;
+
+                var tourRepository = new TourRepository();
+                var selectedTour = tourRepository.GetByName(drv["Name"].ToString());
+                MessageBox.Show("You selected Tour: " + selectedTour.Name);
+
+                var touristRepository = new TouristRepository();
+                var tourists = touristRepository.GetByTour(selectedTour);
+
+                MessageBox.Show(selectedTour.KeyPoints[0].City);
+
+                var activeKeyPoints = selectedTour.KeyPoints.ToDictionary(location => location.Id, _ => false);
+
+                activeTourRepository.Add(new ActiveTourModel(selectedTour.Name, activeKeyPoints, tourists));
+            }
+
+            else
+                MessageBox.Show("You already have an active tour!");
+            
             var activeTour = new ActiveTour();
             activeTour.Show();
             Close();

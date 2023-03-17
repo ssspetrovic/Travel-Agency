@@ -6,17 +6,22 @@ namespace TravelAgency.Model
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        private SortedDictionary<int, bool> KeyPoints { get; set; }
-        private SortedDictionary<string, bool> Tourists { get; set; }
-        private SortedDictionary<string, int> TouristAppearance { get; set; }
+        public Dictionary<int, bool> KeyPoints { get; set; }
+        public List<TouristModel> Tourists { get; set; }
 
-        public ActiveTourModel(int id, string name, SortedDictionary<int, bool> keyPoints, SortedDictionary<string, bool> tourists, SortedDictionary<string, int> touristAppearance)
+        public ActiveTourModel(string name, Dictionary<int, bool> keyPoints, List<TouristModel> tourists)
+        {
+            Name = name;
+            KeyPoints = keyPoints;
+            Tourists = tourists;
+        }
+
+        public ActiveTourModel(int id, string name, Dictionary<int, bool> keyPoints, List<TouristModel> tourists)
         {
             Id = id;
             Name = name;
             KeyPoints = keyPoints;
             Tourists = tourists;
-            TouristAppearance = touristAppearance;
         }
 
     }

@@ -1,4 +1,6 @@
-﻿namespace TravelAgency.Model
+﻿using System.Collections.Generic;
+
+namespace TravelAgency.Model
 {
     internal interface ITouristRepository
     {
@@ -7,6 +9,6 @@
         void Remove(int id);
         TouristModel GetById(int id);
         TouristModel GetByName(string? name);
-        TouristModel GetByTour(TourModel tour);
+        List<TouristModel> GetByTour(TourModel tour);
     }
 }

@@ -13,9 +13,9 @@ namespace TravelAgency.Model
         public int Id { get; set; }
         public string UserName { get; set; } = null!;
         public string Password { get; set; } = null!;
-        public string Email { get; set; } = null!;
         public string Name { get; set; } = null!;
         public string Surname { get; set; } = null!;
+        public string Email { get; set; } = null!;
         public Role Role { get; set; }
 
         public UserModel()
@@ -29,7 +29,7 @@ namespace TravelAgency.Model
             Password = password;
         }
 
-        public UserModel(string username, string password, string email, string name, string surname, Role role) : this(username, password)
+        public UserModel(string username, string password, string name, string surname, string email, Role role) : this(username, password)
         {
             Email = email;
             Name = name;
