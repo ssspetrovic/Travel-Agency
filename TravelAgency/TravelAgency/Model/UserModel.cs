@@ -6,7 +6,7 @@ namespace TravelAgency.Model
         Owner = 1,
         Guide,
         Guest1,
-        Guest2
+        Tourist
     }
     public class UserModel
     {

@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace TravelAgency.View
 {
     /// <summary>
-    /// Interaction logic for Guest2View.xaml
+    /// Interaction logic for TouristView.xaml
     /// </summary>
-    public partial class Guest2View : Window
+    public partial class TouristView : Window
     {
-        public Guest2View()
+        public TouristView()
         {
             InitializeComponent();
         }

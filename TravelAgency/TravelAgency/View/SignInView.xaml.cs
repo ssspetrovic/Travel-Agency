@@ -79,11 +79,11 @@ namespace TravelAgency.View
                                     guest1View.Show();
                                     break;
                                 }
-                            case Role.Guest2:
+                            case Role.Tourist:
                             default:
                                 {
-                                    var guest2View = new Guest2View();
-                                    guest2View.Show();
+                                    var touristView = new TouristView();
+                                    touristView.Show();
                                     break;
                                 }
                         }
