@@ -203,15 +203,60 @@
                                 <RowDefinition />
                                 <RowDefinition />
                             </Grid.RowDefinitions>
-                            <ListBox
-                                Name="KeyPointsGrid"
-                                Margin="10"
-                                ItemsSource="{Binding KeyPoints}" />
-                            <ListBox
-                                Grid.Row="1"
-                                Name="Tourists"
-                                Margin="10"
-                                ItemsSource="{Binding Tourists}" />
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <ListView
+                                    Name="ListViewKeyPoints"
+                                    Grid.Column="0"
+                                    FontSize="16"
+                                    ItemsSource="{Binding KeyPoints}">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <EventSetter Event="KeyDown" Handler="ChangeCurrentKeyPoint_OnClick" />
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                </ListView>
+                                <ListView
+                                    Name="ListViewPassed"
+                                    Grid.Column="1"
+                                    FontSize="16"
+                                    ItemsSource="{Binding PassedKeyPoints}">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem" />
+                                    </ListView.ItemContainerStyle>
+                                </ListView>
+                            </Grid>
+
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <ListView
+                                    Name="ListViewTourists"
+                                    Margin="10"
+                                    ItemsSource="{Binding Tourists}">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <EventSetter Event="KeyDown" Handler="TouristCheckup_OnClick" />
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                </ListView>
+                                <ListView
+                                    Name="ListViewCheckedTourists"
+                                    Grid.Column="1"
+                                    FontSize="16"
+                                    ItemsSource="{Binding CheckedTourists}">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem" />
+                                    </ListView.ItemContainerStyle>
+                                </ListView>
+                            </Grid>
+
                         </Grid>
 
                     </Grid>

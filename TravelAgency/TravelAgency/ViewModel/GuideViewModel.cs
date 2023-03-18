@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing.Drawing2D;
 using System.Linq;
+using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -211,6 +212,41 @@ namespace TravelAgency.ViewModel
                 var tourists = _activeTourRepository.GetActiveTourData("Tourists");
                 var touristsList = tourists.Split(", ").ToList(); 
                 return touristsList;
+            }
+        }
+
+        public List<string> PassedKeyPoints
+        {
+            get
+            {
+                var keyPoints = _activeTourRepository.GetActiveTourData("KeyPointsList");
+                var keyPointsList = keyPoints.Split(", ").ToList();
+                var passedKeyPoints = new List<string>();
+
+                foreach (var keyPoint in keyPointsList)
+                {
+                    var city = keyPoint.Split(":");
+                    passedKeyPoints.Add(city[1]);
+                }
+
+                return passedKeyPoints;
+            }
+        }
+
+        public List<string> CheckedTourists
+        {
+            get
+            {
+                var tourists = _activeTourRepository.GetActiveTourData("Tourists");
+                var touristsList = tourists.Split(", ").ToList();
+                var checkedTourists = new List<string>();
+
+                foreach (var tourist in touristsList)
+                {
+                    checkedTourists.Add(_touristRepository.GetByUsername(tourist)!.TouristCheck.ToString());
+                }
+
+                return checkedTourists;
             }
         }
     }

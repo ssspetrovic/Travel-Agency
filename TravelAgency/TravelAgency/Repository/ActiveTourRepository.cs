@@ -1,6 +1,8 @@
 ﻿using Microsoft.Data.Sqlite;
 using System;
 using System.Data;
+using System.Linq;
+using System.Windows;
 using TravelAgency.Model;
 
 namespace TravelAgency.Repository
@@ -15,6 +17,8 @@ namespace TravelAgency.Repository
             var keyPointsList = "";
             var touristsList = "";
 
+            activeTourModel.KeyPoints[0] = true;
+
             foreach (var tour in activeTourModel.KeyPoints)
             {
                 keyPointsList += tour.Key.ToString() + ":" + tour.Value.ToString() + ", ";
@@ -24,7 +28,7 @@ namespace TravelAgency.Repository
 
             foreach (var tourist in activeTourModel.Tourists)
             {
-                touristsList += tourist.Name + ", ";
+                touristsList += tourist.UserName + ", ";
             }
 
             touristsList = touristsList.Remove(touristsList.Length - 2, 2);
@@ -88,6 +92,51 @@ namespace TravelAgency.Repository
             using var selectReader = selectCommand.ExecuteReader();
 
             return selectReader.Read() ? selectReader.GetString(0) : "Error";
+        }
+
+        public void RemoveKeyPoint(string keyPoint)
+        {
+            var locationRepository = new LocationRepository();
+            keyPoint = locationRepository.GetByCity(keyPoint)!.Id.ToString();
+
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            const string selectStatement = "select KeyPointsList from ActiveTour";
+            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
+            using var selectReader = selectCommand.ExecuteReader();
+
+            var keyPoints = "";
+
+            if (selectReader.Read())
+            {
+                keyPoints = selectReader.GetString(0);
+            }
+
+            databaseConnection.Close();
+            databaseConnection.Open();
+
+            var keyPointsList = keyPoints.Split(", ").ToList();
+
+            for (var i = 0; i < keyPointsList.Capacity; i++)
+            {
+                var location = keyPointsList[i];
+                if (location.Contains(keyPoint + ":False"))
+                    keyPointsList[i] = keyPoint + ":True";
+                else if(location.Contains(keyPoint + ":True"))
+                {
+                    MessageBox.Show("We already passed this key point!");
+                    break;
+                }
+            }
+
+            keyPoints = string.Join(", ", keyPointsList);
+
+            const string updateStatement = "update ActiveTour set KeyPointsList = $KeyPointsList";
+            using var updateCommand = new SqliteCommand(updateStatement, databaseConnection);
+            updateCommand.Parameters.AddWithValue("KeyPointsList", keyPoints);
+            updateCommand.ExecuteNonQuery();
+
         }
     }
 }

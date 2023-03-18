@@ -16,5 +16,6 @@ namespace TravelAgency.Model
         DataTable GetActiveTour(DataTable dt);
         bool IsActive();
         string GetActiveTourData(string column);
+        void RemoveKeyPoint(string keyPoint);
     }
 }
