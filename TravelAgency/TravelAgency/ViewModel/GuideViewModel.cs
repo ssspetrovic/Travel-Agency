@@ -1,6 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing.Drawing2D;
+using System.Linq;
+using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using TravelAgency.Model;
 using TravelAgency.Repository;
@@ -14,6 +19,8 @@ namespace TravelAgency.ViewModel
         private string _caption = null!;
         private readonly TourRepository _tourRepository;
         private readonly LocationRepository _locationRepository;
+        private readonly ActiveTourRepository _activeTourRepository;
+        private readonly TouristRepository _touristRepository;
 
         public CurrentUserModel CurrentUserAccount
         {
@@ -71,6 +78,10 @@ namespace TravelAgency.ViewModel
 
             _tourRepository = new TourRepository();
 
+            _activeTourRepository = new ActiveTourRepository();
+
+            _touristRepository = new TouristRepository();
+
             CurrentUserAccount = new CurrentUserModel();
 
             ShowGuideViewCommand = new ViewModelCommand(ExecuteShowGuideViewCommand);
@@ -85,9 +96,9 @@ namespace TravelAgency.ViewModel
                 var dt = new DataTable();
                 dt = _tourRepository.GetByAll(dt);
 
-                ConvertColumn(dt, "Location_Id", typeof(string), "Location");
-                ConvertColumn(dt, "Language", typeof(string), "Language");
-                ConvertColumn(dt, "LocationList", typeof(string), "KeyPoints");
+                ConvertTourColumn(dt, "Location_Id", typeof(string), "Location");
+                ConvertTourColumn(dt, "Language", typeof(string), "Language");
+                ConvertTourColumn(dt, "LocationList", typeof(string), "KeyPoints");
 
                 return dt.DefaultView;
             }
@@ -115,14 +126,14 @@ namespace TravelAgency.ViewModel
                     dt.Rows.RemoveAt(indexList[i]);
                 }
 
-                ConvertColumn(dt, "Location_Id", typeof(string), "Location");
-                ConvertColumn(dt, "Language", typeof(string), "Language");
-                ConvertColumn(dt, "LocationList", typeof(string), "KeyPoints");
+                ConvertTourColumn(dt, "Location_Id", typeof(string), "Location");
+                ConvertTourColumn(dt, "Language", typeof(string), "Language");
+                ConvertTourColumn(dt, "LocationList", typeof(string), "KeyPoints");
 
                 return dt.DefaultView;
             }
         }
-        public void ConvertColumn(DataTable dt, string columnName, Type newType, string tourParameter)
+        public void ConvertTourColumn(DataTable dt, string columnName, Type newType, string tourParameter)
         {
             var textList = new List<string?>();
 
@@ -168,29 +179,92 @@ namespace TravelAgency.ViewModel
             }
         }
 
+        public string ActiveTourName => _activeTourRepository.GetActiveTourData("Name");
 
-
-
-
-        public string TourName
+        public List<string> KeyPoints
         {
             get
             {
-                var dt = new DataTable();
-                dt = _tourRepository.GetByAll(dt);
+                var keyPoints = _activeTourRepository.GetActiveTourData("KeyPointsList");
+                var keyPointsList = keyPoints.Split(", ").ToList();
+                var locations = new List<LocationModel?>();
+                var cities = new List<string>();
 
-                return (string)dt.Rows[0].ItemArray[1]!;
+                foreach (var keyPoint in keyPointsList)
+                {
+                    var city = keyPoint.Split(":");
+                    locations.Add(_locationRepository.GetByCity(city[0]));
+                }
+
+                foreach (var location in locations)
+                {
+                    cities.Add(location?.City!);
+                }
+
+                return cities;
             }
         }
 
-        public DataView ActiveTour
+        public List<string> Tourists
         {
             get
             {
-                var dt = new DataTable();
-                dt = _tourRepository.GetByAll(dt);
-                
-                return dt.DefaultView;
+                var tourists = _activeTourRepository.GetActiveTourData("Tourists");
+                var touristsList = tourists.Split(", ").ToList(); 
+                return touristsList;
+            }
+        }
+
+        public List<string> PassedKeyPoints
+        {
+            get
+            {
+                var keyPoints = _activeTourRepository.GetActiveTourData("KeyPointsList");
+                var keyPointsList = keyPoints.Split(", ").ToList();
+                var passedKeyPoints = new List<string>();
+
+                foreach (var keyPoint in keyPointsList)
+                {
+                    var city = keyPoint.Split(":");
+                    passedKeyPoints.Add(city[1]);
+                }
+
+                return passedKeyPoints;
+            }
+        }
+
+        public List<string> CheckedTourists
+        {
+            get
+            {
+                var tourists = _activeTourRepository.GetActiveTourData("Tourists");
+                var touristsList = tourists.Split(", ").ToList();
+                var checkedTourists = new List<string>();
+
+                foreach (var tourist in touristsList)
+                {
+                    checkedTourists.Add(_touristRepository.GetByUsername(tourist)!.TouristCheck.ToString());
+                }
+
+                return checkedTourists;
+            }
+        }
+
+        public List<string> StartingLocation
+        {
+            get
+            {
+                var tourists = _activeTourRepository.GetActiveTourData("Tourists");
+                var touristsList = tourists.Split(", ").ToList();
+                var locations = new List<string>();
+
+                foreach (var tourist in touristsList)
+                {
+                    var currentTourist = _touristRepository.GetByUsername(tourist)!;
+                    locations.Add(_locationRepository.GetById(currentTourist.LocationId)!.City);
+                }
+
+                return locations;
             }
         }
     }

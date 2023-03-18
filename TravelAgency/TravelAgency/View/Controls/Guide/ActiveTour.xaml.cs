@@ -1,7 +1,12 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.ComponentModel;
+using System.Data;
+using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Interop;
+using TravelAgency.Repository;
 
 namespace TravelAgency.View.Controls.Guide
 {
@@ -61,6 +66,37 @@ namespace TravelAgency.View.Controls.Guide
         private void TourIsActive_OnClick(object sender, RoutedEventArgs e)
         {
             throw new System.NotImplementedException();
+        }
+
+        private void KeyPointPassed_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private void ChangeCurrentKeyPoint_OnClick(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Enter) return;
+
+            var keyPoint = (string) ListViewKeyPoints.SelectedItem;
+            var activeTourRepository = new ActiveTourRepository();
+            activeTourRepository.RemoveKeyPoint(keyPoint); 
+
+            var activeTour = new ActiveTour();
+            activeTour.Show();
+            Close();
+        }
+
+        private void TouristCheckup_OnClick(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Enter) return;
+            var tourist = (string)ListViewTourists.SelectedItem;
+            var touristRepository = new TouristRepository();
+            touristRepository.CheckTourist(tourist);
+            MessageBox.Show(tourist);
+
+            var activeTour = new ActiveTour();
+            activeTour.Show();
+            Close();
         }
     }
 }

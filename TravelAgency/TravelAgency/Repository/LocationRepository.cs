@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using TravelAgency.Model;
 
@@ -72,9 +73,16 @@ namespace TravelAgency.Repository
             return null;
         }
 
-        public IEnumerable<LocationModel> GetByAll()
+        public DataTable GetByAll(DataTable dt)
         {
-            throw new NotImplementedException();
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            const string selectStatement = "select * from Location";
+            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
+
+            dt.Load(selectCommand.ExecuteReader());
+            return dt;
         }
 
         public List<LocationModel?> GetByAllCities(List<string> cities)

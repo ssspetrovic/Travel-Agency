@@ -8,7 +8,8 @@ namespace TravelAgency.Model
         void Edit(TouristModel tourModel);
         void Remove(int id);
         TouristModel GetById(int id);
-        TouristModel GetByName(string? name);
+        TouristModel GetByUsername(string? username);
         List<TouristModel> GetByTour(TourModel tour);
+        void CheckTourist(string username);
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
 using System.Windows;
+using System.Xml.Linq;
 using TravelAgency.Model;
 
 namespace TravelAgency.Repository
@@ -52,7 +53,29 @@ namespace TravelAgency.Repository
 
         public TourModel GetById(int id)
         {
-            throw new NotImplementedException();
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+            TourModel? tourModel = null;
+
+            const string selectStatement = "select * from Tour where Id = $Id";
+            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
+            selectCommand.Parameters.AddWithValue("$Id", id);
+
+            using var selectReader = selectCommand.ExecuteReader();
+
+            if (!selectReader.Read()) return tourModel!;
+
+
+            var locationRepository = new LocationRepository();
+            var location = locationRepository.GetById(selectReader.GetInt32(2));
+            var keyPointsList = selectReader.GetString(6).Split(", ").ToList();
+            var keyPoints = locationRepository.GetByAllCities(keyPointsList);
+
+            tourModel = new TourModel(selectReader.GetInt32(0), selectReader.GetString(1),
+                location!, selectReader.GetString(3), (Language)selectReader.GetInt32(4), selectReader.GetInt32(5),
+                keyPoints!, selectReader.GetString(7), selectReader.GetFloat(8), selectReader.GetString(9));
+
+            return tourModel;
         }
 
         public TourModel GetByName(string? name)
@@ -137,7 +160,7 @@ namespace TravelAgency.Repository
 
                 tourList.Add(new TourModel(selectReader.GetInt32(0), selectReader.GetString(1),
                     location!, selectReader.GetString(3), (Language)selectReader.GetInt32(4), selectReader.GetInt32(5),
-                    keyPoints, selectReader.GetString(7), selectReader.GetFloat(8), selectReader.GetString(9)));
+                    keyPoints!, selectReader.GetString(7), selectReader.GetFloat(8), selectReader.GetString(9)));
             }
 
             return tourList;

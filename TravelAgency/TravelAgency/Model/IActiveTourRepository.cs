@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data;
 
 namespace TravelAgency.Model
 {
@@ -14,7 +9,8 @@ namespace TravelAgency.Model
         void Remove(int id);
         ActiveTourModel GetById(int id);
         DataTable GetActiveTour(DataTable dt);
-
         bool IsActive();
+        string GetActiveTourData(string column);
+        void RemoveKeyPoint(string keyPoint);
     }
 }

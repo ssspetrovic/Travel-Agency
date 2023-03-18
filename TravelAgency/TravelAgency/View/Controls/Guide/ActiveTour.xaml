@@ -162,7 +162,7 @@
                                     FontSize="18"
                                     FontWeight="Bold"
                                     Foreground="#4fc3f7"
-                                    Text="{Binding Path=ActiveTour}" />
+                                    Text="{Binding Path=ActiveTourName}" />
 
                             </StackPanel>
 
@@ -199,57 +199,84 @@
                         </Grid>
 
                         <Grid Grid.Row="2" Margin="25">
-                            <DataGrid
-                                Name="DataGrid"
-                                Margin="10"
-                                AutoGenerateColumns="False"
-                                ItemsSource="{Binding ToursToday}"
-                                SelectionUnit="Cell">
-                                <DataGrid.Columns>
-                                    <DataGridHyperlinkColumn
-                                        Binding="{Binding Path=Name}"
-                                        Header="Name"
-                                        IsReadOnly="True">
-                                        <DataGridHyperlinkColumn.ElementStyle>
-                                            <Style>
-                                                <EventSetter Event="Hyperlink.Click" Handler="TourIsActive_OnClick" />
-                                            </Style>
-                                        </DataGridHyperlinkColumn.ElementStyle>
-                                    </DataGridHyperlinkColumn>
-                                    <DataGridTextColumn
-                                        Binding="{Binding Path=Location_Id}"
-                                        Header="Location"
-                                        IsReadOnly="True" />
-                                    <DataGridTextColumn
-                                        Binding="{Binding Path=Description}"
-                                        Header="Description"
-                                        IsReadOnly="True" />
-                                    <DataGridTextColumn
-                                        Binding="{Binding Path=Language}"
-                                        Header="Language"
-                                        IsReadOnly="True" />
-                                    <DataGridTextColumn
-                                        Binding="{Binding Path=MaxGuests}"
-                                        Header="Max Guests"
-                                        IsReadOnly="True" />
-                                    <DataGridTextColumn
-                                        Binding="{Binding Path=LocationList}"
-                                        Header="Key Points"
-                                        IsReadOnly="True" />
-                                    <DataGridTextColumn
-                                        Binding="{Binding Path=Date}"
-                                        Header="Date"
-                                        IsReadOnly="True" />
-                                    <DataGridTextColumn
-                                        Binding="{Binding Path=Duration}"
-                                        Header="Duration"
-                                        IsReadOnly="True" />
-                                    <DataGridTextColumn
-                                        Binding="{Binding Path=Images}"
-                                        Header="Images"
-                                        IsReadOnly="True" />
-                                </DataGrid.Columns>
-                            </DataGrid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <Grid>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <ListView
+                                    Name="ListViewKeyPoints"
+                                    Grid.Column="0"
+                                    FontSize="16"
+                                    ItemsSource="{Binding KeyPoints}">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <EventSetter Event="KeyDown" Handler="ChangeCurrentKeyPoint_OnClick" />
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                </ListView>
+
+                                <ListView
+                                    Name="ListViewPassed"
+                                    Grid.Column="1"
+                                    FontSize="16"
+                                    ItemsSource="{Binding PassedKeyPoints}">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem" />
+                                    </ListView.ItemContainerStyle>
+                                </ListView>
+
+                            </Grid>
+
+                            <Grid Grid.Row="1">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <ListView
+                                    Name="ListViewTourists"
+                                    Margin="10"
+                                    FontSize="16"
+                                    ItemsSource="{Binding Tourists}">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <EventSetter Event="KeyDown" Handler="TouristCheckup_OnClick" />
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                </ListView>
+
+                                <ListView
+                                    Name="ListViewStartingLocation"
+                                    Grid.Column="1"
+                                    FontSize="16"
+                                    ItemsSource="{Binding StartingLocation}">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem" />
+                                    </ListView.ItemContainerStyle>
+                                </ListView>
+
+                                <ListView
+                                    Name="ListViewCheckedTourists"
+                                    Grid.Column="2"
+                                    FontSize="16"
+                                    ItemsSource="{Binding CheckedTourists}">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem" />
+                                    </ListView.ItemContainerStyle>
+                                </ListView>
+
+                            </Grid>
+
                         </Grid>
 
                     </Grid>
