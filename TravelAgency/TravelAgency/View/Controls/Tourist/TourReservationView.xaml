@@ -114,8 +114,9 @@
                 </WrapPanel>
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="200" />
+                        <RowDefinition Height="180" />
                         <RowDefinition />
+                        <RowDefinition Height="80" />
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0" Margin="0,10,0,0">
                         <Label
@@ -126,12 +127,14 @@
                             Style="{StaticResource MaterialDesignLabel}" />
                         <WrapPanel Margin="0,20,0,20" HorizontalAlignment="Center">
                             <TextBox
+                                x:Name="SearchTextBox"
                                 Width="400"
                                 Height="40"
                                 Padding="10,0"
                                 VerticalContentAlignment="Center"
                                 FontSize="15"
-                                Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                TextChanged="TextBoxBase_OnTextChanged" />
                             <Button
                                 Height="40"
                                 Margin="10,0"
@@ -141,6 +144,7 @@
                             <RadioButton
                                 Margin="10,0"
                                 Content="All tours"
+                                IsChecked="True"
                                 Style="{StaticResource MaterialDesignRadioButton}" />
                             <RadioButton
                                 Margin="10,0"
@@ -161,21 +165,27 @@
                         </WrapPanel>
                     </StackPanel>
                     <ListView
+                        x:Name="ToursListView"
                         Grid.Row="1"
-                        Margin="0,0,0,20"
+                        Margin="20,0"
                         HorizontalAlignment="Center"
-                        ItemsSource="{Binding Tours}"
+                        d:ItemsSource="{d:SampleData ItemCount=5}"
+                        ItemsSource="{Binding ToursCollection}"
                         Style="{StaticResource MaterialDesignListView}">
                         <ListView.View>
-                            <GridView AllowsColumnReorder="False">
+                            <GridView x:Name="GridView" AllowsColumnReorder="False">
                                 <GridViewColumn
                                     Width="150"
                                     DisplayMemberBinding="{Binding Path=Name}"
                                     Header="Name" />
                                 <GridViewColumn
                                     Width="150"
-                                    DisplayMemberBinding="{Binding Path=Location_Id}"
-                                    Header="Location" />
+                                    DisplayMemberBinding="{Binding Path=Location.City}"
+                                    Header="City" />
+                                <GridViewColumn
+                                    Width="150"
+                                    DisplayMemberBinding="{Binding Path=Location.Country}"
+                                    Header="Country" />
                                 <GridViewColumn
                                     Width="150"
                                     DisplayMemberBinding="{Binding Path=Language}"
@@ -187,6 +197,11 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
+                    <Button
+                        Grid.Row="2"
+                        Width="150"
+                        Height="40"
+                        Content="Make reservation" />
                 </Grid>
             </Grid>
         </Grid>
