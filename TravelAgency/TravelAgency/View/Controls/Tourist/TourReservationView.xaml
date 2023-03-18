@@ -128,6 +128,9 @@
                             <TextBox
                                 Width="400"
                                 Height="40"
+                                Padding="10,0"
+                                VerticalContentAlignment="Center"
+                                FontSize="15"
                                 Style="{StaticResource MaterialDesignOutlinedTextBox}" />
                             <Button
                                 Height="40"
@@ -164,7 +167,7 @@
                         ItemsSource="{Binding Tours}"
                         Style="{StaticResource MaterialDesignListView}">
                         <ListView.View>
-                            <GridView>
+                            <GridView AllowsColumnReorder="False">
                                 <GridViewColumn
                                     Width="150"
                                     DisplayMemberBinding="{Binding Path=Name}"
