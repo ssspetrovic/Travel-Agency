@@ -89,9 +89,14 @@ namespace TravelAgency.View.Controls.Guide
         private void TouristCheckup_OnClick(object sender, KeyEventArgs e)
         {
             if (e.Key != Key.Enter) return;
-            var drv = (string)ListViewTourists.SelectedItem;
-            //activeTourRepository.RemoveKeyPoint();
-            MessageBox.Show(drv);
+            var tourist = (string)ListViewTourists.SelectedItem;
+            var touristRepository = new TouristRepository();
+            touristRepository.CheckTourist(tourist);
+            MessageBox.Show(tourist);
+
+            var activeTour = new ActiveTour();
+            activeTour.Show();
+            Close();
         }
     }
 }

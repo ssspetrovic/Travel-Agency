@@ -4,6 +4,7 @@ using System.Data;
 using System.Windows;
 using Microsoft.Data.Sqlite;
 using TravelAgency.Model;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace TravelAgency.Repository
 {
@@ -48,7 +49,7 @@ namespace TravelAgency.Repository
                 tourist = new TouristModel(selectReader.GetInt32(0), selectReader.GetString(1), selectReader.GetString(2),
                     selectReader.GetString(3),
                     selectReader.GetString(4), selectReader.GetString(5), Role.Tourist,
-                    tourRepository.GetById(selectReader.GetInt32(7)), (TouristCheck)selectReader.GetInt32(8));
+                    tourRepository.GetById(selectReader.GetInt32(7)), (TouristCheck)selectReader.GetInt32(8), selectReader.GetInt32(9));
 
             return tourist;
         }
@@ -65,10 +66,31 @@ namespace TravelAgency.Repository
 
             using var selectReader = selectCommand.ExecuteReader();
             while (selectReader.Read())
-                tourists.Add(new TouristModel(selectReader.GetString(1), selectReader.GetString(2), selectReader.GetString(3), selectReader.GetString(4), selectReader.GetString(5), (Role) selectReader.GetInt32(6), tour, TouristCheck.Unchecked));
+                tourists.Add(new TouristModel(selectReader.GetString(1), selectReader.GetString(2), selectReader.GetString(3), selectReader.GetString(4), selectReader.GetString(5), (Role) selectReader.GetInt32(6), tour, TouristCheck.Unchecked, selectReader.GetInt32(9)));
             
-
             return tourists;
+        }
+
+        public void CheckTourist(string username)
+        {
+            var tourist = GetByUsername(username);
+
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            const string selectStatement = "update Tourist set IsChecked = $IsChecked where Username = $Username";
+            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
+            selectCommand.Parameters.AddWithValue("$Username", username);
+
+            if (tourist.TouristCheck == TouristCheck.Unchecked)
+                selectCommand.Parameters.AddWithValue("$IsChecked", TouristCheck.Pinged);
+            else
+            {
+                MessageBox.Show("Tourist has already been pinged before!");
+                selectCommand.Parameters.AddWithValue("$IsChecked", tourist.TouristCheck);
+            }
+
+            selectCommand.ExecuteNonQuery();
         }
     }
 }

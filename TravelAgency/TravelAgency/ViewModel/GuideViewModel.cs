@@ -249,5 +249,23 @@ namespace TravelAgency.ViewModel
                 return checkedTourists;
             }
         }
+
+        public List<string> StartingLocation
+        {
+            get
+            {
+                var tourists = _activeTourRepository.GetActiveTourData("Tourists");
+                var touristsList = tourists.Split(", ").ToList();
+                var locations = new List<string>();
+
+                foreach (var tourist in touristsList)
+                {
+                    var currentTourist = _touristRepository.GetByUsername(tourist)!;
+                    locations.Add(_locationRepository.GetById(currentTourist.LocationId)!.City);
+                }
+
+                return locations;
+            }
+        }
     }
 }

@@ -205,10 +205,12 @@
                             </Grid.RowDefinitions>
 
                             <Grid>
+
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition />
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
+
                                 <ListView
                                     Name="ListViewKeyPoints"
                                     Grid.Column="0"
@@ -220,6 +222,7 @@
                                         </Style>
                                     </ListView.ItemContainerStyle>
                                 </ListView>
+
                                 <ListView
                                     Name="ListViewPassed"
                                     Grid.Column="1"
@@ -229,16 +232,21 @@
                                         <Style TargetType="ListViewItem" />
                                     </ListView.ItemContainerStyle>
                                 </ListView>
+
                             </Grid>
 
                             <Grid Grid.Row="1">
+
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition />
                                     <ColumnDefinition />
+                                    <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
+
                                 <ListView
                                     Name="ListViewTourists"
                                     Margin="10"
+                                    FontSize="16"
                                     ItemsSource="{Binding Tourists}">
                                     <ListView.ItemContainerStyle>
                                         <Style TargetType="ListViewItem">
@@ -246,15 +254,27 @@
                                         </Style>
                                     </ListView.ItemContainerStyle>
                                 </ListView>
+
+                                <ListView
+                                    Name="ListViewStartingLocation"
+                                    Grid.Column="1"
+                                    FontSize="16"
+                                    ItemsSource="{Binding StartingLocation}">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem" />
+                                    </ListView.ItemContainerStyle>
+                                </ListView>
+
                                 <ListView
                                     Name="ListViewCheckedTourists"
-                                    Grid.Column="1"
+                                    Grid.Column="2"
                                     FontSize="16"
                                     ItemsSource="{Binding CheckedTourists}">
                                     <ListView.ItemContainerStyle>
                                         <Style TargetType="ListViewItem" />
                                     </ListView.ItemContainerStyle>
                                 </ListView>
+
                             </Grid>
 
                         </Grid>
