@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
     xmlns:local="clr-namespace:TravelAgency.View.Controls.Tourist"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModel="clr-namespace:TravelAgency.ViewModel"
     Title="Tour Reservation"
@@ -111,33 +112,79 @@
                         FontSize="18"
                         Style="{StaticResource MaterialDesignFlatButton}" />
                 </WrapPanel>
-                <ListView
-                    Grid.Row="1"
-                    Margin="0,40"
-                    HorizontalAlignment="Center"
-                    ItemsSource="{Binding Tours}"
-                    Style="{StaticResource MaterialDesignListView}">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn
-                                Width="150"
-                                DisplayMemberBinding="{Binding Path=Name}"
-                                Header="Name" />
-                            <GridViewColumn
-                                Width="150"
-                                DisplayMemberBinding="{Binding Path=Location_Id}"
-                                Header="Location" />
-                            <GridViewColumn
-                                Width="150"
-                                DisplayMemberBinding="{Binding Path=Language}"
-                                Header="Language" />
-                            <GridViewColumn
-                                Width="150"
-                                DisplayMemberBinding="{Binding Path=MaxGuests}"
-                                Header="Max Guests" />
-                        </GridView>
-                    </ListView.View>
-                </ListView>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="200" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Margin="0,10,0,0">
+                        <Label
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Content="Tours search"
+                            FontSize="25"
+                            Style="{StaticResource MaterialDesignLabel}" />
+                        <WrapPanel Margin="0,20,0,20" HorizontalAlignment="Center">
+                            <TextBox
+                                Width="400"
+                                Height="40"
+                                Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                            <Button
+                                Height="40"
+                                Margin="10,0"
+                                Content="Search" />
+                        </WrapPanel>
+                        <WrapPanel HorizontalAlignment="Center">
+                            <RadioButton
+                                Margin="10,0"
+                                Content="All tours"
+                                Style="{StaticResource MaterialDesignRadioButton}" />
+                            <RadioButton
+                                Margin="10,0"
+                                Content="Location"
+                                Style="{StaticResource MaterialDesignRadioButton}" />
+                            <RadioButton
+                                Margin="10,0"
+                                Content="Duration"
+                                Style="{StaticResource MaterialDesignRadioButton}" />
+                            <RadioButton
+                                Margin="10,0"
+                                Content="Language"
+                                Style="{StaticResource MaterialDesignRadioButton}" />
+                            <RadioButton
+                                Margin="10,0"
+                                Content="People count"
+                                Style="{StaticResource MaterialDesignRadioButton}" />
+                        </WrapPanel>
+                    </StackPanel>
+                    <ListView
+                        Grid.Row="1"
+                        Margin="0,0,0,20"
+                        HorizontalAlignment="Center"
+                        ItemsSource="{Binding Tours}"
+                        Style="{StaticResource MaterialDesignListView}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn
+                                    Width="150"
+                                    DisplayMemberBinding="{Binding Path=Name}"
+                                    Header="Name" />
+                                <GridViewColumn
+                                    Width="150"
+                                    DisplayMemberBinding="{Binding Path=Location_Id}"
+                                    Header="Location" />
+                                <GridViewColumn
+                                    Width="150"
+                                    DisplayMemberBinding="{Binding Path=Language}"
+                                    Header="Language" />
+                                <GridViewColumn
+                                    Width="150"
+                                    DisplayMemberBinding="{Binding Path=MaxGuests}"
+                                    Header="Max Guests" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
             </Grid>
         </Grid>
     </Border>
