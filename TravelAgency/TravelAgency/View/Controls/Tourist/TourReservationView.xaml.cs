@@ -12,20 +12,18 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using TravelAgency.View.Controls.Tourist;
 
-namespace TravelAgency.View
+namespace TravelAgency.View.Controls.Tourist
 {
     /// <summary>
-    /// Interaction logic for TouristView.xaml
+    /// Interaction logic for TourReservationView.xaml
     /// </summary>
-    public partial class TouristView : Window
+    public partial class TourReservationView : Window
     {
-        public TouristView()
+        public TourReservationView()
         {
             InitializeComponent();
         }
-
         private void SignOutButton_OnClick(object sender, RoutedEventArgs e)
         {
             var signInView = new SignInView();
@@ -41,13 +39,6 @@ namespace TravelAgency.View
 
         private void CloseButton_OnClick(object sender, RoutedEventArgs e)
         {
-            Close();
-        }
-
-        private void TourReservationButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            var tourReservation = new TourReservationView();
-            tourReservation.Show();
             Close();
         }
     }

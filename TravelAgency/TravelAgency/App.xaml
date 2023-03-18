@@ -3,6 +3,8 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:TravelAgency"
+    xmlns:view="clr-namespace:TravelAgency.View"
+    xmlns:viewModel="clr-namespace:TravelAgency.ViewModel"
     StartupUri="/View/SignInView.xaml">
     <Application.Resources>
         <ResourceDictionary>

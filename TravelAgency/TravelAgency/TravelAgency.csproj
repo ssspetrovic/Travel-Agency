@@ -23,7 +23,6 @@
     <Folder Include="Service\" />
     <Folder Include="Service\" />
     <Folder Include="View\Controls\Guest1\" />
-    <Folder Include="View\Controls\Tourist\" />
     <Folder Include="View\Controls\Owner\" />
   </ItemGroup>
 
