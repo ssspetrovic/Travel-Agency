@@ -16,14 +16,13 @@
     WindowStyle="None"
     mc:Ignorable="d">
     <Window.Resources>
-        <ResourceDictionary Source="../Resources/Styles/Tourist.xaml" />
+        <ResourceDictionary Source="../Resources/Styles/TouristDictionary.xaml" />
     </Window.Resources>
     <Border Background="{StaticResource MaterialDesignBackground}" CornerRadius="15">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200" />
-                <ColumnDefinition Width="45*" />
-                <ColumnDefinition Width="671*"/>
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Border Grid.Column="0" CornerRadius="15,0,0,15">
                 <Border.Background>
@@ -42,23 +41,28 @@
                         Foreground="{StaticResource MaterialDesignBackground}"
                         Text="Travel Agency"
                         TextAlignment="Center" />
-                    <RadioButton
-                        x:Name="TourReservationButton"
-                        Grid.Row="1"
-                        Width="150"
-                        Height="50"
-                        Margin="20"
-                        VerticalAlignment="Top"
-                        Content="Tour reservation"
-                        FontSize="17"
-                        Foreground="White"
-                        Style="{StaticResource MenuButtonStyle}" />
+                    <StackPanel Grid.Row="1" Margin="0,30">
+                        <RadioButton
+                            x:Name="HomeButton"
+                            Height="50"
+                            Content="Home"
+                            FontSize="17"
+                            Foreground="White"
+                            IsChecked="True"
+                            Style="{StaticResource MenuButtonStyle}" />
+                        <RadioButton
+                            x:Name="TourReservationButton"
+                            Height="50"
+                            Content="Tour reservation"
+                            FontSize="17"
+                            Foreground="White"
+                            Style="{StaticResource MenuButtonStyle}" />
+                    </StackPanel>
                     <RadioButton
                         x:Name="SignOutButton"
                         Grid.Row="2"
                         Width="160"
                         Height="50"
-                        HorizontalAlignment="Center"
                         Click="SignOutButton_OnClick"
                         Style="{StaticResource MenuButtonStyle}">
                         <WrapPanel
@@ -79,10 +83,9 @@
                     </RadioButton>
                 </Grid>
             </Border>
-            <Grid Grid.Column="1" Grid.ColumnSpan="2">
+            <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="45" />
-                    <RowDefinition />
                 </Grid.RowDefinitions>
                 <WrapPanel Grid.Row="0">
                     <Border
