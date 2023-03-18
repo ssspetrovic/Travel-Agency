@@ -6,7 +6,7 @@ namespace TravelAgency.Model
     {
         void Add(ActiveTourModel activeTourModel);
         void Edit(ActiveTourModel activeTourModel);
-        void Remove(int id);
+        void Remove();
         ActiveTourModel GetById(int id);
         DataTable GetActiveTour(DataTable dt);
         bool IsActive();

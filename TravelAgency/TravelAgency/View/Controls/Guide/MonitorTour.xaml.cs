@@ -104,7 +104,6 @@ namespace TravelAgency.View.Controls.Guide
                 var touristRepository = new TouristRepository();
                 var tourists = touristRepository.GetByTour(selectedTour);
 
-                MessageBox.Show(selectedTour.KeyPoints[0].City);
 
                 var activeKeyPoints = selectedTour.KeyPoints.ToDictionary(location => location.Id, _ => false);
 

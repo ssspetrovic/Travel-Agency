@@ -17,7 +17,7 @@ namespace TravelAgency.Repository
             var keyPointsList = "";
             var touristsList = "";
 
-            activeTourModel.KeyPoints[0] = true;
+            activeTourModel.KeyPoints[activeTourModel.KeyPoints.First().Key] = true;
 
             foreach (var tour in activeTourModel.KeyPoints)
             {
@@ -48,9 +48,14 @@ namespace TravelAgency.Repository
             throw new NotImplementedException();
         }
 
-        public void Remove(int id)
+        public void Remove()
         {
-            throw new NotImplementedException();
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            const string deleteStatement = "delete from ActiveTour";
+            using var deleteCommand = new SqliteCommand(deleteStatement, databaseConnection);
+            deleteCommand.ExecuteNonQuery();
         }
 
         public ActiveTourModel GetById(int id)

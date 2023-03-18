@@ -200,8 +200,9 @@
 
                         <Grid Grid.Row="2" Margin="25">
                             <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="50" />
                             </Grid.RowDefinitions>
 
                             <Grid>
@@ -245,7 +246,6 @@
 
                                 <ListView
                                     Name="ListViewTourists"
-                                    Margin="10"
                                     FontSize="16"
                                     ItemsSource="{Binding Tourists}">
                                     <ListView.ItemContainerStyle>
@@ -275,6 +275,18 @@
                                     </ListView.ItemContainerStyle>
                                 </ListView>
 
+                            </Grid>
+
+                            <Grid Grid.Row="2">
+                                <Button
+                                    Width="80"
+                                    Height="30"
+                                    Margin="0,0,10,0"
+                                    Background="#68cbf8"
+                                    Click="FinishTour_OnClick"
+                                    Content="End Tour"
+                                    FontSize="12"
+                                    Foreground="#ffffff" />
                             </Grid>
 
                         </Grid>

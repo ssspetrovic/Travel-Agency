@@ -4,9 +4,14 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
 using TravelAgency.Repository;
+using Application = System.Windows.Application;
+using KeyEventArgs = System.Windows.Input.KeyEventArgs;
+using MessageBox = System.Windows.MessageBox;
+using MouseEventArgs = System.Windows.Input.MouseEventArgs;
 
 namespace TravelAgency.View.Controls.Guide
 {
@@ -92,10 +97,45 @@ namespace TravelAgency.View.Controls.Guide
             var tourist = (string)ListViewTourists.SelectedItem;
             var touristRepository = new TouristRepository();
             touristRepository.CheckTourist(tourist);
-            MessageBox.Show(tourist);
 
             var activeTour = new ActiveTour();
             activeTour.Show();
+            Close();
+        }
+
+        private void FinishTour_OnClick(object sender, RoutedEventArgs e)
+        {
+            var activeTourRepository = new ActiveTourRepository();
+            var keyPoints = activeTourRepository.GetActiveTourData("KeyPointsList");
+            var passedKeyPoints = keyPoints.Split(", ");
+            var guideView = new GuideView();
+            var counter = 0;
+
+            foreach (var location in passedKeyPoints)
+            {
+                if (location.Contains("False"))
+                {
+                    var question = MessageBox.Show("We haven't passed all key points, are you sure you want to end the tour?", "WAIT", MessageBoxButton.YesNo);
+                    counter++;
+                    if (question == MessageBoxResult.Yes)
+                    {
+                        activeTourRepository.Remove();
+                        guideView.Show();
+                        Close();
+                    }
+                    else
+                    {
+                        var activeTour = new ActiveTour();
+                        activeTour.Show();
+                        Close();
+                    }
+                }
+            }
+
+            if (counter != 0) return;
+            MessageBox.Show("Tour has been finished!");
+            activeTourRepository.Remove();
+            guideView.Show();
             Close();
         }
     }
