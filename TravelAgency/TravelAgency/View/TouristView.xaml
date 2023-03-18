@@ -30,18 +30,20 @@
                 </Border.Background>
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="70" />
+                        <RowDefinition Height="75" />
                         <RowDefinition />
-                        <RowDefinition Height="70" />
+                        <RowDefinition Height="75" />
                     </Grid.RowDefinitions>
                     <TextBlock
                         Grid.Row="0"
+                        Margin="0,20,0,0"
                         VerticalAlignment="Center"
                         FontSize="22"
                         Foreground="{StaticResource MaterialDesignBackground}"
                         Text="Travel Agency"
                         TextAlignment="Center" />
-                    <StackPanel Grid.Row="1" Margin="0,30">
+                    <StackPanel Grid.Row="1" Margin="0,5">
+                        <Separator Style="{StaticResource MaterialDesignLightSeparator}" />
                         <RadioButton
                             x:Name="HomeButton"
                             Height="50"
@@ -62,7 +64,6 @@
                     <RadioButton
                         x:Name="SignOutButton"
                         Grid.Row="2"
-                        Width="160"
                         Height="50"
                         Click="SignOutButton_OnClick"
                         Style="{StaticResource MenuButtonStyle}">

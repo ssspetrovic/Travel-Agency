@@ -41,5 +41,12 @@ namespace TravelAgency.View.Controls.Tourist
         {
             Close();
         }
+
+        private void HomeButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var touristView = new TouristView();
+            touristView.Show();
+            Close();
+        }
     }
 }
