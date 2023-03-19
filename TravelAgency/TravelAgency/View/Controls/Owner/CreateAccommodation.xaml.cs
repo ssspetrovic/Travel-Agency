@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TravelAgency.Model;
+using TravelAgency.Repository;
 
 namespace TravelAgency.View.Controls.Owner
 {
@@ -29,6 +31,25 @@ namespace TravelAgency.View.Controls.Owner
             var OwnerView = new OwnerView();
             OwnerView.Show();
             Close();
+        }
+
+        private AccommodationType findAccommodationType(string text)
+        {
+            if (text == "Apartment")
+                return AccommodationType.Apartment;
+            else if (text == "House")
+                return AccommodationType.House;
+            else
+                return AccommodationType.Cottage;
+        }
+        private void btnCreate_Click(object sender, RoutedEventArgs e)
+        {
+            var name = txtName.Text;
+            var locationRepository = new LocationRepository();
+            var currentLocation = locationRepository.GetByCity(cmbLocation.Text);
+            var type = findAccommodationType(cmbType.Text);
+            var minDaysReservation = Convert.ToInt32(txtMinReservationDays.Text);
+            var daysBeforeCancelation = Convert.ToInt32(txtMinReservationDays.Text);
         }
     }
 }
