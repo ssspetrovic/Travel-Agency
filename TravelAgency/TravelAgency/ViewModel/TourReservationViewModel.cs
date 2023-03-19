@@ -1,15 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
+﻿using System.ComponentModel;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
-using System.Windows.Input;
 using TravelAgency.Model;
 using TravelAgency.Repository;
 
@@ -20,6 +11,21 @@ namespace TravelAgency.ViewModel
         private string? _filterText;
         private readonly CollectionViewSource _toursCollection;
         public new event PropertyChangedEventHandler? PropertyChanged;
+        private bool _isFilteredCollectionEmpty;
+        private bool _shouldUpdateFilteredCollectionEmpty;
+
+
+        public bool IsFilteredCollectionEmpty
+        {
+            get => _isFilteredCollectionEmpty;
+            set
+            {
+                if (_isFilteredCollectionEmpty == value) return;
+
+                _isFilteredCollectionEmpty = value;
+                OnPropertyChanged();
+            }
+        }
 
         public string? FilterText
         {
@@ -27,6 +33,7 @@ namespace TravelAgency.ViewModel
             set
             {
                 _filterText = value;
+                _shouldUpdateFilteredCollectionEmpty = true;
                 _toursCollection.View.Refresh();
                 RaisePropertyChanged("FilterText");
             }
@@ -47,11 +54,8 @@ namespace TravelAgency.ViewModel
 
         private void ToursCollection_Filter(object sender, FilterEventArgs e)
         {
-
-            Debug.WriteLine(FilterText);
             if (string.IsNullOrEmpty(FilterText))
             {
-                Debug.WriteLine("Ne valja");
                 e.Accepted = true;
                 return;
             }
@@ -71,12 +75,25 @@ namespace TravelAgency.ViewModel
             {
                 e.Accepted = false;
             }
-            Debug.WriteLine(e.Accepted);
+
+            _shouldUpdateFilteredCollectionEmpty = true;
+            IsFilteredCollectionEmpty = !e.Accepted && ToursSourceCollection.IsEmpty;
+        }
+
+        private void UpdateFilteredCollectionEmpty()
+        {
+            IsFilteredCollectionEmpty = ToursSourceCollection.IsEmpty;
+            _shouldUpdateFilteredCollectionEmpty = false;
         }
 
         private void RaisePropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+            if (_shouldUpdateFilteredCollectionEmpty)
+            {
+                UpdateFilteredCollectionEmpty();
+            }
         }
     }
 }

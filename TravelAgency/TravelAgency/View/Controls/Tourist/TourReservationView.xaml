@@ -146,38 +146,48 @@
                         Margin="50,0"
                         BorderBrush="{StaticResource MaterialDesignDivider}"
                         BorderThickness="0,2,0,0">
-                        <ListView
-                            x:Name="ToursListView"
-                            Grid.Row="1"
-                            HorizontalAlignment="Center"
-                            d:ItemsSource="{d:SampleData ItemCount=5}"
-                            ItemsSource="{Binding ToursSourceCollection}"
-                            Style="{StaticResource MaterialDesignListView}">
-                            <ListView.View>
-                                <GridView x:Name="GridView" AllowsColumnReorder="False">
-                                    <GridViewColumn
-                                        Width="Auto"
-                                        DisplayMemberBinding="{Binding Path=Name}"
-                                        Header="Name" />
-                                    <GridViewColumn
-                                        Width="Auto"
-                                        DisplayMemberBinding="{Binding Path=Location.City}"
-                                        Header="City" />
-                                    <GridViewColumn
-                                        Width="Auto"
-                                        DisplayMemberBinding="{Binding Path=Location.Country}"
-                                        Header="Country" />
-                                    <GridViewColumn
-                                        Width="Auto"
-                                        DisplayMemberBinding="{Binding Path=Language}"
-                                        Header="Language" />
-                                    <GridViewColumn
-                                        Width="Auto"
-                                        DisplayMemberBinding="{Binding Path=MaxGuests}"
-                                        Header="Max Guests" />
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
+                        <StackPanel>
+
+                            <ListView
+                                x:Name="ToursListView"
+                                Grid.Row="1"
+                                HorizontalAlignment="Center"
+                                d:ItemsSource="{d:SampleData ItemCount=5}"
+                                ItemsSource="{Binding ToursSourceCollection}"
+                                Style="{StaticResource MaterialDesignListView}">
+                                <ListView.View>
+                                    <GridView x:Name="GridView" AllowsColumnReorder="False">
+                                        <GridViewColumn
+                                            Width="Auto"
+                                            DisplayMemberBinding="{Binding Path=Name}"
+                                            Header="Name" />
+                                        <GridViewColumn
+                                            Width="Auto"
+                                            DisplayMemberBinding="{Binding Path=Location.City}"
+                                            Header="City" />
+                                        <GridViewColumn
+                                            Width="Auto"
+                                            DisplayMemberBinding="{Binding Path=Location.Country}"
+                                            Header="Country" />
+                                        <GridViewColumn
+                                            Width="Auto"
+                                            DisplayMemberBinding="{Binding Path=Language}"
+                                            Header="Language" />
+                                        <GridViewColumn
+                                            Width="Auto"
+                                            DisplayMemberBinding="{Binding Path=MaxGuests}"
+                                            Header="Max Guests" />
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                            <TextBox
+                                HorizontalContentAlignment="Center"
+                                BorderThickness="0"
+                                Style="{StaticResource MaterialDesignTextBox}"
+                                Text="No tours match the search criteria." 
+                                Visibility="{Binding IsFilteredCollectionEmpty,
+                                    Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                        </StackPanel>
                     </Border>
                     <Button
                         Grid.Row="2"
