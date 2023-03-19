@@ -1,7 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 using TravelAgency.Model;
 using TravelAgency.Repository;
@@ -17,6 +19,18 @@ namespace TravelAgency.ViewModel
         private bool _isFilteredCollectionEmpty;
         private bool _isListViewShown;
         private bool _shouldUpdateFilteredCollectionEmpty;
+        private TourModel _selectedTour;
+
+        public TourModel SelectedTour
+        {
+            get => _selectedTour;
+
+            set
+            {
+                _selectedTour = value;
+                Debug.WriteLine(_selectedTour.Name);
+            }
+        }
 
         public bool IsFilteredCollectionEmpty
         {
@@ -113,6 +127,14 @@ namespace TravelAgency.ViewModel
             if (_shouldUpdateFilteredCollectionEmpty)
             {
                 UpdateFilteredCollectionEmpty();
+            }
+        }
+
+        public static void MakeReservation(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button)
+            {
+                Debug.WriteLine(button.Content);
             }
         }
     }
