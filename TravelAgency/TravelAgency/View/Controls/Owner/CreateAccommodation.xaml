@@ -1,0 +1,120 @@
+﻿<Window x:Class="TravelAgency.View.Controls.Owner.CreateAccommodation"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TravelAgency.View.Controls.Owner"
+        mc:Ignorable="d"
+        Title="CreateAccommodation" Height="450" Width="800">
+    <Grid>
+        <TextBlock
+            FontSize="12"
+            FontWeight="Medium"
+            Foreground="#68cbf8"
+            Text="Name"
+            TextWrapping="Wrap" Margin="53,56,666,362" />
+        <TextBox
+            x:Name="txtName"
+            VerticalContentAlignment="Center"
+            BorderThickness="0,0,0,1"
+            CaretBrush="#4fc3f7"
+            FontSize="13"
+            FontWeight="Medium"
+            Foreground="#68cbf8" Margin="50,69,500,337" />
+        <ComboBox
+            x:Name="cmbLocation"
+            Height="28"
+            VerticalContentAlignment="Center"
+            Background="Transparent"
+            BorderThickness="0,0,0,1"
+            FontSize="13"
+            FontWeight="Medium"
+            Foreground="#68cbf8" Margin="50,123,500,0" VerticalAlignment="Top">
+            <ComboBoxItem Content="Tokyo"/>
+            <ComboBoxItem Content="Delhi"/>
+            <ComboBoxItem Content="Shanghai"/>
+            <ComboBoxItem Content="Sao Paulo"/>
+            <ComboBoxItem Content="Mexico City"/>
+            <ComboBoxItem Content="Cairo"/>
+            <ComboBoxItem Content="Mumbai"/>
+            <ComboBoxItem Content="Beijing"/>
+            <ComboBoxItem Content="Osaka"/>
+            <ComboBoxItem Content="New York"/>
+            <ComboBoxItem Content="Buenos Aires"/>
+            <ComboBoxItem Content="Chongqing"/>
+            <ComboBoxItem Content="Istanbul"/>
+            <ComboBoxItem Content="Kolkata"/>
+            <ComboBoxItem Content="Manila"/>
+            <ComboBoxItem Content="Bar"/>
+        </ComboBox>
+        <TextBlock
+            FontSize="12"
+            FontWeight="Medium"
+            Foreground="#68cbf8"
+            Text="Location"
+            TextWrapping="Wrap" Margin="53,110,666,308" />
+        <ComboBox
+            x:Name="cmbType"
+            Height="28"
+            VerticalContentAlignment="Center"
+            Background="Transparent"
+            BorderThickness="0,0,0,1"
+            FontSize="13"
+            FontWeight="Medium"
+            Foreground="#68cbf8" Margin="50,183,500,0" VerticalAlignment="Top">
+            <ComboBoxItem Content="Apartment"/>
+            <ComboBoxItem Content="House"/>
+            <ComboBoxItem Content="Cottage"/>
+        </ComboBox>
+        <TextBlock
+            FontSize="12"
+            FontWeight="Medium"
+            Foreground="#68cbf8"
+            Text="Type"
+            TextWrapping="Wrap" Margin="53,170,666,248" />
+        <TextBlock
+            FontSize="12"
+            FontWeight="Medium"
+            Foreground="#68cbf8"
+            Text="Minimum reservation days"
+            TextWrapping="Wrap" Margin="53,227,592,191" />
+        <TextBox
+            x:Name="txtMinReservationDays"
+            VerticalContentAlignment="Center"
+            BorderThickness="0,0,0,1"
+            CaretBrush="#4fc3f7"
+            FontSize="13"
+            FontWeight="Medium"
+            Foreground="#68cbf8" Margin="50,240,500,166" />
+        <TextBlock
+            FontSize="12"
+            FontWeight="Medium"
+            Foreground="#68cbf8"
+            Text="Days before cancelation"
+            TextWrapping="Wrap" Margin="53,287,592,131" />
+        <TextBox
+            x:Name="txtDaysBeforeCancelation"
+            VerticalContentAlignment="Center"
+            BorderThickness="0,0,0,1"
+            CaretBrush="#4fc3f7"
+            FontSize="13"
+            FontWeight="Medium"
+            Foreground="#68cbf8" Margin="50,300,500,106" />
+        <Button x:Name="btnCreate"
+            Background="#68cbf8"
+            Content="Create"
+            FontSize="10"
+            Foreground="#ffffff" Margin="53,380,663,22" />
+        <TextBlock
+            FontSize="18"
+            FontWeight="Medium"
+            Foreground="#68cbf8"
+            TextWrapping="Wrap" Margin="40,10,529,398" Text="Create Accommodation" />
+        <Button x:Name="btnBack"
+            Background="#68cbf8"
+            Content="Back"
+            FontSize="10"
+            Foreground="#ffffff" Margin="693,380,23,22" Click="btnBack_Click" />
+
+    </Grid>
+</Window>

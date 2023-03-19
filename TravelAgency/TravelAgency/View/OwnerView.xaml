@@ -7,6 +7,26 @@
         mc:Ignorable="d"
         Title="OwnerView" Height="520" Width="800">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="68*"/>
+            <ColumnDefinition Width="121*"/>
+            <ColumnDefinition Width="611*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock
+            FontSize="18"
+            FontWeight="Medium"
+            Foreground="#68cbf8"
+            TextWrapping="Wrap" Margin="34,32,535,446" Text="Owner" Grid.ColumnSpan="3" />
+        <Button x:Name="btnCreateAccommodation"
+            Background="#68cbf8"
+            Content="Create Accommodation"
+            FontSize="10"
+            Foreground="#ffffff" Margin="34,72,0,400" Grid.ColumnSpan="2" Click="btnCreateAccommodation_Click" />
+        <Button x:Name="btnLogout"
+            Background="#68cbf8"
+            Content="Logout"
+            FontSize="10"
+            Foreground="#ffffff" Margin="34,122,0,350" Grid.ColumnSpan="2" Click="btnLogout_Click" />
+
     </Grid>
 </Window>
