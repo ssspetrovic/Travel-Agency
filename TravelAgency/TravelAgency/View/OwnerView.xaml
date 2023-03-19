@@ -9,126 +9,24 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="68*"/>
-            <ColumnDefinition Width="107*"/>
-            <ColumnDefinition Width="625*"/>
+            <ColumnDefinition Width="121*"/>
+            <ColumnDefinition Width="611*"/>
         </Grid.ColumnDefinitions>
-        <TextBlock
-            FontSize="12"
-            FontWeight="Medium"
-            Foreground="#68cbf8"
-            Text="Name"
-            TextWrapping="Wrap" Margin="13,87,13,401" Grid.Column="1" />
-        <TextBox
-            x:Name="txtName"
-            VerticalContentAlignment="Center"
-            BorderThickness="0,0,0,1"
-            CaretBrush="#4fc3f7"
-            FontSize="13"
-            FontWeight="Medium"
-            Foreground="#68cbf8" Grid.ColumnSpan="2" Margin="10,100,472,376" Grid.Column="1" />
-        <ComboBox
-            x:Name="cmbLocation"
-            Height="28"
-            VerticalContentAlignment="Center"
-            Background="Transparent"
-            BorderThickness="0,0,0,1"
-            FontSize="13"
-            FontWeight="Medium"
-            Foreground="#68cbf8" Grid.ColumnSpan="2" Margin="10,154,472,0" VerticalAlignment="Top" Grid.Column="1">
-            <ComboBoxItem Content="Tokyo"/>
-            <ComboBoxItem Content="Delhi"/>
-            <ComboBoxItem Content="Shanghai"/>
-            <ComboBoxItem Content="Sao Paulo"/>
-            <ComboBoxItem Content="Mexico City"/>
-            <ComboBoxItem Content="Cairo"/>
-            <ComboBoxItem Content="Mumbai"/>
-            <ComboBoxItem Content="Beijing"/>
-            <ComboBoxItem Content="Osaka"/>
-            <ComboBoxItem Content="New York"/>
-            <ComboBoxItem Content="Buenos Aires"/>
-            <ComboBoxItem Content="Chongqing"/>
-            <ComboBoxItem Content="Istanbul"/>
-            <ComboBoxItem Content="Kolkata"/>
-            <ComboBoxItem Content="Manila"/>
-            <ComboBoxItem Content="Bar"/>
-        </ComboBox>
-        <TextBlock
-            FontSize="12"
-            FontWeight="Medium"
-            Foreground="#68cbf8"
-            Text="Location"
-            TextWrapping="Wrap" Margin="13,141,13,347" Grid.Column="1" />
-        <ComboBox
-            x:Name="cmbType"
-            Height="28"
-            VerticalContentAlignment="Center"
-            Background="Transparent"
-            BorderThickness="0,0,0,1"
-            FontSize="13"
-            FontWeight="Medium"
-            Foreground="#68cbf8" Grid.ColumnSpan="2" Margin="10,214,472,0" VerticalAlignment="Top" Grid.Column="1">
-            <ComboBoxItem Content="Tokyo"/>
-            <ComboBoxItem Content="Delhi"/>
-            <ComboBoxItem Content="Shanghai"/>
-            <ComboBoxItem Content="Sao Paulo"/>
-            <ComboBoxItem Content="Mexico City"/>
-            <ComboBoxItem Content="Cairo"/>
-            <ComboBoxItem Content="Mumbai"/>
-            <ComboBoxItem Content="Beijing"/>
-            <ComboBoxItem Content="Osaka"/>
-            <ComboBoxItem Content="New York"/>
-            <ComboBoxItem Content="Buenos Aires"/>
-            <ComboBoxItem Content="Chongqing"/>
-            <ComboBoxItem Content="Istanbul"/>
-            <ComboBoxItem Content="Kolkata"/>
-            <ComboBoxItem Content="Manila"/>
-            <ComboBoxItem Content="Bar"/>
-        </ComboBox>
-        <TextBlock
-            FontSize="12"
-            FontWeight="Medium"
-            Foreground="#68cbf8"
-            Text="Type"
-            TextWrapping="Wrap" Margin="13,201,13,287" Grid.Column="1" />
-        <TextBlock
-            FontSize="12"
-            FontWeight="Medium"
-            Foreground="#68cbf8"
-            Text="Minimum reservation days"
-            TextWrapping="Wrap" Margin="13,258,564,230" Grid.Column="1" Grid.ColumnSpan="2" />
-        <TextBox
-            x:Name="txtMinReservationDays"
-            VerticalContentAlignment="Center"
-            BorderThickness="0,0,0,1"
-            CaretBrush="#4fc3f7"
-            FontSize="13"
-            FontWeight="Medium"
-            Foreground="#68cbf8" Grid.ColumnSpan="2" Margin="10,271,472,205" Grid.Column="1" />
-        <TextBlock
-            FontSize="12"
-            FontWeight="Medium"
-            Foreground="#68cbf8"
-            Text="Days before cancelation"
-            TextWrapping="Wrap" Margin="13,318,564,170" Grid.Column="1" Grid.ColumnSpan="2" />
-        <TextBox
-            x:Name="txtDaysBeforeCancelation"
-            VerticalContentAlignment="Center"
-            BorderThickness="0,0,0,1"
-            CaretBrush="#4fc3f7"
-            FontSize="13"
-            FontWeight="Medium"
-            Foreground="#68cbf8" Grid.ColumnSpan="2" Margin="10,331,472,145" Grid.Column="1" />
-        <Button x:Name="btnCreate"
-            Background="#68cbf8"
-            Click="AddKeyPoints_OnClick"
-            Content="Create"
-            FontSize="10"
-            Foreground="#ffffff" Margin="13,411,10,61" Grid.Column="1" />
         <TextBlock
             FontSize="18"
             FontWeight="Medium"
             Foreground="#68cbf8"
-            TextWrapping="Wrap" Margin="0,41,501,437" Text="Create Accommodation" Grid.ColumnSpan="2" Grid.Column="1" />
+            TextWrapping="Wrap" Margin="34,32,535,446" Text="Owner" Grid.ColumnSpan="3" />
+        <Button x:Name="btnCreateAccommodation"
+            Background="#68cbf8"
+            Content="Create Accommodation"
+            FontSize="10"
+            Foreground="#ffffff" Margin="34,72,0,400" Grid.ColumnSpan="2" Click="btnCreateAccommodation_Click" />
+        <Button x:Name="btnLogout"
+            Background="#68cbf8"
+            Content="Logout"
+            FontSize="10"
+            Foreground="#ffffff" Margin="34,122,0,350" Grid.ColumnSpan="2" Click="btnLogout_Click" />
 
     </Grid>
 </Window>

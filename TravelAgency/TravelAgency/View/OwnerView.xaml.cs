@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TravelAgency.View.Controls;
+using TravelAgency.View.Controls.Owner;
 
 namespace TravelAgency.View
 {
@@ -24,9 +26,18 @@ namespace TravelAgency.View
             InitializeComponent();
         }
 
-        private void AddKeyPoints_OnClick(object sender, RoutedEventArgs e)
+        private void btnLogout_Click(object sender, RoutedEventArgs e)
         {
+            var signInView = new SignInView();
+            signInView.Show();
+            Close();
+        }
 
+        private void btnCreateAccommodation_Click(object sender, RoutedEventArgs e)
+        {
+            var createAccommodationView = new CreateAccommodation();
+            createAccommodationView.Show();
+            Close();   
         }
     }
 }
