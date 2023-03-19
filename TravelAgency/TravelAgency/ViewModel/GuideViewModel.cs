@@ -10,23 +10,12 @@ namespace TravelAgency.ViewModel
 {
     public class GuideViewModel : BaseViewModel
     {
-        private CurrentUserModel _currentUserAccount = null!;
         private BaseViewModel _currentChildView = null!;
         private string _caption = null!;
         private readonly TourRepository _tourRepository;
         private readonly LocationRepository _locationRepository;
         private readonly ActiveTourRepository _activeTourRepository;
         private readonly TouristRepository _touristRepository;
-
-        public CurrentUserModel CurrentUserAccount
-        {
-            get => _currentUserAccount;
-            set
-            {
-                _currentUserAccount = value; 
-                OnPropertyChanged();
-            }
-        }
 
         public BaseViewModel CurrentChildView
         {
@@ -66,21 +55,12 @@ namespace TravelAgency.ViewModel
 
             _touristRepository = new TouristRepository();
 
-            CurrentUserAccount = new CurrentUserModel();
-
             ShowGuideViewCommand = new ViewModelCommand(ExecuteShowGuideViewCommand);
 
         }
 
 
-        public string LoadCurrentUserData
-        {
-            get
-            {
-                var currentUserRepository = new CurrentUserRepository();
-                return "Welcome " + currentUserRepository.Get().DisplayName;
-            }
-        }
+        public string LoadCurrentUserData => "Welcome " + CurrentUser.DisplayName;
 
         public DataView Tours
         {
