@@ -50,18 +50,6 @@ namespace TravelAgency.ViewModel
 
         public ICommand ShowGuideViewCommand { get; }
 
-        private void LoadCurrentUserData()
-        {
-            //var user = _userRepository.GetByUsername(Environment.UserName);
-            //if ( != null)
-            //{
-            //    CurrentUserAccount.Username = user.UserName;
-            //    CurrentUserAccount.DisplayName = $"Welcome {user.Name} {user.Surname} ;)";
-            //}
-            CurrentUserAccount.DisplayName = "Invalid user, not logged in";
-            
-        }
-
         private void ExecuteShowGuideViewCommand(object obj)
         {
             CurrentChildView = new GuideViewModel();
@@ -82,7 +70,16 @@ namespace TravelAgency.ViewModel
 
             ShowGuideViewCommand = new ViewModelCommand(ExecuteShowGuideViewCommand);
 
-            LoadCurrentUserData();
+        }
+
+
+        public string LoadCurrentUserData
+        {
+            get
+            {
+                var currentUserRepository = new CurrentUserRepository();
+                return "Welcome " + currentUserRepository.Get().DisplayName;
+            }
         }
 
         public DataView Tours
@@ -239,7 +236,7 @@ namespace TravelAgency.ViewModel
 
                 foreach (var tourist in touristsList)
                 {
-                    checkedTourists.Add(_touristRepository.GetByUsername(tourist)!.TouristCheck.ToString());
+                    checkedTourists.Add(_touristRepository.GetByUsername(tourist).TouristCheck.ToString());
                 }
 
                 return checkedTourists;
@@ -256,7 +253,7 @@ namespace TravelAgency.ViewModel
 
                 foreach (var tourist in touristsList)
                 {
-                    var currentTourist = _touristRepository.GetByUsername(tourist)!;
+                    var currentTourist = _touristRepository.GetByUsername(tourist);
                     locations.Add(_locationRepository.GetById(currentTourist.LocationId)!.City);
                 }
 

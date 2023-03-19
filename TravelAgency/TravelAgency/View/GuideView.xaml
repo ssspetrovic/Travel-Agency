@@ -211,37 +211,35 @@
                                 VerticalAlignment="Center"
                                 FlowDirection="RightToLeft"
                                 Orientation="Horizontal">
-                                <Button Style="{StaticResource IconButton}">
-                                    <fa:IconImage Icon="AngleDown" />
-                                </Button>
-
+                                <fa:IconImage
+                                    Foreground="#68cbf8"
+                                    Icon="UserCircle"
+                                    Style="{StaticResource MenuButtonIcon}" />
                                 <TextBlock
                                     VerticalAlignment="Center"
                                     FontFamily="Montserrat"
-                                    FontSize="12"
+                                    FontSize="16"
                                     Foreground="#68cbf8"
-                                    Text="{Binding CurrentUserAccount.DisplayName}" />
-
-                                <Ellipse
-                                    Width="35"
-                                    Height="35"
-                                    Margin="10,0,10,0"
-                                    Stroke="#68cbf8"
-                                    StrokeThickness="2">
-                                    <Ellipse.Fill>
-                                        <ImageBrush ImageSource="/Resources/Images/user.png" />
-                                    </Ellipse.Fill>
-                                </Ellipse>
-
+                                    Text="{Binding LoadCurrentUserData}" />
                             </StackPanel>
 
                         </Grid>
 
 
                         <Grid Grid.Row="2" Margin="25">
-                            <ListView Margin="10" ItemsSource="{Binding Tours}">
+                            <ListView
+                                Margin="10"
+                                Foreground="#68cbf8"
+                                ItemsSource="{Binding Tours}">
                                 <ListView.View>
                                     <GridView>
+                                        <GridView.ColumnHeaderContainerStyle>
+                                            <Style TargetType="{x:Type GridViewColumnHeader}">
+                                                <Setter Property="Foreground" Value="#68cbf8" />
+                                                <Setter Property="FontWeight" Value="Bold" />
+                                                <Setter Property="FontSize" Value="15" />
+                                            </Style>
+                                        </GridView.ColumnHeaderContainerStyle>
                                         <GridViewColumn
                                             Width="200"
                                             DisplayMemberBinding="{Binding Path=Name}"

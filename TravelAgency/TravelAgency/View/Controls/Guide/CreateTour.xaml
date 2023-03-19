@@ -207,28 +207,16 @@
                                 VerticalAlignment="Center"
                                 FlowDirection="RightToLeft"
                                 Orientation="Horizontal">
-                                <Button Style="{StaticResource IconButton}">
-                                    <fa:IconImage Icon="AngleDown" />
-                                </Button>
-
+                                <fa:IconImage
+                                    Foreground="#68cbf8"
+                                    Icon="UserCircle"
+                                    Style="{StaticResource MenuButtonIcon}" />
                                 <TextBlock
                                     VerticalAlignment="Center"
                                     FontFamily="Montserrat"
-                                    FontSize="12"
+                                    FontSize="16"
                                     Foreground="#68cbf8"
-                                    Text="{Binding CurrentUserAccount.DisplayName}" />
-
-                                <Ellipse
-                                    Width="35"
-                                    Height="35"
-                                    Margin="10,0,10,0"
-                                    Stroke="#68cbf8"
-                                    StrokeThickness="2">
-                                    <Ellipse.Fill>
-                                        <ImageBrush ImageSource="/Resources/Images/user.png" />
-                                    </Ellipse.Fill>
-                                </Ellipse>
-
+                                    Text="{Binding LoadCurrentUserData}" />
                             </StackPanel>
 
                         </Grid>
@@ -441,6 +429,7 @@
                                         FontWeight="Medium"
                                         Foreground="#68cbf8"
                                         TextWrapping="Wrap" />
+
                                     <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                                         <Button
                                             Width="60"

@@ -82,6 +82,8 @@ namespace TravelAgency.View
 
         private void Logout_OnClick(object sender, RoutedEventArgs e)
         {
+            var currentUserRepository = new CurrentUserRepository();
+            currentUserRepository.Remove();
             var signInView = new SignInView();
             signInView.Show();
             Close();

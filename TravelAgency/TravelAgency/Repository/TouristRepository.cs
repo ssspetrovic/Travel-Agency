@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Windows;
 using Microsoft.Data.Sqlite;
 using TravelAgency.Model;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace TravelAgency.Repository
 {
@@ -91,6 +89,28 @@ namespace TravelAgency.Repository
             }
 
             selectCommand.ExecuteNonQuery();
+        }
+
+        public void RemoveTour(int id)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            const string updateStatement = "update Tourist set Tour_Id = null where Id = $Id";
+            using var updateCommand = new SqliteCommand(updateStatement, databaseConnection);
+            updateCommand.Parameters.AddWithValue("$Id", id);
+            updateCommand.ExecuteNonQuery();
+        }
+
+        public void CheckAllTourists(string tourists)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            const string updateStatement = "update Tourist set IsChecked = 1 where Username in ($Usernames)";
+            using var updateCommand = new SqliteCommand(updateStatement, databaseConnection);
+            updateCommand.Parameters.AddWithValue("$Usernames", tourists);
+            updateCommand.ExecuteNonQuery();
         }
     }
 }

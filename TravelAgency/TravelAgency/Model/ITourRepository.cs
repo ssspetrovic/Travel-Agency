@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
+using System.Data;
 
 namespace TravelAgency.Model
 {
@@ -11,5 +12,6 @@ namespace TravelAgency.Model
         TourModel? GetByName(string? name);
         DataTable GetByAll(DataTable dt);
         Language FindLanguage(string language);
+        void RemoveDate(string dateToday, List<string> tourDates, int id);
     }
 }

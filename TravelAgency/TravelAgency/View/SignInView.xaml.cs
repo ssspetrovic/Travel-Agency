@@ -59,6 +59,8 @@ namespace TravelAgency.View
                     if (isValid)
                     {
                         var currentRole = userRepository.GetRole(username);
+                        var currentUserRepository = new CurrentUserRepository();
+                        currentUserRepository.Add(username);
                         switch (currentRole)
                         {
                             case Role.Owner:
