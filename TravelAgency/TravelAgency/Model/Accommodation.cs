@@ -20,19 +20,20 @@ namespace TravelAgency.Model
         public AccommodationType Type { get; set; }
         public int minReservationDays { get; set; }
         public int daysBeforeCancelation { get; set; }
-
+        public string Images { get; set; }  
         public Accommodation()
         {
             
         }
 
-        public Accommodation(string name, LocationModel location, AccommodationType type, int minReservationDays, int daysBeforeCancelation)
+        public Accommodation(string name, LocationModel location, AccommodationType type, int minReservationDays, int daysBeforeCancelation, string images)
         {
             this.Name = name;
             this.Location = location;
             this.Type = type;
             this.minReservationDays = minReservationDays;
             this.daysBeforeCancelation = daysBeforeCancelation;
+            this.Images = images;
         }
 
     }
