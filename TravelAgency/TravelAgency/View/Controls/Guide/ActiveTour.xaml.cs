@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
+using TravelAgency.Model;
 using TravelAgency.Repository;
 using Application = System.Windows.Application;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
@@ -178,11 +179,40 @@ namespace TravelAgency.View.Controls.Guide
                         dateToday = date;
                 }
 
+                foreach (var tourist in tourists)
+                {
+                    var currentTourist = touristRepository.GetByUsername(tourist);
+                    touristRepository.RemoveTour(currentTourist.Id);
+                }
+
                 tourRepository.RemoveDate(dateToday, tourDates, firstTourist.Tour.Id);
             }
 
             var monitorTour = new MonitorTour();
             monitorTour.Show();
+            Close();
+        }
+
+        private void CheckAllGuests_OnClick(object sender, RoutedEventArgs e)
+        {
+            var activeTourRepository = new ActiveTourRepository();
+            var tourists = activeTourRepository.GetActiveTourData("Tourists");
+            var touristRepository = new TouristRepository();
+            var counter = 0;
+
+            foreach (var tourist in tourists.Split(", "))
+            {
+                if (touristRepository.GetByUsername(tourist).TouristCheck == TouristCheck.Unchecked)
+                    counter++;
+            }
+
+            if (counter == 0)
+                MessageBox.Show("All tourists were already checked!");
+            else
+                touristRepository.CheckAllTourists(tourists);
+
+            var activeTour = new ActiveTour();
+            activeTour.Show();
             Close();
         }
     }

@@ -101,5 +101,16 @@ namespace TravelAgency.Repository
             updateCommand.Parameters.AddWithValue("$Id", id);
             updateCommand.ExecuteNonQuery();
         }
+
+        public void CheckAllTourists(string tourists)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            const string updateStatement = "update Tourist set IsChecked = 1 where Username in ($Usernames)";
+            using var updateCommand = new SqliteCommand(updateStatement, databaseConnection);
+            updateCommand.Parameters.AddWithValue("$Usernames", tourists);
+            updateCommand.ExecuteNonQuery();
+        }
     }
 }

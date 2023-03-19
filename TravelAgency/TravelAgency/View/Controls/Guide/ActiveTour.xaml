@@ -241,6 +241,7 @@
                                         <Style TargetType="ListViewItem">
                                             <EventSetter Event="KeyDown" Handler="ChangeCurrentKeyPoint_OnEnter" />
                                             <EventSetter Event="MouseDoubleClick" Handler="ChangeCurrentKeyPoint_OnClick" />
+                                            <Setter Property="HorizontalAlignment" Value="Center" />
                                         </Style>
                                     </ListView.ItemContainerStyle>
                                 </ListView>
@@ -251,7 +252,9 @@
                                     FontSize="16"
                                     ItemsSource="{Binding PassedKeyPoints}">
                                     <ListView.ItemContainerStyle>
-                                        <Style TargetType="ListViewItem" />
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="HorizontalAlignment" Value="Center" />
+                                        </Style>
                                     </ListView.ItemContainerStyle>
                                 </ListView>
 
@@ -315,6 +318,7 @@
                                         <Style TargetType="ListViewItem">
                                             <EventSetter Event="KeyDown" Handler="TouristCheckup_OnEnter" />
                                             <EventSetter Event="MouseDoubleClick" Handler="TouristCheckup_OnClick" />
+                                            <Setter Property="HorizontalAlignment" Value="Center" />
                                         </Style>
                                     </ListView.ItemContainerStyle>
                                 </ListView>
@@ -325,7 +329,9 @@
                                     FontSize="16"
                                     ItemsSource="{Binding StartingLocation}">
                                     <ListView.ItemContainerStyle>
-                                        <Style TargetType="ListViewItem" />
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="HorizontalAlignment" Value="Center" />
+                                        </Style>
                                     </ListView.ItemContainerStyle>
                                 </ListView>
 
@@ -335,20 +341,36 @@
                                     FontSize="16"
                                     ItemsSource="{Binding CheckedTourists}">
                                     <ListView.ItemContainerStyle>
-                                        <Style TargetType="ListViewItem" />
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="HorizontalAlignment" Value="Center" />
+                                        </Style>
                                     </ListView.ItemContainerStyle>
                                 </ListView>
 
                             </Grid>
 
                             <Grid Grid.Row="4">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
                                 <Button
-                                    Width="80"
+                                    Width="90"
                                     Height="30"
-                                    Margin="0,0,10,0"
+                                    Margin="250,0,0,0"
                                     Background="#68cbf8"
                                     Click="FinishTour_OnClick"
                                     Content="End Tour"
+                                    FontSize="12"
+                                    Foreground="#ffffff" />
+                                <Button
+                                    Grid.Column="1"
+                                    Width="90"
+                                    Height="30"
+                                    Margin="0,0,250,0"
+                                    Background="#68cbf8"
+                                    Click="CheckAllGuests_OnClick"
+                                    Content="Check All"
                                     FontSize="12"
                                     Foreground="#ffffff" />
                             </Grid>
