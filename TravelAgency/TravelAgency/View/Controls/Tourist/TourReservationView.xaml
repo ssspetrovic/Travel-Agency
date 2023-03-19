@@ -143,7 +143,7 @@
                     </StackPanel>
                     <Border
                         Grid.Row="1"
-                        Margin="20,0"
+                        Margin="50,0"
                         BorderBrush="{StaticResource MaterialDesignDivider}"
                         BorderThickness="0,2,0,0">
                         <ListView
@@ -156,23 +156,23 @@
                             <ListView.View>
                                 <GridView x:Name="GridView" AllowsColumnReorder="False">
                                     <GridViewColumn
-                                        Width="150"
+                                        Width="Auto"
                                         DisplayMemberBinding="{Binding Path=Name}"
                                         Header="Name" />
                                     <GridViewColumn
-                                        Width="150"
+                                        Width="Auto"
                                         DisplayMemberBinding="{Binding Path=Location.City}"
                                         Header="City" />
                                     <GridViewColumn
-                                        Width="150"
+                                        Width="Auto"
                                         DisplayMemberBinding="{Binding Path=Location.Country}"
                                         Header="Country" />
                                     <GridViewColumn
-                                        Width="150"
+                                        Width="Auto"
                                         DisplayMemberBinding="{Binding Path=Language}"
                                         Header="Language" />
                                     <GridViewColumn
-                                        Width="150"
+                                        Width="Auto"
                                         DisplayMemberBinding="{Binding Path=MaxGuests}"
                                         Header="Max Guests" />
                                 </GridView>
