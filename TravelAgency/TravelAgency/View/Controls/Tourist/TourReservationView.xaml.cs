@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls.Primitives;
+using TravelAgency.ViewModel;
 
 namespace TravelAgency.View.Controls.Tourist
 {

@@ -1,8 +1,11 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Globalization;
+using System.Windows;
 using System.Windows.Data;
 using TravelAgency.Model;
 using TravelAgency.Repository;
+using TravelAgency.View;
 
 namespace TravelAgency.ViewModel
 {
@@ -12,8 +15,8 @@ namespace TravelAgency.ViewModel
         private readonly CollectionViewSource _toursCollection;
         public new event PropertyChangedEventHandler? PropertyChanged;
         private bool _isFilteredCollectionEmpty;
+        private bool _isListViewShown;
         private bool _shouldUpdateFilteredCollectionEmpty;
-
 
         public bool IsFilteredCollectionEmpty
         {
@@ -23,6 +26,18 @@ namespace TravelAgency.ViewModel
                 if (_isFilteredCollectionEmpty == value) return;
 
                 _isFilteredCollectionEmpty = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool IsListViewShown
+        {
+            get => _isListViewShown;
+            set
+            {
+                if (_isListViewShown == value) return;
+
+                _isListViewShown = value;
                 OnPropertyChanged();
             }
         }
@@ -38,6 +53,7 @@ namespace TravelAgency.ViewModel
                 RaisePropertyChanged("FilterText");
             }
         }
+        public ICollectionView ToursSourceCollection => _toursCollection.View;
 
         public TourReservationViewModel()
         {
@@ -48,9 +64,11 @@ namespace TravelAgency.ViewModel
                 Source = tourRepository.GetAll()
             };
             _toursCollection.Filter += ToursCollection_Filter;
+
+            if (!ToursSourceCollection.IsEmpty)
+                IsListViewShown = true;
         }
 
-        public ICollectionView ToursSourceCollection => _toursCollection.View;
 
         private void ToursCollection_Filter(object sender, FilterEventArgs e)
         {
@@ -78,11 +96,13 @@ namespace TravelAgency.ViewModel
 
             _shouldUpdateFilteredCollectionEmpty = true;
             IsFilteredCollectionEmpty = !e.Accepted && ToursSourceCollection.IsEmpty;
+            IsListViewShown = !IsFilteredCollectionEmpty;
         }
 
         private void UpdateFilteredCollectionEmpty()
         {
             IsFilteredCollectionEmpty = ToursSourceCollection.IsEmpty;
+            IsListViewShown = !IsFilteredCollectionEmpty;
             _shouldUpdateFilteredCollectionEmpty = false;
         }
 

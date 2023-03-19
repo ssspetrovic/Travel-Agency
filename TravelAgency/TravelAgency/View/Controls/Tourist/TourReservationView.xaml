@@ -147,14 +147,14 @@
                         BorderBrush="{StaticResource MaterialDesignDivider}"
                         BorderThickness="0,2,0,0">
                         <StackPanel>
-
                             <ListView
                                 x:Name="ToursListView"
                                 Grid.Row="1"
                                 HorizontalAlignment="Center"
                                 d:ItemsSource="{d:SampleData ItemCount=5}"
                                 ItemsSource="{Binding ToursSourceCollection}"
-                                Style="{StaticResource MaterialDesignListView}">
+                                Style="{StaticResource MaterialDesignListView}"
+                                Visibility="{Binding IsListViewShown, Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <ListView.View>
                                     <GridView x:Name="GridView" AllowsColumnReorder="False">
                                         <GridViewColumn
@@ -181,12 +181,13 @@
                                 </ListView.View>
                             </ListView>
                             <TextBox
+                                Margin="20"
                                 HorizontalContentAlignment="Center"
                                 BorderThickness="0"
+                                FontSize="15"
                                 Style="{StaticResource MaterialDesignTextBox}"
-                                Text="No tours match the search criteria." 
-                                Visibility="{Binding IsFilteredCollectionEmpty,
-                                    Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                                Text="No tours match the search criteria."
+                                Visibility="{Binding IsFilteredCollectionEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
                         </StackPanel>
                     </Border>
                     <Button
