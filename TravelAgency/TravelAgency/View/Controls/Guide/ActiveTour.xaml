@@ -172,40 +172,60 @@
                                 VerticalAlignment="Center"
                                 FlowDirection="RightToLeft"
                                 Orientation="Horizontal">
-                                <Button Style="{StaticResource IconButton}">
-                                    <fa:IconImage Icon="AngleDown" />
-                                </Button>
-
+                                <fa:IconImage
+                                    Foreground="#68cbf8"
+                                    Icon="UserCircle"
+                                    Style="{StaticResource MenuButtonIcon}" />
                                 <TextBlock
                                     VerticalAlignment="Center"
                                     FontFamily="Montserrat"
-                                    FontSize="12"
+                                    FontSize="16"
                                     Foreground="#68cbf8"
-                                    Text="{Binding CurrentUserAccount.DisplayName}" />
-
-                                <Ellipse
-                                    Width="35"
-                                    Height="35"
-                                    Margin="10,0,10,0"
-                                    Stroke="#68cbf8"
-                                    StrokeThickness="2">
-                                    <Ellipse.Fill>
-                                        <ImageBrush ImageSource="/Resources/Images/user.png" />
-                                    </Ellipse.Fill>
-                                </Ellipse>
-
+                                    Text="{Binding LoadCurrentUserData}" />
                             </StackPanel>
 
                         </Grid>
 
                         <Grid Grid.Row="2" Margin="25">
                             <Grid.RowDefinitions>
+                                <RowDefinition Height="40" />
                                 <RowDefinition Height="*" />
+                                <RowDefinition Height="40" />
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="50" />
                             </Grid.RowDefinitions>
 
-                            <Grid>
+                            <Grid Grid.Row="0">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock
+                                    Margin="0,15,0,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="21"
+                                    FontWeight="Medium"
+                                    Foreground="#68cbf8"
+                                    Text="Key Points (Enter Key or Double Click)"
+                                    TextWrapping="Wrap" />
+
+                                <TextBlock
+                                    Grid.Column="1"
+                                    Margin="0,15,0,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="21"
+                                    FontWeight="Medium"
+                                    Foreground="#68cbf8"
+                                    Text="Passed Location?"
+                                    TextWrapping="Wrap" />
+
+                            </Grid>
+
+                            <Grid Grid.Row="1">
 
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition />
@@ -219,7 +239,8 @@
                                     ItemsSource="{Binding KeyPoints}">
                                     <ListView.ItemContainerStyle>
                                         <Style TargetType="ListViewItem">
-                                            <EventSetter Event="KeyDown" Handler="ChangeCurrentKeyPoint_OnClick" />
+                                            <EventSetter Event="KeyDown" Handler="ChangeCurrentKeyPoint_OnEnter" />
+                                            <EventSetter Event="MouseDoubleClick" Handler="ChangeCurrentKeyPoint_OnClick" />
                                         </Style>
                                     </ListView.ItemContainerStyle>
                                 </ListView>
@@ -236,7 +257,49 @@
 
                             </Grid>
 
-                            <Grid Grid.Row="1">
+                            <Grid Grid.Row="2">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock
+                                    Margin="0,15,0,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="19"
+                                    FontWeight="Medium"
+                                    Foreground="#68cbf8"
+                                    Text="Tourists (Enter Key or Double Click)"
+                                    TextWrapping="Wrap" />
+
+                                <TextBlock
+                                    Grid.Column="1"
+                                    Margin="0,15,0,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="19"
+                                    FontWeight="Medium"
+                                    Foreground="#68cbf8"
+                                    Text="Starting Location"
+                                    TextWrapping="Wrap" />
+
+                                <TextBlock
+                                    Grid.Column="2"
+                                    Margin="0,15,0,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="19"
+                                    FontWeight="Medium"
+                                    Foreground="#68cbf8"
+                                    Text="Has Showed Up?"
+                                    TextWrapping="Wrap" />
+
+                            </Grid>
+
+                            <Grid Grid.Row="3">
 
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition />
@@ -250,7 +313,8 @@
                                     ItemsSource="{Binding Tourists}">
                                     <ListView.ItemContainerStyle>
                                         <Style TargetType="ListViewItem">
-                                            <EventSetter Event="KeyDown" Handler="TouristCheckup_OnClick" />
+                                            <EventSetter Event="KeyDown" Handler="TouristCheckup_OnEnter" />
+                                            <EventSetter Event="MouseDoubleClick" Handler="TouristCheckup_OnClick" />
                                         </Style>
                                     </ListView.ItemContainerStyle>
                                 </ListView>
@@ -277,7 +341,7 @@
 
                             </Grid>
 
-                            <Grid Grid.Row="2">
+                            <Grid Grid.Row="4">
                                 <Button
                                     Width="80"
                                     Height="30"

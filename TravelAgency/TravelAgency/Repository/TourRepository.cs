@@ -1,10 +1,9 @@
 ﻿using Microsoft.Data.Sqlite;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
-using System.Windows;
-using System.Xml.Linq;
 using TravelAgency.Model;
 
 namespace TravelAgency.Repository
@@ -22,7 +21,7 @@ namespace TravelAgency.Repository
                 idList += ", " + keyPoint.Id.ToString();
             }
 
-            idList = idList.Substring(1, idList.Length - 1);
+            idList = idList.Substring(2, idList.Length - 2);
 
             const string insertStatement =
                 @"insert into Tour(Name, Location_Id, Description, Language, MaxGuests, LocationList, Date, Duration, Images) 
@@ -48,7 +47,14 @@ namespace TravelAgency.Repository
 
         public void Remove(int id)
         {
-            throw new NotImplementedException();
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            const string deleteStatement = "delete from Tour where Id = $Id";
+            using var deleteCommand = new SqliteCommand(deleteStatement, databaseConnection);
+            deleteCommand.Parameters.AddWithValue("$Id", id);
+            
+            deleteCommand.ExecuteNonQuery();
         }
 
         public TourModel GetById(int id)
@@ -164,6 +170,29 @@ namespace TravelAgency.Repository
             }
 
             return tourList;
+        }
+
+        public void RemoveDate(string dateToday, List<string> tourDates, int id)
+        {
+            var newTourDates = "";
+            foreach (var date in tourDates)
+            {
+                if (!date.Equals(dateToday))
+                    newTourDates += ", " + date;
+            }
+
+            newTourDates = newTourDates.Substring(2, newTourDates.Length - 2);
+
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            const string updateStatement = "update Tour set Date = $Date where Id = $Id";
+            using var updateCommand = new SqliteCommand(updateStatement, databaseConnection);
+            updateCommand.Parameters.AddWithValue("$Date", newTourDates);
+            updateCommand.Parameters.AddWithValue("$Id", id);
+
+            updateCommand.ExecuteNonQuery();
+
         }
     }
 }

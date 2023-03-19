@@ -99,7 +99,7 @@ namespace TravelAgency.Repository
             return selectReader.Read() ? selectReader.GetString(0) : "Error";
         }
 
-        public void RemoveKeyPoint(string keyPoint)
+        public void UpdateKeyPoint(string keyPoint)
         {
             var locationRepository = new LocationRepository();
             keyPoint = locationRepository.GetByCity(keyPoint)!.Id.ToString();
@@ -122,17 +122,30 @@ namespace TravelAgency.Repository
             databaseConnection.Open();
 
             var keyPointsList = keyPoints.Split(", ").ToList();
+            var lastKeyPoint = "";
 
             for (var i = 0; i < keyPointsList.Capacity; i++)
             {
                 var location = keyPointsList[i];
+
                 if (location.Contains(keyPoint + ":False"))
-                    keyPointsList[i] = keyPoint + ":True";
+                    if (lastKeyPoint.Contains(":True"))
+                    {
+                        keyPointsList[i] = keyPoint + ":True";
+                        break;
+                    }
+                    else
+                    {
+                        MessageBox.Show("You can't skip key points!");
+                        break;
+                    }
                 else if(location.Contains(keyPoint + ":True"))
                 {
                     MessageBox.Show("We already passed this key point!");
                     break;
                 }
+
+                lastKeyPoint = keyPointsList[i];
             }
 
             keyPoints = string.Join(", ", keyPointsList);
