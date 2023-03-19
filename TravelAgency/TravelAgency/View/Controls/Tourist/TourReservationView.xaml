@@ -189,9 +189,12 @@
                         </StackPanel>
                     </Border>
                     <Button
+                        x:Name="MakeReservationButton"
                         Grid.Row="2"
                         Width="160"
-                        Height="50"
+                        Height="40"
+                        Margin="0,0,0,20"
+                        Click="MakeReservationButton_OnClick"
                         Content="Make reservation"
                         FontSize="15" />
                 </Grid>

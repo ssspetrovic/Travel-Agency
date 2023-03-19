@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 using TravelAgency.Model;
 using TravelAgency.Repository;
@@ -126,6 +127,14 @@ namespace TravelAgency.ViewModel
             if (_shouldUpdateFilteredCollectionEmpty)
             {
                 UpdateFilteredCollectionEmpty();
+            }
+        }
+
+        public static void MakeReservation(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button)
+            {
+                Debug.WriteLine(button.Content);
             }
         }
     }
