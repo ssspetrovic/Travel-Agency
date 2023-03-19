@@ -36,6 +36,8 @@ namespace TravelAgency.View.Controls.Guide
 
         private void Button_CloseClick(object sender, RoutedEventArgs e)
         {
+            var currentUserRepository = new CurrentUserRepository();
+            currentUserRepository.Remove();
             Application.Current.Shutdown();
         }
 
