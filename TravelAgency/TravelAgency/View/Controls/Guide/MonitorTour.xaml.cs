@@ -37,8 +37,6 @@ namespace TravelAgency.View.Controls.Guide
 
         private void Button_CloseClick(object sender, RoutedEventArgs e)
         {
-            var currentUserRepository = new CurrentUserRepository();
-            currentUserRepository.Remove();
             Application.Current.Shutdown();
         }
 
@@ -86,8 +84,6 @@ namespace TravelAgency.View.Controls.Guide
 
         private void Logout_OnClick(object sender, RoutedEventArgs e)
         {
-            var currentUserRepository = new CurrentUserRepository();
-            currentUserRepository.Remove();
             var signInView = new SignInView();
             signInView.Show();
             Close();
