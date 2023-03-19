@@ -20,9 +20,6 @@
     <Window.Resources>
         <ResourceDictionary Source="/Resources/Styles/TouristDictionary.xaml" />
     </Window.Resources>
-    <Window.DataContext>
-        <viewModel:TourReservationViewModel />
-    </Window.DataContext>
     <Border Background="{StaticResource MaterialDesignBackground}" CornerRadius="15">
         <Grid>
             <Grid.ColumnDefinitions>

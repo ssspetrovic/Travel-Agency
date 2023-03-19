@@ -12,6 +12,7 @@ namespace TravelAgency.View.Controls.Tourist
         public TourReservationView()
         {
             InitializeComponent();
+            DataContext = new TourReservationViewModel();
         }
      
         private void SignOutButton_OnClick(object sender, RoutedEventArgs e)
