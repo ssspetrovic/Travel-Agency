@@ -23,5 +23,10 @@ namespace TravelAgency.View
         {
             InitializeComponent();
         }
+
+        private void AddKeyPoints_OnClick(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
