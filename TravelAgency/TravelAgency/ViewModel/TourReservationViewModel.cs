@@ -28,7 +28,7 @@ namespace TravelAgency.ViewModel
             set
             {
                 _selectedTour = value;
-                Debug.WriteLine(_selectedTour.Name);
+                //Debug.WriteLine(_selectedTour.Name);
             }
         }
 
