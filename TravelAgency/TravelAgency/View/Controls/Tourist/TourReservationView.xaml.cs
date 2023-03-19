@@ -48,5 +48,10 @@ namespace TravelAgency.View.Controls.Tourist
             touristView.Show();
             Close();
         }
+
+        private void TextBoxBase_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
