@@ -15,13 +15,12 @@ namespace TravelAgency.ViewModel
 {
     public class TourReservationViewModel : BaseViewModel
     {
-        private readonly TourRepository _tourRepository;
         private ObservableCollection<TourModel> _toursCollection;
 
         public TourReservationViewModel()
         {
-            _tourRepository = new TourRepository();
-            _toursCollection = _tourRepository.GetAll();
+            var tourRepository = new TourRepository();
+            _toursCollection = tourRepository.GetAll();
         }
 
         public ObservableCollection<TourModel> ToursCollection
