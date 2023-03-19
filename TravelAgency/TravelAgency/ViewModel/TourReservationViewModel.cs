@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
@@ -17,6 +18,18 @@ namespace TravelAgency.ViewModel
         private bool _isFilteredCollectionEmpty;
         private bool _isListViewShown;
         private bool _shouldUpdateFilteredCollectionEmpty;
+        private TourModel _selectedTour;
+
+        public TourModel SelectedTour
+        {
+            get => _selectedTour;
+
+            set
+            {
+                _selectedTour = value;
+                Debug.WriteLine(_selectedTour.Name);
+            }
+        }
 
         public bool IsFilteredCollectionEmpty
         {

@@ -113,7 +113,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="160" />
                         <RowDefinition />
-                        <RowDefinition Height="80" />
+                        <RowDefinition Height="100" />
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0" Margin="0,40,0,0">
                         <Label
@@ -150,6 +150,7 @@
                                 HorizontalAlignment="Center"
                                 d:ItemsSource="{d:SampleData ItemCount=5}"
                                 ItemsSource="{Binding ToursSourceCollection}"
+                                SelectedItem="{Binding SelectedTour}"
                                 Style="{StaticResource MaterialDesignListView}"
                                 Visibility="{Binding IsListViewShown, Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <ListView.View>
@@ -189,9 +190,10 @@
                     </Border>
                     <Button
                         Grid.Row="2"
-                        Width="150"
-                        Height="40"
-                        Content="Make reservation" />
+                        Width="160"
+                        Height="50"
+                        Content="Make reservation"
+                        FontSize="15" />
                 </Grid>
             </Grid>
         </Grid>
