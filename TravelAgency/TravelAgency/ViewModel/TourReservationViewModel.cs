@@ -6,9 +6,11 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Forms;
 using TravelAgency.Model;
 using TravelAgency.Repository;
 using TravelAgency.View;
+using MessageBox = System.Windows.MessageBox;
 
 namespace TravelAgency.ViewModel
 {
@@ -21,8 +23,9 @@ namespace TravelAgency.ViewModel
         private bool _isListViewShown;
         private bool _shouldUpdateFilteredCollectionEmpty;
         private TourModel _selectedTour;
-        private string _guestNumber;
+        private string? _guestNumber;
         private bool _isTourSelected;
+        private bool _isGuestNumberEntered;
 
         public bool IsTourSelected
         {
@@ -34,17 +37,20 @@ namespace TravelAgency.ViewModel
             }
         }
 
-        public string GuestNumber
+        public string? GuestNumber
         {
             get => _guestNumber;
             set
             {
                 _guestNumber = value;
+                _shouldUpdateFilteredCollectionEmpty = true;
+                _toursCollection.View.Refresh();
+                RaisePropertyChanged("FilterText");
                 OnPropertyChanged();
             }
         }
 
-        public TourModel SelectedTour
+        public TourModel? SelectedTour
         {
             get => _selectedTour;
 
@@ -52,6 +58,7 @@ namespace TravelAgency.ViewModel
             {
                 _selectedTour = value;
                 IsTourSelected = true;
+                OnPropertyChanged();
                 //Debug.WriteLine(_selectedTour.Name);
             }
         }
@@ -107,8 +114,20 @@ namespace TravelAgency.ViewModel
                 IsListViewShown = true;
 
             IsTourSelected = false;
+            _isGuestNumberEntered = false;
         }
 
+        private bool DoGuestsFit(int maxGuests)
+        {
+            int.TryParse(GuestNumber, out var guestNumber);
+            return guestNumber <= maxGuests;
+        }
+
+        private bool DoesLocationFit(LocationModel location)
+        {
+            return location.City.Equals(SelectedTour?.Location.City) &&
+                   location.Country.Equals(SelectedTour?.Location.Country);
+        }
 
         private void ToursCollection_Filter(object sender, FilterEventArgs e)
         {
@@ -123,15 +142,39 @@ namespace TravelAgency.ViewModel
 
             var filterTextUpper = FilterText.ToUpper();
 
-            if (tour.Location.City.ToUpper().Contains(filterTextUpper) || tour.Location.Country.ToUpper().Contains(filterTextUpper) ||
-                tour.Duration.ToString(CultureInfo.InvariantCulture).ToUpper().Contains(filterTextUpper) ||
-                tour.Language.ToString().ToUpper().Contains(filterTextUpper) || tour.MaxGuests.ToString().ToUpper().Contains(filterTextUpper))
+            if (_isGuestNumberEntered)
             {
-                e.Accepted = true;
+                //Debug.WriteLine("in");
+                //Debug.Write("selected")
+                //Debug.WriteLine($"{tour.Name}: {tour.MaxGuests} - entered guests {guestNumber}");
+                //Debug.WriteLine("Tour location: " + tour.Location);
+                //Debug.WriteLine("Selected location: " + SelectedTour?.Location);
+                //Debug.WriteLine(tour.Location.City.Equals(SelectedTour?.Location.City) && tour.Location.Country.Equals(SelectedTour?.Location.Country));
+
+                if (DoGuestsFit(tour.MaxGuests) && DoesLocationFit(tour.Location))
+                {
+                    //Debug.WriteLine($"accepted: {tour.Name}");
+                    e.Accepted = true;
+                }
+                else
+                {
+                    e.Accepted = false;
+                }
             }
             else
             {
-                e.Accepted = false;
+
+                if (tour.Location.City.ToUpper().Contains(filterTextUpper) || tour.Location.Country.ToUpper().Contains(filterTextUpper) ||
+                    tour.Duration.ToString(CultureInfo.InvariantCulture).ToUpper().Contains(filterTextUpper) ||
+                    tour.Language.ToString().ToUpper().Contains(filterTextUpper) || tour.MaxGuests.ToString().ToUpper().Contains(filterTextUpper))
+                {
+                    e.Accepted = true;
+                }
+                else
+                {
+                    //Debug.WriteLine($"declined: {tour.Name}");
+                    e.Accepted = false;
+                }
             }
 
             _shouldUpdateFilteredCollectionEmpty = true;
@@ -158,11 +201,37 @@ namespace TravelAgency.ViewModel
 
         public void MakeReservation()
         {
+            if (SelectedTour == null)
+            {
+                MessageBox.Show("Error while selecting tour. Please try again.");
+                return;
+            }
+
             // SelectedTour contains the tour we selected in the moment of using button
             Debug.WriteLine(SelectedTour);
-            Debug.WriteLine(!int.TryParse(GuestNumber, out var guestNumber)
-                ? "Parsing failed"
-                : $"Number of guests is {guestNumber}");
+            if (!int.TryParse(GuestNumber, out var guestNumber))
+            {
+                MessageBox.Show("Invalid number of guests!");
+            }
+
+            if (guestNumber > SelectedTour.MaxGuests)
+            {
+                MessageBox.Show("No room for that amount on guests. Showing other available options on the same location.");
+                _isGuestNumberEntered = true;
+                _toursCollection.View.Refresh();
+                FilterText = " ";
+                GuestNumber = null;
+            }
+            else if (guestNumber < SelectedTour.MaxGuests)
+            {
+
+            }
+            else
+            {
+                
+            }
+
+            IsTourSelected = false;
         }
     }
 }
