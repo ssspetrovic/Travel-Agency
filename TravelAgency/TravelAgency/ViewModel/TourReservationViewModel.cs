@@ -257,7 +257,7 @@ namespace TravelAgency.ViewModel
                     DataContext = this
                 };
 
-                GuestNumberText = $"There is/are still {SelectedTour.MaxGuests - guestNumber} free space/s in the selected tour.";
+                GuestNumberText = $"Tour still isn't full. Number of spaces left: {SelectedTour.MaxGuests - guestNumber}";
 
                 dialog.ShowDialog();
             }
@@ -270,6 +270,7 @@ namespace TravelAgency.ViewModel
                 else
                 {
                     _reservationRepository.Add(new TourReservation(SelectedTour.Id, guestNumber, CurrentUser.Username, CurrentUser.DisplayName));
+                    MessageBox.Show("Reservation was successful!", "Tour reservation");
                 }
             }
 
