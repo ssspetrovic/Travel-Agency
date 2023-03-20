@@ -22,6 +22,17 @@ namespace TravelAgency.ViewModel
         private bool _shouldUpdateFilteredCollectionEmpty;
         private TourModel _selectedTour;
         private string _guestNumber;
+        private bool _isTourSelected;
+
+        public bool IsTourSelected
+        {
+            get => _isTourSelected;
+            set
+            {
+                _isTourSelected = value;
+                OnPropertyChanged();
+            }
+        }
 
         public string GuestNumber
         {
@@ -40,6 +51,7 @@ namespace TravelAgency.ViewModel
             set
             {
                 _selectedTour = value;
+                IsTourSelected = true;
                 //Debug.WriteLine(_selectedTour.Name);
             }
         }
@@ -93,6 +105,8 @@ namespace TravelAgency.ViewModel
 
             if (!ToursSourceCollection.IsEmpty)
                 IsListViewShown = true;
+
+            IsTourSelected = false;
         }
 
 

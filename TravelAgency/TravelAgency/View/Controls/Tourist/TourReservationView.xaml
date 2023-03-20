@@ -110,18 +110,18 @@
                 </WrapPanel>
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="160" />
+                        <RowDefinition Height="140" />
                         <RowDefinition />
-                        <RowDefinition Height="120" />
+                        <RowDefinition Height="140" />
                     </Grid.RowDefinitions>
-                    <StackPanel Grid.Row="0" Margin="0,40,0,0">
-                        <Label
+                    <StackPanel Grid.Row="0">
+                        <TextBlock
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            Content="Tour search"
                             FontSize="25"
                             FontWeight="Medium"
-                            Style="{StaticResource MaterialDesignLabel}" />
+                            Style="{StaticResource MaterialDesignHeadline1TextBlock}"
+                            Text="Tour search" />
                         <TextBox
                             x:Name="SearchTextBox"
                             Width="400"
@@ -141,6 +141,12 @@
                             FontSize="15"
                             Style="{StaticResource MaterialDesignTextBoxBase}"
                             Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBlock
+                            Margin="0,5"
+                            FontSize="15"
+                            Style="{StaticResource MaterialDesignBody2TextBlock}"
+                            Text="Select a tour to make reservation"
+                            TextAlignment="Center" />
                     </StackPanel>
                     <Border
                         Grid.Row="1"
@@ -198,15 +204,21 @@
                         Margin="50,0"
                         BorderBrush="{StaticResource MaterialDesignDivider}"
                         BorderThickness="0,2,0,0">
-                        <StackPanel Margin="10">
-                            <WrapPanel HorizontalAlignment="Center">
-                                <Label Content="Number of guests:" />
+                        <StackPanel Margin="10" Visibility="{Binding IsTourSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <WrapPanel Height="40" HorizontalAlignment="Center">
+                                <Label
+                                    VerticalAlignment="Center"
+                                    Content="Number of guests:"
+                                    FontSize="16" />
                                 <TextBox
                                     x:Name="GuestNumberTextBox"
                                     Width="80"
+                                    Height="40"
                                     Margin="10,0"
+                                    VerticalContentAlignment="Center"
                                     BorderBrush="{DynamicResource MaterialDesignDivider}"
-                                    BorderThickness="2"
+                                    BorderThickness="0,0,0,2"
+                                    FontSize="16"
                                     Style="{StaticResource MaterialDesignTextBoxBase}"
                                     Text="{Binding GuestNumber}" />
                             </WrapPanel>
@@ -215,9 +227,9 @@
                                 Grid.Row="2"
                                 Width="160"
                                 Height="40"
-                                Margin="0,10,0,0"
+                                Margin="0,20,0,0"
                                 Click="MakeReservationButton_OnClick"
-                                Content="Make reservation"
+                                Content="Make a reservation"
                                 FontSize="15" />
                         </StackPanel>
                     </Border>
