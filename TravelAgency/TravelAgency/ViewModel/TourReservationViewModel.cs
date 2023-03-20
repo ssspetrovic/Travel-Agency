@@ -1,16 +1,12 @@
-﻿using System;
-using System.ComponentModel;
-using System.Diagnostics;
+﻿using System.ComponentModel;
 using System.Globalization;
-using System.Runtime.CompilerServices;
+using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Forms;
 using TravelAgency.Model;
 using TravelAgency.Repository;
-using TravelAgency.View;
 using TravelAgency.View.Controls.Tourist;
+using static System.Windows.Application;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
 
@@ -33,6 +29,8 @@ namespace TravelAgency.ViewModel
 
         private readonly TourRepository _tourRepository;
         private readonly TourReservationRepository _reservationRepository;
+
+        private TourReservationView _mainWindow;
 
         public string NewGuestNumber
         {
@@ -159,27 +157,33 @@ namespace TravelAgency.ViewModel
 
         private void ToursCollection_Filter(object sender, FilterEventArgs e)
         {
-            if (string.IsNullOrEmpty(FilterText))
-            {
-                e.Accepted = true;
-                return;
-            }
-
             // Checks if "tour = e.Item as Tour" is true
             if (e.Item is not TourModel tour) return;
+
+            if (string.IsNullOrEmpty(FilterText))
+            {
+                //Debug.WriteLine(tour.MaxGuests);
+                e.Accepted = true;
+                if (tour.MaxGuests <= 0)
+                {
+                    e.Accepted = false;
+                    //Debug.WriteLine("in with: " + tour.MaxGuests);
+                }
+                return;
+            }
 
             var filterTextUpper = FilterText.ToUpper();
 
             if (_isGuestNumberEntered)
             {
                 //Debug.WriteLine("in");
-                //Debug.Write("selected")
+                //Debug.WriteLine("selected")
                 //Debug.WriteLine($"{tour.Name}: {tour.MaxGuests} - entered guests {guestNumber}");
                 //Debug.WriteLine("Tour location: " + tour.Location);
                 //Debug.WriteLine("Selected location: " + SelectedTour?.Location);
                 //Debug.WriteLine(tour.Location.City.Equals(SelectedTour?.Location.City) && tour.Location.Country.Equals(SelectedTour?.Location.Country));
 
-                if (DoGuestsFit(tour.MaxGuests) && DoesLocationFit(tour.Location))
+                if (DoGuestsFit(tour.MaxGuests) && DoesLocationFit(tour.Location) && tour.MaxGuests > 0)
                 {
                     //Debug.WriteLine($"accepted: {tour.Name}");
                     e.Accepted = true;
@@ -191,10 +195,9 @@ namespace TravelAgency.ViewModel
             }
             else
             {
-
                 if (tour.Location.City.ToUpper().Contains(filterTextUpper) || tour.Location.Country.ToUpper().Contains(filterTextUpper) ||
                     tour.Duration.ToString(CultureInfo.InvariantCulture).ToUpper().Contains(filterTextUpper) ||
-                    tour.Language.ToString().ToUpper().Contains(filterTextUpper) || tour.MaxGuests.ToString().ToUpper().Contains(filterTextUpper))
+                    tour.Language.ToString().ToUpper().Contains(filterTextUpper) || tour.MaxGuests.ToString().ToUpper().Contains(filterTextUpper) && tour.MaxGuests > 0)
                 {
                     e.Accepted = true;
                 }
@@ -253,12 +256,13 @@ namespace TravelAgency.ViewModel
                 MessageBox.Show("Error while selecting tour. Please try again.");
                 return;
             }
-            
+
             // SelectedTour contains the tour we selected in the moment of using button
             //Debug.WriteLine(SelectedTour);
-            if (!int.TryParse(GuestNumber, out var guestNumber))
+            if (!int.TryParse(GuestNumber, out var guestNumber) || guestNumber <= 0)
             {
                 MessageBox.Show("Invalid number of guests!");
+                return;
             }
 
             if (guestNumber > SelectedTour.MaxGuests)
@@ -267,17 +271,21 @@ namespace TravelAgency.ViewModel
                 _isGuestNumberEntered = true;
                 _toursCollection.View.Refresh();
                 FilterText = " ";
+                return;
             }
-            else if (guestNumber < SelectedTour.MaxGuests)
+
+            var finalGuestNumber = -1;
+
+            if (guestNumber < SelectedTour.MaxGuests)
             {
                 var dialog = new GuestNumberDialog
                 {
-                    Owner = Application.Current.MainWindow,
+                    Owner = Current.MainWindow,
                     DataContext = this
                 };
 
-
-                GuestNumberText = $"Tour still isn't full. Number of spaces left: {SelectedTour.MaxGuests - guestNumber}";
+                GuestNumberText =
+                    $"Tour still isn't full. Number of spaces left: {SelectedTour.MaxGuests - guestNumber}";
 
                 //Debug.WriteLine(GuestNumberDialog.IsUpdateConfirmed);
                 dialog.ShowDialog();
@@ -287,24 +295,52 @@ namespace TravelAgency.ViewModel
                 if (NewGuestNumber == null || !GuestNumberDialog.IsUpdateConfirmed)
                 {
                     //Debug.WriteLine("in old");
-                    CompleteReservation(guestNumber); // Sending old number
+                    finalGuestNumber = guestNumber;
                 }
                 else
                 {
-                    if (!int.TryParse(NewGuestNumber, out var newGuestNumber) || newGuestNumber > SelectedTour.MaxGuests)
+                    if (!int.TryParse(NewGuestNumber, out var newGuestNumber) ||
+                        newGuestNumber > SelectedTour.MaxGuests)
                     {
                         MessageBox.Show("Invalid number of guests!");
                     }
-
-                    CompleteReservation(newGuestNumber);
+                    else
+                    {
+                        finalGuestNumber = newGuestNumber;
+                    }
                 }
             }
             else
             {
-                CompleteReservation(guestNumber);
+                // Case where the number of guest is exact as max number of guests
+                finalGuestNumber = guestNumber;
             }
 
+            if (finalGuestNumber == -1)
+            {
+                MessageBox.Show("Failed to make reservation!");
+            }
+            else
+            {
+                _tourRepository.UpdateMaxGuests(SelectedTour.Id, SelectedTour.MaxGuests - finalGuestNumber);
+                CompleteReservation(finalGuestNumber);
+                ReloadWindow();
+            }
+
+            FilterText = " ";
             IsTourSelected = false;
+            _toursCollection.View.Refresh();
+        }
+
+        private void ReloadWindow()
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                _mainWindow ??= new TourReservationView();
+                var currentWindow = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
+                _mainWindow.Show();
+                currentWindow?.Close();
+            });
         }
     }
 }

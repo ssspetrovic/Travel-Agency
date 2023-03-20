@@ -203,5 +203,21 @@ namespace TravelAgency.Repository
             updateCommand.ExecuteNonQuery();
 
         }
+
+        public void UpdateMaxGuests(int id, int maxGuests)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            var updateCommand = databaseConnection.CreateCommand();
+            updateCommand.CommandText = 
+                @"
+                    UPDATE Tour SET MaxGuests = $maxGuests
+                    WHERE Id = $id;
+                ";
+            updateCommand.Parameters.AddWithValue("$maxGuests", maxGuests);
+            updateCommand.Parameters.AddWithValue("id", id);
+            updateCommand.ExecuteNonQuery();
+        }
     }
 }
