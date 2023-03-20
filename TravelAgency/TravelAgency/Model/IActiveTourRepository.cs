@@ -8,7 +8,6 @@ namespace TravelAgency.Model
         void Edit(ActiveTourModel activeTourModel);
         void Remove();
         ActiveTourModel GetById(int id);
-        DataTable GetActiveTour(DataTable dt);
         bool IsActive();
         string GetActiveTourData(string column);
         void UpdateKeyPoint(string keyPoint);
