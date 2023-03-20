@@ -8,8 +8,8 @@ namespace TravelAgency.Model
 {
     internal interface ITourReservationRepository
     {
-        void Add(ActiveTourModel activeTourModel);
+        void Add(TourReservation tourReservation);
         void Remove();
-        ActiveTourModel GetById(int id);
+        TourReservation GetById(int id);
     }
 }
