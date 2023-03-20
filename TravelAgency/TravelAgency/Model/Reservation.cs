@@ -8,5 +8,29 @@ namespace TravelAgency.Model
 {
     internal class Reservation
     {
+        public int Id { get; set; }
+        public string Comment { get; set; } = string.Empty;
+        public DateOnly StartDate { get; set; }
+        public DateOnly EndDate { get; set; }
+        public float GradeComplaisent { get; set; }
+        public float GradeClean { get; set; }
+        public int GuestId { get; set; }
+        public int AccommodationId { get; set; }
+
+        public Reservation()
+        {
+        }
+
+        public Reservation(int id, string comment, DateOnly startDate, DateOnly endDate, float gradeComplaisent, float gradeClean, int guestId, int accommodationId)
+        {
+            Id = id;
+            Comment = comment;
+            StartDate = startDate;
+            EndDate = endDate;
+            GradeComplaisent = gradeComplaisent;
+            GradeClean = gradeClean;
+            GuestId = guestId;
+            AccommodationId = accommodationId;
+        }
     }
 }

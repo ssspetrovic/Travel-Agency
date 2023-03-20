@@ -16,25 +16,31 @@ namespace TravelAgency.Model
     {
         public int Id { get; set; }
         public string Name { get; set; } = null!;
-        public LocationModel Location { get; set; } = null!;
+        public int LocationId { get; set; }
         public AccommodationType Type { get; set; }
-        public int minReservationDays { get; set; }
-        public int daysBeforeCancelation { get; set; }
+        public int MinReservationDays { get; set; }
+        public int MaxReservationDays { get; set; }
+        public string Adress { get; set; } 
+        public int ReservableDays { get; set; }
         public string Images { get; set; }  
+        public string Description { get; set; }
+
         public Accommodation()
         {
             
         }
-
-        public Accommodation(string name, LocationModel location, AccommodationType type, int minReservationDays, int daysBeforeCancelation, string images)
+        public Accommodation(int id, string name, int locationId, AccommodationType type, int minReservationDays, int maxReservationDays, string adress, int reservableDays, string images, string description)
         {
-            this.Name = name;
-            this.Location = location;
-            this.Type = type;
-            this.minReservationDays = minReservationDays;
-            this.daysBeforeCancelation = daysBeforeCancelation;
-            this.Images = images;
+            Id = id;
+            Name = name;
+            LocationId = locationId;
+            Type = type;
+            MinReservationDays = minReservationDays;
+            MaxReservationDays = maxReservationDays;
+            Adress = adress;
+            ReservableDays = reservableDays;
+            Images = images;
+            Description = description;
         }
-
     }
 }
