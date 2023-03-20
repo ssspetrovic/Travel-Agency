@@ -44,7 +44,7 @@ namespace TravelAgency.View.Controls.Guest1
 
         private void MakeReservationButton_OnClick(object sender, RoutedEventArgs e)
         {
-            TourReservationViewModel.MakeReservation(sender, e);
+            AccommodationReservationViewModel.MakeReservation(sender, e);
         }
     }
 }
