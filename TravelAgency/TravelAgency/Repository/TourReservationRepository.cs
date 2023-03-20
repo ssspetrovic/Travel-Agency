@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Data.Sqlite;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,9 +27,15 @@ namespace TravelAgency.Repository
             insertCommand.ExecuteNonQuery();
         }
 
-        public void Remove()
+        public void DeleteById(int id)
         {
-            throw new NotImplementedException();
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            using var deleteCommand = databaseConnection.CreateCommand();
+            deleteCommand.CommandText = "DELETE FROM TourReservation WHERE Id = $Id";
+            deleteCommand.Parameters.AddWithValue("$Id", id);
+            deleteCommand.ExecuteNonQuery();
         }
 
         public TourReservation GetById(int id)
