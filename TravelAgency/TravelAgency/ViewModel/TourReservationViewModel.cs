@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using TravelAgency.Model;
 using TravelAgency.Repository;
 using TravelAgency.View;
+using TravelAgency.View.Controls.Tourist;
+using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
 
 namespace TravelAgency.ViewModel
@@ -223,6 +225,13 @@ namespace TravelAgency.ViewModel
             }
             else if (guestNumber < SelectedTour.MaxGuests)
             {
+                var dialog = new GuestNumberDialog
+                {
+                    Owner = Application.Current.MainWindow,
+                    DataContext = this
+                };
+
+                dialog.ShowDialog();
 
             }
 
