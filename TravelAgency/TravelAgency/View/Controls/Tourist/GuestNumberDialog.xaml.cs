@@ -19,18 +19,23 @@ namespace TravelAgency.View.Controls.Tourist
     /// </summary>
     public partial class GuestNumberDialog : Window
     {
+        public static bool IsUpdateConfirmed { get; set; }
+
         public GuestNumberDialog()
         {
             InitializeComponent();
+            IsUpdateConfirmed = false;
         }
 
         private void UpdateButton_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            IsUpdateConfirmed = true;
+            Close();
         }
 
         private void CancelButton_OnClick(object sender, RoutedEventArgs e)
         {
+            IsUpdateConfirmed = false;
             Close();
         }
     }

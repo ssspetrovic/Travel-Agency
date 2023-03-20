@@ -276,14 +276,27 @@ namespace TravelAgency.ViewModel
                     DataContext = this
                 };
 
+
                 GuestNumberText = $"Tour still isn't full. Number of spaces left: {SelectedTour.MaxGuests - guestNumber}";
 
+                //Debug.WriteLine(GuestNumberDialog.IsUpdateConfirmed);
                 dialog.ShowDialog();
+                //Debug.WriteLine(GuestNumberDialog.IsUpdateConfirmed);
 
-                // Number of guests wasn't changed
-                if (NewGuestNumber == null)
+                // Number of guests wasn't changed or cancel was pressed
+                if (NewGuestNumber == null || !GuestNumberDialog.IsUpdateConfirmed)
                 {
+                    //Debug.WriteLine("in old");
                     CompleteReservation(guestNumber); // Sending old number
+                }
+                else
+                {
+                    if (!int.TryParse(NewGuestNumber, out var newGuestNumber) || newGuestNumber > SelectedTour.MaxGuests)
+                    {
+                        MessageBox.Show("Invalid number of guests!");
+                    }
+
+                    CompleteReservation(newGuestNumber);
                 }
             }
             else
