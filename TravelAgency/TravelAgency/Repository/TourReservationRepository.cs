@@ -18,10 +18,11 @@ namespace TravelAgency.Repository
             using var insertCommand = databaseConnection.CreateCommand();
             insertCommand.CommandText =
                 @"
-                    INSERT INTO TourReservation (TourId, Username, Name)
-                    VALUES ($TourId, $Username, $Name)
+                    INSERT INTO TourReservation (TourId, GuestNumber, Username, Name)
+                    VALUES ($TourId, $GuestNumber, $Username, $Name)
                 ";
             insertCommand.Parameters.AddWithValue("TourId", tourReservation.TourId);
+            insertCommand.Parameters.AddWithValue("GuestNumber", tourReservation.GuestNumber);
             insertCommand.Parameters.AddWithValue("Username", tourReservation.Username);
             insertCommand.Parameters.AddWithValue("Name", tourReservation.DisplayName);
             insertCommand.ExecuteNonQuery();
