@@ -220,15 +220,10 @@ namespace TravelAgency.ViewModel
                 _isGuestNumberEntered = true;
                 _toursCollection.View.Refresh();
                 FilterText = " ";
-                GuestNumber = null;
             }
             else if (guestNumber < SelectedTour.MaxGuests)
             {
 
-            }
-            else
-            {
-                
             }
 
             IsTourSelected = false;
