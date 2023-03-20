@@ -286,7 +286,7 @@
                                     FontSize="19"
                                     FontWeight="Medium"
                                     Foreground="#68cbf8"
-                                    Text="Starting Location"
+                                    Text="Has Showed Up?"
                                     TextWrapping="Wrap" />
 
                                 <TextBlock
@@ -297,7 +297,7 @@
                                     FontSize="19"
                                     FontWeight="Medium"
                                     Foreground="#68cbf8"
-                                    Text="Has Showed Up?"
+                                    Text="Starting Location"
                                     TextWrapping="Wrap" />
 
                             </Grid>
@@ -324,10 +324,10 @@
                                 </ListView>
 
                                 <ListView
-                                    Name="ListViewStartingLocation"
+                                    Name="ListViewCheckedTourists"
                                     Grid.Column="1"
                                     FontSize="16"
-                                    ItemsSource="{Binding StartingLocation}">
+                                    ItemsSource="{Binding CheckedTourists}">
                                     <ListView.ItemContainerStyle>
                                         <Style TargetType="ListViewItem">
                                             <Setter Property="HorizontalAlignment" Value="Center" />
@@ -336,10 +336,10 @@
                                 </ListView>
 
                                 <ListView
-                                    Name="ListViewCheckedTourists"
+                                    Name="ListViewStartingLocation"
                                     Grid.Column="2"
                                     FontSize="16"
-                                    ItemsSource="{Binding CheckedTourists}">
+                                    ItemsSource="{Binding StartingLocation}">
                                     <ListView.ItemContainerStyle>
                                         <Style TargetType="ListViewItem">
                                             <Setter Property="HorizontalAlignment" Value="Center" />

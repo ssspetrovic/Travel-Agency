@@ -45,7 +45,11 @@ namespace TravelAgency.Repository
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
 
-            if(int.TryParse(city, out var cityId))
+
+            //Posto logika kljucnih tacki u nasoj datoteci se svodi na tome da je KeyPoints text parametar u tabelama postoje dve situacije koje se mogu desiti
+            //Prva: Zapravo saljemo grad iz tabele Location i onda samo vrsimo izvlacenje iz tabele
+            //Druga: Saljemo string id lokacije koji moramo da konvertujemo u int, pri cemu cemo zapravo naci lokaciju po id-u
+            if (int.TryParse(city, out var cityId))
             {
                 const string selectStatement = @"select * from Location where Id = $Id ";
                 using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);

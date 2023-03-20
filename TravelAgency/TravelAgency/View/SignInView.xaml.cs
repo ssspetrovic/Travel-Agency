@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using TravelAgency.Model;
@@ -59,8 +60,15 @@ namespace TravelAgency.View
                     if (isValid)
                     {
                         var currentRole = userRepository.GetRole(username);
-                        var currentUserRepository = new CurrentUserRepository();
-                        currentUserRepository.Add(username);
+                        CurrentUser.Id = userRepository.GetByUsername(username).Id;
+                        CurrentUser.Username = username;
+                        CurrentUser.DisplayName = userRepository.GetByUsername(username).Name;
+
+                        // Debug test
+                        //Debug.WriteLine(CurrentUser.Id);
+                        //Debug.WriteLine(CurrentUser.Username);
+                        //Debug.WriteLine(CurrentUser.DisplayName);
+
                         switch (currentRole)
                         {
                             case Role.Owner:

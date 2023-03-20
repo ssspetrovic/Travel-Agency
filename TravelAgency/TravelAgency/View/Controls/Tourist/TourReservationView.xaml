@@ -7,7 +7,6 @@
     xmlns:local="clr-namespace:TravelAgency.View.Controls.Tourist"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewModel="clr-namespace:TravelAgency.ViewModel"
     Title="Tour Reservation"
     Width="916"
     Height="616"
@@ -111,32 +110,43 @@
                 </WrapPanel>
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="160" />
+                        <RowDefinition Height="140" />
                         <RowDefinition />
-                        <RowDefinition Height="100" />
+                        <RowDefinition Height="140" />
                     </Grid.RowDefinitions>
-                    <StackPanel Grid.Row="0" Margin="0,40,0,0">
-                        <Label
+                    <StackPanel Grid.Row="0">
+                        <TextBlock
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            Content="Tours search"
                             FontSize="25"
-                            Style="{StaticResource MaterialDesignLabel}" />
+                            FontWeight="Medium"
+                            Style="{StaticResource MaterialDesignHeadline1TextBlock}"
+                            Text="Tour search" />
                         <TextBox
                             x:Name="SearchTextBox"
                             Width="400"
                             Height="40"
                             Margin="0,10"
-                            Padding="10,0"
+                            Padding="15,0"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             VerticalContentAlignment="Center"
                             materialDesign:HintAssist.Hint="Search"
+                            materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                            materialDesign:TextFieldAssist.HasTrailingIcon="True"
+                            materialDesign:TextFieldAssist.TextFieldCornerRadius="20"
+                            materialDesign:TextFieldAssist.TrailingIcon="Search"
                             BorderBrush="{DynamicResource MaterialDesignDivider}"
                             BorderThickness="2"
                             FontSize="15"
                             Style="{StaticResource MaterialDesignTextBoxBase}"
                             Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBlock
+                            Margin="0,5"
+                            FontSize="15"
+                            Style="{StaticResource MaterialDesignBody2TextBlock}"
+                            Text="Select a tour to a make reservation"
+                            TextAlignment="Center" />
                     </StackPanel>
                     <Border
                         Grid.Row="1"
@@ -147,6 +157,7 @@
                             <ListView
                                 x:Name="ToursListView"
                                 Grid.Row="1"
+                                Height="280"
                                 HorizontalAlignment="Center"
                                 d:ItemsSource="{d:SampleData ItemCount=5}"
                                 ItemsSource="{Binding ToursSourceCollection}"
@@ -178,25 +189,50 @@
                                     </GridView>
                                 </ListView.View>
                             </ListView>
-                            <TextBox
-                                Margin="20"
-                                HorizontalContentAlignment="Center"
-                                BorderThickness="0"
+                            <TextBlock
+                                Margin="0,10"
+                                HorizontalAlignment="Center"
                                 FontSize="15"
-                                Style="{StaticResource MaterialDesignTextBox}"
-                                Text="No tours match the search criteria."
+                                FontWeight="UltraLight"
+                                Style="{StaticResource MaterialDesignBody2TextBlock}"
+                                Text="No tours match the search criteria"
                                 Visibility="{Binding IsFilteredCollectionEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
                         </StackPanel>
                     </Border>
-                    <Button
-                        x:Name="MakeReservationButton"
+                    <Border
                         Grid.Row="2"
-                        Width="160"
-                        Height="40"
-                        Margin="0,0,0,20"
-                        Click="MakeReservationButton_OnClick"
-                        Content="Make reservation"
-                        FontSize="15" />
+                        Margin="50,0"
+                        BorderBrush="{StaticResource MaterialDesignDivider}"
+                        BorderThickness="0,2,0,0">
+                        <StackPanel Margin="10" Visibility="{Binding IsTourSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <WrapPanel Height="40" HorizontalAlignment="Center">
+                                <Label
+                                    VerticalAlignment="Center"
+                                    Content="Number of guests:"
+                                    FontSize="16" />
+                                <TextBox
+                                    x:Name="GuestNumberTextBox"
+                                    Width="80"
+                                    Height="40"
+                                    Margin="10,0"
+                                    VerticalContentAlignment="Center"
+                                    BorderBrush="{DynamicResource MaterialDesignDivider}"
+                                    BorderThickness="0,0,0,2"
+                                    FontSize="16"
+                                    Style="{StaticResource MaterialDesignTextBoxBase}"
+                                    Text="{Binding GuestNumber}" />
+                            </WrapPanel>
+                            <Button
+                                x:Name="MakeReservationButton"
+                                Grid.Row="2"
+                                Width="160"
+                                Height="40"
+                                Margin="0,20,0,0"
+                                Click="MakeReservationButton_OnClick"
+                                Content="Make a reservation"
+                                FontSize="15" />
+                        </StackPanel>
+                    </Border>
                 </Grid>
             </Grid>
         </Grid>

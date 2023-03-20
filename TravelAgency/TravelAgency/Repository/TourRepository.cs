@@ -15,12 +15,14 @@ namespace TravelAgency.Repository
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
 
+            //Za svaku kljucnu tacku saljemo id u tabelu
             var idList = "";
             foreach (var keyPoint in tourModel.KeyPoints)
             {
-                idList += ", " + keyPoint.Id.ToString();
+                idList += ", " + keyPoint.Id;
             }
 
+            //Brisemo prva dva clana kako bi smo obrisali zarez
             idList = idList.Substring(2, idList.Length - 2);
 
             const string insertStatement =
@@ -72,6 +74,8 @@ namespace TravelAgency.Repository
             if (!selectReader.Read()) return tourModel!;
 
 
+            //Posto nam je dosta parametara sacuvano u tabelu u vidu tekstova
+            //Moramo da ih konvertujemo u liste podataka
             var locationRepository = new LocationRepository();
             var location = locationRepository.GetById(selectReader.GetInt32(2));
             var keyPointsList = selectReader.GetString(6).Split(", ").ToList();
@@ -98,7 +102,7 @@ namespace TravelAgency.Repository
 
             if (!selectReader.Read()) return tourModel!;
 
-
+            //Isto i ovde vazi, moramo izvrsiti konverziju
             var locationRepository = new LocationRepository();
             var location = locationRepository.GetById(selectReader.GetInt32(2));
             var keyPointsList = selectReader.GetString(6).Split(", ").ToList();
@@ -111,6 +115,8 @@ namespace TravelAgency.Repository
             return tourModel;
         }
 
+        //Ova funkcija sluzi da bi smo vratili nazad ispis u View
+        //Pomocu DataTable dobijamo parametre kolona odnosno dobijamo sve ture
         public DataTable GetByAll(DataTable dt)
         {
             using var databaseConnection = GetConnection();
@@ -157,7 +163,7 @@ namespace TravelAgency.Repository
             var tourList = new ObservableCollection<TourModel>();
             var locationRepository = new LocationRepository();
 
-
+            
             while (selectReader.Read())
             {
                 var location = locationRepository.GetById(selectReader.GetInt32(2));
@@ -172,6 +178,9 @@ namespace TravelAgency.Repository
             return tourList;
         }
 
+        //Ova funkcija sluzi u situaciji kada imamo neku turu, ali ta tura ima vise datuma kada se zapocinje
+        //Posto ima vise datuma, to znaci da ne smemo celu turu da izbrisemo iz baze podataka vec treba da oznacimo da je danasnja tura gotova
+        //Samim tim cemo ovde samo obrisati datum koji se prosledi iz liste svih datuma te ture
         public void RemoveDate(string dateToday, List<string> tourDates, int id)
         {
             var newTourDates = "";
@@ -193,6 +202,22 @@ namespace TravelAgency.Repository
 
             updateCommand.ExecuteNonQuery();
 
+        }
+
+        public void UpdateMaxGuests(int id, int maxGuests)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            var updateCommand = databaseConnection.CreateCommand();
+            updateCommand.CommandText = 
+                @"
+                    UPDATE Tour SET MaxGuests = $maxGuests
+                    WHERE Id = $id;
+                ";
+            updateCommand.Parameters.AddWithValue("$maxGuests", maxGuests);
+            updateCommand.Parameters.AddWithValue("id", id);
+            updateCommand.ExecuteNonQuery();
         }
     }
 }

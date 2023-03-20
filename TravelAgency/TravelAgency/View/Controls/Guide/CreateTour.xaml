@@ -6,6 +6,7 @@
     xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModel="clr-namespace:TravelAgency.ViewModel"
     Title="Sign In"
     Width="1280"
     Height="720"
@@ -16,6 +17,9 @@
     WindowStyle="None"
     mc:Ignorable="d">
 
+    <Window.DataContext>
+        <viewModel:GuideViewModel />
+    </Window.DataContext>
 
     <materialDesign:Card
         Margin="25"

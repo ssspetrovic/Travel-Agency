@@ -1,4 +1,7 @@
 ﻿
+using System;
+using System.Text;
+
 namespace TravelAgency.Model
 {
     public class LocationModel
@@ -13,6 +16,13 @@ namespace TravelAgency.Model
             Id = id;
             City = city;
             Country = country;
+        }
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            sb.Append($"{City}, {Country}");
+            return sb.ToString();
         }
     }
 }
