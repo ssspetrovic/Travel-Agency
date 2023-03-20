@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -20,6 +21,17 @@ namespace TravelAgency.ViewModel
         private bool _isListViewShown;
         private bool _shouldUpdateFilteredCollectionEmpty;
         private TourModel _selectedTour;
+        private string _guestNumber;
+
+        public string GuestNumber
+        {
+            get => _guestNumber;
+            set
+            {
+                _guestNumber = value;
+                OnPropertyChanged();
+            }
+        }
 
         public TourModel SelectedTour
         {
@@ -132,7 +144,11 @@ namespace TravelAgency.ViewModel
 
         public void MakeReservation()
         {
+            // SelectedTour contains the tour we selected in the moment of using button
             Debug.WriteLine(SelectedTour);
+            Debug.WriteLine(!int.TryParse(GuestNumber, out var guestNumber)
+                ? "Parsing failed"
+                : $"Number of guests is {guestNumber}");
         }
     }
 }

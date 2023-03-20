@@ -112,7 +112,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="160" />
                         <RowDefinition />
-                        <RowDefinition Height="100" />
+                        <RowDefinition Height="120" />
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0" Margin="0,40,0,0">
                         <Label
@@ -193,15 +193,34 @@
                                 Visibility="{Binding IsFilteredCollectionEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
                         </StackPanel>
                     </Border>
-                    <Button
-                        x:Name="MakeReservationButton"
+                    <Border
                         Grid.Row="2"
-                        Width="160"
-                        Height="40"
-                        Margin="0,0,0,20"
-                        Click="MakeReservationButton_OnClick"
-                        Content="Make reservation"
-                        FontSize="15" />
+                        Margin="50,0"
+                        BorderBrush="{StaticResource MaterialDesignDivider}"
+                        BorderThickness="0,2,0,0">
+                        <StackPanel Margin="10">
+                            <WrapPanel HorizontalAlignment="Center">
+                                <Label Content="Number of guests:" />
+                                <TextBox
+                                    x:Name="GuestNumberTextBox"
+                                    Width="80"
+                                    Margin="10,0"
+                                    BorderBrush="{DynamicResource MaterialDesignDivider}"
+                                    BorderThickness="2"
+                                    Style="{StaticResource MaterialDesignTextBoxBase}"
+                                    Text="{Binding GuestNumber}" />
+                            </WrapPanel>
+                            <Button
+                                x:Name="MakeReservationButton"
+                                Grid.Row="2"
+                                Width="160"
+                                Height="40"
+                                Margin="0,10,0,0"
+                                Click="MakeReservationButton_OnClick"
+                                Content="Make reservation"
+                                FontSize="15" />
+                        </StackPanel>
+                    </Border>
                 </Grid>
             </Grid>
         </Grid>
