@@ -28,6 +28,28 @@ namespace TravelAgency.ViewModel
         private string? _guestNumber;
         private bool _isTourSelected;
         private bool _isGuestNumberEntered;
+        private string _newGuestNumber; 
+        private string _guestNumberText;
+
+        public string NewGuestNumber
+        {
+            get => _newGuestNumber;
+            set
+            {
+                _newGuestNumber = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string GuestNumberText
+        {
+            get => _guestNumberText;
+            set
+            {
+                _guestNumberText = value;
+                OnPropertyChanged();
+            }
+        }
 
         public bool IsTourSelected
         {
@@ -210,7 +232,7 @@ namespace TravelAgency.ViewModel
             }
 
             // SelectedTour contains the tour we selected in the moment of using button
-            Debug.WriteLine(SelectedTour);
+            //Debug.WriteLine(SelectedTour);
             if (!int.TryParse(GuestNumber, out var guestNumber))
             {
                 MessageBox.Show("Invalid number of guests!");
@@ -230,6 +252,8 @@ namespace TravelAgency.ViewModel
                     Owner = Application.Current.MainWindow,
                     DataContext = this
                 };
+
+                GuestNumberText = $"There are still {SelectedTour.MaxGuests - guestNumber} free spaces in the selected tour.";
 
                 dialog.ShowDialog();
 
