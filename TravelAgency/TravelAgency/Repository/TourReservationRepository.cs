@@ -19,7 +19,7 @@ namespace TravelAgency.Repository
             insertCommand.CommandText =
                 @"
                     INSERT INTO TourReservation (TourId, TourName, GuestNumber, Username, TouristName)
-                    VALUES ($TourId, $TourName, $GuestNumber, $Username, TouristName)
+                    VALUES ($TourId, $TourName, $GuestNumber, $Username, $TouristName)
                 ";
             insertCommand.Parameters.AddWithValue("TourId", tourReservation.TourId);
             insertCommand.Parameters.AddWithValue("TourName", tourReservation.TourName);
