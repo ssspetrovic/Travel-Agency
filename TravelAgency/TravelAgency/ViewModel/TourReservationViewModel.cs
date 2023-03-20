@@ -130,12 +130,9 @@ namespace TravelAgency.ViewModel
             }
         }
 
-        public static void MakeReservation(object sender, RoutedEventArgs e)
+        public void MakeReservation()
         {
-            if (sender is Button button)
-            {
-                Debug.WriteLine(button.Content);
-            }
+            Debug.WriteLine(SelectedTour);
         }
     }
 }

@@ -7,7 +7,6 @@
     xmlns:local="clr-namespace:TravelAgency.View.Controls.Tourist"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewModel="clr-namespace:TravelAgency.ViewModel"
     Title="Tour Reservation"
     Width="916"
     Height="616"
@@ -190,7 +189,7 @@
                                 FontSize="15"
                                 FontWeight="UltraLight"
                                 Style="{StaticResource MaterialDesignTextBox}"
-                                Text="No tours match the search criteria."
+                                Text="No tours match the search criteria"
                                 Visibility="{Binding IsFilteredCollectionEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
                         </StackPanel>
                     </Border>
