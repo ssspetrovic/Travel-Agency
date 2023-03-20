@@ -21,7 +21,7 @@ namespace TravelAgency.Model
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append($"{City,-15} {Country,-15}");
+            sb.Append($"{City}, {Country}");
             return sb.ToString();
         }
     }
