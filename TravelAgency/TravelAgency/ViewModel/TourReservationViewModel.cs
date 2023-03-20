@@ -24,12 +24,15 @@ namespace TravelAgency.ViewModel
         private bool _isFilteredCollectionEmpty;
         private bool _isListViewShown;
         private bool _shouldUpdateFilteredCollectionEmpty;
-        private TourModel _selectedTour;
+        private TourModel? _selectedTour;
         private string? _guestNumber;
         private bool _isTourSelected;
         private bool _isGuestNumberEntered;
-        private string _newGuestNumber; 
+        private string _newGuestNumber;
         private string _guestNumberText;
+
+        private readonly TourRepository _tourRepository;
+        private readonly TourReservationRepository _reservationRepository;
 
         public string NewGuestNumber
         {
@@ -126,11 +129,11 @@ namespace TravelAgency.ViewModel
 
         public TourReservationViewModel()
         {
-            var tourRepository = new TourRepository();
+            _tourRepository = new TourRepository();
 
             _toursCollection = new CollectionViewSource
             {
-                Source = tourRepository.GetAll()
+                Source = _tourRepository.GetAll()
             };
             _toursCollection.Filter += ToursCollection_Filter;
 
@@ -139,6 +142,7 @@ namespace TravelAgency.ViewModel
 
             IsTourSelected = false;
             _isGuestNumberEntered = false;
+            _reservationRepository = new TourReservationRepository();
         }
 
         private bool DoGuestsFit(int maxGuests)
@@ -230,7 +234,7 @@ namespace TravelAgency.ViewModel
                 MessageBox.Show("Error while selecting tour. Please try again.");
                 return;
             }
-
+            
             // SelectedTour contains the tour we selected in the moment of using button
             //Debug.WriteLine(SelectedTour);
             if (!int.TryParse(GuestNumber, out var guestNumber))
@@ -259,7 +263,14 @@ namespace TravelAgency.ViewModel
             }
             else
             {
-                
+                if (CurrentUser.Username == null || CurrentUser.DisplayName == null)
+                {
+                    MessageBox.Show("Failed to fetch current user data!");
+                }
+                else
+                {
+                    _reservationRepository.Add(new TourReservation(SelectedTour.Id, guestNumber, CurrentUser.Username, CurrentUser.DisplayName));
+                }
             }
 
             IsTourSelected = false;
