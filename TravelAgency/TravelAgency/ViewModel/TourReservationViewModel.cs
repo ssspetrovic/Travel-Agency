@@ -253,10 +253,13 @@ namespace TravelAgency.ViewModel
                     DataContext = this
                 };
 
-                GuestNumberText = $"There are still {SelectedTour.MaxGuests - guestNumber} free spaces in the selected tour.";
+                GuestNumberText = $"There is/are still {SelectedTour.MaxGuests - guestNumber} free space/s in the selected tour.";
 
                 dialog.ShowDialog();
-
+            }
+            else
+            {
+                
             }
 
             IsTourSelected = false;
