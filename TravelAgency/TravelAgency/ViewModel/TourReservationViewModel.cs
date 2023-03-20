@@ -227,6 +227,25 @@ namespace TravelAgency.ViewModel
             }
         }
 
+        private void CompleteReservation(int guestNumber)
+        {
+            if (SelectedTour == null)
+            {
+                MessageBox.Show("Failed to complete reservation!");
+                return;
+            }
+
+            if (CurrentUser.Username == null || CurrentUser.DisplayName == null)
+            {
+                MessageBox.Show("Failed to fetch current user data!");
+            }
+            else
+            {
+                _reservationRepository.Add(new TourReservation(SelectedTour.Id, SelectedTour.Name, guestNumber, CurrentUser.Username, CurrentUser.DisplayName));
+                MessageBox.Show("Reservation was successful!", "Tour reservation");
+            }
+        }
+
         public void MakeReservation()
         {
             if (SelectedTour == null)
@@ -260,18 +279,16 @@ namespace TravelAgency.ViewModel
                 GuestNumberText = $"Tour still isn't full. Number of spaces left: {SelectedTour.MaxGuests - guestNumber}";
 
                 dialog.ShowDialog();
+
+                // Number of guests wasn't changed
+                if (NewGuestNumber == null)
+                {
+                    CompleteReservation(guestNumber); // Sending old number
+                }
             }
             else
             {
-                if (CurrentUser.Username == null || CurrentUser.DisplayName == null)
-                {
-                    MessageBox.Show("Failed to fetch current user data!");
-                }
-                else
-                {
-                    _reservationRepository.Add(new TourReservation(SelectedTour.Id, SelectedTour.Name, guestNumber, CurrentUser.Username, CurrentUser.DisplayName));
-                    MessageBox.Show("Reservation was successful!", "Tour reservation");
-                }
+                CompleteReservation(guestNumber);
             }
 
             IsTourSelected = false;
