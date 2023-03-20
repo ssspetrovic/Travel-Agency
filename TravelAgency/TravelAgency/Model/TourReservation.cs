@@ -10,16 +10,18 @@ namespace TravelAgency.Model
     {
         public int Id { get; }
         public int TourId { get; set; }
+        public string TourName { get; set; }
         public int GuestNumber { get; set; }
         public string Username { get; set; }
-        public string DisplayName{ get; set; }
+        public string TouristName{ get; set; }
 
-        public TourReservation(int tourId, int guestNumber, string username, string displayName)
+        public TourReservation(int tourId, string tourName, int guestNumber, string username, string touristName)
         {
             TourId = tourId;
+            TourName = tourName;
             GuestNumber = guestNumber;
             Username = username;
-            DisplayName = displayName;
+            TouristName = touristName;
         }
     }
 }

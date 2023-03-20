@@ -269,7 +269,7 @@ namespace TravelAgency.ViewModel
                 }
                 else
                 {
-                    _reservationRepository.Add(new TourReservation(SelectedTour.Id, guestNumber, CurrentUser.Username, CurrentUser.DisplayName));
+                    _reservationRepository.Add(new TourReservation(SelectedTour.Id, SelectedTour.Name, guestNumber, CurrentUser.Username, CurrentUser.DisplayName));
                     MessageBox.Show("Reservation was successful!", "Tour reservation");
                 }
             }
