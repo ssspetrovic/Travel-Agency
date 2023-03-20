@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -20,6 +21,28 @@ namespace TravelAgency.ViewModel
         private bool _isListViewShown;
         private bool _shouldUpdateFilteredCollectionEmpty;
         private TourModel _selectedTour;
+        private string _guestNumber;
+        private bool _isTourSelected;
+
+        public bool IsTourSelected
+        {
+            get => _isTourSelected;
+            set
+            {
+                _isTourSelected = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string GuestNumber
+        {
+            get => _guestNumber;
+            set
+            {
+                _guestNumber = value;
+                OnPropertyChanged();
+            }
+        }
 
         public TourModel SelectedTour
         {
@@ -28,6 +51,7 @@ namespace TravelAgency.ViewModel
             set
             {
                 _selectedTour = value;
+                IsTourSelected = true;
                 //Debug.WriteLine(_selectedTour.Name);
             }
         }
@@ -81,6 +105,8 @@ namespace TravelAgency.ViewModel
 
             if (!ToursSourceCollection.IsEmpty)
                 IsListViewShown = true;
+
+            IsTourSelected = false;
         }
 
 
@@ -130,12 +156,13 @@ namespace TravelAgency.ViewModel
             }
         }
 
-        public static void MakeReservation(object sender, RoutedEventArgs e)
+        public void MakeReservation()
         {
-            if (sender is Button button)
-            {
-                Debug.WriteLine(button.Content);
-            }
+            // SelectedTour contains the tour we selected in the moment of using button
+            Debug.WriteLine(SelectedTour);
+            Debug.WriteLine(!int.TryParse(GuestNumber, out var guestNumber)
+                ? "Parsing failed"
+                : $"Number of guests is {guestNumber}");
         }
     }
 }

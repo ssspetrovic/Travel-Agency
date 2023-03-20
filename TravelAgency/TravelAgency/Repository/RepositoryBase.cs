@@ -4,9 +4,8 @@ namespace TravelAgency.Repository
 {
     public abstract class RepositoryBase
     {
-        private const string ConnectionString = "Data Source=../../../Resources/Data/data.db";
-
-        //public const string DataBaseConnection = "Resources/Data/data.db";
+        private const string DatabasePath = "../../../Resources/Data/data.db";
+        private const string ConnectionString = $"Data Source={DatabasePath}";
 
         protected static SqliteConnection GetConnection()
         {

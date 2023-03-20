@@ -1,6 +1,5 @@
 ﻿using Microsoft.Data.Sqlite;
 using System;
-using System.Data;
 using System.Linq;
 using System.Windows;
 using TravelAgency.Model;
@@ -14,6 +13,9 @@ namespace TravelAgency.Repository
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
 
+            //U bazi se kljucne tacne i turisti cuvaju u vidu teksta, tako da moramo svakog clana respektivnih kolona da povezemo u jedan string
+            //Takodje na kraju skracujemo duzinu stringa za 2 kako bi obrisali poslednji zarez
+
             var keyPointsList = "";
             var touristsList = "";
 
@@ -21,7 +23,7 @@ namespace TravelAgency.Repository
 
             foreach (var tour in activeTourModel.KeyPoints)
             {
-                keyPointsList += tour.Key.ToString() + ":" + tour.Value.ToString() + ", ";
+                keyPointsList += tour.Key.ToString() + ":" + tour.Value + ", ";
             }
 
             keyPointsList = keyPointsList.Remove(keyPointsList.Length - 2, 2);
@@ -53,6 +55,7 @@ namespace TravelAgency.Repository
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
 
+            //Posto moze samo jedna tura da bude aktivna, brisemo sve iz tabele
             const string deleteStatement = "delete from ActiveTour";
             using var deleteCommand = new SqliteCommand(deleteStatement, databaseConnection);
             deleteCommand.ExecuteNonQuery();
@@ -61,18 +64,6 @@ namespace TravelAgency.Repository
         public ActiveTourModel GetById(int id)
         {
             throw new NotImplementedException();
-        }
-
-        public DataTable GetActiveTour(DataTable dt)
-        {
-            using var databaseConnection = GetConnection();
-            databaseConnection.Open();
-
-            const string selectStatement = "select * from ActiveTour";
-            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
-
-            dt.Load(selectCommand.ExecuteReader());
-            return dt;
         }
 
         public bool IsActive()
@@ -121,6 +112,7 @@ namespace TravelAgency.Repository
             databaseConnection.Close();
             databaseConnection.Open();
 
+            //Razdvajamo string kljucnih reci u listu kako bi smo pristupili lokacijama
             var keyPointsList = keyPoints.Split(", ").ToList();
             var lastKeyPoint = "";
 
@@ -128,6 +120,14 @@ namespace TravelAgency.Repository
             {
                 var location = keyPointsList[i];
 
+                if (location.Contains(keyPoint + ":True"))
+                {
+                    MessageBox.Show("We already passed " + locationRepository.GetByCity(keyPoint)?.City + "!");
+                    break;
+                }
+
+                //Ako string lokacija:bool sadrzi false i istovremeno pre tog stringa nije bila lokacija lokacija:false onda mozemo da izmenimo bool
+                //Jer u suprotnom preskacemo kljucnu tacku sto nema logike u ovom kontekstu
                 if (location.Contains(keyPoint + ":False"))
                     if (lastKeyPoint.Contains(":True"))
                     {
@@ -139,15 +139,11 @@ namespace TravelAgency.Repository
                         MessageBox.Show("You can't skip key points!");
                         break;
                     }
-                else if(location.Contains(keyPoint + ":True"))
-                {
-                    MessageBox.Show("We already passed this key point!");
-                    break;
-                }
 
                 lastKeyPoint = keyPointsList[i];
             }
-
+            
+            //Spajamo nazad listu u jedan veci string i menjamo tekst u tabeli
             keyPoints = string.Join(", ", keyPointsList);
 
             const string updateStatement = "update ActiveTour set KeyPointsList = $KeyPointsList";

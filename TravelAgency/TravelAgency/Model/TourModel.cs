@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace TravelAgency.Model
 {
@@ -54,6 +56,14 @@ namespace TravelAgency.Model
             Date = date;
             Duration = duration;
             Images = images;
+        }
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            sb.Append(
+                $"{Id,-3} {Name,-12} {Location,-30} {Description,-20} {Language.ToString(),-20} {MaxGuests,-5} {Date,-25} {Duration,-5}");
+            return sb.ToString();
         }
     }
 }
