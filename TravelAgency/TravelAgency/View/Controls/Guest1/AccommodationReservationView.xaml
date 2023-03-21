@@ -199,10 +199,24 @@
                         Grid.Row="2"
                         Width="160"
                         Height="40"
-                        Margin="0,0,0,20"
+                        Margin="85,30,471,30"
                         Click="MakeReservationButton_OnClick"
                         Content="Make reservation"
                         FontSize="15" />
+
+                    <DatePicker 
+                        Height="26"
+                        Grid.Row="2"
+                        Margin="337,0,264,0"
+                        Name="startDate"
+                        Width="115" />
+                    
+                    <DatePicker 
+                        Height="26"
+                        Grid.Row="2"
+                        Margin="551,0,50,0"
+                        Name="endDate"
+                        Width="115" />
                 </Grid>
             </Grid>
         </Grid>
