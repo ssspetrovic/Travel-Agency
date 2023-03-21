@@ -8,13 +8,14 @@ using System.Windows.Data;
 using TravelAgency.Model;
 using TravelAgency.Repository;
 using TravelAgency.View;
+using TravelAgency.DTO;
 
 namespace TravelAgency.ViewModel
 {
     public class AccommodationReservationViewModel : BaseViewModel
     {
         private string? _filterText;
-        private readonly CollectionViewSource _toursCollection;
+        private readonly CollectionViewSource _accommodationCollection;
         public new event PropertyChangedEventHandler? PropertyChanged;
         private bool _isFilteredCollectionEmpty;
         private bool _isListViewShown;
@@ -63,21 +64,21 @@ namespace TravelAgency.ViewModel
             {
                 _filterText = value;
                 _shouldUpdateFilteredCollectionEmpty = true;
-                _toursCollection.View.Refresh();
+                _accommodationCollection.View.Refresh();
                 RaisePropertyChanged("FilterText");
             }
         }
-        public ICollectionView ToursSourceCollection => _toursCollection.View;
+        public ICollectionView ToursSourceCollection => _accommodationCollection.View;
 
         public AccommodationReservationViewModel()
         {
             var accommodationRepository = new AccommodationRepository();
 
-            _toursCollection = new CollectionViewSource
+            _accommodationCollection = new CollectionViewSource
             {
                 Source = accommodationRepository.GetAll()
             };
-            //_toursCollection.Filter += ToursCollection_Filter;
+            _accommodationCollection.Filter += ToursCollection_Filter;
 
             if (!ToursSourceCollection.IsEmpty) 
                 IsListViewShown = true;
@@ -93,13 +94,13 @@ namespace TravelAgency.ViewModel
             }
 
             // Checks if "tour = e.Item as Tour" is true
-            if (e.Item is not TourModel tour) return;
+            if (e.Item is not AccommodationDTO accommodation) return;
 
             var filterTextUpper = FilterText.ToUpper();
 
-            if (tour.Location.City.ToUpper().Contains(filterTextUpper) || tour.Location.Country.ToUpper().Contains(filterTextUpper) ||
-                tour.Duration.ToString(CultureInfo.InvariantCulture).ToUpper().Contains(filterTextUpper) ||
-                tour.Language.ToString().ToUpper().Contains(filterTextUpper) || tour.MaxGuests.ToString().ToUpper().Contains(filterTextUpper))
+            if (accommodation.Name.ToUpper().Contains(filterTextUpper) || accommodation.Location.City.ToUpper().Contains(filterTextUpper) || accommodation.Location.Country.ToUpper().Contains(filterTextUpper) ||
+                accommodation.Type.ToString().ToUpper().Contains(filterTextUpper) ||
+                accommodation.MaxReservationDays.ToString().Contains(filterTextUpper))
             {
                 e.Accepted = true;
             }
