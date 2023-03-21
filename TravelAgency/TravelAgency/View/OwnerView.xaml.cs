@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TravelAgency.Repository;
 using TravelAgency.View.Controls;
 using TravelAgency.View.Controls.Owner;
 
@@ -21,9 +23,21 @@ namespace TravelAgency.View
     /// </summary>
     public partial class OwnerView : Window
     {
+        ReservationRepository reservationRepository = new ReservationRepository();
         public OwnerView()
         {
             InitializeComponent();
+            int count = reservationRepository.CountReservationsToGrade();
+            if(count > 0 )
+            {
+                lblGuestToGrade.Foreground = Brushes.DarkRed;
+                lblGuestToGrade.Content = "Guests left to grade: " + count.ToString();
+            }
+            else
+            {
+                lblGuestToGrade.Foreground = Brushes.LightGreen;
+                lblGuestToGrade.Content = "No guests to grade";
+            }
         }
 
         private void btnLogout_Click(object sender, RoutedEventArgs e)

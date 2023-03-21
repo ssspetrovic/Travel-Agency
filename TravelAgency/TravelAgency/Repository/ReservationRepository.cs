@@ -32,6 +32,54 @@ namespace TravelAgency.Repository
             insertCommand.ExecuteNonQuery();
         }
 
+        public int CountReservationsToGrade()
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            const string selectStatement = @"select * from Reservation";
+            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
+            using var selectReader = selectCommand.ExecuteReader();
+
+            var reservationList = new ObservableCollection<Reservation>();
+            var locationRepository = new LocationRepository();
+
+            int count = 0;
+
+            while (selectReader.Read())
+            {
+                var location = locationRepository.GetById(selectReader.GetInt32(2));
+                var keyPointsList = selectReader.GetString(6).Split(", ");
+                var keyPoints = locationRepository.GetByAllCities(keyPointsList.ToList());
+
+                var id = selectReader.GetInt32(0);
+                var guestId = selectReader.GetInt32(1);
+                var accommodationId = selectReader.GetInt32(2);
+                var comment = selectReader.GetString(3);
+                //var startDate = selectReader.GetDateTime(4);
+                //var endDate = selectReader.GetDateTime(5);
+                var gradeComplaisent = selectReader.GetFloat(6);
+                var gradeClean = selectReader.GetFloat(7);
+
+                DateTime startDate = new DateTime(2023, 3, 15);
+                DateTime endDate = new DateTime(2023, 3, 19);
+                gradeClean = -1;
+                gradeComplaisent = -1;
+
+                if (gradeComplaisent == -1 && gradeClean == -1)
+                {
+                    //DateTime endDate = DateTime.ParseExact(txtEndDate.Text, "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
+                    double days = (DateTime.Now - endDate).TotalDays;
+                    if (days <= 5)
+                    {
+                        count++;
+                    }
+                }
+            }
+
+            return count;
+        }
+
         public ObservableCollection<Reservation> GetAll()
         {
             using var databaseConnection = GetConnection();
@@ -101,8 +149,8 @@ namespace TravelAgency.Repository
 
                 DateTime startDate = new DateTime(2023, 3, 15);
                 DateTime endDate = new DateTime(2023, 3, 19);
-                //gradeClean = -1;
-                //gradeComplaisent = -1;
+                gradeClean = -1;
+                gradeComplaisent = -1;
 
                 if (gradeComplaisent == -1 && gradeClean == -1)
                 {

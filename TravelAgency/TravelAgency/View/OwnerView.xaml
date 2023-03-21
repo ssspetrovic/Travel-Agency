@@ -16,6 +16,7 @@
         <Button x:Name="btnCreateAccommodation" Grid.Column="1" Content="Create Accommodation" HorizontalAlignment="Left" Margin="26,77,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Click="btnCreateAccommodation_Click"/>
         <Button x:Name="btnLogout" Grid.Column="1" Content="Logout" HorizontalAlignment="Left" Margin="26,175,0,0" VerticalAlignment="Top" Click="btnLogout_Click"/>
         <Button x:Name="btnGradeGuest" Grid.Column="1" Content="Grade Guest" HorizontalAlignment="Left" Margin="26,126,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Click="btnGradeGuest_Click"/>
+        <Label x:Name="lblGuestToGrade" Grid.Column="2" Content="Guest To Grade" HorizontalAlignment="Left" Margin="0,128,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Background="White" Foreground="#DD000000"/>
 
     </Grid>
 </Window>
