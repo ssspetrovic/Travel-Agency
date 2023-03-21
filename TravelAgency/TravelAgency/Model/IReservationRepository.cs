@@ -10,6 +10,7 @@ namespace TravelAgency.Model
     internal interface IReservationRepository
     {
         ObservableCollection<Reservation> GetAll();
+        ObservableCollection<Reservation> GetReservationsToGrade();
         void UpdateReservationAfterGrading(int reservationId, string comment, float gradeComplaisent, float gradeClean);
     }
 }

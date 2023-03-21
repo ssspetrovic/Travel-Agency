@@ -25,7 +25,7 @@ namespace TravelAgency.ViewModel
 
             _reservationsCollection = new CollectionViewSource
             {
-                Source = _reservationRepository.GetAll()
+                Source = _reservationRepository.GetReservationsToGrade()
             };
             _reservationRepository = new ReservationRepository();
         }

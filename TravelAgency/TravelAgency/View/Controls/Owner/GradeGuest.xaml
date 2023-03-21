@@ -8,7 +8,7 @@
         Title="GradeGuest" Height="450" Width="800">
     <Grid x:Name="grid">
         <Label Content="Grade Guest" HorizontalAlignment="Left" Margin="22,21,0,0" VerticalAlignment="Top" FontSize="22"/>
-        <Button x:Name="btnBack" Content="Back" HorizontalAlignment="Left" Margin="710,366,0,0" VerticalAlignment="Top" Click="btnBack_Click"/>
+        <Button x:Name="btnBack" Content="Back" HorizontalAlignment="Left" Margin="728,24,0,0" VerticalAlignment="Top" Click="btnBack_Click"/>
         <RadioButton x:Name="rbComplaisent1" Content="1" HorizontalAlignment="Left" Margin="34,310,0,0" VerticalAlignment="Top" GroupName="grade_complaisent" IsChecked="True"/>
         <RadioButton x:Name="rbComplaisent2" Content="2" HorizontalAlignment="Left" Margin="34,328,0,0" VerticalAlignment="Top" GroupName="grade_complaisent"/>
         <RadioButton x:Name="rbComplaisent3" Content="3" HorizontalAlignment="Left" Margin="34,346,0,0" VerticalAlignment="Top" GroupName="grade_complaisent"/>
@@ -22,7 +22,7 @@
         <Label Content="Grade Complaisent" HorizontalAlignment="Left" Margin="34,286,0,0" VerticalAlignment="Top"/>
         <Label Content="Grade Clean" HorizontalAlignment="Left" Margin="313,286,0,0" VerticalAlignment="Top"/>
         <Label Content="Comment" HorizontalAlignment="Left" Margin="417,286,0,0" VerticalAlignment="Top"/>
-        <ListView x:Name="GuestListView" d:ItemsSource="{d:SampleData ItemCount=5}" ItemsSource="{Binding ReservationsSourceCollection}" SelectedItem="{Binding SelectedReservation}" Margin="34,63,85,207">
+        <ListView x:Name="GuestListView" d:ItemsSource="{d:SampleData ItemCount=3}" ItemsSource="{Binding ReservationsSourceCollection}" SelectedItem="{Binding SelectedReservation}" Margin="34,63,85,207">
             <ListView.View>
                 <GridView>
                     <GridViewColumn
@@ -48,11 +48,10 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <TextBox x:Name="txtGuestId" DataContext="{Binding ElementName=GuestListView, Path=SelectedItem}" HorizontalAlignment="Left" Margin="221,256,0,0" TextWrapping="Wrap" Text="{Binding Path=GuestId}" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txtAccommodationId" DataContext="{Binding Path=SelectedItem, ElementName=GuestListView}" HorizontalAlignment="Left" Margin="357,256,0,0" TextWrapping="Wrap" Text="{Binding Path=AccommodationId}" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="btnGrade" Content="Grade" HorizontalAlignment="Left" Margin="518,249,0,0" VerticalAlignment="Top" Width="80" Click="btnGrade_Click"/>
-        <TextBox x:Name="txtComment" HorizontalAlignment="Left" Margin="417,310,0,0" TextWrapping="Wrap" Text="Comment" VerticalAlignment="Top" Width="181" Height="30"/>
-        <TextBox x:Name="txtReservationId" DataContext="{Binding Path=SelectedItem, ElementName=GuestListView}" HorizontalAlignment="Left" Margin="86,256,0,0" TextWrapping="Wrap" Text="{Binding Path=Id}" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="btnGrade" Content="Grade" HorizontalAlignment="Left" Margin="417,360,0,0" VerticalAlignment="Top" Width="71" Click="btnGrade_Click"/>
+        <TextBox x:Name="txtComment" HorizontalAlignment="Left" Margin="417,310,0,0" TextWrapping="Wrap" Text="No comment" VerticalAlignment="Top" Width="181" Height="30"/>
+        <TextBox x:Name="txtReservationId" DataContext="{Binding Path=SelectedItem, ElementName=GuestListView}" HorizontalAlignment="Left" Margin="127,256,0,0" TextWrapping="Wrap" Text="{Binding Path=Id}" VerticalAlignment="Top" Width="29" FontWeight="Bold" IsEnabled="False"/>
+        <Label Content="Reservation ID:" HorizontalAlignment="Left" Margin="34,257,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
