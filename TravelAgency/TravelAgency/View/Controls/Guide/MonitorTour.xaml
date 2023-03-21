@@ -211,28 +211,16 @@
                                 VerticalAlignment="Center"
                                 FlowDirection="RightToLeft"
                                 Orientation="Horizontal">
-                                <Button Style="{StaticResource IconButton}">
-                                    <fa:IconImage Icon="AngleDown" />
-                                </Button>
-
+                                <fa:IconImage
+                                    Foreground="#68cbf8"
+                                    Icon="UserCircle"
+                                    Style="{StaticResource MenuButtonIcon}" />
                                 <TextBlock
                                     VerticalAlignment="Center"
                                     FontFamily="Montserrat"
-                                    FontSize="12"
+                                    FontSize="16"
                                     Foreground="#68cbf8"
-                                    Text="{Binding CurrentUserAccount.DisplayName}" />
-
-                                <Ellipse
-                                    Width="35"
-                                    Height="35"
-                                    Margin="10,0,10,0"
-                                    Stroke="#68cbf8"
-                                    StrokeThickness="2">
-                                    <Ellipse.Fill>
-                                        <ImageBrush ImageSource="/Resources/Images/user.png" />
-                                    </Ellipse.Fill>
-                                </Ellipse>
-
+                                    Text="{Binding LoadCurrentUserData}" />
                             </StackPanel>
 
                         </Grid>
@@ -242,13 +230,28 @@
                                 Name="MonitorDataGrid"
                                 Margin="10"
                                 AutoGenerateColumns="False"
+                                Background="#ffffff"
                                 CanUserAddRows="False"
+                                Foreground="#68cbf8"
                                 ItemsSource="{Binding ToursToday}">
+                                <DataGrid.Resources>
+                                    <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                                        <Setter Property="Foreground" Value="#68cbf8" />
+                                    </Style>
+                                </DataGrid.Resources>
                                 <DataGrid.Columns>
                                     <DataGridTemplateColumn Header="Select Tour">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
-                                                <Button Click="TourIsActive_OnClick" Foreground="#4fc3f7" />
+                                                <Button
+                                                    Width="80"
+                                                    Height="30"
+                                                    Margin="0,0,10,0"
+                                                    Background="#68cbf8"
+                                                    Click="TourIsActive_OnClick"
+                                                    Content="{Binding Path=Name}"
+                                                    FontSize="12"
+                                                    Foreground="#ffffff" />
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>

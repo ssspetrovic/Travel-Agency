@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Drawing.Drawing2D;
 using System.Linq;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Forms;
-using System.Windows.Input;
 using TravelAgency.Model;
 using TravelAgency.Repository;
 
@@ -14,63 +9,10 @@ namespace TravelAgency.ViewModel
 {
     public class GuideViewModel : BaseViewModel
     {
-        private CurrentUserModel _currentUserAccount = null!;
-        private BaseViewModel _currentChildView = null!;
-        private string _caption = null!;
         private readonly TourRepository _tourRepository;
         private readonly LocationRepository _locationRepository;
         private readonly ActiveTourRepository _activeTourRepository;
         private readonly TouristRepository _touristRepository;
-
-        public CurrentUserModel CurrentUserAccount
-        {
-            get => _currentUserAccount;
-            set
-            {
-                _currentUserAccount = value; 
-                OnPropertyChanged();
-            }
-        }
-
-        public BaseViewModel CurrentChildView
-        {
-            get => _currentChildView;
-            set
-            {
-                _currentChildView = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public string Caption
-        {
-            get => _caption;
-            set
-            {
-                _caption = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public ICommand ShowGuideViewCommand { get; }
-
-        private void LoadCurrentUserData()
-        {
-            //var user = _userRepository.GetByUsername(Environment.UserName);
-            //if ( != null)
-            //{
-            //    CurrentUserAccount.Username = user.UserName;
-            //    CurrentUserAccount.DisplayName = $"Welcome {user.Name} {user.Surname} ;)";
-            //}
-            CurrentUserAccount.DisplayName = "Invalid user, not logged in";
-            
-        }
-
-        private void ExecuteShowGuideViewCommand(object obj)
-        {
-            CurrentChildView = new GuideViewModel();
-            Caption = "Guide";
-        }
 
         public GuideViewModel()
         {
@@ -81,14 +23,12 @@ namespace TravelAgency.ViewModel
             _activeTourRepository = new ActiveTourRepository();
 
             _touristRepository = new TouristRepository();
-
-            CurrentUserAccount = new CurrentUserModel();
-
-            ShowGuideViewCommand = new ViewModelCommand(ExecuteShowGuideViewCommand);
-
-            LoadCurrentUserData();
         }
 
+
+        public string LoadCurrentUserData => "Welcome " + CurrentUser.DisplayName;
+
+        //Sluzi za ispisivanje tura na Home Page
         public DataView Tours
         {
             get
@@ -104,6 +44,7 @@ namespace TravelAgency.ViewModel
             }
         }
 
+        //Sluzi za ispisivanje danasnjih tura na Monitor Tour Page
         public DataView ToursToday
         {
             get
@@ -133,12 +74,15 @@ namespace TravelAgency.ViewModel
                 return dt.DefaultView;
             }
         }
+
+        //Ovo je funkcija koja sluzi za konvertovanje ispisa tura, da ne ispisuju na primer identifikatore, vec podatke koji su validni vodicu
         public void ConvertTourColumn(DataTable dt, string columnName, Type newType, string tourParameter)
         {
             var textList = new List<string?>();
 
             foreach (DataRow row in dt.Rows)
             {
+                //Uzima za svaki red parametar koji smo mu prosledili, konvertuje i cuva ga u vidu liste stringova
                 switch (tourParameter)
                 {
                     case "Language":
@@ -162,11 +106,7 @@ namespace TravelAgency.ViewModel
                 }
             }
 
-            foreach (DataRow row in dt.Rows)
-            {
-                row[columnName] = Convert.ChangeType(row[columnName], newType);
-            }
-
+            //Brisemo stari red, kreiramo novi sa istim imenom i ubacujemo zeljene podatke
             dt.Columns.Remove(columnName);
             var dc = new DataColumn(columnName, newType);
             dt.Columns.Add(dc);
@@ -179,6 +119,13 @@ namespace TravelAgency.ViewModel
             }
         }
 
+        //Sledecih sest funkcija sluze za ispis parametara tabele ActiveTour
+        //Prva je za ispis naziva na vrhu View-a
+        //Druga je za ispis kljucnih tacaka
+        //Treca je za ispis turista
+        //Cetvrta je za ispis booleana koji nam govori da li smo presli kljucnu tacku
+        //Peta je za ispis enumeracije da li je turista necekiran, pozvan ili cekiran
+        //Sesta je za ispis startne lokacije turiste (odakle je krenuo)
         public string ActiveTourName => _activeTourRepository.GetActiveTourData("Name");
 
         public List<string> KeyPoints
@@ -243,7 +190,7 @@ namespace TravelAgency.ViewModel
 
                 foreach (var tourist in touristsList)
                 {
-                    checkedTourists.Add(_touristRepository.GetByUsername(tourist)!.TouristCheck.ToString());
+                    checkedTourists.Add(_touristRepository.GetByUsername(tourist).TouristCheck.ToString());
                 }
 
                 return checkedTourists;
@@ -260,7 +207,7 @@ namespace TravelAgency.ViewModel
 
                 foreach (var tourist in touristsList)
                 {
-                    var currentTourist = _touristRepository.GetByUsername(tourist)!;
+                    var currentTourist = _touristRepository.GetByUsername(tourist);
                     locations.Add(_locationRepository.GetById(currentTourist.LocationId)!.City);
                 }
 

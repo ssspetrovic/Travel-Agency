@@ -89,96 +89,117 @@ namespace TravelAgency.View.Controls.Guide
             Close();
         }
 
-        private void Confirm_OnClick(object sender, RoutedEventArgs e)
+        private bool AuthenticateTourInfo()
         {
             if (NameText.Text.Length < 3)
             {
                 ErrorMessageText.Text = "Incorrect name.";
                 NameText.Focus();
+                return false;
             }
-            else
+
+            if (ComboBoxLocation.Text.Length == 0)
             {
-                if (ComboBoxLocation.Text.Length == 0)
-                {
-                    ErrorMessageText.Text = "Insert a location.";
-                    ComboBoxLocation.Focus();
-                }
-                else
-                {
-                    if (ComboBoxLanguage.Text.Length == 0)
-                    {
-                        ErrorMessageText.Text = "Insert a language.";
-                        ComboBoxLanguage.Focus();
-                    }
-                    else
-                    {
-                        if (MaxGuestsText.Text.Length == 0)
-                        {
-                            ErrorMessageText.Text = "Insert a number";
-                            MaxGuestsText.Focus();
-                        }
-                        else if (!Regex.IsMatch(MaxGuestsText.Text, @"^[0-9]+$"))
-                        {
-                            ErrorMessageText.Text = "You can only insert numbers.";
-                            MaxGuestsText.Focus();
-                        }
-                        else
-                        {
-                            if (KeyPointsList.Text.Length == 0)
-                            {
-                                ErrorMessageText.Text = "Insert at least one key point.";
-                                ComboBoxKeyPoints.Focus();
-                            }
-                            else
-                            {
-                                if (DateList.Text.Length == 0)
-                                {
-                                    ErrorMessageText.Text = "Insert at least one date.";
-                                    DatePick.Focus();
-                                }
-                                else
-                                {
-                                    if (DurationText.Text.Length == 0)
-                                    {
-                                        ErrorMessageText.Text = "Insert a number.";
-                                        DurationText.Focus();
-                                    }
-                                    else if (!Regex.IsMatch(DurationText.Text, @"([0-9]*[.])?[0-9]+$"))
-                                    {
-                                        ErrorMessageText.Text = "You can only insert a number.";
-                                        DurationText.Focus();
-                                    }
-                                    else
-                                    {
-                                        ErrorMessageText.Text = "";
-                                        var tourRepository = new TourRepository();
-                                        var locationRepository = new LocationRepository();
-                                        var currentLocation =
-                                            locationRepository.GetByCity(ComboBoxLocation.Text);
-                                        var maxGuests = int.Parse(MaxGuestsText.Text);
-                                        var duration = float.Parse(DurationText.Text);
-                                        var cities = new List<string>(KeyPointsList.Text.Split(", "));
-                                        var locationList = locationRepository.GetByAllCities(cities);
-                                        var language = tourRepository.FindLanguage(ComboBoxLanguage.Text);
-                                        if (currentLocation != null)
-                                        {
-                                            tourRepository.Add(new TourModel(NameText.Text, currentLocation,
-                                                DescriptionText.Text, language, maxGuests, locationList!, DateList.Text,
-                                                duration, ImagesList.Text));
-                                            ErrorMessageText.Text = "Tour Added Successfully.";
-                                        }
-                                        else
-                                            ErrorMessageText.Text = "UNSUCCESSFUL TOUR";
-                                        var guideView = new GuideView();
-                                        guideView.Show();
-                                        Close();
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                ErrorMessageText.Text = "Insert a location.";
+                ComboBoxLocation.Focus();
+                return false;
             }
+
+            if (ComboBoxLanguage.Text.Length == 0)
+            {
+                ErrorMessageText.Text = "Insert a language.";
+                ComboBoxLanguage.Focus();
+                return false;
+            }
+
+            if (MaxGuestsText.Text.Length == 0)
+            {
+                ErrorMessageText.Text = "Insert a number";
+                MaxGuestsText.Focus();
+                return false;
+            }
+
+            if (!Regex.IsMatch(MaxGuestsText.Text, @"^[0-9]+$"))
+            {
+                ErrorMessageText.Text = "You can only insert numbers.";
+                MaxGuestsText.Focus();
+                return false;
+            }
+
+            if (KeyPointsList.Text.Length == 0)
+            {
+                ErrorMessageText.Text = "No key points have been added.";
+                ComboBoxKeyPoints.Focus();
+                return false;
+            }
+
+            if (!KeyPointsList.Text.Contains(","))
+            {
+                ErrorMessageText.Text = "Insert at least two key points, start and end key point!";
+                ComboBoxKeyPoints.Focus();
+                return false;
+            }
+
+            if (DateList.Text.Length == 0)
+            {
+                ErrorMessageText.Text = "Insert at least one date.";
+                DatePick.Focus();
+                return false;
+            }
+
+            if (DurationText.Text.Length == 0)
+            {
+                ErrorMessageText.Text = "Insert a number.";
+                DurationText.Focus();
+                return false;
+            }
+
+            if (!Regex.IsMatch(DurationText.Text, @"([0-9]*[.])?[0-9]+$"))
+            {
+                ErrorMessageText.Text = "You can only insert a number.";
+                DurationText.Focus();
+                return false;
+            }
+
+            if (ImagesList.Text.Length == 0)
+            {
+                ErrorMessageText.Text = "Insert an image link.";
+                ImagesText.Focus();
+                return false;
+            }
+
+            ErrorMessageText.Text = "";
+            return true;
+        }
+
+        private void Confirm_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (!AuthenticateTourInfo()) return;
+
+            var tourRepository = new TourRepository();
+            var locationRepository = new LocationRepository();
+            var currentLocation =
+                locationRepository.GetByCity(ComboBoxLocation.Text);
+            var maxGuests = int.Parse(MaxGuestsText.Text);
+            var duration = float.Parse(DurationText.Text);
+            var cities = new List<string>(KeyPointsList.Text.Split(", "));
+            var locationList = locationRepository.GetByAllCities(cities);
+            var language = tourRepository.FindLanguage(ComboBoxLanguage.Text);
+
+            if (currentLocation != null)
+            {
+                tourRepository.Add(new TourModel(NameText.Text, currentLocation,
+                    DescriptionText.Text, language, maxGuests, locationList!, DateList.Text,
+                    duration, ImagesList.Text));
+                MessageBox.Show("Tour Added Successfully.");
+            }
+
+            else
+                MessageBox.Show("UNSUCCESSFUL TOUR");
+            var guideView = new GuideView();
+            guideView.Show();
+            Close();
+            
         }
 
         private void AddNewDate_OnClick(object sender, RoutedEventArgs routedEventArgs)

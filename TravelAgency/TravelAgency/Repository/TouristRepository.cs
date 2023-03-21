@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
+using System.Linq;
 using System.Windows;
 using Microsoft.Data.Sqlite;
 using TravelAgency.Model;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace TravelAgency.Repository
 {
@@ -49,7 +48,7 @@ namespace TravelAgency.Repository
                 tourist = new TouristModel(selectReader.GetInt32(0), selectReader.GetString(1), selectReader.GetString(2),
                     selectReader.GetString(3),
                     selectReader.GetString(4), selectReader.GetString(5), Role.Tourist,
-                    tourRepository.GetById(selectReader.GetInt32(7)), (TouristCheck)selectReader.GetInt32(8), selectReader.GetInt32(9));
+                    tourRepository.GetById(selectReader.GetInt32(7)), (TouristCheck) selectReader.GetInt32(8), selectReader.GetInt32(9));
 
             return tourist;
         }
@@ -66,7 +65,9 @@ namespace TravelAgency.Repository
 
             using var selectReader = selectCommand.ExecuteReader();
             while (selectReader.Read())
-                tourists.Add(new TouristModel(selectReader.GetString(1), selectReader.GetString(2), selectReader.GetString(3), selectReader.GetString(4), selectReader.GetString(5), (Role) selectReader.GetInt32(6), tour, TouristCheck.Unchecked, selectReader.GetInt32(9)));
+                tourists.Add(new TouristModel(selectReader.GetString(1), selectReader.GetString(2), selectReader.GetString(3),
+                    selectReader.GetString(4), selectReader.GetString(5), (Role) selectReader.GetInt32(6), 
+                    tour, TouristCheck.Unchecked, selectReader.GetInt32(9)));
             
             return tourists;
         }
@@ -82,15 +83,35 @@ namespace TravelAgency.Repository
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
             selectCommand.Parameters.AddWithValue("$Username", username);
 
+            //Ako turistu nismo cekirali, to znaci da mu mi moramo slati ping da se prijavi da je prisutan
             if (tourist.TouristCheck == TouristCheck.Unchecked)
                 selectCommand.Parameters.AddWithValue("$IsChecked", TouristCheck.Pinged);
+            //U suprotnom je turista vec pozvan
             else
             {
-                MessageBox.Show("Tourist has already been pinged before!");
+                MessageBox.Show("Tourist " + username + " has already been pinged before!");
                 selectCommand.Parameters.AddWithValue("$IsChecked", tourist.TouristCheck);
             }
 
             selectCommand.ExecuteNonQuery();
+        }
+
+        public void RemoveTour(int id)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            const string updateStatement = "update Tourist set Tour_Id = null where Id = $Id";
+            using var updateCommand = new SqliteCommand(updateStatement, databaseConnection);
+            updateCommand.Parameters.AddWithValue("$Id", id);
+            updateCommand.ExecuteNonQuery();
+        }
+
+        public void CheckAllTourists(string tourists)
+        {
+            var touristList = tourists.Split(", ").ToList();
+            foreach(var tourist in touristList)
+                CheckTourist(tourist);
         }
     }
 }

@@ -1,12 +1,15 @@
-﻿using System.ComponentModel;
-using System.Data;
+﻿using System;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Interop;
+using TravelAgency.Model;
 using TravelAgency.Repository;
+using Application = System.Windows.Application;
+using KeyEventArgs = System.Windows.Input.KeyEventArgs;
+using MessageBox = System.Windows.MessageBox;
+using MouseEventArgs = System.Windows.Input.MouseEventArgs;
 
 namespace TravelAgency.View.Controls.Guide
 {
@@ -63,36 +66,150 @@ namespace TravelAgency.View.Controls.Guide
             Close();
         }
 
-        private void TourIsActive_OnClick(object sender, RoutedEventArgs e)
+        private void ChangeCurrentKeyPoint_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new System.NotImplementedException();
+            var keyPoint = (string)ListViewKeyPoints.SelectedItem;
+            var activeTourRepository = new ActiveTourRepository();
+            activeTourRepository.UpdateKeyPoint(keyPoint);
+            var allKeyPoints = activeTourRepository.GetActiveTourData("KeyPointsList").Split(", ");
+            var flag = allKeyPoints.Count(location => location.Contains("False"));
+
+            var activeTour = new ActiveTour();
+            activeTour.Show();
+            Close();
+
+            if (flag == 0)
+                FinishTour_OnClick(sender, e);
         }
 
-        private void KeyPointPassed_OnClick(object sender, RoutedEventArgs e)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        private void ChangeCurrentKeyPoint_OnClick(object sender, KeyEventArgs e)
+        private void ChangeCurrentKeyPoint_OnEnter(object sender, KeyEventArgs e)
         {
             if (e.Key != Key.Enter) return;
 
             var keyPoint = (string) ListViewKeyPoints.SelectedItem;
             var activeTourRepository = new ActiveTourRepository();
-            activeTourRepository.RemoveKeyPoint(keyPoint); 
+            activeTourRepository.UpdateKeyPoint(keyPoint);
+            var allKeyPoints = activeTourRepository.GetActiveTourData("KeyPointsList").Split(", ");
+            var flag = allKeyPoints.Count(location => location.Contains("False"));
+
+            var activeTour = new ActiveTour();
+            activeTour.Show();
+            Close();
+
+            if (flag == 0)
+                FinishTour_OnClick(sender, e);
+        }
+
+        private void TouristCheckup_OnClick(object sender, RoutedEventArgs e)
+        {
+            var tourist = (string)ListViewTourists.SelectedItem;
+            var touristRepository = new TouristRepository();
+            touristRepository.CheckTourist(tourist);
 
             var activeTour = new ActiveTour();
             activeTour.Show();
             Close();
         }
 
-        private void TouristCheckup_OnClick(object sender, KeyEventArgs e)
+        private void TouristCheckup_OnEnter(object sender, KeyEventArgs e)
         {
             if (e.Key != Key.Enter) return;
             var tourist = (string)ListViewTourists.SelectedItem;
             var touristRepository = new TouristRepository();
             touristRepository.CheckTourist(tourist);
-            MessageBox.Show(tourist);
+
+            var activeTour = new ActiveTour();
+            activeTour.Show();
+            Close();
+        }
+
+        private void FinishTour_OnClick(object sender, RoutedEventArgs e)
+        {
+            var activeTourRepository = new ActiveTourRepository();
+            var tourRepository = new TourRepository();
+            var touristRepository = new TouristRepository();
+            var keyPoints = activeTourRepository.GetActiveTourData("KeyPointsList");
+            var passedKeyPoints = keyPoints.Split(", ");
+            var counter = 0;
+
+            foreach (var location in passedKeyPoints)
+            {
+                if (location.Contains("False"))
+                {
+                    var question = MessageBox.Show("We haven't passed all key points, are you sure you want to end the tour?", "WAIT", MessageBoxButton.YesNo);
+                    if (question == MessageBoxResult.Yes)
+                    {
+                        counter = 0;
+                        break;
+                    }
+
+                    counter = 1;
+                    var activeTour = new ActiveTour();
+                    activeTour.Show();
+                    Close();
+                    break;
+                }
+            }
+
+            if (counter != 0) return;
+            MessageBox.Show("Tour has been finished!");
+            var tourists = activeTourRepository.GetActiveTourData("Tourists").Split(", ");
+            activeTourRepository.Remove();
+            var firstTourist = touristRepository.GetByUsername(tourists[0]);
+
+            var tour = tourRepository.GetById(firstTourist.Tour.Id);
+            var tourDates = tour.Date.Split(", ").ToList();
+
+            if (tourDates.Count < 2)
+            {
+                foreach (var tourist in tourists)
+                {
+                    var currentTourist = touristRepository.GetByUsername(tourist);
+                    touristRepository.RemoveTour(currentTourist.Id);
+                }
+
+                tourRepository.Remove(firstTourist.Tour.Id);
+            }
+            else
+            {
+                var dateToday = "";
+                foreach (var date in tourDates)
+                {
+                    if (DateTime.Compare(DateTime.Today, DateTime.Parse(date)) == 0)
+                        dateToday = date;
+                }
+
+                foreach (var tourist in tourists)
+                {
+                    var currentTourist = touristRepository.GetByUsername(tourist);
+                    touristRepository.RemoveTour(currentTourist.Id);
+                }
+
+                tourRepository.RemoveDate(dateToday, tourDates, firstTourist.Tour.Id);
+            }
+
+            var monitorTour = new MonitorTour();
+            monitorTour.Show();
+            Close();
+        }
+
+        private void CheckAllGuests_OnClick(object sender, RoutedEventArgs e)
+        {
+            var activeTourRepository = new ActiveTourRepository();
+            var tourists = activeTourRepository.GetActiveTourData("Tourists");
+            var touristRepository = new TouristRepository();
+            var counter = 0;
+
+            foreach (var tourist in tourists.Split(", "))
+            {
+                if (touristRepository.GetByUsername(tourist).TouristCheck == TouristCheck.Unchecked)
+                    counter++;
+            }
+
+            if (counter == 0)
+                MessageBox.Show("All tourists were already checked!");
+            else
+                touristRepository.CheckAllTourists(tourists);
 
             var activeTour = new ActiveTour();
             activeTour.Show();

@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
-using Microsoft.Data.Sqlite;
 using TravelAgency.Model;
 
 namespace TravelAgency.Repository
 {
     public class UserRepository : RepositoryBase, IUserRepository
     {
-        //private const string DatabaseFilePath = "../../../Resources/Data/data.db";
+        //Autentikacija prijavljivanja korisnika
         public bool AuthenticateUser(NetworkCredential credential)
         {
             using var databaseConnection = GetConnection();

@@ -11,5 +11,6 @@ namespace TravelAgency.Model
         TouristModel GetByUsername(string? username);
         List<TouristModel> GetByTour(TourModel tour);
         void CheckTourist(string username);
+        void RemoveTour(int id);
     }
 }

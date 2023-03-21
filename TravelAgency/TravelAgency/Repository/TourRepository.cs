@@ -1,10 +1,9 @@
 ﻿using Microsoft.Data.Sqlite;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
-using System.Windows;
-using System.Xml.Linq;
 using TravelAgency.Model;
 
 namespace TravelAgency.Repository
@@ -16,13 +15,15 @@ namespace TravelAgency.Repository
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
 
+            //Za svaku kljucnu tacku saljemo id u tabelu
             var idList = "";
             foreach (var keyPoint in tourModel.KeyPoints)
             {
-                idList += ", " + keyPoint.Id.ToString();
+                idList += ", " + keyPoint.Id;
             }
 
-            idList = idList.Substring(1, idList.Length - 1);
+            //Brisemo prva dva clana kako bi smo obrisali zarez
+            idList = idList.Substring(2, idList.Length - 2);
 
             const string insertStatement =
                 @"insert into Tour(Name, Location_Id, Description, Language, MaxGuests, LocationList, Date, Duration, Images) 
@@ -48,7 +49,14 @@ namespace TravelAgency.Repository
 
         public void Remove(int id)
         {
-            throw new NotImplementedException();
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            const string deleteStatement = "delete from Tour where Id = $Id";
+            using var deleteCommand = new SqliteCommand(deleteStatement, databaseConnection);
+            deleteCommand.Parameters.AddWithValue("$Id", id);
+            
+            deleteCommand.ExecuteNonQuery();
         }
 
         public TourModel GetById(int id)
@@ -66,6 +74,8 @@ namespace TravelAgency.Repository
             if (!selectReader.Read()) return tourModel!;
 
 
+            //Posto nam je dosta parametara sacuvano u tabelu u vidu tekstova
+            //Moramo da ih konvertujemo u liste podataka
             var locationRepository = new LocationRepository();
             var location = locationRepository.GetById(selectReader.GetInt32(2));
             var keyPointsList = selectReader.GetString(6).Split(", ").ToList();
@@ -92,7 +102,7 @@ namespace TravelAgency.Repository
 
             if (!selectReader.Read()) return tourModel!;
 
-
+            //Isto i ovde vazi, moramo izvrsiti konverziju
             var locationRepository = new LocationRepository();
             var location = locationRepository.GetById(selectReader.GetInt32(2));
             var keyPointsList = selectReader.GetString(6).Split(", ").ToList();
@@ -105,6 +115,8 @@ namespace TravelAgency.Repository
             return tourModel;
         }
 
+        //Ova funkcija sluzi da bi smo vratili nazad ispis u View
+        //Pomocu DataTable dobijamo parametre kolona odnosno dobijamo sve ture
         public DataTable GetByAll(DataTable dt)
         {
             using var databaseConnection = GetConnection();
@@ -151,7 +163,7 @@ namespace TravelAgency.Repository
             var tourList = new ObservableCollection<TourModel>();
             var locationRepository = new LocationRepository();
 
-
+            
             while (selectReader.Read())
             {
                 var location = locationRepository.GetById(selectReader.GetInt32(2));
@@ -164,6 +176,48 @@ namespace TravelAgency.Repository
             }
 
             return tourList;
+        }
+
+        //Ova funkcija sluzi u situaciji kada imamo neku turu, ali ta tura ima vise datuma kada se zapocinje
+        //Posto ima vise datuma, to znaci da ne smemo celu turu da izbrisemo iz baze podataka vec treba da oznacimo da je danasnja tura gotova
+        //Samim tim cemo ovde samo obrisati datum koji se prosledi iz liste svih datuma te ture
+        public void RemoveDate(string dateToday, List<string> tourDates, int id)
+        {
+            var newTourDates = "";
+            foreach (var date in tourDates)
+            {
+                if (!date.Equals(dateToday))
+                    newTourDates += ", " + date;
+            }
+
+            newTourDates = newTourDates.Substring(2, newTourDates.Length - 2);
+
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            const string updateStatement = "update Tour set Date = $Date where Id = $Id";
+            using var updateCommand = new SqliteCommand(updateStatement, databaseConnection);
+            updateCommand.Parameters.AddWithValue("$Date", newTourDates);
+            updateCommand.Parameters.AddWithValue("$Id", id);
+
+            updateCommand.ExecuteNonQuery();
+
+        }
+
+        public void UpdateMaxGuests(int id, int maxGuests)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            var updateCommand = databaseConnection.CreateCommand();
+            updateCommand.CommandText = 
+                @"
+                    UPDATE Tour SET MaxGuests = $maxGuests
+                    WHERE Id = $id;
+                ";
+            updateCommand.Parameters.AddWithValue("$maxGuests", maxGuests);
+            updateCommand.Parameters.AddWithValue("id", id);
+            updateCommand.ExecuteNonQuery();
         }
     }
 }
