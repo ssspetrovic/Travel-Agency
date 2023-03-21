@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TravelAgency.ViewModel;
 
 namespace TravelAgency.View.Controls.Owner
 {
@@ -19,9 +20,11 @@ namespace TravelAgency.View.Controls.Owner
     /// </summary>
     public partial class GradeGuest : Window
     {
+        private readonly GradeGuestViewModel _viewModel = new();
         public GradeGuest()
         {
             InitializeComponent();
+            DataContext = _viewModel;
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
