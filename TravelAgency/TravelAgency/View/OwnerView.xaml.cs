@@ -42,7 +42,9 @@ namespace TravelAgency.View
 
         private void btnGradeGuest_Click(object sender, RoutedEventArgs e)
         {
-
+            var gradeGuestView = new GradeGuest();
+            gradeGuestView.Show();
+            Close();
         }
     }
 }
