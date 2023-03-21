@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,6 +33,14 @@ namespace TravelAgency.View.Controls.Owner
             var OwnerView = new OwnerView();
             OwnerView.Show();
             Close();
+        }
+
+        private void btnGrade_Click(object sender, RoutedEventArgs e)
+        {
+            int reservationId = Convert.ToInt32(txtReservationId.Text);
+            string comment = txtComment.Text;
+            float gradeComplaisent = Convert.ToInt32(grid.Children.OfType<RadioButton>().FirstOrDefault(r => r.GroupName == "grade_complaisent" && r.IsChecked.HasValue && r.IsChecked.Value).Content);
+            float gradeClean = Convert.ToInt32(grid.Children.OfType<RadioButton>().FirstOrDefault(r => r.GroupName == "grade_clean" && r.IsChecked.HasValue && r.IsChecked.Value).Content);
         }
     }
 }
