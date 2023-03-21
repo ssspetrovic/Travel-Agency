@@ -107,7 +107,7 @@ namespace TravelAgency.View.Controls.Guide
 
                 var activeKeyPoints = selectedTour.KeyPoints.ToDictionary(location => location.Id, _ => false);
 
-                activeTourRepository.Add(new ActiveTourModel(selectedTour.Name, activeKeyPoints, tourists));
+                activeTourRepository.Add(new Model.ActiveTour(selectedTour.Name, activeKeyPoints, tourists));
             }
 
             else

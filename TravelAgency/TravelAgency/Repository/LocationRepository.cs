@@ -9,12 +9,12 @@ namespace TravelAgency.Repository
 {
     public class LocationRepository : RepositoryBase, ILocationRepository
     {
-        public void Add(LocationModel locationModel)
+        public void Add(Location location)
         {
             throw new NotImplementedException();
         }
 
-        public void Edit(LocationModel locationModel)
+        public void Edit(Location location)
         {
             throw new NotImplementedException();
         }
@@ -24,7 +24,7 @@ namespace TravelAgency.Repository
             throw new NotImplementedException();
         }
 
-        public LocationModel? GetById(int id)
+        public Location? GetById(int id)
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
@@ -35,12 +35,12 @@ namespace TravelAgency.Repository
             using var selectReader = selectCommand.ExecuteReader();
 
             if(selectReader.Read())
-                return new LocationModel(selectReader.GetInt32(0), selectReader.GetString(1),
+                return new Location(selectReader.GetInt32(0), selectReader.GetString(1),
                     selectReader.GetString(2));
             return null;
         }
 
-        public LocationModel? GetByCity(string city)
+        public Location? GetByCity(string city)
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
@@ -57,7 +57,7 @@ namespace TravelAgency.Repository
                 using var selectReader = selectCommand.ExecuteReader();
 
                 if (selectReader.Read())
-                    return new LocationModel(selectReader.GetInt32(0), selectReader.GetString(1),
+                    return new Location(selectReader.GetInt32(0), selectReader.GetString(1),
                         selectReader.GetString(2));
             }
 
@@ -69,7 +69,7 @@ namespace TravelAgency.Repository
                 using var selectReader = selectCommand.ExecuteReader();
 
                 if (selectReader.Read())
-                    return new LocationModel(selectReader.GetInt32(0), selectReader.GetString(1),
+                    return new Location(selectReader.GetInt32(0), selectReader.GetString(1),
                         selectReader.GetString(2));
 
             }
@@ -89,7 +89,7 @@ namespace TravelAgency.Repository
             return dt;
         }
 
-        public List<LocationModel?> GetByAllCities(List<string> cities)
+        public List<Location?> GetByAllCities(List<string> cities)
         {
             return cities.Select(GetByCity).ToList();
         }

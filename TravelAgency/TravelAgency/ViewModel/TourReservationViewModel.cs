@@ -19,7 +19,7 @@ namespace TravelAgency.ViewModel
         private bool _isFilteredCollectionEmpty;
         private bool _isListViewShown;
         private bool _shouldUpdateFilteredCollectionEmpty;
-        private TourModel? _selectedTour;
+        private Tour? _selectedTour;
         private string? _guestNumber;
         private bool _isTourSelected;
         private bool _isGuestNumberEntered;
@@ -74,7 +74,7 @@ namespace TravelAgency.ViewModel
             }
         }
 
-        public TourModel? SelectedTour
+        public Tour? SelectedTour
         {
             get => _selectedTour;
 
@@ -142,7 +142,7 @@ namespace TravelAgency.ViewModel
             _reservationRepository = new TourReservationRepository();
         }
 
-        private bool DoesLocationFit(LocationModel location)
+        private bool DoesLocationFit(Location location)
         {
             return location.City.Equals(SelectedTour?.Location.City) &&
                    location.Country.Equals(SelectedTour?.Location.Country);
@@ -152,7 +152,7 @@ namespace TravelAgency.ViewModel
         private void ToursCollection_Filter(object sender, FilterEventArgs e)
         {
             // Checks if "tour = e.Item as Tour" is true
-            if (e.Item is not TourModel tour) return;
+            if (e.Item is not Tour tour) return;
 
             if (string.IsNullOrEmpty(FilterText))
             {

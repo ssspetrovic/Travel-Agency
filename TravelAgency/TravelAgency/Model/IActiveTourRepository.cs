@@ -4,10 +4,10 @@ namespace TravelAgency.Model
 {
     internal interface IActiveTourRepository
     {
-        void Add(ActiveTourModel activeTourModel);
-        void Edit(ActiveTourModel activeTourModel);
+        void Add(ActiveTour activeTour);
+        void Edit(ActiveTour activeTour);
         void Remove();
-        ActiveTourModel GetById(int id);
+        ActiveTour GetById(int id);
         bool IsActive();
         string GetActiveTourData(string column);
         void UpdateKeyPoint(string keyPoint);

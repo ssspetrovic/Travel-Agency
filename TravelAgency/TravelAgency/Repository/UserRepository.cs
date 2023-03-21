@@ -38,12 +38,12 @@ namespace TravelAgency.Repository
             return role;
         }
 
-        public void Add(UserModel userModel)
+        public void Add(User user)
         {
             throw new NotImplementedException();
         }
 
-        public void Edit(UserModel userModel)
+        public void Edit(User user)
         {
             throw new NotImplementedException();
         }
@@ -53,14 +53,14 @@ namespace TravelAgency.Repository
             throw new NotImplementedException();
         }
 
-        public UserModel GetById(int id)
+        public User GetById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public UserModel GetByUsername(string? username)
+        public User GetByUsername(string? username)
         {
-            UserModel user = null!;
+            User user = null!;
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
             var selectCommand = databaseConnection.CreateCommand();
@@ -71,7 +71,7 @@ namespace TravelAgency.Repository
 
             if (selectReader.Read())
             {
-                user = new UserModel()
+                user = new User()
                 {
                     Id = selectReader.GetInt32(0),
                     UserName = selectReader.GetString(1),
@@ -86,7 +86,7 @@ namespace TravelAgency.Repository
             return user;
         }
 
-        public IEnumerable<UserModel> GetByAll()
+        public IEnumerable<User> GetByAll()
         {
             throw new NotImplementedException();
         }

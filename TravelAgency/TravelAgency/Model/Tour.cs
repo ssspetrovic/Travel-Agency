@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Security.Cryptography;
 using System.Text;
 
 namespace TravelAgency.Model
@@ -18,20 +17,20 @@ namespace TravelAgency.Model
         Japanese,
         Indian
     }
-    public class TourModel
+    public class Tour
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public LocationModel Location { get; set; }
+        public Location Location { get; set; }
         public string? Description { get; set; }
         public Language Language { get; set; }
         public int MaxGuests { get; set; }
-        public List<LocationModel> KeyPoints { get; set; }
+        public List<Location> KeyPoints { get; set; }
         public string Date { get; set; }
         public float Duration { get; set; }
         public string Images { get; set; }
 
-        public TourModel(string name, LocationModel location, string? description, Language language, int maxGuests, List<LocationModel> keyPoints, string date, float duration, string images)
+        public Tour(string name, Location location, string? description, Language language, int maxGuests, List<Location> keyPoints, string date, float duration, string images)
         {
             Name = name;
             Location = location;
@@ -44,7 +43,7 @@ namespace TravelAgency.Model
             Images = images;
         }
 
-        public TourModel(int id, string name, LocationModel location, string? description, Language language, int maxGuests, List<LocationModel> keyPoints, string date, float duration, string images)
+        public Tour(int id, string name, Location location, string? description, Language language, int maxGuests, List<Location> keyPoints, string date, float duration, string images)
         {
             Id = id;
             Name = name;

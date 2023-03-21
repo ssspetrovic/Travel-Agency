@@ -9,12 +9,12 @@ namespace TravelAgency.Repository
 {
     public class TouristRepository : RepositoryBase, ITouristRepository
     {
-        public void Add(TouristModel tourModel)
+        public void Add(Tourist tour)
         {
             throw new NotImplementedException();
         }
 
-        public void Edit(TouristModel tourModel)
+        public void Edit(Tourist tour)
         {
             throw new NotImplementedException();
         }
@@ -24,17 +24,17 @@ namespace TravelAgency.Repository
             throw new NotImplementedException();
         }
 
-        public TouristModel GetById(int id)
+        public Tourist GetById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public TouristModel GetByUsername(string? username)
+        public Tourist GetByUsername(string? username)
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
 
-            var tourist = new TouristModel();
+            var tourist = new Tourist();
 
             const string selectStatement = "select * from Tourist where Username = $Username";
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
@@ -45,7 +45,7 @@ namespace TravelAgency.Repository
             var tourRepository = new TourRepository();
 
             if (selectReader.Read())
-                tourist = new TouristModel(selectReader.GetInt32(0), selectReader.GetString(1), selectReader.GetString(2),
+                tourist = new Tourist(selectReader.GetInt32(0), selectReader.GetString(1), selectReader.GetString(2),
                     selectReader.GetString(3),
                     selectReader.GetString(4), selectReader.GetString(5), Role.Tourist,
                     tourRepository.GetById(selectReader.GetInt32(7)), (TouristCheck) selectReader.GetInt32(8), selectReader.GetInt32(9));
@@ -53,11 +53,11 @@ namespace TravelAgency.Repository
             return tourist;
         }
 
-        public List<TouristModel> GetByTour(TourModel tour)
+        public List<Tourist> GetByTour(Tour tour)
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
-            var tourists = new List<TouristModel>();
+            var tourists = new List<Tourist>();
 
             const string selectStatement = "select * from Tourist where Tour_Id = $Tour_Id";
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
@@ -65,7 +65,7 @@ namespace TravelAgency.Repository
 
             using var selectReader = selectCommand.ExecuteReader();
             while (selectReader.Read())
-                tourists.Add(new TouristModel(selectReader.GetString(1), selectReader.GetString(2), selectReader.GetString(3),
+                tourists.Add(new Tourist(selectReader.GetString(1), selectReader.GetString(2), selectReader.GetString(3),
                     selectReader.GetString(4), selectReader.GetString(5), (Role) selectReader.GetInt32(6), 
                     tour, TouristCheck.Unchecked, selectReader.GetInt32(9)));
             

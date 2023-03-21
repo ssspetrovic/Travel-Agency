@@ -134,7 +134,7 @@ namespace TravelAgency.ViewModel
             {
                 var keyPoints = _activeTourRepository.GetActiveTourData("KeyPointsList");
                 var keyPointsList = keyPoints.Split(", ").ToList();
-                var locations = new List<LocationModel?>();
+                var locations = new List<Location?>();
                 var cities = new List<string>();
 
                 foreach (var keyPoint in keyPointsList)
