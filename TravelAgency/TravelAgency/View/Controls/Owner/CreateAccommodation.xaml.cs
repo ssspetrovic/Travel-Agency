@@ -29,9 +29,9 @@ namespace TravelAgency.View.Controls.Owner
         private AccommodationType findAccommodationType(string text)
         {
             if (text == "Apartment")
-                return AccommodationType.Apartment;
+                return AccommodationType.Apartman;
             else if (text == "House")
-                return AccommodationType.House;
+                return AccommodationType.Kuca;
             else
                 return AccommodationType.Cottage;
         }

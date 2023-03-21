@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TravelAgency.Model;
+using TravelAgency.DTO;
 
 namespace TravelAgency.Repository
 {
