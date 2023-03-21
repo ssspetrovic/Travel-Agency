@@ -39,7 +39,7 @@ namespace TravelAgency.Repository
                 var gradeComplaisent = selectReader.GetFloat(6);
                 var gradeClean = selectReader.GetFloat(7);
 
-                Reservation res = new Reservation(id,comment,startDate,endDate,gradeComplaisent,gradeClean,guestId,accommodationId);
+                Reservation res = new Reservation(id, comment, startDate, endDate, gradeComplaisent, gradeClean, guestId, accommodationId);
 
                 reservationList.Add(res);
             }

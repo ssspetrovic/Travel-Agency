@@ -17,22 +17,16 @@ namespace TravelAgency.ViewModel
         private Reservation? _selectedReservation;
         private bool _isReservatoinSelected;
 
+        private readonly ReservationRepository _reservationRepository;
         public GradeGuestViewModel()
         {
-            _tourRepository = new TourRepository();
+            _reservationRepository = new ReservationRepository();
 
-            _toursCollection = new CollectionViewSource
+            _reservationsCollection = new CollectionViewSource
             {
-                Source = _tourRepository.GetAll()
+                Source = _reservationRepository.GetType().Assembly  //NE OVOV
             };
-            _toursCollection.Filter += ToursCollection_Filter;
-
-            if (!ToursSourceCollection.IsEmpty)
-                IsListViewShown = true;
-
-            IsTourSelected = false;
-            _isGuestNumberEntered = false;
-            _reservationRepository = new TourReservationRepository();
+            _reservationRepository = new ReservationRepository();
         }
     }
 }
