@@ -7,7 +7,6 @@ using TravelAgency.Model;
 using TravelAgency.Repository;
 using TravelAgency.View.Controls.Tourist;
 using static System.Windows.Application;
-using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
 
 namespace TravelAgency.ViewModel
@@ -143,18 +142,13 @@ namespace TravelAgency.ViewModel
             _reservationRepository = new TourReservationRepository();
         }
 
-        private bool DoGuestsFit(int maxGuests)
-        {
-            int.TryParse(GuestNumber, out var guestNumber);
-            return guestNumber <= maxGuests;
-        }
-
         private bool DoesLocationFit(LocationModel location)
         {
             return location.City.Equals(SelectedTour?.Location.City) &&
                    location.Country.Equals(SelectedTour?.Location.Country);
         }
 
+        // Dynamic search filter that is triggered on property change
         private void ToursCollection_Filter(object sender, FilterEventArgs e)
         {
             // Checks if "tour = e.Item as Tour" is true
@@ -164,11 +158,6 @@ namespace TravelAgency.ViewModel
             {
                 //Debug.WriteLine(tour.MaxGuests);
                 e.Accepted = true;
-                if (tour.MaxGuests <= 0)
-                {
-                    e.Accepted = false;
-                    //Debug.WriteLine("in with: " + tour.MaxGuests);
-                }
                 return;
             }
 
@@ -183,7 +172,7 @@ namespace TravelAgency.ViewModel
                 //Debug.WriteLine("Selected location: " + SelectedTour?.Location);
                 //Debug.WriteLine(tour.Location.City.Equals(SelectedTour?.Location.City) && tour.Location.Country.Equals(SelectedTour?.Location.Country));
 
-                if (DoGuestsFit(tour.MaxGuests) && DoesLocationFit(tour.Location) && tour.MaxGuests > 0)
+                if (DoesLocationFit(tour.Location) && tour.MaxGuests > 0)
                 {
                     //Debug.WriteLine($"accepted: {tour.Name}");
                     e.Accepted = true;
@@ -197,7 +186,7 @@ namespace TravelAgency.ViewModel
             {
                 if (tour.Location.City.ToUpper().Contains(filterTextUpper) || tour.Location.Country.ToUpper().Contains(filterTextUpper) ||
                     tour.Duration.ToString(CultureInfo.InvariantCulture).ToUpper().Contains(filterTextUpper) ||
-                    tour.Language.ToString().ToUpper().Contains(filterTextUpper) || tour.MaxGuests.ToString().ToUpper().Contains(filterTextUpper) && tour.MaxGuests > 0)
+                    tour.Language.ToString().ToUpper().Contains(filterTextUpper) || tour.MaxGuests.ToString().ToUpper().Contains(filterTextUpper))
                 {
                     e.Accepted = true;
                 }
@@ -230,6 +219,7 @@ namespace TravelAgency.ViewModel
             }
         }
 
+        // Adding the reservation to the database
         private void CompleteReservation(int guestNumber)
         {
             if (SelectedTour == null)
@@ -249,6 +239,7 @@ namespace TravelAgency.ViewModel
             }
         }
 
+        // Reservation making triggered by the button. Actions then split regarding of the selected item at the time the button was pressed
         public void MakeReservation()
         {
             if (SelectedTour == null)
@@ -257,17 +248,15 @@ namespace TravelAgency.ViewModel
                 return;
             }
 
-            // SelectedTour contains the tour we selected in the moment of using button
-            //Debug.WriteLine(SelectedTour);
-            if (!int.TryParse(GuestNumber, out var guestNumber) || guestNumber <= 0)
+            if (!int.TryParse(GuestNumber, out var guestNumber))
             {
                 MessageBox.Show("Invalid number of guests!");
                 return;
             }
 
-            if (guestNumber > SelectedTour.MaxGuests)
+            if (SelectedTour.MaxGuests == 0)
             {
-                MessageBox.Show("No room for that amount on guests. Showing other available options on the same location.");
+                MessageBox.Show("The selected tour is full. Showing other available options on the same location.");
                 _isGuestNumberEntered = true;
                 _toursCollection.View.Refresh();
                 FilterText = " ";
@@ -276,7 +265,7 @@ namespace TravelAgency.ViewModel
 
             var finalGuestNumber = -1;
 
-            if (guestNumber < SelectedTour.MaxGuests)
+            if (guestNumber > SelectedTour.MaxGuests)
             {
                 var dialog = new GuestNumberDialog
                 {
@@ -285,17 +274,17 @@ namespace TravelAgency.ViewModel
                 };
 
                 GuestNumberText =
-                    $"Tour still isn't full. Number of spaces left: {SelectedTour.MaxGuests - guestNumber}";
+                    $"Tour can't take that many guests. Number of spaces left: {SelectedTour.MaxGuests}";
 
                 //Debug.WriteLine(GuestNumberDialog.IsUpdateConfirmed);
                 dialog.ShowDialog();
                 //Debug.WriteLine(GuestNumberDialog.IsUpdateConfirmed);
 
                 // Number of guests wasn't changed or cancel was pressed
-                if (NewGuestNumber == null || !GuestNumberDialog.IsUpdateConfirmed)
+                if (!GuestNumberDialog.IsUpdateConfirmed)
                 {
                     //Debug.WriteLine("in old");
-                    finalGuestNumber = guestNumber;
+                    return;
                 }
                 else
                 {
@@ -332,12 +321,13 @@ namespace TravelAgency.ViewModel
             _toursCollection.View.Refresh();
         }
 
+        // Called to reload window after the reservation was made
         private void ReloadWindow()
         {
-            Application.Current.Dispatcher.Invoke(() =>
+            Current.Dispatcher.Invoke(() =>
             {
-                _mainWindow ??= new TourReservationView();
-                var currentWindow = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
+                _mainWindow = new TourReservationView();
+                var currentWindow = Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
                 _mainWindow.Show();
                 currentWindow?.Close();
             });

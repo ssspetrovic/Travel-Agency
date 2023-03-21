@@ -7,7 +7,7 @@ namespace TravelAgency.View.Controls.Tourist
     /// <summary>
     /// Interaction logic for TourReservationView.xaml
     /// </summary>
-    public partial class TourReservationView : Window
+    public partial class TourReservationView
     {
         private readonly TourReservationViewModel _viewModel = new();
 
