@@ -56,7 +56,7 @@
                             x:Name="TourReservationButton"
                             Height="50"
                             Click="TourReservationButton_OnClick"
-                            Content="Reservation"
+                            Content="Reservations"
                             FontSize="17"
                             Foreground="White"
                             Style="{StaticResource MenuButtonStyle}" />

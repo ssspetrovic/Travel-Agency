@@ -71,15 +71,15 @@ namespace TravelAgency.ViewModel
 
         public AccommodationReservationViewModel()
         {
-            var tourRepository = new TourRepository();
+            var accommodationRepository = new AccommodationRepository();
 
             _toursCollection = new CollectionViewSource
             {
-                Source = tourRepository.GetAll()
+                Source = accommodationRepository.GetAll()
             };
-            _toursCollection.Filter += ToursCollection_Filter;
+            //_toursCollection.Filter += ToursCollection_Filter;
 
-            if (!ToursSourceCollection.IsEmpty)
+            if (!ToursSourceCollection.IsEmpty) 
                 IsListViewShown = true;
         }
 

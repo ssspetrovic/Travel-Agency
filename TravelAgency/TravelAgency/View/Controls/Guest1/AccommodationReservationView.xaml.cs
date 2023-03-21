@@ -37,8 +37,8 @@ namespace TravelAgency.View.Controls.Guest1
 
         private void HomeButton_OnClick(object sender, RoutedEventArgs e)
         {
-            var touristView = new TouristView();
-            touristView.Show();
+            var GuestView = new Guest1View();
+            GuestView.Show();
             Close();
         }
 
