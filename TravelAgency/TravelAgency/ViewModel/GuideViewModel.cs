@@ -186,14 +186,8 @@ namespace TravelAgency.ViewModel
             {
                 var tourists = _activeTourRepository.GetActiveTourData("Tourists");
                 var touristsList = tourists.Split(", ").ToList();
-                var checkedTourists = new List<string>();
 
-                foreach (var tourist in touristsList)
-                {
-                    checkedTourists.Add(_touristRepository.GetByUsername(tourist).TouristCheck.ToString());
-                }
-
-                return checkedTourists;
+                return touristsList.Select(tourist => _touristRepository.GetByUsername(tourist).TouristCheck.ToString()).ToList();
             }
         }
 

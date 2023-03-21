@@ -72,8 +72,8 @@ namespace TravelAgency.View
             var activeTourRepository = new ActiveTourRepository();
             if (activeTourRepository.IsActive())
             {
-                var activeTour = new ActiveTour();
-                activeTour.Show();
+                var currentTour = new CurrentTour();
+                currentTour.Show();
                 Close();
             }
             else
