@@ -301,7 +301,7 @@ namespace TravelAgency.ViewModel
                 finalGuestNumber = guestNumber;
             }
 
-            if (finalGuestNumber == -1)
+            if (finalGuestNumber < 0)
             {
                 MessageBox.Show("Failed to make reservation! Invalid guest number!", "Error");
                 _isGuestNumberEntered = false;
