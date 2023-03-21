@@ -49,5 +49,23 @@ namespace TravelAgency.Repository
 
             return reservationList;
         }
+
+        public void UpdateReservationAfterGrading(int reservationId, string comment, float gradeComplaisent, float gradeClean)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            var updateCommand = databaseConnection.CreateCommand();
+            updateCommand.CommandText =
+                @"
+                    UPDATE Reservation SET comment = $comment, gradeComplacent = $gradeComplacent, gradeClean = $gradeClean
+                    WHERE Id = $id;
+                ";
+            updateCommand.Parameters.AddWithValue("$comment", comment);
+            updateCommand.Parameters.AddWithValue("$gradeComplacent", gradeComplaisent);
+            updateCommand.Parameters.AddWithValue("$gradeClean", gradeClean);
+            updateCommand.Parameters.AddWithValue("$id", reservationId);
+            updateCommand.ExecuteNonQuery();
+        }
     }
 }
