@@ -15,6 +15,6 @@ namespace TravelAgency.Model
         Language FindLanguage(string language);
         ObservableCollection<Tour> GetAll();
         void RemoveDate(string dateToday, List<string> tourDates, int id);
-        void UpdateMaxGuests(int id, int MaxGuests);
+        void UpdateMaxGuests(int id, int maxGuests);
     }
 }
