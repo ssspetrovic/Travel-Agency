@@ -22,7 +22,6 @@
     <Folder Include="Controller\" />
     <Folder Include="Service\" />
     <Folder Include="Service\" />
-    <Folder Include="View\Controls\Owner\" />
   </ItemGroup>
 
   <ItemGroup>
