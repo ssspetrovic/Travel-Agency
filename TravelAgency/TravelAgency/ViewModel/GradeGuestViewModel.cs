@@ -18,15 +18,37 @@ namespace TravelAgency.ViewModel
         private bool _isReservatoinSelected;
 
         private readonly ReservationRepository _reservationRepository;
+        public ICollectionView ReservationsSourceCollection => _reservationsCollection.View;
         public GradeGuestViewModel()
         {
             _reservationRepository = new ReservationRepository();
 
             _reservationsCollection = new CollectionViewSource
             {
-                Source = _reservationRepository.GetType().Assembly  //NE OVOV
+                Source = _reservationRepository.GetAll()
             };
             _reservationRepository = new ReservationRepository();
+        }
+
+        public bool IsReservationSelected
+        {
+            get => _isReservatoinSelected;
+            set
+            {
+                _isReservatoinSelected = value;
+                OnPropertyChanged();
+            }
+        }
+        public Reservation? SelectedReservation
+        {
+            get => _selectedReservation;
+
+            set
+            {
+                _selectedReservation = value;
+                IsReservationSelected = true;
+                OnPropertyChanged();
+            }
         }
     }
 }
