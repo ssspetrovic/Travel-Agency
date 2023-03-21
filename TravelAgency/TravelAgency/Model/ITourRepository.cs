@@ -6,15 +6,15 @@ namespace TravelAgency.Model
 {
     internal interface ITourRepository
     {
-        void Add(TourModel tourModel);
-        void Edit(TourModel tourModel);
+        void Add(Tour tour);
+        void Edit(Tour tour);
         void Remove(int id);
-        TourModel GetById(int id);
-        TourModel? GetByName(string? name);
+        Tour GetById(int id);
+        Tour? GetByName(string? name);
         DataTable GetByAll(DataTable dt);
         Language FindLanguage(string language);
-        ObservableCollection<TourModel> GetAll();
+        ObservableCollection<Tour> GetAll();
         void RemoveDate(string dateToday, List<string> tourDates, int id);
-        void UpdateMaxGuests(int id, int MaxGuests);
+        void UpdateMaxGuests(int id, int maxGuests);
     }
 }

@@ -134,7 +134,7 @@ namespace TravelAgency.ViewModel
             {
                 var keyPoints = _activeTourRepository.GetActiveTourData("KeyPointsList");
                 var keyPointsList = keyPoints.Split(", ").ToList();
-                var locations = new List<LocationModel?>();
+                var locations = new List<Location?>();
                 var cities = new List<string>();
 
                 foreach (var keyPoint in keyPointsList)
@@ -186,14 +186,8 @@ namespace TravelAgency.ViewModel
             {
                 var tourists = _activeTourRepository.GetActiveTourData("Tourists");
                 var touristsList = tourists.Split(", ").ToList();
-                var checkedTourists = new List<string>();
 
-                foreach (var tourist in touristsList)
-                {
-                    checkedTourists.Add(_touristRepository.GetByUsername(tourist).TouristCheck.ToString());
-                }
-
-                return checkedTourists;
+                return touristsList.Select(tourist => _touristRepository.GetByUsername(tourist).TouristCheck.ToString()).ToList();
             }
         }
 

@@ -8,7 +8,7 @@ namespace TravelAgency.Repository
 {
     public class ActiveTourRepository : RepositoryBase, IActiveTourRepository
     {
-        public void Add(ActiveTourModel activeTourModel)
+        public void Add(ActiveTour activeTour)
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
@@ -19,16 +19,16 @@ namespace TravelAgency.Repository
             var keyPointsList = "";
             var touristsList = "";
 
-            activeTourModel.KeyPoints[activeTourModel.KeyPoints.First().Key] = true;
+            activeTour.KeyPoints[activeTour.KeyPoints.First().Key] = true;
 
-            foreach (var tour in activeTourModel.KeyPoints)
+            foreach (var tour in activeTour.KeyPoints)
             {
                 keyPointsList += tour.Key.ToString() + ":" + tour.Value + ", ";
             }
 
             keyPointsList = keyPointsList.Remove(keyPointsList.Length - 2, 2);
 
-            foreach (var tourist in activeTourModel.Tourists)
+            foreach (var tourist in activeTour.Tourists)
             {
                 touristsList += tourist.UserName + ", ";
             }
@@ -39,13 +39,13 @@ namespace TravelAgency.Repository
                 @"insert into ActiveTour(Name, KeyPointsList, Tourists) values ($Name, $KeyPointsList, $Tourists)";
             using var insertCommand = new SqliteCommand(insertStatement, databaseConnection);
 
-            insertCommand.Parameters.AddWithValue("$Name", activeTourModel.Name);
+            insertCommand.Parameters.AddWithValue("$Name", activeTour.Name);
             insertCommand.Parameters.AddWithValue("$KeyPointsList", keyPointsList);
             insertCommand.Parameters.AddWithValue("$Tourists", touristsList);
             insertCommand.ExecuteNonQuery();
         }
 
-        public void Edit(ActiveTourModel activeTourModel)
+        public void Edit(ActiveTour activeTour)
         {
             throw new NotImplementedException();
         }
@@ -61,7 +61,7 @@ namespace TravelAgency.Repository
             deleteCommand.ExecuteNonQuery();
         }
 
-        public ActiveTourModel GetById(int id)
+        public ActiveTour GetById(int id)
         {
             throw new NotImplementedException();
         }

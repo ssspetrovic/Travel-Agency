@@ -8,7 +8,7 @@ namespace TravelAgency.Model
         Guest1,
         Tourist
     }
-    public class UserModel
+    public class User
     {
         public int Id { get; set; }
         public string UserName { get; set; } = null!;
@@ -18,25 +18,25 @@ namespace TravelAgency.Model
         public string Email { get; set; } = null!;
         public Role Role { get; set; }
 
-        public UserModel()
+        public User()
         {
 
         }
 
-        public UserModel(string userName, string password)
+        public User(string userName, string password)
         {
             UserName = userName;
             Password = password;
         }
 
-        public UserModel(int id, string userName, string password)
+        public User(int id, string userName, string password)
         {
             Id = id;
             UserName = userName;
             Password = password;
         }
 
-        public UserModel(string username, string password, string name, string surname, string email, Role role) : this(username, password)
+        public User(string username, string password, string name, string surname, string email, Role role) : this(username, password)
         {
             Email = email;
             Name = name;
@@ -44,7 +44,7 @@ namespace TravelAgency.Model
             Role = role;
         }
 
-        public UserModel(int id, string username, string password, string name, string surname, string email, Role role) : this(id, username, password)
+        public User(int id, string username, string password, string name, string surname, string email, Role role) : this(id, username, password)
         {
             Email = email;
             Name = name;

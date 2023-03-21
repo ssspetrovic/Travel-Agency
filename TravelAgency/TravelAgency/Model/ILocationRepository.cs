@@ -5,12 +5,12 @@ namespace TravelAgency.Model
 {
     internal interface ILocationRepository
     {
-        void Add(LocationModel locationModel);
-        void Edit(LocationModel locationModel);
+        void Add(Location location);
+        void Edit(Location location);
         void Remove(int id);
-        LocationModel? GetById(int id);
-        LocationModel? GetByCity(string city);
+        Location? GetById(int id);
+        Location? GetByCity(string city);
         DataTable GetByAll(DataTable dt);
-        List<LocationModel?> GetByAllCities(List<string> cities);
+        List<Location?> GetByAllCities(List<string> cities);
     }
 }

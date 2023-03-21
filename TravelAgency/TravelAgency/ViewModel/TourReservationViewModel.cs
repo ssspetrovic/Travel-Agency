@@ -19,17 +19,17 @@ namespace TravelAgency.ViewModel
         private bool _isFilteredCollectionEmpty;
         private bool _isListViewShown;
         private bool _shouldUpdateFilteredCollectionEmpty;
-        private TourModel? _selectedTour;
+        private Tour? _selectedTour;
         private string? _guestNumber;
         private bool _isTourSelected;
         private bool _isGuestNumberEntered;
         private string? _newGuestNumber;
-        private string _guestNumberText;
+        private string? _guestNumberText;
 
         private readonly TourRepository _tourRepository;
         private readonly TourReservationRepository _reservationRepository;
 
-        private TourReservationView _mainWindow;
+        private TourReservationView? _mainWindow;
 
         public string? NewGuestNumber
         {
@@ -41,7 +41,7 @@ namespace TravelAgency.ViewModel
             }
         }
 
-        public string GuestNumberText
+        public string? GuestNumberText
         {
             get => _guestNumberText;
             set
@@ -67,14 +67,11 @@ namespace TravelAgency.ViewModel
             set
             {
                 _guestNumber = value;
-                _shouldUpdateFilteredCollectionEmpty = true;
-                _toursCollection.View.Refresh();
-                RaisePropertyChanged("FilterText");
                 OnPropertyChanged();
             }
         }
 
-        public TourModel? SelectedTour
+        public Tour? SelectedTour
         {
             get => _selectedTour;
 
@@ -142,7 +139,7 @@ namespace TravelAgency.ViewModel
             _reservationRepository = new TourReservationRepository();
         }
 
-        private bool DoesLocationFit(LocationModel location)
+        private bool DoesLocationFit(Location location)
         {
             return location.City.Equals(SelectedTour?.Location.City) &&
                    location.Country.Equals(SelectedTour?.Location.Country);
@@ -151,27 +148,20 @@ namespace TravelAgency.ViewModel
         // Dynamic search filter that is triggered on property change
         private void ToursCollection_Filter(object sender, FilterEventArgs e)
         {
-            // Checks if "tour = e.Item as Tour" is true
-            if (e.Item is not TourModel tour) return;
-
             if (string.IsNullOrEmpty(FilterText))
             {
                 //Debug.WriteLine(tour.MaxGuests);
                 e.Accepted = true;
                 return;
             }
+         
+            // Checks if "tour = e.Item as Tour" is true
+            if (e.Item is not Tour tour) return;
 
             var filterTextUpper = FilterText.ToUpper();
 
             if (_isGuestNumberEntered)
             {
-                //Debug.WriteLine("in");
-                //Debug.WriteLine("selected")
-                //Debug.WriteLine($"{tour.Name}: {tour.MaxGuests} - entered guests {guestNumber}");
-                //Debug.WriteLine("Tour location: " + tour.Location);
-                //Debug.WriteLine("Selected location: " + SelectedTour?.Location);
-                //Debug.WriteLine(tour.Location.City.Equals(SelectedTour?.Location.City) && tour.Location.Country.Equals(SelectedTour?.Location.Country));
-
                 if (DoesLocationFit(tour.Location) && tour.MaxGuests > 0)
                 {
                     //Debug.WriteLine($"accepted: {tour.Name}");

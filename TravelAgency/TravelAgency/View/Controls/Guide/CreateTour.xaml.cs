@@ -74,8 +74,8 @@ namespace TravelAgency.View.Controls.Guide
             var activeTourRepository = new ActiveTourRepository();
             if (activeTourRepository.IsActive())
             {
-                var activeTour = new ActiveTour();
-                activeTour.Show();
+                var currentTour = new CurrentTour();
+                currentTour.Show();
                 Close();
             }
             else
@@ -188,7 +188,7 @@ namespace TravelAgency.View.Controls.Guide
 
             if (currentLocation != null)
             {
-                tourRepository.Add(new TourModel(NameText.Text, currentLocation,
+                tourRepository.Add(new Tour(NameText.Text, currentLocation,
                     DescriptionText.Text, language, maxGuests, locationList!, DateList.Text,
                     duration, ImagesList.Text));
                 MessageBox.Show("Tour Added Successfully.");

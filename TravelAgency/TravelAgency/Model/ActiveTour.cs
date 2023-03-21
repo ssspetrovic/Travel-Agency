@@ -2,21 +2,21 @@
 
 namespace TravelAgency.Model
 {
-    public class ActiveTourModel
+    public class ActiveTour
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public Dictionary<int, bool> KeyPoints { get; set; }
-        public List<TouristModel> Tourists { get; set; }
+        public List<Tourist> Tourists { get; set; }
 
-        public ActiveTourModel(string name, Dictionary<int, bool> keyPoints, List<TouristModel> tourists)
+        public ActiveTour(string name, Dictionary<int, bool> keyPoints, List<Tourist> tourists)
         {
             Name = name;
             KeyPoints = keyPoints;
             Tourists = tourists;
         }
 
-        public ActiveTourModel(int id, string name, Dictionary<int, bool> keyPoints, List<TouristModel> tourists)
+        public ActiveTour(int id, string name, Dictionary<int, bool> keyPoints, List<Tourist> tourists)
         {
             Id = id;
             Name = name;

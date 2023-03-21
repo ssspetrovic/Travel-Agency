@@ -7,11 +7,11 @@ namespace TravelAgency.Model
     {
         bool AuthenticateUser(NetworkCredential credential);
         Role GetRole(string username);
-        void Add(UserModel userModel);
-        void Edit(UserModel userModel);
+        void Add(User user);
+        void Edit(User user);
         void Remove(int id);
-        UserModel GetById(int id);
-        UserModel GetByUsername(string? username);
-        IEnumerable<UserModel> GetByAll();
+        User GetById(int id);
+        User GetByUsername(string? username);
+        IEnumerable<User> GetByAll();
     }
 }

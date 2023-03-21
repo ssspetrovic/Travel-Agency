@@ -14,11 +14,11 @@ using MouseEventArgs = System.Windows.Input.MouseEventArgs;
 namespace TravelAgency.View.Controls.Guide
 {
     /// <summary>
-    /// Interaction logic for ActiveTour.xaml
+    /// Interaction logic for CurrentTour.xaml
     /// </summary>
-    public partial class ActiveTour
+    public partial class CurrentTour
     {
-        public ActiveTour()
+        public CurrentTour()
         {
             InitializeComponent();
         }
@@ -74,8 +74,8 @@ namespace TravelAgency.View.Controls.Guide
             var allKeyPoints = activeTourRepository.GetActiveTourData("KeyPointsList").Split(", ");
             var flag = allKeyPoints.Count(location => location.Contains("False"));
 
-            var activeTour = new ActiveTour();
-            activeTour.Show();
+            var currentTour = new CurrentTour();
+            currentTour.Show();
             Close();
 
             if (flag == 0)
@@ -92,8 +92,8 @@ namespace TravelAgency.View.Controls.Guide
             var allKeyPoints = activeTourRepository.GetActiveTourData("KeyPointsList").Split(", ");
             var flag = allKeyPoints.Count(location => location.Contains("False"));
 
-            var activeTour = new ActiveTour();
-            activeTour.Show();
+            var currentTour = new CurrentTour();
+            currentTour.Show();
             Close();
 
             if (flag == 0)
@@ -106,8 +106,8 @@ namespace TravelAgency.View.Controls.Guide
             var touristRepository = new TouristRepository();
             touristRepository.CheckTourist(tourist);
 
-            var activeTour = new ActiveTour();
-            activeTour.Show();
+            var currentTour = new CurrentTour();
+            currentTour.Show();
             Close();
         }
 
@@ -118,8 +118,8 @@ namespace TravelAgency.View.Controls.Guide
             var touristRepository = new TouristRepository();
             touristRepository.CheckTourist(tourist);
 
-            var activeTour = new ActiveTour();
-            activeTour.Show();
+            var currentTour = new CurrentTour();
+            currentTour.Show();
             Close();
         }
 
@@ -144,8 +144,8 @@ namespace TravelAgency.View.Controls.Guide
                     }
 
                     counter = 1;
-                    var activeTour = new ActiveTour();
-                    activeTour.Show();
+                    var currentTour = new CurrentTour();
+                    currentTour.Show();
                     Close();
                     break;
                 }
@@ -153,6 +153,7 @@ namespace TravelAgency.View.Controls.Guide
 
             if (counter != 0) return;
             MessageBox.Show("Tour has been finished!");
+
             var tourists = activeTourRepository.GetActiveTourData("Tourists").Split(", ");
             activeTourRepository.Remove();
             var firstTourist = touristRepository.GetByUsername(tourists[0]);
@@ -211,8 +212,8 @@ namespace TravelAgency.View.Controls.Guide
             else
                 touristRepository.CheckAllTourists(tourists);
 
-            var activeTour = new ActiveTour();
-            activeTour.Show();
+            var currentTour = new CurrentTour();
+            currentTour.Show();
             Close();
         }
     }
