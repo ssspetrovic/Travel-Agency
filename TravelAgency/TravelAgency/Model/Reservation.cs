@@ -10,8 +10,8 @@ namespace TravelAgency.Model
     {
         public int Id { get; set; }
         public string Comment { get; set; } = string.Empty;
-        public DateOnly StartDate { get; set; }
-        public DateOnly EndDate { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
         public float GradeComplaisent { get; set; }
         public float GradeClean { get; set; }
         public int GuestId { get; set; }
@@ -21,7 +21,7 @@ namespace TravelAgency.Model
         {
         }
 
-        public Reservation(int id, string comment, DateOnly startDate, DateOnly endDate, float gradeComplaisent, float gradeClean, int guestId, int accommodationId)
+        public Reservation(int id, string comment, DateTime startDate, DateTime endDate, float gradeComplaisent, float gradeClean, int guestId, int accommodationId)
         {
             Id = id;
             Comment = comment;

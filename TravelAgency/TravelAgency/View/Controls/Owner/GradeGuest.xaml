@@ -23,6 +23,13 @@
         <Label Content="Grade Clean" HorizontalAlignment="Left" Margin="313,286,0,0" VerticalAlignment="Top"/>
         <Label Content="Comment" HorizontalAlignment="Left" Margin="504,286,0,0" VerticalAlignment="Top"/>
         <TextBlock x:Name="txtComment" HorizontalAlignment="Left" Margin="508,312,0,0" TextWrapping="Wrap" Text="Comment" VerticalAlignment="Top" Height="86" Width="159" Background="#FFEEF2FF"/>
+        <ListView x:Name="GuestListView" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="34,85,133,205">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
 
     </Grid>
 </Window>
