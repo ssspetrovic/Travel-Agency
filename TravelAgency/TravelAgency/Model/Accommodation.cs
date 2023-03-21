@@ -8,8 +8,8 @@ namespace TravelAgency.Model
 {
     public enum AccommodationType
     {
-        Apartment = 1,
-        House,
+        Apartman = 1,
+        Kuca,
         Cottage
     }
     public class Accommodation
