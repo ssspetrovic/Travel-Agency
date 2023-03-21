@@ -7,7 +7,7 @@
     xmlns:local="clr-namespace:TravelAgency.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="TouristView"
-    Width="916"
+    Width="1000"
     Height="616"
     AllowsTransparency="True"
     Background="Transparent"
@@ -93,7 +93,7 @@
                 <WrapPanel Grid.Row="0">
                     <Border
                         x:Name="HeaderBorder"
-                        Width="655"
+                        Width="740"
                         HorizontalAlignment="Left">
                         <Thumb x:Name="HeaderThumb" DragDelta="HeaderThumb_OnDragDelta" />
                     </Border>
