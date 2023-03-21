@@ -174,11 +174,11 @@
                                             Header="Country" />
                                         <GridViewColumn
                                             Width="Auto"
-                                            DisplayMemberBinding="{Binding Path=Language}"
-                                            Header="Language" />
+                                            DisplayMemberBinding="{Binding Path=Type}"
+                                            Header="Type" />
                                         <GridViewColumn
                                             Width="Auto"
-                                            DisplayMemberBinding="{Binding Path=MaxGuests}"
+                                            DisplayMemberBinding="{Binding Path=MaxReservationDays}"
                                             Header="Max Guests" />
                                     </GridView>
                                 </ListView.View>
