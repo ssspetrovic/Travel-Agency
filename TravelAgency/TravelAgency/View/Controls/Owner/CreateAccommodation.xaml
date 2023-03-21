@@ -7,114 +7,51 @@
         mc:Ignorable="d"
         Title="CreateAccommodation" Height="450" Width="800">
     <Grid>
-        <TextBlock
-            FontSize="12"
-            FontWeight="Medium"
-            Foreground="#68cbf8"
-            Text="Name"
-            TextWrapping="Wrap" Margin="53,56,666,362" />
-        <TextBox
-            x:Name="txtName"
-            VerticalContentAlignment="Center"
-            BorderThickness="0,0,0,1"
-            CaretBrush="#4fc3f7"
-            FontSize="13"
-            FontWeight="Medium"
-            Foreground="#68cbf8" Margin="50,69,500,337" />
-        <ComboBox
-            x:Name="cmbLocation"
-            Height="28"
-            VerticalContentAlignment="Center"
-            Background="Transparent"
-            BorderThickness="0,0,0,1"
-            FontSize="13"
-            FontWeight="Medium"
-            Foreground="#68cbf8" Margin="50,123,500,0" VerticalAlignment="Top">
-            <ComboBoxItem Content="Tokyo"/>
-            <ComboBoxItem Content="Delhi"/>
-            <ComboBoxItem Content="Shanghai"/>
-            <ComboBoxItem Content="Sao Paulo"/>
-            <ComboBoxItem Content="Mexico City"/>
-            <ComboBoxItem Content="Cairo"/>
-            <ComboBoxItem Content="Mumbai"/>
-            <ComboBoxItem Content="Beijing"/>
-            <ComboBoxItem Content="Osaka"/>
-            <ComboBoxItem Content="New York"/>
-            <ComboBoxItem Content="Buenos Aires"/>
-            <ComboBoxItem Content="Chongqing"/>
-            <ComboBoxItem Content="Istanbul"/>
-            <ComboBoxItem Content="Kolkata"/>
-            <ComboBoxItem Content="Manila"/>
-            <ComboBoxItem Content="Bar"/>
+        <Label Content="Create Accommodation" HorizontalAlignment="Left" Margin="40,18,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <Label Content="Name" HorizontalAlignment="Left" Margin="59,64,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtName" HorizontalAlignment="Left" Margin="59,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Minimum reservation days" HorizontalAlignment="Left" Margin="59,251,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtMinReservationDays" HorizontalAlignment="Left" Margin="59,270,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Reservable Days" HorizontalAlignment="Left" Margin="59,311,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtReservableDays" HorizontalAlignment="Left" Margin="59,330,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Location" HorizontalAlignment="Left" Margin="59,125,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cmbLocation" HorizontalAlignment="Left" Margin="59,149,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0">
+            <ComboBoxItem>Tokyo</ComboBoxItem>
+            <ComboBoxItem>Delhi</ComboBoxItem>
+            <ComboBoxItem>Shanghai</ComboBoxItem>
+            <ComboBoxItem>Sao Paulo</ComboBoxItem>
+            <ComboBoxItem>Mexico City</ComboBoxItem>
+            <ComboBoxItem>Cairo</ComboBoxItem>
+            <ComboBoxItem>Mumbai</ComboBoxItem>
+            <ComboBoxItem>Beijing</ComboBoxItem>
+            <ComboBoxItem>Osaka</ComboBoxItem>
+            <ComboBoxItem>New York</ComboBoxItem>
+            <ComboBoxItem>Buenos Aires</ComboBoxItem>
+            <ComboBoxItem>Chongqing</ComboBoxItem>
+            <ComboBoxItem>Istanbul</ComboBoxItem>
+            <ComboBoxItem>Kolkata</ComboBoxItem>
+            <ComboBoxItem>Manila</ComboBoxItem>
+            <ComboBoxItem>Bar</ComboBoxItem>
         </ComboBox>
-        <TextBlock
-            FontSize="12"
-            FontWeight="Medium"
-            Foreground="#68cbf8"
-            Text="Location"
-            TextWrapping="Wrap" Margin="53,110,666,308" />
-        <ComboBox
-            x:Name="cmbType"
-            Height="28"
-            VerticalContentAlignment="Center"
-            Background="Transparent"
-            BorderThickness="0,0,0,1"
-            FontSize="13"
-            FontWeight="Medium"
-            Foreground="#68cbf8" Margin="50,183,500,0" VerticalAlignment="Top">
-            <ComboBoxItem Content="Apartment"/>
-            <ComboBoxItem Content="House"/>
-            <ComboBoxItem Content="Cottage"/>
+        <Label Content="Type" HorizontalAlignment="Left" Margin="59,184,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cmbType" HorizontalAlignment="Left" Margin="59,208,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0">
+            <ComboBoxItem>Apartment</ComboBoxItem>
+            <ComboBoxItem>House</ComboBoxItem>
+            <ComboBoxItem>Cottage</ComboBoxItem>
         </ComboBox>
-        <TextBlock
-            FontSize="12"
-            FontWeight="Medium"
-            Foreground="#68cbf8"
-            Text="Type"
-            TextWrapping="Wrap" Margin="53,170,666,248" />
-        <TextBlock
-            FontSize="12"
-            FontWeight="Medium"
-            Foreground="#68cbf8"
-            Text="Minimum reservation days"
-            TextWrapping="Wrap" Margin="53,227,592,191" />
-        <TextBox
-            x:Name="txtMinReservationDays"
-            VerticalContentAlignment="Center"
-            BorderThickness="0,0,0,1"
-            CaretBrush="#4fc3f7"
-            FontSize="13"
-            FontWeight="Medium"
-            Foreground="#68cbf8" Margin="50,240,500,166" />
-        <TextBlock
-            FontSize="12"
-            FontWeight="Medium"
-            Foreground="#68cbf8"
-            Text="Days before cancelation"
-            TextWrapping="Wrap" Margin="53,287,592,131" />
-        <TextBox
-            x:Name="txtDaysBeforeCancelation"
-            VerticalContentAlignment="Center"
-            BorderThickness="0,0,0,1"
-            CaretBrush="#4fc3f7"
-            FontSize="13"
-            FontWeight="Medium"
-            Foreground="#68cbf8" Margin="50,300,500,106" />
-        <Button x:Name="btnCreate"
-            Background="#68cbf8"
-            Content="Create"
-            FontSize="10"
-            Foreground="#ffffff" Margin="53,380,663,22" Click="btnCreate_Click" />
-        <TextBlock
-            FontSize="18"
-            FontWeight="Medium"
-            Foreground="#68cbf8"
-            TextWrapping="Wrap" Margin="40,10,529,398" Text="Create Accommodation" />
-        <Button x:Name="btnBack"
-            Background="#68cbf8"
-            Content="Back"
-            FontSize="10"
-            Foreground="#ffffff" Margin="693,380,23,22" Click="btnBack_Click" />
+        <Button x:Name="btnCreate" Content="Create" HorizontalAlignment="Left" Margin="60,375,0,0" VerticalAlignment="Top" Click="btnCreate_Click"/>
+        <Button x:Name="btnBack" Content="Back" HorizontalAlignment="Left" Margin="686,375,0,0" VerticalAlignment="Top" Click="btnBack_Click"/>
+        <Label Content="Maximum reservation days" HorizontalAlignment="Left" Margin="224,251,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtMaxReservationDays" HorizontalAlignment="Left" Margin="224,270,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Adress" HorizontalAlignment="Left" Margin="224,125,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtAdress" HorizontalAlignment="Left" Margin="224,149,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Image" HorizontalAlignment="Left" Margin="427,64,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtImage" HorizontalAlignment="Left" Margin="427,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="txtAddUrl" Content="Add Url" HorizontalAlignment="Left" Margin="562,83,0,0" VerticalAlignment="Top" Height="25" Width="68" FontSize="10" Click="txtAddUrl_Click"/>
+        <Button x:Name="btnClearImages" Content="Clear" HorizontalAlignment="Left" Margin="635,83,0,0" VerticalAlignment="Top" Height="25" Width="70" FontSize="10" Click="btnClearImages_Click"/>
+        <Label Content="Description" HorizontalAlignment="Left" Margin="440,251,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtDescription" HorizontalAlignment="Left" Margin="440,270,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="ImagesList" HorizontalAlignment="Left" Margin="427,128,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="312"/>
 
     </Grid>
 </Window>
