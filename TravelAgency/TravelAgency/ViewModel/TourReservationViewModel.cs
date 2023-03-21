@@ -224,7 +224,7 @@ namespace TravelAgency.ViewModel
         {
             if (SelectedTour == null)
             {
-                MessageBox.Show("Failed to complete reservation!");
+                MessageBox.Show("Failed to complete reservation", "Error");
                 return;
             }
 
@@ -235,7 +235,7 @@ namespace TravelAgency.ViewModel
             else
             {
                 _reservationRepository.Add(new TourReservation(SelectedTour.Id, SelectedTour.Name, guestNumber, CurrentUser.Username, CurrentUser.DisplayName));
-                MessageBox.Show("Reservation was successful!", "Tour reservation");
+                MessageBox.Show("Reservation was successful!", "Success");
             }
         }
 
@@ -244,19 +244,19 @@ namespace TravelAgency.ViewModel
         {
             if (SelectedTour == null)
             {
-                MessageBox.Show("Error while selecting tour. Please try again.");
+                MessageBox.Show("Please select a tour.", "Error");
                 return;
             }
 
             if (!int.TryParse(GuestNumber, out var guestNumber))
             {
-                MessageBox.Show("Invalid number of guests!");
+                MessageBox.Show("Invalid number of guests!", "Error");
                 return;
             }
 
             if (SelectedTour.MaxGuests == 0)
             {
-                MessageBox.Show("The selected tour is full. Showing other available options on the same location.");
+                MessageBox.Show("The selected tour is full. Showing other available options on the same location.", "Tour full");
                 _isGuestNumberEntered = true;
                 _toursCollection.View.Refresh();
                 FilterText = " ";
@@ -291,7 +291,7 @@ namespace TravelAgency.ViewModel
                     if (!int.TryParse(NewGuestNumber, out var newGuestNumber) ||
                         newGuestNumber > SelectedTour.MaxGuests)
                     {
-                        MessageBox.Show("Invalid number of guests!");
+                        MessageBox.Show("Invalid number of guests!", "Error");
                     }
                     else
                     {
@@ -307,7 +307,7 @@ namespace TravelAgency.ViewModel
 
             if (finalGuestNumber == -1)
             {
-                MessageBox.Show("Failed to make reservation!");
+                MessageBox.Show("Failed to make reservation! Invalid guest number!", "Error");
             }
             else
             {
