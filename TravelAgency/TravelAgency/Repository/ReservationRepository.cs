@@ -11,6 +11,26 @@ namespace TravelAgency.Repository
 {
     public class ReservationRepository : RepositoryBase, IReservationRepository
     {
+        public void Add(Reservation reservation)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            const string insertStatement =
+                @"insert into Reservation (Id, userId, accId, comment, startDate, endDate, gradeComplacent, gradeClean) 
+                    values ($Id, $userId, $accId, $comment, $startDate, $endDate, $gradeComplacent, $gradeClean)";
+            using var insertCommand = new SqliteCommand(insertStatement, databaseConnection);
+            insertCommand.Parameters.AddWithValue("$Id", reservation.Id);
+            insertCommand.Parameters.AddWithValue("$userId", reservation.GuestId);
+            insertCommand.Parameters.AddWithValue("$accId", reservation.AccommodationId);
+            insertCommand.Parameters.AddWithValue("$comment", reservation.Comment);
+            insertCommand.Parameters.AddWithValue("$startDate", reservation.StartDate);
+            insertCommand.Parameters.AddWithValue("$endDate", reservation.EndDate);
+            insertCommand.Parameters.AddWithValue("$gradeComplacent", reservation.GradeComplaisent);
+            insertCommand.Parameters.AddWithValue("$gradeClean", reservation.GradeClean);
+            insertCommand.ExecuteNonQuery();
+        }
+
         public ObservableCollection<Reservation> GetAll()
         {
             using var databaseConnection = GetConnection();
