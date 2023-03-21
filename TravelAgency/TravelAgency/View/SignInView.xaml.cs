@@ -51,7 +51,6 @@ namespace TravelAgency.View
                 {
                     ErrorMessage.Text = "Username or password is too short.";
                 }
-
                 else
                 {
                     ErrorMessage.Text = "";

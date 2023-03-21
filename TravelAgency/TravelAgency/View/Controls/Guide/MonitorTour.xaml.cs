@@ -74,8 +74,8 @@ namespace TravelAgency.View.Controls.Guide
             var activeTourRepository = new ActiveTourRepository();
             if (activeTourRepository.IsActive())
             {
-                var activeTour = new ActiveTour();
-                activeTour.Show();
+                var currentTour = new CurrentTour();
+                currentTour.Show();
                 Close();
             }
             else
@@ -107,14 +107,14 @@ namespace TravelAgency.View.Controls.Guide
 
                 var activeKeyPoints = selectedTour.KeyPoints.ToDictionary(location => location.Id, _ => false);
 
-                activeTourRepository.Add(new Model.ActiveTour(selectedTour.Name, activeKeyPoints, tourists));
+                activeTourRepository.Add(new ActiveTour(selectedTour.Name, activeKeyPoints, tourists));
             }
 
             else
                 MessageBox.Show("You already have an active tour!");
             
-            var activeTour = new ActiveTour();
-            activeTour.Show();
+            var currentTour = new CurrentTour();
+            currentTour.Show();
             Close();
         }
     }
