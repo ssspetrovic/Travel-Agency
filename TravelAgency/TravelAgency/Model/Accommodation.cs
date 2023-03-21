@@ -42,5 +42,18 @@ namespace TravelAgency.Model
             Images = images;
             Description = description;
         }
+
+        public Accommodation(string name, int locationId, AccommodationType type, int minReservationDays, int maxReservationDays, string adress, int reservableDays, string images, string description)
+        {
+            Name = name;
+            LocationId = locationId;
+            Type = type;
+            MinReservationDays = minReservationDays;
+            MaxReservationDays = maxReservationDays;
+            Adress = adress;
+            ReservableDays = reservableDays;
+            Images = images;
+            Description = description;
+        }
     }
 }

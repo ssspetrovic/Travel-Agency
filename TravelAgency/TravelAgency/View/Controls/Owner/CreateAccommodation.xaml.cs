@@ -7,7 +7,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -39,6 +38,8 @@ namespace TravelAgency.View.Controls.Owner
 
         private void btnCreate_Click(object sender, RoutedEventArgs e)
         {
+            var accommodationRepository = new AccommodationRepository(); 
+
             var name = txtName.Text;
             var locationRepository = new LocationRepository();
             var currentLocation = locationRepository.GetByCity(cmbLocation.Text);
@@ -48,6 +49,11 @@ namespace TravelAgency.View.Controls.Owner
             var maxDaysReservation = Convert.ToInt32(txtMaxReservationDays.Text);
             var reservableDays = Convert.ToInt32(txtReservableDays.Text);
             var description = txtDescription.Text;
+
+            Accommodation accommodation = new Accommodation(name, currentLocation.Id, type, minDaysReservation, maxDaysReservation, adress, reservableDays, 
+                ImagesList.Text, description);
+            accommodationRepository.Add(accommodation);
+            MessageBox.Show("Added Accommodation!");
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
