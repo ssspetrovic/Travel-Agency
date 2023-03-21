@@ -39,5 +39,10 @@ namespace TravelAgency.View
             createAccommodationView.Show();
             Close();   
         }
+
+        private void btnGradeGuest_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
