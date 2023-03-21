@@ -7,7 +7,6 @@ using TravelAgency.Model;
 using TravelAgency.Repository;
 using TravelAgency.View.Controls.Tourist;
 using static System.Windows.Application;
-using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
 
 namespace TravelAgency.ViewModel
