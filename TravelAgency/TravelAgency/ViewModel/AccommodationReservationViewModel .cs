@@ -29,7 +29,6 @@ namespace TravelAgency.ViewModel
             set
             {
                 _selectedAccommodation = value;
-                //Debug.WriteLine(_selectedTour.Name);
             }
         }
 
@@ -93,7 +92,6 @@ namespace TravelAgency.ViewModel
                 return;
             }
 
-            // Checks if "tour = e.Item as Tour" is true
             if (e.Item is not AccommodationDTO accommodation) return;
 
             var filterTextUpper = FilterText.ToUpper();
