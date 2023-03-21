@@ -63,7 +63,7 @@ namespace TravelAgency.Repository
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
-            Tour? tourModel = null;
+            Tour? tour = null;
 
             const string selectStatement = "select * from Tour where Id = $Id";
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
@@ -71,7 +71,7 @@ namespace TravelAgency.Repository
 
             using var selectReader = selectCommand.ExecuteReader();
 
-            if (!selectReader.Read()) return tourModel!;
+            if (!selectReader.Read()) return tour!;
 
 
             //Posto nam je dosta parametara sacuvano u tabelu u vidu tekstova
@@ -81,18 +81,18 @@ namespace TravelAgency.Repository
             var keyPointsList = selectReader.GetString(6).Split(", ").ToList();
             var keyPoints = locationRepository.GetByAllCities(keyPointsList);
 
-            tourModel = new Tour(selectReader.GetInt32(0), selectReader.GetString(1),
+            tour = new Tour(selectReader.GetInt32(0), selectReader.GetString(1),
                 location!, selectReader.GetString(3), (Language)selectReader.GetInt32(4), selectReader.GetInt32(5),
                 keyPoints!, selectReader.GetString(7), selectReader.GetFloat(8), selectReader.GetString(9));
 
-            return tourModel;
+            return tour;
         }
 
         public Tour GetByName(string? name)
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
-            Tour? tourModel = null;
+            Tour? tour = null;
 
             const string selectStatement = "select * from Tour where Name = $Name";
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
@@ -100,7 +100,7 @@ namespace TravelAgency.Repository
 
             using var selectReader = selectCommand.ExecuteReader();
 
-            if (!selectReader.Read()) return tourModel!;
+            if (!selectReader.Read()) return tour!;
 
             //Isto i ovde vazi, moramo izvrsiti konverziju
             var locationRepository = new LocationRepository();
@@ -108,11 +108,11 @@ namespace TravelAgency.Repository
             var keyPointsList = selectReader.GetString(6).Split(", ").ToList();
             var keyPoints = locationRepository.GetByAllCities(keyPointsList);
 
-            tourModel = new Tour(selectReader.GetInt32(0), selectReader.GetString(1),
+            tour = new Tour(selectReader.GetInt32(0), selectReader.GetString(1),
                 location!, selectReader.GetString(3), (Language)selectReader.GetInt32(4), selectReader.GetInt32(5),
                 keyPoints!, selectReader.GetString(7), selectReader.GetFloat(8), selectReader.GetString(9));
 
-            return tourModel;
+            return tour;
         }
 
         //Ova funkcija sluzi da bi smo vratili nazad ispis u View
