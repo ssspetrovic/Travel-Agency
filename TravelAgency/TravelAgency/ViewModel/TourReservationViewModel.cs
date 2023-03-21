@@ -23,7 +23,7 @@ namespace TravelAgency.ViewModel
         private string? _guestNumber;
         private bool _isTourSelected;
         private bool _isGuestNumberEntered;
-        private string _newGuestNumber;
+        private string? _newGuestNumber;
         private string _guestNumberText;
 
         private readonly TourRepository _tourRepository;
@@ -31,7 +31,7 @@ namespace TravelAgency.ViewModel
 
         private TourReservationView _mainWindow;
 
-        public string NewGuestNumber
+        public string? NewGuestNumber
         {
             get => _newGuestNumber;
             set
@@ -284,19 +284,15 @@ namespace TravelAgency.ViewModel
                 if (!GuestNumberDialog.IsUpdateConfirmed)
                 {
                     //Debug.WriteLine("in old");
+                    NewGuestNumber = null;
                     return;
                 }
-                else
+
+                if (int.TryParse(NewGuestNumber, out var newGuestNumber) &&
+                    newGuestNumber < SelectedTour.MaxGuests)
                 {
-                    if (!int.TryParse(NewGuestNumber, out var newGuestNumber) ||
-                        newGuestNumber > SelectedTour.MaxGuests)
-                    {
-                        MessageBox.Show("Invalid number of guests!", "Error");
-                    }
-                    else
-                    {
-                        finalGuestNumber = newGuestNumber;
-                    }
+                    finalGuestNumber = newGuestNumber;
+                    NewGuestNumber = null;
                 }
             }
             else
@@ -308,14 +304,15 @@ namespace TravelAgency.ViewModel
             if (finalGuestNumber == -1)
             {
                 MessageBox.Show("Failed to make reservation! Invalid guest number!", "Error");
+                _isGuestNumberEntered = false;
             }
             else
             {
                 _tourRepository.UpdateMaxGuests(SelectedTour.Id, SelectedTour.MaxGuests - finalGuestNumber);
                 CompleteReservation(finalGuestNumber);
-                ReloadWindow();
             }
 
+            ReloadWindow();
             FilterText = " ";
             IsTourSelected = false;
             _toursCollection.View.Refresh();
