@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -192,7 +193,7 @@ namespace TravelAgency.Repository
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
 
-            const string selectStatement = @"select * from Reservation where Id = $Id";
+            const string selectStatement = @"select Id, userId, accId, comment, date(startDate), date(endDate), gradeComplacent, gradeClean from Reservation where accId = $Id";
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
             selectCommand.Parameters.AddWithValue("$Id", Id);
             using var selectReader = selectCommand.ExecuteReader();
@@ -211,30 +212,24 @@ namespace TravelAgency.Repository
                 var guestId = selectReader.GetInt32(1);
                 var accommodationId = selectReader.GetInt32(2);
                 var comment = selectReader.GetString(3);
-                var startDateUnix = selectReader.GetInt32(4);
-                var endDateUnix = selectReader.GetInt32(5);
+                var startDate = selectReader.GetDateTime(4);
+                var endDate = selectReader.GetDateTime(5);
                 var gradeComplaisent = selectReader.GetFloat(6);
                 var gradeClean = selectReader.GetFloat(7);
 
-                DateTime startDate = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-                DateTime endDate = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+             //   DateTime startDate = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+             //  DateTime endDate = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
 
-                startDate = startDate.AddSeconds(startDateUnix).ToLocalTime();
-                endDate = endDate.AddSeconds(endDateUnix).ToLocalTime();
+                Debug.WriteLine(startDate.ToString() + "Unix time");
+
+               // startDate = startDate.AddSeconds(startDateUnix).ToLocalTime();
+               // endDate = endDate.AddSeconds(endDateUnix).ToLocalTime();
 
                 gradeClean = -1;
                 gradeComplaisent = -1;
 
-                if (gradeComplaisent == -1 && gradeClean == -1)
-                {
-                    //DateTime endDate = DateTime.ParseExact(txtEndDate.Text, "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
-                    double days = (DateTime.Now - endDate).TotalDays;
-                    if (days <= 5)
-                    {
-                        Reservation res = new Reservation(id, comment, startDate, endDate, gradeComplaisent, gradeClean, guestId, accommodationId);
-                        reservationList.Add(res);
-                    }
-                }
+                Reservation res = new Reservation(id, comment, startDate, endDate, gradeComplaisent, gradeClean, guestId, accommodationId);
+                reservationList.Add(res);
             }
 
             return reservationList;

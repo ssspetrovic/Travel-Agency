@@ -9,6 +9,7 @@ using TravelAgency.Model;
 using System.Collections.ObjectModel;
 using System.Drawing.Text;
 using System.Windows.Navigation;
+using System.Diagnostics;
 
 namespace TravelAgency.Service
 {
@@ -42,8 +43,10 @@ namespace TravelAgency.Service
 
             foreach (Reservation reservation in reservations)
             {
-                if((reservation.StartDate>= convertedStartDate && reservation.EndDate<= convertedStartDate) || (reservation.StartDate >= convertedEndDate && reservation.EndDate <= convertedEndDate))
+                //Debug.WriteLine(reservation.EndDate.ToString() + " " + convertedEndDate.ToString());
+                if((reservation.StartDate<= convertedStartDate && reservation.EndDate>= convertedStartDate) || (reservation.StartDate <= convertedEndDate && reservation.EndDate >= convertedEndDate))
                 {
+                    Debug.WriteLine("If");
                     return false;
                 }
             }
