@@ -9,6 +9,8 @@ using TravelAgency.Model;
 using TravelAgency.Repository;
 using TravelAgency.View;
 using TravelAgency.DTO;
+using TravelAgency.Service;
+using System.Runtime.CompilerServices;
 
 namespace TravelAgency.ViewModel
 {
@@ -20,16 +22,40 @@ namespace TravelAgency.ViewModel
         private bool _isFilteredCollectionEmpty;
         private bool _isListViewShown;
         private bool _shouldUpdateFilteredCollectionEmpty;
-        private Accommodation _selectedAccommodation;
+        private AccommodationDTO _selectedAccommodation;
+        private DateTime _startDate;
+        private DateTime _endDate;
 
-        public Accommodation SelectedTour
+        public DateTime StartDate
+        {
+            get => _startDate;
+            set
+            {
+                _startDate = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public DateTime EndDate
+        {
+            get => _endDate;
+            set
+            {
+                _endDate = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public AccommodationDTO SelectedAccommodation
         {
             get => _selectedAccommodation;
 
             set
             {
                 _selectedAccommodation = value;
+                OnPropertyChanged();
             }
+
         }
 
         public bool IsFilteredCollectionEmpty
@@ -67,7 +93,7 @@ namespace TravelAgency.ViewModel
                 RaisePropertyChanged("FilterText");
             }
         }
-        public ICollectionView ToursSourceCollection => _accommodationCollection.View;
+        public ICollectionView AccommodationSourceCollection => _accommodationCollection.View;
 
         public AccommodationReservationViewModel()
         {
@@ -77,14 +103,14 @@ namespace TravelAgency.ViewModel
             {
                 Source = accommodationRepository.GetAll()
             };
-            _accommodationCollection.Filter += ToursCollection_Filter;
+            _accommodationCollection.Filter += AccommodationCollection_Filter;
 
-            if (!ToursSourceCollection.IsEmpty) 
+            if (!AccommodationSourceCollection.IsEmpty) 
                 IsListViewShown = true;
         }
 
 
-        private void ToursCollection_Filter(object sender, FilterEventArgs e)
+        private void AccommodationCollection_Filter(object sender, FilterEventArgs e)
         {
             if (string.IsNullOrEmpty(FilterText))
             {
@@ -108,13 +134,13 @@ namespace TravelAgency.ViewModel
             }
 
             _shouldUpdateFilteredCollectionEmpty = true;
-            IsFilteredCollectionEmpty = !e.Accepted && ToursSourceCollection.IsEmpty;
+            IsFilteredCollectionEmpty = !e.Accepted && AccommodationSourceCollection.IsEmpty;
             IsListViewShown = !IsFilteredCollectionEmpty;
         }
 
         private void UpdateFilteredCollectionEmpty()
         {
-            IsFilteredCollectionEmpty = ToursSourceCollection.IsEmpty;
+            IsFilteredCollectionEmpty = AccommodationSourceCollection.IsEmpty;
             IsListViewShown = !IsFilteredCollectionEmpty;
             _shouldUpdateFilteredCollectionEmpty = false;
         }
@@ -129,12 +155,24 @@ namespace TravelAgency.ViewModel
             }
         }
 
-        public static void MakeReservation(object sender, RoutedEventArgs e)
+        public void MakeReservation(object sender, RoutedEventArgs e)
         {
-            if (sender is Button button)
+            var _reservationService = new ReservationService();
+
+            if(!_reservationService.IsReservationValid(StartDate, EndDate, 5))
             {
-                Debug.WriteLine(button.Content);
+                MessageBox.Show("The reservation is out of bounds!");
             }
+            else if(_reservationService.Reserve())
+            {
+                MessageBox.Show("Accommodation Reserved");
+            }
+            else
+            {
+                MessageBox.Show("The Dates you have set are not available!");
+            }
+            
         }
+
     }
 }

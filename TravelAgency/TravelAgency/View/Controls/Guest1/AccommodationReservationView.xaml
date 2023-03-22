@@ -7,7 +7,7 @@
     xmlns:local="clr-namespace:TravelAgency.View.Controls.Guest1"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewModel="clr-namespace:TravelAgency.ViewModel"
+    xmlns:viewModel="clr-namespace:TravelAgency.ViewModel" d:DataContext="{d:DesignInstance Type=viewModel:AccommodationReservationViewModel}"
     Title="Accommodation Reservation"
     Width="916"
     Height="616"
@@ -154,10 +154,10 @@
                                 Grid.Row="1"
                                 HorizontalAlignment="Center"
                                 d:ItemsSource="{d:SampleData ItemCount=5}"
-                                ItemsSource="{Binding ToursSourceCollection}"
-                                SelectedItem="{Binding SelectedTour}"
+                                ItemsSource="{Binding AccommodationSourceCollection}"
+                                SelectedItem="{Binding SelectedAccommodation}"
                                 Style="{StaticResource MaterialDesignListView}"
-                                Visibility="{Binding IsListViewShown, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                Visibility="{Binding IsListViewShown, Converter={StaticResource BooleanToVisibilityConverter}}" SelectionChanged="ToursListView_SelectionChanged">
                                 <ListView.View>
                                     <GridView x:Name="GridView" AllowsColumnReorder="False">
                                         <GridViewColumn
@@ -190,7 +190,7 @@
                                 FontSize="15"
                                 FontWeight="UltraLight"
                                 Style="{StaticResource MaterialDesignTextBox}"
-                                Text="No tours match the search criteria."
+                                Text="No accommodation match the search criteria."
                                 Visibility="{Binding IsFilteredCollectionEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
                         </StackPanel>
                     </Border>
@@ -205,6 +205,7 @@
                         FontSize="15" />
 
                     <DatePicker 
+                        SelectedDate="{Binding Path=StartDate, UpdateSourceTrigger=PropertyChanged}"
                         Height="26"
                         Grid.Row="2"
                         Margin="337,0,264,0"
@@ -212,6 +213,7 @@
                         Width="115" />
                     
                     <DatePicker 
+                        SelectedDate="{Binding Path=EndDate, UpdateSourceTrigger=PropertyChanged}"
                         Height="26"
                         Grid.Row="2"
                         Margin="551,0,50,0"

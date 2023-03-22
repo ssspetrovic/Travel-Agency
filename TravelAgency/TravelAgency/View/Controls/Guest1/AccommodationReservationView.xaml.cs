@@ -5,7 +5,7 @@ using TravelAgency.ViewModel;
 namespace TravelAgency.View.Controls.Guest1
 {
     /// <summary>
-    /// Interaction logic for TourReservationView.xaml
+    /// Interaction logic for AccommodationReservationView.xaml
     /// </summary>
     public partial class AccommodationReservationView : Window
     {
@@ -44,7 +44,13 @@ namespace TravelAgency.View.Controls.Guest1
 
         private void MakeReservationButton_OnClick(object sender, RoutedEventArgs e)
         {
-            AccommodationReservationViewModel.MakeReservation(sender, e);
+            var _accommodationReservationViewModel = new AccommodationReservationViewModel();
+            _accommodationReservationViewModel.MakeReservation(sender, e);
+        }
+
+        private void ToursListView_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
