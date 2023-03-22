@@ -35,6 +35,34 @@ namespace TravelAgency.Service
             return true;
         }
 
+        public DateTime FindDate(DateTime? endDate, DateTime? startDate, AccommodationDTO accommodationDTO)
+        {
+            ObservableCollection<Reservation> reservations = GetAllByAccommodationId(accommodationDTO.Id);
+
+            DateTime convertedStartDate = Convert.ToDateTime(startDate);
+            DateTime convertedEndDate = Convert.ToDateTime(endDate);
+
+            double daysAtAccommodation = (convertedEndDate - convertedStartDate).TotalDays;
+            DateTime maxDate = reservations[0].EndDate;
+            int i;
+
+            for (i= 0; i<reservations.Count()-1; i++)
+            {
+                if(DateTime.Compare(maxDate, reservations[i + 1].EndDate) < 0)
+                {
+                    maxDate = reservations[i+1].EndDate;
+                }
+                
+                if ((reservations[i].EndDate - reservations[i + 1].StartDate).TotalDays < daysAtAccommodation)
+                {
+                    return reservations[i].EndDate;
+                }
+            }
+
+            return maxDate;
+
+        }
+
         public bool Reserve(DateTime? endDate, DateTime? startDate, AccommodationDTO accommodationDTO) {
             ObservableCollection<Reservation> reservations = GetAllByAccommodationId(accommodationDTO.Id);
 
@@ -43,10 +71,8 @@ namespace TravelAgency.Service
 
             foreach (Reservation reservation in reservations)
             {
-                //Debug.WriteLine(reservation.EndDate.ToString() + " " + convertedEndDate.ToString());
                 if((reservation.StartDate<= convertedStartDate && reservation.EndDate>= convertedStartDate) || (reservation.StartDate <= convertedEndDate && reservation.EndDate >= convertedEndDate))
                 {
-                    Debug.WriteLine("If");
                     return false;
                 }
             }

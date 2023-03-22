@@ -217,14 +217,6 @@ namespace TravelAgency.Repository
                 var gradeComplaisent = selectReader.GetFloat(6);
                 var gradeClean = selectReader.GetFloat(7);
 
-             //   DateTime startDate = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-             //  DateTime endDate = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-
-                Debug.WriteLine(startDate.ToString() + "Unix time");
-
-               // startDate = startDate.AddSeconds(startDateUnix).ToLocalTime();
-               // endDate = endDate.AddSeconds(endDateUnix).ToLocalTime();
-
                 gradeClean = -1;
                 gradeComplaisent = -1;
 

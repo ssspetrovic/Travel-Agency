@@ -173,7 +173,7 @@ namespace TravelAgency.ViewModel
             }
             else
             {
-                MessageBox.Show("The Dates you have set are not available!");
+                MessageBox.Show("Try this date: " + _reservationService.FindDate(endDaySelect, startDaySelect, accommodationDTO).AddDays(1).ToString());
             }
             
         }
