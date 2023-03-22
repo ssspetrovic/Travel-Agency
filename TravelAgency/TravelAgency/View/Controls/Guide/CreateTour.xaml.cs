@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -204,7 +205,7 @@ namespace TravelAgency.View.Controls.Guide
 
         private void AddNewDate_OnClick(object sender, RoutedEventArgs routedEventArgs)
         {
-            var date = Convert.ToDateTime(DatePick.Text).ToString("MM/dd/yyyy");
+            var date = Convert.ToDateTime(DatePick.Text).ToString("MM/dd/yyyy",new CultureInfo("en-US"));
             var hasText = false;
             if (DateList.Text.Contains(DatePick.Text))
             {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using TravelAgency.Model;
 using TravelAgency.Repository;
@@ -58,7 +59,7 @@ namespace TravelAgency.ViewModel
                 {
                     var row = dt.Rows[index];
 
-                    if (!row["Date"].ToString()!.Contains(DateTime.Now.ToString("MM/dd/yyyy")))
+                    if (!row["Date"].ToString()!.Contains(DateTime.Now.ToString("MM/dd/yyyy", new CultureInfo("en-US"))))
                         indexList.Add(index);
                 }
 
