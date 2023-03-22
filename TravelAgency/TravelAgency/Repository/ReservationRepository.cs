@@ -84,8 +84,8 @@ namespace TravelAgency.Repository
 
                 DateTime startDate = new DateTime(2023, 3, 15);
                 DateTime endDate = new DateTime(2023, 3, 19);
-                gradeClean = -1;
-                gradeComplaisent = -1;
+                //gradeClean = -1;
+                //gradeComplaisent = -1;
 
                 if (gradeComplaisent == -1 && gradeClean == -1)
                 {
@@ -170,8 +170,8 @@ namespace TravelAgency.Repository
 
                 DateTime startDate = new DateTime(2023, 3, 15);
                 DateTime endDate = new DateTime(2023, 3, 19);
-                gradeClean = -1;
-                gradeComplaisent = -1;
+                //gradeClean = -1;
+                //gradeComplaisent = -1;
 
                 if (gradeComplaisent == -1 && gradeClean == -1)
                 {

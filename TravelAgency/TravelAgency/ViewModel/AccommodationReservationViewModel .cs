@@ -158,16 +158,21 @@ namespace TravelAgency.ViewModel
             }
         }
 
-        public void MakeReservation(object sender, RoutedEventArgs e, DateTime? endDaySelect, DateTime? startDaySelect, AccommodationDTO accommodationDTO)
+        public void MakeReservation(object sender, RoutedEventArgs e, DateTime? endDaySelect, DateTime? startDaySelect, AccommodationDTO accommodationDTO, string guestNumber)
         {
 
             var _reservationService = new ReservationService();
-            if (!_reservationService.IsReservationValid(endDaySelect, startDaySelect, accommodationDTO.MaxReservationDays))
+
+            if (int.Parse(guestNumber) > accommodationDTO.MaxReservationDays)
+            {
+                MessageBox.Show("You have selected too many people for this Accommodation!");
+            }
+            else if (!_reservationService.IsReservationValid(endDaySelect, startDaySelect, accommodationDTO.MaxReservationDays))
             {
 
                 MessageBox.Show("The reservation is out of bounds!");
             }
-            else if(_reservationService.Reserve(endDaySelect, startDaySelect, accommodationDTO))
+            else if(_reservationService.Reserve(endDaySelect, startDaySelect, accommodationDTO, int.Parse(guestNumber)))
             {
                 MessageBox.Show("Accommodation Reserved");
             }

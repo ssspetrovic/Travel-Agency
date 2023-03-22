@@ -7,10 +7,11 @@
     xmlns:local="clr-namespace:TravelAgency.View.Controls.Guest1"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewModel="clr-namespace:TravelAgency.ViewModel" d:DataContext="{d:DesignInstance Type=viewModel:AccommodationReservationViewModel}"
+    xmlns:viewModel="clr-namespace:TravelAgency.ViewModel"
     Title="Accommodation Reservation"
     Width="916"
     Height="616"
+    d:DataContext="{d:DesignInstance Type=viewModel:AccommodationReservationViewModel}"
     AllowsTransparency="True"
     Background="Transparent"
     ResizeMode="NoResize"
@@ -156,8 +157,9 @@
                                 d:ItemsSource="{d:SampleData ItemCount=5}"
                                 ItemsSource="{Binding AccommodationSourceCollection}"
                                 SelectedItem="{Binding SelectedAccommodation}"
+                                SelectionChanged="ToursListView_SelectionChanged"
                                 Style="{StaticResource MaterialDesignListView}"
-                                Visibility="{Binding IsListViewShown, Converter={StaticResource BooleanToVisibilityConverter}}" SelectionChanged="ToursListView_SelectionChanged">
+                                Visibility="{Binding IsListViewShown, Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <ListView.View>
                                     <GridView x:Name="GridView" AllowsColumnReorder="False">
                                         <GridViewColumn
@@ -199,28 +201,36 @@
                         Grid.Row="2"
                         Width="160"
                         Height="40"
-                        Margin="85,30,471,30"
+                        Margin="30,30,526,30"
                         Click="MakeReservationButton_OnClick"
                         Content="Make reservation"
                         FontSize="15" />
 
-                    <DatePicker 
-                        SelectedDate="{Binding Path= StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        Height="26"
-                        Grid.Row="2"
-                        Margin="300,0,300,0"
+                    <DatePicker
                         Name="StartDateSelect"
-                        Width="115" />
-                    
-                    <DatePicker 
-                        SelectedDate="{Binding Path= EndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        Height="26"
                         Grid.Row="2"
-                        Margin="477,0,124,0"
+                        Width="115"
+                        Height="26"
+                        Margin="243,0,358,0"
+                        SelectedDate="{Binding Path=StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <DatePicker
                         Name="EndDateSelect"
-                        Width="115" />
-                    
-                    
+                        Grid.Row="2"
+                        Width="115"
+                        Height="26"
+                        Margin="434,0,167,0"
+                        SelectedDate="{Binding Path=EndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox
+                        Name="GuestNumber"
+                        Grid.Row="2"
+                        Width="30"
+                        Height="30"
+                        Margin="636,30,50,40"
+                        FontSize="16"
+                         />
+
+
                 </Grid>
             </Grid>
         </Grid>

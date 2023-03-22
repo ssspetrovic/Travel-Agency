@@ -63,11 +63,12 @@ namespace TravelAgency.Service
 
         }
 
-        public bool Reserve(DateTime? endDate, DateTime? startDate, AccommodationDTO accommodationDTO) {
+        public bool Reserve(DateTime? endDate, DateTime? startDate, AccommodationDTO accommodationDTO, int guestNumber) {
             ObservableCollection<Reservation> reservations = GetAllByAccommodationId(accommodationDTO.Id);
 
             DateTime convertedStartDate = Convert.ToDateTime(startDate);
             DateTime convertedEndDate = Convert.ToDateTime(endDate);
+
 
             foreach (Reservation reservation in reservations)
             {
