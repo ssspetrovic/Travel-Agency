@@ -208,7 +208,7 @@
                         SelectedDate="{Binding Path= StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Height="26"
                         Grid.Row="2"
-                        Margin="337,0,264,0"
+                        Margin="300,0,300,0"
                         Name="StartDateSelect"
                         Width="115" />
                     
@@ -216,9 +216,11 @@
                         SelectedDate="{Binding Path= EndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Height="26"
                         Grid.Row="2"
-                        Margin="551,0,50,0"
+                        Margin="477,0,124,0"
                         Name="EndDateSelect"
                         Width="115" />
+                    
+                    
                 </Grid>
             </Grid>
         </Grid>
