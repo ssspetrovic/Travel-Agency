@@ -162,12 +162,12 @@ namespace TravelAgency.ViewModel
         {
 
             var _reservationService = new ReservationService();
-            if (!_reservationService.IsReservationValid(endDaySelect, startDaySelect, 5)) //TODO
+            if (!_reservationService.IsReservationValid(endDaySelect, startDaySelect, accommodationDTO.MaxReservationDays))
             {
 
                 MessageBox.Show("The reservation is out of bounds!");
             }
-            else if(_reservationService.Reserve(endDaySelect, startDaySelect, 1)) //TODO
+            else if(_reservationService.Reserve(endDaySelect, startDaySelect, accommodationDTO))
             {
                 MessageBox.Show("Accommodation Reserved");
             }

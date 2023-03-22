@@ -34,21 +34,21 @@ namespace TravelAgency.Service
             return true;
         }
 
-        public bool Reserve(DateTime? startDate, DateTime? endDate, int Id) {
-            ObservableCollection<Reservation> reservations = GetAllByAccommodationId(Id);
+        public bool Reserve(DateTime? endDate, DateTime? startDate, AccommodationDTO accommodationDTO) {
+            ObservableCollection<Reservation> reservations = GetAllByAccommodationId(accommodationDTO.Id);
 
             DateTime convertedStartDate = Convert.ToDateTime(startDate);
             DateTime convertedEndDate = Convert.ToDateTime(endDate);
 
             foreach (Reservation reservation in reservations)
             {
-                if((reservation.StartDate>startDate && reservation.EndDate<startDate) || (reservation.StartDate > endDate && reservation.EndDate < endDate))
+                if((reservation.StartDate>= convertedStartDate && reservation.EndDate<= convertedStartDate) || (reservation.StartDate >= convertedEndDate && reservation.EndDate <= convertedEndDate))
                 {
                     return false;
                 }
             }
             var reservationRepository = new ReservationRepository();
-            
+            reservationRepository.AddAutoId(new Reservation(10, " ", convertedStartDate, convertedEndDate, -1, -1, CurrentUser.Id, accommodationDTO.Id));
             return true;
         }
     }
