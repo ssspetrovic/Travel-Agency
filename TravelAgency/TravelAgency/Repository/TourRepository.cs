@@ -8,22 +8,28 @@ using TravelAgency.Model;
 
 namespace TravelAgency.Repository
 {
+
+
     public class TourRepository : RepositoryBase, ITourRepository
     {
+
+        public string GetIdList(Tour tour)
+        {
+            var idList = "";
+            foreach (var keyPoint in tour.KeyPoints)
+            {
+                idList += ", " + keyPoint!.Id;
+            }
+
+            idList = idList.Substring(2, idList.Length - 2);
+
+            return idList;
+        }
+
         public void Add(Tour tour)
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
-
-            //Za svaku kljucnu tacku saljemo id u tabelu
-            var idList = "";
-            foreach (var keyPoint in tour.KeyPoints)
-            {
-                idList += ", " + keyPoint.Id;
-            }
-
-            //Brisemo prva dva clana kako bi smo obrisali zarez
-            idList = idList.Substring(2, idList.Length - 2);
 
             const string insertStatement =
                 @"insert into Tour(Name, Location_Id, Description, Language, MaxGuests, LocationList, Date, Duration, Images) 
@@ -34,7 +40,7 @@ namespace TravelAgency.Repository
             insertCommand.Parameters.AddWithValue("$Description", tour.Description);
             insertCommand.Parameters.AddWithValue("$Language", tour.Language);
             insertCommand.Parameters.AddWithValue("$MaxGuests", tour.MaxGuests);
-            insertCommand.Parameters.AddWithValue("$LocationList", idList);
+            insertCommand.Parameters.AddWithValue("$LocationList", GetIdList(tour));
             insertCommand.Parameters.AddWithValue("Date", tour.Date);
             insertCommand.Parameters.AddWithValue("$Duration", tour.Duration);
             insertCommand.Parameters.AddWithValue("$Images", tour.Images);
@@ -59,6 +65,18 @@ namespace TravelAgency.Repository
             deleteCommand.ExecuteNonQuery();
         }
 
+        public List<Location?> GetKeyPoints(string keyPoints)
+        {
+            var locationRepository = new LocationRepository();
+            var locations = keyPoints.Split(", ").ToList();
+            var retVal = new List<Location?>();
+
+            foreach(var location in locations)
+                retVal.Add(locationRepository.GetById(int.Parse(location)));
+
+            return retVal;
+        }
+
         public Tour GetById(int id)
         {
             using var databaseConnection = GetConnection();
@@ -78,12 +96,10 @@ namespace TravelAgency.Repository
             //Moramo da ih konvertujemo u liste podataka
             var locationRepository = new LocationRepository();
             var location = locationRepository.GetById(selectReader.GetInt32(2));
-            var keyPointsList = selectReader.GetString(6).Split(", ").ToList();
-            var keyPoints = locationRepository.GetByAllCities(keyPointsList);
 
             tour = new Tour(selectReader.GetInt32(0), selectReader.GetString(1),
                 location!, selectReader.GetString(3), (Language)selectReader.GetInt32(4), selectReader.GetInt32(5),
-                keyPoints!, selectReader.GetString(7), selectReader.GetFloat(8), selectReader.GetString(9));
+                GetKeyPoints(selectReader.GetString(6)), selectReader.GetString(7), selectReader.GetFloat(8), selectReader.GetString(9));
 
             return tour;
         }
@@ -105,12 +121,11 @@ namespace TravelAgency.Repository
             //Isto i ovde vazi, moramo izvrsiti konverziju
             var locationRepository = new LocationRepository();
             var location = locationRepository.GetById(selectReader.GetInt32(2));
-            var keyPointsList = selectReader.GetString(6).Split(", ").ToList();
-            var keyPoints = locationRepository.GetByAllCities(keyPointsList);
+
 
             tour = new Tour(selectReader.GetInt32(0), selectReader.GetString(1),
                 location!, selectReader.GetString(3), (Language)selectReader.GetInt32(4), selectReader.GetInt32(5),
-                keyPoints!, selectReader.GetString(7), selectReader.GetFloat(8), selectReader.GetString(9));
+                GetKeyPoints(selectReader.GetString(6)), selectReader.GetString(7), selectReader.GetFloat(8), selectReader.GetString(9));
 
             return tour;
         }
@@ -167,12 +182,10 @@ namespace TravelAgency.Repository
             while (selectReader.Read())
             {
                 var location = locationRepository.GetById(selectReader.GetInt32(2));
-                var keyPointsList = selectReader.GetString(6).Split(", ");
-                var keyPoints = locationRepository.GetByAllCities(keyPointsList.ToList());
 
                 tourList.Add(new Tour(selectReader.GetInt32(0), selectReader.GetString(1),
                     location!, selectReader.GetString(3), (Language)selectReader.GetInt32(4), selectReader.GetInt32(5),
-                    keyPoints!, selectReader.GetString(7), selectReader.GetFloat(8), selectReader.GetString(9)));
+                    GetKeyPoints(selectReader.GetString(6)), selectReader.GetString(7), selectReader.GetFloat(8), selectReader.GetString(9)));
             }
 
             return tourList;

@@ -10,6 +10,6 @@ namespace TravelAgency.Model
         ActiveTour GetById(int id);
         bool IsActive();
         string GetActiveTour(string column);
-        void UpdateKeyPoint(string keyPoint);
+        void UpdateKeyPoint(string currentKeyPoint);
     }
 }

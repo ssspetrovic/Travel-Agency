@@ -8,17 +8,10 @@ namespace TravelAgency.Repository
 {
     public class ActiveTourRepository : RepositoryBase, IActiveTourRepository
     {
-        public void Add(ActiveTour activeTour)
+
+        public string GetAllKeyPoints(ActiveTour activeTour)
         {
-            using var databaseConnection = GetConnection();
-            databaseConnection.Open();
-
-            //U bazi se kljucne tacne i turisti cuvaju u vidu teksta, tako da moramo svakog clana respektivnih kolona da povezemo u jedan string
-            //Takodje na kraju skracujemo duzinu stringa za 2 kako bi obrisali poslednji zarez
-
             var allKeyPoints = "";
-            var allTourists = "";
-
             activeTour.KeyPoints[activeTour.KeyPoints.First().Key] = true;
 
             foreach (var tour in activeTour.KeyPoints)
@@ -28,6 +21,13 @@ namespace TravelAgency.Repository
 
             allKeyPoints = allKeyPoints.Remove(allKeyPoints.Length - 2, 2);
 
+            return allKeyPoints;
+        }
+
+        public string GetAllTourists(ActiveTour activeTour)
+        {
+            var allTourists = "";
+
             foreach (var tourist in activeTour.Tourists)
             {
                 allTourists += tourist.UserName + ", ";
@@ -35,13 +35,21 @@ namespace TravelAgency.Repository
 
             allTourists = allTourists.Remove(allTourists.Length - 2, 2);
 
+            return allTourists;
+        }
+
+        public void Add(ActiveTour activeTour)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
             const string insertStatement =
                 @"insert into ActiveTour(Name, KeyPointsList, Tourists) values ($Name, $KeyPointsList, $Tourists)";
             using var insertCommand = new SqliteCommand(insertStatement, databaseConnection);
 
             insertCommand.Parameters.AddWithValue("$Name", activeTour.Name);
-            insertCommand.Parameters.AddWithValue("$KeyPointsList", allKeyPoints);
-            insertCommand.Parameters.AddWithValue("$Tourists", allTourists);
+            insertCommand.Parameters.AddWithValue("$KeyPointsList", GetAllKeyPoints(activeTour));
+            insertCommand.Parameters.AddWithValue("$Tourists", GetAllTourists(activeTour));
             insertCommand.ExecuteNonQuery();
         }
 
@@ -90,10 +98,44 @@ namespace TravelAgency.Repository
             return selectReader.Read() ? selectReader.GetString(0) : "Error";
         }
 
-        public void UpdateKeyPoint(string keyPoint)
+        public string FindCurrentKeyPoint(string currentKeyPoint, string keyPoints)
+        {
+            var allKeyPoints = keyPoints.Split(", ").ToList();
+            var lastKeyPoint = "";
+            var locationRepository = new LocationRepository();
+
+            for (var i = 0; i < allKeyPoints.Capacity; i++)
+            {
+                var location = allKeyPoints[i];
+
+                if (location.Contains(currentKeyPoint + ":True"))
+                {
+                    MessageBox.Show("We already passed " + locationRepository.GetById(int.Parse(currentKeyPoint))?.City + "!");
+                    break;
+                }
+
+                if (location.Contains(currentKeyPoint + ":False"))
+                    if (lastKeyPoint.Contains(":True"))
+                    {
+                        allKeyPoints[i] = currentKeyPoint + ":True";
+                        break;
+                    }
+                    else
+                    {
+                        MessageBox.Show("You can't skip key points!");
+                        break;
+                    }
+
+                lastKeyPoint = allKeyPoints[i];
+            }
+
+            return string.Join(", ", allKeyPoints);
+        }
+
+        public void UpdateKeyPoint(string currentKeyPoint)
         {
             var locationRepository = new LocationRepository();
-            keyPoint = locationRepository.GetByCity(keyPoint)!.Id.ToString();
+            currentKeyPoint = locationRepository.GetByCity(currentKeyPoint)!.Id.ToString();
 
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
@@ -106,45 +148,12 @@ namespace TravelAgency.Repository
 
             if (selectReader.Read())
             {
-                keyPoints = selectReader.GetString(0);
+                keyPoints = FindCurrentKeyPoint(currentKeyPoint, selectReader.GetString(0));
             }
 
             databaseConnection.Close();
             databaseConnection.Open();
 
-            //Razdvajamo string kljucnih reci u listu kako bi smo pristupili lokacijama
-            var allKeyPoints = keyPoints.Split(", ").ToList();
-            var lastKeyPoint = "";
-
-            for (var i = 0; i < allKeyPoints.Capacity; i++)
-            {
-                var location = allKeyPoints[i];
-
-                if (location.Contains(keyPoint + ":True"))
-                {
-                    MessageBox.Show("We already passed " + locationRepository.GetByCity(keyPoint)?.City + "!");
-                    break;
-                }
-
-                //Ako string lokacija:bool sadrzi false i istovremeno pre tog stringa nije bila lokacija lokacija:false onda mozemo da izmenimo bool
-                //Jer u suprotnom preskacemo kljucnu tacku sto nema logike u ovom kontekstu
-                if (location.Contains(keyPoint + ":False"))
-                    if (lastKeyPoint.Contains(":True"))
-                    {
-                        allKeyPoints[i] = keyPoint + ":True";
-                        break;
-                    }
-                    else
-                    {
-                        MessageBox.Show("You can't skip key points!");
-                        break;
-                    }
-
-                lastKeyPoint = allKeyPoints[i];
-            }
-            
-            //Spajamo nazad listu u jedan veci string i menjamo tekst u tabeli
-            keyPoints = string.Join(", ", allKeyPoints);
 
             const string updateStatement = "update ActiveTour set KeyPointsList = $KeyPointsList";
             using var updateCommand = new SqliteCommand(updateStatement, databaseConnection);

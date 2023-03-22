@@ -76,36 +76,46 @@ namespace TravelAgency.ViewModel
             }
         }
 
+        public string? GetKeyPoints(DataRow row, string columnName)
+        {
+            var keyPointsString = "";
+
+            foreach (var id in row[columnName].ToString()?.Split(", ")!)
+            {
+                var keyPointId = Convert.ToInt32(id);
+                keyPointsString += "; " + _locationRepository.GetById(keyPointId)?.City + ", " + _locationRepository.GetById(keyPointId)?.Country;
+            }
+            keyPointsString = keyPointsString.Substring(2, keyPointsString.Length - 2);
+
+            return keyPointsString;
+        }
+
+        public string? GetConvertedRow(string tourParameter, DataRow row, string columnName)
+        {
+            switch (tourParameter)
+            {
+                case "Language":
+                    return Enum.GetName(typeof(Language), row["Language"]);
+                case "Location":
+                {
+                    var locationId = Convert.ToInt32(row["Location_Id"]);
+                    return _locationRepository.GetById(locationId)?.City + ", " +
+                           _locationRepository.GetById(locationId)?.Country;
+                }
+                case "KeyPoints":
+                    return GetKeyPoints(row, columnName);
+                default:
+                    return "";
+            }
+        }
+
         //Ovo je funkcija koja sluzi za konvertovanje ispisa tura, da ne ispisuju na primer identifikatore, vec podatke koji su validni vodicu
         public void ConvertTourColumn(DataTable dt, string columnName, Type newType, string tourParameter)
         {
             var textList = new List<string?>();
 
             foreach (DataRow row in dt.Rows)
-            {
-                //Uzima za svaki red parametar koji smo mu prosledili, konvertuje i cuva ga u vidu liste stringova
-                switch (tourParameter)
-                {
-                    case "Language":
-                        textList.Add(Enum.GetName(typeof(Language), row["Language"]));
-                        break;
-                    case "Location":
-                        var locationId = Convert.ToInt32(row["Location_Id"]);
-                        textList.Add(_locationRepository.GetById(locationId)?.City + ", " + _locationRepository.GetById(locationId)?.Country);
-                        break;
-                    case "KeyPoints":
-                        var keyPointsString = "";
-                        foreach (var id in row[columnName].ToString()?.Split(", ")!)
-                        {
-                            var keyPointId = Convert.ToInt32(id);
-                            keyPointsString += "; " + _locationRepository.GetById(keyPointId)?.City + ", " + _locationRepository.GetById(keyPointId)?.Country;
-                        }
-
-                        keyPointsString = keyPointsString.Substring(2, keyPointsString.Length - 2);
-                        textList.Add(keyPointsString);
-                        break;
-                }
-            }
+                textList.Add(GetConvertedRow(tourParameter, row, columnName));
 
             //Brisemo stari red, kreiramo novi sa istim imenom i ubacujemo zeljene podatke
             dt.Columns.Remove(columnName);
@@ -141,7 +151,7 @@ namespace TravelAgency.ViewModel
                 foreach (var keyPoint in keyPointsList)
                 {
                     var city = keyPoint.Split(":");
-                    locations.Add(_locationRepository.GetByCity(city[0]));
+                    locations.Add(_locationRepository.GetById(int.Parse(city[0])));
                 }
 
                 foreach (var location in locations)

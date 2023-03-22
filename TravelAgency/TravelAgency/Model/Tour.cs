@@ -25,12 +25,12 @@ namespace TravelAgency.Model
         public string? Description { get; set; }
         public Language Language { get; set; }
         public int MaxGuests { get; set; }
-        public List<Location> KeyPoints { get; set; }
+        public List<Location?> KeyPoints { get; set; }
         public string Date { get; set; }
         public float Duration { get; set; }
         public string Images { get; set; }
 
-        public Tour(string name, Location location, string? description, Language language, int maxGuests, List<Location> keyPoints, string date, float duration, string images)
+        public Tour(string name, Location location, string? description, Language language, int maxGuests, List<Location?> keyPoints, string date, float duration, string images)
         {
             Name = name;
             Location = location;
@@ -43,7 +43,7 @@ namespace TravelAgency.Model
             Images = images;
         }
 
-        public Tour(int id, string name, Location location, string? description, Language language, int maxGuests, List<Location> keyPoints, string date, float duration, string images)
+        public Tour(int id, string name, Location location, string? description, Language language, int maxGuests, List<Location?> keyPoints, string date, float duration, string images)
         {
             Id = id;
             Name = name;
