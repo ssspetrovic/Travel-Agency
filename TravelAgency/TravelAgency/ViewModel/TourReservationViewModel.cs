@@ -279,7 +279,7 @@ namespace TravelAgency.ViewModel
                 }
 
                 if (int.TryParse(NewGuestNumber, out var newGuestNumber) &&
-                    newGuestNumber < SelectedTour.MaxGuests)
+                    newGuestNumber <= SelectedTour.MaxGuests)
                 {
                     finalGuestNumber = newGuestNumber;
                     NewGuestNumber = null;
