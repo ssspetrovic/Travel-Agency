@@ -127,7 +127,7 @@ namespace TravelAgency.ViewModel
 
             _toursCollection = new CollectionViewSource
             {
-                Source = _tourRepository.GetAll()
+                Source = _tourRepository.GetAllAsCollection()
             };
             _toursCollection.Filter += ToursCollection_Filter;
 

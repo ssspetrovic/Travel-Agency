@@ -71,7 +71,7 @@ namespace TravelAgency.View.Controls.Guide
             var keyPoint = (string)ListViewKeyPoints.SelectedItem;
             var activeTourRepository = new ActiveTourRepository();
             activeTourRepository.UpdateKeyPoint(keyPoint);
-            var allKeyPoints = activeTourRepository.GetActiveTourData("KeyPointsList").Split(", ");
+            var allKeyPoints = activeTourRepository.GetActiveTour("KeyPointsList").Split(", ");
             var flag = allKeyPoints.Count(location => location.Contains("False"));
 
             var currentTour = new CurrentTour();
@@ -89,7 +89,7 @@ namespace TravelAgency.View.Controls.Guide
             var keyPoint = (string) ListViewKeyPoints.SelectedItem;
             var activeTourRepository = new ActiveTourRepository();
             activeTourRepository.UpdateKeyPoint(keyPoint);
-            var allKeyPoints = activeTourRepository.GetActiveTourData("KeyPointsList").Split(", ");
+            var allKeyPoints = activeTourRepository.GetActiveTour("KeyPointsList").Split(", ");
             var flag = allKeyPoints.Count(location => location.Contains("False"));
 
             var currentTour = new CurrentTour();
@@ -104,7 +104,7 @@ namespace TravelAgency.View.Controls.Guide
         {
             var tourist = (string)ListViewTourists.SelectedItem;
             var touristRepository = new TouristRepository();
-            touristRepository.CheckTourist(tourist);
+            touristRepository.CheckTouristAppearance(tourist);
 
             var currentTour = new CurrentTour();
             currentTour.Show();
@@ -116,7 +116,7 @@ namespace TravelAgency.View.Controls.Guide
             if (e.Key != Key.Enter) return;
             var tourist = (string)ListViewTourists.SelectedItem;
             var touristRepository = new TouristRepository();
-            touristRepository.CheckTourist(tourist);
+            touristRepository.CheckTouristAppearance(tourist);
 
             var currentTour = new CurrentTour();
             currentTour.Show();
@@ -128,7 +128,7 @@ namespace TravelAgency.View.Controls.Guide
             var activeTourRepository = new ActiveTourRepository();
             var tourRepository = new TourRepository();
             var touristRepository = new TouristRepository();
-            var keyPoints = activeTourRepository.GetActiveTourData("KeyPointsList");
+            var keyPoints = activeTourRepository.GetActiveTour("KeyPointsList");
             var passedKeyPoints = keyPoints.Split(", ");
             var counter = 0;
 
@@ -154,7 +154,7 @@ namespace TravelAgency.View.Controls.Guide
             if (counter != 0) return;
             MessageBox.Show("Tour has been finished!");
 
-            var tourists = activeTourRepository.GetActiveTourData("Tourists").Split(", ");
+            var tourists = activeTourRepository.GetActiveTour("Tourists").Split(", ");
             activeTourRepository.Remove();
             var firstTourist = touristRepository.GetByUsername(tourists[0]);
 
@@ -197,20 +197,20 @@ namespace TravelAgency.View.Controls.Guide
         private void CheckAllGuests_OnClick(object sender, RoutedEventArgs e)
         {
             var activeTourRepository = new ActiveTourRepository();
-            var tourists = activeTourRepository.GetActiveTourData("Tourists");
+            var tourists = activeTourRepository.GetActiveTour("Tourists");
             var touristRepository = new TouristRepository();
             var counter = 0;
 
             foreach (var tourist in tourists.Split(", "))
             {
-                if (touristRepository.GetByUsername(tourist).TouristCheck == TouristCheck.Unchecked)
+                if (touristRepository.GetByUsername(tourist).TouristAppearance == TouristAppearance.Unknown)
                     counter++;
             }
 
             if (counter == 0)
                 MessageBox.Show("All tourists were already checked!");
             else
-                touristRepository.CheckAllTourists(tourists);
+                touristRepository.CheckAllTouristAppearances(tourists);
 
             var currentTour = new CurrentTour();
             currentTour.Show();

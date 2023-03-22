@@ -35,7 +35,7 @@ namespace TravelAgency.ViewModel
             get
             {
                 var dt = new DataTable();
-                dt = _tourRepository.GetByAll(dt);
+                dt = _tourRepository.GetAllAsDataTable(dt);
 
                 ConvertTourColumn(dt, "Location_Id", typeof(string), "Location");
                 ConvertTourColumn(dt, "Language", typeof(string), "Language");
@@ -51,7 +51,7 @@ namespace TravelAgency.ViewModel
             get
             {
                 var dt = new DataTable();
-                dt = _tourRepository.GetByAll(dt);
+                dt = _tourRepository.GetAllAsDataTable(dt);
 
                 var indexList = new List<int>();
 
@@ -127,13 +127,13 @@ namespace TravelAgency.ViewModel
         //Cetvrta je za ispis booleana koji nam govori da li smo presli kljucnu tacku
         //Peta je za ispis enumeracije da li je turista necekiran, pozvan ili cekiran
         //Sesta je za ispis startne lokacije turiste (odakle je krenuo)
-        public string ActiveTourName => _activeTourRepository.GetActiveTourData("Name");
+        public string ActiveTourName => _activeTourRepository.GetActiveTour("Name");
 
         public List<string> KeyPoints
         {
             get
             {
-                var keyPoints = _activeTourRepository.GetActiveTourData("KeyPointsList");
+                var keyPoints = _activeTourRepository.GetActiveTour("KeyPointsList");
                 var keyPointsList = keyPoints.Split(", ").ToList();
                 var locations = new List<Location?>();
                 var cities = new List<string>();
@@ -157,7 +157,7 @@ namespace TravelAgency.ViewModel
         {
             get
             {
-                var tourists = _activeTourRepository.GetActiveTourData("Tourists");
+                var tourists = _activeTourRepository.GetActiveTour("Tourists");
                 var touristsList = tourists.Split(", ").ToList(); 
                 return touristsList;
             }
@@ -167,7 +167,7 @@ namespace TravelAgency.ViewModel
         {
             get
             {
-                var keyPoints = _activeTourRepository.GetActiveTourData("KeyPointsList");
+                var keyPoints = _activeTourRepository.GetActiveTour("KeyPointsList");
                 var keyPointsList = keyPoints.Split(", ").ToList();
                 var passedKeyPoints = new List<string>();
 
@@ -185,10 +185,10 @@ namespace TravelAgency.ViewModel
         {
             get
             {
-                var tourists = _activeTourRepository.GetActiveTourData("Tourists");
+                var tourists = _activeTourRepository.GetActiveTour("Tourists");
                 var touristsList = tourists.Split(", ").ToList();
 
-                return touristsList.Select(tourist => _touristRepository.GetByUsername(tourist).TouristCheck.ToString()).ToList();
+                return touristsList.Select(tourist => _touristRepository.GetByUsername(tourist).TouristAppearance.ToString()).ToList();
             }
         }
 
@@ -196,7 +196,7 @@ namespace TravelAgency.ViewModel
         {
             get
             {
-                var tourists = _activeTourRepository.GetActiveTourData("Tourists");
+                var tourists = _activeTourRepository.GetActiveTour("Tourists");
                 var touristsList = tourists.Split(", ").ToList();
                 var locations = new List<string>();
 

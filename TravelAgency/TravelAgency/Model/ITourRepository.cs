@@ -11,9 +11,9 @@ namespace TravelAgency.Model
         void Remove(int id);
         Tour GetById(int id);
         Tour? GetByName(string? name);
-        DataTable GetByAll(DataTable dt);
+        DataTable GetAllAsDataTable(DataTable dt);
         Language FindLanguage(string language);
-        ObservableCollection<Tour> GetAll();
+        ObservableCollection<Tour> GetAllAsCollection();
         void RemoveDate(string dateToday, List<string> tourDates, int id);
         void UpdateMaxGuests(int id, int maxGuests);
     }

@@ -117,7 +117,7 @@ namespace TravelAgency.Repository
 
         //Ova funkcija sluzi da bi smo vratili nazad ispis u View
         //Pomocu DataTable dobijamo parametre kolona odnosno dobijamo sve ture
-        public DataTable GetByAll(DataTable dt)
+        public DataTable GetAllAsDataTable(DataTable dt)
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
@@ -151,7 +151,7 @@ namespace TravelAgency.Repository
             return 0;
         }
 
-        public ObservableCollection<Tour> GetAll()
+        public ObservableCollection<Tour> GetAllAsCollection()
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();

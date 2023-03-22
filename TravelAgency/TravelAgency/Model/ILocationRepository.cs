@@ -10,7 +10,7 @@ namespace TravelAgency.Model
         void Remove(int id);
         Location? GetById(int id);
         Location? GetByCity(string city);
-        DataTable GetByAll(DataTable dt);
+        DataTable GetAll(DataTable dt);
         List<Location?> GetByAllCities(List<string> cities);
     }
 }

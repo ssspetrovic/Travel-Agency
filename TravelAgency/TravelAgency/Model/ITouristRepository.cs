@@ -10,7 +10,7 @@ namespace TravelAgency.Model
         Tourist GetById(int id);
         Tourist GetByUsername(string? username);
         List<Tourist> GetByTour(Tour tour);
-        void CheckTourist(string username);
+        void CheckTouristAppearance(string username);
         void RemoveTour(int id);
     }
 }

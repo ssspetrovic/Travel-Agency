@@ -77,7 +77,7 @@ namespace TravelAgency.Repository
             return null;
         }
 
-        public DataTable GetByAll(DataTable dt)
+        public DataTable GetAll(DataTable dt)
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();

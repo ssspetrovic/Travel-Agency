@@ -16,32 +16,32 @@ namespace TravelAgency.Repository
             //U bazi se kljucne tacne i turisti cuvaju u vidu teksta, tako da moramo svakog clana respektivnih kolona da povezemo u jedan string
             //Takodje na kraju skracujemo duzinu stringa za 2 kako bi obrisali poslednji zarez
 
-            var keyPointsList = "";
-            var touristsList = "";
+            var allKeyPoints = "";
+            var allTourists = "";
 
             activeTour.KeyPoints[activeTour.KeyPoints.First().Key] = true;
 
             foreach (var tour in activeTour.KeyPoints)
             {
-                keyPointsList += tour.Key.ToString() + ":" + tour.Value + ", ";
+                allKeyPoints += tour.Key.ToString() + ":" + tour.Value + ", ";
             }
 
-            keyPointsList = keyPointsList.Remove(keyPointsList.Length - 2, 2);
+            allKeyPoints = allKeyPoints.Remove(allKeyPoints.Length - 2, 2);
 
             foreach (var tourist in activeTour.Tourists)
             {
-                touristsList += tourist.UserName + ", ";
+                allTourists += tourist.UserName + ", ";
             }
 
-            touristsList = touristsList.Remove(touristsList.Length - 2, 2);
+            allTourists = allTourists.Remove(allTourists.Length - 2, 2);
 
             const string insertStatement =
                 @"insert into ActiveTour(Name, KeyPointsList, Tourists) values ($Name, $KeyPointsList, $Tourists)";
             using var insertCommand = new SqliteCommand(insertStatement, databaseConnection);
 
             insertCommand.Parameters.AddWithValue("$Name", activeTour.Name);
-            insertCommand.Parameters.AddWithValue("$KeyPointsList", keyPointsList);
-            insertCommand.Parameters.AddWithValue("$Tourists", touristsList);
+            insertCommand.Parameters.AddWithValue("$KeyPointsList", allKeyPoints);
+            insertCommand.Parameters.AddWithValue("$Tourists", allTourists);
             insertCommand.ExecuteNonQuery();
         }
 
@@ -78,7 +78,7 @@ namespace TravelAgency.Repository
             return selectReader.Read();
         }
 
-        public string GetActiveTourData(string column)
+        public string GetActiveTour(string column)
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
@@ -113,12 +113,12 @@ namespace TravelAgency.Repository
             databaseConnection.Open();
 
             //Razdvajamo string kljucnih reci u listu kako bi smo pristupili lokacijama
-            var keyPointsList = keyPoints.Split(", ").ToList();
+            var allKeyPoints = keyPoints.Split(", ").ToList();
             var lastKeyPoint = "";
 
-            for (var i = 0; i < keyPointsList.Capacity; i++)
+            for (var i = 0; i < allKeyPoints.Capacity; i++)
             {
-                var location = keyPointsList[i];
+                var location = allKeyPoints[i];
 
                 if (location.Contains(keyPoint + ":True"))
                 {
@@ -131,7 +131,7 @@ namespace TravelAgency.Repository
                 if (location.Contains(keyPoint + ":False"))
                     if (lastKeyPoint.Contains(":True"))
                     {
-                        keyPointsList[i] = keyPoint + ":True";
+                        allKeyPoints[i] = keyPoint + ":True";
                         break;
                     }
                     else
@@ -140,11 +140,11 @@ namespace TravelAgency.Repository
                         break;
                     }
 
-                lastKeyPoint = keyPointsList[i];
+                lastKeyPoint = allKeyPoints[i];
             }
             
             //Spajamo nazad listu u jedan veci string i menjamo tekst u tabeli
-            keyPoints = string.Join(", ", keyPointsList);
+            keyPoints = string.Join(", ", allKeyPoints);
 
             const string updateStatement = "update ActiveTour set KeyPointsList = $KeyPointsList";
             using var updateCommand = new SqliteCommand(updateStatement, databaseConnection);

@@ -48,7 +48,7 @@ namespace TravelAgency.Repository
                 tourist = new Tourist(selectReader.GetInt32(0), selectReader.GetString(1), selectReader.GetString(2),
                     selectReader.GetString(3),
                     selectReader.GetString(4), selectReader.GetString(5), Role.Tourist,
-                    tourRepository.GetById(selectReader.GetInt32(7)), (TouristCheck) selectReader.GetInt32(8), selectReader.GetInt32(9));
+                    tourRepository.GetById(selectReader.GetInt32(7)), (TouristAppearance) selectReader.GetInt32(8), selectReader.GetInt32(9));
 
             return tourist;
         }
@@ -67,12 +67,12 @@ namespace TravelAgency.Repository
             while (selectReader.Read())
                 tourists.Add(new Tourist(selectReader.GetString(1), selectReader.GetString(2), selectReader.GetString(3),
                     selectReader.GetString(4), selectReader.GetString(5), (Role) selectReader.GetInt32(6), 
-                    tour, TouristCheck.Unchecked, selectReader.GetInt32(9)));
+                    tour, TouristAppearance.Unknown, selectReader.GetInt32(9)));
             
             return tourists;
         }
 
-        public void CheckTourist(string username)
+        public void CheckTouristAppearance(string username)
         {
             var tourist = GetByUsername(username);
 
@@ -84,13 +84,13 @@ namespace TravelAgency.Repository
             selectCommand.Parameters.AddWithValue("$Username", username);
 
             //Ako turistu nismo cekirali, to znaci da mu mi moramo slati ping da se prijavi da je prisutan
-            if (tourist.TouristCheck == TouristCheck.Unchecked)
-                selectCommand.Parameters.AddWithValue("$IsChecked", TouristCheck.Pinged);
+            if (tourist.TouristAppearance == TouristAppearance.Unknown)
+                selectCommand.Parameters.AddWithValue("$IsChecked", TouristAppearance.Pinged);
             //U suprotnom je turista vec pozvan
             else
             {
                 MessageBox.Show("Tourist " + username + " has already been pinged before!");
-                selectCommand.Parameters.AddWithValue("$IsChecked", tourist.TouristCheck);
+                selectCommand.Parameters.AddWithValue("$IsChecked", tourist.TouristAppearance);
             }
 
             selectCommand.ExecuteNonQuery();
@@ -107,11 +107,11 @@ namespace TravelAgency.Repository
             updateCommand.ExecuteNonQuery();
         }
 
-        public void CheckAllTourists(string tourists)
+        public void CheckAllTouristAppearances(string tourists)
         {
             var touristList = tourists.Split(", ").ToList();
             foreach(var tourist in touristList)
-                CheckTourist(tourist);
+                CheckTouristAppearance(tourist);
         }
     }
 }
