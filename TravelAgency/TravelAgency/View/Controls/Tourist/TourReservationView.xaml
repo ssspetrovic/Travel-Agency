@@ -155,7 +155,6 @@
                         <StackPanel>
                             <ListView
                                 x:Name="ToursListView"
-                                Grid.Row="1"
                                 Height="280"
                                 HorizontalAlignment="Center"
                                 d:ItemsSource="{d:SampleData ItemCount=5}"
