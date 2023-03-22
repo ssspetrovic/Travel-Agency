@@ -48,7 +48,10 @@ namespace TravelAgency.ViewModel
 
         public AccommodationDTO SelectedAccommodation
         {
-            get => _selectedAccommodation;
+            get {
+
+                return _selectedAccommodation;
+            }
 
             set
             {
@@ -155,15 +158,16 @@ namespace TravelAgency.ViewModel
             }
         }
 
-        public void MakeReservation(object sender, RoutedEventArgs e)
+        public void MakeReservation(object sender, RoutedEventArgs e, DateTime? endDaySelect, DateTime? startDaySelect, AccommodationDTO accommodationDTO)
         {
-            var _reservationService = new ReservationService();
 
-            if(!_reservationService.IsReservationValid(StartDate, EndDate, 5))
+            var _reservationService = new ReservationService();
+            if (!_reservationService.IsReservationValid(endDaySelect, startDaySelect, 5)) //TODO
             {
+
                 MessageBox.Show("The reservation is out of bounds!");
             }
-            else if(_reservationService.Reserve())
+            else if(_reservationService.Reserve(endDaySelect, startDaySelect, 1)) //TODO
             {
                 MessageBox.Show("Accommodation Reserved");
             }

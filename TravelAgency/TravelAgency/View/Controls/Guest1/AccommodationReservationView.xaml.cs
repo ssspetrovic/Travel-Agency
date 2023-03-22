@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls.Primitives;
+using TravelAgency.DTO;
 using TravelAgency.ViewModel;
 
 namespace TravelAgency.View.Controls.Guest1
@@ -45,7 +46,8 @@ namespace TravelAgency.View.Controls.Guest1
         private void MakeReservationButton_OnClick(object sender, RoutedEventArgs e)
         {
             var _accommodationReservationViewModel = new AccommodationReservationViewModel();
-            _accommodationReservationViewModel.MakeReservation(sender, e);
+            AccommodationDTO accommodationDTO = AccommodationListView.SelectedItem as AccommodationDTO;
+            _accommodationReservationViewModel.MakeReservation(sender, e, EndDateSelect.SelectedDate, StartDateSelect.SelectedDate, accommodationDTO);
         }
 
         private void ToursListView_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)

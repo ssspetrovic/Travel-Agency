@@ -18,16 +18,37 @@ namespace TravelAgency.Service
             var reservationRepository = new ReservationRepository();
             return reservationRepository.GetAll();
         }
-
-        public bool IsReservationValid(DateTime startDate, DateTime endDate, int maxDays)
+        ObservableCollection<Reservation> GetAllByAccommodationId(int Id)
         {
-            if(endDate>startDate || (endDate-startDate).TotalDays < maxDays) return false;
+            var reservationRepository = new ReservationRepository();
+            return reservationRepository.GetAllByAccommodationId(Id);
+        }
+
+        public bool IsReservationValid(DateTime? startDate, DateTime? endDate, int maxDays)
+        {
+            DateTime convertedStartDate = Convert.ToDateTime(startDate);
+            DateTime convertedEndDate = Convert.ToDateTime(endDate);
+
+            if (convertedEndDate>convertedStartDate || (convertedStartDate - convertedEndDate).TotalDays > maxDays) return false;
 
             return true;
         }
 
-        public bool Reserve() {
-            ObservableCollection<Reservation> reservations = GetAll();
+        public bool Reserve(DateTime? startDate, DateTime? endDate, int Id) {
+            ObservableCollection<Reservation> reservations = GetAllByAccommodationId(Id);
+
+            DateTime convertedStartDate = Convert.ToDateTime(startDate);
+            DateTime convertedEndDate = Convert.ToDateTime(endDate);
+
+            foreach (Reservation reservation in reservations)
+            {
+                if((reservation.StartDate>startDate && reservation.EndDate<startDate) || (reservation.StartDate > endDate && reservation.EndDate < endDate))
+                {
+                    return false;
+                }
+            }
+            var reservationRepository = new ReservationRepository();
+            
             return true;
         }
     }

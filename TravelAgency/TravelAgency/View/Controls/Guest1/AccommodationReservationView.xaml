@@ -150,7 +150,7 @@
                         BorderThickness="0,2,0,0">
                         <StackPanel>
                             <ListView
-                                x:Name="ToursListView"
+                                Name="AccommodationListView"
                                 Grid.Row="1"
                                 HorizontalAlignment="Center"
                                 d:ItemsSource="{d:SampleData ItemCount=5}"
@@ -205,19 +205,19 @@
                         FontSize="15" />
 
                     <DatePicker 
-                        SelectedDate="{Binding Path=StartDate, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedDate="{Binding Path= StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Height="26"
                         Grid.Row="2"
                         Margin="337,0,264,0"
-                        Name="startDate"
+                        Name="StartDateSelect"
                         Width="115" />
                     
                     <DatePicker 
-                        SelectedDate="{Binding Path=EndDate, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedDate="{Binding Path= EndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Height="26"
                         Grid.Row="2"
                         Margin="551,0,50,0"
-                        Name="endDate"
+                        Name="EndDateSelect"
                         Width="115" />
                 </Grid>
             </Grid>
