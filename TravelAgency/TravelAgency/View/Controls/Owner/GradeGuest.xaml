@@ -8,7 +8,7 @@
         Title="GradeGuest" Height="450" Width="800">
     <Grid x:Name="grid">
         <Label Content="Grade Guest" HorizontalAlignment="Left" Margin="22,21,0,0" VerticalAlignment="Top" FontSize="22"/>
-        <Button x:Name="btnBack" Content="Back" HorizontalAlignment="Left" Margin="728,24,0,0" VerticalAlignment="Top" Click="btnBack_Click"/>
+        <Button x:Name="btnBack" Content="Back" HorizontalAlignment="Left" Margin="714,24,0,0" VerticalAlignment="Top" Click="btnBack_Click"/>
         <RadioButton x:Name="rbComplaisent1" Content="1" HorizontalAlignment="Left" Margin="34,310,0,0" VerticalAlignment="Top" GroupName="grade_complaisent" IsChecked="True"/>
         <RadioButton x:Name="rbComplaisent2" Content="2" HorizontalAlignment="Left" Margin="34,328,0,0" VerticalAlignment="Top" GroupName="grade_complaisent"/>
         <RadioButton x:Name="rbComplaisent3" Content="3" HorizontalAlignment="Left" Margin="34,346,0,0" VerticalAlignment="Top" GroupName="grade_complaisent"/>

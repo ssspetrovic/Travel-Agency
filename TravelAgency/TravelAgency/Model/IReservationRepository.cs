@@ -11,6 +11,7 @@ namespace TravelAgency.Model
     {
         ObservableCollection<Reservation> GetAll();
         ObservableCollection<Reservation> GetReservationsToGrade();
+        int CountReservationsToGrade();
         void UpdateReservationAfterGrading(int reservationId, string comment, float gradeComplaisent, float gradeClean);
         void Add(Reservation reservation);
     }
