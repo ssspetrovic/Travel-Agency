@@ -189,6 +189,10 @@
                                             Width="Auto"
                                             DisplayMemberBinding="{Binding Path=MaxGuests}"
                                             Header="Max Guests" />
+                                        <GridViewColumn
+                                            Width="Auto"
+                                            DisplayMemberBinding="{Binding Path=Date}"
+                                            Header="Date" />
                                     </GridView>
                                 </ListView.View>
                             </ListView>
