@@ -145,47 +145,32 @@ namespace TravelAgency.ViewModel
                    location.Country.Equals(SelectedTour?.Location.Country);
         }
 
+        private bool IsMatchingSearch(Tour tour, string filterTextUpper)
+        {
+            return tour.Location.City.ToUpper().Contains(filterTextUpper) ||
+                   tour.Location.Country.ToUpper().Contains(filterTextUpper) ||
+                   tour.Duration.ToString(CultureInfo.InvariantCulture).ToUpper()
+                       .Contains(filterTextUpper) ||
+                   tour.Language.ToString().ToUpper().Contains(filterTextUpper) ||
+                   tour.MaxGuests.ToString().ToUpper().Contains(filterTextUpper);
+        }
+
         // Dynamic search filter triggered on property change
         private void ToursCollection_Filter(object sender, FilterEventArgs e)
         {
             if (string.IsNullOrEmpty(FilterText))
             {
-                //Debug.WriteLine(tour.MaxGuests);
                 e.Accepted = true;
                 return;
             }
-         
+
             // Checks if "tour = e.Item as Tour" is true
             if (e.Item is not Tour tour) return;
 
-            var filterTextUpper = FilterText.ToUpper();
-
             if (_isGuestNumberEntered)
-            {
-                if (IsLocationEqual(tour.Location) && tour.MaxGuests > 0)
-                {
-                    //Debug.WriteLine($"accepted: {tour.Name}");
-                    e.Accepted = true;
-                }
-                else
-                {
-                    e.Accepted = false;
-                }
-            }
+                e.Accepted = IsLocationEqual(tour.Location) && tour.MaxGuests > 0;
             else
-            {
-                if (tour.Location.City.ToUpper().Contains(filterTextUpper) || tour.Location.Country.ToUpper().Contains(filterTextUpper) ||
-                    tour.Duration.ToString(CultureInfo.InvariantCulture).ToUpper().Contains(filterTextUpper) ||
-                    tour.Language.ToString().ToUpper().Contains(filterTextUpper) || tour.MaxGuests.ToString().ToUpper().Contains(filterTextUpper))
-                {
-                    e.Accepted = true;
-                }
-                else
-                {
-                    //Debug.WriteLine($"declined: {tour.Name}");
-                    e.Accepted = false;
-                }
-            }
+                e.Accepted = IsMatchingSearch(tour, FilterText.ToUpper());
 
             _shouldUpdateFilteredCollectionEmpty = true;
             IsFilteredCollectionEmpty = !e.Accepted && ToursSourceCollection.IsEmpty;
@@ -229,6 +214,41 @@ namespace TravelAgency.ViewModel
             }
         }
 
+        private int GetDialogGuests()
+        {
+            var dialog = new GuestNumberDialog
+            {
+                Owner = Current.MainWindow,
+                DataContext = this
+            };
+
+            GuestNumberText =
+                $"Tour can't take that many guests. Number of spaces left: {SelectedTour?.MaxGuests}";
+
+            dialog.ShowDialog();
+
+            if (int.TryParse(NewGuestNumber, out var newGuestNumber) &&
+                newGuestNumber <= SelectedTour?.MaxGuests && GuestNumberDialog.IsUpdateConfirmed)
+                return newGuestNumber;
+
+            return -1;
+        }
+
+        private void HandleFinalGuestNumber(int finalGuestNumber)
+        {
+            if (finalGuestNumber <= 0)
+            {
+                MessageBox.Show("Failed to make reservation! Invalid guest number!", "Error");
+                _isGuestNumberEntered = false;
+            }
+            else
+            {
+                if (SelectedTour != null)
+                    _tourRepository.UpdateMaxGuests(SelectedTour.Id, SelectedTour.MaxGuests - finalGuestNumber);
+                CompleteReservation(finalGuestNumber);
+            }
+        }
+
         // Reservation making triggered by the button. Actions then split regarding of the selected item at the time the button was pressed
         public void MakeReservation()
         {
@@ -253,55 +273,9 @@ namespace TravelAgency.ViewModel
                 return;
             }
 
-            var finalGuestNumber = -1;
-
-            if (guestNumber > SelectedTour.MaxGuests)
-            {
-                var dialog = new GuestNumberDialog
-                {
-                    Owner = Current.MainWindow,
-                    DataContext = this
-                };
-
-                GuestNumberText =
-                    $"Tour can't take that many guests. Number of spaces left: {SelectedTour.MaxGuests}";
-
-                //Debug.WriteLine(GuestNumberDialog.IsUpdateConfirmed);
-                dialog.ShowDialog();
-                //Debug.WriteLine(GuestNumberDialog.IsUpdateConfirmed);
-
-                // Number of guests wasn't changed or cancel was pressed
-                if (!GuestNumberDialog.IsUpdateConfirmed)
-                {
-                    //Debug.WriteLine("in old");
-                    NewGuestNumber = null;
-                    return;
-                }
-
-                if (int.TryParse(NewGuestNumber, out var newGuestNumber) &&
-                    newGuestNumber <= SelectedTour.MaxGuests)
-                {
-                    finalGuestNumber = newGuestNumber;
-                    NewGuestNumber = null;
-                }
-            }
-            else
-            {
-                // Case where the number of guest is exact as max number of guests
-                finalGuestNumber = guestNumber;
-            }
-
-            if (finalGuestNumber < 0)
-            {
-                MessageBox.Show("Failed to make reservation! Invalid guest number!", "Error");
-                _isGuestNumberEntered = false;
-            }
-            else
-            {
-                _tourRepository.UpdateMaxGuests(SelectedTour.Id, SelectedTour.MaxGuests - finalGuestNumber);
-                CompleteReservation(finalGuestNumber);
-            }
-
+            var finalGuestNumber = guestNumber > SelectedTour.MaxGuests ? GetDialogGuests() : guestNumber;
+            HandleFinalGuestNumber(finalGuestNumber);
+            
             ReloadWindow();
             FilterText = " ";
             IsTourSelected = false;
