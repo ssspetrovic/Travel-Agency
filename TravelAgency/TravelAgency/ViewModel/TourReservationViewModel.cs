@@ -139,13 +139,13 @@ namespace TravelAgency.ViewModel
             _reservationRepository = new TourReservationRepository();
         }
 
-        private bool DoesLocationFit(Location location)
+        private bool IsLocationEqual(Location location)
         {
             return location.City.Equals(SelectedTour?.Location.City) &&
                    location.Country.Equals(SelectedTour?.Location.Country);
         }
 
-        // Dynamic search filter that is triggered on property change
+        // Dynamic search filter triggered on property change
         private void ToursCollection_Filter(object sender, FilterEventArgs e)
         {
             if (string.IsNullOrEmpty(FilterText))
@@ -162,7 +162,7 @@ namespace TravelAgency.ViewModel
 
             if (_isGuestNumberEntered)
             {
-                if (DoesLocationFit(tour.Location) && tour.MaxGuests > 0)
+                if (IsLocationEqual(tour.Location) && tour.MaxGuests > 0)
                 {
                     //Debug.WriteLine($"accepted: {tour.Name}");
                     e.Accepted = true;

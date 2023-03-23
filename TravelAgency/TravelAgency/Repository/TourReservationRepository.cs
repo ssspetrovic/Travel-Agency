@@ -19,7 +19,7 @@ namespace TravelAgency.Repository
             insertCommand.Parameters.AddWithValue("TourId", tourReservation.TourId);
             insertCommand.Parameters.AddWithValue("TourName", tourReservation.TourName);
             insertCommand.Parameters.AddWithValue("GuestNumber", tourReservation.GuestNumber);
-            insertCommand.Parameters.AddWithValue("Username", tourReservation.Username);
+            insertCommand.Parameters.AddWithValue("Username", tourReservation.TouristUsername);
             insertCommand.Parameters.AddWithValue("TouristName", tourReservation.TouristName);
             insertCommand.ExecuteNonQuery();
         }
