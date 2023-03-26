@@ -47,9 +47,14 @@ namespace TravelAgency.View.Controls.Tourist
             _viewModel.MakeReservation();
         }
 
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        private void ApplyFilterButton_OnClick(object sender, RoutedEventArgs e)
         {
-            _viewModel.ApplyFilters();
+            _viewModel.ApplyFilter();
+        }
+
+        private void ResetFilterButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            _viewModel.ResetFilter();
         }
     }
 }

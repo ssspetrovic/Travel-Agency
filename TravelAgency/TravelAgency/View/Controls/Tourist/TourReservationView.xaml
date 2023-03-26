@@ -149,23 +149,23 @@
                     <Grid Row="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
-                            <ColumnDefinition Width="630" />
+                            <ColumnDefinition Width="600" />
                         </Grid.ColumnDefinitions>
                         <Border
                             Grid.Row="0"
                             BorderBrush="{StaticResource MaterialDesignDivider}"
                             BorderThickness="0,2,2,2">
-                            <StackPanel Margin="20,0">
-                                <Label Margin="0,10,0,0" Content="Country" />
-                                <TextBox
-                                    x:Name="FilterCountryTextBox"
-                                    Style="{StaticResource FilterTextBoxStyle}"
-                                    Text="{Binding EnteredFilterCountry}" />
+                            <StackPanel Margin="30,0">
                                 <Label Margin="0,10,0,0" Content="City" />
                                 <TextBox
                                     x:Name="FilterCityTextBox"
                                     Style="{StaticResource FilterTextBoxStyle}"
                                     Text="{Binding EnteredFilterCity}" />
+                                <Label Margin="0,10,0,0" Content="Country" />
+                                <TextBox
+                                    x:Name="FilterCountryTextBox"
+                                    Style="{StaticResource FilterTextBoxStyle}"
+                                    Text="{Binding EnteredFilterCountry}" />
                                 <Label Margin="0,10,0,0" Content="Language" />
                                 <ComboBox
                                     x:Name="FilterLanguageComboBox"
@@ -190,23 +190,20 @@
                                     Style="{StaticResource FilterTextBoxStyle}"
                                     Text="{Binding EnteredFilterGuestNumber}" />
                                 <Button
-                                    x:Name="ApplyFiltersButton"
-                                    Margin="0,20"
-                                    Click="ButtonBase_OnClick"
-                                    Content="Apply filters"
+                                    x:Name="ApplyFilterButton"
+                                    Margin="0,20,0,10"
+                                    Click="ApplyFilterButton_OnClick"
+                                    Content="Apply filter"
+                                    FontFamily="{StaticResource MaterialDesignFont}"
                                     FontSize="13" />
+                                <Button
+                                    x:Name="ResetFilterButton"
+                                    Click="ResetFilterButton_OnClick"
+                                    Content="Reset filter"
+                                    Style="{StaticResource MaterialDesignFlatButton}" />
                             </StackPanel>
                         </Border>
                         <StackPanel Grid.Column="1">
-                            <TextBlock
-                                Margin="0,10"
-                                HorizontalAlignment="Center"
-                                d:Visibility="Collapsed"
-                                FontSize="15"
-                                FontWeight="UltraLight"
-                                Style="{StaticResource MaterialDesignBody2TextBlock}"
-                                Text="No tours match the search criteria"
-                                Visibility="{Binding IsFilteredCollectionEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
                             <Border BorderBrush="{StaticResource MaterialDesignDivider}" BorderThickness="0,2">
                                 <ListView
                                     x:Name="ToursListView"
@@ -252,6 +249,15 @@
                                     </ListView.View>
                                 </ListView>
                             </Border>
+                            <TextBlock
+                                Margin="0,10"
+                                HorizontalAlignment="Center"
+                                d:Visibility="Collapsed"
+                                FontSize="15"
+                                FontWeight="UltraLight"
+                                Style="{StaticResource MaterialDesignBody2TextBlock}"
+                                Text="No tours match the search criteria"
+                                Visibility="{Binding IsFilteredCollectionEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
                             <StackPanel Margin="0,10" Visibility="{Binding IsTourSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <WrapPanel Height="40" HorizontalAlignment="Center">
                                     <Label

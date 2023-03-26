@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Data;
@@ -207,11 +206,7 @@ namespace TravelAgency.ViewModel
             _reservationRepository = new TourReservationRepository();
 
             _filterLanguages = Enum.GetValues(typeof(Language));
-            EnteredFilterCity = null;
-            EnteredFilterCountry = null;
-            SelectedFilterLanguage = null;
-            EnteredFilterDuration = null;
-            EnteredFilterGuestNumber = null;
+            ResetFilter();
         }
 
         private bool IsLocationEqual(Location location)
@@ -222,7 +217,12 @@ namespace TravelAgency.ViewModel
 
         private bool IsMatchingSearch(Tour tour, string filterTextUpper)
         {
-            return tour.ToString().ToUpper().Contains(filterTextUpper);
+            return tour.ToString().ToUpper().Contains(filterTextUpper) &&
+                   (EnteredFilterCity == null || tour.Location.City.ToUpper().Contains(EnteredFilterCity.ToUpper())) &&
+                   (EnteredFilterCountry == null || tour.Location.Country.ToUpper().Contains(EnteredFilterCountry.ToUpper())) &&
+                   tour.Language.ToString().ToUpper().Contains(SelectedFilterLanguage?.ToString().ToUpper() ?? string.Empty) &&
+                   Math.Abs(tour.Duration - (EnteredFilterDuration ?? tour.Duration)) < 0.01 &&
+                   tour.MaxGuests == (EnteredFilterGuestNumber ?? tour.MaxGuests);
         }
 
         // Dynamic search filter triggered on property change
@@ -240,7 +240,9 @@ namespace TravelAgency.ViewModel
             if (_isGuestNumberEntered)
                 e.Accepted = IsLocationEqual(tour.Location) && tour.MaxGuests > 0;
             else
+            {
                 e.Accepted = IsMatchingSearch(tour, FilterText.ToUpper());
+            }
 
             _shouldUpdateFilteredCollectionEmpty = true;
             IsFilteredCollectionEmpty = !e.Accepted && ToursSourceCollection.IsEmpty;
@@ -313,8 +315,8 @@ namespace TravelAgency.ViewModel
             }
             else
             {
-                if (SelectedTour != null)
-                    _tourRepository.UpdateMaxGuests(SelectedTour.Id, SelectedTour.MaxGuests - finalGuestNumber);
+                if (SelectedTour == null) return;
+                _tourRepository.UpdateMaxGuests(SelectedTour.Id, SelectedTour.MaxGuests - finalGuestNumber);
                 CompleteReservation(finalGuestNumber);
             }
         }
@@ -338,8 +340,8 @@ namespace TravelAgency.ViewModel
             {
                 MessageBox.Show("The selected tour is full. Showing other available options on the same location.", "Tour full");
                 _isGuestNumberEntered = true;
-                _toursCollection.View.Refresh();
                 FilterText = " ";
+                _toursCollection.View.Refresh();
                 return;
             }
 
@@ -347,18 +349,24 @@ namespace TravelAgency.ViewModel
             HandleFinalGuestNumber(finalGuestNumber);
 
             ReloadWindow();
+        }
+
+        public void ApplyFilter()
+        {
             FilterText = " ";
-            IsTourSelected = false;
+            RaisePropertyChanged("FilterText");
             _toursCollection.View.Refresh();
         }
 
-        public void ApplyFilters()
+        public void ResetFilter()
         {
-            Debug.WriteLine(EnteredFilterCountry);
-            Debug.WriteLine(EnteredFilterCity);
-            Debug.WriteLine(SelectedFilterLanguage);
-            Debug.WriteLine(EnteredFilterDuration);
-            Debug.WriteLine(EnteredFilterGuestNumber);
+            EnteredFilterCity = null;
+            EnteredFilterCountry = null;
+            SelectedFilterLanguage = null;
+            EnteredFilterDuration = null;
+            EnteredFilterGuestNumber = null;
+            RaisePropertyChanged("FilterText");
+            _toursCollection.View.Refresh();
         }
 
         // Called to reload window after the reservation was made
