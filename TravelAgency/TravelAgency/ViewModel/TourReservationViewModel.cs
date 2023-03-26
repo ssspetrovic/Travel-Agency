@@ -147,12 +147,7 @@ namespace TravelAgency.ViewModel
 
         private bool IsMatchingSearch(Tour tour, string filterTextUpper)
         {
-            return tour.Location.City.ToUpper().Contains(filterTextUpper) ||
-                   tour.Location.Country.ToUpper().Contains(filterTextUpper) ||
-                   tour.Duration.ToString(CultureInfo.InvariantCulture).ToUpper()
-                       .Contains(filterTextUpper) ||
-                   tour.Language.ToString().ToUpper().Contains(filterTextUpper) ||
-                   tour.MaxGuests.ToString().ToUpper().Contains(filterTextUpper);
+            return tour.ToString().ToUpper().Contains(filterTextUpper);
         }
 
         // Dynamic search filter triggered on property change

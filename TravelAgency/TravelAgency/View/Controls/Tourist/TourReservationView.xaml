@@ -111,7 +111,6 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="140" />
                         <RowDefinition />
-                        <RowDefinition Height="140" />
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0">
                         <TextBlock
@@ -147,97 +146,123 @@
                             Text="Select a tour to make a reservation"
                             TextAlignment="Center" />
                     </StackPanel>
-                    <Border
-                        Grid.Row="1"
-                        Margin="40,0"
-                        BorderBrush="{StaticResource MaterialDesignDivider}"
-                        BorderThickness="0,2,0,0">
-                        <StackPanel>
-                            <ListView
-                                x:Name="ToursListView"
-                                Height="280"
-                                HorizontalAlignment="Center"
-                                d:ItemsSource="{d:SampleData ItemCount=5}"
-                                ItemsSource="{Binding ToursSourceCollection}"
-                                SelectedItem="{Binding SelectedTour}"
-                                Style="{StaticResource MaterialDesignListView}"
-                                Visibility="{Binding IsListViewShown, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                <ListView.View>
-                                    <GridView x:Name="GridView" AllowsColumnReorder="False">
-                                        <GridViewColumn
-                                            Width="Auto"
-                                            DisplayMemberBinding="{Binding Path=Name}"
-                                            Header="Name" />
-                                        <GridViewColumn
-                                            Width="Auto"
-                                            DisplayMemberBinding="{Binding Path=Location.City}"
-                                            Header="City" />
-                                        <GridViewColumn
-                                            Width="Auto"
-                                            DisplayMemberBinding="{Binding Path=Location.Country}"
-                                            Header="Country" />
-                                        <GridViewColumn
-                                            Width="Auto"
-                                            DisplayMemberBinding="{Binding Path=Duration}"
-                                            Header="Duration" />
-                                        <GridViewColumn
-                                            Width="Auto"
-                                            DisplayMemberBinding="{Binding Path=Language}"
-                                            Header="Language" />
-                                        <GridViewColumn
-                                            Width="Auto"
-                                            DisplayMemberBinding="{Binding Path=MaxGuests}"
-                                            Header="Max Guests" />
-                                        <GridViewColumn
-                                            Width="Auto"
-                                            DisplayMemberBinding="{Binding Path=Date}"
-                                            Header="Date" />
-                                    </GridView>
-                                </ListView.View>
-                            </ListView>
+                    <Grid Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="630" />
+                        </Grid.ColumnDefinitions>
+                        <Border
+                            Grid.Row="0"
+                            BorderBrush="{StaticResource MaterialDesignDivider}"
+                            BorderThickness="0,2,2,2">
+                            <StackPanel Margin="20,0">
+                                <Label Margin="0,5" Content="Country" />
+                                <TextBox Style="{StaticResource FilterTextBoxStyle}" />
+                                <Label Margin="0,5" Content="City" />
+                                <TextBox Style="{StaticResource FilterTextBoxStyle}" />
+                                <Label Margin="0,5" Content="Language" />
+                                <ComboBox
+                                    Height="30"
+                                    Padding="5"
+                                    materialDesign:TextFieldAssist.TextFieldCornerRadius="3"
+                                    materialDesign:TextFieldAssist.UnderlineCornerRadius="3"
+                                    BorderBrush="{StaticResource MaterialDesignDivider}"
+                                    BorderThickness="1"
+                                    Style="{StaticResource MaterialDesignComboBox}" />
+                                <Label Margin="0,5" Content="Duration" />
+                                <TextBox Style="{StaticResource FilterTextBoxStyle}" />
+                                <Label Margin="0,5" Content="Number of guests" />
+                                <TextBox Style="{StaticResource FilterTextBoxStyle}" />
+                                <Button
+                                    Margin="0,20"
+                                    Content="Apply filters"
+                                    FontSize="13" />
+                            </StackPanel>
+                        </Border>
+                        <StackPanel Grid.Column="1">
                             <TextBlock
                                 Margin="0,10"
                                 HorizontalAlignment="Center"
+                                d:Visibility="Collapsed"
                                 FontSize="15"
                                 FontWeight="UltraLight"
                                 Style="{StaticResource MaterialDesignBody2TextBlock}"
                                 Text="No tours match the search criteria"
                                 Visibility="{Binding IsFilteredCollectionEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                        </StackPanel>
-                    </Border>
-                    <Border
-                        Grid.Row="2"
-                        Margin="50,0"
-                        BorderBrush="{StaticResource MaterialDesignDivider}"
-                        BorderThickness="0,2,0,0">
-                        <StackPanel Margin="10" Visibility="{Binding IsTourSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
-                            <WrapPanel Height="40" HorizontalAlignment="Center">
-                                <Label
-                                    VerticalAlignment="Center"
-                                    Content="Number of guests:"
-                                    FontSize="16" />
-                                <TextBox
-                                    x:Name="GuestNumberTextBox"
-                                    Width="80"
+                            <Border BorderBrush="{StaticResource MaterialDesignDivider}" BorderThickness="0,2">
+                                <ListView
+                                    x:Name="ToursListView"
+                                    Height="280"
+                                    Margin="0,0,20,0"
+                                    HorizontalAlignment="Center"
+                                    d:ItemsSource="{d:SampleData ItemCount=3}"
+                                    ItemsSource="{Binding ToursSourceCollection}"
+                                    SelectedItem="{Binding SelectedTour}"
+                                    Style="{StaticResource MaterialDesignListView}"
+                                    Visibility="{Binding IsListViewShown, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                    <ListView.View>
+                                        <GridView x:Name="GridView" AllowsColumnReorder="False">
+                                            <GridViewColumn
+                                                Width="Auto"
+                                                DisplayMemberBinding="{Binding Path=Name}"
+                                                Header="Name" />
+                                            <GridViewColumn
+                                                Width="Auto"
+                                                DisplayMemberBinding="{Binding Path=Location.City}"
+                                                Header="City" />
+                                            <GridViewColumn
+                                                Width="Auto"
+                                                DisplayMemberBinding="{Binding Path=Location.Country}"
+                                                Header="Country" />
+                                            <GridViewColumn
+                                                Width="Auto"
+                                                DisplayMemberBinding="{Binding Path=Duration}"
+                                                Header="Duration" />
+                                            <GridViewColumn
+                                                Width="Auto"
+                                                DisplayMemberBinding="{Binding Path=Language}"
+                                                Header="Language" />
+                                            <GridViewColumn
+                                                Width="Auto"
+                                                DisplayMemberBinding="{Binding Path=MaxGuests}"
+                                                Header="Max Guests" />
+                                            <GridViewColumn
+                                                Width="Auto"
+                                                DisplayMemberBinding="{Binding Path=Date}"
+                                                Header="Date" />
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                            </Border>
+                            <StackPanel Margin="0,10" Visibility="{Binding IsTourSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <WrapPanel Height="40" HorizontalAlignment="Center">
+                                    <Label
+                                        VerticalAlignment="Center"
+                                        Content="Number of guests:"
+                                        FontSize="16" />
+                                    <TextBox
+                                        x:Name="GuestNumberTextBox"
+                                        Width="80"
+                                        Height="40"
+                                        Margin="10,0"
+                                        VerticalContentAlignment="Center"
+                                        BorderBrush="{DynamicResource MaterialDesignDivider}"
+                                        BorderThickness="0,0,0,2"
+                                        FontSize="16"
+                                        Style="{StaticResource MaterialDesignTextBoxBase}"
+                                        Text="{Binding GuestNumber}" />
+                                </WrapPanel>
+                                <Button
+                                    x:Name="MakeReservationButton"
+                                    Width="180"
                                     Height="40"
-                                    Margin="10,0"
-                                    VerticalContentAlignment="Center"
-                                    BorderBrush="{DynamicResource MaterialDesignDivider}"
-                                    BorderThickness="0,0,0,2"
-                                    FontSize="16"
-                                    Style="{StaticResource MaterialDesignTextBoxBase}"
-                                    Text="{Binding GuestNumber}" />
-                            </WrapPanel>
-                            <Button
-                                x:Name="MakeReservationButton"
-                                Width="180"
-                                Height="40"
-                                Margin="0,20,0,0"
-                                Click="MakeReservationButton_OnClick"
-                                Content="Make a reservation"
-                                FontSize="15" />
+                                    Margin="0,20,0,0"
+                                    Click="MakeReservationButton_OnClick"
+                                    Content="Make a reservation"
+                                    FontSize="15" />
+                            </StackPanel>
                         </StackPanel>
-                    </Border>
+                    </Grid>
                 </Grid>
             </Grid>
         </Grid>
