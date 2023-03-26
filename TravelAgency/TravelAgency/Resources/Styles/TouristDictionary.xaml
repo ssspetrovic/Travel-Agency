@@ -38,13 +38,19 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    <Style x:Key="FilterTextBoxStyle" TargetType="TextBox">
-        <Setter Property="Height" Value="30" />
-        <Setter Property="Padding" Value="5,0" />
-        <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="materialDesign:TextFieldAssist.TextFieldCornerRadius" Value="3" />
-        <Setter Property="materialDesign:TextFieldAssist.UnderlineCornerRadius" Value="3" />
-        <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="BorderBrush" Value="{StaticResource MaterialDesignDivider}" />
+    <Style
+        x:Key="FilterTextBoxStyle"
+        BasedOn="{StaticResource {x:Type TextBox}}"
+        TargetType="{x:Type TextBox}">
+        <Style.Setters>
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Padding" Value="5,0" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="materialDesign:TextFieldAssist.TextFieldCornerRadius" Value="3" />
+            <Setter Property="materialDesign:TextFieldAssist.UnderlineCornerRadius" Value="3" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="{StaticResource MaterialDesignDivider}" />
+        </Style.Setters>
     </Style>
 </ResourceDictionary>

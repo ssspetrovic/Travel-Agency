@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Windows;
@@ -26,10 +27,21 @@ namespace TravelAgency.ViewModel
         private string? _newGuestNumber;
         private string? _guestNumberText;
 
+        private Array _languages;
         private readonly TourRepository _tourRepository;
         private readonly TourReservationRepository _reservationRepository;
 
         private TourReservationView? _mainWindow;
+
+        public Array Languages
+        {
+            get => Enum.GetValues(typeof(Language));
+            set
+            {
+                _languages = value;
+                OnPropertyChanged();
+            }
+        }
 
         public string? NewGuestNumber
         {
