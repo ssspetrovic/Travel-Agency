@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Globalization;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Data;
@@ -14,9 +14,13 @@ namespace TravelAgency.ViewModel
 {
     public class TourReservationViewModel : BaseViewModel
     {
-        private string? _filterText;
-        private readonly CollectionViewSource _toursCollection;
+        private TourReservationView? _mainWindow;
         public new event PropertyChangedEventHandler? PropertyChanged;
+
+        private readonly CollectionViewSource _toursCollection;
+        private Array _filterLanguages;
+
+        private string? _filterText;
         private bool _isFilteredCollectionEmpty;
         private bool _isListViewShown;
         private bool _shouldUpdateFilteredCollectionEmpty;
@@ -26,53 +30,71 @@ namespace TravelAgency.ViewModel
         private bool _isGuestNumberEntered;
         private string? _newGuestNumber;
         private string? _guestNumberText;
-        private string _selectedCountry;
-        private string _selectedCity;
-        private Language _selectedLanguage;
+        private string? _enteredFilterCountry;
+        private string? _enteredFilterCity;
+        private Language? _selectedFilterLanguage;
+        private float? _enteredFilterDuration;
+        private int? _enteredFilterGuestNumber;
 
-        private Array _languages;
         private readonly TourRepository _tourRepository;
         private readonly TourReservationRepository _reservationRepository;
 
-        private TourReservationView? _mainWindow;
-
-
-        public Language SelectedLanguage
+        public int? EnteredFilterGuestNumber
         {
-            get => _selectedLanguage;
+            get => _enteredFilterGuestNumber;
             set
             {
-                _selectedLanguage = value;
+                _enteredFilterGuestNumber = value;
                 OnPropertyChanged();
             }
         }
 
-        public string SelectedCountry
+        public float? EnteredFilterDuration
         {
-            get => _selectedCountry;
+            get => _enteredFilterDuration;
             set
             {
-                _selectedCountry = value;
+                _enteredFilterDuration = value;
                 OnPropertyChanged();
             }
         }
 
-        public string SelectedCity
+        public Language? SelectedFilterLanguage
         {
-            get => _selectedCity;
+            get => _selectedFilterLanguage;
             set
             {
-                _selectedCity = value;
+                _selectedFilterLanguage = value;
                 OnPropertyChanged();
             }
         }
 
-        public Array Languages
+        public string? EnteredFilterCountry
         {
-            get => Enum.GetValues(typeof(Language));
+            get => _enteredFilterCountry;
             set
             {
-                _languages = value;
+                _enteredFilterCountry = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string? EnteredFilterCity
+        {
+            get => _enteredFilterCity;
+            set
+            {
+                _enteredFilterCity = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public Array FilterLanguages
+        {
+            get => _filterLanguages;
+            set
+            {
+                _filterLanguages = value;
                 OnPropertyChanged();
             }
         }
@@ -174,6 +196,7 @@ namespace TravelAgency.ViewModel
             {
                 Source = _tourRepository.GetAllAsCollection()
             };
+
             _toursCollection.Filter += ToursCollection_Filter;
 
             if (!ToursSourceCollection.IsEmpty)
@@ -182,6 +205,13 @@ namespace TravelAgency.ViewModel
             IsTourSelected = false;
             _isGuestNumberEntered = false;
             _reservationRepository = new TourReservationRepository();
+
+            _filterLanguages = Enum.GetValues(typeof(Language));
+            EnteredFilterCity = null;
+            EnteredFilterCountry = null;
+            SelectedFilterLanguage = null;
+            EnteredFilterDuration = null;
+            EnteredFilterGuestNumber = null;
         }
 
         private bool IsLocationEqual(Location location)
@@ -320,6 +350,15 @@ namespace TravelAgency.ViewModel
             FilterText = " ";
             IsTourSelected = false;
             _toursCollection.View.Refresh();
+        }
+
+        public void ApplyFilters()
+        {
+            Debug.WriteLine(EnteredFilterCountry);
+            Debug.WriteLine(EnteredFilterCity);
+            Debug.WriteLine(SelectedFilterLanguage);
+            Debug.WriteLine(EnteredFilterDuration);
+            Debug.WriteLine(EnteredFilterGuestNumber);
         }
 
         // Called to reload window after the reservation was made

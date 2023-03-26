@@ -157,12 +157,18 @@
                             BorderThickness="0,2,2,2">
                             <StackPanel Margin="20,0">
                                 <Label Margin="0,10,0,0" Content="Country" />
-                                <TextBox x:Name="FilterCountryTextBox" Style="{StaticResource FilterTextBoxStyle}" />
+                                <TextBox
+                                    x:Name="FilterCountryTextBox"
+                                    Style="{StaticResource FilterTextBoxStyle}"
+                                    Text="{Binding EnteredFilterCountry}" />
                                 <Label Margin="0,10,0,0" Content="City" />
-                                <TextBox x:Name="FilterCityTextBox" Style="{StaticResource FilterTextBoxStyle}" />
+                                <TextBox
+                                    x:Name="FilterCityTextBox"
+                                    Style="{StaticResource FilterTextBoxStyle}"
+                                    Text="{Binding EnteredFilterCity}" />
                                 <Label Margin="0,10,0,0" Content="Language" />
                                 <ComboBox
-                                    x:Name="LanguageComboBox"
+                                    x:Name="FilterLanguageComboBox"
                                     Height="30"
                                     Padding="5"
                                     materialDesign:HintAssist.Hint="Select"
@@ -170,14 +176,23 @@
                                     materialDesign:TextFieldAssist.UnderlineCornerRadius="3"
                                     BorderBrush="{StaticResource MaterialDesignDivider}"
                                     BorderThickness="1"
-                                    ItemsSource="{Binding Languages}"
+                                    ItemsSource="{Binding FilterLanguages}"
+                                    SelectedItem="{Binding SelectedFilterLanguage}"
                                     Style="{StaticResource MaterialDesignComboBox}" />
                                 <Label Margin="0,10,0,0" Content="Duration" />
-                                <TextBox x:Name="FilterDurationTextBox" Style="{StaticResource FilterTextBoxStyle}" />
+                                <TextBox
+                                    x:Name="FilterDurationTextBox"
+                                    Style="{StaticResource FilterTextBoxStyle}"
+                                    Text="{Binding EnteredFilterDuration}" />
                                 <Label Margin="0,10,0,0" Content="Number of guests" />
-                                <TextBox x:Name="FilterGuestNumberTextBox" Style="{StaticResource FilterTextBoxStyle}" />
+                                <TextBox
+                                    x:Name="FilterGuestNumberTextBox"
+                                    Style="{StaticResource FilterTextBoxStyle}"
+                                    Text="{Binding EnteredFilterGuestNumber}" />
                                 <Button
+                                    x:Name="ApplyFiltersButton"
                                     Margin="0,20"
+                                    Click="ButtonBase_OnClick"
                                     Content="Apply filters"
                                     FontSize="13" />
                             </StackPanel>
