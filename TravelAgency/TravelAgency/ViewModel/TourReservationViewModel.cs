@@ -26,12 +26,46 @@ namespace TravelAgency.ViewModel
         private bool _isGuestNumberEntered;
         private string? _newGuestNumber;
         private string? _guestNumberText;
+        private string _selectedCountry;
+        private string _selectedCity;
+        private Language _selectedLanguage;
 
         private Array _languages;
         private readonly TourRepository _tourRepository;
         private readonly TourReservationRepository _reservationRepository;
 
         private TourReservationView? _mainWindow;
+
+
+        public Language SelectedLanguage
+        {
+            get => _selectedLanguage;
+            set
+            {
+                _selectedLanguage = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string SelectedCountry
+        {
+            get => _selectedCountry;
+            set
+            {
+                _selectedCountry = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string SelectedCity
+        {
+            get => _selectedCity;
+            set
+            {
+                _selectedCity = value;
+                OnPropertyChanged();
+            }
+        }
 
         public Array Languages
         {
@@ -92,7 +126,6 @@ namespace TravelAgency.ViewModel
                 _selectedTour = value;
                 IsTourSelected = true;
                 OnPropertyChanged();
-                //Debug.WriteLine(_selectedTour.Name);
             }
         }
 
@@ -282,7 +315,7 @@ namespace TravelAgency.ViewModel
 
             var finalGuestNumber = guestNumber > SelectedTour.MaxGuests ? GetDialogGuests() : guestNumber;
             HandleFinalGuestNumber(finalGuestNumber);
-            
+
             ReloadWindow();
             FilterText = " ";
             IsTourSelected = false;
