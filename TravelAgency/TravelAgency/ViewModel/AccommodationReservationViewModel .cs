@@ -11,10 +11,11 @@ using TravelAgency.View;
 using TravelAgency.DTO;
 using TravelAgency.Service;
 using System.Runtime.CompilerServices;
+using TravelAgency.View.Controls.Tourist;
 
 namespace TravelAgency.ViewModel
 {
-    public class AccommodationReservationViewModel : BaseViewModel
+    public class AccommodationReservationViewModel : BaseViewModel, INotifyPropertyChanged
     {
         private string? _filterText;
         private readonly CollectionViewSource _accommodationCollection;
@@ -25,6 +26,18 @@ namespace TravelAgency.ViewModel
         private AccommodationDTO _selectedAccommodation;
         private DateTime _startDate;
         private DateTime _endDate;
+        private string? _guestNumber;
+
+
+        public string? GuestNumber
+        {
+            get => _guestNumber;
+            set
+            {
+                _guestNumber = value;
+                RaisePropertyChanged("GuestNumber");
+            }
+        }
 
         public DateTime StartDate
         {
@@ -158,29 +171,35 @@ namespace TravelAgency.ViewModel
             }
         }
 
-        public void MakeReservation(object sender, RoutedEventArgs e, DateTime? endDaySelect, DateTime? startDaySelect, AccommodationDTO accommodationDTO, string guestNumber)
+
+        public void MakeReservation()
         {
+            MessageBox.Show(FilterText);
+            MessageBox.Show(GuestNumber);
+            MessageBox.Show(StartDate.ToLongDateString());
+            MessageBox.Show(EndDate.ToLongDateString());
 
-            var _reservationService = new ReservationService();
+                var _reservationService = new ReservationService();
 
-            if (int.Parse(guestNumber) > accommodationDTO.MaxReservationDays)
-            {
-                MessageBox.Show("You have selected too many people for this Accommodation!");
-            }
-            else if (!_reservationService.IsReservationValid(endDaySelect, startDaySelect, accommodationDTO.MaxReservationDays))
-            {
+               if (int.Parse(GuestNumber) > SelectedAccommodation.MaxReservationDays)
+               {
+                   MessageBox.Show("You have selected too many people for this Accommodation!");
+               }
+               else if (!_reservationService.IsReservationValid(EndDate, StartDate, SelectedAccommodation.MaxReservationDays))
+               {
 
-                MessageBox.Show("The reservation is out of bounds!");
-            }
-            else if(_reservationService.Reserve(endDaySelect, startDaySelect, accommodationDTO, int.Parse(guestNumber)))
-            {
-                MessageBox.Show("Accommodation Reserved");
-            }
-            else
-            {
-                MessageBox.Show("Try this date: " + _reservationService.FindDate(endDaySelect, startDaySelect, accommodationDTO).AddDays(1).ToString());
-            }
+                   MessageBox.Show("The reservation is out of bounds!");
+               }
+               else if(_reservationService.Reserve(EndDate, StartDate, SelectedAccommodation, int.Parse(GuestNumber)))
+               {
+                   MessageBox.Show("Accommodation Reserved");
+               }
+               else
+               {
+                   MessageBox.Show("Try this date: " + _reservationService.FindDate(EndDate, StartDate, SelectedAccommodation).AddDays(1).ToString());
+               }
             
+
         }
 
     }

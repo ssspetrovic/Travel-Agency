@@ -45,10 +45,9 @@ namespace TravelAgency.View.Controls.Guest1
 
         private void MakeReservationButton_OnClick(object sender, RoutedEventArgs e)
         {
-            var _accommodationReservationViewModel = new AccommodationReservationViewModel();
-            AccommodationDTO accommodationDTO = AccommodationListView.SelectedItem as AccommodationDTO;
-            _accommodationReservationViewModel.MakeReservation(sender, e, EndDateSelect.SelectedDate, StartDateSelect.SelectedDate, accommodationDTO, GuestNumber.Text);
+            _viewModel.MakeReservation();
         }
+       
 
         private void ToursListView_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
