@@ -216,5 +216,29 @@ namespace TravelAgency.View.Controls.Guide
             currentTour.Show();
             Close();
         }
+
+        private void ChangeViews_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.F1)
+            {
+                var guideView = new GuideView();
+                guideView.Show();
+                Close();
+            }
+
+            if (e.Key == Key.F2)
+            {
+                var monitorTour = new MonitorTour();
+                monitorTour.Show();
+                Close();
+            }
+
+            if (e.Key == Key.Oem3)
+            {
+                var shortcuts = new Shortcuts();
+                shortcuts.Show();
+                Close();
+            }
+        }
     }
 }

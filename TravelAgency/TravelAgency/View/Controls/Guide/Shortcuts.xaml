@@ -1,5 +1,5 @@
 ﻿<Window
-    x:Class="TravelAgency.View.GuideView"
+    x:Class="TravelAgency.View.Controls.Guide.Shortcuts"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -77,54 +77,15 @@
                         </RadioButton>
 
                         <RadioButton
-                            Click="NewTour_OnClick"
+                            Click="GoBack_OnClick"
                             Foreground="#fffafa"
                             Style="{StaticResource MenuButton}">
                             <StackPanel Orientation="Horizontal">
                                 <fa:IconImage
                                     Foreground="#fffafa"
-                                    Icon="Bus"
+                                    Icon="LongArrowAltLeft"
                                     Style="{StaticResource MenuButtonIcon}" />
-                                <TextBlock Style="{StaticResource MenuButtonText}" Text="New Tour" />
-                            </StackPanel>
-                        </RadioButton>
-
-                        <RadioButton
-                            Click="MonitorTour_OnClick"
-                            Foreground="#fffafa"
-                            Style="{StaticResource MenuButton}">
-                            <StackPanel Orientation="Horizontal">
-                                <fa:IconImage
-                                    Foreground="#fffafa"
-                                    Icon="Calendar"
-                                    Style="{StaticResource MenuButtonIcon}" />
-                                <TextBlock Style="{StaticResource MenuButtonText}" Text="Monitor Tour" />
-                            </StackPanel>
-                        </RadioButton>
-
-                        <RadioButton
-                            Click="ActiveTour_OnClick"
-                            Foreground="#fffafa"
-                            Style="{StaticResource MenuButton}">
-                            <StackPanel Orientation="Horizontal">
-                                <fa:IconImage
-                                    Foreground="#fffafa"
-                                    Icon="Plane"
-                                    Style="{StaticResource MenuButtonIcon}" />
-                                <TextBlock Style="{StaticResource MenuButtonText}" Text="Active Tour" />
-                            </StackPanel>
-                        </RadioButton>
-
-                        <RadioButton
-                            Click="Logout_OnClick"
-                            Foreground="#fffafa"
-                            Style="{StaticResource MenuButton}">
-                            <StackPanel Orientation="Horizontal">
-                                <fa:IconImage
-                                    Foreground="#fffafa"
-                                    Icon="Running"
-                                    Style="{StaticResource MenuButtonIcon}" />
-                                <TextBlock Style="{StaticResource MenuButtonText}" Text="Logout" />
+                                <TextBlock Style="{StaticResource MenuButtonText}" Text="Go Back" />
                             </StackPanel>
                         </RadioButton>
 
@@ -144,7 +105,6 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="25" />
                             <RowDefinition Height="35" />
-                            <RowDefinition Height="20" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
@@ -197,13 +157,13 @@
                                     Height="20"
                                     Margin="35,0,10,0"
                                     Foreground="#4fc3f7"
-                                    Icon="Sun" />
+                                    Icon="Key" />
                                 <TextBlock
                                     VerticalAlignment="Center"
                                     FontSize="18"
                                     FontWeight="Bold"
                                     Foreground="#4fc3f7"
-                                    Text="All Tours" />
+                                    Text="Shortcuts" />
 
                             </StackPanel>
 
@@ -227,72 +187,144 @@
 
                         </Grid>
 
-                        <Grid Grid.Row="2">
-                            <TextBlock
-                                Padding="0,0,80,0"
-                                FontSize="12"
-                                Foreground="#68cbf8"
-                                MouseLeftButtonDown="ShortcutView_OnClick"
-                                Text="Shortcuts (`)"
-                                TextAlignment="Right" />
-                        </Grid>
+                        <Grid
+                            Grid.Row="2"
+                            Margin="25"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
 
-                        <Grid Grid.Row="3" Margin="25">
-                            <ListView
-                                Margin="10"
-                                Foreground="#68cbf8"
-                                ItemsSource="{Binding Tours}">
-                                <ListView.View>
-                                    <GridView>
-                                        <GridView.ColumnHeaderContainerStyle>
-                                            <Style TargetType="{x:Type GridViewColumnHeader}">
-                                                <Setter Property="Foreground" Value="#68cbf8" />
-                                                <Setter Property="FontWeight" Value="Bold" />
-                                                <Setter Property="FontSize" Value="15" />
-                                            </Style>
-                                        </GridView.ColumnHeaderContainerStyle>
-                                        <GridViewColumn
-                                            Width="200"
-                                            DisplayMemberBinding="{Binding Path=Name}"
-                                            Header="Name" />
-                                        <GridViewColumn
-                                            Width="200"
-                                            DisplayMemberBinding="{Binding Path=Location_Id}"
-                                            Header="Location" />
-                                        <GridViewColumn
-                                            Width="200"
-                                            DisplayMemberBinding="{Binding Path=Description}"
-                                            Header="Description" />
-                                        <GridViewColumn
-                                            Width="200"
-                                            DisplayMemberBinding="{Binding Path=Language}"
-                                            Header="Language" />
-
-                                        <GridViewColumn
-                                            Width="200"
-                                            DisplayMemberBinding="{Binding Path=MaxGuests}"
-                                            Header="Max Guests" />
-                                        <GridViewColumn
-                                            Width="200"
-                                            DisplayMemberBinding="{Binding Path=LocationList}"
-                                            Header="Key Points" />
-                                        <GridViewColumn
-                                            Width="200"
-                                            DisplayMemberBinding="{Binding Path=Date}"
-                                            Header="Date" />
-                                        <GridViewColumn
-                                            Width="200"
-                                            DisplayMemberBinding="{Binding Path=Duration}"
-                                            Header="Duration" />
-                                        <GridViewColumn
-                                            Width="200"
-                                            DisplayMemberBinding="{Binding Path=Images}"
-                                            Header="Images" />
-                                    </GridView>
-                                </ListView.View>
-                            </ListView>
+                            <StackPanel Orientation="Horizontal">
+                                <fa:IconImage
+                                    Foreground="#68cbf8"
+                                    Icon="Home"
+                                    Style="{StaticResource MenuButtonIcon}" />
+                                <TextBlock Style="{StaticResource MenuButtonText}" Text="F1: Dashboard" />
+                            </StackPanel>
+                            <StackPanel
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Orientation="Horizontal">
+                                <fa:IconImage
+                                    Foreground="#68cbf8"
+                                    Icon="Bus"
+                                    Style="{StaticResource MenuButtonIcon}" />
+                                <TextBlock Style="{StaticResource MenuButtonText}" Text="F2: Create Tour" />
+                            </StackPanel>
+                            <StackPanel
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Orientation="Horizontal">
+                                <fa:IconImage
+                                    Foreground="#68cbf8"
+                                    Icon="Binoculars"
+                                    Style="{StaticResource MenuButtonIcon}" />
+                                <TextBlock Style="{StaticResource MenuButtonText}" Text="F3: Monitor Tour" />
+                            </StackPanel>
+                            <StackPanel
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Orientation="Horizontal">
+                                <fa:IconImage
+                                    Foreground="#68cbf8"
+                                    Icon="CalendarXMark"
+                                    Style="{StaticResource MenuButtonIcon}" />
+                                <TextBlock Style="{StaticResource MenuButtonText}" Text="F4: Cancel Tour" />
+                            </StackPanel>
+                            <StackPanel
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                Orientation="Horizontal">
+                                <fa:IconImage
+                                    Foreground="#68cbf8"
+                                    Icon="ClipboardList"
+                                    Style="{StaticResource MenuButtonIcon}" />
+                                <TextBlock Style="{StaticResource MenuButtonText}" Text="F5: Tour Stats" />
+                            </StackPanel>
+                            <StackPanel
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                Orientation="Horizontal">
+                                <fa:IconImage
+                                    Foreground="#68cbf8"
+                                    Icon="Star"
+                                    Style="{StaticResource MenuButtonIcon}" />
+                                <TextBlock Style="{StaticResource MenuButtonText}" Text="F6: Reviews" />
+                            </StackPanel>
+                            <StackPanel
+                                Grid.Row="3"
+                                Grid.Column="0"
+                                Orientation="Horizontal">
+                                <fa:IconImage
+                                    Foreground="#68cbf8"
+                                    Icon="Plane"
+                                    Style="{StaticResource MenuButtonIcon}" />
+                                <TextBlock Style="{StaticResource MenuButtonText}" Text="F7: Accept Tour Request" />
+                            </StackPanel>
+                            <StackPanel
+                                Grid.Row="3"
+                                Grid.Column="1"
+                                Orientation="Horizontal">
+                                <fa:IconImage
+                                    Foreground="#68cbf8"
+                                    Icon="MapLocation"
+                                    Style="{StaticResource MenuButtonIcon}" />
+                                <TextBlock Style="{StaticResource MenuButtonText}" Text="F8: Complex Tour Request" />
+                            </StackPanel>
+                            <StackPanel
+                                Grid.Row="4"
+                                Grid.Column="0"
+                                Orientation="Horizontal">
+                                <fa:IconImage
+                                    Foreground="#68cbf8"
+                                    Icon="RectangleList"
+                                    Style="{StaticResource MenuButtonIcon}" />
+                                <TextBlock Style="{StaticResource MenuButtonText}" Text="F9: Request Stats" />
+                            </StackPanel>
+                            <StackPanel
+                                Grid.Row="4"
+                                Grid.Column="1"
+                                Orientation="Horizontal">
+                                <fa:IconImage
+                                    Foreground="#68cbf8"
+                                    Icon="Sailboat"
+                                    Style="{StaticResource MenuButtonIcon}" />
+                                <TextBlock Style="{StaticResource MenuButtonText}" Text="F10: Create Suggested Tour" />
+                            </StackPanel>
+                            <StackPanel
+                                Grid.Row="5"
+                                Grid.Column="0"
+                                Orientation="Horizontal">
+                                <fa:IconImage
+                                    Foreground="#68cbf8"
+                                    Icon="Box"
+                                    Style="{StaticResource MenuButtonIcon}" />
+                                <TextBlock Style="{StaticResource MenuButtonText}" Text="F11: Resign" />
+                            </StackPanel>
+                            <StackPanel
+                                Grid.Row="5"
+                                Grid.Column="1"
+                                Orientation="Horizontal">
+                                <fa:IconImage
+                                    Foreground="#68cbf8"
+                                    Icon="Video"
+                                    Style="{StaticResource MenuButtonIcon}" />
+                                <TextBlock Style="{StaticResource MenuButtonText}" Text="F12: Video" />
+                            </StackPanel>
                         </Grid>
                     </Grid>
+
 
                 </Border>
 

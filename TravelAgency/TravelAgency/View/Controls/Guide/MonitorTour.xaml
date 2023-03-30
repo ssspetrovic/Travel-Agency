@@ -12,6 +12,7 @@
     Height="720"
     AllowsTransparency="True"
     Background="Transparent"
+    KeyDown="ChangeViews_KeyDown"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
@@ -143,6 +144,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="25" />
                             <RowDefinition Height="35" />
+                            <RowDefinition Height="25" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
@@ -225,7 +227,17 @@
 
                         </Grid>
 
-                        <Grid Grid.Row="2" Margin="25">
+                        <Grid Grid.Row="2">
+                            <TextBlock
+                                Padding="0,0,80,0"
+                                FontSize="12"
+                                Foreground="#68cbf8"
+                                MouseLeftButtonDown="ShortcutView_OnClick"
+                                Text="Shortcuts (`)"
+                                TextAlignment="Right" />
+                        </Grid>
+
+                        <Grid Grid.Row="3" Margin="25">
                             <DataGrid
                                 Name="MonitorDataGrid"
                                 Margin="10"

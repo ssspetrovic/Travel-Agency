@@ -1,25 +1,26 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
-using TravelAgency.Repository;
-using TravelAgency.View.Controls.Guide;
+using System.Windows.Navigation;
 
-namespace TravelAgency.View
+namespace TravelAgency.View.Controls.Guide
 {
     /// <summary>
-    /// Interaction logic for GuideView.xaml
+    /// Interaction logic for Shortcuts.xaml
     /// </summary>
-    public partial class GuideView 
+    public partial class Shortcuts
     {
-        public GuideView()
+
+        public Shortcuts()
         {
             InitializeComponent();
             this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
         }
 
         [DllImport("user32.dll")]
-        public static extern nint SendMessage(nint wnd,  int wMsg, nint wParam, nint lParam);
+        public static extern nint SendMessage(nint wnd, int wMsg, nint wParam, nint lParam);
 
         private void PanelControlBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -54,37 +55,9 @@ namespace TravelAgency.View
             Close();
         }
 
-        private void NewTour_OnClick(object sender, RoutedEventArgs e)
+        private void GoBack_OnClick(object sender, RoutedEventArgs e)
         {
-            var createTour = new CreateTour();
-            createTour.Show();
-            Close();
-        }
-
-        private void MonitorTour_OnClick(object sender, RoutedEventArgs e)
-        {
-            var monitorTour = new MonitorTour();
-            monitorTour.Show();
-            Close();
-        }
-        private void ActiveTour_OnClick(object sender, RoutedEventArgs e)
-        {
-            var activeTourRepository = new ActiveTourRepository();
-            if (activeTourRepository.IsActive())
-            {
-                var currentTour = new CurrentTour();
-                currentTour.Show();
-                Close();
-            }
-            else
-                MessageBox.Show("There is no active tour!");
-        }
-
-        private void Logout_OnClick(object sender, RoutedEventArgs e)
-        {
-            var signInView = new SignInView();
-            signInView.Show();
-            Close();
+            throw new NotImplementedException();
         }
 
         private void ChangeViews_KeyDown(object sender, KeyEventArgs e)
@@ -116,13 +89,6 @@ namespace TravelAgency.View
                 shortcuts.Show();
                 Close();
             }
-        }
-
-        private void ShortcutView_OnClick(object sender, RoutedEventArgs e)
-        {
-            var shortcuts = new Shortcuts();
-            shortcuts.Show();
-            Close();
         }
     }
 }
