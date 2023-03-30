@@ -18,8 +18,8 @@ namespace TravelAgency.Model
         public string Name { get; set; } = null!;
         public int LocationId { get; set; }
         public AccommodationType Type { get; set; }
-        public int MinReservationDays { get; set; }
-        public int MaxReservationDays { get; set; }
+        public int MinGuest { get; set; }
+        public int MaxGuest { get; set; }
         public string Adress { get; set; } 
         public int ReservableDays { get; set; }
         public string Images { get; set; }  
@@ -35,8 +35,8 @@ namespace TravelAgency.Model
             Name = name;
             LocationId = locationId;
             Type = type;
-            MinReservationDays = minReservationDays;
-            MaxReservationDays = maxReservationDays;
+            MinGuest = minReservationDays;
+            MaxGuest = maxReservationDays;
             Adress = adress;
             ReservableDays = reservableDays;
             Images = images;
@@ -48,8 +48,8 @@ namespace TravelAgency.Model
             Name = name;
             LocationId = locationId;
             Type = type;
-            MinReservationDays = minReservationDays;
-            MaxReservationDays = maxReservationDays;
+            MinGuest = minReservationDays;
+            MaxGuest = maxReservationDays;
             Adress = adress;
             ReservableDays = reservableDays;
             Images = images;

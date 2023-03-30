@@ -58,10 +58,19 @@
                         <RadioButton
                             x:Name="TourReservationButton"
                             Height="50"
+                            Content="Accommodations"
+                            IsChecked="true"
+                            Click="Accommodation_OnClick"
+                            FontSize="17"
+                            Foreground="White"
+                            Style="{StaticResource MenuButtonStyle}" />
+                        <RadioButton
+                            x:Name="Reservations"
+                            Height="50"
+                            Click="Reservation_OnClick"
                             Content="Reservations"
                             FontSize="17"
                             Foreground="White"
-                            IsChecked="True"
                             Style="{StaticResource MenuButtonStyle}" />
                     </StackPanel>
                     <RadioButton
@@ -149,39 +158,51 @@
                         Margin="50,0"
                         BorderBrush="{StaticResource MaterialDesignDivider}"
                         BorderThickness="0,2,0,0">
-                        <StackPanel>
+                        <StackPanel Margin="-29,0,-24,0">
                             <ListView
-                                Name="AccommodationListView"
-                                Grid.Row="1"
-                                HorizontalAlignment="Center"
+                                x:Name="AccommodationListView"
                                 d:ItemsSource="{d:SampleData ItemCount=5}"
                                 ItemsSource="{Binding AccommodationSourceCollection}"
                                 SelectedItem="{Binding SelectedAccommodation}"
                                 SelectionChanged="ToursListView_SelectionChanged"
                                 Style="{StaticResource MaterialDesignListView}"
-                                Visibility="{Binding IsListViewShown, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                Visibility="{Binding IsListViewShown, Converter={StaticResource BooleanToVisibilityConverter}}" Width="672" Height="245">
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+                                    </Style>
+                                </ListView.ItemContainerStyle>
                                 <ListView.View>
+                                   
                                     <GridView x:Name="GridView" AllowsColumnReorder="False">
                                         <GridViewColumn
                                             Width="Auto"
-                                            DisplayMemberBinding="{Binding Path=Name}"
+                                            DisplayMemberBinding="{Binding Name}"
                                             Header="Name" />
                                         <GridViewColumn
                                             Width="Auto"
-                                            DisplayMemberBinding="{Binding Path=Location.City}"
+                                            DisplayMemberBinding="{Binding Location.City}"
                                             Header="City" />
                                         <GridViewColumn
                                             Width="Auto"
-                                            DisplayMemberBinding="{Binding Path=Location.Country}"
+                                            DisplayMemberBinding="{Binding Location.Country}"
                                             Header="Country" />
                                         <GridViewColumn
                                             Width="Auto"
-                                            DisplayMemberBinding="{Binding Path=Type}"
+                                            DisplayMemberBinding="{Binding Type}"
                                             Header="Type" />
                                         <GridViewColumn
                                             Width="Auto"
-                                            DisplayMemberBinding="{Binding Path=MaxReservationDays}"
+                                            DisplayMemberBinding="{Binding MinGuest}"
+                                            Header="Min Guests" />
+                                        <GridViewColumn
+                                            Width="Auto"
+                                            DisplayMemberBinding="{Binding MaxGuest}"
                                             Header="Max Guests" />
+                                        <GridViewColumn
+                                            Width="Auto"
+                                            DisplayMemberBinding="{Binding ReservableDays}"
+                                            Header="Reservable" />
                                     </GridView>
                                 </ListView.View>
                             </ListView>

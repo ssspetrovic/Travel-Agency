@@ -13,7 +13,9 @@ namespace TravelAgency.DTO
         public string Name { get; set; } = null!;
         public Location Location { get; set; } = null!;
         public AccommodationType Type { get; set; }
-        public int MaxReservationDays { get; set; }
+        public int MaxGuest { get; set; }
+        public int MinGuest { get; set; }
+        public int ReservableDays { get; set; }
 
         public AccommodationDTO()
         {
@@ -24,18 +26,23 @@ namespace TravelAgency.DTO
             Id = accommodation.Id;
             Name = accommodation.Name;
             Type = accommodation.Type;
+            MaxGuest = accommodation.MaxGuest;
+            MinGuest = accommodation.MinGuest;
+            ReservableDays = accommodation.ReservableDays;
             Location = location;
-            MaxReservationDays = accommodation.MaxReservationDays;
+            
 
         }
 
-        public AccommodationDTO(int id, string name, Location location, AccommodationType type, int maxReservationDays)
+        public AccommodationDTO(int id, string name, Location location, AccommodationType type, int maxGuest, int minGuest, int reservableDays)
         {
             Id = id;
             Name = name;
             Location = location;
             Type = type;
-            MaxReservationDays = maxReservationDays;
+            MaxGuest = maxGuest;
+            MinGuest = minGuest;
+            ReservableDays = reservableDays;
         }
     }
 }

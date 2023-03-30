@@ -140,7 +140,7 @@ namespace TravelAgency.ViewModel
 
             if (accommodation.Name.ToUpper().Contains(filterTextUpper) || accommodation.Location.City.ToUpper().Contains(filterTextUpper) || accommodation.Location.Country.ToUpper().Contains(filterTextUpper) ||
                 accommodation.Type.ToString().ToUpper().Contains(filterTextUpper) ||
-                accommodation.MaxReservationDays.ToString().Contains(filterTextUpper))
+                accommodation.ReservableDays.ToString().Contains(filterTextUpper))
             {
                 e.Accepted = true;
             }
@@ -181,11 +181,11 @@ namespace TravelAgency.ViewModel
 
                 var _reservationService = new ReservationService();
 
-               if (int.Parse(GuestNumber) > SelectedAccommodation.MaxReservationDays)
+               if (int.Parse(GuestNumber) > SelectedAccommodation.ReservableDays)
                {
                    MessageBox.Show("You have selected too many people for this Accommodation!");
                }
-               else if (!_reservationService.IsReservationValid(EndDate, StartDate, SelectedAccommodation.MaxReservationDays))
+               else if (!_reservationService.IsReservationValid(EndDate, StartDate, SelectedAccommodation.ReservableDays))
                {
 
                    MessageBox.Show("The reservation is out of bounds!");

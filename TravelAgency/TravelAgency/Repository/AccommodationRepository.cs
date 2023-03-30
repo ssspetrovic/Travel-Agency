@@ -24,8 +24,8 @@ namespace TravelAgency.Repository
             using var insertCommand = new SqliteCommand(insertStatement, databaseConnection);
             insertCommand.Parameters.AddWithValue("$name", accommodation.Name);
             insertCommand.Parameters.AddWithValue("$type", accommodation.Type);
-            insertCommand.Parameters.AddWithValue("$maxGuest", accommodation.MaxReservationDays);
-            insertCommand.Parameters.AddWithValue("$minGuest", accommodation.MinReservationDays);
+            insertCommand.Parameters.AddWithValue("$maxGuest", accommodation.MaxGuest);
+            insertCommand.Parameters.AddWithValue("$minGuest", accommodation.MinGuest);
             insertCommand.Parameters.AddWithValue("$locationId", accommodation.LocationId);
             insertCommand.Parameters.AddWithValue("$adress", accommodation.Adress);
             insertCommand.Parameters.AddWithValue("$reservableDays", accommodation.ReservableDays);
@@ -62,8 +62,7 @@ namespace TravelAgency.Repository
                 var location = locationRepository.GetById(selectReader.GetInt32(5));
                 var type = Enum.Parse<AccommodationType>(selectReader.GetString(2));
 
-               accommodationList.Add(new AccommodationDTO(selectReader.GetInt32(0), selectReader.GetString(1), location, type, selectReader.GetInt32(3)));
-               
+               accommodationList.Add(new AccommodationDTO(selectReader.GetInt32(0), selectReader.GetString(1), location, type, selectReader.GetInt32(3), selectReader.GetInt32(4), selectReader.GetInt32(7)));
             }
 
             return accommodationList;

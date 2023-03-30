@@ -43,6 +43,22 @@ namespace TravelAgency.View.Controls.Guest1
             Close();
         }
 
+        private void Reservation_OnClick(object sender, RoutedEventArgs e)
+        {
+            var ReservationView = new ReservatoinView();
+            ReservationView.Show();
+            Close();
+        }
+
+
+        private void Accommodation_OnClick(object sender, RoutedEventArgs e)
+        {
+            var AccommodationReservationView = new AccommodationReservationView();
+            AccommodationReservationView.Show();
+            Close();
+        }
+
+
         private void MakeReservationButton_OnClick(object sender, RoutedEventArgs e)
         {
             _viewModel.MakeReservation();

@@ -50,5 +50,27 @@ namespace TravelAgency.View
             Reservation.Show();
             Close();
         }
+
+        private void Reservation_OnClick(object sender, RoutedEventArgs e)
+        {
+            var ReservationView = new ReservatoinView();
+            ReservationView.Show();
+            Close();
+        }
+
+        private void HomeButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var GuestView = new Guest1View();
+            GuestView.Show();
+            Close();
+        }
+
+
+        private void Accommodation_OnClick(object sender, RoutedEventArgs e)
+        {
+            var AccommodationReservationView = new AccommodationReservationView();
+            AccommodationReservationView.Show();
+            Close();
+        }
     }
 }
