@@ -182,7 +182,7 @@ namespace TravelAgency.ViewModel
                 _filterText = value;
                 _shouldUpdateFilteredCollectionEmpty = true;
                 _toursCollection.View.Refresh();
-                RaisePropertyChanged("FilterText");
+                RaisePropertyChanged(nameof(FilterText));
             }
         }
         public ICollectionView ToursSourceCollection => _toursCollection.View;
@@ -354,7 +354,7 @@ namespace TravelAgency.ViewModel
         public void ApplyFilter()
         {
             FilterText = " ";
-            RaisePropertyChanged("FilterText");
+            RaisePropertyChanged(nameof(FilterText));
             _toursCollection.View.Refresh();
         }
 
@@ -365,7 +365,7 @@ namespace TravelAgency.ViewModel
             SelectedFilterLanguage = null;
             EnteredFilterDuration = null;
             EnteredFilterGuestNumber = null;
-            RaisePropertyChanged("FilterText");
+            RaisePropertyChanged(nameof(FilterText));
             _toursCollection.View.Refresh();
         }
 
