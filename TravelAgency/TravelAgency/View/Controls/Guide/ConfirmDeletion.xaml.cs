@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using TravelAgency.Model;
 using TravelAgency.Repository;
 
@@ -21,7 +20,7 @@ namespace TravelAgency.View.Controls.Guide
             return PasswordBox.Password == userRepository.GetByUsername(CurrentUser.Username).Password;
         }
 
-        private void OkButton_OnClick(object sender, RoutedEventArgs e)
+        private void ConfirmButton_OnClick(object sender, RoutedEventArgs e)
         {
             if (AuthenticateDeletion())
             {
@@ -43,7 +42,7 @@ namespace TravelAgency.View.Controls.Guide
             Close();
         }
 
-        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        private void CancelButton_OnClick(object sender, RoutedEventArgs e)
         {
             Close();
         }

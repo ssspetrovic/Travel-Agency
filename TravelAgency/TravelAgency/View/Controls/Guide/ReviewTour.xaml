@@ -76,6 +76,7 @@
 
                         <!--  Options  -->
                         <RadioButton
+                            Height="45"
                             Click="Home_OnClick"
                             Foreground="#fffafa"
                             Style="{StaticResource MenuButton}">
@@ -89,6 +90,7 @@
                         </RadioButton>
 
                         <RadioButton
+                            Height="45"
                             Click="NewTour_OnClick"
                             Foreground="#fffafa"
                             Style="{StaticResource MenuButton}">
@@ -102,6 +104,7 @@
                         </RadioButton>
 
                         <RadioButton
+                            Height="45"
                             Click="MonitorTour_OnClick"
                             Foreground="#fffafa"
                             Style="{StaticResource MenuButton}">
@@ -115,6 +118,7 @@
                         </RadioButton>
 
                         <RadioButton
+                            Height="45"
                             Click="CancelTour_OnClick"
                             Foreground="#fffafa"
                             Style="{StaticResource MenuButton}">
@@ -128,6 +132,21 @@
                         </RadioButton>
 
                         <RadioButton
+                            Height="45"
+                            Click="TourStats_OnClick"
+                            Foreground="#fffafa"
+                            Style="{StaticResource MenuButton}">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:IconImage
+                                    Foreground="#fffafa"
+                                    Icon="ClipboardList"
+                                    Style="{StaticResource MenuButtonIcon}" />
+                                <TextBlock Style="{StaticResource MenuButtonText}" Text="Tour Stats" />
+                            </StackPanel>
+                        </RadioButton>
+
+                        <RadioButton
+                            Height="45"
                             Click="TourReview_OnClick"
                             Foreground="#fffafa"
                             Style="{StaticResource MenuButton}">
@@ -141,18 +160,90 @@
                         </RadioButton>
 
                         <RadioButton
-                            Click="Logout_OnClick"
+                            Height="45"
+                            Click="AcceptTourRequest_OnClick"
                             Foreground="#fffafa"
                             Style="{StaticResource MenuButton}">
                             <StackPanel Orientation="Horizontal">
                                 <fa:IconImage
                                     Foreground="#fffafa"
-                                    Icon="Running"
+                                    Icon="Plane"
                                     Style="{StaticResource MenuButtonIcon}" />
-                                <TextBlock Style="{StaticResource MenuButtonText}" Text="Logout" />
+                                <TextBlock Style="{StaticResource MenuButtonText}" Text="Accept Tour Request" />
                             </StackPanel>
                         </RadioButton>
 
+                        <RadioButton
+                            Height="45"
+                            Click="ComplexTourRequest_OnClick"
+                            Foreground="#fffafa"
+                            Style="{StaticResource MenuButton}">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:IconImage
+                                    Foreground="#fffafa"
+                                    Icon="MapLocationDot"
+                                    Style="{StaticResource MenuButtonIcon}" />
+                                <TextBlock Style="{StaticResource MenuButtonText}" Text="Complex Tour Request" />
+                            </StackPanel>
+                        </RadioButton>
+
+                        <RadioButton
+                            Height="45"
+                            Click="RequestStats_OnClick"
+                            Foreground="#fffafa"
+                            Style="{StaticResource MenuButton}">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:IconImage
+                                    Foreground="#fffafa"
+                                    Icon="RectangleList"
+                                    Style="{StaticResource MenuButtonIcon}" />
+                                <TextBlock Style="{StaticResource MenuButtonText}" Text="Request Stats" />
+                            </StackPanel>
+                        </RadioButton>
+
+                        <RadioButton
+                            Height="45"
+                            Click="CreateSuggestedTour_OnClick"
+                            Foreground="#fffafa"
+                            Style="{StaticResource MenuButton}">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:IconImage
+                                    Foreground="#fffafa"
+                                    Icon="Ship"
+                                    Style="{StaticResource MenuButtonIcon}" />
+                                <TextBlock Style="{StaticResource MenuButtonText}" Text="Create Suggested Tour" />
+                            </StackPanel>
+                        </RadioButton>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Button
+                                x:Name="BtnLogOut"
+                                Margin="10,20,10,0"
+                                Background="#68cbf8"
+                                BorderThickness="0"
+                                Click="Logout_OnClick"
+                                Content="Logout"
+                                Cursor="Hand"
+                                FontSize="12"
+                                FontWeight="Medium"
+                                Foreground="#ffffff" />
+                            <Button
+                                x:Name="BtnResign"
+                                Grid.Column="1"
+                                Margin="10,20,10,0"
+                                Background="#68cbf8"
+                                BorderThickness="0"
+                                Click="Resign_OnClick"
+                                Content="Resign"
+                                Cursor="Hand"
+                                FontSize="12"
+                                FontWeight="Medium"
+                                Foreground="#ffffff" />
+                        </Grid>
                     </StackPanel>
                 </Border>
 

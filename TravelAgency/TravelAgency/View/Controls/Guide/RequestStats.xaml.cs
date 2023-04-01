@@ -1,16 +1,16 @@
 ﻿using System.Runtime.InteropServices;
-using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
+using System.Windows;
 
 namespace TravelAgency.View.Controls.Guide
 {
     /// <summary>
-    /// Interaction logic for TourStats.xaml
+    /// Interaction logic for RequestStats.xaml
     /// </summary>
-    public partial class TourStats
+    public partial class RequestStats
     {
-        public TourStats()
+        public RequestStats()
         {
             InitializeComponent();
         }

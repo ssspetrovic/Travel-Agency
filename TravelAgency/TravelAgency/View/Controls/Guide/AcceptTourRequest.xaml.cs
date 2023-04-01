@@ -3,14 +3,15 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
 
+
 namespace TravelAgency.View.Controls.Guide
 {
     /// <summary>
-    /// Interaction logic for TourStats.xaml
+    /// Interaction logic for AcceptTourRequest.xaml
     /// </summary>
-    public partial class TourStats
+    public partial class AcceptTourRequest
     {
-        public TourStats()
+        public AcceptTourRequest()
         {
             InitializeComponent();
         }

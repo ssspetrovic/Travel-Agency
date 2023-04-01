@@ -6,11 +6,11 @@ using System.Windows.Interop;
 namespace TravelAgency.View.Controls.Guide
 {
     /// <summary>
-    /// Interaction logic for TourStats.xaml
+    /// Interaction logic for ComplexTourRequest.xaml
     /// </summary>
-    public partial class TourStats
+    public partial class ComplexTourRequest
     {
-        public TourStats()
+        public ComplexTourRequest()
         {
             InitializeComponent();
         }

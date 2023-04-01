@@ -47,6 +47,13 @@ namespace TravelAgency.View.Controls.Guide
             this.WindowState = WindowState.Minimized;
         }
 
+        private void ShortcutView_OnClick(object sender, RoutedEventArgs e)
+        {
+            var shortcuts = new Shortcuts();
+            shortcuts.Show();
+            Close();
+        }
+
         private void Home_OnClick(object sender, RoutedEventArgs e)
         {
             var guideView = new GuideView();
@@ -67,6 +74,21 @@ namespace TravelAgency.View.Controls.Guide
             monitorTour.Show();
             Close();
         }
+
+        private void CancelTour_OnClick(object sender, RoutedEventArgs e)
+        {
+            var cancelTour = new CancelTour();
+            cancelTour.Show();
+            Close();
+        }
+
+        private void TourStats_OnClick(object sender, RoutedEventArgs e)
+        {
+            var tourStats = new TourStats();
+            tourStats.Show();
+            Close();
+        }
+
         private void TourReview_OnClick(object sender, RoutedEventArgs e)
         {
             var reviewTour = new ReviewTour();
@@ -74,10 +96,45 @@ namespace TravelAgency.View.Controls.Guide
             Close();
         }
 
+        private void AcceptTourRequest_OnClick(object sender, RoutedEventArgs e)
+        {
+            var acceptTourRequest = new AcceptTourRequest();
+            acceptTourRequest.Show();
+            Close();
+        }
+
+        private void ComplexTourRequest_OnClick(object sender, RoutedEventArgs e)
+        {
+            var complexTourRequest = new ComplexTourRequest();
+            complexTourRequest.Show();
+            Close();
+        }
+
+        private void RequestStats_OnClick(object sender, RoutedEventArgs e)
+        {
+            var requestStats = new RequestStats();
+            requestStats.Show();
+            Close();
+        }
+
+        private void CreateSuggestedTour_OnClick(object sender, RoutedEventArgs e)
+        {
+            var createSuggestedTour = new CreateSuggestedTour();
+            createSuggestedTour.Show();
+            Close();
+        }
+
         private void Logout_OnClick(object sender, RoutedEventArgs e)
         {
             var signInView = new SignInView();
             signInView.Show();
+            Close();
+        }
+
+        private void Resign_OnClick(object sender, RoutedEventArgs e)
+        {
+            var resign = new Resign();
+            resign.Show();
             Close();
         }
 
@@ -104,10 +161,59 @@ namespace TravelAgency.View.Controls.Guide
                 Close();
             }
 
+            if (e.Key == Key.F4)
+            {
+                var cancelTour = new CancelTour();
+                cancelTour.Show();
+                Close();
+            }
+
+            if (e.Key == Key.F5)
+            {
+                var tourStats = new TourStats();
+                tourStats.Show();
+                Close();
+            }
+
             if (e.Key == Key.F6)
             {
                 var reviewTour = new ReviewTour();
                 reviewTour.Show();
+                Close();
+            }
+
+            if (e.Key == Key.F7)
+            {
+                var acceptTourRequest = new AcceptTourRequest();
+                acceptTourRequest.Show();
+                Close();
+            }
+
+            if (e.Key == Key.F8)
+            {
+                var complexTourRequest = new ComplexTourRequest();
+                complexTourRequest.Show();
+                Close();
+            }
+
+            if (e.Key == Key.F9)
+            {
+                var requestStats = new RequestStats();
+                requestStats.Show();
+                Close();
+            }
+
+            if (e.Key == Key.F10)
+            {
+                var createSuggestedTour = new CreateSuggestedTour();
+                createSuggestedTour.Show();
+                Close();
+            }
+
+            if (e.Key == Key.F11)
+            {
+                var resign = new Resign();
+                resign.Show();
                 Close();
             }
 
@@ -117,20 +223,6 @@ namespace TravelAgency.View.Controls.Guide
                 shortcuts.Show();
                 Close();
             }
-        }
-
-        private void ShortcutView_OnClick(object sender, RoutedEventArgs e)
-        {
-            var shortcuts = new Shortcuts();
-            shortcuts.Show();
-            Close();
-        }
-
-        private void CancelTour_OnClick(object sender, RoutedEventArgs e)
-        {
-            var cancelTour = new CancelTour();
-            cancelTour.Show();
-            Close();
         }
 
         private void ConfirmDeletion_OnClick(object sender, RoutedEventArgs e)

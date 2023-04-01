@@ -1,5 +1,5 @@
 ﻿<Window
-    x:Class="TravelAgency.View.Controls.Guide.MonitorTour"
+    x:Class="TravelAgency.View.Controls.Guide.CreateSuggestedTour"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -245,6 +245,7 @@
                                 Foreground="#ffffff" />
                         </Grid>
                     </StackPanel>
+
                 </Border>
 
                 <!--  Main menu  -->
@@ -260,9 +261,8 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="25" />
                             <RowDefinition Height="35" />
-                            <RowDefinition Height="25" />
+                            <RowDefinition Height="20" />
                             <RowDefinition Height="*" />
-                            <RowDefinition Height="50" />
                         </Grid.RowDefinitions>
 
                         <StackPanel
@@ -314,13 +314,13 @@
                                     Height="20"
                                     Margin="35,0,10,0"
                                     Foreground="#4fc3f7"
-                                    Icon="Binoculars" />
+                                    Icon="Ship" />
                                 <TextBlock
                                     VerticalAlignment="Center"
                                     FontSize="18"
                                     FontWeight="Bold"
                                     Foreground="#4fc3f7"
-                                    Text="Monitor Tour" />
+                                    Text="Create Suggested Tour" />
 
                             </StackPanel>
 
@@ -354,89 +354,7 @@
                                 TextAlignment="Right" />
                         </Grid>
 
-                        <Grid Grid.Row="3" Margin="25">
-                            <DataGrid
-                                Name="MonitorDataGrid"
-                                Margin="10"
-                                AutoGenerateColumns="False"
-                                Background="#ffffff"
-                                CanUserAddRows="False"
-                                Foreground="#68cbf8"
-                                ItemsSource="{Binding ToursToday}">
-                                <DataGrid.Resources>
-                                    <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
-                                        <Setter Property="Foreground" Value="#68cbf8" />
-                                    </Style>
-                                </DataGrid.Resources>
-                                <DataGrid.Columns>
-                                    <DataGridTemplateColumn Header="Select Tour">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Button
-                                                    Width="80"
-                                                    Height="30"
-                                                    Margin="0,0,10,0"
-                                                    Background="#68cbf8"
-                                                    Click="TourIsActive_OnClick"
-                                                    Content="{Binding Path=Name}"
-                                                    FontSize="12"
-                                                    Foreground="#ffffff" />
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                    <DataGridTextColumn
-                                        Binding="{Binding Path=Name}"
-                                        Header="Name"
-                                        IsReadOnly="True" />
-                                    <DataGridTextColumn
-                                        Binding="{Binding Path=Location_Id}"
-                                        Header="Location"
-                                        IsReadOnly="True" />
-                                    <DataGridTextColumn
-                                        Binding="{Binding Path=Description}"
-                                        Header="Description"
-                                        IsReadOnly="True" />
-                                    <DataGridTextColumn
-                                        Binding="{Binding Path=Language}"
-                                        Header="Language"
-                                        IsReadOnly="True" />
-                                    <DataGridTextColumn
-                                        Binding="{Binding Path=MaxGuests}"
-                                        Header="Max Guests"
-                                        IsReadOnly="True" />
-                                    <DataGridTextColumn
-                                        Binding="{Binding Path=LocationList}"
-                                        Header="Key Points"
-                                        IsReadOnly="True" />
-                                    <DataGridTextColumn
-                                        Binding="{Binding Path=Date}"
-                                        Header="Date"
-                                        IsReadOnly="True" />
-                                    <DataGridTextColumn
-                                        Binding="{Binding Path=Duration}"
-                                        Header="Duration"
-                                        IsReadOnly="True" />
-                                    <DataGridTextColumn
-                                        Binding="{Binding Path=Images}"
-                                        Header="Images"
-                                        IsReadOnly="True" />
-                                </DataGrid.Columns>
-                            </DataGrid>
-                        </Grid>
-
-                        <Grid Grid.Row="4">
-                            <Button
-                                x:Name="BtnLogin"
-                                Width="250"
-                                Background="#68cbf8"
-                                BorderThickness="0"
-                                Click="CurrentActiveTour_OnClick"
-                                Content="Check Your Active Tour"
-                                Cursor="Hand"
-                                FontSize="16"
-                                FontWeight="Medium"
-                                Foreground="#ffffff" />
-                        </Grid>
+                        <Grid Grid.Row="3" />
                     </Grid>
 
                 </Border>
