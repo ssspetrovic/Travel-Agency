@@ -1,22 +1,18 @@
 ﻿using System.Windows;
 using System.Windows.Controls.Primitives;
-using TravelAgency.ViewModel;
 
 namespace TravelAgency.View.Controls.Tourist
 {
     /// <summary>
-    /// Interaction logic for TourReservationView.xaml
+    /// Interaction logic for MyTours.xaml
     /// </summary>
-    public partial class TourReservationView
+    public partial class MyToursView
     {
-        private readonly TourReservationViewModel _viewModel = new();
-
-        public TourReservationView()
+        public MyToursView()
         {
             InitializeComponent();
-            DataContext = _viewModel;
         }
-     
+
         private void SignOutButton_OnClick(object sender, RoutedEventArgs e)
         {
             var signInView = new SignInView();
@@ -35,28 +31,12 @@ namespace TravelAgency.View.Controls.Tourist
             Close();
         }
 
-        private void HomeButton_OnClick(object sender, RoutedEventArgs e)
+        private void TourReservationButton_OnClick(object sender, RoutedEventArgs e)
         {
-            var touristView = new TouristView();
-            touristView.Show();
+            var tourReservation = new TourReservationView();
+            tourReservation.Show();
             Close();
         }
-
-        private void MakeReservationButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            _viewModel.MakeReservation();
-        }
-
-        private void ApplyFilterButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            _viewModel.ApplyFilter();
-        }
-
-        private void ResetFilterButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            _viewModel.ResetFilter();
-        }
-
         private void MyToursButton_OnClick(object sender, RoutedEventArgs e)
         {
             var myToursView = new MyToursView();
