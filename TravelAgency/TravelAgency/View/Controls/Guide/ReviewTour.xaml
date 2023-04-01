@@ -22,6 +22,18 @@
         <viewModel:GuideViewModel />
     </Window.DataContext>
 
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Lightblue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+                <ResourceDictionary Source="/Resources/Styles/Buttons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
     <materialDesign:Card
         Margin="25"
         materialDesign:ElevationAssist.Elevation="Dp4"
@@ -96,9 +108,22 @@
                             <StackPanel Orientation="Horizontal">
                                 <fa:IconImage
                                     Foreground="#fffafa"
-                                    Icon="Calendar"
+                                    Icon="Binoculars"
                                     Style="{StaticResource MenuButtonIcon}" />
                                 <TextBlock Style="{StaticResource MenuButtonText}" Text="Monitor Tour" />
+                            </StackPanel>
+                        </RadioButton>
+
+                        <RadioButton
+                            Click="CancelTour_OnClick"
+                            Foreground="#fffafa"
+                            Style="{StaticResource MenuButton}">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:IconImage
+                                    Foreground="#fffafa"
+                                    Icon="CalendarXmark"
+                                    Style="{StaticResource MenuButtonIcon}" />
+                                <TextBlock Style="{StaticResource MenuButtonText}" Text="Cancel Tour" />
                             </StackPanel>
                         </RadioButton>
 
@@ -143,6 +168,7 @@
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="25" />
+                            <RowDefinition Height="35" />
                             <RowDefinition Height="35" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
@@ -226,7 +252,17 @@
 
                         </Grid>
 
-                        <Grid Grid.Row="2" Margin="25">
+                        <Grid Grid.Row="2">
+                            <TextBlock
+                                Padding="0,0,80,0"
+                                FontSize="12"
+                                Foreground="#68cbf8"
+                                MouseLeftButtonDown="ShortcutView_OnClick"
+                                Text="Shortcuts (`)"
+                                TextAlignment="Right" />
+                        </Grid>
+
+                        <Grid Grid.Row="3" Margin="25">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="40" />
                                 <RowDefinition Height="*" />

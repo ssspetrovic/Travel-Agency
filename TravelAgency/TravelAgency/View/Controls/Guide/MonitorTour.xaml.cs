@@ -175,5 +175,12 @@ namespace TravelAgency.View.Controls.Guide
             else
                 MessageBox.Show("There is no active tour at the moment!");
         }
+
+        private void CancelTour_OnClick(object sender, RoutedEventArgs e)
+        {
+            var cancelTour = new CancelTour();
+            cancelTour.Show();
+            Close();
+        }
     }
 }

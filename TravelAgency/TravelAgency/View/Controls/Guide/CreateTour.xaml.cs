@@ -335,5 +335,12 @@ namespace TravelAgency.View.Controls.Guide
             shortcuts.Show();
             Close();
         }
+
+        private void CancelTour_OnClick(object sender, RoutedEventArgs e)
+        {
+            var cancelTour = new CancelTour();
+            cancelTour.Show();
+            Close();
+        }
     }
 }

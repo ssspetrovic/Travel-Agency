@@ -151,5 +151,19 @@ namespace TravelAgency.View.Controls.Guide
         {
             throw new NotImplementedException();
         }
+
+        private void CancelTour_OnClick(object sender, RoutedEventArgs e)
+        {
+            var cancelTour = new CancelTour();
+            cancelTour.Show();
+            Close();
+        }
+
+        private void ShortcutView_OnClick(object sender, MouseButtonEventArgs e)
+        {
+            var shortcuts = new Shortcuts();
+            shortcuts.Show(); 
+            Close();
+        }
     }
 }
