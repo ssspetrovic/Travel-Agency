@@ -477,7 +477,7 @@
                                     Grid.Column="0"
                                     Padding="150,0,0,0"
                                     HorizontalAlignment="Left"
-                                    VerticalAlignment="Center"
+                                    VerticalAlignment="Top"
                                     FontSize="24"
                                     FontWeight="Bold"
                                     Foreground="#4fc3f7"

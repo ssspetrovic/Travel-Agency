@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Globalization;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace TravelAgency.ViewModel
         private readonly LocationRepository _locationRepository;
         private readonly ActiveTourRepository _activeTourRepository;
         private readonly TouristRepository _touristRepository;
+        private ObservableCollection<TabData> _tabs;
 
         public GuideViewModel()
         {
@@ -24,6 +26,19 @@ namespace TravelAgency.ViewModel
             _activeTourRepository = new ActiveTourRepository();
 
             _touristRepository = new TouristRepository();
+
+            _tabs = new ObservableCollection<TabData>();
+
+            var tabAllData = _tourRepository.GetBestTour();
+            var tab2023Data = _tourRepository.GetBestTour();
+            var tab2022Data = _tourRepository.GetBestTour();
+
+            Tabs = new ObservableCollection<TabData>
+            {
+                new() { Title = "All Tours", Data = tabAllData, Name = "Best Tour: " + tabAllData[0].Name, KeyPoints = tabAllData[0].KeyPoints!, Bars = new List<double>{10, 20, 30}, BarNumber = new List<string>{"Prvi", "Drugi", "Treci"}},
+                new() { Title = "2023", Data = tab2023Data, Name = "Best Tour: " + tab2023Data[0].Name, KeyPoints = tab2023Data[0].KeyPoints! },
+                new() { Title = "2022", Data = tab2022Data, Name = "Best Tour: " + tab2022Data[0].Name, KeyPoints = tab2022Data[0].KeyPoints!}
+            };
         }
 
 
@@ -76,7 +91,7 @@ namespace TravelAgency.ViewModel
             }
         }
 
-        public string? GetKeyPoints(DataRow row, string columnName)
+        public string GetKeyPoints(DataRow row, string columnName)
         {
             var keyPointsString = "";
 
@@ -258,5 +273,14 @@ namespace TravelAgency.ViewModel
             }
         }
 
+        public ObservableCollection<TabData> Tabs
+        {
+            get => _tabs;
+            set
+            {
+                _tabs = value;
+                OnPropertyChanged();
+            }
+        }
     }
 }

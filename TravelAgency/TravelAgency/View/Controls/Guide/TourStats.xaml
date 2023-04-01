@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+    xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModel="clr-namespace:TravelAgency.ViewModel"
@@ -354,7 +355,136 @@
                                 TextAlignment="Right" />
                         </Grid>
 
-                        <Grid Grid.Row="3" />
+                        <TabControl
+                            Name="MonitorDataGrid"
+                            Grid.Row="3"
+                            Margin="15"
+                            Background="#ffffff"
+                            Foreground="#68cbf8"
+                            ItemsSource="{Binding Tabs}">
+                            <TabControl.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Title}" />
+                                </DataTemplate>
+                            </TabControl.ItemTemplate>
+                            <TabControl.ContentTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+
+                                        <!--  First Column for KeyPoints DataGrid  -->
+                                        <Grid>
+                                            <TextBlock
+                                                Margin="0,0,0,10"
+                                                HorizontalAlignment="Center"
+                                                FontSize="18"
+                                                FontWeight="Bold"
+                                                Text="{Binding Name}" />
+
+                                        </Grid>
+                                        <Grid Grid.Row="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <DataGrid ItemsSource="{Binding KeyPoints}">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Binding="{Binding}" Header="Key Points" />
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+
+                                            <Grid Grid.Column="1">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition />
+                                                    <RowDefinition />
+                                                </Grid.RowDefinitions>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition />
+                                                        <ColumnDefinition />
+                                                    </Grid.ColumnDefinitions>
+                                                    <ItemsControl ItemsSource="{Binding Bars}">
+                                                        <ItemsControl.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <Border BorderBrush="#68cbf8" BorderThickness="1">
+                                                                    <Grid>
+                                                                        <Rectangle
+                                                                            Width="50"
+                                                                            Height="{Binding}"
+                                                                            Margin="0,10,0,0"
+                                                                            VerticalAlignment="Bottom"
+                                                                            Fill="LightBlue" />
+                                                                        <TextBlock
+                                                                            Margin="0,0,0,40"
+                                                                            HorizontalAlignment="Center"
+                                                                            VerticalAlignment="Bottom"
+                                                                            Text="{Binding}" />
+                                                                    </Grid>
+                                                                </Border>
+                                                            </DataTemplate>
+                                                        </ItemsControl.ItemTemplate>
+                                                        <ItemsControl.ItemsPanel>
+                                                            <ItemsPanelTemplate>
+                                                                <UniformGrid Columns="{Binding Bars.Count}" Rows="2" />
+                                                            </ItemsPanelTemplate>
+                                                        </ItemsControl.ItemsPanel>
+                                                    </ItemsControl>
+
+
+                                                    <lvc:PieChart Name="myPieChart" Grid.Column="1">
+                                                        <lvc:PieChart.Series>
+                                                            <lvc:PieSeries Title="Title 1" Values="30" />
+                                                            <lvc:PieSeries Title="Title 2" Values="20" />
+                                                            <lvc:PieSeries Title="Title 3" Values="50" />
+                                                        </lvc:PieChart.Series>
+                                                        <lvc:PieChart.ChartLegend>
+                                                            <lvc:DefaultLegend BulletSize="20" />
+                                                        </lvc:PieChart.ChartLegend>
+                                                        <lvc:PieChart.DataTooltip>
+                                                            <lvc:DefaultTooltip BulletSize="20" />
+                                                        </lvc:PieChart.DataTooltip>
+                                                    </lvc:PieChart>
+
+
+
+                                                </Grid>
+
+                                                <Grid Grid.Row="1">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition />
+                                                        <ColumnDefinition />
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Top"
+                                                        FontSize="18"
+                                                        FontWeight="Bold"
+                                                        Foreground="#4fc3f7"
+                                                        Text="Age Group" />
+                                                    <TextBlock
+                                                        Grid.Column="1"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Top"
+                                                        FontSize="18"
+                                                        FontWeight="Bold"
+                                                        Foreground="#4fc3f7"
+                                                        Text="Voucher Percentage" />
+                                                </Grid>
+
+
+                                            </Grid>
+
+
+                                        </Grid>
+
+                                    </Grid>
+                                </DataTemplate>
+                            </TabControl.ContentTemplate>
+                        </TabControl>
                     </Grid>
 
                 </Border>
