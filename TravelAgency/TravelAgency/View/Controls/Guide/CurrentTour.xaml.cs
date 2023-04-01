@@ -189,8 +189,8 @@ namespace TravelAgency.View.Controls.Guide
                 tourRepository.RemoveDate(dateToday, tourDates, firstTourist.Tour.Id);
             }
 
-            var monitorTour = new MonitorTour();
-            monitorTour.Show();
+            var reviewTour = new ReviewTour();
+            reviewTour.Show();
             Close();
         }
 

@@ -69,17 +69,11 @@ namespace TravelAgency.View.Controls.Guide
             monitorTour.Show();
             Close();
         }
-        private void ActiveTour_OnClick(object sender, RoutedEventArgs e)
+        private void TourReview_OnClick(object sender, RoutedEventArgs e)
         {
-            var activeTourRepository = new ActiveTourRepository();
-            if (activeTourRepository.IsActive())
-            {
-                var currentTour = new CurrentTour();
-                currentTour.Show();
-                Close();
-            }
-            else
-                MessageBox.Show("There is no active tour!");
+            var reviewTour = new ReviewTour();
+            reviewTour.Show();
+            Close();
         }
 
         private void Logout_OnClick(object sender, RoutedEventArgs e)
@@ -141,6 +135,18 @@ namespace TravelAgency.View.Controls.Guide
                 Close();
             }
 
+            if (e.Key == Key.F6)
+            {
+                var reviewTour = new ReviewTour();
+                reviewTour.Show();
+                Close();
+            }
+
+            if (e.Key == Key.A)
+            {
+                CurrentActiveTour_OnClick(sender, e);
+            }
+
             if (e.Key == Key.Oem3)
             {
                 var shortcuts = new Shortcuts();
@@ -154,6 +160,20 @@ namespace TravelAgency.View.Controls.Guide
             var shortcuts = new Shortcuts();
             shortcuts.Show();
             Close();
+        }
+
+        private void CurrentActiveTour_OnClick(object sender, RoutedEventArgs e)
+        {
+            var activeTourRepository = new ActiveTourRepository();
+
+            if (activeTourRepository.IsActive())
+            {
+                var currentTour = new CurrentTour();
+                currentTour.Show();
+                Close();
+            }
+            else
+                MessageBox.Show("There is no active tour at the moment!");
         }
     }
 }

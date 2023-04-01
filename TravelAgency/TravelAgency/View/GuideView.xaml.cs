@@ -67,17 +67,11 @@ namespace TravelAgency.View
             monitorTour.Show();
             Close();
         }
-        private void ActiveTour_OnClick(object sender, RoutedEventArgs e)
+        private void TourReview_OnClick(object sender, RoutedEventArgs e)
         {
-            var activeTourRepository = new ActiveTourRepository();
-            if (activeTourRepository.IsActive())
-            {
-                var currentTour = new CurrentTour();
-                currentTour.Show();
-                Close();
-            }
-            else
-                MessageBox.Show("There is no active tour!");
+            var reviewTour = new ReviewTour();
+            reviewTour.Show();
+            Close();
         }
 
         private void Logout_OnClick(object sender, RoutedEventArgs e)
@@ -107,6 +101,13 @@ namespace TravelAgency.View
             {
                 var monitorTour = new MonitorTour();
                 monitorTour.Show();
+                Close();
+            }
+
+            if (e.Key == Key.F6)
+            {
+                var reviewTour = new ReviewTour();
+                reviewTour.Show();
                 Close();
             }
 

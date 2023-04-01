@@ -103,15 +103,15 @@
                         </RadioButton>
 
                         <RadioButton
-                            Click="ActiveTour_OnClick"
+                            Click="TourReview_OnClick"
                             Foreground="#fffafa"
                             Style="{StaticResource MenuButton}">
                             <StackPanel Orientation="Horizontal">
                                 <fa:IconImage
                                     Foreground="#fffafa"
-                                    Icon="Plane"
+                                    Icon="Star"
                                     Style="{StaticResource MenuButtonIcon}" />
-                                <TextBlock Style="{StaticResource MenuButtonText}" Text="Active Tour" />
+                                <TextBlock Style="{StaticResource MenuButtonText}" Text="Tour Review" />
                             </StackPanel>
                         </RadioButton>
 
@@ -146,6 +146,7 @@
                             <RowDefinition Height="35" />
                             <RowDefinition Height="25" />
                             <RowDefinition Height="*" />
+                            <RowDefinition Height="50" />
                         </Grid.RowDefinitions>
 
                         <StackPanel
@@ -305,6 +306,20 @@
                                         IsReadOnly="True" />
                                 </DataGrid.Columns>
                             </DataGrid>
+                        </Grid>
+
+                        <Grid Grid.Row="4">
+                            <Button
+                                x:Name="BtnLogin"
+                                Width="250"
+                                Background="#68cbf8"
+                                BorderThickness="0"
+                                Click="CurrentActiveTour_OnClick"
+                                Content="Check Your Active Tour"
+                                Cursor="Hand"
+                                FontSize="16"
+                                FontWeight="Medium"
+                                Foreground="#ffffff" />
                         </Grid>
                     </Grid>
 

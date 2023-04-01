@@ -103,15 +103,15 @@
                         </RadioButton>
 
                         <RadioButton
-                            Click="ActiveTour_OnClick"
+                            Click="TourReview_OnClick"
                             Foreground="#fffafa"
                             Style="{StaticResource MenuButton}">
                             <StackPanel Orientation="Horizontal">
                                 <fa:IconImage
                                     Foreground="#fffafa"
-                                    Icon="Plane"
+                                    Icon="Star"
                                     Style="{StaticResource MenuButtonIcon}" />
-                                <TextBlock Style="{StaticResource MenuButtonText}" Text="Active Tour" />
+                                <TextBlock Style="{StaticResource MenuButtonText}" Text="Tour Review" />
                             </StackPanel>
                         </RadioButton>
 
