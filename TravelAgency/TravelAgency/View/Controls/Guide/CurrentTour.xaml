@@ -12,6 +12,7 @@
     Height="720"
     AllowsTransparency="True"
     Background="Transparent"
+    KeyDown="ChangeViews_KeyDown"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"

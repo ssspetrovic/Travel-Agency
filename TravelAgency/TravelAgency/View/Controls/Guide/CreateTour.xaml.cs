@@ -296,5 +296,43 @@ namespace TravelAgency.View.Controls.Guide
         {
             ImagesList.Text = "";
         }
+
+        private void ChangeViews_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.F1)
+            {
+                var guideView = new GuideView();
+                guideView.Show();
+                Close();
+            }
+
+            if (e.Key == Key.F2)
+            {
+                var createTour = new CreateTour();
+                createTour.Show();
+                Close();
+            }
+
+            if (e.Key == Key.F3)
+            {
+                var monitorTour = new MonitorTour();
+                monitorTour.Show();
+                Close();
+            }
+
+            if (e.Key == Key.Oem3)
+            {
+                var shortcuts = new Shortcuts();
+                shortcuts.Show();
+                Close();
+            }
+        }
+
+        private void ShortcutView_OnClick(object sender, MouseButtonEventArgs e)
+        {
+            var shortcuts = new Shortcuts();
+            shortcuts.Show();
+            Close();
+        }
     }
 }
