@@ -7,7 +7,7 @@ namespace TravelAgency.View
     /// <summary>
     /// Interaction logic for TouristView.xaml
     /// </summary>
-    public partial class TouristView : Window
+    public partial class TouristView
     {
         public TouristView()
         {
@@ -23,8 +23,8 @@ namespace TravelAgency.View
 
         private void HeaderThumb_OnDragDelta(object sender, DragDeltaEventArgs e)
         {
-            Left = Left + e.HorizontalChange;
-            Top = Top + e.VerticalChange;
+            Left += e.HorizontalChange;
+            Top += e.VerticalChange;
         }
 
         private void CloseButton_OnClick(object sender, RoutedEventArgs e)
