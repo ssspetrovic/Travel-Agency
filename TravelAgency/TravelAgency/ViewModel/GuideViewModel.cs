@@ -138,6 +138,7 @@ namespace TravelAgency.ViewModel
         //Peta je za ispis enumeracije da li je turista necekiran, pozvan ili cekiran
         //Sesta je za ispis startne lokacije turiste (odakle je krenuo)
         public string ActiveTourName => _activeTourRepository.GetActiveTour("Name");
+        public string DeletedTourName => CancelledTour.Name!;
 
         public List<string> KeyPoints
         {
@@ -256,5 +257,6 @@ namespace TravelAgency.ViewModel
                 return dt.DefaultView;
             }
         }
+
     }
 }

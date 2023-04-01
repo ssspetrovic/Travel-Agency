@@ -1,7 +1,10 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Data;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
+using TravelAgency.Model;
+using TravelAgency.Repository;
 
 namespace TravelAgency.View.Controls.Guide
 {
@@ -132,8 +135,16 @@ namespace TravelAgency.View.Controls.Guide
 
         private void ConfirmDeletion_OnClick(object sender, RoutedEventArgs e)
         {
+            var tour = (DataRowView)CancelDataGrid.SelectedItem;
+            var tourRepository = new TourRepository();
+            CancelledTour.Name = tourRepository.GetByName(tour["Name"].ToString()).Name;
+
             var confirmDeletion = new ConfirmDeletion();
             confirmDeletion.ShowDialog();
+
+            var guideView = new GuideView();
+            guideView.Show();
+            Close();
         }
     }
 }

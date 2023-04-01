@@ -40,15 +40,15 @@
         <materialDesign:DialogHost x:Name="DialogHost" CloseOnClickAway="True">
             <Grid Margin="10">
                 <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="60"/>
                 </Grid.RowDefinitions>
 
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="5*" />
-                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="4*" />
+                        <RowDefinition Height="3*" />
                     </Grid.RowDefinitions>
 
                     <TextBlock
@@ -59,13 +59,22 @@
                         Foreground="#4fc3f7"
                         Text="Confirmation" />
 
-                    <TextBlock
-                        Grid.Row="1"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        FontSize="14"
-                        Foreground="#4fc3f7"
-                        Text="Are you sure you wish to cancel this tour?" />
+                    <StackPanel Grid.Row="1">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="14"
+                            Foreground="#4fc3f7"
+                            Text="Are you sure you wish to delete:" />
+
+                        <TextBlock
+                            x:Name="TourNameText"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="14"
+                            Foreground="#4fc3f7"
+                            Text="{Binding Path=DeletedTourName}" />
+                    </StackPanel>
 
                 </Grid>
 

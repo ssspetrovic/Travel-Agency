@@ -338,8 +338,7 @@
                                 <ListView
                                     Name="ListViewCheckedTourists"
                                     Grid.Column="2"
-                                    FontSize="16"
-                                    ItemsSource="{Binding CheckedTourists}">
+                                    FontSize="16">
                                     <ListView.ItemContainerStyle>
                                         <Style TargetType="ListViewItem">
                                             <Setter Property="HorizontalAlignment" Value="Center" />
@@ -350,8 +349,7 @@
                                 <ListView
                                     Name="ListViewStartingLocation"
                                     Grid.Column="3"
-                                    FontSize="16"
-                                    ItemsSource="{Binding StartingLocation}">
+                                    FontSize="16">
                                     <ListView.ItemContainerStyle>
                                         <Style TargetType="ListViewItem">
                                             <Setter Property="HorizontalAlignment" Value="Center" />

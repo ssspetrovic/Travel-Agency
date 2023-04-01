@@ -65,7 +65,7 @@ namespace TravelAgency.Repository
 
             using var selectReader = selectCommand.ExecuteReader();
             while (selectReader.Read())
-                tourists.Add(new Tourist(selectReader.GetString(1), selectReader.GetString(2), selectReader.GetString(3),
+                tourists.Add(new Tourist(selectReader.GetInt32(0), selectReader.GetString(1), selectReader.GetString(2), selectReader.GetString(3),
                     selectReader.GetString(4), selectReader.GetString(5), (Role) selectReader.GetInt32(6), 
                     tour, TouristAppearance.Unknown, selectReader.GetInt32(9)));
             

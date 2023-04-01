@@ -154,6 +154,10 @@ namespace TravelAgency.View.Controls.Guide
             if (counter != 0) return;
             MessageBox.Show("Tour has been finished!");
 
+            var reviewTour = new ReviewTour();
+            reviewTour.Show();
+            Close();
+
             var tourists = activeTourRepository.GetActiveTour("Tourists").Split(", ");
             activeTourRepository.Remove();
             var firstTourist = touristRepository.GetByUsername(tourists[0]);
@@ -188,10 +192,6 @@ namespace TravelAgency.View.Controls.Guide
 
                 tourRepository.RemoveDate(dateToday, tourDates, firstTourist.Tour.Id);
             }
-
-            var reviewTour = new ReviewTour();
-            reviewTour.Show();
-            Close();
         }
 
         private void CheckAllGuests_OnClick(object sender, RoutedEventArgs e)

@@ -23,15 +23,24 @@ namespace TravelAgency.View.Controls.Guide
 
         private void OkButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if (!AuthenticateDeletion())
+            if (AuthenticateDeletion())
             {
                 MessageBox.Show("Tour cancel was not successful");
-                Close();
             }
             else
             {
+                var tourRepository = new TourRepository();
+                var touristRepository = new TouristRepository();
+                var deletedTour = tourRepository.GetByName(TourNameText.Text);
+                var tourists = touristRepository.GetByTour(deletedTour);
+
+                foreach (var tourist in tourists)
+                    touristRepository.RemoveTour(tourist.Id);
                 
+                tourRepository.Remove(deletedTour.Id);
             }
+
+            Close();
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
