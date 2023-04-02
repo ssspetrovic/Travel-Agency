@@ -115,6 +115,36 @@
                         FontSize="18"
                         Style="{StaticResource MaterialDesignFlatButton}" />
                 </WrapPanel>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80" />
+                        <RowDefinition />
+                        <RowDefinition Height="80" />
+                    </Grid.RowDefinitions>
+                    <TextBlock
+                        Grid.Row="0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="25"
+                        FontWeight="Medium"
+                        Style="{StaticResource MaterialDesignHeadline1TextBlock}"
+                        Text="My tours" />
+                    <ListView
+                        Grid.Row="1"
+                        Margin="30,0"
+                        d:ItemsSource="{d:SampleData ItemCount=5}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Width="Auto" Header="Name" />
+                                <GridViewColumn Width="Auto" Header="City" />
+                                <GridViewColumn Width="Auto" Header="Country" />
+                                <GridViewColumn Width="Auto" Header="Date" />
+                                <GridViewColumn Width="Auto" Header="Status" />
+                                <GridViewColumn Width="Auto" Header="KeyPoint" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
             </Grid>
         </Grid>
     </Border>
