@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Data;
 using System.Globalization;
 using System.Linq;
-using LiveCharts;
-using LiveCharts.Defaults;
-using LiveCharts.Wpf;
 using TravelAgency.Model;
 using TravelAgency.Repository;
 
@@ -18,8 +14,6 @@ namespace TravelAgency.ViewModel
         private readonly LocationRepository _locationRepository;
         private readonly ActiveTourRepository _activeTourRepository;
         private readonly TouristRepository _touristRepository;
-        private ObservableCollection<TabData> _tabs;
-        private SeriesCollection _barData;
 
         public GuideViewModel()
         {
@@ -30,45 +24,6 @@ namespace TravelAgency.ViewModel
             _activeTourRepository = new ActiveTourRepository();
 
             _touristRepository = new TouristRepository();
-
-            _tabs = new ObservableCollection<TabData>();
-
-            _barData = new SeriesCollection();
-
-            var tabAllData = _tourRepository.GetBestTour();
-            var tab2023Data = _tourRepository.GetBestTour();
-            var tab2022Data = _tourRepository.GetBestTour();
-
-
-            Tabs = new ObservableCollection<TabData>
-            {
-                new() { Title = "All Tours", Data = tabAllData, Name = "Best Tour: " + tabAllData[0].Name, KeyPoints = tabAllData[0].KeyPoints!, BarData = new SeriesCollection 
-                    {
-                        new ColumnSeries
-                        {
-                            Title = "Age Group",
-                            Values = new ChartValues<int> {40, 30, 10, 15}
-                        }
-                    }    
-                    , BarLabels = new [] {"0-20", "21-40", "41-60", "60+"}, PieChartData = new SeriesCollection
-                {
-                    new PieSeries
-                    {
-                        Title = "Voucher",
-                        Values = new ChartValues<ObservableValue> { new ObservableValue(12) },
-                        DataLabels = true
-                    },
-                    new PieSeries
-                    {
-                        Title = "No voucher",
-                        Values = new ChartValues<ObservableValue> { new ObservableValue(13)},
-                        DataLabels = true
-                    }
-                } },
-                new() { Title = "2023", Data = tab2023Data, Name = "Best Tour: " + tab2023Data[0].Name, KeyPoints = tab2023Data[0].KeyPoints! },
-                new() { Title = "2022", Data = tab2022Data, Name = "Best Tour: " + tab2022Data[0].Name, KeyPoints = tab2022Data[0].KeyPoints!}
-            };
-
 
         }
 
@@ -303,24 +258,5 @@ namespace TravelAgency.ViewModel
                 return dt.DefaultView;
             }
         }
-
-        public ObservableCollection<TabData> Tabs
-        {
-            get => _tabs;
-            set
-            {
-                _tabs = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public SeriesCollection BarData
-        {
-            get => _barData;
-            set
-            {
-                _barData = value;
-                OnPropertyChanged();
-            } }
     }
 }

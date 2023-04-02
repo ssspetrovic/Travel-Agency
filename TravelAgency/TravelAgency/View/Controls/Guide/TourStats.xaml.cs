@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
-using TravelAgency.Model;
+using TravelAgency.ViewModel;
 
 namespace TravelAgency.View.Controls.Guide
 {
@@ -13,6 +13,7 @@ namespace TravelAgency.View.Controls.Guide
     {
         public TourStats()
         {
+            DataContext = new TourStatsViewModel();
             InitializeComponent();
         }
 

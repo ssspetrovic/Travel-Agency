@@ -20,7 +20,7 @@
     mc:Ignorable="d">
 
     <Window.DataContext>
-        <viewModel:GuideViewModel />
+        <viewModel:TourStatsViewModel />
     </Window.DataContext>
 
     <Window.Resources>

@@ -8,20 +8,23 @@ namespace TravelAgency.Model
         public string Name { get; set;}
         public List<Location?> KeyPoints { get; set; }
         public List<Tourist> Tourists { get; set; }
+        public string Date { get; set; }
 
-        public FinishedTour(string name, List<Location?> keyPoints, List<Tourist> tourists)
+        public FinishedTour(string name, List<Location?> keyPoints, List<Tourist> tourists, string date)
         {
             Name = name;
             KeyPoints = keyPoints;
             Tourists = tourists;
+            Date = date;
         }
 
-        public FinishedTour(int id, string name, List<Location?> keyPoints, List<Tourist> tourists)
+        public FinishedTour(int id, string name, List<Location?> keyPoints, List<Tourist> tourists, string date)
         {
             Id = id;
             Name = name;
             KeyPoints = keyPoints;
             Tourists = tourists;
+            Date = date;
         }
     }
 }

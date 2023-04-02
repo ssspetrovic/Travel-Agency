@@ -191,31 +191,6 @@ namespace TravelAgency.Repository
             return tourList;
         }
 
-        public ObservableCollection<Tour> GetBestTour()
-        {
-            using var databaseConnection = GetConnection();
-            databaseConnection.Open();
-
-            const string selectStatement = @"select * from Tour where MaxGuests = (select max(MaxGuests) from Tour)";
-            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
-            using var selectReader = selectCommand.ExecuteReader();
-
-            var tourList = new ObservableCollection<Tour>();
-            var locationRepository = new LocationRepository();
-
-
-            while (selectReader.Read())
-            {
-                var location = locationRepository.GetById(selectReader.GetInt32(2));
-
-                tourList.Add(new Tour(selectReader.GetInt32(0), selectReader.GetString(1),
-                    location!, selectReader.GetString(3), (Language)selectReader.GetInt32(4), selectReader.GetInt32(5),
-                    GetKeyPoints(selectReader.GetString(6)), selectReader.GetString(7), selectReader.GetFloat(8), selectReader.GetString(9)));
-            }
-
-            return tourList;
-        }
-
         //Ova funkcija sluzi u situaciji kada imamo neku turu, ali ta tura ima vise datuma kada se zapocinje
         //Posto ima vise datuma, to znaci da ne smemo celu turu da izbrisemo iz baze podataka vec treba da oznacimo da je danasnja tura gotova
         //Samim tim cemo ovde samo obrisati datum koji se prosledi iz liste svih datuma te ture

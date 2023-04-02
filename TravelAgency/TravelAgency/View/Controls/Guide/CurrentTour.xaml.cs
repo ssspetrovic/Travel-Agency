@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -123,14 +124,8 @@ namespace TravelAgency.View.Controls.Guide
             Close();
         }
 
-        private void FinishTour_OnClick(object sender, RoutedEventArgs e)
+        private void CheckPassedKeyPoints(IEnumerable<string> passedKeyPoints)
         {
-            var activeTourRepository = new ActiveTourRepository();
-            var finishedTourRepository = new FinishedTourRepository();
-            var tourRepository = new TourRepository();
-            var touristRepository = new TouristRepository();
-            var keyPoints = activeTourRepository.GetActiveTour("KeyPointsList");
-            var passedKeyPoints = keyPoints.Split(", ");
             var counter = 0;
 
             foreach (var location in passedKeyPoints)
@@ -154,17 +149,14 @@ namespace TravelAgency.View.Controls.Guide
 
             if (counter != 0) return;
             MessageBox.Show("Tour has been finished!");
+        }
 
-            var reviewTour = new ReviewTour();
-            reviewTour.Show();
-            Close();
-
-            var tourists = activeTourRepository.GetActiveTour("Tourists").Split(", ");
-            activeTourRepository.Remove();
+        public void RemoveTour(List<string> tourDates, IReadOnlyList<string> tourists)
+        {
+            
+            var touristRepository = new TouristRepository();
+            var tourRepository = new TourRepository();
             var firstTourist = touristRepository.GetByUsername(tourists[0]);
-
-            var tour = tourRepository.GetById(firstTourist.Tour.Id);
-            var tourDates = tour.Date.Split(", ").ToList();
 
             if (tourDates.Count < 2)
             {
@@ -173,7 +165,6 @@ namespace TravelAgency.View.Controls.Guide
                     var currentTourist = touristRepository.GetByUsername(tourist);
                     touristRepository.RemoveTour(currentTourist.Id);
                 }
-
                 tourRepository.Remove(firstTourist.Tour.Id);
             }
             else
@@ -193,11 +184,41 @@ namespace TravelAgency.View.Controls.Guide
 
                 tourRepository.RemoveDate(dateToday, tourDates, firstTourist.Tour.Id);
             }
+        }
 
-            if(finishedTourRepository.CheckExistingTours(tour))
-                finishedTourRepository.Add(new FinishedTour(tour.Id, tour.Name, tourRepository.GetKeyPoints(keyPoints), touristRepository.GetByTour(tour)));
+        private void AddFinishedTour()
+        {
+            var finishedTourRepository = new FinishedTourRepository();
+            var tourRepository = new TourRepository();
+            var touristRepository = new TouristRepository();
+            var activeTourRepository = new ActiveTourRepository();
+
+            var tourists = activeTourRepository.GetActiveTour("Tourists").Split(", ");
+            var firstTourist = touristRepository.GetByUsername(tourists[0]);
+
+            var keyPoints = activeTourRepository.GetActiveTour("KeyPointsList");
+            var keyPointParts = keyPoints.Split(", ");
+            CheckPassedKeyPoints(keyPointParts);
+
+            var tour = tourRepository.GetById(firstTourist.Tour.Id);
+
+            if (finishedTourRepository.CheckExistingTours(tour))
+                finishedTourRepository.Edit(new FinishedTour(tour.Id, tour.Name, tourRepository.GetKeyPoints(string.Join(", ", keyPointParts.Select(p => p[..p.IndexOf(':')]))), touristRepository.GetByTour(tour), tour.Date.Split(", ")[0]));
             else
-                finishedTourRepository.Edit(new FinishedTour(tour.Id, tour.Name, tourRepository.GetKeyPoints(keyPoints), touristRepository.GetByTour(tour)));
+                finishedTourRepository.Add(new FinishedTour(tour.Id, tour.Name, tourRepository.GetKeyPoints(string.Join(", ", keyPointParts.Select(p => p[..p.IndexOf(':')]))), touristRepository.GetByTour(tour), tour.Date.Split(", ")[0]));
+
+
+            RemoveTour(tour.Date.Split(", ").ToList(), tourists);
+            activeTourRepository.Remove();
+
+        }
+        private void FinishTour_OnClick(object sender, RoutedEventArgs e)
+        {
+            AddFinishedTour();
+            var reviewTour = new ReviewTour();
+            reviewTour.Show();
+            Close();
+
         }
 
         private void CheckAllGuests_OnClick(object sender, RoutedEventArgs e)
