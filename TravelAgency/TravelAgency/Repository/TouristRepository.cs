@@ -48,7 +48,7 @@ namespace TravelAgency.Repository
                 tourist = new Tourist(selectReader.GetInt32(0), selectReader.GetString(1), selectReader.GetString(2),
                     selectReader.GetString(3),
                     selectReader.GetString(4), selectReader.GetString(5), Role.Tourist,
-                    tourRepository.GetById(selectReader.GetInt32(7)), (TouristAppearance) selectReader.GetInt32(8), selectReader.GetInt32(9));
+                    tourRepository.GetById(selectReader.GetInt32(7)), (TouristAppearance) selectReader.GetInt32(8), selectReader.GetInt32(9), selectReader.GetInt32(10));
 
             return tourist;
         }
@@ -67,7 +67,7 @@ namespace TravelAgency.Repository
             while (selectReader.Read())
                 tourists.Add(new Tourist(selectReader.GetInt32(0), selectReader.GetString(1), selectReader.GetString(2), selectReader.GetString(3),
                     selectReader.GetString(4), selectReader.GetString(5), (Role) selectReader.GetInt32(6), 
-                    tour, TouristAppearance.Unknown, selectReader.GetInt32(9)));
+                    tour, TouristAppearance.Unknown, selectReader.GetInt32(9), selectReader.GetInt32(10)));
             
             return tourists;
         }
@@ -113,5 +113,10 @@ namespace TravelAgency.Repository
             foreach(var tourist in touristList)
                 CheckTouristAppearance(tourist);
         }
+
+        //public ChartValues<int> GetAgeGroups()
+        //{
+
+        //}
     }
 }

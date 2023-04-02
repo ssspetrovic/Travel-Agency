@@ -126,6 +126,7 @@ namespace TravelAgency.View.Controls.Guide
         private void FinishTour_OnClick(object sender, RoutedEventArgs e)
         {
             var activeTourRepository = new ActiveTourRepository();
+            var finishedTourRepository = new FinishedTourRepository();
             var tourRepository = new TourRepository();
             var touristRepository = new TouristRepository();
             var keyPoints = activeTourRepository.GetActiveTour("KeyPointsList");
@@ -192,6 +193,11 @@ namespace TravelAgency.View.Controls.Guide
 
                 tourRepository.RemoveDate(dateToday, tourDates, firstTourist.Tour.Id);
             }
+
+            if(finishedTourRepository.CheckExistingTours(tour))
+                finishedTourRepository.Add(new FinishedTour(tour.Id, tour.Name, tourRepository.GetKeyPoints(keyPoints), touristRepository.GetByTour(tour)));
+            else
+                finishedTourRepository.Edit(new FinishedTour(tour.Id, tour.Name, tourRepository.GetKeyPoints(keyPoints), touristRepository.GetByTour(tour)));
         }
 
         private void CheckAllGuests_OnClick(object sender, RoutedEventArgs e)
