@@ -38,5 +38,12 @@ namespace TravelAgency.View
             tourReservation.Show();
             Close();
         }
+
+        private void MyToursButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var myToursView = new MyToursView();
+            myToursView.Show();
+            Close();
+        }
     }
 }

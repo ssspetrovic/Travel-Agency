@@ -60,6 +60,14 @@
                             Foreground="White"
                             IsChecked="True"
                             Style="{StaticResource MenuButtonStyle}" />
+                        <RadioButton
+                            x:Name="MyToursButton"
+                            Height="50"
+                            Click="MyToursButton_OnClick"
+                            Content="My tours"
+                            FontSize="17"
+                            Foreground="White"
+                            Style="{StaticResource MenuButtonStyle}" />
                     </StackPanel>
                     <RadioButton
                         x:Name="SignOutButton"
