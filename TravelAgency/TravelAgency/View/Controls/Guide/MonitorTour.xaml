@@ -19,7 +19,7 @@
     mc:Ignorable="d">
 
     <Window.DataContext>
-        <viewModel:GuideViewModel />
+        <viewModel:MonitorTourViewModel />
     </Window.DataContext>
 
     <Window.Resources>
@@ -359,7 +359,7 @@
                                 Name="MonitorDataGrid"
                                 Margin="10"
                                 AutoGenerateColumns="False"
-                                Background="#ffffff"
+                                Background="Transparent"
                                 CanUserAddRows="False"
                                 Foreground="#68cbf8"
                                 ItemsSource="{Binding ToursToday}">

@@ -388,7 +388,7 @@
                                                 <ColumnDefinition Width="*" />
                                             </Grid.ColumnDefinitions>
 
-                                            <DataGrid ItemsSource="{Binding KeyPoints}">
+                                            <DataGrid Background="Transparent" ItemsSource="{Binding KeyPoints}">
                                                 <DataGrid.Columns>
                                                     <DataGridTextColumn Binding="{Binding}" Header="Key Points" />
                                                 </DataGrid.Columns>

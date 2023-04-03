@@ -75,7 +75,7 @@ namespace TravelAgency.Repository
                 {
                     Id = selectReader.GetInt32(0),
                     UserName = selectReader.GetString(1),
-                    Password = string.Empty,
+                    Password = selectReader.GetString(2),
                     Name = selectReader.GetString(3),
                     Surname = selectReader.GetString(4),
                     Email = selectReader.GetString(5),

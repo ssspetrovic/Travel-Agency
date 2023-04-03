@@ -1,0 +1,38 @@
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Globalization;
+using System.Linq;
+using TravelAgency.Model;
+using TravelAgency.Repository;
+
+namespace TravelAgency.ViewModel
+{
+    public class ConfirmDeletionViewModel : GuideViewModel
+    {
+        public readonly TourRepository TourRepository;
+
+        public ConfirmDeletionViewModel()
+        {
+            TourRepository = new TourRepository();
+        }
+
+        public string DeletedTourName => CancelledTour.Name!;
+
+
+        public ObservableCollection<string> Options
+        {
+            get
+            {
+                var tourDates = TourRepository
+                    .GetByName(CancelledTour.Name)
+                    .Date
+                    .Split(", ")
+                    .Select(DateTime.Parse);
+
+                var filteredDates = tourDates.Where(date => date >= DateTime.Now.AddHours(48));
+                return new ObservableCollection<string>(filteredDates.Select(date => date.ToString("MM/dd/yyyy",new CultureInfo("en-US"))));
+            }
+        }
+
+    }
+}

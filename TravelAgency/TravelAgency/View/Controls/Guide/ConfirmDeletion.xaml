@@ -7,8 +7,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModel="clr-namespace:TravelAgency.ViewModel"
     Title="Sign In"
-    Width="500"
-    Height="350"
+    Width="650"
+    Height="400"
     AllowsTransparency="True"
     Background="Transparent"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -17,7 +17,7 @@
     mc:Ignorable="d">
 
     <Window.DataContext>
-        <viewModel:GuideViewModel />
+        <viewModel:ConfirmDeletionViewModel />
     </Window.DataContext>
 
     <Window.Resources>
@@ -41,7 +41,8 @@
             <Grid Margin="10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
-                    <RowDefinition Height="100" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="75" />
                     <RowDefinition Height="60" />
                 </Grid.RowDefinitions>
 
@@ -78,9 +79,33 @@
 
                 </Grid>
 
+                <ItemsControl
+                    Grid.Row="1"
+                    HorizontalAlignment="Center"
+                    ItemsSource="{Binding Options}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <RadioButton
+                                x:Name="DateOptions"
+                                Margin="0,0,10,0"
+                                Checked="DateChecked"
+                                Content="{Binding}"
+                                GroupName="Dates" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+
+
+
                 <PasswordBox
                     x:Name="PasswordBox"
-                    Grid.Row="1"
+                    Grid.Row="2"
                     Width="300"
                     Height="50"
                     materialDesign:HintAssist.Hint="Enter your password"
@@ -90,7 +115,7 @@
                     Style="{StaticResource MaterialDesignOutlinedPasswordBox}" />
 
                 <StackPanel
-                    Grid.Row="2"
+                    Grid.Row="3"
                     HorizontalAlignment="Center"
                     Orientation="Horizontal">
                     <Button

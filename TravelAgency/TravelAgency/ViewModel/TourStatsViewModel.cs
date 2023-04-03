@@ -7,7 +7,7 @@ using TravelAgency.Repository;
 
 namespace TravelAgency.ViewModel
 {
-    public class TourStatsViewModel : BaseViewModel
+    public class TourStatsViewModel : GuideViewModel
     {
         private readonly FinishedTourRepository _finishedTourRepository;
         private readonly TouristRepository _touristRepository;
@@ -29,8 +29,6 @@ namespace TravelAgency.ViewModel
 
         }
         
-        public string LoadCurrentUserData => "Welcome " + CurrentUser.DisplayName;
-
         public ObservableCollection<TabData> Tabs =>
             new()
             {
@@ -59,8 +57,8 @@ namespace TravelAgency.ViewModel
                             DataLabels = true
                         }
                     } },
-                new() { Title = "2023", Data = _tab2023Data, Name = "Best Tour: " + _tab2023Data[0].Name, KeyPoints = _tab2023Data[0].KeyPoints! },
-                new() { Title = "2022", Data = _tab2022Data, Name = "Best Tour: " + _tab2022Data[0].Name, KeyPoints = _tab2022Data[0].KeyPoints!}
+                new TabData { Title = "2023", Data = _tab2023Data, Name = "Best Tour: " + _tab2023Data[0].Name, KeyPoints = _tab2023Data[0].KeyPoints! },
+                new TabData { Title = "2022", Data = _tab2022Data, Name = "Best Tour: " + _tab2022Data[0].Name, KeyPoints = _tab2022Data[0].KeyPoints!}
             };
 
     }

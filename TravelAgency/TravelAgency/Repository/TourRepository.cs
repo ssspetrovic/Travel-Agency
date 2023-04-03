@@ -8,8 +8,6 @@ using TravelAgency.Model;
 
 namespace TravelAgency.Repository
 {
-
-
     public class TourRepository : RepositoryBase, ITourRepository
     {
 
