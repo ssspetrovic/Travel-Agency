@@ -228,6 +228,7 @@
                                     d:ItemsSource="{d:SampleData ItemCount=3}"
                                     ItemsSource="{Binding ToursSourceCollection}"
                                     SelectedItem="{Binding SelectedTour}"
+                                    SelectionChanged="ToursListView_OnSelectionChanged"
                                     Style="{StaticResource MaterialDesignListView}"
                                     Visibility="{Binding IsListViewShown, Converter={StaticResource BooleanToVisibilityConverter}}">
                                     <ListView.View>

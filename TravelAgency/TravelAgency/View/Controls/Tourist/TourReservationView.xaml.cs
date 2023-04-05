@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using TravelAgency.ViewModel;
 
@@ -9,7 +10,7 @@ namespace TravelAgency.View.Controls.Tourist
     /// </summary>
     public partial class TourReservationView
     {
-        private readonly TourReservationViewModel _viewModel = new();
+        private TourReservationViewModel _viewModel = new();
 
         public TourReservationView()
         {
@@ -62,6 +63,11 @@ namespace TravelAgency.View.Controls.Tourist
             var myToursView = new MyToursView();
             myToursView.Show();
             Close();
+        }
+
+        private void ToursListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ((DataContext as TourReservationViewModel)!).IsTourSelected = ToursListView.SelectedItem != null;
         }
     }
 }
