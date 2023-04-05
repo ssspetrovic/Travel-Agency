@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using TravelAgency.ViewModel;
 
@@ -44,7 +45,7 @@ namespace TravelAgency.View.Controls.Tourist
 
         private void MakeReservationButton_OnClick(object sender, RoutedEventArgs e)
         {
-            _viewModel.MakeReservation();
+            _viewModel.TourReservationService.MakeReservation();
         }
 
         private void ApplyFilterButton_OnClick(object sender, RoutedEventArgs e)
@@ -62,6 +63,11 @@ namespace TravelAgency.View.Controls.Tourist
             var myToursView = new MyToursView();
             myToursView.Show();
             Close();
+        }
+
+        private void ToursListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ((TourReservationViewModel)DataContext).IsTourSelected = ToursListView.SelectedItem != null;
         }
     }
 }

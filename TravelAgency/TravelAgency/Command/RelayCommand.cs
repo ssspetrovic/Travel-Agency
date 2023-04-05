@@ -1,20 +1,24 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace TravelAgency.ViewModel
+namespace TravelAgency.Command
 {
-    public class ViewModelCommand : ICommand
+    public class RelayCommand : ICommand
     {
         private readonly Action _executeAction;
         private readonly Predicate<object> _canExecuteAction;
 
-        public ViewModelCommand(Action executeAction)
+        public RelayCommand(Action executeAction)
         {
             _executeAction = executeAction;
             _canExecuteAction = null!;
         }
 
-        public ViewModelCommand(Action executeAction, Predicate<object> canExecuteAction)
+        public RelayCommand(Action executeAction, Predicate<object> canExecuteAction)
         {
             _executeAction = executeAction;
             _canExecuteAction = canExecuteAction;
@@ -35,6 +39,5 @@ namespace TravelAgency.ViewModel
         {
             if (parameter != null) _executeAction();
         }
-        
     }
 }

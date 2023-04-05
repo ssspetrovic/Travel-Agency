@@ -46,7 +46,7 @@
                 </WrapPanel>
                 <Button
                     x:Name="UpdateButton"
-                    Width="90"
+                    Width="110"
                     Click="UpdateButton_OnClick"
                     Content="Update"
                     FontSize="15" />
@@ -55,10 +55,10 @@
                     HorizontalAlignment="Center"
                     Text="or" />
                 <Button
-                    x:Name="CancelButton"
-                    Width="90"
-                    Click="CancelButton_OnClick"
-                    Content="Cancel"
+                    x:Name="NoThanksButton"
+                    Width="110"
+                    Click="NoThanksButton_OnClick"
+                    Content="No thanks"
                     FontSize="15"
                     Style="{StaticResource MaterialDesignFlatDarkButton}" />
             </StackPanel>

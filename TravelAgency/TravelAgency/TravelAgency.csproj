@@ -20,7 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Command\" />
     <Folder Include="Controller\" />
   </ItemGroup>
 
