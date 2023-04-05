@@ -2,6 +2,7 @@
 using System.Windows.Data;
 using TravelAgency.Model;
 using TravelAgency.Repository;
+using TravelAgency.View.Controls.Tourist;
 using TravelAgency.ViewModel;
 
 namespace TravelAgency.Service
@@ -9,10 +10,8 @@ namespace TravelAgency.Service
     public class TourReservationService
     {
         private readonly TourReservationViewModel _tourReservationViewModel;
-
-        private TourRepository TourRepository { get; set; }
-
-        private TourReservationRepository TourReservationRepository { get; set; }
+        private TourRepository TourRepository { get; }
+        private TourReservationRepository TourReservationRepository { get; }
 
         public TourReservationService(TourReservationViewModel tourReservationViewModel)
         {
@@ -23,10 +22,7 @@ namespace TravelAgency.Service
 
         public CollectionViewSource GetToursCollection()
         {
-            return new CollectionViewSource()
-            {
-                Source = TourRepository.GetAllAsCollection()
-            };
+            return new CollectionViewSource() { Source = TourRepository.GetAllAsCollection() };
         }
 
         private void CompleteReservation(int guestNumber)
@@ -52,7 +48,7 @@ namespace TravelAgency.Service
         {
             if (finalGuestNumber <= 0)
             {
-                MessageBox.Show("Failed to make reservation! Invalid guest number!", "Error");
+                MessageBox.Show("Failed to make a reservation! Invalid guest number!", "Error");
                 _tourReservationViewModel.IsGuestNumberEntered = false;
             }
             else
@@ -63,12 +59,23 @@ namespace TravelAgency.Service
             }
         }
 
-        // Reservation making triggered by the button. Actions then split regarding of the selected item at the time the button was pressed
+        private int CalculateFinalGuestNumber(int guestNumber, int maxGuests)
+        {
+            if (guestNumber > maxGuests) return -1;
+            if (guestNumber == maxGuests) return guestNumber;
+
+            var newGuestNumber = _tourReservationViewModel.GetDialogGuests();
+            return GuestNumberDialog.IsUpdateConfirmed ? newGuestNumber : guestNumber;
+        }
+
         public void MakeReservation()
         {
-            if (_tourReservationViewModel.SelectedTour == null)
+            var selectedTour = _tourReservationViewModel.SelectedTour;
+            if (selectedTour?.MaxGuests == 0)
             {
-                MessageBox.Show("Please select a tour.", "Error");
+                MessageBox.Show("The selected tour is full. Showing other available options on the same location.", "Tour full");
+                _tourReservationViewModel.IsGuestNumberEntered = true;
+                _tourReservationViewModel.FilterText = " ";
                 return;
             }
 
@@ -78,18 +85,7 @@ namespace TravelAgency.Service
                 return;
             }
 
-            if (_tourReservationViewModel.SelectedTour.MaxGuests == 0)
-            {
-                MessageBox.Show("The selected tour is full. Showing other available options on the same location.", "Tour full");
-                _tourReservationViewModel.IsGuestNumberEntered = true;
-                _tourReservationViewModel.FilterText = " ";
-                return;
-            }
-
-            var finalGuestNumber = (guestNumber > _tourReservationViewModel.SelectedTour.MaxGuests) ? -1 
-                : (guestNumber < _tourReservationViewModel.SelectedTour.MaxGuests) ? _tourReservationViewModel.GetDialogGuests()
-                : guestNumber;
-
+            var finalGuestNumber = selectedTour != null ? CalculateFinalGuestNumber(guestNumber, selectedTour.MaxGuests) : guestNumber;
             HandleFinalGuestNumber(finalGuestNumber);
             _tourReservationViewModel.ReloadWindow();
         }

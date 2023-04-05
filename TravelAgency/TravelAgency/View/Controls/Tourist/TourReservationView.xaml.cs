@@ -10,12 +10,10 @@ namespace TravelAgency.View.Controls.Tourist
     /// </summary>
     public partial class TourReservationView
     {
-        private readonly TourReservationViewModel _viewModel = new();
-
         public TourReservationView()
         {
             InitializeComponent();
-            DataContext = _viewModel;
+            DataContext = new TourReservationViewModel();
         }
      
         private void SignOutButton_OnClick(object sender, RoutedEventArgs e)
@@ -45,17 +43,17 @@ namespace TravelAgency.View.Controls.Tourist
 
         private void MakeReservationButton_OnClick(object sender, RoutedEventArgs e)
         {
-            _viewModel.TourReservationService.MakeReservation();
+            ((TourReservationViewModel)DataContext).TourReservationService.MakeReservation();
         }
 
         private void ApplyFilterButton_OnClick(object sender, RoutedEventArgs e)
         {
-            _viewModel.ApplyFilter();
+            ((TourReservationViewModel)DataContext).ApplyFilter();
         }
 
         private void ResetFilterButton_OnClick(object sender, RoutedEventArgs e)
         {
-            _viewModel.ResetFilter();
+            ((TourReservationViewModel)DataContext).ResetFilter();
         }
 
         private void MyToursButton_OnClick(object sender, RoutedEventArgs e)
