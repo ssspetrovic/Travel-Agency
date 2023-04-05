@@ -11,9 +11,9 @@ namespace TravelAgency.ViewModel
     {
         private readonly FinishedTourRepository _finishedTourRepository;
         private readonly TouristRepository _touristRepository;
-        private readonly ObservableCollection<Tour> _tabAllData;
-        private readonly ObservableCollection<Tour> _tab2023Data;
-        private readonly ObservableCollection<Tour> _tab2022Data;
+        private readonly ObservableCollection<FinishedTour> _tabAllData;
+        private readonly ObservableCollection<FinishedTour> _tab2023Data;
+        private readonly ObservableCollection<FinishedTour> _tab2022Data;
 
 
 
@@ -22,10 +22,9 @@ namespace TravelAgency.ViewModel
             _finishedTourRepository = new FinishedTourRepository();
             _touristRepository = new TouristRepository();
 
-
-            _tabAllData = _finishedTourRepository.GetBestTour();
-            _tab2023Data = _finishedTourRepository.GetBestTour();
-            _tab2022Data = _finishedTourRepository.GetBestTour();
+            _tabAllData = _finishedTourRepository.GetAllTimeBestTour();
+            _tab2023Data = _finishedTourRepository.GetBestOf2022Tour();
+            _tab2022Data = _finishedTourRepository.GetBestOf2023Tour();
 
         }
         
@@ -39,7 +38,7 @@ namespace TravelAgency.ViewModel
                         new ColumnSeries
                         {
                             Title = "Age Group",
-                            Values = _finishedTourRepository.GetAgeGroup(_touristRepository.GetByTour(_tabAllData[0]))
+                            Values = _finishedTourRepository.GetAgeGroup(_tabAllData[0])
                         }
                     }
                     , BarLabels = new [] {"0-18", "19-50", "50+"}, PieChartData = new SeriesCollection
