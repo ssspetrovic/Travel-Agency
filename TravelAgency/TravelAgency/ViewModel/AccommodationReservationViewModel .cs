@@ -9,7 +9,7 @@ using TravelAgency.Model;
 using TravelAgency.Repository;
 using TravelAgency.View;
 using TravelAgency.DTO;
-using TravelAgency.Service;
+using TravelAgency.service;
 using System.Runtime.CompilerServices;
 using TravelAgency.View.Controls.Tourist;
 
