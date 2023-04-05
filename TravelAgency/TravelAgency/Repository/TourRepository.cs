@@ -79,7 +79,6 @@ namespace TravelAgency.Repository
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
-            Tour? tour = null;
 
             const string selectStatement = "select * from Tour where Id = $Id";
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
@@ -87,7 +86,7 @@ namespace TravelAgency.Repository
 
             using var selectReader = selectCommand.ExecuteReader();
 
-            if (!selectReader.Read()) return tour!;
+            if (!selectReader.Read()) return new Tour();
 
 
             //Posto nam je dosta parametara sacuvano u tabelu u vidu tekstova
@@ -95,7 +94,7 @@ namespace TravelAgency.Repository
             var locationRepository = new LocationRepository();
             var location = locationRepository.GetById(selectReader.GetInt32(2));
 
-            tour = new Tour(selectReader.GetInt32(0), selectReader.GetString(1),
+            var tour = new Tour(selectReader.GetInt32(0), selectReader.GetString(1),
                 location!, selectReader.GetString(3), (Language)selectReader.GetInt32(4), selectReader.GetInt32(5),
                 GetKeyPoints(selectReader.GetString(6)), selectReader.GetString(7), selectReader.GetFloat(8), selectReader.GetString(9));
 
