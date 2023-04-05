@@ -10,7 +10,7 @@ namespace TravelAgency.View.Controls.Tourist
     /// </summary>
     public partial class TourReservationView
     {
-        private TourReservationViewModel _viewModel = new();
+        private readonly TourReservationViewModel _viewModel = new();
 
         public TourReservationView()
         {
@@ -45,7 +45,7 @@ namespace TravelAgency.View.Controls.Tourist
 
         private void MakeReservationButton_OnClick(object sender, RoutedEventArgs e)
         {
-            _viewModel.MakeReservation();
+            _viewModel.TourReservationService.MakeReservation();
         }
 
         private void ApplyFilterButton_OnClick(object sender, RoutedEventArgs e)
@@ -67,7 +67,7 @@ namespace TravelAgency.View.Controls.Tourist
 
         private void ToursListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ((DataContext as TourReservationViewModel)!).IsTourSelected = ToursListView.SelectedItem != null;
+            ((TourReservationViewModel)DataContext).IsTourSelected = ToursListView.SelectedItem != null;
         }
     }
 }

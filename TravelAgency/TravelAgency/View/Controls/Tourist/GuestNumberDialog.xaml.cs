@@ -21,7 +21,7 @@ namespace TravelAgency.View.Controls.Tourist
             Close();
         }
 
-        private void CancelButton_OnClick(object sender, RoutedEventArgs e)
+        private void NoThanksButton_OnClick(object sender, RoutedEventArgs e)
         {
             IsUpdateConfirmed = false;
             Close();
