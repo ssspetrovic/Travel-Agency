@@ -215,7 +215,7 @@ namespace TravelAgency.ViewModel
                    location.Country.Equals(SelectedTour?.Location.Country);
         }
 
-        private bool IsMatchingSearch(Tour tour, string filterTextUpper)
+        private bool IsMatchingFilterText(Tour tour, string filterTextUpper)
         {
             return tour.ToString().ToUpper().Contains(filterTextUpper) &&
                    (EnteredFilterCity == null || tour.Location.City.ToUpper().Contains(EnteredFilterCity.ToUpper())) &&
@@ -241,7 +241,7 @@ namespace TravelAgency.ViewModel
                 e.Accepted = IsLocationEqual(tour.Location) && tour.MaxGuests > 0;
             else
             {
-                e.Accepted = IsMatchingSearch(tour, FilterText.ToUpper());
+                e.Accepted = IsMatchingFilterText(tour, FilterText.ToUpper());
             }
 
             _shouldUpdateFilteredCollectionEmpty = true;
