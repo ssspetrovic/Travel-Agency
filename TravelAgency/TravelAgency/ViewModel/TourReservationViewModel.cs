@@ -238,7 +238,9 @@ namespace TravelAgency.ViewModel
             if (e.Item is not Tour tour) return;
 
             if (_isGuestNumberEntered)
+            {
                 e.Accepted = IsLocationEqual(tour.Location) && tour.MaxGuests > 0;
+            }
             else
             {
                 e.Accepted = IsMatchingFilterText(tour, FilterText.ToUpper());
