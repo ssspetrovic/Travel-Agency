@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using TravelAgency.ViewModel;
 
@@ -9,12 +10,10 @@ namespace TravelAgency.View.Controls.Tourist
     /// </summary>
     public partial class TourReservationView
     {
-        private readonly TourReservationViewModel _viewModel = new();
-
         public TourReservationView()
         {
             InitializeComponent();
-            DataContext = _viewModel;
+            DataContext = new TourReservationViewModel();
         }
      
         private void SignOutButton_OnClick(object sender, RoutedEventArgs e)
@@ -44,17 +43,17 @@ namespace TravelAgency.View.Controls.Tourist
 
         private void MakeReservationButton_OnClick(object sender, RoutedEventArgs e)
         {
-            _viewModel.MakeReservation();
+            ((TourReservationViewModel)DataContext).TourReservationService.MakeReservation();
         }
 
         private void ApplyFilterButton_OnClick(object sender, RoutedEventArgs e)
         {
-            _viewModel.ApplyFilter();
+            ((TourReservationViewModel)DataContext).ApplyFilter();
         }
 
         private void ResetFilterButton_OnClick(object sender, RoutedEventArgs e)
         {
-            _viewModel.ResetFilter();
+            ((TourReservationViewModel)DataContext).ResetFilter();
         }
 
         private void MyToursButton_OnClick(object sender, RoutedEventArgs e)
@@ -62,6 +61,11 @@ namespace TravelAgency.View.Controls.Tourist
             var myToursView = new MyToursView();
             myToursView.Show();
             Close();
+        }
+
+        private void ToursListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ((TourReservationViewModel)DataContext).IsTourSelected = ToursListView.SelectedItem != null;
         }
     }
 }
