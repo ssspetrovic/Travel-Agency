@@ -26,11 +26,11 @@ namespace TravelAgency.Repository
             insertCommand.Parameters.AddWithValue("$Id", reservation.Id);
             insertCommand.Parameters.AddWithValue("$userId", reservation.GuestId);
             insertCommand.Parameters.AddWithValue("$accId", reservation.AccommodationId);
-            insertCommand.Parameters.AddWithValue("$comment", reservation.Comment);
+            insertCommand.Parameters.AddWithValue("$comment", reservation.UserComment);
             insertCommand.Parameters.AddWithValue("$startDate", reservation.StartDate);
             insertCommand.Parameters.AddWithValue("$endDate", reservation.EndDate);
-            insertCommand.Parameters.AddWithValue("$gradeComplacent", reservation.GradeComplaisent);
-            insertCommand.Parameters.AddWithValue("$gradeClean", reservation.GradeClean);
+            insertCommand.Parameters.AddWithValue("$gradeComplacent", reservation.GradeGuestComplaisent);
+            insertCommand.Parameters.AddWithValue("$gradeClean", reservation.GradeGuestClean);
             insertCommand.ExecuteNonQuery();
         }
 
@@ -40,16 +40,16 @@ namespace TravelAgency.Repository
             databaseConnection.Open();
 
             const string insertStatement =
-                @"insert into Reservation (userId, accId, comment, startDate, endDate, gradeComplacent, gradeClean) 
+                @"insert into Reservation (userId, accId, userComment, startDate, endDate, gradeUserComplacent, gradeUserClean) 
                     values ($userId, $accId, $comment, $startDate, $endDate, $gradeComplacent, $gradeClean)";
             using var insertCommand = new SqliteCommand(insertStatement, databaseConnection);
             insertCommand.Parameters.AddWithValue("$userId", reservation.GuestId);
             insertCommand.Parameters.AddWithValue("$accId", reservation.AccommodationId);
-            insertCommand.Parameters.AddWithValue("$comment", reservation.Comment);
+            insertCommand.Parameters.AddWithValue("$comment", reservation.UserComment);
             insertCommand.Parameters.AddWithValue("$startDate", reservation.StartDate);
             insertCommand.Parameters.AddWithValue("$endDate", reservation.EndDate);
-            insertCommand.Parameters.AddWithValue("$gradeComplacent", reservation.GradeComplaisent);
-            insertCommand.Parameters.AddWithValue("$gradeClean", reservation.GradeClean);
+            insertCommand.Parameters.AddWithValue("$gradeComplacent", reservation.GradeGuestComplaisent);
+            insertCommand.Parameters.AddWithValue("$gradeClean", reservation.GradeGuestClean);
             insertCommand.ExecuteNonQuery();
         }
 
@@ -193,7 +193,7 @@ namespace TravelAgency.Repository
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
 
-            const string selectStatement = @"select Id, userId, accId, comment, date(startDate), date(endDate), gradeComplacent, gradeClean from Reservation where accId = $Id";
+            const string selectStatement = @"select Id, userId, accId, userComment, date(startDate), date(endDate), gradeUserComplacent, gradeUserClean from Reservation where accId = $Id";
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
             selectCommand.Parameters.AddWithValue("$Id", Id);
             using var selectReader = selectCommand.ExecuteReader();
@@ -227,7 +227,7 @@ namespace TravelAgency.Repository
             return reservationList;
         }
 
-        public void UpdateReservationAfterGrading(int reservationId, string comment, float gradeComplaisent, float gradeClean)
+        public void UpdateReservationAfterGrading(int reservationId, string userComment, float gradeUserComplaisent, float gradeUserClean)
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
@@ -235,12 +235,12 @@ namespace TravelAgency.Repository
             var updateCommand = databaseConnection.CreateCommand();
             updateCommand.CommandText =
                 @"
-                    UPDATE Reservation SET comment = $comment, gradeComplacent = $gradeComplacent, gradeClean = $gradeClean
+                    UPDATE Reservation SET comment = $userComment, gradeUserComplacent = $gradeUserComplacent, gradeUserClean = $gradeUserClean
                     WHERE Id = $id;
                 ";
-            updateCommand.Parameters.AddWithValue("$comment", comment);
-            updateCommand.Parameters.AddWithValue("$gradeComplacent", gradeComplaisent);
-            updateCommand.Parameters.AddWithValue("$gradeClean", gradeClean);
+            updateCommand.Parameters.AddWithValue("$comment", userComment);
+            updateCommand.Parameters.AddWithValue("$gradeComplacent", gradeUserComplaisent);
+            updateCommand.Parameters.AddWithValue("$gradeClean", gradeUserClean);
             updateCommand.Parameters.AddWithValue("$id", reservationId);
             updateCommand.ExecuteNonQuery();
         }

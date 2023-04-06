@@ -9,26 +9,36 @@ namespace TravelAgency.Model
     public class Reservation
     {
         public int Id { get; set; }
-        public string Comment { get; set; } = string.Empty;
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public float GradeComplaisent { get; set; }
-        public float GradeClean { get; set; }
+
+        // Propertys for grading the GUEST
+        public string UserComment { get; set; } = string.Empty;
         public int GuestId { get; set; }
+        public float GradeGuestComplaisent { get; set; }
+        public float GradeGuestClean { get; set; }
+
+        // Propertys for grading the OWNER
         public int AccommodationId { get; set; }
+        public string AccommodationComment { get; set; }
+        public float GradeAccommodationClean { get; set; }
+        public float GradeAccommodationOwner { get; set; }
+        public string ReviewImagesURL { get; set; }
+
+
 
         public Reservation()
         {
         }
 
-        public Reservation(int id, string comment, DateTime startDate, DateTime endDate, float gradeComplaisent, float gradeClean, int guestId, int accommodationId)
+        public Reservation(int id, string userComment, DateTime startDate, DateTime endDate, float gradeGuestComplaisent, float gradeGuestClean, int guestId, int accommodationId)
         {
             Id = id;
-            Comment = comment;
+            UserComment = userComment;
             StartDate = startDate;
             EndDate = endDate;
-            GradeComplaisent = gradeComplaisent;
-            GradeClean = gradeClean;
+            GradeGuestComplaisent = gradeGuestComplaisent;
+            GradeGuestClean = gradeGuestClean;
             GuestId = guestId;
             AccommodationId = accommodationId;
         }

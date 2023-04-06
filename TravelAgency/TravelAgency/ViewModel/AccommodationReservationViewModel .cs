@@ -174,10 +174,6 @@ namespace TravelAgency.ViewModel
 
         public void MakeReservation()
         {
-            MessageBox.Show(FilterText);
-            MessageBox.Show(GuestNumber);
-            MessageBox.Show(StartDate.ToLongDateString());
-            MessageBox.Show(EndDate.ToLongDateString());
 
                 var _reservationService = new ReservationService();
 
