@@ -49,7 +49,25 @@ namespace TravelAgency.Repository
 
         public ObservableCollection<TourVoucher> GetAllAsCollection()
         {
-            throw new NotImplementedException();
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            using var selectCommand = databaseConnection.CreateCommand();
+            selectCommand.CommandText = "SELECT * FROM TourVouchers";
+            using var selectReader = selectCommand.ExecuteReader();
+
+            var vouchers = new ObservableCollection<TourVoucher>();
+            while (selectReader.Read())
+            {
+                vouchers.Add(new TourVoucher(
+                    selectReader.GetInt32(0),
+                    selectReader.GetInt32(1),
+                    selectReader.GetString(2),
+                    selectReader.GetDateTime(3)
+                ));
+            }
+
+            return vouchers;
         }
     }
 }
