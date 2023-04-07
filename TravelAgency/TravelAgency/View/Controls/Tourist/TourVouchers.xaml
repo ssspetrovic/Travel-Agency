@@ -122,6 +122,35 @@
                         FontSize="18"
                         Style="{StaticResource MaterialDesignFlatButton}" />
                 </WrapPanel>
+                <Grid Grid.Row="1" Margin="0,20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBlock
+                        Grid.Row="0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="25"
+                        FontWeight="Medium"
+                        Style="{StaticResource MaterialDesignHeadline1TextBlock}"
+                        Text="My vouchers" />
+                    <ListView
+                        x:Name="MyVouchersListView"
+                        Grid.Row="1"
+                        Margin="30,0"
+                        d:ItemsSource="{d:SampleData ItemCount=5}"
+                        BorderBrush="{StaticResource MaterialDesignDivider}"
+                        BorderThickness="2">
+                        <ListView.View>
+                            <GridView>
+                                <!--<GridViewColumn Width="Auto" Header="No." />-->
+                                <GridViewColumn Width="Auto" Header="Description" />
+                                <GridViewColumn Width="Auto" Header="Expiration date" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
             </Grid>
         </Grid>
     </Border>
