@@ -67,5 +67,12 @@ namespace TravelAgency.View.Controls.Tourist
         {
             ((TourReservationViewModel)DataContext).IsTourSelected = ToursListView.SelectedItem != null;
         }
+
+        private void MyVouchersButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var myVouchersView = new TourVouchers();
+            myVouchersView.Show();
+            Close();
+        }
     }
 }

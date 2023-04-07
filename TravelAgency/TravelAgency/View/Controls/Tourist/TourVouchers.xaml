@@ -1,5 +1,5 @@
 ﻿<Window
-    x:Class="TravelAgency.View.TouristView"
+    x:Class="TravelAgency.View.Controls.Tourist.TourVouchers"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -15,7 +15,7 @@
     WindowStyle="None"
     mc:Ignorable="d">
     <Window.Resources>
-        <ResourceDictionary Source="../Resources/Styles/TouristDictionary.xaml" />
+        <ResourceDictionary Source="/Resources/Styles/TouristDictionary.xaml" />
     </Window.Resources>
     <Border Background="{StaticResource MaterialDesignBackground}" CornerRadius="15">
         <Grid>

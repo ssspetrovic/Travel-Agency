@@ -4,11 +4,11 @@ using System.Windows.Controls.Primitives;
 namespace TravelAgency.View.Controls.Tourist
 {
     /// <summary>
-    /// Interaction logic for MyTours.xaml
+    /// Interaction logic for TourVouchers.xaml
     /// </summary>
-    public partial class MyToursView
+    public partial class TourVouchers
     {
-        public MyToursView()
+        public TourVouchers()
         {
             InitializeComponent();
         }
@@ -37,12 +37,14 @@ namespace TravelAgency.View.Controls.Tourist
             tourReservation.Show();
             Close();
         }
+
         private void MyToursButton_OnClick(object sender, RoutedEventArgs e)
         {
             var myToursView = new MyToursView();
             myToursView.Show();
             Close();
         }
+
         private void MyVouchersButton_OnClick(object sender, RoutedEventArgs e)
         {
             var myVouchersView = new TourVouchers();
