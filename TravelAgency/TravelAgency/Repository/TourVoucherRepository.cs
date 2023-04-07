@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using TravelAgency.Model;
 
 namespace TravelAgency.Repository
@@ -15,13 +14,13 @@ namespace TravelAgency.Repository
             using var insertCommand = databaseConnection.CreateCommand();
             insertCommand.CommandText =
                 @"
-                    INSERT INTO TourVoucher (Id, TouristId, Description, ExpireDate)
-                    VALUES ($Id, $TouristId, $Description, $ExpireDate)
+                    INSERT INTO TourVoucher (Id, TouristId, Description, ExpirationDate)
+                    VALUES ($Id, $TouristId, $Description, $ExpirationDate)
                 ";
             insertCommand.Parameters.AddWithValue("Id", tourVoucher.Id);
             insertCommand.Parameters.AddWithValue("TouristId", tourVoucher.TouristId);
             insertCommand.Parameters.AddWithValue("Description", tourVoucher.Description);
-            insertCommand.Parameters.AddWithValue("ExpireDate", tourVoucher.ExpireDate);
+            insertCommand.Parameters.AddWithValue("ExpirationDate", tourVoucher.ExpirationDate);
             insertCommand.ExecuteNonQuery();
         }
 
@@ -42,8 +41,8 @@ namespace TravelAgency.Repository
             databaseConnection.Open();
 
             using var deleteCommand = databaseConnection.CreateCommand();
-            deleteCommand.CommandText = "DELETE FROM TourVoucher WHERE $ExpireDate > ExpireDate";
-            deleteCommand.Parameters.AddWithValue("$ExpireDate", DateTime.Now);
+            deleteCommand.CommandText = "DELETE FROM TourVoucher WHERE $ExpirationDate > ExpirationDate";
+            deleteCommand.Parameters.AddWithValue("$ExpirationDate", DateTime.Now);
             deleteCommand.ExecuteNonQuery();
         }
 
