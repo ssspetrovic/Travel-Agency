@@ -102,6 +102,8 @@
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="45" />
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="20"/>
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <WrapPanel Grid.Row="0">
@@ -121,6 +123,18 @@
                         FontSize="18"
                         Style="{StaticResource MaterialDesignFlatButton}" />
                 </WrapPanel>
+                <WrapPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top">
+                    <Label Content="Bookings" FontSize="30"/>
+                </WrapPanel>
+                <Separator Grid.Row="2" Width="400"/>
+                <StackPanel>
+                    <ListView
+                        x:Name ="ReservationListView"
+                        d:ItemsSource ="{d:SampleData ItemCount=5}"
+                        ItemsSource="{Binding ReservationSourceCollection}">
+                        
+                    </ListView>
+                </StackPanel>
             </Grid>
         </Grid>
     </Border>

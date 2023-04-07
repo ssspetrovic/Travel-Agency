@@ -15,5 +15,7 @@ namespace TravelAgency.ViewModel
         private readonly CollectionViewSource _reservationCollection;
         public new event PropertyChangedEventHandler? PropertyChanged;
         private Reservation _selectedReservation;
+
+        public ICollectionView ReservationSourceCollection => _reservationCollection.View;
     }
 }
