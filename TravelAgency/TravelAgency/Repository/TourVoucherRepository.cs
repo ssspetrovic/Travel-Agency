@@ -14,8 +14,8 @@ namespace TravelAgency.Repository
             using var insertCommand = databaseConnection.CreateCommand();
             insertCommand.CommandText =
                 @"
-                    INSERT INTO TourReservation (Id, TouristId, Description, ExpireDate)
-                    VALUES ($id, $TouristId, $Description, $ExpireDate)
+                    INSERT INTO TourVoucher (Id, TouristId, Description, ExpireDate)
+                    VALUES ($Id, $TouristId, $Description, $ExpireDate)
                 ";
             insertCommand.Parameters.AddWithValue("Id", tourVoucher.Id);
             insertCommand.Parameters.AddWithValue("TouristId", tourVoucher.TouristId);
@@ -26,7 +26,13 @@ namespace TravelAgency.Repository
 
         public void DeleteById(int id)
         {
-            throw new NotImplementedException();
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            using var deleteCommand = databaseConnection.CreateCommand();
+            deleteCommand.CommandText = "DELETE FROM TourVoucher WHERE Id = $Id";
+            deleteCommand.Parameters.AddWithValue("$Id", id);
+            deleteCommand.ExecuteNonQuery();
         }
 
         public void DeleteExpired()
