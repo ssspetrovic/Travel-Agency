@@ -230,7 +230,7 @@ namespace TravelAgency.View.Controls.Guide
             var touristRepository = new TouristRepository();
             touristRepository.CheckTouristAppearance(tourist);
 
-            var currentTour = new CurrentTour();
+            var currentTour = new CurrentActiveTour();
             currentTour.Show();
             Close();
         }
@@ -242,7 +242,7 @@ namespace TravelAgency.View.Controls.Guide
             var touristRepository = new TouristRepository();
             touristRepository.CheckTouristAppearance(tourist);
 
-            var currentTour = new CurrentTour();
+            var currentTour = new CurrentActiveTour();
             currentTour.Show();
             Close();
         }

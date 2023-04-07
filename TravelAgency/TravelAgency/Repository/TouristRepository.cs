@@ -29,6 +29,12 @@ namespace TravelAgency.Repository
             throw new NotImplementedException();
         }
 
+        public static TouristVoucher GetVoucher(string allVouchers)
+        {
+            var voucher = int.Parse(allVouchers.Split(", ")[0]);
+            return (TouristVoucher)voucher;
+        }
+
         public Tourist GetByUsername(string? username)
         {
             using var databaseConnection = GetConnection();
@@ -52,7 +58,7 @@ namespace TravelAgency.Repository
                 tourist = new Tourist(selectReader.GetInt32(0), selectReader.GetString(1), selectReader.GetString(2),
                     selectReader.GetString(3),
                     selectReader.GetString(4), selectReader.GetString(5), Role.Tourist,
-                    tour, (TouristAppearance)selectReader.GetInt32(8), selectReader.GetInt32(9), selectReader.GetInt32(10));
+                    tour, (TouristAppearance)selectReader.GetInt32(8), selectReader.GetInt32(9), selectReader.GetInt32(10), GetVoucher(selectReader.GetString(11)));
             }
 
             return tourist;
@@ -72,7 +78,7 @@ namespace TravelAgency.Repository
             while (selectReader.Read())
                 tourists.Add(new Tourist(selectReader.GetInt32(0), selectReader.GetString(1), selectReader.GetString(2), selectReader.GetString(3),
                     selectReader.GetString(4), selectReader.GetString(5), (Role) selectReader.GetInt32(6), 
-                    tour, TouristAppearance.Unknown, selectReader.GetInt32(9), selectReader.GetInt32(10)));
+                    tour, TouristAppearance.Unknown, selectReader.GetInt32(9), selectReader.GetInt32(10), GetVoucher(selectReader.GetString(11))));
 
             return tourists;
         }
@@ -119,7 +125,16 @@ namespace TravelAgency.Repository
                 CheckTouristAppearance(tourist);
         }
 
+        internal void AddVoucher(int id, string currentDate)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
 
-        
+            const string updateStatement = "update Tourist set Voucher = $Voucher where Id = $Id";
+            using var updateCommand = new SqliteCommand(updateStatement, databaseConnection);
+            updateCommand.Parameters.AddWithValue("$Id", id);
+            updateCommand.Parameters.AddWithValue("$Voucher", (int)TouristVoucher.GuideSpecific + ", " + currentDate);
+            updateCommand.ExecuteNonQuery();
+        }
     }
 }
