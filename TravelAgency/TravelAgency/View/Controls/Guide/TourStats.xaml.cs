@@ -222,6 +222,18 @@ namespace TravelAgency.View.Controls.Guide
                 shortcuts.Show();
                 Close();
             }
+
+            if (e.Key == Key.Tab)
+            {
+                TourStatsTabControl.SelectedIndex = (TourStatsTabControl.SelectedIndex + 1) % TourStatsTabControl.Items.Count;
+            }
+        }
+
+        private void AllFinishedTours_OnClick(object sender, RoutedEventArgs e)
+        {
+            var allFinishedTours = new AllFinishedTours();
+            allFinishedTours.Show();
+            Close();
         }
     }
 }

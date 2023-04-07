@@ -1,10 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Data;
-using TravelAgency.Command;
 using TravelAgency.Model;
 using TravelAgency.Service;
 using TravelAgency.View.Controls.Tourist;

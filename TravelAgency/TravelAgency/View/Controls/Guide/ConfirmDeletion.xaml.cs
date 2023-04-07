@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Globalization;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using TravelAgency.Model;
@@ -19,8 +21,33 @@ namespace TravelAgency.View.Controls.Guide
         private bool AuthenticateDeletion()
         {
             var userRepository = new UserRepository();
-            MessageBox.Show(PasswordBox.Password + "    " + userRepository.GetByUsername(CurrentUser.Username).Password);
             return PasswordBox.Password == userRepository.GetByUsername(CurrentUser.Username).Password;
+        }
+
+        private void CancelTour()
+        {
+            var tourRepository = new TourRepository();
+            var touristRepository = new TouristRepository();
+            var deletedTour = tourRepository.GetByName(TourNameText.Text);
+            var tourists = touristRepository.GetByTour(deletedTour);
+            var tourDates = deletedTour.Date.Split(", ").ToList();
+
+            foreach (var tourist in tourists)
+                touristRepository.AddVoucher(tourist.Id, DateTime.Now.ToString("MM/dd/yyyy", new CultureInfo("en-US")));
+
+
+            if (tourDates.Count < 2)
+            {
+                foreach (var tourist in tourists)
+                    touristRepository.RemoveTour(tourist.Id);
+                tourRepository.Remove(deletedTour.Id);
+            }
+
+            else
+            {
+                var cancelledDate = CancelledTour.Date!;
+                tourRepository.RemoveDate(cancelledDate, tourDates, deletedTour.Id);
+            }
         }
 
         private void ConfirmButton_OnClick(object sender, RoutedEventArgs e)
@@ -31,28 +58,9 @@ namespace TravelAgency.View.Controls.Guide
             }
             else
             {
-                var tourRepository = new TourRepository();
-                var touristRepository = new TouristRepository();
-                var deletedTour = tourRepository.GetByName(TourNameText.Text);
-                var tourists = touristRepository.GetByTour(deletedTour);
-                var tourDates = tourists[0].Tour.Date.Split(", ").ToList();
-
-                if (tourDates.Count < 2)
-                {
-                    foreach (var tourist in tourists)
-                        touristRepository.RemoveTour(tourist.Id);
-
-                    tourRepository.Remove(deletedTour.Id);
-                }
-
-                else
-                {
-                    var cancelledDate = CancelledTour.Date;
-                    tourRepository.RemoveDate(cancelledDate, tourDates, tourists[0].Tour.Id);
-                }
+                CancelTour();
                 CancelledTour.Date = null;
             }
-
             Close();
         }
 

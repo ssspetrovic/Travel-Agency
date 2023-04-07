@@ -252,7 +252,7 @@ namespace TravelAgency.View.Controls.Guide
             else
                 MessageBox.Show("You already have an active tour!");
             
-            var currentTour = new CurrentTour();
+            var currentTour = new CurrentActiveTour();
             currentTour.Show();
             Close();
         }
@@ -263,7 +263,7 @@ namespace TravelAgency.View.Controls.Guide
 
             if (activeTourRepository.IsActive())
             {
-                var currentTour = new CurrentTour();
+                var currentTour = new CurrentActiveTour();
                 currentTour.Show();
                 Close();
             }

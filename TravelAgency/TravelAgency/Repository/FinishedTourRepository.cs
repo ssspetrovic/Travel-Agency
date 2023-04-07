@@ -1,8 +1,11 @@
 ﻿using LiveCharts;
+using LiveCharts.Defaults;
 using Microsoft.Data.Sqlite;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Linq;
+using System.Windows;
 using TravelAgency.Model;
 
 namespace TravelAgency.Repository
@@ -15,12 +18,24 @@ namespace TravelAgency.Repository
 
             foreach (var keyPoint in finishedTour.KeyPoints)
             {
-                allKeyPoints += keyPoint!.City + ", ";
+                allKeyPoints += keyPoint!.Id + ", ";
             }
 
             allKeyPoints = allKeyPoints.Remove(allKeyPoints.Length - 2, 2);
 
             return allKeyPoints;
+        }
+
+        public List<Location?> GetAllKeyPointsByIds(string keyPoints)
+        {
+            var locationRepository = new LocationRepository();
+            var locations = keyPoints.Split(", ").ToList();
+            var retVal = new List<Location?>();
+
+            foreach (var location in locations)
+                retVal.Add(locationRepository.GetById(int.Parse(location)));
+
+            return retVal;
         }
 
         public string GetAllTourists(FinishedTour finishedTour)
@@ -35,6 +50,18 @@ namespace TravelAgency.Repository
             allTourists = allTourists.Remove(allTourists.Length - 2, 2);
 
             return allTourists;
+        }
+
+        public List<Tourist> GetAllTouristsByNames(string names)
+        {
+            var touristRepository = new TouristRepository();
+            var tourists = names.Split(", ").ToList();
+            var retVal = new List<Tourist>();
+
+            foreach(var tourist in tourists)
+                retVal.Add(touristRepository.GetByUsername(tourist));
+
+            return retVal;
         }
 
 
@@ -113,12 +140,14 @@ namespace TravelAgency.Repository
             return finishedTourTourists;
         }
 
-        public void GetBestTour(ObservableCollection<FinishedTour> finishedTour, SqliteCommand selectCommand)
+        public ObservableCollection<FinishedTour> GetBestTour(SqliteCommand selectCommand)
         {
             using var selectReader = selectCommand.ExecuteReader();
+            var finishedTours = new ObservableCollection<FinishedTour>();
             while (selectReader.Read())
-                finishedTour.Add(new FinishedTour(selectReader.GetInt32(0), selectReader.GetString(1), GetKeyPoints(selectReader.GetString(2)), FinishedTourTourists(selectReader.GetString(3)), selectReader.GetString(4)));
-            
+                finishedTours.Add(new FinishedTour(selectReader.GetInt32(0), selectReader.GetString(1), GetKeyPoints(selectReader.GetString(2)), FinishedTourTourists(selectReader.GetString(3)), selectReader.GetString(4)));
+
+            return finishedTours;
         }
 
         public ObservableCollection<FinishedTour> GetAllTimeBestTour()
@@ -128,12 +157,23 @@ namespace TravelAgency.Repository
 
             const string selectStatement = @"select * from FinishedTour where TouristNumber = (select max(TouristNumber) from FinishedTour)";
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
+            return GetBestTour(selectCommand);
+        }
 
-            var finishedTour = new ObservableCollection<FinishedTour>();
+        public ObservableCollection<FinishedTour> FindBestTourByYear(ObservableCollection<FinishedTour> allFinishedTours, string year)
+        {
+            var finishedToursByYear = new ObservableCollection<FinishedTour>();
+            foreach (var finishedTour in allFinishedTours)
+                if (finishedTour.Date.Contains(year))
+                    finishedToursByYear.Add(finishedTour);
 
-            GetBestTour(finishedTour, selectCommand);
+            var bestTour = new ObservableCollection<FinishedTour> { finishedToursByYear[0] };
 
-            return finishedTour;
+            foreach (var finishedTour in finishedToursByYear)
+                if (bestTour[0].Tourists.Count < finishedTour.Tourists.Count)
+                    bestTour[0] = finishedTour;
+
+            return bestTour;
         }
 
         public ObservableCollection<FinishedTour> GetBestOf2022Tour()
@@ -141,14 +181,9 @@ namespace TravelAgency.Repository
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
 
-            const string selectStatement = @"select * from FinishedTour where TouristNumber = (select max(TouristNumber) from FinishedTour)";
+            const string selectStatement = @"select * from FinishedTour";
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
-
-            var finishedTour = new ObservableCollection<FinishedTour>();
-
-            GetBestTour(finishedTour, selectCommand);
-
-            return finishedTour;
+            return FindBestTourByYear(GetBestTour(selectCommand), "2022");
         }
 
         public ObservableCollection<FinishedTour> GetBestOf2023Tour()
@@ -156,14 +191,9 @@ namespace TravelAgency.Repository
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
 
-            const string selectStatement = @"select * from FinishedTour where TouristNumber = (select max(TouristNumber) from FinishedTour)";
+            const string selectStatement = @"select * from FinishedTour";
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
-
-            var finishedTour = new ObservableCollection<FinishedTour>();
-
-            GetBestTour(finishedTour, selectCommand);
-
-            return finishedTour;
+            return FindBestTourByYear(GetBestTour(selectCommand), "2023");
         }
 
         public ChartValues<int> GetAgeGroup (FinishedTour finishedTour)
@@ -181,6 +211,52 @@ namespace TravelAgency.Repository
                     ageGroup[2]++;
 
             return ageGroup;
+        }
+
+        internal ChartValues<ObservableValue> GetVoucherOdds(FinishedTour finishedTour)
+        {
+            var withVoucher = 0;
+            var withoutVoucher = 0;
+
+            foreach (var tourist in finishedTour.Tourists)
+                if (tourist.Voucher != TouristVoucher.None)
+                    withVoucher++;
+                else
+                    withoutVoucher++;
+
+            var voucherOdds = new ChartValues<ObservableValue> { new(withVoucher), new(withoutVoucher) };
+            return voucherOdds;
+        }
+
+        public DataTable GetAllAsDataTable(DataTable dt)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            const string selectStatement = "select * from FinishedTour";
+            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
+
+            dt.Load(selectCommand.ExecuteReader());
+            return dt;
+        }
+
+        public FinishedTour FindFinishedTour(string name)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            const string selectStatement = "select * from FinishedTour where Name = $Name";
+            using var selectCommand = new SqliteCommand( selectStatement, databaseConnection);
+            selectCommand.Parameters.AddWithValue("$Name", name);
+
+            using var selectReader = selectCommand.ExecuteReader();
+
+            if (!selectReader.Read())
+                return new FinishedTour();
+
+            return new FinishedTour(selectReader.GetInt32(0), selectReader.GetString(1),
+                GetAllKeyPointsByIds(selectReader.GetString(2)), GetAllTouristsByNames(selectReader.GetString(3)),
+                selectReader.GetString(4));
         }
     }
 }
