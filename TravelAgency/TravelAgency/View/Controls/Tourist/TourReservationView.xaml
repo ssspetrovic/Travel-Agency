@@ -68,6 +68,14 @@
                             FontSize="17"
                             Foreground="White"
                             Style="{StaticResource MenuButtonStyle}" />
+                        <RadioButton
+                            x:Name="MyVouchersButton"
+                            Height="50"
+                            Click="MyVouchersButton_OnClick"
+                            Content="My vouchers"
+                            FontSize="17"
+                            Foreground="White"
+                            Style="{StaticResource MenuButtonStyle}" />
                     </StackPanel>
                     <RadioButton
                         x:Name="SignOutButton"
