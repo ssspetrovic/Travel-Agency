@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using TravelAgency.Model;
 
 namespace TravelAgency.Repository
@@ -37,7 +38,13 @@ namespace TravelAgency.Repository
 
         public void DeleteExpired()
         {
-            throw new NotImplementedException();
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            using var deleteCommand = databaseConnection.CreateCommand();
+            deleteCommand.CommandText = "DELETE FROM TourVoucher WHERE $ExpireDate > ExpireDate";
+            deleteCommand.Parameters.AddWithValue("$ExpireDate", DateTime.Now);
+            deleteCommand.ExecuteNonQuery();
         }
 
         public ObservableCollection<TourVoucher> GetAllAsCollection()
