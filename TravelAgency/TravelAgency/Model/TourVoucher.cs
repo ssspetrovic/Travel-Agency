@@ -3,14 +3,16 @@
     internal class TourVoucher
     {
         public int Id { get; set; }
+        public int TouristId { get; set; }
         public string Description { get; set; }
-        public string Date { get; set; }
+        public string ExpireDate { get; set; }
 
-        public TourVoucher(int id, string description, string date)
+        public TourVoucher(int id, int touristId, string description, string expireDate)
         {
             Id = id;
+            TouristId = touristId;
             Description = description;
-            Date = date;
+            ExpireDate = expireDate;
         }
     }
 }
