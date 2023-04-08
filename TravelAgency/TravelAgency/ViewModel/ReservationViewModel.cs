@@ -4,8 +4,10 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 using TravelAgency.Model;
+using TravelAgency.Repository;
 
 
 namespace TravelAgency.ViewModel
@@ -14,8 +16,44 @@ namespace TravelAgency.ViewModel
     {
         private readonly CollectionViewSource _reservationCollection;
         public new event PropertyChangedEventHandler? PropertyChanged;
-        private Reservation _selectedReservation;
+        private List<Reservation> _selectedReservations;
+
+        public ReservationViewModel() {
+
+            var _reservationRepository = new ReservationRepository();
+
+            _reservationCollection = new CollectionViewSource
+            {
+                Source = _reservationRepository.GetAll()
+            };
+        }
 
         public ICollectionView ReservationSourceCollection => _reservationCollection.View;
+        public List<Reservation> SelectedReservations
+        {
+            get => _selectedReservations;
+            set
+            {
+                foreach (var reservation in value)
+                {
+                    _selectedReservations.Add(reservation);
+                }
+                
+                /////////TODO//////////
+                foreach(var el in value)
+                {
+                    MessageBox.Show(el.Id.ToString());
+                }
+                /////////////
+
+                OnPropertyChanged();
+            }
+        }
+
+        private void RaisePropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+        }
     }
 }

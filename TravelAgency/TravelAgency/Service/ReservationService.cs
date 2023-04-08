@@ -78,7 +78,7 @@ namespace TravelAgency.Service
                 }
             }
             var reservationRepository = new ReservationRepository();
-            reservationRepository.AddAutoId(new Reservation(10, " ", convertedStartDate, convertedEndDate, -1, -1, CurrentUser.Id, accommodationDTO.Id));
+            reservationRepository.AddAutoId(new Reservation(10, " ", convertedStartDate, convertedEndDate, -1, -1, CurrentUser.Id, accommodationDTO.Id, " ", -1, -1, " "));
             return true;
         }
     }

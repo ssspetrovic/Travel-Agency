@@ -41,8 +41,8 @@ namespace TravelAgency.Repository
             databaseConnection.Open();
 
             const string insertStatement =
-                @"insert into Reservation (userId, accId, userComment, startDate, endDate, gradeUserComplacent, gradeUserClean) 
-                    values ($userId, $accId, $comment, $startDate, $endDate, $gradeComplacent, $gradeClean)";
+                @"insert into Reservation (userId, accId, userComment, startDate, endDate, gradeUserComplacent, gradeUserClean, reviewImages, gradeAccommodationClean, gradeAccommodationOwner, accommodationComment) 
+                    values ($userId, $accId, $comment, $startDate, $endDate, $gradeComplacent, $gradeClean, $reviewImages, $gradeAccommodationClean, $gradeAccommodationOwner, $accommodationComment)";
             using var insertCommand = new SqliteCommand(insertStatement, databaseConnection);
             insertCommand.Parameters.AddWithValue("$userId", reservation.GuestId);
             insertCommand.Parameters.AddWithValue("$accId", reservation.AccommodationId);
@@ -51,6 +51,11 @@ namespace TravelAgency.Repository
             insertCommand.Parameters.AddWithValue("$endDate", reservation.EndDate);
             insertCommand.Parameters.AddWithValue("$gradeComplacent", reservation.GradeGuestComplaisent);
             insertCommand.Parameters.AddWithValue("$gradeClean", reservation.GradeGuestClean);
+            insertCommand.Parameters.AddWithValue("$reviewImages", reservation.ReviewImagesURL);
+            insertCommand.Parameters.AddWithValue("$gradeAccommodationClean", reservation.GradeAccommodationClean);
+            insertCommand.Parameters.AddWithValue("$gradeAccommodationOwner", reservation.GradeAccommodationOwner);
+            insertCommand.Parameters.AddWithValue("$accommodationComment", reservation.AccommodationComment);
+
             insertCommand.ExecuteNonQuery();
         }
 
@@ -129,11 +134,15 @@ namespace TravelAgency.Repository
                 //var endDate = selectReader.GetDateTime(5);
                 var gradeComplaisent = selectReader.GetFloat(6);
                 var gradeClean = selectReader.GetFloat(7);
+                var reviewImages = selectReader.GetString(8);
+                var gradeAccommodationClean = selectReader.GetFloat(9);
+                var gradeAccommodationOwner = selectReader.GetFloat(10);
+                var accommodationComment = selectReader.GetString(11);
 
                 DateTime startDate = new DateTime(2023, 3, 15);
                 DateTime endDate = new DateTime(2023, 3, 19);
 
-                Reservation res = new Reservation(id, comment, startDate, endDate, gradeComplaisent, gradeClean, guestId, accommodationId);
+                Reservation res = new Reservation(id, comment, startDate, endDate, gradeComplaisent, gradeClean, guestId, accommodationId, accommodationComment, gradeAccommodationClean, gradeAccommodationOwner, reviewImages);
 
                 reservationList.Add(res);
             }

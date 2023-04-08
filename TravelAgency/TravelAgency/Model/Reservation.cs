@@ -31,6 +31,22 @@ namespace TravelAgency.Model
         {
         }
 
+        public Reservation(int id, string userComment, DateTime startDate, DateTime endDate, float gradeGuestComplaisent, float gradeGuestClean, int guestId, int accommodationId, string accomodationComment, float gradeAccommodationClean, float gradeAccommodationOwner, string reviewImagesURL)
+        {
+            Id = id;
+            UserComment = userComment;
+            StartDate = startDate;
+            EndDate = endDate;
+            GradeGuestComplaisent = gradeGuestComplaisent;
+            GradeGuestClean = gradeGuestClean;
+            GuestId = guestId;
+            AccommodationId = accommodationId;
+            AccommodationComment = accomodationComment;
+            GradeAccommodationClean = gradeAccommodationClean;
+            GradeAccommodationOwner = gradeAccommodationOwner;
+            ReviewImagesURL = reviewImagesURL;
+        }
+
         public Reservation(int id, string userComment, DateTime startDate, DateTime endDate, float gradeGuestComplaisent, float gradeGuestClean, int guestId, int accommodationId)
         {
             Id = id;
