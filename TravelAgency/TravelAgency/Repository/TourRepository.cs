@@ -8,7 +8,6 @@ namespace TravelAgency.Repository
 {
     internal class TourRepository : RepositoryBase
     {
-
         public string GetIdList(Tour tour)
         {
             var idList = "";

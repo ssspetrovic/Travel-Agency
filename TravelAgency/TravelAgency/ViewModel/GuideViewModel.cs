@@ -10,11 +10,11 @@ namespace TravelAgency.ViewModel
     public class GuideViewModel : BaseViewModel
     {
         private readonly TourService _tourService;
-        private readonly LocationRepository _locationRepository;
+        private readonly LocationService _locationService;
 
         public GuideViewModel()
         {
-            _locationRepository = new LocationRepository();
+            _locationService = new LocationService();
             _tourService = new TourService();
         }
 
@@ -43,7 +43,7 @@ namespace TravelAgency.ViewModel
             foreach (var id in row[columnName].ToString()?.Split(", ")!)
             {
                 var keyPointId = Convert.ToInt32(id);
-                keyPointsString += "; " + _locationRepository.GetById(keyPointId)?.City + ", " + _locationRepository.GetById(keyPointId)?.Country;
+                keyPointsString += "; " + _locationService.GetById(keyPointId)?.City + ", " + _locationService.GetById(keyPointId)?.Country;
             }
             keyPointsString = keyPointsString.Substring(2, keyPointsString.Length - 2);
 
@@ -59,8 +59,8 @@ namespace TravelAgency.ViewModel
                 case "Location":
                 {
                     var locationId = Convert.ToInt32(row["Location_Id"]);
-                    return _locationRepository.GetById(locationId)?.City + ", " +
-                           _locationRepository.GetById(locationId)?.Country;
+                    return _locationService.GetById(locationId)?.City + ", " +
+                           _locationService.GetById(locationId)?.Country;
                 }
                 case "KeyPoints":
                     return GetKeyPoints(row, columnName);

@@ -5,7 +5,6 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
 using TravelAgency.Model;
-using TravelAgency.Repository;
 using TravelAgency.Service;
 
 
@@ -15,11 +14,18 @@ namespace TravelAgency.View.Controls.Guide
     /// Interaction logic for MonitorTour.xaml
     /// </summary>
     
-    public partial class MonitorTour 
+    public partial class MonitorTour
     {
+        private readonly ActiveTourService _activeTourService;
+        private readonly TouristService _touristService;
+        private readonly TourService _tourService;
+
         public MonitorTour()
         {
             InitializeComponent();
+            _activeTourService = new ActiveTourService();
+            _touristService = new TouristService();
+            _tourService = new TourService();
         }
 
         [DllImport("user32.dll")]
@@ -231,23 +237,20 @@ namespace TravelAgency.View.Controls.Guide
 
         private void TourIsActive_OnClick(object sender, RoutedEventArgs routedEventArgs)
         {
-            var activeTourService = new ActiveTourService();
 
-            if (!activeTourService.IsActive())
+            if (!_activeTourService.IsActive())
             {
                 var drv = (DataRowView)MonitorDataGrid.SelectedItem;
 
-                var tourService = new TourService();
-                var selectedTour = tourService.GetByName(drv["Name"].ToString());
+                var selectedTour = _tourService.GetByName(drv["Name"].ToString());
                 MessageBox.Show("You selected Tour: " + selectedTour.Name);
 
-                var touristRepository = new TouristRepository();
-                var tourists = touristRepository.GetByTour(selectedTour);
+                var tourists = _touristService.GetByTour(selectedTour);
 
 
                 var activeKeyPoints = selectedTour.KeyPoints.ToDictionary(location => location!.Id, _ => false);
 
-                activeTourService.Add(new ActiveTour(selectedTour.Name, activeKeyPoints, tourists));
+                _activeTourService.Add(new ActiveTour(selectedTour.Name, activeKeyPoints, tourists));
             }
 
             else
@@ -260,9 +263,8 @@ namespace TravelAgency.View.Controls.Guide
 
         private void CurrentActiveTour_OnClick(object sender, RoutedEventArgs e)
         {
-            var activeTourService = new ActiveTourService();
 
-            if (activeTourService.IsActive())
+            if (_activeTourService.IsActive())
             {
                 var currentTour = new CurrentActiveTour();
                 currentTour.Show();

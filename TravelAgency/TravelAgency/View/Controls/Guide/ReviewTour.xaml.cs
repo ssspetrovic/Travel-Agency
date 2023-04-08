@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
-using TravelAgency.Repository;
+using TravelAgency.Service;
 
 namespace TravelAgency.View.Controls.Guide
 {
@@ -12,9 +12,12 @@ namespace TravelAgency.View.Controls.Guide
     /// </summary>
     public partial class ReviewTour
     {
+        private readonly TouristService _touristService;
+
         public ReviewTour()
         {
             InitializeComponent();
+            _touristService = new TouristService();
         }
 
         [DllImport("user32.dll")]
@@ -227,8 +230,7 @@ namespace TravelAgency.View.Controls.Guide
         private void TouristCheckup_OnClick(object sender, RoutedEventArgs e)
         {
             var tourist = (string)ListViewTourists.SelectedItem;
-            var touristRepository = new TouristRepository();
-            touristRepository.CheckTouristAppearance(tourist);
+            _touristService.CheckTouristAppearance(tourist);
 
             var currentTour = new CurrentActiveTour();
             currentTour.Show();
@@ -239,8 +241,7 @@ namespace TravelAgency.View.Controls.Guide
         {
             if (e.Key != Key.Enter) return;
             var tourist = (string)ListViewTourists.SelectedItem;
-            var touristRepository = new TouristRepository();
-            touristRepository.CheckTouristAppearance(tourist);
+            _touristService.CheckTouristAppearance(tourist);
 
             var currentTour = new CurrentActiveTour();
             currentTour.Show();

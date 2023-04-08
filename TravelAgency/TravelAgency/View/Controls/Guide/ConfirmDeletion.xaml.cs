@@ -14,9 +14,14 @@ namespace TravelAgency.View.Controls.Guide
     /// </summary>
     public partial class ConfirmDeletion
     {
+        private readonly TouristService _touristService;
+        private readonly TourService _tourService;
+
         public ConfirmDeletion()
         {
             InitializeComponent();
+            _touristService = new TouristService();
+            _tourService = new TourService();
         }
 
         private bool AuthenticateDeletion()
@@ -27,11 +32,9 @@ namespace TravelAgency.View.Controls.Guide
 
         private void CancelTour()
         {
-            var tourService = new TourService();
             var tourVoucherRepository = new TourVoucherRepository();
-            var touristRepository = new TouristRepository();
-            var deletedTour = tourService.GetByName(TourNameText.Text);
-            var tourists = touristRepository.GetByTour(deletedTour);
+            var deletedTour = _tourService.GetByName(TourNameText.Text);
+            var tourists = _touristService.GetByTour(deletedTour);
             var tourDates = deletedTour.Date.Split(", ").ToList();
 
             foreach (var tourist in tourists)
@@ -40,14 +43,14 @@ namespace TravelAgency.View.Controls.Guide
             if (tourDates.Count < 2)
             {
                 foreach (var tourist in tourists)
-                    touristRepository.RemoveTour(tourist.Id);
-                tourService.Remove(deletedTour.Id);
+                    _touristService.RemoveTour(tourist.Id);
+                _tourService.Remove(deletedTour.Id);
             }
 
             else
             {
                 var cancelledDate = CancelledTour.Date!;
-                tourService.RemoveDate(cancelledDate, tourDates, deletedTour.Id);
+                _tourService.RemoveDate(cancelledDate, tourDates, deletedTour.Id);
             }
         }
 

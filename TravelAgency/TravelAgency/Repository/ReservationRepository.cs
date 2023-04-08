@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using TravelAgency.Model;
+using TravelAgency.Service;
 
 namespace TravelAgency.Repository
 {
@@ -63,15 +64,15 @@ namespace TravelAgency.Repository
             using var selectReader = selectCommand.ExecuteReader();
 
             var reservationList = new ObservableCollection<Reservation>();
-            var locationRepository = new LocationRepository();
+            var locationService = new LocationService();
 
             int count = 0;
 
             while (selectReader.Read())
             {
-                var location = locationRepository.GetById(selectReader.GetInt32(2));
+                var location = locationService.GetById(selectReader.GetInt32(2));
                 var keyPointsList = selectReader.GetString(6).Split(", ");
-                var keyPoints = locationRepository.GetByAllCities(keyPointsList.ToList());
+                var keyPoints = locationService.GetByAllCities(keyPointsList.ToList());
 
                 var id = selectReader.GetInt32(0);
                 var guestId = selectReader.GetInt32(1);
@@ -111,14 +112,14 @@ namespace TravelAgency.Repository
             using var selectReader = selectCommand.ExecuteReader();
 
             var reservationList = new ObservableCollection<Reservation>();
-            var locationRepository = new LocationRepository();
+            var locationService = new LocationService();
 
 
             while (selectReader.Read())
             {
-                var location = locationRepository.GetById(selectReader.GetInt32(2));
+                var location = locationService.GetById(selectReader.GetInt32(2));
                 var keyPointsList = selectReader.GetString(6).Split(", ");
-                var keyPoints = locationRepository.GetByAllCities(keyPointsList.ToList());
+                var keyPoints = locationService.GetByAllCities(keyPointsList.ToList());
 
                 var id = selectReader.GetInt32(0);
                 var guestId = selectReader.GetInt32(1);
@@ -150,14 +151,14 @@ namespace TravelAgency.Repository
             using var selectReader = selectCommand.ExecuteReader();
 
             var reservationList = new ObservableCollection<Reservation>();
-            var locationRepository = new LocationRepository();
+            var locationService = new LocationService();
 
 
             while (selectReader.Read())
             {
-                var location = locationRepository.GetById(selectReader.GetInt32(2));
+                var location = locationService.GetById(selectReader.GetInt32(2));
                 var keyPointsList = selectReader.GetString(6).Split(", ");
-                var keyPoints = locationRepository.GetByAllCities(keyPointsList.ToList());
+                var keyPoints = locationService.GetByAllCities(keyPointsList.ToList());
 
                 var id = selectReader.GetInt32(0);
                 var guestId = selectReader.GetInt32(1);
@@ -199,14 +200,14 @@ namespace TravelAgency.Repository
             using var selectReader = selectCommand.ExecuteReader();
 
             var reservationList = new ObservableCollection<Reservation>();
-            var locationRepository = new LocationRepository();
+            var locationService = new LocationService();
 
 
             while (selectReader.Read())
             {
-                var location = locationRepository.GetById(selectReader.GetInt32(2));
+                var location = locationService.GetById(selectReader.GetInt32(2));
                 var keyPointsList = selectReader.GetString(6).Split(", ");
-                var keyPoints = locationRepository.GetByAllCities(keyPointsList.ToList());
+                var keyPoints = locationService.GetByAllCities(keyPointsList.ToList());
 
                 var id = selectReader.GetInt32(0);
                 var guestId = selectReader.GetInt32(1);

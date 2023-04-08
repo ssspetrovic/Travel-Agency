@@ -6,7 +6,6 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
 using TravelAgency.Model;
-using TravelAgency.Repository;
 using TravelAgency.Service;
 using Application = System.Windows.Application;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
@@ -20,9 +19,18 @@ namespace TravelAgency.View.Controls.Guide
     /// </summary>
     public partial class CurrentActiveTour
     {
+        private readonly ActiveTourService _activeTourService;
+        private readonly FinishedTourService _finishedTourService;
+        private readonly TouristService _touristService;
+        private readonly TourService _tourService;
+
         public CurrentActiveTour()
         {
             InitializeComponent();
+            _activeTourService = new ActiveTourService();
+            _finishedTourService = new FinishedTourService();
+            _touristService = new TouristService();
+            _tourService = new TourService();
         }
 
         [DllImport("user32.dll")]
@@ -71,9 +79,8 @@ namespace TravelAgency.View.Controls.Guide
         private void ChangeCurrentKeyPoint_OnClick(object sender, RoutedEventArgs e)
         {
             var keyPoint = (string)ListViewKeyPoints.SelectedItem;
-            var activeTourService = new ActiveTourService();
-            activeTourService.UpdateKeyPoint(keyPoint);
-            var allKeyPoints = activeTourService.GetActiveTour("KeyPointsList").Split(", ");
+            _activeTourService.UpdateKeyPoint(keyPoint);
+            var allKeyPoints = _activeTourService.GetActiveTourColumn("KeyPointsList").Split(", ");
             var flag = allKeyPoints.Count(location => location.Contains("False"));
 
             var currentTour = new CurrentActiveTour();
@@ -89,9 +96,8 @@ namespace TravelAgency.View.Controls.Guide
             if (e.Key != Key.Enter) return;
 
             var keyPoint = (string) ListViewKeyPoints.SelectedItem;
-            var activeTourService = new ActiveTourService();
-            activeTourService.UpdateKeyPoint(keyPoint);
-            var allKeyPoints = activeTourService.GetActiveTour("KeyPointsList").Split(", ");
+            _activeTourService.UpdateKeyPoint(keyPoint);
+            var allKeyPoints = _activeTourService.GetActiveTourColumn("KeyPointsList").Split(", ");
             var flag = allKeyPoints.Count(location => location.Contains("False"));
 
             var currentTour = new CurrentActiveTour();
@@ -105,8 +111,7 @@ namespace TravelAgency.View.Controls.Guide
         private void TouristCheckup_OnClick(object sender, RoutedEventArgs e)
         {
             var tourist = (string)ListViewTourists.SelectedItem;
-            var touristRepository = new TouristRepository();
-            touristRepository.CheckTouristAppearance(tourist);
+            _touristService.CheckTouristAppearance(tourist);
 
             var currentTour = new CurrentActiveTour();
             currentTour.Show();
@@ -117,8 +122,7 @@ namespace TravelAgency.View.Controls.Guide
         {
             if (e.Key != Key.Enter) return;
             var tourist = (string)ListViewTourists.SelectedItem;
-            var touristRepository = new TouristRepository();
-            touristRepository.CheckTouristAppearance(tourist);
+            _touristService.CheckTouristAppearance(tourist);
 
             var currentTour = new CurrentActiveTour();
             currentTour.Show();
@@ -155,18 +159,16 @@ namespace TravelAgency.View.Controls.Guide
         public void RemoveTour(List<string> tourDates, IReadOnlyList<string> tourists)
         {
             
-            var touristRepository = new TouristRepository();
-            var tourService = new TourService();
-            var firstTourist = touristRepository.GetByUsername(tourists[0]);
+            var firstTourist = _touristService.GetByUsername(tourists[0]);
 
             if (tourDates.Count < 2)
             {
                 foreach (var tourist in tourists)
                 {
-                    var currentTourist = touristRepository.GetByUsername(tourist);
-                    touristRepository.RemoveTour(currentTourist.Id);
+                    var currentTourist = _touristService.GetByUsername(tourist);
+                    _touristService.RemoveTour(currentTourist.Id);
                 }
-                tourService.Remove(firstTourist.Tour.Id);
+                _tourService.Remove(firstTourist.Tour.Id);
             }
             else
             {
@@ -179,38 +181,33 @@ namespace TravelAgency.View.Controls.Guide
 
                 foreach (var tourist in tourists)
                 {
-                    var currentTourist = touristRepository.GetByUsername(tourist);
-                    touristRepository.RemoveTour(currentTourist.Id);
+                    var currentTourist = _touristService.GetByUsername(tourist);
+                    _touristService.RemoveTour(currentTourist.Id);
                 }
 
-                tourService.RemoveDate(dateToday, tourDates, firstTourist.Tour.Id);
+                _tourService.RemoveDate(dateToday, tourDates, firstTourist.Tour.Id);
             }
         }
 
         private void AddFinishedTour()
         {
-            var finishedTourRepository = new FinishedTourRepository();
-            var tourService = new TourService();
-            var touristRepository = new TouristRepository();
-            var activeTourService = new ActiveTourService();
+            var tourists = _activeTourService.GetActiveTourColumn("Tourists").Split(", ");
+            var firstTourist = _touristService.GetByUsername(tourists[0]);
 
-            var tourists = activeTourService.GetActiveTour("Tourists").Split(", ");
-            var firstTourist = touristRepository.GetByUsername(tourists[0]);
-
-            var keyPoints = activeTourService.GetActiveTour("KeyPointsList");
+            var keyPoints = _activeTourService.GetActiveTourColumn("KeyPointsList");
             var keyPointParts = keyPoints.Split(", ");
             CheckPassedKeyPoints(keyPointParts);
 
-            var tour = tourService.GetById(firstTourist.Tour.Id);
+            var tour = _tourService.GetById(firstTourist.Tour.Id);
 
-            if (finishedTourRepository.CheckExistingTours(tour))
-                finishedTourRepository.Edit(new FinishedTour(tour.Id, tour.Name, tourService.GetKeyPoints(string.Join(", ", keyPointParts.Select(p => p[..p.IndexOf(':')]))), touristRepository.GetByTour(tour), tour.Date.Split(", ")[0]));
+            if (_finishedTourService.CheckExistingTours(tour))
+                _finishedTourService.Edit(new FinishedTour(tour.Id, tour.Name, _tourService.GetKeyPoints(string.Join(", ", keyPointParts.Select(p => p[..p.IndexOf(':')]))), _touristService.GetByTour(tour), tour.Date.Split(", ")[0]));
             else
-                finishedTourRepository.Add(new FinishedTour(tour.Id, tour.Name, tourService.GetKeyPoints(string.Join(", ", keyPointParts.Select(p => p[..p.IndexOf(':')]))), touristRepository.GetByTour(tour), tour.Date.Split(", ")[0]));
+                _finishedTourService.Add(new FinishedTour(tour.Id, tour.Name, _tourService.GetKeyPoints(string.Join(", ", keyPointParts.Select(p => p[..p.IndexOf(':')]))), _touristService.GetByTour(tour), tour.Date.Split(", ")[0]));
 
 
             RemoveTour(tour.Date.Split(", ").ToList(), tourists);
-            activeTourService.Remove();
+            _activeTourService.Remove();
 
         }
         private void FinishTour_OnClick(object sender, RoutedEventArgs e)
@@ -224,21 +221,19 @@ namespace TravelAgency.View.Controls.Guide
 
         private void CheckAllGuests_OnClick(object sender, RoutedEventArgs e)
         {
-            var activeTourService = new ActiveTourService();
-            var tourists = activeTourService.GetActiveTour("Tourists");
-            var touristRepository = new TouristRepository();
+            var tourists = _activeTourService.GetActiveTourColumn("Tourists");
             var counter = 0;
 
             foreach (var tourist in tourists.Split(", "))
             {
-                if (touristRepository.GetByUsername(tourist).TouristAppearance == TouristAppearance.Unknown)
+                if (_touristService.GetByUsername(tourist).TouristAppearance == TouristAppearance.Unknown)
                     counter++;
             }
 
             if (counter == 0)
                 MessageBox.Show("All tourists were already checked!");
             else
-                touristRepository.CheckAllTouristAppearances(tourists);
+                _touristService.CheckAllTouristAppearances(tourists);
 
             var currentTour = new CurrentActiveTour();
             currentTour.Show();

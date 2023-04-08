@@ -13,9 +13,12 @@ namespace TravelAgency.View.Controls.Guide
     /// </summary>
     public partial class CancelTour
     {
+        private readonly TourService _tourService;
+
         public CancelTour()
         {
             InitializeComponent();
+            _tourService = new TourService();
         }
 
         [DllImport("user32.dll")]
@@ -228,8 +231,7 @@ namespace TravelAgency.View.Controls.Guide
         private void ConfirmDeletion_OnClick(object sender, RoutedEventArgs e)
         {
             var tour = (DataRowView)CancelDataGrid.SelectedItem;
-            var tourService = new TourService();
-            CancelledTour.Name = tourService.GetByName(tour["Name"].ToString()).Name;
+            CancelledTour.Name = _tourService.GetByName(tour["Name"].ToString()).Name;
 
             var confirmDeletion = new ConfirmDeletion();
             confirmDeletion.ShowDialog();

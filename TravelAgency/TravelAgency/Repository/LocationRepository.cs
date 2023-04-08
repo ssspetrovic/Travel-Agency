@@ -1,29 +1,12 @@
 ﻿using Microsoft.Data.Sqlite;
-using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using TravelAgency.Model;
 
 namespace TravelAgency.Repository
 {
-    public class LocationRepository : RepositoryBase, ILocationRepository
+    internal class LocationRepository : RepositoryBase
     {
-        public void Add(Location location)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Edit(Location location)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Remove(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public Location? GetById(int id)
         {
             using var databaseConnection = GetConnection();
@@ -54,18 +37,6 @@ namespace TravelAgency.Repository
                 return new Location(selectReader.GetInt32(0), selectReader.GetString(1),
                     selectReader.GetString(2));
             return null;
-        }
-
-        public DataTable GetAll(DataTable dt)
-        {
-            using var databaseConnection = GetConnection();
-            databaseConnection.Open();
-
-            const string selectStatement = "select * from Location";
-            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
-
-            dt.Load(selectCommand.ExecuteReader());
-            return dt;
         }
 
         public List<Location?> GetByAllCities(List<string> cities)

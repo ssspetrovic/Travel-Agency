@@ -11,20 +11,21 @@ namespace TravelAgency.Service
     public class TourService : RepositoryBase
     {
         private readonly TourRepository _tourRepository;
+        private readonly LocationService _locationService;
 
         public TourService()
         {
             _tourRepository = new TourRepository();
+            _locationService = new LocationService();
         }
 
         public List<Location?> GetKeyPoints(string keyPoints)
         {
-            var locationRepository = new LocationRepository();
             var locations = keyPoints.Split(", ").ToList();
             var retVal = new List<Location?>();
 
             foreach (var location in locations)
-                retVal.Add(locationRepository.GetById(int.Parse(location)));
+                retVal.Add(_locationService.GetById(int.Parse(location)));
 
             return retVal;
         }
@@ -42,10 +43,7 @@ namespace TravelAgency.Service
             using var selectReader = selectCommand.ExecuteReader();
 
             if (!selectReader.Read()) return tour!;
-
-            //Isto i ovde vazi, moramo izvrsiti konverziju
-            var locationRepository = new LocationRepository();
-            var location = locationRepository.GetById(selectReader.GetInt32(2));
+            var location = _locationService.GetById(selectReader.GetInt32(2));
 
 
             tour = new Tour(selectReader.GetInt32(0), selectReader.GetString(1),
@@ -55,14 +53,14 @@ namespace TravelAgency.Service
             return tour;
         }
 
-        public void Remove(int deletedTourId)
+        public void Remove(int id)
         {
-            _tourRepository.Remove(deletedTourId);
+            _tourRepository.Remove(id);
         }
 
-        public void RemoveDate(string cancelledDate, List<string> tourDates, int deletedTourId)
+        public void RemoveDate(string date, List<string> allDates, int id)
         {
-            _tourRepository.RemoveDate(cancelledDate, tourDates, deletedTourId);
+            _tourRepository.RemoveDate(date, allDates, id);
         }
 
         public Tour GetById(int id)
@@ -77,12 +75,7 @@ namespace TravelAgency.Service
             using var selectReader = selectCommand.ExecuteReader();
 
             if (!selectReader.Read()) return new Tour();
-
-
-            //Posto nam je dosta parametara sacuvano u tabelu u vidu tekstova
-            //Moramo da ih konvertujemo u liste podataka
-            var locationRepository = new LocationRepository();
-            var location = locationRepository.GetById(selectReader.GetInt32(2));
+            var location = _locationService.GetById(selectReader.GetInt32(2));
 
             var tour = new Tour(selectReader.GetInt32(0), selectReader.GetString(1),
                 location!, selectReader.GetString(3), (Language)selectReader.GetInt32(4), selectReader.GetInt32(5),
@@ -101,12 +94,10 @@ namespace TravelAgency.Service
             using var selectReader = selectCommand.ExecuteReader();
 
             var tourList = new ObservableCollection<Tour>();
-            var locationRepository = new LocationRepository();
-
 
             while (selectReader.Read())
             {
-                var location = locationRepository.GetById(selectReader.GetInt32(2));
+                var location = _locationService.GetById(selectReader.GetInt32(2));
 
                 tourList.Add(new Tour(selectReader.GetInt32(0), selectReader.GetString(1),
                     location!, selectReader.GetString(3), (Language)selectReader.GetInt32(4), selectReader.GetInt32(5),
@@ -116,19 +107,19 @@ namespace TravelAgency.Service
             return tourList;
         }
 
-        public void UpdateMaxGuests(int selectedTourId, int selectedTourMaxGuests)
+        public void UpdateMaxGuests(int id, int maxGuests)
         {
-            _tourRepository.UpdateMaxGuests(selectedTourId, selectedTourMaxGuests);
+            _tourRepository.UpdateMaxGuests(id, maxGuests);
         }
 
-        public DataTable GetAllAsDataTable(DataTable dt)
+        public DataTable GetAllAsDataTable(DataTable dataTable)
         {
-            return _tourRepository.GetAllAsDataTable(dt);
+            return _tourRepository.GetAllAsDataTable(dataTable);
         }
 
-        public Language FindLanguage(string text)
+        public Language FindLanguage(string language)
         {
-            return _tourRepository.FindLanguage(text);
+            return _tourRepository.FindLanguage(language);
         }
 
         public void Add(Tour tour)

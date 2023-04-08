@@ -1,15 +1,12 @@
 ﻿using LiveCharts;
-using LiveCharts.Defaults;
 using Microsoft.Data.Sqlite;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
-using System.Linq;
 using TravelAgency.Model;
 
 namespace TravelAgency.Repository
 {
-    public class FinishedTourRepository : RepositoryBase, IFinishedTourRepository
+    internal class FinishedTourRepository : RepositoryBase
     {
         public string GetAllKeyPoints(FinishedTour finishedTour)
         {
@@ -25,18 +22,6 @@ namespace TravelAgency.Repository
             return allKeyPoints;
         }
 
-        public List<Location?> GetAllKeyPointsByIds(string keyPoints)
-        {
-            var locationRepository = new LocationRepository();
-            var locations = keyPoints.Split(", ").ToList();
-            var retVal = new List<Location?>();
-
-            foreach (var location in locations)
-                retVal.Add(locationRepository.GetById(int.Parse(location)));
-
-            return retVal;
-        }
-
         public string GetAllTourists(FinishedTour finishedTour)
         {
             var allTourists = "";
@@ -49,18 +34,6 @@ namespace TravelAgency.Repository
             allTourists = allTourists.Remove(allTourists.Length - 2, 2);
 
             return allTourists;
-        }
-
-        public List<Tourist> GetAllTouristsByNames(string names)
-        {
-            var touristRepository = new TouristRepository();
-            var tourists = names.Split(", ").ToList();
-            var retVal = new List<Tourist>();
-
-            foreach(var tourist in tourists)
-                retVal.Add(touristRepository.GetByUsername(tourist));
-
-            return retVal;
         }
 
 
@@ -92,16 +65,6 @@ namespace TravelAgency.Repository
 
         }
 
-        public void Remove()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public FinishedTour GetById(int id)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public bool CheckExistingTours(Tour tour)
         {
             using var databaseConnection = GetConnection();
@@ -114,49 +77,6 @@ namespace TravelAgency.Repository
             var selectReader = selectCommand.ExecuteReader();
 
             return selectReader.Read();
-        }
-
-        public List<Location?> GetKeyPoints(string keyPoints)
-        {
-            var locationRepository = new LocationRepository();
-            var locations = keyPoints.Split(", ").ToList();
-            var retVal = new List<Location?>();
-
-            foreach (var location in locations)
-                retVal.Add(locationRepository.GetById(int.Parse(location)));
-
-            return retVal;
-        }
-
-        public List<Tourist> FinishedTourTourists(string tourists)
-        {
-            var finishedTourTourists = new List<Tourist>();
-            var touristRepository = new TouristRepository();
-
-            foreach (var tourist in tourists.Split(", "))
-                finishedTourTourists.Add(touristRepository.GetByUsername(tourist));
-
-            return finishedTourTourists;
-        }
-
-        public ObservableCollection<FinishedTour> GetBestTour(SqliteCommand selectCommand)
-        {
-            using var selectReader = selectCommand.ExecuteReader();
-            var finishedTours = new ObservableCollection<FinishedTour>();
-            while (selectReader.Read())
-                finishedTours.Add(new FinishedTour(selectReader.GetInt32(0), selectReader.GetString(1), GetKeyPoints(selectReader.GetString(2)), FinishedTourTourists(selectReader.GetString(3)), selectReader.GetString(4)));
-
-            return finishedTours;
-        }
-
-        public ObservableCollection<FinishedTour> GetAllTimeBestTour()
-        {
-            using var databaseConnection = GetConnection();
-            databaseConnection.Open();
-
-            const string selectStatement = @"select * from FinishedTour where TouristNumber = (select max(TouristNumber) from FinishedTour)";
-            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
-            return GetBestTour(selectCommand);
         }
 
         public ObservableCollection<FinishedTour> FindBestTourByYear(ObservableCollection<FinishedTour> allFinishedTours, string year)
@@ -173,26 +93,6 @@ namespace TravelAgency.Repository
                     bestTour[0] = finishedTour;
 
             return bestTour;
-        }
-
-        public ObservableCollection<FinishedTour> GetBestOf2022Tour()
-        {
-            using var databaseConnection = GetConnection();
-            databaseConnection.Open();
-
-            const string selectStatement = @"select * from FinishedTour";
-            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
-            return FindBestTourByYear(GetBestTour(selectCommand), "2022");
-        }
-
-        public ObservableCollection<FinishedTour> GetBestOf2023Tour()
-        {
-            using var databaseConnection = GetConnection();
-            databaseConnection.Open();
-
-            const string selectStatement = @"select * from FinishedTour";
-            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
-            return FindBestTourByYear(GetBestTour(selectCommand), "2023");
         }
 
         public ChartValues<int> GetAgeGroup (FinishedTour finishedTour)
@@ -212,29 +112,6 @@ namespace TravelAgency.Repository
             return ageGroup;
         }
 
-        internal ChartValues<ObservableValue> GetVoucherOdds(FinishedTour finishedTour)
-        {
-            var withVoucher = 0;
-            using var databaseConnection = GetConnection();
-            databaseConnection.Open();
-
-            foreach (var tourist in finishedTour.Tourists)
-            {
-                const string selectStatement = "select * from TourVoucher where TouristId = $TouristId and GuideId = $GuideId";
-                using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
-                selectCommand.Parameters.AddWithValue("$TouristId", tourist.Id);
-                selectCommand.Parameters.AddWithValue("$GuideId", 1);
-                using var selectReader = selectCommand.ExecuteReader();
-                if(selectReader.Read())
-                    if (selectReader.GetString(2).Contains("Valid Voucher"))
-                        withVoucher++;
-            }
-                
-
-            var voucherOdds = new ChartValues<ObservableValue> { new(withVoucher), new(finishedTour.Tourists.Count - withVoucher) };
-            return voucherOdds;
-        }
-
         public DataTable GetAllAsDataTable(DataTable dt)
         {
             using var databaseConnection = GetConnection();
@@ -245,25 +122,6 @@ namespace TravelAgency.Repository
 
             dt.Load(selectCommand.ExecuteReader());
             return dt;
-        }
-
-        public FinishedTour FindFinishedTour(string name)
-        {
-            using var databaseConnection = GetConnection();
-            databaseConnection.Open();
-
-            const string selectStatement = "select * from FinishedTour where Name = $Name";
-            using var selectCommand = new SqliteCommand( selectStatement, databaseConnection);
-            selectCommand.Parameters.AddWithValue("$Name", name);
-
-            using var selectReader = selectCommand.ExecuteReader();
-
-            if (!selectReader.Read())
-                return new FinishedTour();
-
-            return new FinishedTour(selectReader.GetInt32(0), selectReader.GetString(1),
-                GetAllKeyPointsByIds(selectReader.GetString(2)), GetAllTouristsByNames(selectReader.GetString(3)),
-                selectReader.GetString(4));
         }
     }
 }

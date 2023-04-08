@@ -1,16 +1,16 @@
 ﻿using System.Data;
-using TravelAgency.Repository;
+using TravelAgency.Service;
 
 namespace TravelAgency.ViewModel
 {
     public class AllFinishedToursViewModel : GuideViewModel
     {
 
-        private readonly FinishedTourRepository _finishedTourRepository;
+        private readonly FinishedTourService _finishedTourService;
 
         public AllFinishedToursViewModel()
         {
-            _finishedTourRepository = new FinishedTourRepository();
+            _finishedTourService = new FinishedTourService();
         }
 
         public DataView FinishedTours
@@ -18,7 +18,7 @@ namespace TravelAgency.ViewModel
             get
             {
                 var dt = new DataTable();
-                dt = _finishedTourRepository.GetAllAsDataTable(dt);
+                dt = _finishedTourService.GetAllAsDataTable(dt);
                 ConvertTourColumn(dt, "KeyPointsList", typeof(string), "KeyPoints");
 
                 return dt.DefaultView;

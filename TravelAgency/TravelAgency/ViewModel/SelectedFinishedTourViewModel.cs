@@ -4,20 +4,21 @@ using LiveCharts.Wpf;
 using System.Linq;
 using TravelAgency.Model;
 using TravelAgency.Repository;
+using TravelAgency.Service;
 
 namespace TravelAgency.ViewModel;
 
 public class SelectedFinishedTourViewModel : GuideViewModel
 {
 
-    private readonly FinishedTourRepository _finishedTourRepository;
+    private readonly FinishedTourService _finishedTourService;
     private readonly FinishedTour _currentFinishedTour;
     private readonly TourVoucherRepository _voucherRepository;
 
     public SelectedFinishedTourViewModel()
     {
-        _finishedTourRepository = new FinishedTourRepository();
-        _currentFinishedTour = _finishedTourRepository.FindFinishedTour(CurrentFinishedTour.Name!);
+        _finishedTourService = new FinishedTourService();
+        _currentFinishedTour = _finishedTourService.FindFinishedTourByName(CurrentFinishedTour.Name!);
         _voucherRepository = new TourVoucherRepository();
     }
     
@@ -36,7 +37,7 @@ public class SelectedFinishedTourViewModel : GuideViewModel
             new ColumnSeries
             {
                 Title = "Age Group",
-                Values = _finishedTourRepository.GetAgeGroup(_currentFinishedTour)
+                Values = _finishedTourService.GetAgeGroup(_currentFinishedTour)
             }
         },
         BarLabels = new[] { "0-18", "19-50", "50+" },
@@ -45,13 +46,13 @@ public class SelectedFinishedTourViewModel : GuideViewModel
             new PieSeries
             {
                 Title = "Voucher",
-                Values = new ChartValues<ObservableValue> { _finishedTourRepository.GetVoucherOdds(_currentFinishedTour)[0] },
+                Values = new ChartValues<ObservableValue> { _finishedTourService.GetVoucherOdds(_currentFinishedTour)[0] },
                 DataLabels = true
             },
             new PieSeries
             {
                 Title = "No voucher",
-                Values = new ChartValues<ObservableValue> { _finishedTourRepository.GetVoucherOdds(_currentFinishedTour)[1] },
+                Values = new ChartValues<ObservableValue> { _finishedTourService.GetVoucherOdds(_currentFinishedTour)[1] },
                 DataLabels = true
             }
         }

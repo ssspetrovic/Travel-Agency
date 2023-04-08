@@ -7,7 +7,6 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
 using TravelAgency.Model;
-using TravelAgency.Repository;
 using TravelAgency.Service;
 
 namespace TravelAgency.View.Controls.Guide
@@ -17,9 +16,14 @@ namespace TravelAgency.View.Controls.Guide
     /// </summary>
     public partial class CreateTour
     {
+        private readonly LocationService _locationService;
+        private readonly TourService _tourService;
+
         public CreateTour()
         {
             InitializeComponent();
+            _locationService = new LocationService();
+            _tourService = new TourService();
         }
 
         [DllImport("user32.dll")]
@@ -315,20 +319,17 @@ namespace TravelAgency.View.Controls.Guide
         private void Confirm_OnClick(object sender, RoutedEventArgs e)
         {
             if (!AuthenticateTourInfo()) return;
-
-            var tourService = new TourService();
-            var locationRepository = new LocationRepository();
-            var currentLocation =
-                locationRepository.GetByCity(ComboBoxLocation.Text);
+            
+            var currentLocation =  _locationService.GetByCity(ComboBoxLocation.Text);
             var maxGuests = int.Parse(MaxGuestsText.Text);
             var duration = float.Parse(DurationText.Text);
             var cities = new List<string>(KeyPointsList.Text.Split(", "));
-            var locationList = locationRepository.GetByAllCities(cities);
-            var language = tourService.FindLanguage(ComboBoxLanguage.Text);
+            var locationList = _locationService.GetByAllCities(cities);
+            var language = _tourService.FindLanguage(ComboBoxLanguage.Text);
 
             if (currentLocation != null)
             {
-                tourService.Add(new Tour(NameText.Text, currentLocation,
+                _tourService.Add(new Tour(NameText.Text, currentLocation,
                     DescriptionText.Text, language, maxGuests, locationList, DateList.Text,
                     duration, ImagesList.Text));
                 MessageBox.Show("Tour Added Successfully.");

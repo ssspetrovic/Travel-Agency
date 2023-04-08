@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TravelAgency.Model;
 using TravelAgency.Repository;
+using TravelAgency.Service;
 
 namespace TravelAgency.View.Controls.Owner
 {
@@ -41,8 +42,8 @@ namespace TravelAgency.View.Controls.Owner
             var accommodationRepository = new AccommodationRepository(); 
 
             var name = txtName.Text;
-            var locationRepository = new LocationRepository();
-            var currentLocation = locationRepository.GetByCity(cmbLocation.Text);
+            var locationService = new LocationService();
+            var currentLocation = locationService.GetByCity(cmbLocation.Text);
             var adress = txtAdress.Text;
             var type = findAccommodationType(cmbType.Text);
             var minDaysReservation = Convert.ToInt32(txtMinReservationDays.Text);
@@ -50,7 +51,7 @@ namespace TravelAgency.View.Controls.Owner
             var reservableDays = Convert.ToInt32(txtReservableDays.Text);
             var description = txtDescription.Text;
 
-            Accommodation accommodation = new Accommodation(name, currentLocation.Id, type, minDaysReservation, maxDaysReservation, adress, reservableDays, 
+            Accommodation accommodation = new Accommodation(name, currentLocation!.Id, type, minDaysReservation, maxDaysReservation, adress, reservableDays, 
                 ImagesList.Text, description);
             accommodationRepository.Add(accommodation);
             MessageBox.Show("Added Accommodation!");

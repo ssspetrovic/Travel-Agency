@@ -1,29 +1,28 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using TravelAgency.Model;
-using TravelAgency.Repository;
 using TravelAgency.Service;
 
 namespace TravelAgency.ViewModel
 {
     public class CurrentActiveTourViewModel : GuideViewModel
     {
-        private readonly TouristRepository _touristRepository;
+        private readonly TouristService _touristService;
         private readonly ActiveTourService _activeTourService;
-        private readonly LocationRepository _locationRepository;
+        private readonly LocationService _locationService;
 
         public CurrentActiveTourViewModel()
         {
-            _touristRepository = new TouristRepository();
+            _touristService = new TouristService();
             _activeTourService = new ActiveTourService();
-            _locationRepository = new LocationRepository();
+            _locationService = new LocationService();
         }
 
         public List<string> PassedKeyPoints
         {
             get
             {
-                var keyPoints = _activeTourService.GetActiveTour("KeyPointsList");
+                var keyPoints = _activeTourService.GetActiveTourColumn("KeyPointsList");
                 var keyPointsList = keyPoints.Split(", ").ToList();
                 var passedKeyPoints = new List<string>();
 
@@ -37,13 +36,13 @@ namespace TravelAgency.ViewModel
             }
         }
 
-        public string ActiveTourName => _activeTourService.GetActiveTour("Name");
+        public string ActiveTourName => _activeTourService.GetActiveTourColumn("Name");
 
         public List<string> KeyPoints
         {
             get
             {
-                var keyPoints = _activeTourService.GetActiveTour("KeyPointsList");
+                var keyPoints = _activeTourService.GetActiveTourColumn("KeyPointsList");
                 var keyPointsList = keyPoints.Split(", ").ToList();
                 var locations = new List<Location?>();
                 var cities = new List<string>();
@@ -51,7 +50,7 @@ namespace TravelAgency.ViewModel
                 foreach (var keyPoint in keyPointsList)
                 {
                     var city = keyPoint.Split(":");
-                    locations.Add(_locationRepository.GetById(int.Parse(city[0])));
+                    locations.Add(_locationService.GetById(int.Parse(city[0])));
                 }
 
                 foreach (var location in locations)
@@ -67,7 +66,7 @@ namespace TravelAgency.ViewModel
         {
             get
             {
-                var tourists = _activeTourService.GetActiveTour("Tourists");
+                var tourists = _activeTourService.GetActiveTourColumn("Tourists");
                 var touristsList = tourists.Split(", ").ToList();
                 return touristsList;
             }
@@ -77,10 +76,10 @@ namespace TravelAgency.ViewModel
         {
             get
             {
-                var tourists = _activeTourService.GetActiveTour("Tourists");
+                var tourists = _activeTourService.GetActiveTourColumn("Tourists");
                 var touristsList = tourists.Split(", ").ToList();
 
-                return touristsList.Select(tourist => _touristRepository.GetByUsername(tourist).TouristAppearance.ToString()).ToList();
+                return touristsList.Select(tourist => _touristService.GetByUsername(tourist).TouristAppearance.ToString()).ToList();
             }
         }
 
@@ -88,14 +87,14 @@ namespace TravelAgency.ViewModel
         {
             get
             {
-                var tourists = _activeTourService.GetActiveTour("Tourists");
+                var tourists = _activeTourService.GetActiveTourColumn("Tourists");
                 var touristsList = tourists.Split(", ").ToList();
                 var locations = new List<string>();
 
                 foreach (var tourist in touristsList)
                 {
-                    var currentTourist = _touristRepository.GetByUsername(tourist);
-                    locations.Add(_locationRepository.GetById(currentTourist.LocationId)!.City);
+                    var currentTourist = _touristService.GetByUsername(tourist);
+                    locations.Add(_locationService.GetById(currentTourist.LocationId)!.City);
                 }
 
                 return locations;

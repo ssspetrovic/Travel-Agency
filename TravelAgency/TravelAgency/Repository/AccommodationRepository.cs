@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TravelAgency.Model;
 using TravelAgency.DTO;
+using TravelAgency.Service;
 
 namespace TravelAgency.Repository
 {
@@ -54,12 +55,12 @@ namespace TravelAgency.Repository
             using var selectReader = selectCommand.ExecuteReader();
 
             var accommodationList = new ObservableCollection<AccommodationDTO>();
-            var locationRepository = new LocationRepository();
+            var locationService = new LocationService();
 
 
             while (selectReader.Read())
             {
-                var location = locationRepository.GetById(selectReader.GetInt32(5));
+                var location = locationService.GetById(selectReader.GetInt32(5));
                 var type = Enum.Parse<AccommodationType>(selectReader.GetString(2));
 
                accommodationList.Add(new AccommodationDTO(selectReader.GetInt32(0), selectReader.GetString(1), location, type, selectReader.GetInt32(3), selectReader.GetInt32(4), selectReader.GetInt32(7)));

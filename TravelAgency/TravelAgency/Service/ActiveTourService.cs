@@ -1,4 +1,6 @@
 ﻿using Microsoft.Data.Sqlite;
+using System.Linq;
+using System.Windows.Forms;
 using TravelAgency.Model;
 using TravelAgency.Repository;
 
@@ -7,19 +9,78 @@ namespace TravelAgency.Service
     public class ActiveTourService : RepositoryBase
     {
         private readonly ActiveTourRepository _activeTourRepository;
+        private readonly LocationService _locationService;
 
         public ActiveTourService()
         {
             _activeTourRepository = new ActiveTourRepository();
+            _locationService = new LocationService();
         }
 
 
-        public void UpdateKeyPoint(string keyPoint)
+        public void UpdateKeyPoint(string currentKeyPoint)
         {
-            _activeTourRepository.UpdateKeyPoint(keyPoint);
+            currentKeyPoint = _locationService.GetByCity(currentKeyPoint)!.Id.ToString();
+
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            const string selectStatement = "select KeyPointsList from ActiveTour";
+            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
+            using var selectReader = selectCommand.ExecuteReader();
+
+            var keyPoints = "";
+
+            if (selectReader.Read())
+            {
+                keyPoints = FindCurrentKeyPoint(currentKeyPoint, selectReader.GetString(0));
+            }
+
+            databaseConnection.Close();
+            databaseConnection.Open();
+
+
+            const string updateStatement = "update ActiveTour set KeyPointsList = $KeyPointsList";
+            using var updateCommand = new SqliteCommand(updateStatement, databaseConnection);
+            updateCommand.Parameters.AddWithValue("KeyPointsList", keyPoints);
+            updateCommand.ExecuteNonQuery();
+
         }
 
-        public string GetActiveTour(string column)
+        public string FindCurrentKeyPoint(string currentKeyPoint, string keyPoints)
+        {
+            var allKeyPoints = keyPoints.Split(", ").ToList();
+            var lastKeyPoint = "";
+
+            for (var i = 0; i < allKeyPoints.Capacity; i++)
+            {
+                var location = allKeyPoints[i];
+
+                if (location.Contains(currentKeyPoint + ":True"))
+                {
+                    MessageBox.Show("We already passed " + _locationService.GetById(int.Parse(currentKeyPoint))!.City + "!");
+                    break;
+                }
+
+                if (location.Contains(currentKeyPoint + ":False"))
+                    if (lastKeyPoint.Contains(":True"))
+                    {
+                        allKeyPoints[i] = currentKeyPoint + ":True";
+                        break;
+                    }
+                    else
+                    {
+                        MessageBox.Show("You can't skip key points!");
+                        break;
+                    }
+
+                lastKeyPoint = allKeyPoints[i];
+            }
+
+            return string.Join(", ", allKeyPoints);
+        }
+
+        public string GetActiveTourColumn(string column)
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
