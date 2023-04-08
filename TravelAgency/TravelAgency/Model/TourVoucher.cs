@@ -3,7 +3,7 @@
 namespace TravelAgency.Model
 { 
     
-    internal class TourVoucher
+    public class TourVoucher
     {
         public int Id { get; }
         public int TouristId { get; set; }

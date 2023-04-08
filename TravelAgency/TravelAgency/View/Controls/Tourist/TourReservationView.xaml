@@ -305,14 +305,37 @@
                                         Style="{StaticResource MaterialDesignTextBoxBase}"
                                         Text="{Binding GuestNumber}" />
                                 </WrapPanel>
-                                <Button
-                                    x:Name="MakeReservationButton"
-                                    Width="180"
+                                <WrapPanel
+                                    Width="Auto"
                                     Height="40"
                                     Margin="0,20,0,0"
-                                    Click="MakeReservationButton_OnClick"
-                                    Content="Make a reservation"
-                                    FontSize="15" />
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center">
+                                    <ComboBox
+                                        x:Name="VouchersComboBox"
+                                        Width="150"
+                                        Height="40"
+                                        Margin="0,0,20,0"
+                                        Padding="5"
+                                        VerticalContentAlignment="Center"
+                                        materialDesign:HintAssist.Hint="Select a voucher"
+                                        materialDesign:TextFieldAssist.TextFieldCornerRadius="3"
+                                        materialDesign:TextFieldAssist.UnderlineCornerRadius="3"
+                                        BorderBrush="{StaticResource MaterialDesignDivider}"
+                                        BorderThickness="1"
+                                        DisplayMemberPath="Description"
+                                        FontSize="15"
+                                        ItemsSource="{Binding TourVouchers}"
+                                        SelectedItem="{Binding SelectedTourVoucher}"
+                                        Style="{StaticResource MaterialDesignComboBox}" />
+                                    <Button
+                                        x:Name="MakeReservationButton"
+                                        Height="40"
+                                        Margin="20,0,0,0"
+                                        Click="MakeReservationButton_OnClick"
+                                        Content="Make a reservation"
+                                        FontSize="15" />
+                                </WrapPanel>
                             </StackPanel>
                         </Grid>
                     </Grid>

@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using System.Windows.Data;
 using TravelAgency.Model;
 using TravelAgency.Repository;
 using TravelAgency.View.Controls.Tourist;
@@ -9,20 +8,18 @@ namespace TravelAgency.Service
 {
     public class TourReservationService
     {
+        private readonly TourReservationRepository _tourReservationRepository;
         private readonly TourReservationViewModel _tourReservationViewModel;
-        private TourService TourService { get; }
-        private TourReservationRepository TourReservationRepository { get; }
+        
+        public TourService TourService { get; }
+        public TourVoucherService TourVoucherService { get; }
 
         public TourReservationService(TourReservationViewModel tourReservationViewModel)
         {
-            TourService = new TourService();
-            TourReservationRepository = new TourReservationRepository();
             _tourReservationViewModel = tourReservationViewModel;
-        }
-
-        public CollectionViewSource GetToursCollection()
-        {
-            return new CollectionViewSource() { Source = TourService.GetAllAsCollection() };
+            TourVoucherService = new TourVoucherService();
+            TourService = new TourService();
+            _tourReservationRepository = new TourReservationRepository();
         }
 
         private void CompleteReservation(int guestNumber)
@@ -39,7 +36,7 @@ namespace TravelAgency.Service
             }
             else
             {
-                TourReservationRepository.Add(new TourReservation(_tourReservationViewModel.SelectedTour.Id, _tourReservationViewModel.SelectedTour.Name, guestNumber, CurrentUser.Username, CurrentUser.DisplayName));
+                _tourReservationRepository.Add(new TourReservation(_tourReservationViewModel.SelectedTour.Id, _tourReservationViewModel.SelectedTour.Name, guestNumber, CurrentUser.Username, CurrentUser.DisplayName));
                 MessageBox.Show("Reservation was successful!", "Success");
             }
         }
@@ -87,6 +84,10 @@ namespace TravelAgency.Service
 
             var finalGuestNumber = selectedTour != null ? CalculateFinalGuestNumber(guestNumber, selectedTour.MaxGuests) : guestNumber;
             HandleFinalGuestNumber(finalGuestNumber);
+            
+            if (_tourReservationViewModel.SelectedTourVoucher != null)
+                TourVoucherService.DeleteById(_tourReservationViewModel.SelectedTourVoucher.Id);
+
             _tourReservationViewModel.ReloadWindow();
         }
     }

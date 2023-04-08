@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
@@ -17,25 +18,48 @@ namespace TravelAgency.ViewModel
 
         private readonly CollectionViewSource _toursCollection;
         private Array _filterLanguages;
+        private ObservableCollection<TourVoucher> _tourVouchers;
 
         private string? _filterText;
         private bool _isFilteredCollectionEmpty;
         private bool _isListViewShown;
         private bool _shouldUpdateFilteredCollectionEmpty;
+        private string? _enteredFilterCountry;
+        private string? _enteredFilterCity;
+        private Language? _selectedFilterLanguage;
+        private int? _enteredFilterGuestNumber;
+        private float? _enteredFilterDuration;
+
         private Tour? _selectedTour;
         private string? _guestNumber;
         private bool _isTourSelected;
         private string? _newGuestNumber;
         private string? _guestNumberText;
-        private string? _enteredFilterCountry;
-        private string? _enteredFilterCity;
-        private Language? _selectedFilterLanguage;
-        private float? _enteredFilterDuration;
-        private int? _enteredFilterGuestNumber;
+        private TourVoucher? _selectedTourVoucher;
+
+        public ObservableCollection<TourVoucher> TourVouchers
+        {
+            get => _tourVouchers;
+            set
+            {
+                _tourVouchers = value;
+                OnPropertyChanged();
+            }
+        }
 
         public TourReservationService TourReservationService { get; set; }
 
         public bool IsGuestNumberEntered { get; set; }
+
+        public TourVoucher? SelectedTourVoucher
+        {
+            get => _selectedTourVoucher;
+            set
+            {
+                _selectedTourVoucher = value;
+                OnPropertyChanged();
+            }
+        }
 
         public int? EnteredFilterGuestNumber
         {
@@ -189,17 +213,16 @@ namespace TravelAgency.ViewModel
         public TourReservationViewModel()
         {
             TourReservationService = new TourReservationService(this);
-
-            _toursCollection = TourReservationService.GetToursCollection();
-
+            _toursCollection = new CollectionViewSource() { Source = TourReservationService.TourService.GetAllAsCollection() };
             _toursCollection.Filter += ToursCollection_Filter;
+            _filterLanguages = Enum.GetValues(typeof(Language));
+            _tourVouchers = TourReservationService.TourVoucherService.GetAllAsCollection();
 
             if (!ToursSourceCollection.IsEmpty)
                 IsListViewShown = true;
 
             IsTourSelected = false;
             IsGuestNumberEntered = false;
-            _filterLanguages = Enum.GetValues(typeof(Language));
             ResetFilter();
         }
 
