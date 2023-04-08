@@ -5,7 +5,7 @@ namespace TravelAgency.Model
     
     internal class TourVoucher
     {
-        public int Id { get; set; }
+        public int Id { get; }
         public int TouristId { get; set; }
         public string Description { get; set; } = null!;
         public DateTime ExpirationDate { get; set; }
