@@ -4,16 +4,17 @@ using System.Globalization;
 using System.Linq;
 using TravelAgency.Model;
 using TravelAgency.Repository;
+using TravelAgency.Service;
 
 namespace TravelAgency.ViewModel
 {
     public class ConfirmDeletionViewModel : GuideViewModel
     {
-        public readonly TourRepository TourRepository;
+        public readonly TourService TourService;
 
         public ConfirmDeletionViewModel()
         {
-            TourRepository = new TourRepository();
+            TourService = new TourService();
         }
 
         public string DeletedTourName => CancelledTour.Name!;
@@ -23,7 +24,7 @@ namespace TravelAgency.ViewModel
         {
             get
             {
-                var tourDates = TourRepository
+                var tourDates = TourService
                     .GetByName(CancelledTour.Name)
                     .Date
                     .Split(", ")

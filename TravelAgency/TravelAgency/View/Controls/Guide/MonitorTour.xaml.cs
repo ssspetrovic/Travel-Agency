@@ -6,6 +6,7 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using TravelAgency.Model;
 using TravelAgency.Repository;
+using TravelAgency.Service;
 
 
 namespace TravelAgency.View.Controls.Guide
@@ -230,14 +231,14 @@ namespace TravelAgency.View.Controls.Guide
 
         private void TourIsActive_OnClick(object sender, RoutedEventArgs routedEventArgs)
         {
-            var activeTourRepository = new ActiveTourRepository();
+            var activeTourService = new ActiveTourService();
 
-            if (!activeTourRepository.IsActive())
+            if (!activeTourService.IsActive())
             {
                 var drv = (DataRowView)MonitorDataGrid.SelectedItem;
 
-                var tourRepository = new TourRepository();
-                var selectedTour = tourRepository.GetByName(drv["Name"].ToString());
+                var tourService = new TourService();
+                var selectedTour = tourService.GetByName(drv["Name"].ToString());
                 MessageBox.Show("You selected Tour: " + selectedTour.Name);
 
                 var touristRepository = new TouristRepository();
@@ -246,7 +247,7 @@ namespace TravelAgency.View.Controls.Guide
 
                 var activeKeyPoints = selectedTour.KeyPoints.ToDictionary(location => location!.Id, _ => false);
 
-                activeTourRepository.Add(new ActiveTour(selectedTour.Name, activeKeyPoints, tourists));
+                activeTourService.Add(new ActiveTour(selectedTour.Name, activeKeyPoints, tourists));
             }
 
             else
@@ -259,9 +260,9 @@ namespace TravelAgency.View.Controls.Guide
 
         private void CurrentActiveTour_OnClick(object sender, RoutedEventArgs e)
         {
-            var activeTourRepository = new ActiveTourRepository();
+            var activeTourService = new ActiveTourService();
 
-            if (activeTourRepository.IsActive())
+            if (activeTourService.IsActive())
             {
                 var currentTour = new CurrentActiveTour();
                 currentTour.Show();

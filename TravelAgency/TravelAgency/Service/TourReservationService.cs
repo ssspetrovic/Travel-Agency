@@ -10,19 +10,19 @@ namespace TravelAgency.Service
     public class TourReservationService
     {
         private readonly TourReservationViewModel _tourReservationViewModel;
-        private TourRepository TourRepository { get; }
+        private TourService TourService { get; }
         private TourReservationRepository TourReservationRepository { get; }
 
         public TourReservationService(TourReservationViewModel tourReservationViewModel)
         {
-            TourRepository = new TourRepository();
+            TourService = new TourService();
             TourReservationRepository = new TourReservationRepository();
             _tourReservationViewModel = tourReservationViewModel;
         }
 
         public CollectionViewSource GetToursCollection()
         {
-            return new CollectionViewSource() { Source = TourRepository.GetAllAsCollection() };
+            return new CollectionViewSource() { Source = TourService.GetAllAsCollection() };
         }
 
         private void CompleteReservation(int guestNumber)
@@ -54,7 +54,7 @@ namespace TravelAgency.Service
             else
             {
                 if (_tourReservationViewModel.SelectedTour == null) return;
-                TourRepository.UpdateMaxGuests(_tourReservationViewModel.SelectedTour.Id, _tourReservationViewModel.SelectedTour.MaxGuests - finalGuestNumber);
+                TourService.UpdateMaxGuests(_tourReservationViewModel.SelectedTour.Id, _tourReservationViewModel.SelectedTour.MaxGuests - finalGuestNumber);
                 CompleteReservation(finalGuestNumber);
             }
         }

@@ -2,19 +2,20 @@
 using System.Linq;
 using TravelAgency.Model;
 using TravelAgency.Repository;
+using TravelAgency.Service;
 
 namespace TravelAgency.ViewModel
 {
     public class CurrentActiveTourViewModel : GuideViewModel
     {
         private readonly TouristRepository _touristRepository;
-        private readonly ActiveTourRepository _activeTourRepository;
+        private readonly ActiveTourService _activeTourService;
         private readonly LocationRepository _locationRepository;
 
         public CurrentActiveTourViewModel()
         {
             _touristRepository = new TouristRepository();
-            _activeTourRepository = new ActiveTourRepository();
+            _activeTourService = new ActiveTourService();
             _locationRepository = new LocationRepository();
         }
 
@@ -22,7 +23,7 @@ namespace TravelAgency.ViewModel
         {
             get
             {
-                var keyPoints = _activeTourRepository.GetActiveTour("KeyPointsList");
+                var keyPoints = _activeTourService.GetActiveTour("KeyPointsList");
                 var keyPointsList = keyPoints.Split(", ").ToList();
                 var passedKeyPoints = new List<string>();
 
@@ -36,13 +37,13 @@ namespace TravelAgency.ViewModel
             }
         }
 
-        public string ActiveTourName => _activeTourRepository.GetActiveTour("Name");
+        public string ActiveTourName => _activeTourService.GetActiveTour("Name");
 
         public List<string> KeyPoints
         {
             get
             {
-                var keyPoints = _activeTourRepository.GetActiveTour("KeyPointsList");
+                var keyPoints = _activeTourService.GetActiveTour("KeyPointsList");
                 var keyPointsList = keyPoints.Split(", ").ToList();
                 var locations = new List<Location?>();
                 var cities = new List<string>();
@@ -66,7 +67,7 @@ namespace TravelAgency.ViewModel
         {
             get
             {
-                var tourists = _activeTourRepository.GetActiveTour("Tourists");
+                var tourists = _activeTourService.GetActiveTour("Tourists");
                 var touristsList = tourists.Split(", ").ToList();
                 return touristsList;
             }
@@ -76,7 +77,7 @@ namespace TravelAgency.ViewModel
         {
             get
             {
-                var tourists = _activeTourRepository.GetActiveTour("Tourists");
+                var tourists = _activeTourService.GetActiveTour("Tourists");
                 var touristsList = tourists.Split(", ").ToList();
 
                 return touristsList.Select(tourist => _touristRepository.GetByUsername(tourist).TouristAppearance.ToString()).ToList();
@@ -87,7 +88,7 @@ namespace TravelAgency.ViewModel
         {
             get
             {
-                var tourists = _activeTourRepository.GetActiveTour("Tourists");
+                var tourists = _activeTourService.GetActiveTour("Tourists");
                 var touristsList = tourists.Split(", ").ToList();
                 var locations = new List<string>();
 

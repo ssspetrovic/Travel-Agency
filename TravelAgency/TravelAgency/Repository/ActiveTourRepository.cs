@@ -6,7 +6,7 @@ using TravelAgency.Model;
 
 namespace TravelAgency.Repository
 {
-    public class ActiveTourRepository : RepositoryBase, IActiveTourRepository
+    internal class ActiveTourRepository : RepositoryBase
     {
 
         public string GetAllKeyPoints(ActiveTour activeTour)
@@ -84,18 +84,6 @@ namespace TravelAgency.Repository
             using var selectReader = selectCommand.ExecuteReader();
 
             return selectReader.Read();
-        }
-
-        public string GetActiveTour(string column)
-        {
-            using var databaseConnection = GetConnection();
-            databaseConnection.Open();
-
-            var selectStatement = "select " + column + " from ActiveTour";
-            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
-            using var selectReader = selectCommand.ExecuteReader();
-
-            return selectReader.Read() ? selectReader.GetString(0) : "Error";
         }
 
         public string FindCurrentKeyPoint(string currentKeyPoint, string keyPoints)

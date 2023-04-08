@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
 using TravelAgency.Model;
-using TravelAgency.Repository;
+using TravelAgency.Service;
 
 namespace TravelAgency.View.Controls.Guide
 {
@@ -228,8 +228,8 @@ namespace TravelAgency.View.Controls.Guide
         private void ConfirmDeletion_OnClick(object sender, RoutedEventArgs e)
         {
             var tour = (DataRowView)CancelDataGrid.SelectedItem;
-            var tourRepository = new TourRepository();
-            CancelledTour.Name = tourRepository.GetByName(tour["Name"].ToString()).Name;
+            var tourService = new TourService();
+            CancelledTour.Name = tourService.GetByName(tour["Name"].ToString()).Name;
 
             var confirmDeletion = new ConfirmDeletion();
             confirmDeletion.ShowDialog();

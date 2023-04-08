@@ -265,68 +265,38 @@
 
 
                                 <Grid Grid.Row="1">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="4*" />
-                                        <RowDefinition />
-                                    </Grid.RowDefinitions>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition />
-                                            <ColumnDefinition />
-                                        </Grid.ColumnDefinitions>
-                                        <lvc:CartesianChart LegendLocation="Bottom" Series="{Binding BarData}">
-                                            <lvc:CartesianChart.AxisX>
-                                                <lvc:Axis>
-                                                    <lvc:Axis.Labels>
-                                                        <Binding Path="BarLabels" />
-                                                    </lvc:Axis.Labels>
-                                                </lvc:Axis>
-                                            </lvc:CartesianChart.AxisX>
-                                            <lvc:CartesianChart.AxisY>
-                                                <lvc:Axis Title="Number of Tourists" Foreground="#4fc3f7" />
-                                            </lvc:CartesianChart.AxisY>
-                                        </lvc:CartesianChart>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <lvc:CartesianChart LegendLocation="Bottom" Series="{Binding BarData}">
+                                        <lvc:CartesianChart.AxisX>
+                                            <lvc:Axis>
+                                                <lvc:Axis.Labels>
+                                                    <Binding Path="BarLabels" />
+                                                </lvc:Axis.Labels>
+                                            </lvc:Axis>
+                                        </lvc:CartesianChart.AxisX>
+                                        <lvc:CartesianChart.AxisY>
+                                            <lvc:Axis Title="Number of Tourists" Foreground="#4fc3f7" />
+                                        </lvc:CartesianChart.AxisY>
+                                    </lvc:CartesianChart>
 
-
-
-                                        <lvc:PieChart
-                                            Name="PieVoucher"
-                                            Grid.Column="1"
-                                            Series="{Binding PieChartData}">
-                                            <lvc:PieChart.ChartLegend>
-                                                <lvc:DefaultLegend BulletSize="20" />
-                                            </lvc:PieChart.ChartLegend>
-                                            <lvc:PieChart.DataTooltip>
-                                                <lvc:DefaultTooltip BulletSize="20" />
-                                            </lvc:PieChart.DataTooltip>
-                                        </lvc:PieChart>
-
-
-
-                                    </Grid>
-
-                                    <Grid Grid.Row="1">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition />
-                                            <ColumnDefinition />
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Top"
-                                            FontSize="18"
-                                            FontWeight="Bold"
-                                            Foreground="#4fc3f7"
-                                            Text="Age Group" />
-                                        <TextBlock
-                                            Grid.Column="1"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Top"
-                                            FontSize="18"
-                                            FontWeight="Bold"
-                                            Foreground="#4fc3f7"
-                                            Text="Voucher Percentage" />
-                                    </Grid>
-
+                                    <lvc:PieChart
+                                        Name="PieVoucher"
+                                        Grid.Column="1"
+                                        LegendLocation="Right"
+                                        Series="{Binding PieChartData}">
+                                        <lvc:PieChart.ChartLegend>
+                                            <lvc:DefaultLegend
+                                                Margin="10"
+                                                FontSize="16"
+                                                Orientation="Vertical" />
+                                        </lvc:PieChart.ChartLegend>
+                                        <lvc:PieChart.DataTooltip>
+                                            <lvc:DefaultTooltip BulletSize="20" />
+                                        </lvc:PieChart.DataTooltip>
+                                    </lvc:PieChart>
                                 </Grid>
 
                                 <Button

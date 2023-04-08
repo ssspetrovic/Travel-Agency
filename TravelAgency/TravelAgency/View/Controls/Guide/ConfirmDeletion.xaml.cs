@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using TravelAgency.Model;
 using TravelAgency.Repository;
+using TravelAgency.Service;
 
 namespace TravelAgency.View.Controls.Guide
 {
@@ -26,27 +27,27 @@ namespace TravelAgency.View.Controls.Guide
 
         private void CancelTour()
         {
-            var tourRepository = new TourRepository();
+            var tourService = new TourService();
+            var tourVoucherRepository = new TourVoucherRepository();
             var touristRepository = new TouristRepository();
-            var deletedTour = tourRepository.GetByName(TourNameText.Text);
+            var deletedTour = tourService.GetByName(TourNameText.Text);
             var tourists = touristRepository.GetByTour(deletedTour);
             var tourDates = deletedTour.Date.Split(", ").ToList();
 
             foreach (var tourist in tourists)
-                touristRepository.AddVoucher(tourist.Id, DateTime.Now.ToString("MM/dd/yyyy", new CultureInfo("en-US")));
-
+                tourVoucherRepository.Add(new TourVoucher(tourist.Id, "Valid Voucher", DateTime.ParseExact(DateTime.Now.AddYears(1).ToString("d/M/yyyy"), "d/M/yyyy", CultureInfo.InvariantCulture)));
 
             if (tourDates.Count < 2)
             {
                 foreach (var tourist in tourists)
                     touristRepository.RemoveTour(tourist.Id);
-                tourRepository.Remove(deletedTour.Id);
+                tourService.Remove(deletedTour.Id);
             }
 
             else
             {
                 var cancelledDate = CancelledTour.Date!;
-                tourRepository.RemoveDate(cancelledDate, tourDates, deletedTour.Id);
+                tourService.RemoveDate(cancelledDate, tourDates, deletedTour.Id);
             }
         }
 

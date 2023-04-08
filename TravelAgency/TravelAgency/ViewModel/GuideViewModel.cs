@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using System.Data;
 using TravelAgency.Model;
 using TravelAgency.Repository;
+using TravelAgency.Service;
 
 namespace TravelAgency.ViewModel
 {
     public class GuideViewModel : BaseViewModel
     {
-        private readonly TourRepository _tourRepository;
+        private readonly TourService _tourService;
         private readonly LocationRepository _locationRepository;
 
         public GuideViewModel()
         {
             _locationRepository = new LocationRepository();
-            _tourRepository = new TourRepository();
+            _tourService = new TourService();
         }
 
 
@@ -25,7 +26,7 @@ namespace TravelAgency.ViewModel
             get
             {
                 var dt = new DataTable();
-                dt = _tourRepository.GetAllAsDataTable(dt);
+                dt = _tourService.GetAllAsDataTable(dt);
 
                 ConvertTourColumn(dt, "Location_Id", typeof(string), "Location");
                 ConvertTourColumn(dt, "Language", typeof(string), "Language");

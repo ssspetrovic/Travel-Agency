@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
-using System.Windows;
 using TravelAgency.Model;
 
 namespace TravelAgency.Repository
@@ -216,15 +215,23 @@ namespace TravelAgency.Repository
         internal ChartValues<ObservableValue> GetVoucherOdds(FinishedTour finishedTour)
         {
             var withVoucher = 0;
-            var withoutVoucher = 0;
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
 
             foreach (var tourist in finishedTour.Tourists)
-                if (tourist.Voucher != TouristVoucher.None)
-                    withVoucher++;
-                else
-                    withoutVoucher++;
+            {
+                const string selectStatement = "select * from TourVoucher where TouristId = $TouristId and GuideId = $GuideId";
+                using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
+                selectCommand.Parameters.AddWithValue("$TouristId", tourist.Id);
+                selectCommand.Parameters.AddWithValue("$GuideId", 1);
+                using var selectReader = selectCommand.ExecuteReader();
+                if(selectReader.Read())
+                    if (selectReader.GetString(2).Contains("Valid Voucher"))
+                        withVoucher++;
+            }
+                
 
-            var voucherOdds = new ChartValues<ObservableValue> { new(withVoucher), new(withoutVoucher) };
+            var voucherOdds = new ChartValues<ObservableValue> { new(withVoucher), new(finishedTour.Tourists.Count - withVoucher) };
             return voucherOdds;
         }
 

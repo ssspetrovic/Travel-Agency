@@ -14,13 +14,13 @@ namespace TravelAgency.Repository
             using var insertCommand = databaseConnection.CreateCommand();
             insertCommand.CommandText =
                 @"
-                    INSERT INTO TourVoucher (Id, TouristId, Description, ExpirationDate)
-                    VALUES ($Id, $TouristId, $Description, $ExpirationDate)
+                    INSERT INTO TourVoucher (TouristId, Description, ExpirationDate)
+                    VALUES ($TouristId, $Description, $ExpirationDate)
                 ";
-            insertCommand.Parameters.AddWithValue("Id", tourVoucher.Id);
+
             insertCommand.Parameters.AddWithValue("TouristId", tourVoucher.TouristId);
             insertCommand.Parameters.AddWithValue("Description", tourVoucher.Description);
-            insertCommand.Parameters.AddWithValue("ExpirationDate", tourVoucher.ExpirationDate);
+            insertCommand.Parameters.AddWithValue("ExpirationDate", tourVoucher.ExpirationDate.ToString("d/M/yyyy"));
             insertCommand.ExecuteNonQuery();
         }
 
@@ -67,6 +67,27 @@ namespace TravelAgency.Repository
             }
 
             return vouchers;
+        }
+
+        public TourVoucher GetVoucherByTourist(int touristId)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            using var selectCommand = databaseConnection.CreateCommand();
+            selectCommand.CommandText = "SELECT * FROM TourVoucher WHERE TouristId = $TouristId";
+            selectCommand.Parameters.AddWithValue("$TouristId", touristId);
+            using var selectReader = selectCommand.ExecuteReader();
+
+            if (!selectReader.Read())
+                return new TourVoucher(0, touristId, "No Voucher", DateTime.Now);
+
+            return new TourVoucher(selectReader.GetInt32(0),
+                    selectReader.GetInt32(1),
+                    selectReader.GetString(2),
+                    selectReader.GetDateTime(3));
+
+
         }
     }
 }

@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using TravelAgency.Model;
 using TravelAgency.Repository;
+using TravelAgency.Service;
 
 namespace TravelAgency.View.Controls.Guide
 {
@@ -315,7 +316,7 @@ namespace TravelAgency.View.Controls.Guide
         {
             if (!AuthenticateTourInfo()) return;
 
-            var tourRepository = new TourRepository();
+            var tourService = new TourService();
             var locationRepository = new LocationRepository();
             var currentLocation =
                 locationRepository.GetByCity(ComboBoxLocation.Text);
@@ -323,11 +324,11 @@ namespace TravelAgency.View.Controls.Guide
             var duration = float.Parse(DurationText.Text);
             var cities = new List<string>(KeyPointsList.Text.Split(", "));
             var locationList = locationRepository.GetByAllCities(cities);
-            var language = tourRepository.FindLanguage(ComboBoxLanguage.Text);
+            var language = tourService.FindLanguage(ComboBoxLanguage.Text);
 
             if (currentLocation != null)
             {
-                tourRepository.Add(new Tour(NameText.Text, currentLocation,
+                tourService.Add(new Tour(NameText.Text, currentLocation,
                     DescriptionText.Text, language, maxGuests, locationList, DateList.Text,
                     duration, ImagesList.Text));
                 MessageBox.Show("Tour Added Successfully.");

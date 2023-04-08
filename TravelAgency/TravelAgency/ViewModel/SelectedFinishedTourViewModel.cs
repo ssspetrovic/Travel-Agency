@@ -2,7 +2,6 @@ using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
 using System.Linq;
-using System.Windows;
 using TravelAgency.Model;
 using TravelAgency.Repository;
 
@@ -13,15 +12,15 @@ public class SelectedFinishedTourViewModel : GuideViewModel
 
     private readonly FinishedTourRepository _finishedTourRepository;
     private readonly FinishedTour _currentFinishedTour;
+    private readonly TourVoucherRepository _voucherRepository;
 
     public SelectedFinishedTourViewModel()
     {
         _finishedTourRepository = new FinishedTourRepository();
         _currentFinishedTour = _finishedTourRepository.FindFinishedTour(CurrentFinishedTour.Name!);
+        _voucherRepository = new TourVoucherRepository();
     }
     
-    public string SelectedFinishedTourName => CurrentFinishedTour.Name!;
-
     public TabData FinishedTourStats => new()
     {
         Name = "You selected: " + _currentFinishedTour.Name,
@@ -30,7 +29,7 @@ public class SelectedFinishedTourViewModel : GuideViewModel
         {
             Name = t.UserName,
             Age = t.Age,
-            Voucher = t.Voucher != TouristVoucher.None ? "Has a voucher" : "Doesn't have a voucher"
+            Voucher = _voucherRepository.GetVoucherByTourist(t.Id).Description.Contains("Valid Voucher") ? "Has a voucher" : "Doesn't have a voucher"
         }).ToList(),
         BarData = new SeriesCollection
         {

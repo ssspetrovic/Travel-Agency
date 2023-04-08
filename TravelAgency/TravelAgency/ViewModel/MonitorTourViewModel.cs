@@ -2,18 +2,18 @@
 using System.Data;
 using System.Globalization;
 using System;
-using TravelAgency.Repository;
+using TravelAgency.Service;
 
 namespace TravelAgency.ViewModel
 {
     public class MonitorTourViewModel : GuideViewModel
     {
-        private readonly TourRepository _tourRepository;
+        private readonly TourService _tourService;
 
 
         public MonitorTourViewModel()
         {
-            _tourRepository = new TourRepository();
+            _tourService = new TourService();
         }
 
         public DataView ToursToday
@@ -21,7 +21,7 @@ namespace TravelAgency.ViewModel
             get
             {
                 var dt = new DataTable();
-                dt = _tourRepository.GetAllAsDataTable(dt);
+                dt = _tourService.GetAllAsDataTable(dt);
 
                 var indexList = new List<int>();
 
