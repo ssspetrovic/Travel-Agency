@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using TravelAgency.Model;
 
 namespace TravelAgency.Repository
@@ -39,7 +40,7 @@ namespace TravelAgency.Repository
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
-
+            Debug.WriteLine("in");
             using var deleteCommand = databaseConnection.CreateCommand();
             deleteCommand.CommandText = "DELETE FROM TourVoucher WHERE $ExpirationDate > ExpirationDate";
             deleteCommand.Parameters.AddWithValue("$ExpirationDate", DateTime.Now);
@@ -52,12 +53,15 @@ namespace TravelAgency.Repository
             databaseConnection.Open();
 
             using var selectCommand = databaseConnection.CreateCommand();
-            selectCommand.CommandText = "SELECT * FROM TourVouchers";
+            selectCommand.CommandText = "SELECT * FROM TourVoucher WHERE TouristId = $CurrentUserId";
+            Debug.WriteLine(CurrentUser.Id);
+            selectCommand.Parameters.AddWithValue("$CurrentUserId", CurrentUser.Id);
             using var selectReader = selectCommand.ExecuteReader();
 
             var vouchers = new ObservableCollection<TourVoucher>();
             while (selectReader.Read())
             {
+                Debug.WriteLine(selectReader.GetInt32(1));
                 vouchers.Add(new TourVoucher(
                     selectReader.GetInt32(0),
                     selectReader.GetInt32(1),
@@ -83,11 +87,9 @@ namespace TravelAgency.Repository
                 return new TourVoucher(0, touristId, "No Voucher", DateTime.Now);
 
             return new TourVoucher(selectReader.GetInt32(0),
-                    selectReader.GetInt32(1),
-                    selectReader.GetString(2),
-                    selectReader.GetDateTime(3));
-
-
+                selectReader.GetInt32(1),
+                selectReader.GetString(2),
+                selectReader.GetDateTime(3));
         }
     }
 }

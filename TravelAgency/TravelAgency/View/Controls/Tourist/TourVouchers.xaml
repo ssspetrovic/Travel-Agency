@@ -149,12 +149,21 @@
                             Grid.Row="1"
                             BorderBrush="{StaticResource MaterialDesignDivider}"
                             BorderThickness="2">
-                            <ListView x:Name="MyVouchersListView" d:ItemsSource="{d:SampleData ItemCount=5}">
+                            <ListView
+                                x:Name="MyVouchersListView"
+                                d:ItemsSource="{d:SampleData ItemCount=5}"
+                                ItemsSource="{Binding VouchersCollectionSource}">
                                 <ListView.View>
-                                    <GridView>
+                                    <GridView AllowsColumnReorder="False">
                                         <!--<GridViewColumn Width="Auto" Header="No." />-->
-                                        <GridViewColumn Width="500" Header="Description" />
-                                        <GridViewColumn Width="Auto" Header="Expiration date" />
+                                        <GridViewColumn
+                                            Width="500"
+                                            DisplayMemberBinding="{Binding Path=Description}"
+                                            Header="Description" />
+                                        <GridViewColumn
+                                            Width="Auto"
+                                            DisplayMemberBinding="{Binding Path=ExpirationDate}"
+                                            Header="Expiration date" />
                                     </GridView>
                                 </ListView.View>
                             </ListView>
