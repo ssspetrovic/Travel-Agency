@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls.Primitives;
+using TravelAgency.ViewModel;
 
 namespace TravelAgency.View.Controls.Tourist
 {
@@ -11,6 +12,7 @@ namespace TravelAgency.View.Controls.Tourist
         public TourVouchers()
         {
             InitializeComponent();
+            DataContext = new TourVouchersViewModel();
         }
 
         private void SignOutButton_OnClick(object sender, RoutedEventArgs e)
