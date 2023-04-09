@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.Sqlite;
+﻿using System;
+using Microsoft.Data.Sqlite;
 using System.Linq;
 using System.Windows.Forms;
 using TravelAgency.Model;
@@ -11,17 +12,15 @@ namespace TravelAgency.Service
         private readonly ActiveTourRepository _activeTourRepository;
         private readonly LocationService _locationService;
 
-        public string CurrentKeyPoint { get; set; }
+        public string CurrentKeyPoint { get; set; } = null!;
 
         public ActiveTourService()
         {
             _activeTourRepository = new ActiveTourRepository();
             _locationService = new LocationService();
-            CurrentKeyPoint = "/";
         }
 
-
-        public void UpdateKeyPoint(string currentKeyPoint)
+        private string FindUpdate(string currentKeyPoint)
         {
             currentKeyPoint = _locationService.GetByCity(currentKeyPoint)!.Id.ToString();
 
@@ -40,12 +39,21 @@ namespace TravelAgency.Service
             }
 
             databaseConnection.Close();
+            return keyPoints;
+        }
+
+
+        public void UpdateKeyPoint(string currentKeyPoint)
+        {
+            var keyPoints = FindUpdate(currentKeyPoint);
+            using var databaseConnection = GetConnection();
             databaseConnection.Open();
 
-
-            const string updateStatement = "update ActiveTour set KeyPointsList = $KeyPointsList";
+            CurrentKeyPoint = currentKeyPoint;
+            const string updateStatement = "update ActiveTour set KeyPointsList = $KeyPointsList, CurrentKeyPoint = $CurrentKeyPoint";
             using var updateCommand = new SqliteCommand(updateStatement, databaseConnection);
             updateCommand.Parameters.AddWithValue("KeyPointsList", keyPoints);
+            updateCommand.Parameters.AddWithValue("$CurrentKeyPoint", CurrentKeyPoint);
             updateCommand.ExecuteNonQuery();
 
         }
