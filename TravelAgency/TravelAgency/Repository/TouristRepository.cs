@@ -36,7 +36,6 @@ namespace TravelAgency.Repository
             updateCommand.ExecuteNonQuery();
         }
 
-
         public void UpdateAppearance(int id, TouristAppearance appearance)
         {
             using var databaseConnection = GetConnection();

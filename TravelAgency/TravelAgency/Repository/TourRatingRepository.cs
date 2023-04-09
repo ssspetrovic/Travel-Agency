@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Data.Sqlite;
 
 namespace TravelAgency.Repository
@@ -31,18 +32,19 @@ namespace TravelAgency.Repository
 
             while (selectReader.Read())
             {
-                ratings.Add((double)(selectReader.GetInt32(3) + selectReader.GetInt32(4) + selectReader.GetInt32(5)) / 3);
-                flags.Add(selectReader.GetInt32(8) == 1 ? "   Reported Comment!" : "");
+                var rating = (double)(selectReader.GetInt32(3) + selectReader.GetInt32(4) + selectReader.GetInt32(5)) / 3;
+                ratings.Add(rating);
+
+                var flag = selectReader.GetInt32(8) == 1 ? "⚠️" : ""; // add warning icon if comment is reported
+                flags.Add(flag);
             }
 
-            for (int i = 0; i < ratings.Count; i++)
-            {
-                ratings[i] = Math.Round(ratings[i], 2);
-                flags[i] = ratings[i] + flags[i];
-            }
+            var roundedRatings = ratings.Select(r => Math.Round(r, 2)).ToList();
+            var result = Enumerable.Range(0, ratings.Count).Select(i => $"{roundedRatings[i]} {flags[i]}").ToList();
 
-            return flags;
+            return result;
         }
+
 
         public List<string> GetRatingsByTourId(int id)
         {

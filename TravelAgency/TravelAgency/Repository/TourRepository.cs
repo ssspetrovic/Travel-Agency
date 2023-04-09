@@ -48,7 +48,7 @@ namespace TravelAgency.Repository
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
 
-            const string deleteStatement = "delete from Tour where Id = $Id";
+            const string deleteStatement = "update Tour set Date = 'DONE' where Id = $Id";
             using var deleteCommand = new SqliteCommand(deleteStatement, databaseConnection);
             deleteCommand.Parameters.AddWithValue("$Id", id);
             

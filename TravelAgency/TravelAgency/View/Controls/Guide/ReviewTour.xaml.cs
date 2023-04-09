@@ -234,8 +234,11 @@ namespace TravelAgency.View.Controls.Guide
 
             if (e.Key == Key.Enter && ListViewComments.SelectedItem != null)
             {
-                ReportedCommentTxt.Text = ListViewComments.SelectedItem.ToString();
+                var selectedIndex = ListViewComments.SelectedIndex;
+                ReportedCommentTxt.Text = ListViewComments.SelectedItem.ToString()!;
+                ReportedTouristTxt.Text = ListViewTourists.Items[selectedIndex].ToString()!;
             }
+
         }
 
         private void CreateTourCopy_OnClick(object sender, RoutedEventArgs e)
@@ -248,8 +251,12 @@ namespace TravelAgency.View.Controls.Guide
             if (ReportedCommentTxt.Text.Length == 0)
                 MessageBox.Show("You haven't a comment to report!");
             else
-                _tourRatingService.ReportAComment(ReportedCommentTxt.Text);
-            
+            {
+                _tourRatingService.ReportValidation(ReportedCommentTxt.Text, ReportedTouristTxt.Text);
+                new ReviewTour().Show();
+                Close();
+            }
+
         }
 
     }

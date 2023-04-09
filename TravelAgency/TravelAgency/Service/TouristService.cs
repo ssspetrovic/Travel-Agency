@@ -88,5 +88,24 @@ namespace TravelAgency.Service
         {
             _touristRepository.UpdateAppearance(id, appearance);
         }
+
+        public Tourist GetById(int id)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            const string selectStatement = "select * from Tourist where Id = $Id";
+            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
+            selectCommand.Parameters.AddWithValue("$Id", id);
+
+            using var selectReader = selectCommand.ExecuteReader();
+
+            if (!selectReader.Read()) return new Tourist();
+
+            return new Tourist(selectReader.GetInt32(0), selectReader.GetString(1), selectReader.GetString(2),
+                selectReader.GetString(3),
+                selectReader.GetString(4), selectReader.GetString(5), (Role)selectReader.GetInt32(6),
+                _tourService.GetByName(CurrentReviewTour.Name!), TouristAppearance.Unknown, selectReader.GetInt32(9), selectReader.GetInt32(10));
+        }
     }
 }

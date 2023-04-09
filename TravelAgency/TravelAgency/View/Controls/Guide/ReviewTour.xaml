@@ -371,6 +371,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <TextBlock
+                                    x:Name="TouristsTxt"
                                     Margin="0,15,0,0"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
@@ -381,6 +382,7 @@
                                     TextWrapping="Wrap" />
 
                                 <TextBlock
+                                    x:Name="CommentsTxt"
                                     Grid.Column="1"
                                     Margin="0,15,0,0"
                                     HorizontalAlignment="Center"
@@ -414,6 +416,8 @@
 
                                 <ListView
                                     Name="ListViewTourists"
+                                    BorderBrush="Bisque"
+                                    BorderThickness="1"
                                     FontSize="16"
                                     ItemsSource="{Binding Tourists}">
                                     <ListView.ItemContainerStyle>
@@ -426,6 +430,8 @@
                                 <ListView
                                     Name="ListViewComments"
                                     Grid.Column="1"
+                                    BorderBrush="Bisque"
+                                    BorderThickness="1"
                                     FontSize="16"
                                     ItemsSource="{Binding Comments}">
                                     <ListView.ItemContainerStyle>
@@ -438,6 +444,8 @@
                                 <ListView
                                     Name="ListViewRatings"
                                     Grid.Column="2"
+                                    BorderBrush="Bisque"
+                                    BorderThickness="1"
                                     FontSize="16"
                                     ItemsSource="{Binding Ratings}">
                                     <ListView.ItemContainerStyle>
@@ -455,24 +463,59 @@
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock
-                                    Margin="0,15,0,0"
-                                    FontSize="20"
-                                    FontWeight="Medium"
-                                    Foreground="#68cbf8"
-                                    Text="This Comment will be reported:"
-                                    TextAlignment="Center"
-                                    TextWrapping="Wrap" />
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock
+                                        Margin="0,15,0,0"
+                                        FontSize="20"
+                                        FontWeight="Medium"
+                                        Foreground="#68cbf8"
+                                        Text="This Comment will be reported:"
+                                        TextAlignment="Center"
+                                        TextWrapping="Wrap" />
 
-                                <TextBlock
-                                    x:Name="ReportedCommentTxt"
-                                    Grid.Column="1"
-                                    Margin="0,15,0,0"
-                                    FontSize="20"
-                                    FontWeight="Medium"
-                                    Foreground="#68cbf8"
-                                    TextAlignment="Center"
-                                    TextWrapping="Wrap" />
+                                    <TextBlock
+                                        Grid.Row="1"
+                                        Margin="0,15,0,0"
+                                        FontSize="20"
+                                        FontWeight="Medium"
+                                        Foreground="#68cbf8"
+                                        Text="It was written by:"
+                                        TextAlignment="Center"
+                                        TextWrapping="Wrap" />
+
+                                </Grid>
+
+                                <Grid Grid.Column="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock
+                                        x:Name="ReportedCommentTxt"
+                                        Margin="0,15,0,0"
+                                        FontSize="20"
+                                        FontWeight="Medium"
+                                        Foreground="#68cbf8"
+                                        TextAlignment="Center"
+                                        TextWrapping="Wrap" />
+
+                                    <TextBlock
+                                        x:Name="ReportedTouristTxt"
+                                        Grid.Row="1"
+                                        Margin="0,15,0,0"
+                                        FontSize="20"
+                                        FontWeight="Medium"
+                                        Foreground="#68cbf8"
+                                        TextAlignment="Center"
+                                        TextWrapping="Wrap" />
+                                </Grid>
+
+
                             </Grid>
 
                             <Grid Grid.Row="3">
