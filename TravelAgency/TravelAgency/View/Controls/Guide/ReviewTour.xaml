@@ -418,7 +418,7 @@
                                     ItemsSource="{Binding Tourists}">
                                     <ListView.ItemContainerStyle>
                                         <Style TargetType="ListViewItem">
-                                            <Setter Property="HorizontalAlignment" Value="Center" />
+                                            <Setter Property="HorizontalAlignment" Value="Left" />
                                         </Style>
                                     </ListView.ItemContainerStyle>
                                 </ListView>
@@ -430,7 +430,7 @@
                                     ItemsSource="{Binding Comments}">
                                     <ListView.ItemContainerStyle>
                                         <Style TargetType="ListViewItem">
-                                            <Setter Property="HorizontalAlignment" Value="Center" />
+                                            <Setter Property="HorizontalAlignment" Value="Left" />
                                         </Style>
                                     </ListView.ItemContainerStyle>
                                 </ListView>
@@ -442,7 +442,7 @@
                                     ItemsSource="{Binding Ratings}">
                                     <ListView.ItemContainerStyle>
                                         <Style TargetType="ListViewItem">
-                                            <Setter Property="HorizontalAlignment" Value="Center" />
+                                            <Setter Property="HorizontalAlignment" Value="Left" />
                                         </Style>
                                     </ListView.ItemContainerStyle>
                                 </ListView>
