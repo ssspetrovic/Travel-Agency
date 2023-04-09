@@ -205,11 +205,12 @@ namespace TravelAgency.View.Controls.Guide
             else
                 _finishedTourService.Add(new FinishedTour(tour.Id, tour.Name, _tourService.GetKeyPoints(string.Join(", ", keyPointParts.Select(p => p[..p.IndexOf(':')]))), _touristService.GetByTour(tour), tour.Date.Split(", ")[0]));
 
-
             RemoveTour(tour.Date.Split(", ").ToList(), tourists);
             _activeTourService.Remove();
 
+            CurrentReviewTour.Name = tour.Name;
         }
+
         private void FinishTour_OnClick(object sender, RoutedEventArgs e)
         {
             AddFinishedTour();

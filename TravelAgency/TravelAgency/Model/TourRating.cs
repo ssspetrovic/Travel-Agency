@@ -19,17 +19,7 @@
         public Grade TourInterestingnessGrade { get; set; }
         public string Comment { get; set; } = null!;
         public string Photos { get; set; } = null!;
-
-        public TourRating(int touristId, int tourId, Grade guideKnowledgeGrade, Grade guideLanguageGrade, Grade tourInterestingnessGrade, string comment, string photos)
-        {
-            TouristId = touristId;
-            TourId = tourId;
-            GuideKnowledgeGrade = guideKnowledgeGrade;
-            GuideLanguageGrade = guideLanguageGrade;
-            TourInterestingnessGrade = tourInterestingnessGrade;
-            Comment = comment;
-            Photos = photos;
-        }
+        public bool IsReported { get; set; }
 
         public TourRating(int touristId, int tourId, Grade guideKnowledgeGrade, Grade guideLanguageGrade, Grade tourInterestingnessGrade)
         {
@@ -38,6 +28,31 @@
             GuideKnowledgeGrade = guideKnowledgeGrade;
             GuideLanguageGrade = guideLanguageGrade;
             TourInterestingnessGrade = tourInterestingnessGrade;
+        }
+
+        public TourRating(int touristId, int tourId, Grade guideKnowledgeGrade, Grade guideLanguageGrade, Grade tourInterestingnessGrade, string comment, string photos, bool isReported = false)
+        {
+            TouristId = touristId;
+            TourId = tourId;
+            GuideKnowledgeGrade = guideKnowledgeGrade;
+            GuideLanguageGrade = guideLanguageGrade;
+            TourInterestingnessGrade = tourInterestingnessGrade;
+            Comment = comment;
+            Photos = photos;
+            IsReported = isReported;
+        }
+
+        public TourRating(int id, int touristId, int tourId, Grade guideKnowledgeGrade, Grade guideLanguageGrade, Grade tourInterestingnessGrade, string comment, string photos, bool isReported)
+        {
+            Id = id;
+            TouristId = touristId;
+            TourId = tourId;
+            GuideKnowledgeGrade = guideKnowledgeGrade;
+            GuideLanguageGrade = guideLanguageGrade;
+            TourInterestingnessGrade = tourInterestingnessGrade;
+            Comment = comment;
+            Photos = photos;
+            IsReported = isReported;
         }
     }
 }

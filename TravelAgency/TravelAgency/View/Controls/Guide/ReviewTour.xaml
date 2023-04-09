@@ -19,7 +19,7 @@
     mc:Ignorable="d">
 
     <Window.DataContext>
-        <viewModel:GuideViewModel />
+        <viewModel:ReviewTourViewModel />
     </Window.DataContext>
 
     <Window.Resources>
@@ -319,7 +319,7 @@
                                     FontSize="18"
                                     FontWeight="Bold"
                                     Foreground="#4fc3f7"
-                                    Text="Tour Review" />
+                                    Text="Review Tour" />
 
                             </StackPanel>
 
@@ -408,7 +408,8 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="9*" />
                                     <ColumnDefinition Width="22*" />
-                                    <ColumnDefinition Width="31*" />
+                                    <ColumnDefinition Width="13*" />
+                                    <ColumnDefinition Width="18*" />
                                     <ColumnDefinition Width="31*" />
                                 </Grid.ColumnDefinitions>
 
@@ -429,7 +430,9 @@
                                 <ListView
                                     Name="ListViewCheckedTourists"
                                     Grid.Column="2"
-                                    FontSize="16">
+                                    Grid.ColumnSpan="2"
+                                    FontSize="16"
+                                    ItemsSource="{Binding Comments}">
                                     <ListView.ItemContainerStyle>
                                         <Style TargetType="ListViewItem">
                                             <Setter Property="HorizontalAlignment" Value="Center" />
@@ -439,8 +442,9 @@
 
                                 <ListView
                                     Name="ListViewStartingLocation"
-                                    Grid.Column="3"
-                                    FontSize="16">
+                                    Grid.Column="4"
+                                    FontSize="16"
+                                    ItemsSource="{Binding Ratings}">
                                     <ListView.ItemContainerStyle>
                                         <Style TargetType="ListViewItem">
                                             <Setter Property="HorizontalAlignment" Value="Center" />
@@ -467,21 +471,13 @@
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
                                 <TextBlock
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Top"
-                                    FontSize="24"
-                                    FontWeight="Bold"
-                                    Foreground="#4fc3f7"
-                                    Text="Tour: " />
-                                <TextBlock
                                     Grid.Column="0"
-                                    Padding="150,0,0,0"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Top"
                                     FontSize="24"
                                     FontWeight="Bold"
                                     Foreground="#4fc3f7"
-                                    Text="{Binding Path=ActiveTourName}" />
+                                    Text="{Binding Path=ReviewTourName}" />
                                 <Grid Column="1">
                                     <Grid.RowDefinitions>
                                         <RowDefinition />
@@ -493,7 +489,7 @@
                                         FontSize="24"
                                         FontWeight="Bold"
                                         Foreground="#4fc3f7"
-                                        Text="Average Rating: " />
+                                        Text="{Binding Path=AverageRating}" />
                                     <TextBlock
                                         Grid.Row="1"
                                         HorizontalAlignment="Right"
