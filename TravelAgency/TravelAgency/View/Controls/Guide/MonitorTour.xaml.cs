@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -251,9 +252,12 @@ namespace TravelAgency.View.Controls.Guide
 
                 var locationService = new LocationService();
                 var currentKeyPointId = activeKeyPoints.FirstOrDefault(x => x.Value == true).Key;
+
+                // puca kod
                 var currentKeyPoint = locationService.GetById(currentKeyPointId)!.City;
 
-                _activeTourService.Add(new ActiveTour(selectedTour.Name, activeKeyPoints, tourists, currentKeyPoint));
+                // umesto "" treba currentKeyPoint
+                _activeTourService.Add(new ActiveTour(selectedTour.Name, activeKeyPoints, tourists, ""));
             }
 
             else
