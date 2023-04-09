@@ -8,11 +8,7 @@ namespace TravelAgency.DTO
         public enum TourStatus
         {
             Inactive,
-            Active,
-            Finished,
-            Attending,
-            Unrated,
-            Rated
+            Active
         }
 
         public string Name { get; set; }

@@ -149,10 +149,7 @@
                             Grid.Row="1"
                             BorderBrush="{StaticResource MaterialDesignDivider}"
                             BorderThickness="2">
-                            <ListView
-                                x:Name="MyVouchersListView"
-                                d:ItemsSource="{d:SampleData ItemCount=5}"
-                                ItemsSource="{Binding VouchersCollectionSource}">
+                            <ListView x:Name="MyVouchersListView" d:ItemsSource="{d:SampleData ItemCount=5}">
                                 <ListView.View>
                                     <GridView AllowsColumnReorder="False">
                                         <!--<GridViewColumn Width="Auto" Header="No." />-->

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Collections.ObjectModel;
+using System.Windows;
 using TravelAgency.Model;
 using TravelAgency.Repository;
 using TravelAgency.View.Controls.Tourist;
@@ -10,16 +11,18 @@ namespace TravelAgency.Service
     {
         private readonly TourReservationRepository _tourReservationRepository;
         private readonly TourReservationViewModel _tourReservationViewModel;
-        
+
         public TourService TourService { get; }
         public TourVoucherService TourVoucherService { get; }
+
+        public TourReservationService() { }
 
         public TourReservationService(TourReservationViewModel tourReservationViewModel)
         {
             _tourReservationViewModel = tourReservationViewModel;
+            _tourReservationRepository = new TourReservationRepository();
             TourVoucherService = new TourVoucherService();
             TourService = new TourService();
-            _tourReservationRepository = new TourReservationRepository();
         }
 
         private void CompleteReservation(int guestNumber)
@@ -84,11 +87,16 @@ namespace TravelAgency.Service
 
             var finalGuestNumber = selectedTour != null ? CalculateFinalGuestNumber(guestNumber, selectedTour.MaxGuests) : guestNumber;
             HandleFinalGuestNumber(finalGuestNumber);
-            
+
             if (_tourReservationViewModel.SelectedTourVoucher != null)
                 TourVoucherService.DeleteById(_tourReservationViewModel.SelectedTourVoucher.Id);
 
             _tourReservationViewModel.ReloadWindow();
+        }
+
+        public Collection<TourReservation> GetAllAsCollection()
+        {
+            return _tourReservationRepository.GetAllAsCollection();
         }
     }
 }

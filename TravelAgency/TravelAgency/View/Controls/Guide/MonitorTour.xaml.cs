@@ -247,10 +247,13 @@ namespace TravelAgency.View.Controls.Guide
 
                 var tourists = _touristService.GetByTour(selectedTour);
 
-
                 var activeKeyPoints = selectedTour.KeyPoints.ToDictionary(location => location!.Id, _ => false);
 
-                _activeTourService.Add(new ActiveTour(selectedTour.Name, activeKeyPoints, tourists));
+                var locationService = new LocationService();
+                var currentKeyPointId = activeKeyPoints.FirstOrDefault(x => x.Value == true).Key;
+                var currentKeyPoint = locationService.GetById(currentKeyPointId)!.City;
+
+                _activeTourService.Add(new ActiveTour(selectedTour.Name, activeKeyPoints, tourists, currentKeyPoint));
             }
 
             else

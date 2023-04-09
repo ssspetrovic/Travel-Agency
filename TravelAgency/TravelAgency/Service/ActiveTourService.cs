@@ -11,10 +11,13 @@ namespace TravelAgency.Service
         private readonly ActiveTourRepository _activeTourRepository;
         private readonly LocationService _locationService;
 
+        public string CurrentKeyPoint { get; set; }
+
         public ActiveTourService()
         {
             _activeTourRepository = new ActiveTourRepository();
             _locationService = new LocationService();
+            CurrentKeyPoint = "/";
         }
 
 
@@ -66,6 +69,7 @@ namespace TravelAgency.Service
                     if (lastKeyPoint.Contains(":True"))
                     {
                         allKeyPoints[i] = currentKeyPoint + ":True";
+                        CurrentKeyPoint = currentKeyPoint;
                         break;
                     }
                     else
@@ -105,6 +109,16 @@ namespace TravelAgency.Service
         public void Add(ActiveTour activeTour)
         {
             _activeTourRepository.Add(activeTour);
+        }
+
+        public bool ExistsByName(string name)
+        {
+            return _activeTourRepository.ExistsByName(name);
+        }
+
+        public string GetCurrentKeyPointByName(string name)
+        {
+            return GetActiveTourColumn(name);
         }
     }
 }
