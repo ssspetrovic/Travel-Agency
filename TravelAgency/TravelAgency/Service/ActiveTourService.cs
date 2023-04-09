@@ -1,9 +1,9 @@
-﻿using System;
-using Microsoft.Data.Sqlite;
+﻿using Microsoft.Data.Sqlite;
 using System.Linq;
 using System.Windows.Forms;
 using TravelAgency.Model;
 using TravelAgency.Repository;
+using static System.Int32;
 
 namespace TravelAgency.Service
 {
@@ -69,7 +69,7 @@ namespace TravelAgency.Service
 
                 if (location.Contains(currentKeyPoint + ":True"))
                 {
-                    MessageBox.Show("We already passed " + _locationService.GetById(int.Parse(currentKeyPoint))!.City + "!");
+                    MessageBox.Show("We already passed " + _locationService.GetById(Parse(currentKeyPoint))!.City + "!");
                     break;
                 }
 
@@ -106,6 +106,8 @@ namespace TravelAgency.Service
 
         public void Remove()
         {
+            var lastKeyPoint = GetActiveTourColumn("KeyPointsList").Split(", ").Last().Split(":")[0];
+            CurrentKeyPoint = _locationService.GetById(Parse(lastKeyPoint))!.City;
             _activeTourRepository.Remove();
         }
 
