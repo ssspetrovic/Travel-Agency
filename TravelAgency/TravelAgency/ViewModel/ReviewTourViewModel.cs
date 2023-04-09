@@ -20,14 +20,17 @@ namespace TravelAgency.ViewModel
         public string ReviewTourName => "Tour: " + CurrentReviewTour.Name;
 
         public List<string> Tourists =>
-            _tourRatingService.GetTouristsByTourId(_tourService.GetByName(CurrentReviewTour.Name!).Id);
+            _tourRatingService.GetTouristsByTourId(_tourService.GetByName(CurrentReviewTour.Name).Id);
 
         public List<string> Comments => 
-            _tourRatingService.GetCommentsByTourId(_tourService.GetByName(CurrentReviewTour.Name!).Id);
+            _tourRatingService.GetCommentsByTourId(_tourService.GetByName(CurrentReviewTour.Name).Id);
 
         public List<string> Ratings =>
-            _tourRatingService.GetRatingsByTourId(_tourService.GetByName(CurrentReviewTour.Name!).Id);
+            _tourRatingService.GetRatingsByTourId(_tourService.GetByName(CurrentReviewTour.Name).Id);
 
-        public string AverageRating => "Average Rating: " + Math.Round(Ratings.Where(r => !r.EndsWith("⚠️")).Select(double.Parse).Average(), 2);
+        public string AverageRating =>
+            Ratings.Any(r => !r.EndsWith("⚠️"))
+                ? "Average Rating: " + Math.Round(Ratings.Select(double.Parse).Average(), 2)
+                : "No ratings available";
     }
 }

@@ -34,7 +34,6 @@ namespace TravelAgency.Service
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
-            Tour? tour = null;
 
             const string selectStatement = "select * from Tour where Name = $Name";
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
@@ -42,15 +41,14 @@ namespace TravelAgency.Service
 
             using var selectReader = selectCommand.ExecuteReader();
 
-            if (!selectReader.Read()) return tour!;
+            if (!selectReader.Read()) return new Tour();
             var location = _locationService.GetById(selectReader.GetInt32(2));
 
 
-            tour = new Tour(selectReader.GetInt32(0), selectReader.GetString(1),
+            return new Tour(selectReader.GetInt32(0), selectReader.GetString(1),
                 location!, selectReader.GetString(3), (Language)selectReader.GetInt32(4), selectReader.GetInt32(5),
                 GetKeyPoints(selectReader.GetString(6)), selectReader.GetString(7), selectReader.GetFloat(8), selectReader.GetString(9));
 
-            return tour;
         }
 
         public void Remove(int id)
