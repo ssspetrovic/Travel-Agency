@@ -1,9 +1,9 @@
 ﻿using System;
 using TravelAgency.Model;
 
-namespace TravelAgency.DTO
+namespace TravelAgency.Dto
 {
-    internal class MyTourDTO
+    internal class MyTourDto
     {
         public enum TourStatus
         {
@@ -21,7 +21,7 @@ namespace TravelAgency.DTO
         public TourStatus Status { get; set; }
         public string KeyPoint { get; set; }
 
-        public MyTourDTO(string name, Location location, DateTime date, TourStatus status, string keyPoint)
+        public MyTourDto(string name, Location location, DateTime date, TourStatus status, string keyPoint)
         {
             Name = name;
             Location = location;
