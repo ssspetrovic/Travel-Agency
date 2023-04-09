@@ -71,7 +71,7 @@ namespace TravelAgency.Service
                 tourist = new Tourist(selectReader.GetInt32(0), selectReader.GetString(1), selectReader.GetString(2),
                     selectReader.GetString(3),
                     selectReader.GetString(4), selectReader.GetString(5), Role.Tourist,
-                    tour, (TouristAppearance)selectReader.GetInt32(8), selectReader.GetInt32(9), selectReader.GetInt32(10));
+                    tour, (TouristAppearance) selectReader.GetInt32(8), selectReader.GetInt32(9), selectReader.GetInt32(10));
             }
 
             return tourist;
@@ -105,7 +105,7 @@ namespace TravelAgency.Service
             return new Tourist(selectReader.GetInt32(0), selectReader.GetString(1), selectReader.GetString(2),
                 selectReader.GetString(3),
                 selectReader.GetString(4), selectReader.GetString(5), (Role)selectReader.GetInt32(6),
-                _tourService.GetByName(CurrentReviewTour.Name!), TouristAppearance.Unknown, selectReader.GetInt32(9), selectReader.GetInt32(10));
+                _tourService.GetByName(CurrentReviewTour.Name!), (TouristAppearance) selectReader.GetInt32(8), selectReader.GetInt32(9), selectReader.GetInt32(10));
         }
     }
 }

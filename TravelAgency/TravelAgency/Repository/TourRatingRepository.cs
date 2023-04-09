@@ -35,15 +35,14 @@ namespace TravelAgency.Repository
                 var rating = (double)(selectReader.GetInt32(3) + selectReader.GetInt32(4) + selectReader.GetInt32(5)) / 3;
                 ratings.Add(rating);
 
-                var flag = selectReader.GetInt32(8) == 1 ? "⚠️" : ""; // add warning icon if comment is reported
+                var flag = selectReader.GetInt32(8) == 1 ? "⚠️" : "";
                 flags.Add(flag);
             }
 
-            var roundedRatings = ratings.Select(r => Math.Round(r, 2)).ToList();
-            var result = Enumerable.Range(0, ratings.Count).Select(i => $"{roundedRatings[i]} {flags[i]}").ToList();
-
-            return result;
+            return flags.Zip(ratings, (flag, rating) => flag == "⚠️" ? flag : $"{Math.Round(rating, 2)}").ToList();
         }
+
+
 
 
         public List<string> GetRatingsByTourId(int id)

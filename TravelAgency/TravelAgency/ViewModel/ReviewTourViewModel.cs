@@ -28,6 +28,6 @@ namespace TravelAgency.ViewModel
         public List<string> Ratings =>
             _tourRatingService.GetRatingsByTourId(_tourService.GetByName(CurrentReviewTour.Name!).Id);
 
-        public string AverageRating => "Average Rating: " + Math.Round(Ratings.Select(r => double.Parse(r.Split(' ')[0])).Sum() / Ratings.Count, 2);
+        public string AverageRating => "Average Rating: " + Math.Round(Ratings.Where(r => !r.EndsWith("⚠️")).Select(double.Parse).Average(), 2);
     }
 }

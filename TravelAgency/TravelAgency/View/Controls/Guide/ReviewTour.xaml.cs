@@ -232,12 +232,21 @@ namespace TravelAgency.View.Controls.Guide
                     (ListViewComments.SelectedIndex + 1) % ListViewComments.Items.Count;
             }
 
-            if (e.Key == Key.Enter && ListViewComments.SelectedItem != null)
+            if (e.Key == Key.Enter && (ListViewComments.SelectedItem != null || ReportButton.IsFocused))
             {
-                var selectedIndex = ListViewComments.SelectedIndex;
-                ReportedCommentTxt.Text = ListViewComments.SelectedItem.ToString()!;
-                ReportedTouristTxt.Text = ListViewTourists.Items[selectedIndex].ToString()!;
+                if (ReportButton.IsFocused)
+                {
+                    ReportComment_OnClick(sender, e);
+                }
+                else
+                {
+                    var selectedIndex = ListViewComments.SelectedIndex;
+                    ReportedCommentTxt.Text = ListViewComments.SelectedItem!.ToString()!;
+                    ReportedTouristTxt.Text = ListViewTourists.Items[selectedIndex].ToString()!;
+                    ReportButton.Focus();
+                }
             }
+
 
         }
 
