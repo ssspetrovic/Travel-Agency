@@ -153,15 +153,20 @@
                     </ListView>
                     <WrapPanel
                         Grid.Row="2"
+                        Width="Auto"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center">
                         <Button
                             x:Name="JoinTourButton"
-                            Margin="15,0"
+                            Width="120"
+                            Height="40"
+                            Margin="0,0,15,0"
                             Content="Join tour" />
                         <Button
                             x:Name="RateTourButton"
-                            Margin="15,0"
+                            Width="120"
+                            Height="40"
+                            Margin="15,0,0,0"
                             Content="Rate tour" />
                     </WrapPanel>
                 </Grid>
