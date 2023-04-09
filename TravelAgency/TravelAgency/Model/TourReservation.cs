@@ -17,5 +17,15 @@
             TouristUsername = touristUsername;
             TouristName = touristName;
         }
+
+        public TourReservation(int id, int tourId, string tourName, int guestNumber, string touristUsername, string touristName)
+        {
+            Id = id;
+            TourId = tourId;
+            TourName = tourName;
+            GuestNumber = guestNumber;
+            TouristUsername = touristUsername;
+            TouristName = touristName;
+        }
     }
 }
