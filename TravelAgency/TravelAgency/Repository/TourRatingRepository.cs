@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Data.Sqlite;
 
 namespace TravelAgency.Repository
@@ -8,6 +9,8 @@ namespace TravelAgency.Repository
         public List<string> GetCommentsByTourId(int id)
         {
             using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
             const string selectStatement = "select * from TourRating where TourId = $TourId";
             var comments = new List<string>();
             
@@ -21,20 +24,52 @@ namespace TravelAgency.Repository
             return comments;
         }
 
-        public List<double> GetRatingsByTourId(int id)
+        public List<string> AddFlaggedRatings(SqliteDataReader selectReader)
+        {
+            var ratings = new List<double>();
+            var flags = new List<string>();
+
+            while (selectReader.Read())
+            {
+                ratings.Add((double)(selectReader.GetInt32(3) + selectReader.GetInt32(4) + selectReader.GetInt32(5)) / 3);
+                flags.Add(selectReader.GetInt32(8) == 1 ? "   Reported Comment!" : "");
+            }
+
+            for (int i = 0; i < ratings.Count; i++)
+            {
+                ratings[i] = Math.Round(ratings[i], 2);
+                flags[i] = ratings[i] + flags[i];
+            }
+
+            return flags;
+        }
+
+        public List<string> GetRatingsByTourId(int id)
         {
             using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
             const string selectStatement = "select * from TourRating where TourId = $TourId";
-            var ratings = new List<double>();
 
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
             selectCommand.Parameters.AddWithValue("$TourId", id);
             using var selectReader = selectCommand.ExecuteReader();
 
-            while (selectReader.Read())
-                ratings.Add((double)(selectReader.GetInt32(3) + selectReader.GetInt32(4) + selectReader.GetInt32(5))/3);
+            var ratingsWithFlags = AddFlaggedRatings(selectReader);
 
-            return ratings;
+            return ratingsWithFlags;
+        }
+
+        public void ReportAComment(string comment)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            const string updateStatement = "update TourRating set IsCommentReported = 1 where Comment = $Comment";
+            var updateCommand = new SqliteCommand(updateStatement, databaseConnection);
+
+            updateCommand.Parameters.AddWithValue("$Comment", comment);
+            updateCommand.ExecuteNonQuery();
         }
     }
 }

@@ -356,6 +356,7 @@
                         <Grid Grid.Row="3" Margin="25">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="40" />
+                                <RowDefinition Height="3*" />
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="50" />
                                 <RowDefinition Height="100" />
@@ -406,31 +407,25 @@
                             <Grid Grid.Row="1">
 
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="9*" />
-                                    <ColumnDefinition Width="22*" />
-                                    <ColumnDefinition Width="13*" />
-                                    <ColumnDefinition Width="18*" />
-                                    <ColumnDefinition Width="31*" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
 
                                 <ListView
                                     Name="ListViewTourists"
-                                    Grid.ColumnSpan="2"
                                     FontSize="16"
                                     ItemsSource="{Binding Tourists}">
                                     <ListView.ItemContainerStyle>
                                         <Style TargetType="ListViewItem">
-                                            <EventSetter Event="KeyDown" Handler="TouristCheckup_OnEnter" />
-                                            <EventSetter Event="MouseDoubleClick" Handler="TouristCheckup_OnClick" />
                                             <Setter Property="HorizontalAlignment" Value="Center" />
                                         </Style>
                                     </ListView.ItemContainerStyle>
                                 </ListView>
 
                                 <ListView
-                                    Name="ListViewCheckedTourists"
-                                    Grid.Column="2"
-                                    Grid.ColumnSpan="2"
+                                    Name="ListViewComments"
+                                    Grid.Column="1"
                                     FontSize="16"
                                     ItemsSource="{Binding Comments}">
                                     <ListView.ItemContainerStyle>
@@ -441,8 +436,8 @@
                                 </ListView>
 
                                 <ListView
-                                    Name="ListViewStartingLocation"
-                                    Grid.Column="4"
+                                    Name="ListViewRatings"
+                                    Grid.Column="2"
                                     FontSize="16"
                                     ItemsSource="{Binding Ratings}">
                                     <ListView.ItemContainerStyle>
@@ -455,6 +450,32 @@
                             </Grid>
 
                             <Grid Grid.Row="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock
+                                    Margin="0,15,0,0"
+                                    FontSize="20"
+                                    FontWeight="Medium"
+                                    Foreground="#68cbf8"
+                                    Text="This Comment will be reported:"
+                                    TextAlignment="Center"
+                                    TextWrapping="Wrap" />
+
+                                <TextBlock
+                                    x:Name="ReportedCommentTxt"
+                                    Grid.Column="1"
+                                    Margin="0,15,0,0"
+                                    FontSize="20"
+                                    FontWeight="Medium"
+                                    Foreground="#68cbf8"
+                                    TextAlignment="Center"
+                                    TextWrapping="Wrap" />
+                            </Grid>
+
+                            <Grid Grid.Row="3">
                                 <Button
                                     Width="150"
                                     Height="30"
@@ -465,7 +486,7 @@
                                     Foreground="#ffffff" />
                             </Grid>
 
-                            <Grid Grid.Row="3">
+                            <Grid Grid.Row="4">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition />
                                     <ColumnDefinition />

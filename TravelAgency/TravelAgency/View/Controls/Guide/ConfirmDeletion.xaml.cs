@@ -43,7 +43,10 @@ namespace TravelAgency.View.Controls.Guide
             if (tourDates.Count < 2)
             {
                 foreach (var tourist in tourists)
+                {
                     _touristService.RemoveTour(tourist.Id);
+                    _touristService.UpdateAppearance(tourist.Id, TouristAppearance.Unknown);
+                }
                 _tourService.Remove(deletedTour.Id);
             }
 

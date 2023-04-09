@@ -12,12 +12,12 @@ namespace TravelAgency.View.Controls.Guide
     /// </summary>
     public partial class ReviewTour
     {
-        private readonly TouristService _touristService;
+        private readonly TourRatingService _tourRatingService;
 
         public ReviewTour()
         {
             InitializeComponent();
-            _touristService = new TouristService();
+            _tourRatingService = new TourRatingService();
         }
 
         [DllImport("user32.dll")]
@@ -225,27 +225,17 @@ namespace TravelAgency.View.Controls.Guide
                 shortcuts.Show();
                 Close();
             }
-        }
+            if (e.Key == Key.Tab && ListViewComments.Items.Count > 0)
+            {
+                e.Handled = true;
+                ListViewComments.SelectedIndex =
+                    (ListViewComments.SelectedIndex + 1) % ListViewComments.Items.Count;
+            }
 
-        private void TouristCheckup_OnClick(object sender, RoutedEventArgs e)
-        {
-            var tourist = (string)ListViewTourists.SelectedItem;
-            _touristService.CheckTouristAppearance(tourist);
-
-            var currentTour = new CurrentActiveTour();
-            currentTour.Show();
-            Close();
-        }
-
-        private void TouristCheckup_OnEnter(object sender, KeyEventArgs e)
-        {
-            if (e.Key != Key.Enter) return;
-            var tourist = (string)ListViewTourists.SelectedItem;
-            _touristService.CheckTouristAppearance(tourist);
-
-            var currentTour = new CurrentActiveTour();
-            currentTour.Show();
-            Close();
+            if (e.Key == Key.Enter && ListViewComments.SelectedItem != null)
+            {
+                ReportedCommentTxt.Text = ListViewComments.SelectedItem.ToString();
+            }
         }
 
         private void CreateTourCopy_OnClick(object sender, RoutedEventArgs e)
@@ -255,7 +245,11 @@ namespace TravelAgency.View.Controls.Guide
 
         private void ReportComment_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            if (ReportedCommentTxt.Text.Length == 0)
+                MessageBox.Show("You haven't a comment to report!");
+            else
+                _tourRatingService.ReportAComment(ReportedCommentTxt.Text);
+            
         }
 
     }

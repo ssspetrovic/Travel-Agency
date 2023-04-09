@@ -36,7 +36,17 @@ namespace TravelAgency.Repository
             updateCommand.ExecuteNonQuery();
         }
 
-        
 
+        public void UpdateAppearance(int id, TouristAppearance appearance)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            const string updateStatement = "update Tourist set IsChecked = $IsChecked where Id = $Id";
+            using var updateCommand = new SqliteCommand(updateStatement, databaseConnection);
+            updateCommand.Parameters.AddWithValue("$Id", id);
+            updateCommand.Parameters.AddWithValue("$IsChecked", appearance);
+            updateCommand.ExecuteNonQuery();
+        }
     }
 }

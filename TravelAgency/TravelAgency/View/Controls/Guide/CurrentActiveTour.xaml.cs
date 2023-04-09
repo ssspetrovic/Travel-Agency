@@ -183,6 +183,8 @@ namespace TravelAgency.View.Controls.Guide
                 {
                     var currentTourist = _touristService.GetByUsername(tourist);
                     _touristService.RemoveTour(currentTourist.Id);
+                    if(TouristAppearance.Present != currentTourist.TouristAppearance)
+                        _touristService.UpdateAppearance(currentTourist.Id, TouristAppearance.Absent);
                 }
 
                 _tourService.RemoveDate(dateToday, tourDates, firstTourist.Tour.Id);

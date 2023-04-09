@@ -17,9 +17,14 @@ namespace TravelAgency.Service
             return _tourRatingRepository.GetCommentsByTourId(id);
         }
 
-        public List<double> GetRatingsByTourId(int id)
+        public List<string> GetRatingsByTourId(int id)
         {
             return _tourRatingRepository.GetRatingsByTourId(id);
+        }
+
+        public void ReportAComment(string comment)
+        {
+            _tourRatingRepository.ReportAComment(comment);
         }
     }
 }

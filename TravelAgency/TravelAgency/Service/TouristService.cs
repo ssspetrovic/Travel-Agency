@@ -83,5 +83,10 @@ namespace TravelAgency.Service
             foreach (var tourist in touristList)
                 CheckTouristAppearance(tourist);
         }
+
+        public void UpdateAppearance(int id, TouristAppearance appearance)
+        {
+            _touristRepository.UpdateAppearance(id, appearance);
+        }
     }
 }
