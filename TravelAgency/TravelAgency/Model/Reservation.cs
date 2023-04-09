@@ -11,6 +11,7 @@ namespace TravelAgency.Model
         public int Id { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+        public Location Location { get; set; }
 
         // Propertys for grading the GUEST
         public string UserComment { get; set; } = string.Empty;
@@ -31,7 +32,9 @@ namespace TravelAgency.Model
         {
         }
 
-        public Reservation(int id, string userComment, DateTime startDate, DateTime endDate, float gradeGuestComplaisent, float gradeGuestClean, int guestId, int accommodationId, string accomodationComment, float gradeAccommodationClean, float gradeAccommodationOwner, string reviewImagesURL)
+        public Reservation(int id, string userComment, DateTime startDate, DateTime endDate, float gradeGuestComplaisent, 
+            float gradeGuestClean, int guestId, int accommodationId, string accomodationComment, float gradeAccommodationClean,
+            float gradeAccommodationOwner, string reviewImagesURL)
         {
             Id = id;
             UserComment = userComment;

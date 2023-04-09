@@ -17,6 +17,7 @@ namespace TravelAgency.ViewModel
         private readonly CollectionViewSource _reservationCollection;
         public new event PropertyChangedEventHandler? PropertyChanged;
         private List<Reservation> _selectedReservations;
+        private bool _isListViewShown;
 
         public ReservationViewModel() {
 
@@ -34,6 +35,7 @@ namespace TravelAgency.ViewModel
             get => _selectedReservations;
             set
             {
+
                 foreach (var reservation in value)
                 {
                     _selectedReservations.Add(reservation);
@@ -54,6 +56,18 @@ namespace TravelAgency.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
+        }
+
+        public bool IsListViewShown
+        {
+            get => _isListViewShown;
+            set
+            {
+                if (_isListViewShown == value) return;
+
+                _isListViewShown = value;
+                OnPropertyChanged();
+            }
         }
     }
 }

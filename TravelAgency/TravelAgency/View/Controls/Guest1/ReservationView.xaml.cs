@@ -25,6 +25,7 @@ namespace TravelAgency.View.Controls.Guest1
         public ReservatoinView()
         {
             InitializeComponent();
+            DataContext = _viewModel;
         }
 
         private void Reservation_OnClick(object sender, RoutedEventArgs e)
