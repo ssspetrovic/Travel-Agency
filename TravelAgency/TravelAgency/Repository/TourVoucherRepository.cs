@@ -59,7 +59,6 @@ namespace TravelAgency.Repository
             var vouchers = new ObservableCollection<TourVoucher>();
             while (selectReader.Read())
             {
-                Debug.WriteLine(selectReader.GetInt32(1));
                 vouchers.Add(new TourVoucher(
                     selectReader.GetInt32(0),
                     selectReader.GetInt32(1),

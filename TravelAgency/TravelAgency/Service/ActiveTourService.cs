@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows.Forms;
 using TravelAgency.Model;
 using TravelAgency.Repository;
+using static System.Int32;
 
 namespace TravelAgency.Service
 {
@@ -11,14 +12,15 @@ namespace TravelAgency.Service
         private readonly ActiveTourRepository _activeTourRepository;
         private readonly LocationService _locationService;
 
+        public string CurrentKeyPoint { get; set; } = null!;
+
         public ActiveTourService()
         {
             _activeTourRepository = new ActiveTourRepository();
             _locationService = new LocationService();
         }
 
-
-        public void UpdateKeyPoint(string currentKeyPoint)
+        private string FindUpdate(string currentKeyPoint)
         {
             currentKeyPoint = _locationService.GetByCity(currentKeyPoint)!.Id.ToString();
 
@@ -37,12 +39,21 @@ namespace TravelAgency.Service
             }
 
             databaseConnection.Close();
+            return keyPoints;
+        }
+
+
+        public void UpdateKeyPoint(string currentKeyPoint)
+        {
+            var keyPoints = FindUpdate(currentKeyPoint);
+            using var databaseConnection = GetConnection();
             databaseConnection.Open();
 
-
-            const string updateStatement = "update ActiveTour set KeyPointsList = $KeyPointsList";
+            CurrentKeyPoint = currentKeyPoint;
+            const string updateStatement = "update ActiveTour set KeyPointsList = $KeyPointsList, CurrentKeyPoint = $CurrentKeyPoint";
             using var updateCommand = new SqliteCommand(updateStatement, databaseConnection);
             updateCommand.Parameters.AddWithValue("KeyPointsList", keyPoints);
+            updateCommand.Parameters.AddWithValue("$CurrentKeyPoint", CurrentKeyPoint);
             updateCommand.ExecuteNonQuery();
 
         }
@@ -58,7 +69,7 @@ namespace TravelAgency.Service
 
                 if (location.Contains(currentKeyPoint + ":True"))
                 {
-                    MessageBox.Show("We already passed " + _locationService.GetById(int.Parse(currentKeyPoint))!.City + "!");
+                    MessageBox.Show("We already passed " + _locationService.GetById(Parse(currentKeyPoint))!.City + "!");
                     break;
                 }
 
@@ -66,6 +77,7 @@ namespace TravelAgency.Service
                     if (lastKeyPoint.Contains(":True"))
                     {
                         allKeyPoints[i] = currentKeyPoint + ":True";
+                        CurrentKeyPoint = currentKeyPoint;
                         break;
                     }
                     else
@@ -94,6 +106,8 @@ namespace TravelAgency.Service
 
         public void Remove()
         {
+            var lastKeyPoint = GetActiveTourColumn("KeyPointsList").Split(", ").Last().Split(":")[0];
+            CurrentKeyPoint = _locationService.GetById(Parse(lastKeyPoint))!.City;
             _activeTourRepository.Remove();
         }
 
@@ -105,6 +119,16 @@ namespace TravelAgency.Service
         public void Add(ActiveTour activeTour)
         {
             _activeTourRepository.Add(activeTour);
+        }
+
+        public bool ExistsByName(string name)
+        {
+            return _activeTourRepository.ExistsByName(name);
+        }
+
+        public string GetCurrentKeyPointByName(string name)
+        {
+            return GetActiveTourColumn(name);
         }
     }
 }

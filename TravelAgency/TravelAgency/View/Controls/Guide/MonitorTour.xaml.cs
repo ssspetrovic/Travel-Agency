@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -19,6 +20,7 @@ namespace TravelAgency.View.Controls.Guide
         private readonly ActiveTourService _activeTourService;
         private readonly TouristService _touristService;
         private readonly TourService _tourService;
+        private readonly LocationService _locationService;
 
         public MonitorTour()
         {
@@ -26,6 +28,7 @@ namespace TravelAgency.View.Controls.Guide
             _activeTourService = new ActiveTourService();
             _touristService = new TouristService();
             _tourService = new TourService();
+            _locationService = new LocationService();
         }
 
         [DllImport("user32.dll")]
@@ -247,10 +250,14 @@ namespace TravelAgency.View.Controls.Guide
 
                 var tourists = _touristService.GetByTour(selectedTour);
 
-
                 var activeKeyPoints = selectedTour.KeyPoints.ToDictionary(location => location!.Id, _ => false);
+                var currentKeyPointId = activeKeyPoints.FirstOrDefault(x => x.Value == true).Key;
 
-                _activeTourService.Add(new ActiveTour(selectedTour.Name, activeKeyPoints, tourists));
+                // puca kod
+                var currentKeyPoint = selectedTour.Location;
+
+                // umesto "" treba currentKeyPoint
+                _activeTourService.Add(new ActiveTour(selectedTour.Name, activeKeyPoints, tourists, currentKeyPoint.City));
             }
 
             else
