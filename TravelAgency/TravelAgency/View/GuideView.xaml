@@ -402,11 +402,6 @@
                                             Width="200"
                                             DisplayMemberBinding="{Binding Path=Duration}"
                                             Header="Duration" />
-                                        <GridViewColumn
-                                            x:Name="ImagesColumn"
-                                            Width="200"
-                                            DisplayMemberBinding="{Binding Path=Images}"
-                                            Header="Images" />
                                     </GridView>
                                 </ListView.View>
                             </ListView>

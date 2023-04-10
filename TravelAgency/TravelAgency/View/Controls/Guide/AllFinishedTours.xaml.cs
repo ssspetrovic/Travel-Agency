@@ -97,6 +97,9 @@ namespace TravelAgency.View.Controls.Guide
 
             if (e.Key == Key.Enter && FinishedToursListView.SelectedItem != null)
             {
+                if (e.Handled) return;
+                e.Handled = true;
+
                 var selectedItem = (DataRowView)FinishedToursListView.SelectedItem;
                 CurrentFinishedTour.Name = selectedItem["Name"].ToString()!;
                 var selectedFinishedTour = new SelectedFinishedTour();

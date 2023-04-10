@@ -21,7 +21,6 @@ namespace TravelAgency.View.Controls.Guide
         private readonly ActiveTourService _activeTourService;
         private readonly TouristService _touristService;
         private readonly TourService _tourService;
-        private readonly LocationService _locationService;
 
         public MonitorTour()
         {
@@ -29,7 +28,6 @@ namespace TravelAgency.View.Controls.Guide
             _activeTourService = new ActiveTourService();
             _touristService = new TouristService();
             _tourService = new TourService();
-            _locationService = new LocationService();
         }
 
         [DllImport("user32.dll")]
@@ -246,12 +244,15 @@ namespace TravelAgency.View.Controls.Guide
                     (MonitorDataGrid.SelectedIndex + 1) % MonitorDataGrid.Items.Count;
             }
 
-            if (e.Key == Key.Enter && MonitorDataGrid.SelectedItem != null)
+            if (e.Key == Key.P && MonitorDataGrid.SelectedItem != null)
             {
+                if (e.Handled) return;
+                e.Handled = true;
+
                 var selectedItem = (DataRowView)MonitorDataGrid.SelectedItem;
-                var imagesString = selectedItem["Images"].ToString()!;
-                var imageLinks = imagesString.Split(", ");
-                foreach (var link in imageLinks)
+                var images = _tourService.GetByName(selectedItem["Name"].ToString()!).Images;
+                var links = images.Split(", ");
+                foreach (var link in links)
                 {
                     if (Uri.TryCreate(link, UriKind.Absolute, out var uriResult) &&
                         (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps))
@@ -268,6 +269,12 @@ namespace TravelAgency.View.Controls.Guide
                     }
                 }
             }
+
+            if (e.Key == Key.Enter && MonitorDataGrid.SelectedItem != null)
+                TourIsActive_OnClick(sender, e);
+
+            if (e.Key == Key.A)
+                CurrentActiveTour_OnClick(sender, e);
         }
 
         private void Shortcuts_Closed(object? sender, EventArgs eventArgs)
@@ -288,12 +295,8 @@ namespace TravelAgency.View.Controls.Guide
                 var tourists = _touristService.GetByTour(selectedTour);
 
                 var activeKeyPoints = selectedTour.KeyPoints.ToDictionary(location => location!.Id, _ => false);
-                var currentKeyPointId = activeKeyPoints.FirstOrDefault(x => x.Value == true).Key;
 
-                // puca kod
                 var currentKeyPoint = selectedTour.Location;
-
-                // umesto "" treba currentKeyPoint
                 _activeTourService.Add(new ActiveTour(selectedTour.Name, activeKeyPoints, tourists, currentKeyPoint.City));
             }
 
