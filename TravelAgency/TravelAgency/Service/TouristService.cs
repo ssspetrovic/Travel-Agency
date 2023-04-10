@@ -89,6 +89,16 @@ namespace TravelAgency.Service
             _touristRepository.UpdateAppearance(id, appearance);
         }
 
+        public void UpdateAppearanceByUsername(string? username, TouristAppearance appearance)
+        {
+            _touristRepository.UpdateAppearanceByUsername(username, appearance);
+        }
+
+        public TouristAppearance GetTouristAppearance(string? username)
+        {
+            return _touristRepository.GetTouristAppearance(username);
+        }
+
         public Tourist GetById(int id)
         {
             using var databaseConnection = GetConnection();
@@ -106,6 +116,11 @@ namespace TravelAgency.Service
                 selectReader.GetString(3),
                 selectReader.GetString(4), selectReader.GetString(5), (Role)selectReader.GetInt32(6),
                 _tourService.GetByName(CurrentReviewTour.Name!), (TouristAppearance) selectReader.GetInt32(8), selectReader.GetInt32(9), selectReader.GetInt32(10));
+        }
+
+        public void JoinTour(string? username, int tourId)
+        {
+            _touristRepository.JoinTour(username, tourId);
         }
     }
 }

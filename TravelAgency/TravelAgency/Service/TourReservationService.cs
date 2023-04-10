@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
+using TravelAgency.DTO;
 using TravelAgency.Model;
 using TravelAgency.Repository;
 using TravelAgency.View.Controls.Tourist;
@@ -15,7 +16,13 @@ namespace TravelAgency.Service
         public TourService TourService { get; }
         public TourVoucherService TourVoucherService { get; }
 
-        public TourReservationService() { }
+        public TourReservationService()
+        {
+            _tourReservationViewModel = new TourReservationViewModel();
+            _tourReservationRepository = new TourReservationRepository();
+            TourVoucherService = new TourVoucherService();
+            TourService = new TourService();
+        }
 
         public TourReservationService(TourReservationViewModel tourReservationViewModel)
         {
@@ -39,6 +46,8 @@ namespace TravelAgency.Service
             }
             else
             {
+                var myTourDtoService = new MyTourDtoService();
+                myTourDtoService.Add(_tourReservationViewModel.SelectedTour);
                 _tourReservationRepository.Add(new TourReservation(_tourReservationViewModel.SelectedTour.Id, _tourReservationViewModel.SelectedTour.Name, guestNumber, CurrentUser.Username, CurrentUser.DisplayName));
                 MessageBox.Show("Reservation was successful!", "Success");
             }

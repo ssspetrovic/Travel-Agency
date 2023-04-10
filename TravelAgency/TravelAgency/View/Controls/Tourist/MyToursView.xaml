@@ -136,21 +136,45 @@
                         FontWeight="Medium"
                         Style="{StaticResource MaterialDesignHeadline1TextBlock}"
                         Text="My tours" />
-                    <ListView
+                    <Border
                         Grid.Row="1"
-                        Margin="30,0"
-                        d:ItemsSource="{d:SampleData ItemCount=5}">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Width="Auto" Header="Name" />
-                                <GridViewColumn Width="Auto" Header="City" />
-                                <GridViewColumn Width="Auto" Header="Country" />
-                                <GridViewColumn Width="Auto" Header="Date" />
-                                <GridViewColumn Width="Auto" Header="Status" />
-                                <GridViewColumn Width="Auto" Header="KeyPoint" />
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
+                        Margin="80,0"
+                        BorderBrush="{StaticResource MaterialDesignDivider}"
+                        BorderThickness="2">
+                        <ListView
+                            d:ItemsSource="{d:SampleData ItemCount=5}"
+                            ItemsSource="{Binding MyTours}"
+                            SelectedItem="{Binding SelectedTour}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn
+                                        Width="Auto"
+                                        DisplayMemberBinding="{Binding Path=Name}"
+                                        Header="Name" />
+                                    <GridViewColumn
+                                        Width="Auto"
+                                        DisplayMemberBinding="{Binding Path=Location.City}"
+                                        Header="City" />
+                                    <GridViewColumn
+                                        Width="Auto"
+                                        DisplayMemberBinding="{Binding Path=Location.Country}"
+                                        Header="Country" />
+                                    <GridViewColumn
+                                        Width="Auto"
+                                        DisplayMemberBinding="{Binding Path=Date, StringFormat='{}{0:MM/dd/yyyy}'}"
+                                        Header="Date" />
+                                    <GridViewColumn
+                                        Width="Auto"
+                                        DisplayMemberBinding="{Binding Path=Status}"
+                                        Header="Status" />
+                                    <GridViewColumn
+                                        Width="Auto"
+                                        DisplayMemberBinding="{Binding Path=KeyPoint}"
+                                        Header="KeyPoint" />
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </Border>
                     <WrapPanel
                         Grid.Row="2"
                         Width="Auto"
@@ -161,6 +185,7 @@
                             Width="120"
                             Height="40"
                             Margin="0,0,15,0"
+                            Click="JoinTourButton_OnClick"
                             Content="Join tour" />
                         <Button
                             x:Name="RateTourButton"

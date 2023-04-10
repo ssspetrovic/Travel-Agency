@@ -128,7 +128,7 @@ namespace TravelAgency.Service
 
         public string GetCurrentKeyPointByName(string name)
         {
-            return GetActiveTourColumn(name);
+            return _activeTourRepository.GetCurrentKeyPointByName(name);
         }
     }
 }

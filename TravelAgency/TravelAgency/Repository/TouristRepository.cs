@@ -47,5 +47,43 @@ namespace TravelAgency.Repository
             updateCommand.Parameters.AddWithValue("$IsChecked", appearance);
             updateCommand.ExecuteNonQuery();
         }
+
+        public void UpdateAppearanceByUsername(string? username, TouristAppearance appearance)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            const string updateStatement = "update Tourist set IsChecked = $IsChecked where Username = $username";
+            using var updateCommand = new SqliteCommand(updateStatement, databaseConnection);
+            updateCommand.Parameters.AddWithValue("$username", username);
+            updateCommand.Parameters.AddWithValue("$IsChecked", appearance);
+            updateCommand.ExecuteNonQuery();
+        }
+
+        public TouristAppearance GetTouristAppearance(string? username)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            using var selectCommand = databaseConnection.CreateCommand();
+            selectCommand.CommandText = "SELECT IsChecked FROM Tourist WHERE Username = $username";
+            selectCommand.Parameters.AddWithValue("$username", username);
+            using var selectReader =  selectCommand.ExecuteReader();
+            selectReader.Read();
+
+            return (TouristAppearance)selectReader.GetInt32(0);
+        }
+
+        public void JoinTour(string? username, int tourId)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            using var updateCommand = databaseConnection.CreateCommand();
+            updateCommand.CommandText = "UPDATE Tourist SET Tour_Id = $tourId WHERE Username = $username";
+            updateCommand.Parameters.AddWithValue("$tourId", tourId);
+            updateCommand.Parameters.AddWithValue("$username", username);
+            updateCommand.ExecuteNonQuery();
+        }
     }
 }
