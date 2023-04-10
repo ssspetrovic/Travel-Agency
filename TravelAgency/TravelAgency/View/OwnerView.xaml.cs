@@ -60,5 +60,12 @@ namespace TravelAgency.View
             gradeGuestView.Show();
             Close();
         }
+
+        private void btnDisplayGuestsGrades_Click(object sender, RoutedEventArgs e)
+        {
+            var displayGuestsGrades = new DisplayGuestsGrades();
+            displayGuestsGrades.Show();
+            Close();
+        }
     }
 }

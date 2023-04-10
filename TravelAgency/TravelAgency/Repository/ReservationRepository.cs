@@ -266,6 +266,54 @@ namespace TravelAgency.Repository
             updateCommand.ExecuteNonQuery();
         }
 
+        public ObservableCollection<Reservation> GetGuestsGradesToDisplay()
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
 
+            const string selectStatement = @"select * from Reservation";
+            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
+            using var selectReader = selectCommand.ExecuteReader();
+
+            var reservationList = new ObservableCollection<Reservation>();
+
+
+            while (selectReader.Read())
+            {
+                var id = selectReader.GetInt32(0);
+                var guestId = selectReader.GetInt32(1);
+                var accommodationId = selectReader.GetInt32(2);
+                var userComment = selectReader.GetString(3);
+                var gradeUserComplacent = selectReader.GetInt32(6);
+                var gradeUserClean = selectReader.GetInt32(7);
+                var reviewImages = selectReader.GetString(8);
+                var gradeAccommodationClean = selectReader.GetInt32(9);
+                var gradeAccommodationOwner = selectReader.GetInt32(10);
+                var accommodationComment = selectReader.GetString(11);
+
+                DateTime startDate = new DateTime(2023, 3, 15);
+                DateTime endDate = new DateTime(2023, 3, 19);
+
+                if(id == 15)
+                {
+                    gradeUserClean = 2;
+                    gradeUserComplacent = 5;
+                    gradeAccommodationClean = 5;
+                    gradeAccommodationOwner = 4;
+                    accommodationComment = "Very clean and preaty";
+                }
+
+                if (gradeUserComplacent != -1 && gradeUserClean != -1)
+                {
+                    if (gradeAccommodationClean != -1 && gradeAccommodationOwner != -1)
+                    {
+                        Reservation res = new Reservation(id, userComment, startDate, endDate, gradeUserComplacent, gradeUserClean, guestId, accommodationId, accommodationComment, gradeAccommodationClean, gradeAccommodationOwner, reviewImages);
+                        reservationList.Add(res);
+                    }
+                }
+            }
+
+            return reservationList;
+        }
     }
 }
