@@ -43,7 +43,7 @@ namespace TravelAgency.Repository
             databaseConnection.Open();
             using var deleteCommand = databaseConnection.CreateCommand();
             deleteCommand.CommandText = "DELETE FROM TourVoucher WHERE $ExpiringDate > ExpiringDate";
-            deleteCommand.Parameters.AddWithValue("$ExpiringDate", DateTime.Now);
+            deleteCommand.Parameters.AddWithValue("$ExpiringDate", DateTime.Now.ToString("d/M/yyyy"));
             deleteCommand.ExecuteNonQuery();
         }
 
@@ -54,7 +54,7 @@ namespace TravelAgency.Repository
 
             using var selectCommand = databaseConnection.CreateCommand();
             selectCommand.CommandText = "SELECT * FROM TourVoucher WHERE TouristUsername = $CurrentUserUsername";
-            selectCommand.Parameters.AddWithValue("$CurrentUserId", CurrentUser.Username);
+            selectCommand.Parameters.AddWithValue("$CurrentUserUsername", CurrentUser.Username);
             using var selectReader = selectCommand.ExecuteReader();
 
             var vouchers = new ObservableCollection<TourVoucher>();
