@@ -1,8 +1,10 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Data;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
-using TravelAgency.Repository;
 using TravelAgency.View.Controls.Guide;
 
 namespace TravelAgency.View
@@ -203,8 +205,9 @@ namespace TravelAgency.View
                 Close();
             }
 
-            if (e.Key == Key.F10)
+            if (e.SystemKey == Key.F10)
             {
+                e.Handled = true;
                 var createSuggestedTour = new CreateSuggestedTour();
                 createSuggestedTour.Show(); 
                 Close();
@@ -220,9 +223,46 @@ namespace TravelAgency.View
             if (e.Key == Key.Oem3)
             {
                 var shortcuts = new Shortcuts();
+                shortcuts.Closed += Shortcuts_Closed;
+                Visibility = Visibility.Collapsed;
                 shortcuts.Show();
-                Close();
             }
+
+            if (e.Key == Key.Tab && GuideViewListView.Items.Count > 0)
+            {
+                e.Handled = true;
+                GuideViewListView.SelectedIndex =
+                    (GuideViewListView.SelectedIndex + 1) % GuideViewListView.Items.Count;
+            }
+
+            if (e.Key == Key.Enter && GuideViewListView.SelectedItem != null)
+            {
+                var selectedItem = (DataRowView)GuideViewListView.SelectedItem;
+                var imagesString = selectedItem["Images"].ToString()!;
+                var imageLinks = imagesString.Split(", ");
+                foreach (var link in imageLinks)
+                {
+                    if (Uri.TryCreate(link, UriKind.Absolute, out var uriResult) &&
+                        (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps))
+                    {
+                        Process.Start(new ProcessStartInfo
+                        {
+                            FileName = uriResult.AbsoluteUri,
+                            UseShellExecute = true
+                        });
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Invalid link: {link}");
+                    }
+                }
+            }
+
+        }
+
+        private void Shortcuts_Closed(object? sender, EventArgs eventArgs)
+        {
+            Visibility = Visibility.Visible;
         }
     }
 }

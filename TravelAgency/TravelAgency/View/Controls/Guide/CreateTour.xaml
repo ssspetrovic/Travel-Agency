@@ -354,8 +354,9 @@
                         </Grid>
 
                         <Grid Grid.Row="3" Margin="25">
-                            <ScrollViewer>
+                            <ScrollViewer x:Name="CreateTourScrollViewer">
                                 <StackPanel
+                                    x:Name="CreateTourStackPanel"
                                     Width="250"
                                     Margin="0,0,0,0"
                                     Orientation="Vertical">

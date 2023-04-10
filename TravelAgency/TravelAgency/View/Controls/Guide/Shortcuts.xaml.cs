@@ -1,9 +1,7 @@
-﻿using System;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
-using System.Windows.Navigation;
 
 namespace TravelAgency.View.Controls.Guide
 {
@@ -57,7 +55,7 @@ namespace TravelAgency.View.Controls.Guide
 
         private void GoBack_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            Close();
         }
 
         private void ChangeViews_KeyDown(object sender, KeyEventArgs e)
@@ -71,22 +69,6 @@ namespace TravelAgency.View.Controls.Guide
 
             if (e.Key == Key.F2)
             {
-                var createTour = new CreateTour();
-                createTour.Show();
-                Close();
-            }
-
-            if (e.Key == Key.F3)
-            {
-                var monitorTour = new MonitorTour();
-                monitorTour.Show();
-                Close();
-            }
-
-            if (e.Key == Key.Oem3)
-            {
-                var shortcuts = new Shortcuts();
-                shortcuts.Show();
                 Close();
             }
         }

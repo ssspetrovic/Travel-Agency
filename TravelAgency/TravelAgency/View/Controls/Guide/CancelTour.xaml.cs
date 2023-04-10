@@ -1,4 +1,6 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
@@ -206,7 +208,7 @@ namespace TravelAgency.View.Controls.Guide
                 Close();
             }
 
-            if (e.Key == Key.F10)
+            if (e.SystemKey == Key.F10)
             {
                 var createSuggestedTour = new CreateSuggestedTour();
                 createSuggestedTour.Show();
@@ -223,9 +225,45 @@ namespace TravelAgency.View.Controls.Guide
             if (e.Key == Key.Oem3)
             {
                 var shortcuts = new Shortcuts();
+                shortcuts.Closed += Shortcuts_Closed;
+                Visibility = Visibility.Collapsed;
                 shortcuts.Show();
-                Close();
             }
+
+            if (e.Key == Key.Tab && CancelDataGrid.Items.Count > 0)
+            {
+                e.Handled = true;
+                CancelDataGrid.SelectedIndex =
+                    (CancelDataGrid.SelectedIndex + 1) % CancelDataGrid.Items.Count;
+            }
+
+            if (e.Key == Key.Enter && CancelDataGrid.SelectedItem != null)
+            {
+                var selectedItem = (DataRowView)CancelDataGrid.SelectedItem;
+                var imagesString = selectedItem["Images"].ToString()!;
+                var imageLinks = imagesString.Split(", ");
+                foreach (var link in imageLinks)
+                {
+                    if (Uri.TryCreate(link, UriKind.Absolute, out var uriResult) &&
+                        (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps))
+                    {
+                        Process.Start(new ProcessStartInfo
+                        {
+                            FileName = uriResult.AbsoluteUri,
+                            UseShellExecute = true
+                        });
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Invalid link: {link}");
+                    }
+                }
+            }
+        }
+
+        private void Shortcuts_Closed(object? sender, EventArgs eventArgs)
+        {
+            Visibility = Visibility.Visible;
         }
 
         private void ConfirmDeletion_OnClick(object sender, RoutedEventArgs e)
