@@ -368,22 +368,22 @@
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
                                 <Button
-                                    Width="90"
+                                    Width="100"
                                     Height="30"
                                     Margin="250,0,0,0"
                                     Background="#68cbf8"
                                     Click="FinishTour_OnClick"
-                                    Content="End Tour"
+                                    Content="End Tour (E)"
                                     FontSize="12"
                                     Foreground="#ffffff" />
                                 <Button
                                     Grid.Column="1"
-                                    Width="90"
+                                    Width="100"
                                     Height="30"
                                     Margin="0,0,250,0"
                                     Background="#68cbf8"
                                     Click="CheckAllGuests_OnClick"
-                                    Content="Check All"
+                                    Content="Check All (C)"
                                     FontSize="12"
                                     Foreground="#ffffff" />
                             </Grid>

@@ -77,7 +77,7 @@ namespace TravelAgency.View.Controls.Guide
                 Close();
             }
 
-            if (e.Key == Key.F2)
+            if (e.Key == Key.F2 || e.Key == Key.Escape)
             {
                 var allfinishedTours = new AllFinishedTours();
                 allfinishedTours.Show();

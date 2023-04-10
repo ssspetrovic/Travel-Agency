@@ -225,7 +225,7 @@ namespace TravelAgency.View.Controls.Guide
             if (e.Key == Key.Oem3)
             {
                 var shortcuts = new Shortcuts();
-                shortcuts.Closed += Shortcuts_Closed;
+                shortcuts.Closed += Closed;
                 Visibility = Visibility.Collapsed;
                 shortcuts.Show();
             }
@@ -264,26 +264,25 @@ namespace TravelAgency.View.Controls.Guide
             }
 
             if (e.Key == Key.Enter && CancelDataGrid.SelectedItem != null)
-                ConfirmDeletion_OnClick(sender, e);
+                ConfirmDeletion_OnClick();
 
         }
 
-        private void Shortcuts_Closed(object? sender, EventArgs eventArgs)
+        private new void Closed(object? sender, EventArgs eventArgs)
         {
             Visibility = Visibility.Visible;
         }
 
-        private void ConfirmDeletion_OnClick(object sender, RoutedEventArgs e)
+
+        private void ConfirmDeletion_OnClick()
         {
             var tour = (DataRowView)CancelDataGrid.SelectedItem;
             CancelledTour.Name = _tourService.GetByName(tour["Name"].ToString()).Name;
 
             var confirmDeletion = new ConfirmDeletion();
-            confirmDeletion.ShowDialog();
-
-            var guideView = new GuideView();
-            guideView.Show();
-            Close();
+            confirmDeletion.Closed += Closed;
+            Visibility = Visibility.Collapsed;
+            confirmDeletion.Show();
         }
     }
 }

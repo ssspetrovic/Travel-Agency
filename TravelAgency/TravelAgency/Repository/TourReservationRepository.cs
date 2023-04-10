@@ -42,7 +42,7 @@ namespace TravelAgency.Repository
             databaseConnection.Open();
 
             using var selectCommand = databaseConnection.CreateCommand();
-            selectCommand.CommandText = "SELECT * FROM TourReservation WHERE TouristUsername = $CurrentUserUsername";
+            selectCommand.CommandText = "SELECT * FROM TourReservation WHERE Username = $CurrentUserUsername";
             selectCommand.Parameters.AddWithValue("$CurrentUserUsername", CurrentUser.Username);
             using var selectReader = selectCommand.ExecuteReader();
 

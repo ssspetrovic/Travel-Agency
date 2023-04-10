@@ -173,5 +173,10 @@ namespace TravelAgency.Service
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
             return _finishedTourRepository.FindBestTourByYear(GetBestTour(selectCommand), "2023");
         }
+
+        public string GetNewTourName()
+        {
+            return _finishedTourRepository.GetNewTourName();
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 using TravelAgency.Model;
@@ -23,6 +24,8 @@ namespace TravelAgency.View.Controls.Guide
         private readonly FinishedTourService _finishedTourService;
         private readonly TouristService _touristService;
         private readonly TourService _tourService;
+        private bool _currentListView;
+
 
         public CurrentActiveTour()
         {
@@ -74,6 +77,81 @@ namespace TravelAgency.View.Controls.Guide
             var monitorTour = new MonitorTour();
             monitorTour.Show();
             Close();
+        }
+
+        private void ChangeViews_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.F1)
+            {
+                var guideView = new GuideView();
+                guideView.Show();
+                Close();
+            }
+
+            if (e.Key == Key.F2 || e.Key == Key.Escape)
+            {
+                var monitorTour = new MonitorTour();
+                monitorTour.Show();
+                Close();
+            }
+
+            if (e.Key == Key.Oem3)
+            {
+                var shortcuts = new Shortcuts();
+                shortcuts.Closed += Shortcuts_Closed;
+                Visibility = Visibility.Collapsed;
+                shortcuts.Show();
+            }
+
+            if (e.Key == Key.E)
+                FinishTour_OnClick(sender, e);
+
+            if (e.Key == Key.C)
+                CheckAllGuests_OnClick(sender, e);
+
+
+            if (e.Key == Key.LeftShift)
+            {
+                _currentListView = !_currentListView;
+                e.Handled = true;
+
+                if (_currentListView)
+                    ListViewTourists.SelectedIndex = -1;
+                else
+                    ListViewKeyPoints.SelectedIndex = -1;
+
+            }
+
+            if (e.Key == Key.Tab)
+            {
+                if (ListViewKeyPoints.Items.Count > 0 && !_currentListView)
+                {
+                    e.Handled = true;
+                    var index = (ListViewKeyPoints.SelectedIndex + 1) % ListViewKeyPoints.Items.Count;
+                    if (ListViewKeyPoints.ItemContainerGenerator.ContainerFromIndex(index) is ListViewItem listViewItem)
+                    {
+                        listViewItem.IsSelected = true;
+                        listViewItem.Focus();
+                    }
+                }
+                else if (ListViewTourists.Items.Count > 0 && _currentListView)
+                {
+                    e.Handled = true;
+                    var index = (ListViewTourists.SelectedIndex + 1) % ListViewTourists.Items.Count;
+                    if (ListViewTourists.ItemContainerGenerator.ContainerFromIndex(index) is ListViewItem listViewItem)
+                    {
+                        listViewItem.IsSelected = true;
+                        listViewItem.Focus();
+                    }
+                }
+            }
+
+
+        }
+
+        private void Shortcuts_Closed(object? sender, EventArgs eventArgs)
+        {
+            Visibility = Visibility.Visible;
         }
 
         private void ChangeCurrentKeyPoint_OnClick(object sender, RoutedEventArgs e)
@@ -209,8 +287,6 @@ namespace TravelAgency.View.Controls.Guide
 
             RemoveTour(tour.Date.Split(", ").ToList(), tourists);
             _activeTourService.Remove();
-
-            CurrentReviewTour.Name = tour.Name;
         }
 
         private void FinishTour_OnClick(object sender, RoutedEventArgs e)
@@ -241,36 +317,6 @@ namespace TravelAgency.View.Controls.Guide
             var currentTour = new CurrentActiveTour();
             currentTour.Show();
             Close();
-        }
-
-        private void ChangeViews_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.F1)
-            {
-                var guideView = new GuideView();
-                guideView.Show();
-                Close();
-            }
-
-            if (e.Key == Key.F2)
-            {
-                var monitorTour = new MonitorTour();
-                monitorTour.Show();
-                Close();
-            }
-
-            if (e.Key == Key.Oem3)
-            {
-                var shortcuts = new Shortcuts();
-                shortcuts.Closed += Shortcuts_Closed;
-                Visibility = Visibility.Collapsed;
-                shortcuts.Show();
-            }
-        }
-
-        private void Shortcuts_Closed(object? sender, EventArgs eventArgs)
-        {
-            Visibility = Visibility.Visible;
         }
     }
 }
