@@ -11,6 +11,7 @@
     Height="400"
     AllowsTransparency="True"
     Background="Transparent"
+    KeyDown="ConfirmDeletion_OnKeyDown"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
@@ -65,6 +66,7 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             FontSize="14"
+                            FontWeight="Bold"
                             Foreground="#4fc3f7"
                             Text="Are you sure you wish to delete:" />
 
@@ -72,14 +74,23 @@
                             x:Name="TourNameText"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            FontSize="14"
+                            FontSize="18"
+                            FontWeight="Bold"
                             Foreground="#4fc3f7"
                             Text="{Binding Path=DeletedTourName}" />
+
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="10"
+                            Foreground="#4fc3f7"
+                            Text="*Use function keys to choose a date to cancel!" />
                     </StackPanel>
 
                 </Grid>
 
                 <ItemsControl
+                    x:Name="DateOptionsItemsControl"
                     Grid.Row="1"
                     HorizontalAlignment="Center"
                     ItemsSource="{Binding Options}">
@@ -89,12 +100,13 @@
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:Name="DateOptionsTemplate">
                             <RadioButton
                                 x:Name="DateOptions"
                                 Margin="0,0,10,0"
                                 Checked="DateChecked"
                                 Content="{Binding}"
+                                FocusVisualStyle="{x:Null}"
                                 GroupName="Dates" />
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
@@ -119,6 +131,7 @@
                     HorizontalAlignment="Center"
                     Orientation="Horizontal">
                     <Button
+                        x:Name="ConfirmButton"
                         Width="90"
                         Height="30"
                         Margin="0,0,40,0"

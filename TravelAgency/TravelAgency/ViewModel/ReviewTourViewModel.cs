@@ -10,11 +10,14 @@ namespace TravelAgency.ViewModel
     {
         private readonly TourRatingService _tourRatingService;
         private readonly TourService _tourService;
+        private readonly FinishedTourService _finishedTourService;
 
         public ReviewTourViewModel()
         {
             _tourRatingService = new TourRatingService();
             _tourService = new TourService();
+            _finishedTourService = new FinishedTourService();
+            CurrentReviewTour.Name = _finishedTourService.GetNewTourName();
         }
 
         public string ReviewTourName => "Tour: " + CurrentReviewTour.Name;

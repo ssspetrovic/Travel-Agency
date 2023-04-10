@@ -123,5 +123,18 @@ namespace TravelAgency.Repository
             dt.Load(selectCommand.ExecuteReader());
             return dt;
         }
+
+        public string GetNewTourName()
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            const string selectStatement = "select * from FinishedTour order by Id desc limit 1";
+            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
+            using var selectReader = selectCommand.ExecuteReader();
+
+            if (!selectReader.Read()) return "No Tour";
+            return selectReader.GetString(1);
+        }
     }
 }

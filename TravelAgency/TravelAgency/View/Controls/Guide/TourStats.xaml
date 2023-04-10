@@ -436,7 +436,7 @@
                                             </Grid>
 
                                             <Button
-                                                x:Name="BtnLogin"
+                                                x:Name="BtnAllTours"
                                                 Grid.Row="2"
                                                 Width="250"
                                                 Background="#68cbf8"

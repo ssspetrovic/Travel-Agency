@@ -290,8 +290,6 @@ namespace TravelAgency.View.Controls.Guide
                 var drv = (DataRowView)MonitorDataGrid.SelectedItem;
 
                 var selectedTour = _tourService.GetByName(drv["Name"].ToString());
-                MessageBox.Show("You selected Tour: " + selectedTour.Name);
-
                 var tourists = _touristService.GetByTour(selectedTour);
 
                 var activeKeyPoints = selectedTour.KeyPoints.ToDictionary(location => location!.Id, _ => false);

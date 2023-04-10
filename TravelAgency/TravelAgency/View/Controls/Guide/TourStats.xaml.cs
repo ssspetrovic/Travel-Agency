@@ -229,6 +229,9 @@ namespace TravelAgency.View.Controls.Guide
             {
                 TourStatsTabControl.SelectedIndex = (TourStatsTabControl.SelectedIndex + 1) % TourStatsTabControl.Items.Count;
             }
+
+            if (e.Key == Key.Enter)
+                AllFinishedTours_OnClick(sender, e);
         }
 
         private void Shortcuts_Closed(object? sender, EventArgs eventArgs)

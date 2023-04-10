@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using TravelAgency.Model;
 using TravelAgency.Repository;
 using TravelAgency.Service;
@@ -22,6 +24,7 @@ namespace TravelAgency.View.Controls.Guide
             InitializeComponent();
             _touristService = new TouristService();
             _tourService = new TourService();
+            PasswordBox.Focus();
         }
 
         private bool AuthenticateDeletion()
@@ -79,6 +82,42 @@ namespace TravelAgency.View.Controls.Guide
         private void DateChecked(object sender, RoutedEventArgs e)
         {
             CancelledTour.Date = ((RadioButton)sender).Content.ToString();
+        }
+
+
+        private List<RadioButton> InitializeRadioButtonData()
+        {
+            var dateOptionsList = new List<RadioButton>();
+            foreach (var item in DateOptionsItemsControl.Items)
+            {
+                var container = DateOptionsItemsControl.ItemContainerGenerator.ContainerFromItem(item) as ContentPresenter;
+                var radioButton = container!.ContentTemplate.FindName("DateOptions", container) as RadioButton;
+                dateOptionsList.Add(radioButton!);
+            }
+
+            return dateOptionsList;
+        }
+
+        private void ConfirmDeletion_OnKeyDown(object sender, KeyEventArgs e)
+        {
+
+            if (e.Key == Key.Enter)
+                ConfirmButton_OnClick(sender, e);
+            if (e.Key == Key.Escape)
+                Close();
+
+            var dateOptionsList = InitializeRadioButtonData();
+
+            if (e.Key is >= Key.F1 and <= Key.F12)
+            {
+                var index = e.Key - Key.F1;
+                if (index < dateOptionsList.Count)
+                {
+                    var radioButton = dateOptionsList[index];
+                    radioButton.IsChecked = true;
+                    e.Handled = true;
+                }
+            }
         }
     }
 }
