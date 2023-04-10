@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
+using TravelAgency.DTO;
 using TravelAgency.Model;
 using TravelAgency.Service;
 
@@ -296,6 +297,10 @@ namespace TravelAgency.View.Controls.Guide
 
                 var currentKeyPoint = selectedTour.Location;
                 _activeTourService.Add(new ActiveTour(selectedTour.Name, activeKeyPoints, tourists, currentKeyPoint.City));
+
+                var myTourDtoService = new MyTourDtoService();
+                myTourDtoService.UpdateStatus(selectedTour.Name, MyTourDto.TourStatus.Active);
+                myTourDtoService.UpdateKeyPoint(selectedTour.Name, currentKeyPoint.ToString());
             }
 
             else
