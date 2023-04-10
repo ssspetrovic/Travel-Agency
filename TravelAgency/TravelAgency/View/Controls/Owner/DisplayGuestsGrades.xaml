@@ -1,0 +1,45 @@
+﻿<Window x:Class="TravelAgency.View.Controls.Owner.DisplayGuestsGrades"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TravelAgency.View.Controls.Owner"
+        mc:Ignorable="d"
+        Title="DisplayGuestsGrades" Height="450" Width="800">
+    <Grid>
+        <Button x:Name="btnBack" Content="Back" HorizontalAlignment="Left" Margin="714,374,0,0" VerticalAlignment="Top" Click="btnBack_Click"/>
+        <ListView x:Name="GuestListView" d:ItemsSource="{d:SampleData ItemCount=3}" ItemsSource="{Binding GuestsGradesSourceCollection}" SelectedItem="{Binding SelectedGuestsGrade}" Margin="42,53,55,205">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn
+                        Width="Auto"
+                        DisplayMemberBinding="{Binding GuestId}"
+                        Header="Guest" />
+                    <GridViewColumn
+                        Width="Auto"
+                        DisplayMemberBinding="{Binding AccommodationId}"
+                        Header="Accommodation" />
+                    <GridViewColumn
+                        Width="Auto"
+                        DisplayMemberBinding="{Binding StartDate}"
+                        Header="Start Date" />
+                    <GridViewColumn
+                        Width="Auto"
+                        DisplayMemberBinding="{Binding EndDate}"
+                        Header="End Date" />
+                    <GridViewColumn
+                        Width="Auto"
+                        DisplayMemberBinding="{Binding GradeAccommodationClean}"
+                        Header="Grade Clean" />
+                    <GridViewColumn
+                        Width="Auto"
+                        DisplayMemberBinding="{Binding GradeAccommodationOwner}"
+                        Header="Grade Owner" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <TextBox x:Name="txtAccommodationComment" DataContext="{Binding SelectedItem, ElementName=GuestListView}" HorizontalAlignment="Left" Margin="42,309,0,0" TextWrapping="Wrap" Text="{Binding AccommodationComment}" VerticalAlignment="Top" Width="703" FontWeight="Bold" IsEnabled="False"/>
+        <Label Content="Guest's comment about the accommodation:" HorizontalAlignment="Left" Margin="42,277,0,0" VerticalAlignment="Top" FontSize="14"/>
+
+    </Grid>
+</Window>
