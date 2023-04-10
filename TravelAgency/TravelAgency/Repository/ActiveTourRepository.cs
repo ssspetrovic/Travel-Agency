@@ -1,6 +1,5 @@
 ﻿using Microsoft.Data.Sqlite;
 using System.Linq;
-using System.Windows.Forms;
 using TravelAgency.Model;
 
 namespace TravelAgency.Repository
@@ -49,7 +48,7 @@ namespace TravelAgency.Repository
             insertCommand.Parameters.AddWithValue("$Name", activeTour.Name);
             insertCommand.Parameters.AddWithValue("$KeyPointsList", GetAllKeyPoints(activeTour));
             insertCommand.Parameters.AddWithValue("$Tourists", GetAllTourists(activeTour));
-            insertCommand.Parameters.AddWithValue("$CurrentKeyPoint", GetAllTourists(activeTour));
+            insertCommand.Parameters.AddWithValue("$CurrentKeyPoint", activeTour.CurrentKeyPoint);
             insertCommand.ExecuteNonQuery();
         }
 
@@ -94,8 +93,8 @@ namespace TravelAgency.Repository
             databaseConnection.Open();
 
             using var selectCommand = databaseConnection.CreateCommand();
-            selectCommand.CommandText = "select CurrentKeyPoint from ActiveTour where Name = $name";
-            selectCommand.Parameters.AddWithValue($"name", name);
+            selectCommand.CommandText = "select CurrentKeyPoint from ActiveTour where Name = $Name";
+            selectCommand.Parameters.AddWithValue("$Name", name);
             using var selectReader = selectCommand.ExecuteReader();
             
             return !selectReader.Read() ? "/" : selectReader.GetString(0);

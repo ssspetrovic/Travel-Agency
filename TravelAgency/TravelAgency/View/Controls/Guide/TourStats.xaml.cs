@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
@@ -202,7 +203,7 @@ namespace TravelAgency.View.Controls.Guide
                 Close();
             }
 
-            if (e.Key == Key.F10)
+            if (e.SystemKey == Key.F10)
             {
                 var createSuggestedTour = new CreateSuggestedTour();
                 createSuggestedTour.Show();
@@ -219,14 +220,20 @@ namespace TravelAgency.View.Controls.Guide
             if (e.Key == Key.Oem3)
             {
                 var shortcuts = new Shortcuts();
+                shortcuts.Closed += Shortcuts_Closed;
+                Visibility = Visibility.Collapsed;
                 shortcuts.Show();
-                Close();
             }
 
             if (e.Key == Key.Tab)
             {
                 TourStatsTabControl.SelectedIndex = (TourStatsTabControl.SelectedIndex + 1) % TourStatsTabControl.Items.Count;
             }
+        }
+
+        private void Shortcuts_Closed(object? sender, EventArgs eventArgs)
+        {
+            Visibility = Visibility.Visible;
         }
 
         private void AllFinishedTours_OnClick(object sender, RoutedEventArgs e)

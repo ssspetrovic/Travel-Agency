@@ -356,6 +356,7 @@
 
                         <Grid Grid.Row="3" Margin="25">
                             <ListView
+                                x:Name="GuideViewListView"
                                 Margin="10"
                                 Foreground="#68cbf8"
                                 ItemsSource="{Binding Tours}">
@@ -402,6 +403,7 @@
                                             DisplayMemberBinding="{Binding Path=Duration}"
                                             Header="Duration" />
                                         <GridViewColumn
+                                            x:Name="ImagesColumn"
                                             Width="200"
                                             DisplayMemberBinding="{Binding Path=Images}"
                                             Header="Images" />

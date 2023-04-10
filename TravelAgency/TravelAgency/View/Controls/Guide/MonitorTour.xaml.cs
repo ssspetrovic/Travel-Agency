@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -20,6 +21,7 @@ namespace TravelAgency.View.Controls.Guide
         private readonly ActiveTourService _activeTourService;
         private readonly TouristService _touristService;
         private readonly TourService _tourService;
+        private readonly LocationService _locationService;
 
         public MonitorTour()
         {
@@ -27,6 +29,7 @@ namespace TravelAgency.View.Controls.Guide
             _activeTourService = new ActiveTourService();
             _touristService = new TouristService();
             _tourService = new TourService();
+            _locationService = new LocationService();
         }
 
         [DllImport("user32.dll")]
@@ -214,7 +217,7 @@ namespace TravelAgency.View.Controls.Guide
                 Close();
             }
 
-            if (e.Key == Key.F10)
+            if (e.SystemKey == Key.F10)
             {
                 var createSuggestedTour = new CreateSuggestedTour();
                 createSuggestedTour.Show();
@@ -231,9 +234,45 @@ namespace TravelAgency.View.Controls.Guide
             if (e.Key == Key.Oem3)
             {
                 var shortcuts = new Shortcuts();
+                shortcuts.Closed += Shortcuts_Closed;
+                Visibility = Visibility.Collapsed;
                 shortcuts.Show();
-                Close();
             }
+
+            if (e.Key == Key.Tab && MonitorDataGrid.Items.Count > 0)
+            {
+                e.Handled = true;
+                MonitorDataGrid.SelectedIndex =
+                    (MonitorDataGrid.SelectedIndex + 1) % MonitorDataGrid.Items.Count;
+            }
+
+            if (e.Key == Key.Enter && MonitorDataGrid.SelectedItem != null)
+            {
+                var selectedItem = (DataRowView)MonitorDataGrid.SelectedItem;
+                var imagesString = selectedItem["Images"].ToString()!;
+                var imageLinks = imagesString.Split(", ");
+                foreach (var link in imageLinks)
+                {
+                    if (Uri.TryCreate(link, UriKind.Absolute, out var uriResult) &&
+                        (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps))
+                    {
+                        Process.Start(new ProcessStartInfo
+                        {
+                            FileName = uriResult.AbsoluteUri,
+                            UseShellExecute = true
+                        });
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Invalid link: {link}");
+                    }
+                }
+            }
+        }
+
+        private void Shortcuts_Closed(object? sender, EventArgs eventArgs)
+        {
+            Visibility = Visibility.Visible;
         }
 
         private void TourIsActive_OnClick(object sender, RoutedEventArgs routedEventArgs)
@@ -249,15 +288,13 @@ namespace TravelAgency.View.Controls.Guide
                 var tourists = _touristService.GetByTour(selectedTour);
 
                 var activeKeyPoints = selectedTour.KeyPoints.ToDictionary(location => location!.Id, _ => false);
-
-                var locationService = new LocationService();
                 var currentKeyPointId = activeKeyPoints.FirstOrDefault(x => x.Value == true).Key;
 
                 // puca kod
-                var currentKeyPoint = locationService.GetById(currentKeyPointId)!.City;
+                var currentKeyPoint = selectedTour.Location;
 
                 // umesto "" treba currentKeyPoint
-                _activeTourService.Add(new ActiveTour(selectedTour.Name, activeKeyPoints, tourists, ""));
+                _activeTourService.Add(new ActiveTour(selectedTour.Name, activeKeyPoints, tourists, currentKeyPoint.City));
             }
 
             else
