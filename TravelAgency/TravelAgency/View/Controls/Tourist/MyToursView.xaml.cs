@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls.Primitives;
+using TravelAgency.ViewModel;
 
 namespace TravelAgency.View.Controls.Tourist
 {
@@ -11,6 +12,7 @@ namespace TravelAgency.View.Controls.Tourist
         public MyToursView()
         {
             InitializeComponent();
+            DataContext = new MyToursViewModel();
         }
 
         private void SignOutButton_OnClick(object sender, RoutedEventArgs e)
@@ -48,6 +50,11 @@ namespace TravelAgency.View.Controls.Tourist
             var myVouchersView = new TourVouchers();
             myVouchersView.Show();
             Close();
+        }
+
+        private void JoinTourButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            ((MyToursViewModel)DataContext).MyTourDtoService.JoinTour();
         }
     }
 }
