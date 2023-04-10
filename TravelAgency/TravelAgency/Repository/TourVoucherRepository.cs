@@ -14,13 +14,14 @@ namespace TravelAgency.Repository
             using var insertCommand = databaseConnection.CreateCommand();
             insertCommand.CommandText =
                 @"
-                    INSERT INTO TourVoucher (TouristId, Description, ExpirationDate)
-                    VALUES ($TouristId, $Description, $ExpirationDate)
+                    INSERT INTO TourVoucher (TouristId, TouristUsername, Description, ExpiringDate)
+                    VALUES ($TouristId, $TouristUsername, $Description, $ExpiringDate)
                 ";
 
             insertCommand.Parameters.AddWithValue("TouristId", tourVoucher.TouristId);
+            insertCommand.Parameters.AddWithValue("$TouristUsername", tourVoucher.TouristUsername);
             insertCommand.Parameters.AddWithValue("Description", tourVoucher.Description);
-            insertCommand.Parameters.AddWithValue("ExpirationDate", tourVoucher.ExpirationDate.ToString("d/M/yyyy"));
+            insertCommand.Parameters.AddWithValue("ExpiringDate", tourVoucher.ExpirationDate.ToString("d/M/yyyy"));
             insertCommand.ExecuteNonQuery();
         }
 
@@ -40,8 +41,8 @@ namespace TravelAgency.Repository
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
             using var deleteCommand = databaseConnection.CreateCommand();
-            deleteCommand.CommandText = "DELETE FROM TourVoucher WHERE $ExpirationDate > ExpirationDate";
-            deleteCommand.Parameters.AddWithValue("$ExpirationDate", DateTime.Now);
+            deleteCommand.CommandText = "DELETE FROM TourVoucher WHERE $ExpiringDate > ExpiringDate";
+            deleteCommand.Parameters.AddWithValue("$ExpiringDate", DateTime.Now);
             deleteCommand.ExecuteNonQuery();
         }
 

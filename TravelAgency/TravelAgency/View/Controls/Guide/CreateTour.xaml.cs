@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 using TravelAgency.Model;
@@ -24,6 +25,7 @@ namespace TravelAgency.View.Controls.Guide
             InitializeComponent();
             _locationService = new LocationService();
             _tourService = new TourService();
+            NameText.Focus();
         }
 
         [DllImport("user32.dll")]
@@ -232,7 +234,15 @@ namespace TravelAgency.View.Controls.Guide
                 Visibility = Visibility.Collapsed;
                 shortcuts.Show();
             }
+
+            if (e.Key == Key.Tab && BtnLogin.IsFocused)
+            {
+                e.Handled = true;
+                NameText.Focus();
+                CreateTourScrollViewer.ScrollToTop();
+            }
         }
+
 
         private void Shortcuts_Closed(object? sender, EventArgs eventArgs)
         {

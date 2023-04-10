@@ -30,7 +30,8 @@ namespace TravelAgency.ViewModel
 
         public string AverageRating =>
             Ratings.Any(r => !r.EndsWith("⚠️"))
-                ? "Average Rating: " + Math.Round(Ratings.Select(double.Parse).Average(), 2)
+                ? "Average Rating: " + Math.Round(Ratings.Where(r => !r.EndsWith("⚠️")).Select(double.Parse).Average(), 2)
                 : "No ratings available";
+
     }
 }
