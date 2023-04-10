@@ -64,7 +64,7 @@ namespace TravelAgency.Service
                 return;
             }
 
-            if (_myToursViewModel?.SelectedTour.Status != MyTourDto.TourStatus.Active)
+            if (_myToursViewModel?.SelectedTour.Status != MyTourDto.TourStatus.Active && _myToursViewModel?.SelectedTour.Status != MyTourDto.TourStatus.Inactive)
             {
                 MessageBox.Show("Cannot join this tour!", "Error");
                 return;
@@ -75,7 +75,7 @@ namespace TravelAgency.Service
             var touristService = new TouristService();
             touristService.JoinTour(CurrentUser.Username, _myToursViewModel.SelectedTour.TourId);
 
-            _myToursViewModel.MyToursView.Refresh();
+            MyToursViewModel.ReloadWindow();
         }
     }
 }
