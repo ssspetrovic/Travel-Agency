@@ -237,12 +237,15 @@ namespace TravelAgency.View.Controls.Guide
                     (CancelDataGrid.SelectedIndex + 1) % CancelDataGrid.Items.Count;
             }
 
-            if (e.Key == Key.Enter && CancelDataGrid.SelectedItem != null)
+            if (e.Key == Key.P && CancelDataGrid.SelectedItem != null)
             {
+                if (e.Handled) return;
+                e.Handled = true;
+
                 var selectedItem = (DataRowView)CancelDataGrid.SelectedItem;
-                var imagesString = selectedItem["Images"].ToString()!;
-                var imageLinks = imagesString.Split(", ");
-                foreach (var link in imageLinks)
+                var images = _tourService.GetByName(selectedItem["Name"].ToString()!).Images;
+                var links = images.Split(", ");
+                foreach (var link in links)
                 {
                     if (Uri.TryCreate(link, UriKind.Absolute, out var uriResult) &&
                         (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps))
@@ -259,6 +262,10 @@ namespace TravelAgency.View.Controls.Guide
                     }
                 }
             }
+
+            if (e.Key == Key.Enter && CancelDataGrid.SelectedItem != null)
+                ConfirmDeletion_OnClick(sender, e);
+
         }
 
         private void Shortcuts_Closed(object? sender, EventArgs eventArgs)

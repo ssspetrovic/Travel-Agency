@@ -368,24 +368,9 @@
                                     </Style>
                                 </DataGrid.Resources>
                                 <DataGrid.Columns>
-                                    <DataGridTemplateColumn Header="Select Tour">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Button
-                                                    Width="80"
-                                                    Height="30"
-                                                    Margin="0,0,10,0"
-                                                    Background="#68cbf8"
-                                                    Click="ConfirmDeletion_OnClick"
-                                                    Content="{Binding Path=Name}"
-                                                    FontSize="12"
-                                                    Foreground="#ffffff" />
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
                                     <DataGridTextColumn
                                         Binding="{Binding Path=Name}"
-                                        Header="Name"
+                                        Header="Select Tour"
                                         IsReadOnly="True" />
                                     <DataGridTextColumn
                                         Binding="{Binding Path=Location_Id}"
@@ -414,10 +399,6 @@
                                     <DataGridTextColumn
                                         Binding="{Binding Path=Duration}"
                                         Header="Duration"
-                                        IsReadOnly="True" />
-                                    <DataGridTextColumn
-                                        Binding="{Binding Path=Images}"
-                                        Header="Images"
                                         IsReadOnly="True" />
                                 </DataGrid.Columns>
                             </DataGrid>

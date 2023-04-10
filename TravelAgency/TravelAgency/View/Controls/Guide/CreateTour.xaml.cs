@@ -4,11 +4,11 @@ using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 using TravelAgency.Model;
 using TravelAgency.Service;
+using static System.Char;
 
 namespace TravelAgency.View.Controls.Guide
 {
@@ -26,6 +26,7 @@ namespace TravelAgency.View.Controls.Guide
             _locationService = new LocationService();
             _tourService = new TourService();
             NameText.Focus();
+            DatePick.SelectedDate = DateTime.Today;
         }
 
         [DllImport("user32.dll")]
@@ -235,19 +236,44 @@ namespace TravelAgency.View.Controls.Guide
                 shortcuts.Show();
             }
 
-            if (e.Key == Key.Tab && BtnLogin.IsFocused)
+            if (e.Key == Key.Tab && BtnConfirm.IsFocused)
             {
                 e.Handled = true;
                 NameText.Focus();
                 CreateTourScrollViewer.ScrollToTop();
             }
-        }
 
+            if (e.Key == Key.Enter && ComboBoxKeyPoints.IsFocused)
+                AddKeyPoints_OnClick();
+
+            if (e.Key == Key.Delete && ComboBoxKeyPoints.IsFocused)
+                DeleteKeyPoints_OnClick();
+
+            if (e.Key == Key.Enter && ImagesText.IsFocused)
+                AddImages_OnClick();
+
+            if (e.Key == Key.Delete && ImagesText.IsFocused)
+                DeleteImages_OnClick();
+
+            if (e.Key == Key.Enter && BtnConfirm.IsFocused)
+                Confirm_OnClick(sender, e);
+        }
 
         private void Shortcuts_Closed(object? sender, EventArgs eventArgs)
         {
             Visibility = Visibility.Visible;
         }
+
+        private void DatePick_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+                AddNewDate_OnClick();
+            if (e.Key == Key.Delete)
+                DeleteDates_OnClick();
+            if (IsLetterOrDigit((char)KeyInterop.VirtualKeyFromKey(e.Key)))
+                DatePick.SelectedDate = null;
+        }
+
 
         private bool AuthenticateTourInfo()
         {
@@ -359,8 +385,9 @@ namespace TravelAgency.View.Controls.Guide
             
         }
 
-        private void AddNewDate_OnClick(object sender, RoutedEventArgs routedEventArgs)
+        private void AddNewDate_OnClick()
         {
+
             var date = Convert.ToDateTime(DatePick.Text).ToString("MM/dd/yyyy",new CultureInfo("en-US"));
             var hasText = false;
             if (DateList.Text.Contains(DatePick.Text))
@@ -384,14 +411,16 @@ namespace TravelAgency.View.Controls.Guide
                 DateList.Text = DateList.Text.Substring(2, DateList.Text.Length - 2);
                 
             DatePick.Text = "";
+            DatePick.Focus();
         }
 
-        private void DeleteDates_OnClick(object sender, RoutedEventArgs e)
+        private void DeleteDates_OnClick()
         {
             DateList.Text = "";
+            DatePick.Focus();
         }
 
-        private void AddKeyPoints_OnClick(object sender, RoutedEventArgs routedEventArgs)
+        private void AddKeyPoints_OnClick()
         {
             var hasText = false;
             if (KeyPointsList.Text.Contains(ComboBoxKeyPoints.Text))
@@ -415,14 +444,16 @@ namespace TravelAgency.View.Controls.Guide
                  KeyPointsList.Text =  KeyPointsList.Text.Substring(2, KeyPointsList.Text.Length - 2);
 
             ComboBoxKeyPoints.Text = "";
+            ComboBoxKeyPoints.Focus();
         }
 
-        private void DeleteKeyPoints_OnClick(object sender, RoutedEventArgs e)
+        private void DeleteKeyPoints_OnClick()
         {
             KeyPointsList.Text = "";
+            ComboBoxKeyPoints.Focus();
         }
 
-        private void AddImages_OnClick(object sender, RoutedEventArgs routedEventArgs)
+        private void AddImages_OnClick()
         {
             var hasText = false;
             if (ImagesList.Text.Contains(ImagesText.Text))
@@ -446,11 +477,13 @@ namespace TravelAgency.View.Controls.Guide
                 ImagesList.Text = ImagesList.Text.Substring(2, ImagesList.Text.Length - 2);
 
             ImagesText.Text = "";
+            ImagesText.Focus();
         }
 
-        private void DeleteImages_OnClick(object sender, RoutedEventArgs e)
+        private void DeleteImages_OnClick()
         {
             ImagesList.Text = "";
+            ImagesText.Focus();
         }
     }
 }

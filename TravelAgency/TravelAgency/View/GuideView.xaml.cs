@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
+using TravelAgency.Service;
 using TravelAgency.View.Controls.Guide;
 
 namespace TravelAgency.View
@@ -12,12 +13,15 @@ namespace TravelAgency.View
     /// <summary>
     /// Interaction logic for GuideView.xaml
     /// </summary>
-    public partial class GuideView 
+    public partial class GuideView
     {
+        private readonly TourService _tourService;
+
         public GuideView()
         {
             InitializeComponent();
             this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
+            _tourService = new TourService();
         }
 
         [DllImport("user32.dll")]
@@ -237,10 +241,13 @@ namespace TravelAgency.View
 
             if (e.Key == Key.Enter && GuideViewListView.SelectedItem != null)
             {
+                if (e.Handled) return;
+                e.Handled = true;
+
                 var selectedItem = (DataRowView)GuideViewListView.SelectedItem;
-                var imagesString = selectedItem["Images"].ToString()!;
-                var imageLinks = imagesString.Split(", ");
-                foreach (var link in imageLinks)
+                var images = _tourService.GetByName(selectedItem["Name"].ToString()!).Images;
+                var links = images.Split(", ");
+                foreach (var link in links)
                 {
                     if (Uri.TryCreate(link, UriKind.Absolute, out var uriResult) &&
                         (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps))
