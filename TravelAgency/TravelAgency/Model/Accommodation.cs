@@ -21,7 +21,7 @@ namespace TravelAgency.Model
         public AccommodationType Type { get; set; }
         public int MinGuest { get; set; }
         public int MaxGuest { get; set; }
-        public string Adress { get; set; } 
+        public string Address { get; set; } 
         public int ReservableDays { get; set; }
         public string Images { get; set; }  
         public string Description { get; set; }
@@ -30,7 +30,7 @@ namespace TravelAgency.Model
         {
             
         }
-        public Accommodation(int id, string name, int locationId, AccommodationType type, int minReservationDays, int maxReservationDays, string adress, int reservableDays, string images, string description)
+        public Accommodation(int id, string name, int locationId, AccommodationType type, int minReservationDays, int maxReservationDays, string address, int reservableDays, string images, string description)
         {
             Id = id;
             Name = name;
@@ -38,33 +38,33 @@ namespace TravelAgency.Model
             Type = type;
             MinGuest = minReservationDays;
             MaxGuest = maxReservationDays;
-            Adress = adress;
+            Address = address;
             ReservableDays = reservableDays;
             Images = images;
             Description = description;
         }
 
-        public Accommodation(string name, int locationId, AccommodationType type, int minReservationDays, int maxReservationDays, string adress, int reservableDays, string images, string description)
+        public Accommodation(string name, int locationId, AccommodationType type, int minReservationDays, int maxReservationDays, string address, int reservableDays, string images, string description)
         {
             Name = name;
             LocationId = locationId;
             Type = type;
             MinGuest = minReservationDays;
             MaxGuest = maxReservationDays;
-            Adress = adress;
+            Address = address;
             ReservableDays = reservableDays;
             Images = images;
             Description = description;
         }
 
-        public Accommodation(string name, int locationId, AccommodationType type, int minReservationDays, int maxReservationDays, string adress, int reservableDays, string images, string description, int ownerId)
+        public Accommodation(string name, int locationId, AccommodationType type, int minReservationDays, int maxReservationDays, string address, int reservableDays, string images, string description, int ownerId)
         {
             Name = name;
             LocationId = locationId;
             Type = type;
             MinGuest = minReservationDays;
             MaxGuest = maxReservationDays;
-            Adress = adress;
+            Address = address;
             ReservableDays = reservableDays;
             Images = images;
             Description = description;

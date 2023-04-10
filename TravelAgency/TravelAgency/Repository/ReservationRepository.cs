@@ -68,21 +68,10 @@ namespace TravelAgency.Repository
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
             using var selectReader = selectCommand.ExecuteReader();
 
-            var reservationList = new ObservableCollection<Reservation>();
-            var locationService = new LocationService();
-
             int count = 0;
 
             while (selectReader.Read())
             {
-                var location = locationService.GetById(selectReader.GetInt32(2));
-                var keyPointsList = selectReader.GetString(6).Split(", ");
-                var keyPoints = locationService.GetByAllCities(keyPointsList.ToList());
-
-                var id = selectReader.GetInt32(0);
-                var guestId = selectReader.GetInt32(1);
-                var accommodationId = selectReader.GetInt32(2);
-                var comment = selectReader.GetString(3);
                 //var startDate = selectReader.GetDateTime(4);
                 //var endDate = selectReader.GetDateTime(5);
                 var gradeComplaisent = selectReader.GetFloat(6);
@@ -117,15 +106,9 @@ namespace TravelAgency.Repository
             using var selectReader = selectCommand.ExecuteReader();
 
             var reservationList = new ObservableCollection<Reservation>();
-            var locationService = new LocationService();
-
 
             while (selectReader.Read())
             {
-                var location = locationService.GetById(selectReader.GetInt32(2));
-                var keyPointsList = selectReader.GetString(6).Split(", ");
-                var keyPoints = locationService.GetByAllCities(keyPointsList.ToList());
-
                 var id = selectReader.GetInt32(0);
                 var guestId = selectReader.GetInt32(1);
                 var accommodationId = selectReader.GetInt32(2);
@@ -158,15 +141,10 @@ namespace TravelAgency.Repository
             using var selectReader = selectCommand.ExecuteReader();
 
             var reservationList = new ObservableCollection<Reservation>();
-            var locationService = new LocationService();
 
 
             while (selectReader.Read())
             {
-                var location = locationService.GetById(selectReader.GetInt32(2));
-                var keyPointsList = selectReader.GetString(6).Split(", ");
-                var keyPoints = locationService.GetByAllCities(keyPointsList.ToList());
-
                 var id = selectReader.GetInt32(0);
                 var guestId = selectReader.GetInt32(1);
                 var accommodationId = selectReader.GetInt32(2);
@@ -204,15 +182,10 @@ namespace TravelAgency.Repository
             using var selectReader = selectCommand.ExecuteReader();
 
             var reservationList = new ObservableCollection<Reservation>();
-            var locationService = new LocationService();
 
 
             while (selectReader.Read())
             {
-                var location = locationService.GetById(selectReader.GetInt32(2));
-                var keyPointsList = selectReader.GetString(6).Split(", ");
-                var keyPoints = locationService.GetByAllCities(keyPointsList.ToList());
-
                 var id = selectReader.GetInt32(0);
                 var guestId = selectReader.GetInt32(1);
                 var accommodationId = selectReader.GetInt32(2);

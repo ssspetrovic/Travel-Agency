@@ -28,7 +28,7 @@ namespace TravelAgency.Repository
             insertCommand.Parameters.AddWithValue("$maxGuest", accommodation.MaxGuest);
             insertCommand.Parameters.AddWithValue("$minGuest", accommodation.MinGuest);
             insertCommand.Parameters.AddWithValue("$locationId", accommodation.LocationId);
-            insertCommand.Parameters.AddWithValue("$adress", accommodation.Adress);
+            insertCommand.Parameters.AddWithValue("$adress", accommodation.Address);
             insertCommand.Parameters.AddWithValue("$reservableDays", accommodation.ReservableDays);
             insertCommand.Parameters.AddWithValue("$images", accommodation.Images);
             insertCommand.Parameters.AddWithValue("$description", accommodation.Description);
