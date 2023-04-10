@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Windows.Forms;
 using TravelAgency.DTO;
@@ -73,7 +74,9 @@ namespace TravelAgency.Service
             UpdateStatus(_myToursViewModel.SelectedTour.Name, MyTourDto.TourStatus.Requested);
 
             var touristService = new TouristService();
-            touristService.JoinTour(CurrentUser.Username, _myToursViewModel.SelectedTour.TourId);
+            //Debug.WriteLine(_myToursViewModel.SelectedTour.Location);
+            //Debug.WriteLine(_myToursViewModel.SelectedTour.Location.Id);
+            touristService.JoinTour(CurrentUser.Username, _myToursViewModel.SelectedTour.TourId, _myToursViewModel.SelectedTour.Location.City);
 
             MyToursViewModel.ReloadWindow();
         }

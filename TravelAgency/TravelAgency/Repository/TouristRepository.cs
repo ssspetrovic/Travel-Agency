@@ -74,15 +74,23 @@ namespace TravelAgency.Repository
             return (TouristAppearance)selectReader.GetInt32(0);
         }
 
-        public void JoinTour(string? username, int tourId)
+        public void JoinTour(string? username, int tourId, int locationId)
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
 
             using var updateCommand = databaseConnection.CreateCommand();
-            updateCommand.CommandText = "UPDATE Tourist SET Tour_Id = $tourId WHERE Username = $username";
-            updateCommand.Parameters.AddWithValue("$tourId", tourId);
+            updateCommand.CommandText =
+                @"
+                    UPDATE Tourist SET
+                    Tour_Id = $tourId,
+                    Location_Id = $locationId
+                    WHERE Username = $username
+                ";
+
             updateCommand.Parameters.AddWithValue("$username", username);
+            updateCommand.Parameters.AddWithValue("$tourId", tourId);
+            updateCommand.Parameters.AddWithValue("$locationId", locationId);
             updateCommand.ExecuteNonQuery();
         }
     }
