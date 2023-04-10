@@ -58,5 +58,12 @@ namespace TravelAgency.ViewModel
                 OnPropertyChanged();
             }
         }
+
+        public void CancelSelectedReservation()
+        {
+            ReservationService _reservationService = new();
+            _reservationService.RemoveById(SelectedReservations.Id);
+
+        }
     }
 }

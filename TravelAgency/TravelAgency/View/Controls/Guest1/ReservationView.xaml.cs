@@ -72,7 +72,10 @@ namespace TravelAgency.View.Controls.Guest1
 
         private void CancelReservation_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            _viewModel.CancelSelectedReservation();
+            var ReservationView = new ReservatoinView();
+            ReservationView.Show();
+            Close();
         }
 
         private void HomeButton_OnClick(object sender, RoutedEventArgs e)

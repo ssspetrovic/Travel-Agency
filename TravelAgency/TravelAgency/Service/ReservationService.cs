@@ -103,6 +103,13 @@ namespace TravelAgency.Service
             return _accommodationRepository.GetById(reservation.AccommodationId);
 
         }
+
+        public void RemoveById(int id)
+        {
+            ReservationRepository _reservationRepository = new();
+            _reservationRepository.RemoveById(id);
+
+        }
         public Location GetLocation(Reservation reservation) {
             if (reservation == null)
             {

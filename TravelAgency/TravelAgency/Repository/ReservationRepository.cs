@@ -251,5 +251,21 @@ namespace TravelAgency.Repository
             updateCommand.Parameters.AddWithValue("$id", reservationId);
             updateCommand.ExecuteNonQuery();
         }
+
+        public void RemoveById(int id)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            var updateCommand = databaseConnection.CreateCommand();
+            updateCommand.CommandText =
+                @"
+                    DELETE from Reservation WHERE Id = $id
+                ";
+            updateCommand.Parameters.AddWithValue("$id", id);
+            updateCommand.ExecuteNonQuery();
+        }
+
+
     }
 }
