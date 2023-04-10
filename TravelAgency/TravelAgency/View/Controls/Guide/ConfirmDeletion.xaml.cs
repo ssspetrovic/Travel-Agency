@@ -38,7 +38,7 @@ namespace TravelAgency.View.Controls.Guide
             var tourDates = deletedTour.Date.Split(", ").ToList();
 
             foreach (var tourist in tourists)
-                tourVoucherRepository.Add(new TourVoucher(tourist.Id, "Valid Voucher", DateTime.ParseExact(DateTime.Now.AddYears(1).ToString("d/M/yyyy"), "d/M/yyyy", CultureInfo.InvariantCulture)));
+                tourVoucherRepository.Add(new TourVoucher(tourist.Id, tourist.UserName, "Valid Voucher", DateTime.ParseExact(DateTime.Now.AddYears(1).ToString("d/M/yyyy"), "d/M/yyyy", CultureInfo.InvariantCulture)));
 
             if (tourDates.Count < 2)
             {
