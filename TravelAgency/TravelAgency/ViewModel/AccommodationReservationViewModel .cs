@@ -114,6 +114,8 @@ namespace TravelAgency.ViewModel
         public AccommodationReservationViewModel()
         {
             var accommodationRepository = new AccommodationRepository();
+            StartDate = DateTime.Now;
+            EndDate = DateTime.Now;
 
             _accommodationCollection = new CollectionViewSource
             {

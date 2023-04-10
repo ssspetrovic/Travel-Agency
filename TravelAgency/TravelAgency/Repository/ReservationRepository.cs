@@ -112,7 +112,7 @@ namespace TravelAgency.Repository
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
 
-            const string selectStatement = @"select * from Reservation";
+            const string selectStatement = @"select Id, userId, accId, userComment, date(startDate), date(endDate), gradeUserComplacent, gradeUserClean, reviewImages, gradeAccommodationClean, gradeAccommodationOwner, accommodationComment from Reservation";
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
             using var selectReader = selectCommand.ExecuteReader();
 
@@ -130,8 +130,8 @@ namespace TravelAgency.Repository
                 var guestId = selectReader.GetInt32(1);
                 var accommodationId = selectReader.GetInt32(2);
                 var comment = selectReader.GetString(3);
-                //var startDate = selectReader.GetDateTime(4);
-                //var endDate = selectReader.GetDateTime(5);
+                var startDate = selectReader.GetDateTime(4);
+                var endDate = selectReader.GetDateTime(5);
                 var gradeComplaisent = selectReader.GetFloat(6);
                 var gradeClean = selectReader.GetFloat(7);
                 var reviewImages = selectReader.GetString(8);
@@ -139,8 +139,6 @@ namespace TravelAgency.Repository
                 var gradeAccommodationOwner = selectReader.GetFloat(10);
                 var accommodationComment = selectReader.GetString(11);
 
-                DateTime startDate = new DateTime(2023, 3, 15);
-                DateTime endDate = new DateTime(2023, 3, 19);
 
                 Reservation res = new Reservation(id, comment, startDate, endDate, gradeComplaisent, gradeClean, guestId, accommodationId, accommodationComment, gradeAccommodationClean, gradeAccommodationOwner, reviewImages);
 
