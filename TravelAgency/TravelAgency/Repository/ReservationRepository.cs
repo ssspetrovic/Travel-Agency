@@ -173,15 +173,12 @@ namespace TravelAgency.Repository
                 var guestId = selectReader.GetInt32(1);
                 var accommodationId = selectReader.GetInt32(2);
                 var comment = selectReader.GetString(3);
-                //var startDate = selectReader.GetDateTime(4);
-                //var endDate = selectReader.GetDateTime(5);
+
                 var gradeComplaisent = selectReader.GetFloat(6);
                 var gradeClean = selectReader.GetFloat(7);
 
                 DateTime startDate = new DateTime(2023, 3, 15);
                 DateTime endDate = new DateTime(2023, 3, 19);
-                //gradeClean = -1;
-                //gradeComplaisent = -1;
 
                 if (gradeComplaisent == -1 && gradeClean == -1)
                 {

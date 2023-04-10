@@ -17,7 +17,7 @@ namespace TravelAgency.Model
         void Add(Accommodation accommodation);
         void Edit(Accommodation accommodation);
         void Remove(int id);
-        Accommodation GetById(int id);
+        AccommodationDTO GetById(int id);
         Accommodation? GetByName(string? name);
         DataTable GetByAll(DataTable dt);
         Language FindLanguage(string language);

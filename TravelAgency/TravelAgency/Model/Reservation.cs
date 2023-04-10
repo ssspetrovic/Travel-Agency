@@ -11,7 +11,6 @@ namespace TravelAgency.Model
         public int Id { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public Location Location { get; set; }
 
         // Propertys for grading the GUEST
         public string UserComment { get; set; } = string.Empty;

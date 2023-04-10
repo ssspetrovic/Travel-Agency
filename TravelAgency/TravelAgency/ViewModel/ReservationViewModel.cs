@@ -8,7 +8,8 @@ using System.Windows;
 using System.Windows.Data;
 using TravelAgency.Model;
 using TravelAgency.Repository;
-
+using TravelAgency.DTO;
+using TravelAgency.Service;
 
 namespace TravelAgency.ViewModel
 {
@@ -16,38 +17,26 @@ namespace TravelAgency.ViewModel
     {
         private readonly CollectionViewSource _reservationCollection;
         public new event PropertyChangedEventHandler? PropertyChanged;
-        private List<Reservation> _selectedReservations;
+        private ReservationDTO _selectedReservations;
         private bool _isListViewShown;
 
         public ReservationViewModel() {
 
-            var _reservationRepository = new ReservationRepository();
+            var _reservationService = new ReservationService();
 
             _reservationCollection = new CollectionViewSource
             {
-                Source = _reservationRepository.GetAll()
+                Source = _reservationService.GetAllDTO()
             };
         }
 
         public ICollectionView ReservationSourceCollection => _reservationCollection.View;
-        public List<Reservation> SelectedReservations
+        public ReservationDTO SelectedReservations
         {
             get => _selectedReservations;
             set
             {
-
-                foreach (var reservation in value)
-                {
-                    _selectedReservations.Add(reservation);
-                }
-                
-                /////////TODO//////////
-                foreach(var el in value)
-                {
-                    MessageBox.Show(el.Id.ToString());
-                }
-                /////////////
-
+                _selectedReservations = value;
                 OnPropertyChanged();
             }
         }

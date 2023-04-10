@@ -61,6 +61,20 @@ namespace TravelAgency.View.Controls.Guest1
             Close();
         }
 
+        private void RateAccommodation_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+        private void PostponeReservation_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void CancelReservation_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
         private void HomeButton_OnClick(object sender, RoutedEventArgs e)
         {
             var GuestView = new Guest1View();

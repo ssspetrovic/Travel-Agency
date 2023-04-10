@@ -136,12 +136,27 @@
                         d:ItemsSource ="{d:SampleData ItemCount=5}"
                         ItemsSource="{Binding ReservationSourceCollection}"
                         SelectedItem="{Binding SelectedReservations}"
-                        SelectionMode="Multiple"
                         Style="{StaticResource MaterialDesignListView}"
                         >
 
                         <ListView.View>
                             <GridView x:Name="GridView" AllowsColumnReorder="False">
+
+                                <GridViewColumn
+                                    Width="Auto"
+                                    DisplayMemberBinding="{Binding Id}"
+                                    Header="Reservation Id"/>
+
+                                <GridViewColumn
+                                    Width="Auto"
+                                    DisplayMemberBinding="{Binding AccommodationName}"
+                                    Header="Accommodation Name"/>
+
+                                <GridViewColumn
+                                    Width="Auto"
+                                    DisplayMemberBinding="{Binding Location.City}"
+                                    Header="City"/>
+                                
                                 <GridViewColumn
                                     Width="Auto"
                                     DisplayMemberBinding="{Binding StartDate}"
@@ -155,6 +170,35 @@
                             
                         </ListView.View>
                     </ListView>
+                    <StackPanel Orientation="Horizontal" Margin="0 40 0 0" HorizontalAlignment="Center">
+
+                        <Button
+                            x:Name="RateAccommodation"
+                            Grid.Row="2"
+                            Width="80"
+                            Height="40"
+                            Margin="0 0 100 0"
+                            Click="RateAccommodation_OnClick"
+                            Content="Rate"
+                            FontSize="15" />
+                        <Button
+                            x:Name="PostponeReservation"
+                            Grid.Row="2"
+                            Width="100"
+                            Height="40"
+                            Margin="0 0 100 0"
+                            Click="PostponeReservation_OnClick"
+                            Content="Postpone"
+                            FontSize="15" />
+                        <Button
+                            x:Name="CancelReservation"
+                            Grid.Row="2"
+                            Width="80"
+                            Height="40"
+                            Click="CancelReservation_OnClick"
+                            Content="Cancel"
+                            FontSize="15" />
+                    </StackPanel>
                 </StackPanel>
             </Grid>
         </Grid>

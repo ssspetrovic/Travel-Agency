@@ -63,6 +63,18 @@ namespace TravelAgency.Service
 
         }
 
+        public ObservableCollection<ReservationDTO> GetAllDTO()
+        {
+            var _reservationRepository = new ReservationRepository();
+            var reservations = _reservationRepository.GetAll();
+            var reservationsDTO = new ObservableCollection<ReservationDTO>();
+            foreach(Reservation reservation in reservations)
+            {
+                reservationsDTO.Add(new ReservationDTO(reservation));
+            }
+            return reservationsDTO;
+        }
+
         public bool Reserve(DateTime? endDate, DateTime? startDate, AccommodationDTO accommodationDTO, int guestNumber) {
             ObservableCollection<Reservation> reservations = GetAllByAccommodationId(accommodationDTO.Id);
 
@@ -80,6 +92,26 @@ namespace TravelAgency.Service
             var reservationRepository = new ReservationRepository();
             reservationRepository.AddAutoId(new Reservation(10, " ", convertedStartDate, convertedEndDate, -1, -1, CurrentUser.Id, accommodationDTO.Id, " ", -1, -1, " "));
             return true;
+        }
+        public AccommodationDTO GetAccommodation(Reservation reservation)
+        {
+            if (reservation == null)
+            {
+                return null;
+            }
+            AccommodationRepository _accommodationRepository = new();
+            return _accommodationRepository.GetById(reservation.AccommodationId);
+
+        }
+        public Location GetLocation(Reservation reservation) {
+            if (reservation == null)
+            {
+                return null;
+            }
+            AccommodationRepository _accommodationRepository = new();
+
+            return _accommodationRepository.GetById(reservation.AccommodationId).Location;
+
         }
     }
 }
