@@ -15,7 +15,7 @@ namespace TravelAgency.Model
         // Propertys for grading the GUEST
         public string UserComment { get; set; } = string.Empty;
         public int GuestId { get; set; }
-        public float GradeGuestComplaisent { get; set; }
+        public float GradeGuestComplacent { get; set; }
         public float GradeGuestClean { get; set; }
 
         // Propertys for grading the OWNER
@@ -31,7 +31,7 @@ namespace TravelAgency.Model
         {
         }
 
-        public Reservation(int id, string userComment, DateTime startDate, DateTime endDate, float gradeGuestComplaisent, 
+        public Reservation(int id, string userComment, DateTime startDate, DateTime endDate, float gradeGuestComplacent, 
             float gradeGuestClean, int guestId, int accommodationId, string accomodationComment, float gradeAccommodationClean,
             float gradeAccommodationOwner, string reviewImagesURL)
         {
@@ -39,7 +39,7 @@ namespace TravelAgency.Model
             UserComment = userComment;
             StartDate = startDate;
             EndDate = endDate;
-            GradeGuestComplaisent = gradeGuestComplaisent;
+            GradeGuestComplacent = gradeGuestComplacent;
             GradeGuestClean = gradeGuestClean;
             GuestId = guestId;
             AccommodationId = accommodationId;
@@ -49,13 +49,13 @@ namespace TravelAgency.Model
             ReviewImagesURL = reviewImagesURL;
         }
 
-        public Reservation(int id, string userComment, DateTime startDate, DateTime endDate, float gradeGuestComplaisent, float gradeGuestClean, int guestId, int accommodationId)
+        public Reservation(int id, string userComment, DateTime startDate, DateTime endDate, float gradeGuestComplacent, float gradeGuestClean, int guestId, int accommodationId)
         {
             Id = id;
             UserComment = userComment;
             StartDate = startDate;
             EndDate = endDate;
-            GradeGuestComplaisent = gradeGuestComplaisent;
+            GradeGuestComplacent = gradeGuestComplacent;
             GradeGuestClean = gradeGuestClean;
             GuestId = guestId;
             AccommodationId = accommodationId;

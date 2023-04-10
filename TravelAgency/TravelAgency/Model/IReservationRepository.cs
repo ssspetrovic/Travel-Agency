@@ -15,7 +15,7 @@ namespace TravelAgency.Model
         ObservableCollection<Reservation> GetGuestsGradesToDisplay();
 
         int CountReservationsToGrade();
-        void UpdateReservationAfterGrading(int reservationId, string comment, float gradeComplaisent, float gradeClean);
+        void UpdateReservationAfterGrading(int reservationId, string comment, float gradeComplacent, float gradeClean);
         void Add(Reservation reservation);
 
         int CountGradesForOwner(int ownerId);

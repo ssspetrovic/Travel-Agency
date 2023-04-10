@@ -43,7 +43,7 @@
         <Button x:Name="btnBack" Content="Back" HorizontalAlignment="Left" Margin="686,375,0,0" VerticalAlignment="Top" Click="btnBack_Click"/>
         <Label Content="Maximum reservation days" HorizontalAlignment="Left" Margin="224,251,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtMaxReservationDays" HorizontalAlignment="Left" Margin="224,270,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Label Content="Adress" HorizontalAlignment="Left" Margin="224,125,0,0" VerticalAlignment="Top"/>
+        <Label Content="Address" HorizontalAlignment="Left" Margin="224,125,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtAdress" HorizontalAlignment="Left" Margin="224,149,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <Label Content="Image" HorizontalAlignment="Left" Margin="427,64,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtImage" HorizontalAlignment="Left" Margin="427,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
