@@ -113,7 +113,7 @@ namespace TravelAgency.Service
                 selectCommand.Parameters.AddWithValue("$GuideId", 1);
                 using var selectReader = selectCommand.ExecuteReader();
                 if (selectReader.Read())
-                    if (selectReader.GetString(2).Contains("Valid"))
+                    if (selectReader.GetString(3).Contains("Valid"))
                         withVoucher++;
             }
 

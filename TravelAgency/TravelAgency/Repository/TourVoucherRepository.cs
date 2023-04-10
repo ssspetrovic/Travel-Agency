@@ -14,14 +14,15 @@ namespace TravelAgency.Repository
             using var insertCommand = databaseConnection.CreateCommand();
             insertCommand.CommandText =
                 @"
-                    INSERT INTO TourVoucher (TouristId, TouristUsername, Description, ExpiringDate)
-                    VALUES ($TouristId, $TouristUsername, $Description, $ExpiringDate)
+                    INSERT INTO TourVoucher (TouristId, TouristUsername, Description, ExpiringDate, GuideId)
+                    VALUES ($TouristId, $TouristUsername, $Description, $ExpiringDate, $GuideId)
                 ";
 
             insertCommand.Parameters.AddWithValue("TouristId", tourVoucher.TouristId);
             insertCommand.Parameters.AddWithValue("$TouristUsername", tourVoucher.TouristUsername);
             insertCommand.Parameters.AddWithValue("Description", tourVoucher.Description);
             insertCommand.Parameters.AddWithValue("ExpiringDate", tourVoucher.ExpirationDate.ToString("d/M/yyyy"));
+            insertCommand.Parameters.AddWithValue("$GuideId", 1);
             insertCommand.ExecuteNonQuery();
         }
 
