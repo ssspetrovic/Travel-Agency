@@ -313,5 +313,85 @@ namespace TravelAgency.Repository
 
             return reservationList;
         }
+
+        public int CountGradesForOwner(int ownerId)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            const string selectStatement = @"select * from Reservation";
+            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
+            using var selectReader = selectCommand.ExecuteReader();
+
+            int count = 0;
+            AccommodationRepository accommodationRepository = new AccommodationRepository();
+
+            while (selectReader.Read())
+            {
+                var accommodationId = selectReader.GetInt32(2);
+                var tempOwnerId = accommodationRepository.GetOwnerIdByAccommodationId(accommodationId); 
+
+                if(ownerId == tempOwnerId)
+                {
+                    var gradeAccommodationClean = selectReader.GetInt32(9);
+                    var gradeAccommodationOwner = selectReader.GetInt32(10);
+
+                    //## Test primer da bi se video ispis
+                    if (selectReader.GetInt32(0) == 15)
+                    {
+                        gradeAccommodationClean = 5;
+                        gradeAccommodationOwner = 5;
+                    }
+                    //##
+
+                    if (gradeAccommodationClean != -1 && gradeAccommodationOwner != -1)
+                        count++;
+                }
+
+            }
+
+            return count;
+        }
+
+        public double AverageGradeForOwner(int ownerId)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            const string selectStatement = @"select * from Reservation";
+            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
+            using var selectReader = selectCommand.ExecuteReader();
+
+            double average;
+            int gradeSum = 0;
+            AccommodationRepository accommodationRepository = new AccommodationRepository();
+
+            while (selectReader.Read())
+            {
+                var accommodationId = selectReader.GetInt32(2);
+                var tempOwnerId = accommodationRepository.GetOwnerIdByAccommodationId(accommodationId);
+
+                if (ownerId == tempOwnerId)
+                {
+                    var gradeAccommodationClean = selectReader.GetInt32(9);
+                    var gradeAccommodationOwner = selectReader.GetInt32(10);
+
+                    //## Test primer da bi se video ispis
+                    if(selectReader.GetInt32(0) == 15)
+                    {
+                        gradeAccommodationClean = 5;
+                        gradeAccommodationOwner = 5;
+                    }
+                    //##
+
+                    if(gradeAccommodationClean != -1 && gradeAccommodationOwner != -1)
+                        gradeSum += gradeAccommodationClean + gradeAccommodationOwner;
+                }
+            }
+            int count = CountGradesForOwner(ownerId);
+            average = gradeSum / count;
+
+            return average;
+        }
     }
 }

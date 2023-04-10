@@ -15,6 +15,7 @@ namespace TravelAgency.Model
     public class Accommodation
     {
         public int Id { get; set; }
+        public int OwnerId { get; set; }
         public string Name { get; set; } = null!;
         public int LocationId { get; set; }
         public AccommodationType Type { get; set; }
@@ -54,6 +55,20 @@ namespace TravelAgency.Model
             ReservableDays = reservableDays;
             Images = images;
             Description = description;
+        }
+
+        public Accommodation(string name, int locationId, AccommodationType type, int minReservationDays, int maxReservationDays, string adress, int reservableDays, string images, string description, int ownerId)
+        {
+            Name = name;
+            LocationId = locationId;
+            Type = type;
+            MinGuest = minReservationDays;
+            MaxGuest = maxReservationDays;
+            Adress = adress;
+            ReservableDays = reservableDays;
+            Images = images;
+            Description = description;
+            OwnerId = ownerId;
         }
     }
 }

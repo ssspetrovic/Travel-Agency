@@ -50,9 +50,10 @@ namespace TravelAgency.View.Controls.Owner
             var maxDaysReservation = Convert.ToInt32(txtMaxReservationDays.Text);
             var reservableDays = Convert.ToInt32(txtReservableDays.Text);
             var description = txtDescription.Text;
+            var ownerId = CurrentUser.Id;
 
             Accommodation accommodation = new Accommodation(name, currentLocation!.Id, type, minDaysReservation, maxDaysReservation, adress, reservableDays, 
-                ImagesList.Text, description);
+                ImagesList.Text, description, ownerId);
             accommodationRepository.Add(accommodation);
             MessageBox.Show("Added Accommodation!");
         }

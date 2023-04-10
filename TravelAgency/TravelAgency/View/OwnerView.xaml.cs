@@ -67,5 +67,12 @@ namespace TravelAgency.View
             displayGuestsGrades.Show();
             Close();
         }
+
+        private void btnSuperOwner_Click(object sender, RoutedEventArgs e)
+        {
+            var superOwner = new SuperOwner();
+            superOwner.Show();
+            Close();
+        }
     }
 }

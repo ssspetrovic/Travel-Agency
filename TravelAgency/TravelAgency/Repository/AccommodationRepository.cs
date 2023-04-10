@@ -20,8 +20,8 @@ namespace TravelAgency.Repository
             databaseConnection.Open();
 
             const string insertStatement =
-                @"insert into Accommodation(name, type, maxGuest, minGuest, locationId, adress, reservableDays, images, description) 
-                    values ($name, $type, $maxGuest, $minGuest, $locationId, $adress, $reservableDays, $images, $description)";
+                @"insert into Accommodation(name, type, maxGuest, minGuest, locationId, adress, reservableDays, images, description, ownerId) 
+                    values ($name, $type, $maxGuest, $minGuest, $locationId, $adress, $reservableDays, $images, $description, $ownerId)";
             using var insertCommand = new SqliteCommand(insertStatement, databaseConnection);
             insertCommand.Parameters.AddWithValue("$name", accommodation.Name);
             insertCommand.Parameters.AddWithValue("$type", accommodation.Type);
@@ -32,6 +32,7 @@ namespace TravelAgency.Repository
             insertCommand.Parameters.AddWithValue("$reservableDays", accommodation.ReservableDays);
             insertCommand.Parameters.AddWithValue("$images", accommodation.Images);
             insertCommand.Parameters.AddWithValue("$description", accommodation.Description);
+            insertCommand.Parameters.AddWithValue("$ownerId", accommodation.OwnerId);
             insertCommand.ExecuteNonQuery();
         }
 
@@ -97,6 +98,26 @@ namespace TravelAgency.Repository
         public Accommodation? GetByName(string? name)
         {
             throw new NotImplementedException();
+        }
+
+        public int GetOwnerIdByAccommodationId(int accommodationId)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            const string selectStatement = @"select ownerId from Accommodation where Id = $id";
+            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
+            selectCommand.Parameters.AddWithValue("$id", accommodationId);
+            using var selectReader = selectCommand.ExecuteReader();
+            int ownerId = 0;
+
+            if (selectReader.Read())
+            {
+                System.Diagnostics.Debug.WriteLine(selectCommand.ToString());
+                ownerId = selectReader.GetInt32(0);
+
+            }
+            return ownerId;
         }
 
         public void Remove(int id)

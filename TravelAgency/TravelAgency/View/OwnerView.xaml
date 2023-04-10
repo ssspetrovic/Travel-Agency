@@ -18,7 +18,7 @@
         <Button x:Name="btnGradeGuest" Grid.Column="1" Content="Grade Guest" HorizontalAlignment="Left" Margin="26,126,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Click="btnGradeGuest_Click"/>
         <Label x:Name="lblGuestToGrade" Grid.Column="2" Content="Guest To Grade" HorizontalAlignment="Left" Margin="0,128,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Background="White" Foreground="#DD000000"/>
         <Button x:Name="btnDisplayGuestsGrades" Grid.Column="1" Content="Display Guest's Grades" HorizontalAlignment="Left" Margin="26,174,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Click="btnDisplayGuestsGrades_Click"/>
-        <Button x:Name="btnSuperOwner" Grid.Column="1" Content="Owner Title" HorizontalAlignment="Left" Margin="26,222,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnSuperOwner" Grid.Column="1" Content="Owner Title" HorizontalAlignment="Left" Margin="26,222,0,0" VerticalAlignment="Top" Click="btnSuperOwner_Click"/>
 
     </Grid>
 </Window>

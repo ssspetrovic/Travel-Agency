@@ -17,5 +17,9 @@ namespace TravelAgency.Model
         int CountReservationsToGrade();
         void UpdateReservationAfterGrading(int reservationId, string comment, float gradeComplaisent, float gradeClean);
         void Add(Reservation reservation);
+
+        int CountGradesForOwner(int ownerId);
+
+        double AverageGradeForOwner(int ownerId);
     }
 }

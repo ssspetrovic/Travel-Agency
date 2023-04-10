@@ -13,6 +13,10 @@
         <Label x:Name="lblCount" Content="Number" HorizontalAlignment="Left" Margin="317,129,0,0" VerticalAlignment="Top" FontSize="16"/>
         <Label Content="Average grade:" HorizontalAlignment="Left" Margin="71,163,0,0" VerticalAlignment="Top" FontSize="16"/>
         <Label x:Name="lblAverage" Content="Number" HorizontalAlignment="Left" Margin="317,163,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <Button x:Name="btnBack" Content="Back" HorizontalAlignment="Left" Margin="694,365,0,0" VerticalAlignment="Top" Click="btnBack_Click"/>
+        <Label Content="For SUPER OWNER title the requirements are: " HorizontalAlignment="Left" Margin="71,339,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <Label Content="Number of grades from guests &gt;= 50" HorizontalAlignment="Left" Margin="96,362,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <Label Content="Average grade &gt;= 9.5" HorizontalAlignment="Left" Margin="96,382,0,0" VerticalAlignment="Top" FontSize="14"/>
 
     </Grid>
 </Window>
