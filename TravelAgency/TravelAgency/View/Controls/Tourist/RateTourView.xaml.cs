@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls.Primitives;
+using System.Windows.Forms;
 using TravelAgency.ViewModel;
 
 namespace TravelAgency.View.Controls.Tourist
@@ -51,6 +52,17 @@ namespace TravelAgency.View.Controls.Tourist
             var myVouchersView = new TourVouchers();
             myVouchersView.Show();
             Close();
+        }
+
+        private void CancelButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var myToursView = new MyToursView();
+            Close();
+        }
+
+        private void SubmitButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            ((RateTourViewModel)DataContext).Submit();
         }
     }
 }
