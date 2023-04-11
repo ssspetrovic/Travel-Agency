@@ -1,5 +1,4 @@
-﻿<Window 
-    x:Class="TravelAgency.View.Controls.Guest1.SingleReservationView"
+﻿<Window x:Class="TravelAgency.View.Controls.Guest1.RequestListView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,16 +7,17 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModel="clr-namespace:TravelAgency.ViewModel"
-    Title="Single Reservation"
+    Title="Reservations"
     Width="916"
     Height="616"
-    d:DataContext="{d:DesignInstance Type=viewModel:SingleReservationViewModel}"
+    d:DataContext="{d:DesignInstance Type=viewModel:RequestListViewModel}"
     AllowsTransparency="True"
     Background="Transparent"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
     mc:Ignorable="d">
+
     <Window.Resources>
         <ResourceDictionary Source="/Resources/Styles/GuestDictionary.xaml" />
     </Window.Resources>
@@ -69,6 +69,7 @@
                             Click="Reservation_OnClick"
                             Content="Reservations"
                             FontSize="17"
+
                             Foreground="White"
                             Style="{StaticResource MenuButtonStyle}" />
                         <RadioButton
@@ -77,6 +78,7 @@
                             Click="RequestListButton_OnClick"
                             Content="Requests"
                             FontSize="17"
+                                                        IsChecked="True"
                             Foreground="White"
                             Style="{StaticResource MenuButtonStyle}" />
                     </StackPanel>
@@ -104,12 +106,11 @@
                     </RadioButton>
                 </Grid>
             </Border>
-
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="45" />
-                    <RowDefinition />
-                    <RowDefinition />
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="10"/>
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <WrapPanel Grid.Row="0">
@@ -129,108 +130,15 @@
                         FontSize="18"
                         Style="{StaticResource MaterialDesignFlatButton}" />
                 </WrapPanel>
-                <StackPanel Grid.Row="1">
-                    <StackPanel Orientation="Horizontal" Margin ="20 0 0 0">
-                        <Border BorderBrush="#3F51B5" BorderThickness="5">
-                            <Image Name="ImageViewer1" Height="150" Width="150" Source="{Binding Image}"/>
-                        </Border>
-                            <StackPanel Margin="180 0 0 0">
-                            <Label
-                                d:Content="Accommodatoin Name"
-                                Content="{Binding Accommodation.Name}" FontSize="30"></Label>
-                            <TextBlock 
-                                Margin="0 30 0 0"
-                                Width="300"
-                                TextWrapping="WrapWithOverflow"
-                                FontSize="16"
-                               >
-                                This is some text that will represent the description of the accommodation that I have not yet added.
-                            </TextBlock>
-                        </StackPanel>
-                    </StackPanel>
-                </StackPanel>
-
-                <Grid Grid.Row="2"   Margin="0 20 0 0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-
-                    <StackPanel Grid.Column="0">
-                        <StackPanel Orientation="Vertical">
-                            <DatePicker
-                                Name="StartDateSelect"
-                                Grid.Row="2"
-                                Width="150"
-                                Height="40"
-                                SelectedDate="{Binding Path=StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                            <DatePicker
-                                Name="EndDateSelect"
-                                Grid.Row="2"
-                                Width="150"
-                                Height="40"
-                                Margin="0 30 0 0"
-                                SelectedDate="{Binding Path=EndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-
-                        </StackPanel>
-
-                    </StackPanel>
-                    <StackPanel Orientation="Vertical" Grid.Column="1" Margin="0 10 0 0">
-
-                        <materialDesign:RatingBar
-                          x:Name="CleanGrade"
-                          Value="{Binding Path = GradeClean, Mode=TwoWay, NotifyOnSourceUpdated=True}" />
-                        <materialDesign:RatingBar
-                          Margin="0 30 0 0"
-                          x:Name="OwnerGrade"
-                          Value="{Binding Path = GradeOwner, Mode=TwoWay, NotifyOnSourceUpdated=True}" />
-                    </StackPanel>
-
-
-                </Grid>
-                <Grid Grid.Row="3">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="0" Orientation="Horizontal">
-                        <Button
-                            x:Name="SubmitRate"
-                            Margin="20 0 0 0 "
-                            Grid.Row="2"
-                            Width="100"
-                            Height="50"
-                            Click="Rate_OnClick"
-                            Content="Rate"
-                            FontSize="15" />
-                        <Button
-                            Margin="80 0 0 0"
-                            x:Name="Delay"
-                            Grid.Row="2"
-                            Width="100"
-                            Height="50"
-                            Click="Delay_OnClick"
-                            Content="Delay"
-                            FontSize="15" />
-                    </StackPanel>
-                    <StackPanel Grid.Column="1" Margin="15 20 0 0">
-                        <TextBox
-                          x:Name="CommentTextBox"
-                          Height="50"
-                          Margin="0 0 0 20"
-                          TextWrapping="WrapWithOverflow"
-                          Text="{Binding Comment}"
-                          materialDesign:HintAssist.Hint="Comment" />
-                        <TextBox
-                          x:Name="PictureUrlTextBox"
-                          Height="50"
-                          Text="{Binding PictureUrl}"
-                          TextWrapping="WrapWithOverflow"
-                          materialDesign:HintAssist.Hint="Picture URL" />
-                    </StackPanel>
-                </Grid>
-
+                <WrapPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Label Content="Requests"
+                           FontSize="25"
+                           Style="{StaticResource MaterialDesignLabel}"
+                           FontWeight="Medium"/>
+                </WrapPanel>
+                <Separator Grid.Row="2" Width="400"/>
             </Grid>
+
         </Grid>
     </Border>
 </Window>

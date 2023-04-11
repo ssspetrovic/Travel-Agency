@@ -80,6 +80,8 @@ namespace TravelAgency.Service
             return reservationsDTO;
         }
 
+
+
         public bool Reserve(DateTime? endDate, DateTime? startDate, AccommodationDTO accommodationDTO, int guestNumber) {
             ObservableCollection<Reservation> reservations = GetAllByAccommodationId(accommodationDTO.Id);
 

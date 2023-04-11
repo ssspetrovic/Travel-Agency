@@ -72,6 +72,14 @@
                             FontSize="17"
                             Foreground="White"
                             Style="{StaticResource MenuButtonStyle}" />
+                        <RadioButton
+                            x:Name="Requests"
+                            Height="50"
+                            Click="RequestListButton_OnClick"
+                            Content="Requests"
+                            FontSize="17"
+                            Foreground="White"
+                            Style="{StaticResource MenuButtonStyle}" />
                     </StackPanel>
                     <RadioButton
                         x:Name="SignOutButton"
@@ -95,6 +103,7 @@
                                 Text="Sign out" />
                         </WrapPanel>
                     </RadioButton>
+                    
                 </Grid>
             </Border>
             <Grid Grid.Column="1">

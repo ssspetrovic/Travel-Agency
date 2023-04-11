@@ -43,6 +43,13 @@ namespace TravelAgency.View.Controls.Guest1
             Close();
         }
 
+        private void RequestListButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var requestListView = new RequestListView();
+            requestListView.Show();
+            Close();
+        }
+
         private void Reservation_OnClick(object sender, RoutedEventArgs e)
         {
             var ReservationView = new ReservatoinView();

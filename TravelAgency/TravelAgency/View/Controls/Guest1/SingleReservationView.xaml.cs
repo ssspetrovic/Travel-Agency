@@ -71,6 +71,13 @@ namespace TravelAgency.View.Controls.Guest1
             Close();
         }
 
+        private void RequestListButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var requestListView = new RequestListView();
+            requestListView.Show();
+            Close();
+        }
+
         //todo:
         private void Rate_OnClick(object sender, RoutedEventArgs e)
         {

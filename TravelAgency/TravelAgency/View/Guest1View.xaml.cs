@@ -58,6 +58,13 @@ namespace TravelAgency.View
             Close();
         }
 
+        private void RequestListButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var requestListView = new RequestListView();
+            requestListView.Show();
+            Close();
+        }
+
         private void HomeButton_OnClick(object sender, RoutedEventArgs e)
         {
             var GuestView = new Guest1View();

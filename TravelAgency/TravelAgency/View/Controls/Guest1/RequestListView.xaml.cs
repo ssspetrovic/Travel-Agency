@@ -17,15 +17,22 @@ using TravelAgency.ViewModel;
 namespace TravelAgency.View.Controls.Guest1
 {
     /// <summary>
-    /// Interaction logic for ReservatoinView.xaml
+    /// Interaction logic for RequestListView.xaml
     /// </summary>
-    public partial class ReservatoinView : Window
+    public partial class RequestListView : Window
     {
-        private readonly ReservationViewModel _viewModel = new();
-        public ReservatoinView()
+        private readonly RequestListViewModel _viewModel = new();
+        public RequestListView()
         {
             InitializeComponent();
             DataContext = _viewModel;
+        }
+
+        private void HomeButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var GuestView = new Guest1View();
+            GuestView.Show();
+            Close();
         }
 
         private void Reservation_OnClick(object sender, RoutedEventArgs e)
@@ -50,6 +57,13 @@ namespace TravelAgency.View.Controls.Guest1
             Close();
         }
 
+        private void RequestListButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var requestListView = new RequestListView();
+            requestListView.Show();
+            Close();
+        }
+
         private void HeaderThumb_OnDragDelta(object sender, DragDeltaEventArgs e)
         {
             Left = Left + e.HorizontalChange;
@@ -61,34 +75,5 @@ namespace TravelAgency.View.Controls.Guest1
             Close();
         }
 
-
-        private void Details_OnClick(object sender, RoutedEventArgs e)
-        {
-            var ReservationDetail = new SingleReservationView(_viewModel.SelectedReservations);
-            ReservationDetail.Show();
-            Close();
-        }
-
-        private void RequestListButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            var requestListView = new RequestListView();
-            requestListView.Show();
-            Close();
-        }
-
-        private void CancelReservation_OnClick(object sender, RoutedEventArgs e)
-        {
-            _viewModel.CancelSelectedReservation();
-            var ReservationView = new ReservatoinView();
-            ReservationView.Show();
-            Close();
-        }
-
-        private void HomeButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            var GuestView = new Guest1View();
-            GuestView.Show();
-            Close();
-        }
     }
 }
