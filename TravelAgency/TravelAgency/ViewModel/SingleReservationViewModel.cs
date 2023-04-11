@@ -19,9 +19,12 @@ namespace TravelAgency.ViewModel
         private AccommodationDTO _accommodation;
         private ReservationDTO _reservation;
         BitmapImage _accommodationImage;
+        private int _gradeClean;
+        private int _gradeOwner;
 
         private readonly ReservationService reservationService = new();
 
+        
         public BitmapImage Image
         {
             get => _accommodationImage;
@@ -47,6 +50,7 @@ namespace TravelAgency.ViewModel
             {
                 _reservation = value;
                 Accommodation = reservationService.GetAccommodation(_reservation.AccommodationId);
+                Image = new BitmapImage(new Uri(Accommodation.PictureUrl, UriKind.Absolute));
             }
         }
 

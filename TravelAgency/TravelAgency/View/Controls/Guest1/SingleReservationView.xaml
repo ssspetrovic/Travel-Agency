@@ -101,6 +101,8 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="45" />
                     <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
                 </Grid.RowDefinitions>
                 <WrapPanel Grid.Row="0">
                     <Border
@@ -120,11 +122,83 @@
                         Style="{StaticResource MaterialDesignFlatButton}" />
                 </WrapPanel>
                 <StackPanel Grid.Row="1">
-                    <StackPanel Orientation="Horizontal">
-                        <Label
-                            d:Content="Accommodatoin Name"
-                            Content="{Binding Accommodation.Name}" FontSize="30"></Label>
+                    <StackPanel Orientation="Horizontal" Margin ="20 0 0 0">
+                        <Border BorderBrush="MediumPurple" BorderThickness="5">
+                            <Image Name="ImageViewer1" Height="150" Width="150" Source="{Binding Image}"/>
+                        </Border>
+                            <StackPanel Margin="180 0 0 0">
+                            <Label
+                                d:Content="Accommodatoin Name"
+                                Content="{Binding Accommodation.Name}" FontSize="30"></Label>
+                            <TextBlock 
+                                Margin="0 30 0 0"
+                                Width="300"
+                                TextWrapping="WrapWithOverflow"
+                                FontSize="16"
+                               >
+                                This is some text that will represent the description of the accommodation that I have not yet added.
+                            </TextBlock>
+                        </StackPanel>
                     </StackPanel>
+                </StackPanel>
+
+                <Grid Grid.Row="2"   Margin="0 20 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0">
+                        <StackPanel Orientation="Vertical">
+                            <DatePicker
+                                Name="StartDateSelect"
+                                Grid.Row="2"
+                                Width="150"
+                                Height="40"
+                                SelectedDate="{Binding Path=Reservation.StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <DatePicker
+                                Name="EndDateSelect"
+                                Grid.Row="2"
+                                Width="150"
+                                Height="40"
+                                Margin="0 30 0 0"
+                                SelectedDate="{Binding Path=Reservation.StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                        </StackPanel>
+
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Grid.Column="1" Margin="0 10 0 0">
+
+                        <materialDesign:RatingBar
+                          x:Name="CleanGrade"
+                          Value="3" />
+                        <materialDesign:RatingBar
+                          Margin="0 30 0 0"
+                          x:Name="OwnerGrade"
+                          Value="3" />
+                    </StackPanel>
+
+
+                </Grid>
+                <StackPanel Grid.Row="3" Orientation="Horizontal">
+                    <Button
+                            x:Name="SubmitRate"
+                            Margin="20 0 0 0 "
+                            Grid.Row="2"
+                            Width="100"
+                            Height="50"
+                            Click="Rate_OnClick"
+                            Content="Rate"
+                            FontSize="15" />
+                    <Button
+                            Margin="100 0 0 0"
+                            x:Name="Delay"
+                            Grid.Row="2"
+                            Width="100"
+                            Height="50"
+                            Click="Delay_OnClick"
+                            Content="Delay"
+                            FontSize="15" />
                 </StackPanel>
             </Grid>
         </Grid>

@@ -61,6 +61,7 @@ namespace TravelAgency.View.Controls.Guest1
             Close();
         }
 
+
         private void Details_OnClick(object sender, RoutedEventArgs e)
         {
             var ReservationDetail = new SingleReservationView(_viewModel.SelectedReservations);

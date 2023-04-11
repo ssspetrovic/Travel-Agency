@@ -70,5 +70,16 @@ namespace TravelAgency.View.Controls.Guest1
         {
             Close();
         }
+
+        //todo:
+        private void Rate_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Delay_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
