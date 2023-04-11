@@ -7,7 +7,7 @@ namespace TravelAgency.View.Controls.Tourist
     /// </summary>
     public partial class GuestNumberDialog
     {
-        public static bool IsUpdateConfirmed { get; set; }
+        public static bool IsUpdateConfirmed { get; private set; }
 
         public GuestNumberDialog()
         {

@@ -123,5 +123,11 @@ namespace TravelAgency.Service
             var locationService = new LocationService();
             _touristRepository.JoinTour(username, tourId, locationService.GetByCity(city)!.Id);
         }
+
+        public string GetTourNameById(int tourId)
+        {
+            var tourService = new TourService();
+            return tourService.GetById(tourId).Name;
+        }
     }
 }
