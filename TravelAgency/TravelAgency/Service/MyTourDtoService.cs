@@ -56,6 +56,15 @@ namespace TravelAgency.Service
             return _activeTourService.ExistsByName(tour.Name) ? MyTourDto.TourStatus.Active : MyTourDto.TourStatus.Inactive;
         }
 
+        public bool IsTourValid()
+        {
+            if (_myToursViewModel?.SelectedTour!.Status != MyTourDto.TourStatus.Finished)
+                return false;
+
+            var tourRatingService = new TourRatingService();
+            return tourRatingService.IsTourRateable(CurrentUser.Username, _myToursViewModel.SelectedTour.Name);
+        }
+
         public void JoinTour()
         {
             if (_myToursViewModel?.SelectedTour == null)

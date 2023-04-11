@@ -1,7 +1,5 @@
-﻿
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Windows.Forms;
-using TravelAgency.Model;
 
 namespace TravelAgency.ViewModel
 {
@@ -11,6 +9,8 @@ namespace TravelAgency.ViewModel
         private int _guideLanguageGrade;
         private int _tourInterestingnessGrade;
         private string? _comment;
+        private string? _photoUrls;
+        private string? _url;
 
         public int GuideKnowledgeGrade
         {
@@ -51,8 +51,27 @@ namespace TravelAgency.ViewModel
                 OnPropertyChanged();
             }
         }
+        public string? PhotoUrls
+        {
+            get => _photoUrls;
+            set
+            {
+                _photoUrls = value;
+                OnPropertyChanged();
+            }
+        }
 
-        public string TourName { get; set; }
+        public string? Url
+        {
+            get => _url;
+            set
+            {
+                _url = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string TourName { get; }
 
         public RateTourViewModel(string tourName)
         {
@@ -63,7 +82,8 @@ namespace TravelAgency.ViewModel
                 MessageBox.Show("Error with selected tour!", "Error");
                 return;
             }
-            
+
+            TourName = $"- {TourName} -";
         }
 
         public void Submit()
@@ -73,6 +93,28 @@ namespace TravelAgency.ViewModel
             Debug.WriteLine(GuideLanguageGrade);
             Debug.WriteLine(TourInterestingnessGrade);
             Debug.WriteLine(Comment);
+            Debug.Write(PhotoUrls);
+
+            if (GuideKnowledgeGrade == 0 || GuideLanguageGrade == 0 || TourInterestingnessGrade == 0)
+            {
+                MessageBox.Show("Please select ratings properly!", "Error");
+                return;
+            }
+
+        }
+
+        public void AddUrl()
+        {
+            if (string.IsNullOrEmpty(Url))
+            {
+                MessageBox.Show("Invalid link!", "Error");
+                return;
+            }
+
+            var formattedUri = Url.Trim();
+            formattedUri = $"{formattedUri};\r\n";
+            PhotoUrls += formattedUri;
+            Url = string.Empty;
         }
     }
 }

@@ -143,7 +143,8 @@
                         Grid.Row="1"
                         HorizontalAlignment="Center"
                         d:Text="- Tour name -"
-                        FontSize="20" />
+                        FontSize="20"
+                        Text="{Binding TourName}" />
                     <Grid Grid.Row="2" Margin="150,15">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
@@ -179,7 +180,11 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition />
                             </Grid.RowDefinitions>
-                            <Label Grid.Row="0" Content="Additional comment (optional):" />
+                            <Label
+                                Grid.Row="0"
+                                Content="Additional comment (optional):"
+                                FontSize="13"
+                                FontWeight="DemiBold" />
                             <Border
                                 Grid.Row="1"
                                 BorderBrush="{StaticResource MaterialDesignDivider}"
@@ -189,21 +194,52 @@
                                     Padding="5"
                                     HorizontalContentAlignment="Left"
                                     VerticalContentAlignment="Top"
-                                    Text="{Binding Comment}" />
+                                    FontSize="14"
+                                    Text="{Binding Comment}"
+                                    TextWrapping="Wrap" />
                             </Border>
                         </Grid>
                         <Grid Grid.Column="1" Margin="20,0,0,0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition />
+                                <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
-                            <Label Grid.Row="0" Content="Leave photos from the tour (optional):" />
+                            <Label
+                                Grid.Row="0"
+                                Content="Photos from the tour (optional):"
+                                FontSize="13"
+                                FontWeight="DemiBold" />
                             <Border
                                 Grid.Row="1"
                                 BorderBrush="{StaticResource MaterialDesignDivider}"
                                 BorderThickness="2">
-                                <TextBox />
+                                <TextBlock
+                                    x:Name="PhotosTextBlock"
+                                    Padding="5"
+                                    FontSize="13"
+                                    Text="{Binding PhotoUrls}" />
                             </Border>
+                            <WrapPanel
+                                Grid.Row="2"
+                                Height="Auto"
+                                Margin="0,15,0,0"
+                                VerticalAlignment="Center">
+                                <TextBox
+                                    x:Name="UrlTextBox"
+                                    Width="255"
+                                    Margin="0,0,10,0"
+                                    Padding="5"
+                                    HorizontalAlignment="Left"
+                                    FontSize="13"
+                                    Text="{Binding Url}" />
+                                <Button
+                                    x:Name="AddUrlButton"
+                                    Margin="10,0,0,0"
+                                    Click="AddUrlButton_OnClick"
+                                    Content="Add"
+                                    FontSize="12" />
+                            </WrapPanel>
                         </Grid>
                     </Grid>
                     <WrapPanel
@@ -224,7 +260,8 @@
                             Height="40"
                             Margin="20,0,0,0"
                             Click="SubmitButton_OnClick"
-                            Content="Submit" />
+                            Content="Submit"
+                            FontSize="15" />
                     </WrapPanel>
                 </Grid>
             </Grid>

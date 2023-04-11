@@ -1,9 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
-using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
-using Microsoft.VisualBasic;
 using TravelAgency.DTO;
 using TravelAgency.Model;
 using TravelAgency.Service;
@@ -16,9 +13,9 @@ namespace TravelAgency.ViewModel
     internal class MyToursViewModel : BaseViewModel
     {
         private MyTourDto? _selectedTour;
-
         public MyTourDtoService MyTourDtoService { get; }
         public string? InvitationText { get; set; }
+        
         public MyTourDto? SelectedTour
         {
             get => _selectedTour;
@@ -30,7 +27,6 @@ namespace TravelAgency.ViewModel
         }
 
         public ObservableCollection<MyTourDto> MyTours { get; set; }
-
 
         public MyToursViewModel()
         {
@@ -72,7 +68,13 @@ namespace TravelAgency.ViewModel
                 MessageBox.Show("Please select a tour!", "Error");
                 return;
             }
-            
+
+            if (!MyTourDtoService.IsTourValid())
+            {
+                MessageBox.Show("Cannot rate this tour!", "Error");
+                return;
+            }
+
             var currentWindow = Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
             var rateTourView = new RateTourView(SelectedTour.Name);
             rateTourView.Show();

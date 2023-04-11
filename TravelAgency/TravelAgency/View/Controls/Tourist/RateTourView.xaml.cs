@@ -65,5 +65,10 @@ namespace TravelAgency.View.Controls.Tourist
         {
             ((RateTourViewModel)DataContext).Submit();
         }
+
+        private void AddUrlButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            ((RateTourViewModel)DataContext).AddUrl();
+        }
     }
 }
