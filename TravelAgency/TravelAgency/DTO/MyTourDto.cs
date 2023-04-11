@@ -11,7 +11,8 @@ namespace TravelAgency.DTO
             Active,
             Requested,
             Attending,
-            Finished
+            Finished,
+            Rated
         }
 
         public int TourId { get; private set; }

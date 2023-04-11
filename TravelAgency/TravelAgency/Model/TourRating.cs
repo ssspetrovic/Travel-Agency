@@ -17,8 +17,8 @@
         public Grade GuideKnowledgeGrade { get; set; }
         public Grade GuideLanguageGrade { get; set; }
         public Grade TourInterestingnessGrade { get; set; }
-        public string Comment { get; set; } = null!;
-        public string Photos { get; set; } = null!;
+        public string? Comment { get; set; } = null!;
+        public string? Photos { get; set; } = null!;
         public bool IsReported { get; set; }
 
         public TourRating(int touristId, int tourId, Grade guideKnowledgeGrade, Grade guideLanguageGrade, Grade tourInterestingnessGrade)
@@ -30,7 +30,7 @@
             TourInterestingnessGrade = tourInterestingnessGrade;
         }
 
-        public TourRating(int touristId, int tourId, Grade guideKnowledgeGrade, Grade guideLanguageGrade, Grade tourInterestingnessGrade, string comment, string photos, bool isReported = false)
+        public TourRating(int touristId, int tourId, Grade guideKnowledgeGrade, Grade guideLanguageGrade, Grade tourInterestingnessGrade, string? comment, string? photos, bool isReported = false)
         {
             TouristId = touristId;
             TourId = tourId;
@@ -42,7 +42,7 @@
             IsReported = isReported;
         }
 
-        public TourRating(int id, int touristId, int tourId, Grade guideKnowledgeGrade, Grade guideLanguageGrade, Grade tourInterestingnessGrade, string comment, string photos, bool isReported)
+        public TourRating(int id, int touristId, int tourId, Grade guideKnowledgeGrade, Grade guideLanguageGrade, Grade tourInterestingnessGrade, string? comment, string? photos, bool isReported)
         {
             Id = id;
             TouristId = touristId;

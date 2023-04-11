@@ -1,5 +1,7 @@
-﻿using System.Diagnostics;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
+using TravelAgency.DTO;
+using TravelAgency.Model;
+using TravelAgency.Service;
 
 namespace TravelAgency.ViewModel
 {
@@ -71,36 +73,48 @@ namespace TravelAgency.ViewModel
             }
         }
 
-        public string TourName { get; }
+        public string TourNameHeader { get; }
+        private string TourName { get; }
 
         public RateTourViewModel(string tourName)
         {
             TourName = tourName;
 
-            if (TourName == "/")
+            if (TourNameHeader == "/")
             {
                 MessageBox.Show("Error with selected tour!", "Error");
                 return;
             }
 
-            TourName = $"- {TourName} -";
+            TourNameHeader = $"'{tourName}'";
         }
 
         public void Submit()
         {
-            Debug.WriteLine(TourName);
-            Debug.WriteLine(GuideKnowledgeGrade);
-            Debug.WriteLine(GuideLanguageGrade);
-            Debug.WriteLine(TourInterestingnessGrade);
-            Debug.WriteLine(Comment);
-            Debug.Write(PhotoUrls);
-
             if (GuideKnowledgeGrade == 0 || GuideLanguageGrade == 0 || TourInterestingnessGrade == 0)
             {
                 MessageBox.Show("Please select ratings properly!", "Error");
                 return;
             }
 
+            var touristService = new TouristService();
+            var tourRatingService = new TourRatingService();
+            var tourService = new TourService();
+            var tourist = touristService.GetByUsername(CurrentUser.Username);
+
+            tourRatingService.Add(new TourRating(
+                tourist.Id,
+                tourService.GetByName(TourName).Id,
+                (Grade)GuideKnowledgeGrade,
+                (Grade)GuideLanguageGrade,
+                (Grade)TourInterestingnessGrade,
+                Comment ?? "",
+                PhotoUrls ?? ""
+            ));
+
+            var myTourDtoService = new MyTourDtoService();
+            myTourDtoService.UpdateStatus(TourName, MyTourDto.TourStatus.Rated);
+            MyToursViewModel.ReloadWindow();
         }
 
         public void AddUrl()
