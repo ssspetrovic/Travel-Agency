@@ -51,6 +51,37 @@ namespace TravelAgency.Repository
             throw new NotImplementedException();
         }
 
+        public ObservableCollection<DelayRequest> GetAll()
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            const string selectStatement = @"select * from DelayRequest";
+            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
+            using var selectReader = selectCommand.ExecuteReader();
+
+            var delayRequestList = new ObservableCollection<DelayRequest>();
+
+
+            while (selectReader.Read())
+            {
+                var id = selectReader.GetInt32(0);
+                var accId = selectReader.GetInt32(1);
+                var userId = selectReader.GetInt32(2);
+                var oldStartDate = selectReader.GetDateTime(3);
+                var newStartDate = selectReader.GetDateTime(4);
+                var oldEndDate = selectReader.GetDateTime(5);
+                var newEndDate = selectReader.GetDateTime(6);
+                var reservationId = selectReader.GetInt32(7);
+                var requestStatus = Enum.Parse<RequestStatusType>(selectReader.GetString(8));
+                var rejectionReason = selectReader.GetString(9);
+                DelayRequest del = new DelayRequest(reservationId, accId, userId, oldStartDate, newStartDate, oldEndDate, newEndDate, requestStatus, rejectionReason);
+                delayRequestList.Add(del);
+            }
+
+            return delayRequestList;
+        }
+
         public ObservableCollection<DelayRequest> GetDelayRequests(int ownerId)
         {
             using var databaseConnection = GetConnection();
