@@ -37,6 +37,7 @@
         <Label x:Name="lblNewEndDate" Grid.Column="1" DataContext="{Binding SelectedItem, ElementName=RequestListView}" Content="{Binding NewEndDate}" HorizontalAlignment="Left" Margin="461,190,0,0" VerticalAlignment="Top" FontSize="14" Width="108"/>
         <Label Grid.Column="1" Content="-&gt;" HorizontalAlignment="Left" Margin="410,163,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <Label Content="List Of Requests" HorizontalAlignment="Left" Margin="42,26,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Grid.ColumnSpan="2" Width="138"/>
+        <Button x:Name="btnAccept" Grid.Column="1" Content="Accept" HorizontalAlignment="Left" Margin="384,234,0,0" VerticalAlignment="Top" Click="btnAccept_Click"/>
 
     </Grid>
 </Window>

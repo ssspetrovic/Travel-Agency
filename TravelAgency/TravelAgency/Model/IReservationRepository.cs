@@ -21,5 +21,7 @@ namespace TravelAgency.Model
         int CountGradesForOwner(int ownerId);
 
         double AverageGradeForOwner(int ownerId);
+
+        void UpdateReservationDates(DateTime newStartDate, DateTime newEndDate);
     }
 }

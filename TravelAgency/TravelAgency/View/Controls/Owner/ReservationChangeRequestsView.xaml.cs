@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TravelAgency.ViewModel;
+using TravelAgency.Repository;
 
 namespace TravelAgency.View.Controls.Owner
 {
@@ -21,6 +22,8 @@ namespace TravelAgency.View.Controls.Owner
     public partial class ReservationChangeRequestsView : Window
     {
         private readonly ReservationChangeRequestsViewModel _viewModel = new();
+        ReservationRepository reservationRepository = new ReservationRepository();
+        
         public ReservationChangeRequestsView()
         {
             InitializeComponent();
@@ -32,6 +35,14 @@ namespace TravelAgency.View.Controls.Owner
             var OwnerView = new OwnerView();
             OwnerView.Show();
             Close();
+        }
+
+        private void btnAccept_Click(object sender, RoutedEventArgs e)
+        {
+            if(lblOldStartDate.Content != "")
+            {
+
+            }
         }
     }
 }
