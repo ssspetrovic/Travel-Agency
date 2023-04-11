@@ -2,11 +2,35 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Data.Sqlite;
+using TravelAgency.Model;
 
 namespace TravelAgency.Repository
 {
     internal class TourRatingRepository : RepositoryBase
     {
+        public void Add(TourRating tourRating)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            using var insertCommand = databaseConnection.CreateCommand();
+            insertCommand.CommandText =
+                @"
+                    INSERT INTO TourRating (TouristId, TourId, GuideKnowledgeGrade, GuideLanguageGrade, TourInterestingnessGrade, Comment, Photos)
+                    VALUES ($TouristId, $TourId, $GuideKnowledgeGrade, $GuideLanguageGrade, $TourInterestingnessGrade, $Comment, $Photos)
+                ";
+
+            insertCommand.Parameters.AddWithValue("$TouristId", tourRating.TouristId);
+            insertCommand.Parameters.AddWithValue("$TourId", tourRating.TourId);
+            insertCommand.Parameters.AddWithValue("$GuideKnowledgeGrade", (int)tourRating.GuideKnowledgeGrade);
+            insertCommand.Parameters.AddWithValue("$GuideLanguageGrade", (int)tourRating.GuideLanguageGrade);
+            insertCommand.Parameters.AddWithValue("$TourInterestingnessGrade", (int)tourRating.TourInterestingnessGrade);
+            insertCommand.Parameters.AddWithValue("$Comment", tourRating.Comment);
+            insertCommand.Parameters.AddWithValue("$Photos", tourRating.Photos);
+
+            insertCommand.ExecuteNonQuery();
+        }
+
         public List<string> GetCommentsByTourId(int id)
         {
             using var databaseConnection = GetConnection();
@@ -41,9 +65,6 @@ namespace TravelAgency.Repository
 
             return flags.Zip(ratings, (flag, rating) => flag == "⚠️" ? flag : $"{Math.Round(rating, 2)}").ToList();
         }
-
-
-
 
         public List<string> GetRatingsByTourId(int id)
         {

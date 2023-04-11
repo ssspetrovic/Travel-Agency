@@ -9,7 +9,7 @@
         Five
     }
 
-    internal class TourRating
+    public class TourRating
     {
         public int Id { get; }
         public int TouristId { get; set; }

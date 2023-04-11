@@ -20,6 +20,11 @@ namespace TravelAgency.Service
             _tourService = new TourService();
         }
 
+        public void Add(TourRating tourRating)
+        {
+            _tourRatingRepository.Add(tourRating);
+        }
+
         public List<int> GetTouristIds(int id)
         {
             using var databaseConnection = GetConnection();
