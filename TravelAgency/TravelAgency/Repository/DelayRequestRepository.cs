@@ -5,12 +5,29 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using TravelAgency.Model;
 
 namespace TravelAgency.Repository
 {
     internal class DelayRequestRepository : RepositoryBase, IDelayRequestRepository
     {
+        public void AcceptDelayRequest(int reservationId)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            var updateCommand = databaseConnection.CreateCommand();
+            updateCommand.CommandText =
+                @"
+                    UPDATE DelayRequest SET status = 2
+                    WHERE reservationId = $reservationId;
+                ";
+            updateCommand.Parameters.AddWithValue("$reservationId", reservationId);
+
+            updateCommand.ExecuteNonQuery();
+        }
+
         public void Add(DelayRequest delayRequest)
         {
             using var databaseConnection = GetConnection();
@@ -56,23 +73,40 @@ namespace TravelAgency.Repository
                 var newStartDate = selectReader.GetDateTime(4);
                 var oldEndDate = selectReader.GetDateTime(5);
                 var newEndDate = selectReader.GetDateTime(6);
-
-                //DateTime startDate = new DateTime(2023, 3, 15);
-                //DateTime endDate = new DateTime(2023, 3, 19);
+                var reservationId = selectReader.GetInt32(7);
+                var requestStatus = Enum.Parse<RequestStatusType>(selectReader.GetString(8));
+                var rejectionReason = selectReader.GetString(9);
 
                 int owner = accommodationRepository.GetOwnerIdByAccommodationId(ownerId);
 
                 if (owner == ownerId)
                 {
-                    if (oldStartDate != newStartDate || oldEndDate != newEndDate)
+                    if (requestStatus == RequestStatusType.Processing)
                     {
-                        DelayRequest del = new DelayRequest(accId, userId, oldStartDate, newStartDate, oldEndDate, newEndDate);
+                        DelayRequest del = new DelayRequest(reservationId, accId, userId, oldStartDate, newStartDate, oldEndDate, newEndDate, requestStatus, rejectionReason);
                         delayRequestList.Add(del);
                     }
                 }
             }
 
             return delayRequestList;
+        }
+
+        public void RejectDelayRequest(int reservationId, string rejectionComment)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            var updateCommand = databaseConnection.CreateCommand();
+            updateCommand.CommandText =
+                @"
+                    UPDATE DelayRequest SET status = 3, comment = $comment
+                    WHERE reservationId = $reservationId;
+                ";
+            updateCommand.Parameters.AddWithValue("$reservationId", reservationId);
+            updateCommand.Parameters.AddWithValue("$comment", rejectionComment);
+
+            updateCommand.ExecuteNonQuery();
         }
     }
 }

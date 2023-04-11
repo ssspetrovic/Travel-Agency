@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TravelAgency.ViewModel;
 using TravelAgency.Repository;
+using System.Globalization;
 
 namespace TravelAgency.View.Controls.Owner
 {
@@ -23,6 +24,7 @@ namespace TravelAgency.View.Controls.Owner
     {
         private readonly ReservationChangeRequestsViewModel _viewModel = new();
         ReservationRepository reservationRepository = new ReservationRepository();
+        DelayRequestRepository delayRequestRepository = new DelayRequestRepository();
         
         public ReservationChangeRequestsView()
         {
@@ -39,9 +41,32 @@ namespace TravelAgency.View.Controls.Owner
 
         private void btnAccept_Click(object sender, RoutedEventArgs e)
         {
-            if(lblOldStartDate.Content != "")
+            try
             {
+                int reservationId = Convert.ToInt32(lblReservationId.Content);
+                DateTime newStartDate = Convert.ToDateTime(lblNewStartDate.Content);
+                DateTime newEndDate = Convert.ToDateTime(lblNewEndDate.Content);
+                reservationRepository.AcceptReservationChangeRequest(reservationId, newStartDate, newEndDate);
+                delayRequestRepository.AcceptDelayRequest(reservationId);
+                MessageBox.Show("Request accepted successfully");
+            }
+            catch
+            {
+                MessageBox.Show("Select a request first...");
+            }
+        }
 
+        private void btnReject_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                int reservationId = Convert.ToInt32(lblReservationId.Content);
+                delayRequestRepository.RejectDelayRequest(reservationId, txtRejection.Text);
+                MessageBox.Show("Request rejected successfully");
+            }
+            catch
+            {
+                MessageBox.Show("Select a request first...");
             }
         }
     }
