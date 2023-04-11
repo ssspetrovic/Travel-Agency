@@ -7,7 +7,7 @@ namespace TravelAgency.View.Controls.Tourist
     /// <summary>
     /// Interaction logic for RateTourView.xaml
     /// </summary>
-    public partial class RateTourView : Window
+    public partial class RateTourView
     {
         public RateTourView()
         {
