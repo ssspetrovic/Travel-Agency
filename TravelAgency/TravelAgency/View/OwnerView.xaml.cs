@@ -74,5 +74,12 @@ namespace TravelAgency.View
             superOwner.Show();
             Close();
         }
+
+        private void btnHandleRequests_Click(object sender, RoutedEventArgs e)
+        {
+            var reservationChangeRequests = new ReservationChangeRequestsView();
+            reservationChangeRequests.Show();
+            Close();
+        }
     }
 }
