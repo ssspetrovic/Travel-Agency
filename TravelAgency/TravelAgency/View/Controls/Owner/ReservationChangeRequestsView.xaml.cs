@@ -14,6 +14,8 @@ using System.Windows.Shapes;
 using TravelAgency.ViewModel;
 using TravelAgency.Repository;
 using System.Globalization;
+using System.Collections.ObjectModel;
+using TravelAgency.Model;
 
 namespace TravelAgency.View.Controls.Owner
 {
@@ -67,6 +69,41 @@ namespace TravelAgency.View.Controls.Owner
             catch
             {
                 MessageBox.Show("Select a request first...");
+            }
+        }
+
+        private void RequestListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ObservableCollection<Reservation> reservationList = reservationRepository.GetAll();
+            bool available = true;
+            foreach(Reservation reservation in reservationList)
+            {
+                if(reservation.Id != Convert.ToInt32(lblReservationId.Content))
+                {
+                    if(reservation.AccommodationId == Convert.ToInt32(lblAccommodation.Content))
+                    {
+                        DateTime newStartDate = Convert.ToDateTime(lblNewStartDate.Content);
+                        DateTime newEndDate = Convert.ToDateTime(lblNewEndDate.Content);
+                        if(reservation.StartDate >= newStartDate && reservation.StartDate <= newEndDate)
+                        {
+                            available = false; break;
+                        }
+                        if(reservation.EndDate >= newStartDate && reservation.EndDate <= newEndDate)
+                        {
+                            available = false; break;
+                        }
+                    }
+                }
+            }
+            if (available)
+            {
+                lblAvailable.Content = "Available!";
+                lblAvailable.Foreground = Brushes.LightGreen;
+            }
+            else
+            {
+                lblAvailable.Content = "Not available!";
+                lblAvailable.Foreground = Brushes.DarkRed;
             }
         }
     }
