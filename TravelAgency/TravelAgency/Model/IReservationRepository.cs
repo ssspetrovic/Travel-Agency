@@ -23,5 +23,7 @@ namespace TravelAgency.Model
         double AverageGradeForOwner(int ownerId);
 
         void AcceptReservationChangeRequest(int reservationId, DateTime newStartDate, DateTime newEndDate);
+
+        //bool IsDelayRequestAvailable(int reservationId, int accommodationId, DateTime newStartDate, DateTime newEndDate);
     }
 }
