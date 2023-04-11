@@ -104,6 +104,14 @@ namespace TravelAgency.Service
 
         }
 
+        public AccommodationDTO GetAccommodation(int reservationId)
+        {
+ 
+            AccommodationRepository _accommodationRepository = new();
+            return _accommodationRepository.GetById(reservationId);
+
+        }
+
         public void RemoveById(int id)
         {
             ReservationRepository _reservationRepository = new();

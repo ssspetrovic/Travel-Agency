@@ -15,6 +15,7 @@ namespace TravelAgency.DTO
         public DateOnly EndDate { get; set; }
         public Location Location { get; set; }
         public string AccommodationName { get; set; }
+        public int AccommodationId { get; set; }
 
         public ReservationDTO() {}
         public ReservationDTO (Reservation reservation)
@@ -25,6 +26,7 @@ namespace TravelAgency.DTO
             EndDate = DateOnly.FromDateTime(reservation.EndDate);
             Location = _reservationService.GetLocation(reservation);
             AccommodationName = _reservationService.GetAccommodation(reservation).Name;
+            AccommodationId = reservation.AccommodationId;
         }
     }
 }

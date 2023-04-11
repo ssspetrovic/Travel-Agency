@@ -13,19 +13,29 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TravelAgency.ViewModel;
+using TravelAgency.DTO;
 
 namespace TravelAgency.View.Controls.Guest1
 {
     /// <summary>
-    /// Interaction logic for ReservatoinView.xaml
+    /// Interaction logic for SingleReservationView.xaml
     /// </summary>
-    public partial class ReservatoinView : Window
+    public partial class SingleReservationView : Window
     {
-        private readonly ReservationViewModel _viewModel = new();
-        public ReservatoinView()
+        private readonly SingleReservationViewModel _viewModel = new();
+
+        public SingleReservationView(ReservationDTO reservation)
         {
+            _viewModel.Reservation = reservation;
             InitializeComponent();
             DataContext = _viewModel;
+        }
+
+        private void HomeButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var GuestView = new Guest1View();
+            GuestView.Show();
+            Close();
         }
 
         private void Reservation_OnClick(object sender, RoutedEventArgs e)
@@ -58,28 +68,6 @@ namespace TravelAgency.View.Controls.Guest1
 
         private void CloseButton_OnClick(object sender, RoutedEventArgs e)
         {
-            Close();
-        }
-
-        private void Details_OnClick(object sender, RoutedEventArgs e)
-        {
-            var ReservationDetail = new SingleReservationView(_viewModel.SelectedReservations);
-            ReservationDetail.Show();
-            Close();
-        }
-
-        private void CancelReservation_OnClick(object sender, RoutedEventArgs e)
-        {
-            _viewModel.CancelSelectedReservation();
-            var ReservationView = new ReservatoinView();
-            ReservationView.Show();
-            Close();
-        }
-
-        private void HomeButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            var GuestView = new Guest1View();
-            GuestView.Show();
             Close();
         }
     }
