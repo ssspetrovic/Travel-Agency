@@ -130,7 +130,7 @@ namespace TravelAgency.ViewModel
             var _service = new DelayRequestService();
             var OldStartDate = _reservation.StartDate.ToDateTime(TimeOnly.MinValue);
             var OldEndDate = _reservation.EndDate.ToDateTime(TimeOnly.MinValue);
-            var delayRequest = new DelayRequest(Accommodation.Id, CurrentUser.Id, OldStartDate, StartDate, OldEndDate, EndDate);
+            var delayRequest = new DelayRequest(Reservation.Id, Accommodation.Id, CurrentUser.Id, OldStartDate, StartDate, OldEndDate, EndDate, RequestStatusType.Processing, "");
             _service.Add(delayRequest);
         }
 

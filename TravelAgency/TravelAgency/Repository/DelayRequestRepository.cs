@@ -34,7 +34,7 @@ namespace TravelAgency.Repository
             databaseConnection.Open();
 
             const string insertStatement =
-                @"insert into DelayRequest(accId, userId, oldStartDate, newStartDate, oldEndDate, newEndDate) values ($accId, $userId, $oldStartDate, $newStartDate, $oldEndDate, $newEndDate)";
+                @"insert into DelayRequest(accId, userId, oldStartDate, newStartDate, oldEndDate, newEndDate, reservationId, status, comment) values ($accId, $userId, $oldStartDate, $newStartDate, $oldEndDate, $newEndDate, $reservationId, $status, $comment)";
             using var insertCommand = new SqliteCommand(insertStatement, databaseConnection);
 
             insertCommand.Parameters.AddWithValue("$accId", delayRequest.AccommodationId);
@@ -43,6 +43,9 @@ namespace TravelAgency.Repository
             insertCommand.Parameters.AddWithValue("$newStartDate", delayRequest.NewStartDate);
             insertCommand.Parameters.AddWithValue("$oldEndDate", delayRequest.OldEndDate);
             insertCommand.Parameters.AddWithValue("$newEndDate", delayRequest.NewEndDate);
+            insertCommand.Parameters.AddWithValue("$reservationId", delayRequest.ReservationId);
+            insertCommand.Parameters.AddWithValue("$status", delayRequest.RequestStatus);
+            insertCommand.Parameters.AddWithValue("$comment", delayRequest.RejectionReason);
             insertCommand.ExecuteNonQuery();
         }
 
