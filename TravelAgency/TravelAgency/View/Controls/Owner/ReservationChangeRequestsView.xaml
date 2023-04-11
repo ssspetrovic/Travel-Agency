@@ -11,9 +11,13 @@
             <ColumnDefinition Width="79*"/>
             <ColumnDefinition Width="321*"/>
         </Grid.ColumnDefinitions>
-        <ListView x:Name="RequestListView" d:ItemsSource="{d:SampleData ItemCount=3}" ItemsSource="{Binding ReservationRequestSourceCollection}" SelectedItem="{Binding SelectedRequest}" Margin="42,53,420,205" Grid.ColumnSpan="2">
+        <ListView x:Name="RequestListView" d:ItemsSource="{d:SampleData ItemCount=3}" ItemsSource="{Binding ReservationRequestSourceCollection}" SelectedItem="{Binding SelectedRequest}" Margin="42,53,229,217" Grid.ColumnSpan="2">
             <ListView.View>
                 <GridView>
+                    <GridViewColumn
+                        Width="Auto"
+                        DisplayMemberBinding="{Binding ReservationId}"
+                        Header="Reservation ID" />
                     <GridViewColumn
                         Width="Auto"
                         DisplayMemberBinding="{Binding AccommodationId}"
@@ -26,17 +30,21 @@
             </ListView.View>
         </ListView>
         <Button x:Name="btnBack" Content="Back" HorizontalAlignment="Left" Margin="525,373,0,0" VerticalAlignment="Top" Grid.Column="1" Click="btnBack_Click" />
-        <Label Grid.Column="1" Content="Old Start Date" HorizontalAlignment="Left" Margin="279,68,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
-        <Label x:Name="lblOldStartDate" Grid.Column="1" DataContext="{Binding SelectedItem, ElementName=RequestListView}" Content="{Binding OldStartDate}" HorizontalAlignment="Left" Margin="279,95,0,0" VerticalAlignment="Top" FontSize="14"/>
-        <Label Grid.Column="1" Content="New Start Date" HorizontalAlignment="Left" Margin="461,68,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
-        <Label x:Name="lblNewStartDate" Grid.Column="1" DataContext="{Binding SelectedItem, ElementName=RequestListView}" Content="{Binding NewStartDate}" HorizontalAlignment="Left" Margin="461,95,0,0" VerticalAlignment="Top" FontSize="14" Width="108"/>
-        <Label Grid.Column="1" Content="-&gt;" HorizontalAlignment="Left" Margin="410,68,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
-        <Label Grid.Column="1" Content="Old End Date" HorizontalAlignment="Left" Margin="279,163,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
-        <Label x:Name="lblOldEndDate" Grid.Column="1" DataContext="{Binding SelectedItem, ElementName=RequestListView}" Content="{Binding OldEndDate}" HorizontalAlignment="Left" Margin="279,190,0,0" VerticalAlignment="Top" FontSize="14"/>
-        <Label Grid.Column="1" Content="New End Date" HorizontalAlignment="Left" Margin="461,163,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
-        <Label x:Name="lblNewEndDate" Grid.Column="1" DataContext="{Binding SelectedItem, ElementName=RequestListView}" Content="{Binding NewEndDate}" HorizontalAlignment="Left" Margin="461,190,0,0" VerticalAlignment="Top" FontSize="14" Width="108"/>
-        <Label Grid.Column="1" Content="-&gt;" HorizontalAlignment="Left" Margin="410,163,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Label Content="Old Start Date" HorizontalAlignment="Left" Margin="53,250,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Label x:Name="lblOldStartDate" DataContext="{Binding SelectedItem, ElementName=RequestListView}" Content="{Binding OldStartDate}" HorizontalAlignment="Left" Margin="53,277,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <Label Grid.Column="1" Content="New Start Date" HorizontalAlignment="Left" Margin="77,250,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Label x:Name="lblNewStartDate" Grid.Column="1" DataContext="{Binding SelectedItem, ElementName=RequestListView}" Content="{Binding NewStartDate}" HorizontalAlignment="Left" Margin="77,277,0,0" VerticalAlignment="Top" FontSize="14" Width="108"/>
+        <Label Grid.Column="1" Content="-&gt;" HorizontalAlignment="Left" Margin="26,250,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Label Content="Old End Date" HorizontalAlignment="Left" Margin="53,345,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Label x:Name="lblOldEndDate" DataContext="{Binding SelectedItem, ElementName=RequestListView}" Content="{Binding OldEndDate}" HorizontalAlignment="Left" Margin="53,372,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <Label Grid.Column="1" Content="New End Date" HorizontalAlignment="Left" Margin="77,345,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Label x:Name="lblNewEndDate" Grid.Column="1" DataContext="{Binding SelectedItem, ElementName=RequestListView}" Content="{Binding NewEndDate}" HorizontalAlignment="Left" Margin="77,372,0,0" VerticalAlignment="Top" FontSize="14" Width="108"/>
+        <Label Grid.Column="1" Content="-&gt;" HorizontalAlignment="Left" Margin="26,345,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <Label Content="List Of Requests" HorizontalAlignment="Left" Margin="42,26,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Grid.ColumnSpan="2" Width="138"/>
+        <Button x:Name="btnAccept" Grid.Column="1" Content="Accept" HorizontalAlignment="Left" Margin="265,293,0,0" VerticalAlignment="Top" Click="btnAccept_Click"/>
+        <Button x:Name="btnReject" Grid.Column="1" Content="Reject" HorizontalAlignment="Left" Margin="359,293,0,0" VerticalAlignment="Top"/>
+        <Label Grid.Column="1" Content="Selected Reservation ID" HorizontalAlignment="Left" Margin="265,250,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Label x:Name="lblReservationId" Grid.Column="1" DataContext="{Binding SelectedItem, ElementName=RequestListView}" Content="{Binding ReservationId}" HorizontalAlignment="Left" Margin="445,250,0,0" VerticalAlignment="Top" FontSize="14"/>
 
     </Grid>
 </Window>

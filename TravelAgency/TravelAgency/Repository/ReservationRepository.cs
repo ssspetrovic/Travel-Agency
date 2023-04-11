@@ -386,5 +386,22 @@ namespace TravelAgency.Repository
 
             updateCommand.ExecuteNonQuery();
         }
+
+        public void AcceptReservationChangeRequest(int reservationId, DateTime newStartDate, DateTime newEndDate)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            var updateCommand = databaseConnection.CreateCommand();
+            updateCommand.CommandText =
+                @"
+                    UPDATE Reservation SET startDate = $startDate, endDate = $endDate
+                    WHERE Id = $id;
+                ";
+            updateCommand.Parameters.AddWithValue("$startDate", newStartDate);
+            updateCommand.Parameters.AddWithValue("$endDate", newEndDate);
+            updateCommand.Parameters.AddWithValue("$id", reservationId);
+            updateCommand.ExecuteNonQuery();
+        }
     }
 }

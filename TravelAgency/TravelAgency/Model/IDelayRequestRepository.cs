@@ -13,5 +13,9 @@ namespace TravelAgency.Model
         void DeleteById(int id);
 
         ObservableCollection<DelayRequest> GetDelayRequests(int ownerId);
+
+        void AcceptDelayRequest(int reservationId);
+
+        void RejectDelayRequest(int reservationId, string rejectionComment);
     }
 }
