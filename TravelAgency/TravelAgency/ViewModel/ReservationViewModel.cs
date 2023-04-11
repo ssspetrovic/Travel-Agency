@@ -19,10 +19,13 @@ namespace TravelAgency.ViewModel
         public new event PropertyChangedEventHandler? PropertyChanged;
         private ReservationDTO _selectedReservations;
         private bool _isListViewShown;
+        private int _daysToCancellation;
+
 
         public ReservationViewModel() {
 
             var _reservationService = new ReservationService();
+            DaysToCancellation = 1;
 
             _reservationCollection = new CollectionViewSource
             {
@@ -47,6 +50,15 @@ namespace TravelAgency.ViewModel
 
         }
 
+        public int DaysToCancellation
+        {
+            get => _daysToCancellation;
+            set
+            {
+                _daysToCancellation = value;
+            }
+        }
+
         public bool IsListViewShown
         {
             get => _isListViewShown;
@@ -61,6 +73,12 @@ namespace TravelAgency.ViewModel
 
         public void CancelSelectedReservation()
         {
+            var daysToReservation = (SelectedReservations.StartDate.DayNumber-DateOnly.FromDateTime(DateTime.Now).DayNumber);
+            if (daysToReservation <= DaysToCancellation)
+            {
+                MessageBox.Show("You are too late for cancelation");
+                return;
+            }
             ReservationService _reservationService = new();
             _reservationService.RemoveById(SelectedReservations.Id);
 

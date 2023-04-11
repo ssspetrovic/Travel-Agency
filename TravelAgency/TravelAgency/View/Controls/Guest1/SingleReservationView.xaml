@@ -171,11 +171,11 @@
 
                         <materialDesign:RatingBar
                           x:Name="CleanGrade"
-                          Value="3" />
+                          Value="{Binding GradeClean}" />
                         <materialDesign:RatingBar
                           Margin="0 30 0 0"
                           x:Name="OwnerGrade"
-                          Value="3" />
+                          Value="{Binding GradeOwner}" />
                     </StackPanel>
 
 

@@ -24,7 +24,23 @@ namespace TravelAgency.ViewModel
 
         private readonly ReservationService reservationService = new();
 
-        
+        public int GradeClean
+        {
+            get => _gradeClean;
+            set
+            {
+                _gradeClean = value;
+            }
+        }
+
+        public int GradeOwner
+        {
+            get => _gradeOwner;
+            set
+            {
+                _gradeOwner = value;
+            }
+        }
         public BitmapImage Image
         {
             get => _accommodationImage;
@@ -56,6 +72,8 @@ namespace TravelAgency.ViewModel
 
         public SingleReservationViewModel()
         {
+            GradeClean = 5;
+            GradeOwner = 5;
             var _reservationService = new ReservationService();
         }
 
