@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Controls.Primitives;
-using System.Windows.Forms;
 using TravelAgency.ViewModel;
 
 namespace TravelAgency.View.Controls.Tourist
@@ -57,6 +56,7 @@ namespace TravelAgency.View.Controls.Tourist
         private void CancelButton_OnClick(object sender, RoutedEventArgs e)
         {
             var myToursView = new MyToursView();
+            myToursView.Show();
             Close();
         }
 
