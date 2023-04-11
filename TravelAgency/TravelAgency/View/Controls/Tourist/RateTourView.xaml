@@ -164,9 +164,9 @@
                                 Text="How interesting did you find the tour?" />
                         </StackPanel>
                         <StackPanel Grid.Column="1">
-                            <materialDesign:RatingBar Margin="0,13" Value="{Binding GuideKnowledgeGrade}" />
-                            <materialDesign:RatingBar Margin="0,13" Value="{Binding GuideLanguageGrade}" />
-                            <materialDesign:RatingBar Margin="0,13" Value="{Binding TourInterestingnessGrade}" />
+                            <materialDesign:RatingBar Margin="0,13" Value="{Binding GuideKnowledgeGrade, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <materialDesign:RatingBar Margin="0,13" Value="{Binding GuideLanguageGrade, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <materialDesign:RatingBar Margin="0,13" Value="{Binding TourInterestingnessGrade, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </StackPanel>
                     </Grid>
                     <Grid Grid.Row="3" Margin="50,0">
@@ -184,7 +184,12 @@
                                 Grid.Row="1"
                                 BorderBrush="{StaticResource MaterialDesignDivider}"
                                 BorderThickness="2">
-                                <TextBox x:Name="CommentTextBox" Text="{Binding Comment}" />
+                                <TextBox
+                                    x:Name="CommentTextBox"
+                                    Padding="5"
+                                    HorizontalContentAlignment="Left"
+                                    VerticalContentAlignment="Top"
+                                    Text="{Binding Comment}" />
                             </Border>
                         </Grid>
                         <Grid Grid.Column="1" Margin="20,0,0,0">

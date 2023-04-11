@@ -192,6 +192,7 @@
                             Width="120"
                             Height="40"
                             Margin="15,0,0,0"
+                            Click="RateTourButton_OnClick"
                             Content="Rate tour" />
                     </WrapPanel>
                 </Grid>

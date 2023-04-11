@@ -52,13 +52,23 @@ namespace TravelAgency.ViewModel
             }
         }
 
-        public RateTourViewModel()
+        public string TourName { get; set; }
+
+        public RateTourViewModel(string tourName)
         {
+            TourName = tourName;
+
+            if (TourName == "/")
+            {
+                MessageBox.Show("Error with selected tour!", "Error");
+                return;
+            }
             
         }
 
         public void Submit()
         {
+            Debug.WriteLine(TourName);
             Debug.WriteLine(GuideKnowledgeGrade);
             Debug.WriteLine(GuideLanguageGrade);
             Debug.WriteLine(TourInterestingnessGrade);

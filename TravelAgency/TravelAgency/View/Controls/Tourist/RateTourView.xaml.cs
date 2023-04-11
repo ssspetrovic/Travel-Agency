@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls.Primitives;
+using TravelAgency.Model;
 using TravelAgency.ViewModel;
 
 namespace TravelAgency.View.Controls.Tourist
@@ -9,10 +10,10 @@ namespace TravelAgency.View.Controls.Tourist
     /// </summary>
     public partial class RateTourView
     {
-        public RateTourView()
+        public RateTourView(string tourName = "/")
         {
             InitializeComponent();
-            DataContext = new RateTourViewModel();
+            DataContext = new RateTourViewModel(tourName);
         }
 
         private void SignOutButton_OnClick(object sender, RoutedEventArgs e)

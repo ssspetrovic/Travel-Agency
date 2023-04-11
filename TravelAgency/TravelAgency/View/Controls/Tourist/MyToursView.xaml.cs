@@ -56,5 +56,10 @@ namespace TravelAgency.View.Controls.Tourist
         {
             ((MyToursViewModel)DataContext).MyTourDtoService.JoinTour();
         }
+
+        private void RateTourButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            ((MyToursViewModel)DataContext).RateTour();
+        }
     }
 }
