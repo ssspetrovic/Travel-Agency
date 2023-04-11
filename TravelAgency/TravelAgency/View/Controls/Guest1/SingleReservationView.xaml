@@ -171,11 +171,11 @@
 
                         <materialDesign:RatingBar
                           x:Name="CleanGrade"
-                          Value="{Binding GradeClean}" />
+                          Value="{Binding Path = GradeClean, Mode=TwoWay, NotifyOnSourceUpdated=True}" />
                         <materialDesign:RatingBar
                           Margin="0 30 0 0"
                           x:Name="OwnerGrade"
-                          Value="{Binding GradeOwner}" />
+                          Value="{Binding Path = GradeOwner, Mode=TwoWay, NotifyOnSourceUpdated=True}" />
                     </StackPanel>
 
 

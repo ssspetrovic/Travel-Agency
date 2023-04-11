@@ -74,6 +74,7 @@ namespace TravelAgency.ViewModel
             set
             {
                 _gradeClean = value;
+                OnPropertyChanged();
             }
         }
 
@@ -83,6 +84,7 @@ namespace TravelAgency.ViewModel
             set
             {
                 _gradeOwner = value;
+                OnPropertyChanged();
             }
         }
         public BitmapImage Image
