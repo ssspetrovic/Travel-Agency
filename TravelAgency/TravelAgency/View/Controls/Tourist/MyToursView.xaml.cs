@@ -1,7 +1,5 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls.Primitives;
-using System.Windows.Navigation;
 using TravelAgency.ViewModel;
 
 namespace TravelAgency.View.Controls.Tourist
