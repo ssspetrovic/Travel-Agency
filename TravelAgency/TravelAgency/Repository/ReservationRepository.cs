@@ -30,7 +30,7 @@ namespace TravelAgency.Repository
             insertCommand.Parameters.AddWithValue("$comment", reservation.UserComment);
             insertCommand.Parameters.AddWithValue("$startDate", reservation.StartDate);
             insertCommand.Parameters.AddWithValue("$endDate", reservation.EndDate);
-            insertCommand.Parameters.AddWithValue("$gradeComplacent", reservation.GradeGuestComplaisent);
+            insertCommand.Parameters.AddWithValue("$gradeComplacent", reservation.GradeGuestComplacent);
             insertCommand.Parameters.AddWithValue("$gradeClean", reservation.GradeGuestClean);
             insertCommand.ExecuteNonQuery();
         }
@@ -49,7 +49,7 @@ namespace TravelAgency.Repository
             insertCommand.Parameters.AddWithValue("$comment", reservation.UserComment);
             insertCommand.Parameters.AddWithValue("$startDate", reservation.StartDate);
             insertCommand.Parameters.AddWithValue("$endDate", reservation.EndDate);
-            insertCommand.Parameters.AddWithValue("$gradeComplacent", reservation.GradeGuestComplaisent);
+            insertCommand.Parameters.AddWithValue("$gradeComplacent", reservation.GradeGuestComplacent);
             insertCommand.Parameters.AddWithValue("$gradeClean", reservation.GradeGuestClean);
             insertCommand.Parameters.AddWithValue("$reviewImages", reservation.ReviewImagesURL);
             insertCommand.Parameters.AddWithValue("$gradeAccommodationClean", reservation.GradeAccommodationClean);
@@ -68,21 +68,10 @@ namespace TravelAgency.Repository
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
             using var selectReader = selectCommand.ExecuteReader();
 
-            var reservationList = new ObservableCollection<Reservation>();
-            var locationService = new LocationService();
-
             int count = 0;
 
             while (selectReader.Read())
             {
-                var location = locationService.GetById(selectReader.GetInt32(2));
-                var keyPointsList = selectReader.GetString(6).Split(", ");
-                var keyPoints = locationService.GetByAllCities(keyPointsList.ToList());
-
-                var id = selectReader.GetInt32(0);
-                var guestId = selectReader.GetInt32(1);
-                var accommodationId = selectReader.GetInt32(2);
-                var comment = selectReader.GetString(3);
                 //var startDate = selectReader.GetDateTime(4);
                 //var endDate = selectReader.GetDateTime(5);
                 var gradeComplaisent = selectReader.GetFloat(6);
@@ -117,22 +106,16 @@ namespace TravelAgency.Repository
             using var selectReader = selectCommand.ExecuteReader();
 
             var reservationList = new ObservableCollection<Reservation>();
-            var locationService = new LocationService();
-
 
             while (selectReader.Read())
             {
-                var location = locationService.GetById(selectReader.GetInt32(2));
-                var keyPointsList = selectReader.GetString(6).Split(", ");
-                var keyPoints = locationService.GetByAllCities(keyPointsList.ToList());
-
                 var id = selectReader.GetInt32(0);
                 var guestId = selectReader.GetInt32(1);
                 var accommodationId = selectReader.GetInt32(2);
                 var comment = selectReader.GetString(3);
                 var startDate = selectReader.GetDateTime(4);
                 var endDate = selectReader.GetDateTime(5);
-                var gradeComplaisent = selectReader.GetFloat(6);
+                var gradeComplacent = selectReader.GetFloat(6);
                 var gradeClean = selectReader.GetFloat(7);
                 var reviewImages = selectReader.GetString(8);
                 var gradeAccommodationClean = selectReader.GetFloat(9);
@@ -140,7 +123,7 @@ namespace TravelAgency.Repository
                 var accommodationComment = selectReader.GetString(11);
 
 
-                Reservation res = new Reservation(id, comment, startDate, endDate, gradeComplaisent, gradeClean, guestId, accommodationId, accommodationComment, gradeAccommodationClean, gradeAccommodationOwner, reviewImages);
+                Reservation res = new Reservation(id, comment, startDate, endDate, gradeComplacent, gradeClean, guestId, accommodationId, accommodationComment, gradeAccommodationClean, gradeAccommodationOwner, reviewImages);
 
                 reservationList.Add(res);
             }
@@ -158,33 +141,28 @@ namespace TravelAgency.Repository
             using var selectReader = selectCommand.ExecuteReader();
 
             var reservationList = new ObservableCollection<Reservation>();
-            var locationService = new LocationService();
 
 
             while (selectReader.Read())
             {
-                var location = locationService.GetById(selectReader.GetInt32(2));
-                var keyPointsList = selectReader.GetString(6).Split(", ");
-                var keyPoints = locationService.GetByAllCities(keyPointsList.ToList());
-
                 var id = selectReader.GetInt32(0);
                 var guestId = selectReader.GetInt32(1);
                 var accommodationId = selectReader.GetInt32(2);
                 var comment = selectReader.GetString(3);
 
-                var gradeComplaisent = selectReader.GetFloat(6);
+                var gradeComplacent = selectReader.GetFloat(6);
                 var gradeClean = selectReader.GetFloat(7);
 
                 DateTime startDate = new DateTime(2023, 3, 15);
                 DateTime endDate = new DateTime(2023, 3, 19);
 
-                if (gradeComplaisent == -1 && gradeClean == -1)
+                if (gradeComplacent == -1 && gradeClean == -1)
                 {
                     //DateTime endDate = DateTime.ParseExact(txtEndDate.Text, "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
                     double days = (DateTime.Now - endDate).TotalDays;
                     if (days <= 5)
                     {
-                        Reservation res = new Reservation(id, comment, startDate, endDate, gradeComplaisent, gradeClean, guestId, accommodationId);
+                        Reservation res = new Reservation(id, comment, startDate, endDate, gradeComplacent, gradeClean, guestId, accommodationId);
                         reservationList.Add(res);
                     }
                 }
@@ -204,35 +182,30 @@ namespace TravelAgency.Repository
             using var selectReader = selectCommand.ExecuteReader();
 
             var reservationList = new ObservableCollection<Reservation>();
-            var locationService = new LocationService();
 
 
             while (selectReader.Read())
             {
-                var location = locationService.GetById(selectReader.GetInt32(2));
-                var keyPointsList = selectReader.GetString(6).Split(", ");
-                var keyPoints = locationService.GetByAllCities(keyPointsList.ToList());
-
                 var id = selectReader.GetInt32(0);
                 var guestId = selectReader.GetInt32(1);
                 var accommodationId = selectReader.GetInt32(2);
                 var comment = selectReader.GetString(3);
                 var startDate = selectReader.GetDateTime(4);
                 var endDate = selectReader.GetDateTime(5);
-                var gradeComplaisent = selectReader.GetFloat(6);
+                var gradeComplacent = selectReader.GetFloat(6);
                 var gradeClean = selectReader.GetFloat(7);
 
                 gradeClean = -1;
-                gradeComplaisent = -1;
+                gradeComplacent = -1;
 
-                Reservation res = new Reservation(id, comment, startDate, endDate, gradeComplaisent, gradeClean, guestId, accommodationId);
+                Reservation res = new Reservation(id, comment, startDate, endDate, gradeComplacent, gradeClean, guestId, accommodationId);
                 reservationList.Add(res);
             }
 
             return reservationList;
         }
 
-        public void UpdateReservationAfterGrading(int reservationId, string userComment, float gradeUserComplaisent, float gradeUserClean)
+        public void UpdateReservationAfterGrading(int reservationId, string userComment, float gradeUserComplacent, float gradeUserClean)
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
@@ -244,7 +217,7 @@ namespace TravelAgency.Repository
                     WHERE Id = $id;
                 ";
             updateCommand.Parameters.AddWithValue("$comment", userComment);
-            updateCommand.Parameters.AddWithValue("$gradeComplacent", gradeUserComplaisent);
+            updateCommand.Parameters.AddWithValue("$gradeComplacent", gradeUserComplacent);
             updateCommand.Parameters.AddWithValue("$gradeClean", gradeUserClean);
             updateCommand.Parameters.AddWithValue("$id", reservationId);
             updateCommand.ExecuteNonQuery();
@@ -312,6 +285,86 @@ namespace TravelAgency.Repository
             }
 
             return reservationList;
+        }
+
+        public int CountGradesForOwner(int ownerId)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            const string selectStatement = @"select * from Reservation";
+            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
+            using var selectReader = selectCommand.ExecuteReader();
+
+            int count = 0;
+            AccommodationRepository accommodationRepository = new AccommodationRepository();
+
+            while (selectReader.Read())
+            {
+                var accommodationId = selectReader.GetInt32(2);
+                var tempOwnerId = accommodationRepository.GetOwnerIdByAccommodationId(accommodationId); 
+
+                if(ownerId == tempOwnerId)
+                {
+                    var gradeAccommodationClean = selectReader.GetInt32(9);
+                    var gradeAccommodationOwner = selectReader.GetInt32(10);
+
+                    //## Test primer da bi se video ispis
+                    if (selectReader.GetInt32(0) == 15)
+                    {
+                        gradeAccommodationClean = 5;
+                        gradeAccommodationOwner = 5;
+                    }
+                    //##
+
+                    if (gradeAccommodationClean != -1 && gradeAccommodationOwner != -1)
+                        count++;
+                }
+
+            }
+
+            return count;
+        }
+
+        public double AverageGradeForOwner(int ownerId)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            const string selectStatement = @"select * from Reservation";
+            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
+            using var selectReader = selectCommand.ExecuteReader();
+
+            double average;
+            int gradeSum = 0;
+            AccommodationRepository accommodationRepository = new AccommodationRepository();
+
+            while (selectReader.Read())
+            {
+                var accommodationId = selectReader.GetInt32(2);
+                var tempOwnerId = accommodationRepository.GetOwnerIdByAccommodationId(accommodationId);
+
+                if (ownerId == tempOwnerId)
+                {
+                    var gradeAccommodationClean = selectReader.GetInt32(9);
+                    var gradeAccommodationOwner = selectReader.GetInt32(10);
+
+                    //## Test primer da bi se video ispis
+                    if(selectReader.GetInt32(0) == 15)
+                    {
+                        gradeAccommodationClean = 5;
+                        gradeAccommodationOwner = 5;
+                    }
+                    //##
+
+                    if(gradeAccommodationClean != -1 && gradeAccommodationOwner != -1)
+                        gradeSum += gradeAccommodationClean + gradeAccommodationOwner;
+                }
+            }
+            int count = CountGradesForOwner(ownerId);
+            average = gradeSum / count;
+
+            return average;
         }
     }
 }

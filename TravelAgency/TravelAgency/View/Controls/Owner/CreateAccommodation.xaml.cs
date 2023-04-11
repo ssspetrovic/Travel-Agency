@@ -44,15 +44,16 @@ namespace TravelAgency.View.Controls.Owner
             var name = txtName.Text;
             var locationService = new LocationService();
             var currentLocation = locationService.GetByCity(cmbLocation.Text);
-            var adress = txtAdress.Text;
+            var address = txtAdress.Text;
             var type = findAccommodationType(cmbType.Text);
             var minDaysReservation = Convert.ToInt32(txtMinReservationDays.Text);
             var maxDaysReservation = Convert.ToInt32(txtMaxReservationDays.Text);
             var reservableDays = Convert.ToInt32(txtReservableDays.Text);
             var description = txtDescription.Text;
+            var ownerId = CurrentUser.Id;
 
-            Accommodation accommodation = new Accommodation(name, currentLocation!.Id, type, minDaysReservation, maxDaysReservation, adress, reservableDays, 
-                ImagesList.Text, description);
+            Accommodation accommodation = new Accommodation(name, currentLocation!.Id, type, minDaysReservation, maxDaysReservation, address, reservableDays, 
+                ImagesList.Text, description, ownerId);
             accommodationRepository.Add(accommodation);
             MessageBox.Show("Added Accommodation!");
         }

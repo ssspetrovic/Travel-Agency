@@ -118,9 +118,10 @@ namespace TravelAgency.Service
                 _tourService.GetByName(CurrentReviewTour.Name!), (TouristAppearance) selectReader.GetInt32(8), selectReader.GetInt32(9), selectReader.GetInt32(10));
         }
 
-        public void JoinTour(string? username, int tourId)
+        public void JoinTour(string? username, int tourId, string city)
         {
-            _touristRepository.JoinTour(username, tourId);
+            var locationService = new LocationService();
+            _touristRepository.JoinTour(username, tourId, locationService.GetByCity(city)!.Id);
         }
     }
 }

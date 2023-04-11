@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Windows.Forms;
 using TravelAgency.DTO;
@@ -64,7 +65,7 @@ namespace TravelAgency.Service
                 return;
             }
 
-            if (_myToursViewModel?.SelectedTour.Status != MyTourDto.TourStatus.Active)
+            if (_myToursViewModel?.SelectedTour.Status != MyTourDto.TourStatus.Active && _myToursViewModel?.SelectedTour.Status != MyTourDto.TourStatus.Inactive)
             {
                 MessageBox.Show("Cannot join this tour!", "Error");
                 return;
@@ -73,9 +74,11 @@ namespace TravelAgency.Service
             UpdateStatus(_myToursViewModel.SelectedTour.Name, MyTourDto.TourStatus.Requested);
 
             var touristService = new TouristService();
-            touristService.JoinTour(CurrentUser.Username, _myToursViewModel.SelectedTour.TourId);
+            //Debug.WriteLine(_myToursViewModel.SelectedTour.Location);
+            //Debug.WriteLine(_myToursViewModel.SelectedTour.Location.Id);
+            touristService.JoinTour(CurrentUser.Username, _myToursViewModel.SelectedTour.TourId, _myToursViewModel.SelectedTour.Location.City);
 
-            _myToursViewModel.MyToursView.Refresh();
+            MyToursViewModel.ReloadWindow();
         }
     }
 }

@@ -23,5 +23,7 @@ namespace TravelAgency.Model
         Language FindLanguage(string language);
         ObservableCollection<AccommodationDTO> GetAll();
 
+        int GetOwnerIdByAccommodationId(int accommodationId);
+
     }
 }
