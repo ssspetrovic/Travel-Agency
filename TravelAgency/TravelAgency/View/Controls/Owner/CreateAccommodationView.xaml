@@ -1,0 +1,57 @@
+﻿<Window x:Class="TravelAgency.View.Controls.Owner.CreateAccommodation"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TravelAgency.View.Controls.Owner"
+        mc:Ignorable="d"
+        Title="CreateAccommodation" Height="450" Width="800">
+    <Grid>
+        <Label Content="Create Accommodation" HorizontalAlignment="Left" Margin="40,18,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <Label Content="Name" HorizontalAlignment="Left" Margin="59,64,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtName" HorizontalAlignment="Left" Margin="59,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Minimum reservation days" HorizontalAlignment="Left" Margin="59,251,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtMinReservationDays" HorizontalAlignment="Left" Margin="59,270,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Reservable Days" HorizontalAlignment="Left" Margin="59,311,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtReservableDays" HorizontalAlignment="Left" Margin="59,330,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Location" HorizontalAlignment="Left" Margin="59,125,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cmbLocation" HorizontalAlignment="Left" Margin="59,149,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0">
+            <ComboBoxItem>Tokyo</ComboBoxItem>
+            <ComboBoxItem>Delhi</ComboBoxItem>
+            <ComboBoxItem>Shanghai</ComboBoxItem>
+            <ComboBoxItem>Sao Paulo</ComboBoxItem>
+            <ComboBoxItem>Mexico City</ComboBoxItem>
+            <ComboBoxItem>Cairo</ComboBoxItem>
+            <ComboBoxItem>Mumbai</ComboBoxItem>
+            <ComboBoxItem>Beijing</ComboBoxItem>
+            <ComboBoxItem>Osaka</ComboBoxItem>
+            <ComboBoxItem>New York</ComboBoxItem>
+            <ComboBoxItem>Buenos Aires</ComboBoxItem>
+            <ComboBoxItem>Chongqing</ComboBoxItem>
+            <ComboBoxItem>Istanbul</ComboBoxItem>
+            <ComboBoxItem>Kolkata</ComboBoxItem>
+            <ComboBoxItem>Manila</ComboBoxItem>
+            <ComboBoxItem>Bar</ComboBoxItem>
+        </ComboBox>
+        <Label Content="Type" HorizontalAlignment="Left" Margin="59,184,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cmbType" HorizontalAlignment="Left" Margin="59,208,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0">
+            <ComboBoxItem>Apartment</ComboBoxItem>
+            <ComboBoxItem>House</ComboBoxItem>
+            <ComboBoxItem>Cottage</ComboBoxItem>
+        </ComboBox>
+        <Button x:Name="btnCreate" Content="Create" HorizontalAlignment="Left" Margin="60,375,0,0" VerticalAlignment="Top" Click="btnCreate_Click"/>
+        <Button x:Name="btnBack" Content="Back" HorizontalAlignment="Left" Margin="686,375,0,0" VerticalAlignment="Top" Click="btnBack_Click"/>
+        <Label Content="Maximum reservation days" HorizontalAlignment="Left" Margin="224,251,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtMaxReservationDays" HorizontalAlignment="Left" Margin="224,270,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Address" HorizontalAlignment="Left" Margin="224,125,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtAdress" HorizontalAlignment="Left" Margin="224,149,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Image" HorizontalAlignment="Left" Margin="427,64,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtImage" HorizontalAlignment="Left" Margin="427,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="txtAddUrl" Content="Add Url" HorizontalAlignment="Left" Margin="562,83,0,0" VerticalAlignment="Top" Height="25" Width="68" FontSize="10" Click="txtAddUrl_Click"/>
+        <Button x:Name="btnClearImages" Content="Clear" HorizontalAlignment="Left" Margin="635,83,0,0" VerticalAlignment="Top" Height="25" Width="70" FontSize="10" Click="btnClearImages_Click"/>
+        <Label Content="Description" HorizontalAlignment="Left" Margin="440,251,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtDescription" HorizontalAlignment="Left" Margin="440,270,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="ImagesList" HorizontalAlignment="Left" Margin="427,128,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="312"/>
+
+    </Grid>
+</Window>

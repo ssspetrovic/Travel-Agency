@@ -8,12 +8,12 @@ namespace TravelAgency.Model
 {
     public class DelayRequest
     {
-        public int AccommodationId;
-        public int UserId;
-        public DateTime OldStartDate;
-        public DateTime NewStartDate;
-        public DateTime OldEndDate;
-        public DateTime NewEndDate;
+        public int AccommodationId { get; set; }
+        public int UserId { get; set; }
+        public DateTime OldStartDate { get; set; }
+        public DateTime NewStartDate { get; set; }
+        public DateTime OldEndDate { get; set; }
+        public DateTime NewEndDate { get; set; }
         public DelayRequest() { }
 
         public DelayRequest(int accommodationId, int userId, DateTime oldStartDate, DateTime newStartDate, DateTime oldEndDate, DateTime newEndDate)
