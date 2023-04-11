@@ -62,6 +62,11 @@ namespace TravelAgency.Service
             return maxDate;
 
         }
+        public void GradeAccommodation(int reservationId, string comment, string pictureUrl, int gradeClean, int gradeOwner)
+        {
+            var _repository = new ReservationRepository();
+            _repository.UpdateAfterRatingAccommodation(reservationId, comment, pictureUrl, gradeClean, gradeOwner);
+        }
 
         public ObservableCollection<ReservationDTO> GetAllDTO()
         {

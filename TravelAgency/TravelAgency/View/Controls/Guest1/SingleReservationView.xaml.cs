@@ -74,12 +74,13 @@ namespace TravelAgency.View.Controls.Guest1
         //todo:
         private void Rate_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            _viewModel.SubmitRating();
         }
 
         private void Delay_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            _viewModel.SendDelayRequest();
+            MessageBox.Show("The delay request has been sent!");
         }
     }
 }

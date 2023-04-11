@@ -366,5 +366,25 @@ namespace TravelAgency.Repository
 
             return average;
         }
+
+        public void UpdateAfterRatingAccommodation(int id, string comment, string pictureUrl, int gradeClean, int gradeOwner)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            var updateCommand = databaseConnection.CreateCommand();
+            updateCommand.CommandText =
+                @"
+                    UPDATE Reservation SET accommodationComment = $Comment, gradeAccommodationClean = $gradeAccommodationClean, gradeAccommodationOwner = $gradeAccommodationOwner, reviewImages = $url
+                    WHERE Id = $id;
+                ";
+            updateCommand.Parameters.AddWithValue("$Comment", comment);
+            updateCommand.Parameters.AddWithValue("$gradeAccommodationClean", gradeClean);
+            updateCommand.Parameters.AddWithValue("$gradeAccommodationOwner", gradeOwner);
+            updateCommand.Parameters.AddWithValue("$url", pictureUrl);
+            updateCommand.Parameters.AddWithValue("$id", id);
+
+            updateCommand.ExecuteNonQuery();
+        }
     }
 }

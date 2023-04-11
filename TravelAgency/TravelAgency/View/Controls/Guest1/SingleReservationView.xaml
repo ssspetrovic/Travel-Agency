@@ -155,14 +155,14 @@
                                 Grid.Row="2"
                                 Width="150"
                                 Height="40"
-                                SelectedDate="{Binding Path=Reservation.StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                SelectedDate="{Binding Path=StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             <DatePicker
                                 Name="EndDateSelect"
                                 Grid.Row="2"
                                 Width="150"
                                 Height="40"
                                 Margin="0 30 0 0"
-                                SelectedDate="{Binding Path=Reservation.StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                SelectedDate="{Binding Path=EndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                         </StackPanel>
 
@@ -180,8 +180,13 @@
 
 
                 </Grid>
-                <StackPanel Grid.Row="3" Orientation="Horizontal">
-                    <Button
+                <Grid Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                        <Button
                             x:Name="SubmitRate"
                             Margin="20 0 0 0 "
                             Grid.Row="2"
@@ -190,8 +195,8 @@
                             Click="Rate_OnClick"
                             Content="Rate"
                             FontSize="15" />
-                    <Button
-                            Margin="100 0 0 0"
+                        <Button
+                            Margin="80 0 0 0"
                             x:Name="Delay"
                             Grid.Row="2"
                             Width="100"
@@ -199,7 +204,24 @@
                             Click="Delay_OnClick"
                             Content="Delay"
                             FontSize="15" />
-                </StackPanel>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Margin="15 20 0 0">
+                        <TextBox
+                          x:Name="CommentTextBox"
+                          Height="50"
+                          Margin="0 0 0 20"
+                          TextWrapping="WrapWithOverflow"
+                          Text="{Binding Comment}"
+                          materialDesign:HintAssist.Hint="Comment" />
+                        <TextBox
+                          x:Name="PictureUrlTextBox"
+                          Height="50"
+                          Text="{Binding PictureUrl}"
+                          TextWrapping="WrapWithOverflow"
+                          materialDesign:HintAssist.Hint="Picture URL" />
+                    </StackPanel>
+                </Grid>
+
             </Grid>
         </Grid>
     </Border>
