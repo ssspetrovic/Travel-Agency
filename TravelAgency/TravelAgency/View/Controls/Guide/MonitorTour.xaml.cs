@@ -300,7 +300,6 @@ namespace TravelAgency.View.Controls.Guide
 
                 var myTourDtoService = new MyTourDtoService();
                 myTourDtoService.UpdateStatus(selectedTour.Name, MyTourDto.TourStatus.Active);
-                Debug.WriteLine(currentKeyPoint);
                 myTourDtoService.UpdateKeyPoint(selectedTour.Name, currentKeyPoint.ToString());
             }
 

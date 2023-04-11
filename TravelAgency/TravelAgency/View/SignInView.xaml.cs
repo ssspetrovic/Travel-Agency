@@ -63,11 +63,6 @@ namespace TravelAgency.View
                         CurrentUser.Username = username;
                         CurrentUser.DisplayName = userRepository.GetByUsername(username).Name;
 
-                        // Debug test
-                        //Debug.WriteLine(CurrentUser.Id);
-                        //Debug.WriteLine(CurrentUser.Username);
-                        //Debug.WriteLine(CurrentUser.DisplayName);
-
                         switch (currentRole)
                         {
                             case Role.Owner:
