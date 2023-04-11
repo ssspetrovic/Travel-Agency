@@ -20,6 +20,11 @@ namespace TravelAgency.Service
             _tourService = new TourService();
         }
 
+        public void Add(TourRating tourRating)
+        {
+            _tourRatingRepository.Add(tourRating);
+        }
+
         public List<int> GetTouristIds(int id)
         {
             using var databaseConnection = GetConnection();
@@ -82,8 +87,7 @@ namespace TravelAgency.Service
 
             using var selectReader = selectCommand.ExecuteReader();
 
-            if (!selectReader.Read()) return new Tour();
-            return _tourService.GetById(selectReader.GetInt32(2));
+            return !selectReader.Read() ? new Tour() : _tourService.GetById(selectReader.GetInt32(2));
         }
 
         public void ReportValidation(string comment, string tourist)
@@ -98,6 +102,15 @@ namespace TravelAgency.Service
                     break;
                 else if (comment.Contains(keyPoint!.City) || comment.Contains(keyPoint.Country))
                     ReportAComment(comment);
+        }
+
+        public bool IsTourRateable(string? touristUsername, string? tourName)
+        {
+            if (_touristService.GetTouristAppearance(touristUsername) != TouristAppearance.Present)
+                return false;
+
+            var finishedTourService = new FinishedTourService();
+            return !finishedTourService.CheckExistingTours(_tourService.GetByName(tourName));
         }
     }
 }

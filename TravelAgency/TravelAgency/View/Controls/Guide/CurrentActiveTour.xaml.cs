@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
+using TravelAgency.DTO;
 using TravelAgency.Model;
 using TravelAgency.Service;
 using Application = System.Windows.Application;
@@ -253,7 +255,7 @@ namespace TravelAgency.View.Controls.Guide
                 var dateToday = "";
                 foreach (var date in tourDates)
                 {
-                    if (DateTime.Compare(DateTime.Today, DateTime.Parse(date)) == 0)
+                    if (date.Equals(DateTime.Today.ToString("MM/dd/yyyy", new CultureInfo("en-US"))))
                         dateToday = date;
                 }
 
@@ -279,6 +281,10 @@ namespace TravelAgency.View.Controls.Guide
             CheckPassedKeyPoints(keyPointParts);
 
             var tour = _tourService.GetById(firstTourist.Tour.Id);
+            
+            // Setting MyTourDto status
+            var myTourDtoService = new MyTourDtoService();
+            myTourDtoService.UpdateStatus(tour.Name, MyTourDto.TourStatus.Finished);
 
             if (_finishedTourService.CheckExistingTours(tour))
                 _finishedTourService.Edit(new FinishedTour(tour.Id, tour.Name, _tourService.GetKeyPoints(string.Join(", ", keyPointParts.Select(p => p[..p.IndexOf(':')]))), _touristService.GetByTour(tour), tour.Date.Split(", ")[0]));
@@ -295,7 +301,6 @@ namespace TravelAgency.View.Controls.Guide
             var reviewTour = new ReviewTour();
             reviewTour.Show();
             Close();
-
         }
 
         private void CheckAllGuests_OnClick(object sender, RoutedEventArgs e)

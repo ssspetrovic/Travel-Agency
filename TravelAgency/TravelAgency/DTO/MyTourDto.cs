@@ -10,7 +10,9 @@ namespace TravelAgency.DTO
             Inactive,
             Active,
             Requested,
-            Attending
+            Attending,
+            Finished,
+            Rated
         }
 
         public int TourId { get; private set; }

@@ -1,18 +1,19 @@
 ﻿using System.Windows;
 using System.Windows.Controls.Primitives;
+using TravelAgency.Model;
 using TravelAgency.ViewModel;
 
 namespace TravelAgency.View.Controls.Tourist
 {
     /// <summary>
-    /// Interaction logic for MyTours.xaml
+    /// Interaction logic for RateTourView.xaml
     /// </summary>
-    public partial class MyToursView
+    public partial class RateTourView
     {
-        public MyToursView()
+        public RateTourView(string tourName = "/")
         {
             InitializeComponent();
-            DataContext = new MyToursViewModel();
+            DataContext = new RateTourViewModel(tourName);
         }
 
         private void SignOutButton_OnClick(object sender, RoutedEventArgs e)
@@ -39,6 +40,7 @@ namespace TravelAgency.View.Controls.Tourist
             tourReservation.Show();
             Close();
         }
+
         private void MyToursButton_OnClick(object sender, RoutedEventArgs e)
         {
             var myToursView = new MyToursView();
@@ -52,14 +54,21 @@ namespace TravelAgency.View.Controls.Tourist
             Close();
         }
 
-        private void JoinTourButton_OnClick(object sender, RoutedEventArgs e)
+        private void CancelButton_OnClick(object sender, RoutedEventArgs e)
         {
-            ((MyToursViewModel)DataContext).MyTourDtoService.JoinTour();
+            var myToursView = new MyToursView();
+            myToursView.Show();
+            Close();
         }
 
-        private void RateTourButton_OnClick(object sender, RoutedEventArgs e)
+        private void SubmitButton_OnClick(object sender, RoutedEventArgs e)
         {
-            ((MyToursViewModel)DataContext).RateTour();
+            ((RateTourViewModel)DataContext).Submit();
+        }
+
+        private void AddUrlButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            ((RateTourViewModel)DataContext).AddUrl();
         }
     }
 }
