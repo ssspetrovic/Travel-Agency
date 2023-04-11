@@ -62,7 +62,7 @@ namespace TravelAgency.Service
                 return false;
 
             var tourRatingService = new TourRatingService();
-            return tourRatingService.IsTourRateable(CurrentUser.Username, _myToursViewModel.SelectedTour.Name);
+            return CurrentUser.Username != null && tourRatingService.IsTourRateable(CurrentUser.Username, _myToursViewModel?.SelectedTour!.Name);
         }
 
         public void JoinTour()
