@@ -243,7 +243,7 @@ namespace TravelAgency.View.Controls.Guide
                 e.Handled = true;
 
                 var selectedItem = (DataRowView)CancelDataGrid.SelectedItem;
-                var images = _tourService.GetByName(selectedItem["Name"].ToString()!).Images;
+                var images = _tourService.GetByName(selectedItem["Name"].ToString()!).Photos;
                 var links = images.Split(", ");
                 foreach (var link in links)
                 {

@@ -40,7 +40,7 @@ namespace TravelAgency.Repository
             insertCommand.Parameters.AddWithValue("$LocationList", GetIdList(tour));
             insertCommand.Parameters.AddWithValue("Date", tour.Date);
             insertCommand.Parameters.AddWithValue("$Duration", tour.Duration);
-            insertCommand.Parameters.AddWithValue("$Images", tour.Images);
+            insertCommand.Parameters.AddWithValue("$Images", tour.Photos);
             insertCommand.ExecuteNonQuery();
 
         }
