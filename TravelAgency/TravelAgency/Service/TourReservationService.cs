@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
-using TravelAgency.DTO;
 using TravelAgency.Model;
 using TravelAgency.Repository;
 using TravelAgency.View.Controls.Tourist;
@@ -49,6 +48,7 @@ namespace TravelAgency.Service
                 var myTourDtoService = new MyTourDtoService();
                 myTourDtoService.Add(_tourReservationViewModel.SelectedTour);
                 _tourReservationRepository.Add(new TourReservation(_tourReservationViewModel.SelectedTour.Id, _tourReservationViewModel.SelectedTour.Name, guestNumber, CurrentUser.Username, CurrentUser.DisplayName));
+                
                 MessageBox.Show("Reservation was successful!", "Success");
             }
         }
@@ -62,8 +62,20 @@ namespace TravelAgency.Service
             }
             else
             {
+                if (_tourReservationViewModel.SelectedTourVoucher != null)
+                {
+                    if (!_tourReservationViewModel.SelectedTourVoucher.Description!.Contains("Valid"))
+                    {
+                        MessageBox.Show("Cannot use invalid voucher", "Error");
+                        return;
+                    }
+
+                    TourVoucherService.DeleteById(_tourReservationViewModel.SelectedTourVoucher!.Id);
+                }
+
                 if (_tourReservationViewModel.SelectedTour == null) return;
                 TourService.UpdateMaxGuests(_tourReservationViewModel.SelectedTour.Id, _tourReservationViewModel.SelectedTour.MaxGuests - finalGuestNumber);
+                
                 CompleteReservation(finalGuestNumber);
             }
         }
@@ -97,9 +109,7 @@ namespace TravelAgency.Service
             var finalGuestNumber = selectedTour != null ? CalculateFinalGuestNumber(guestNumber, selectedTour.MaxGuests) : guestNumber;
             HandleFinalGuestNumber(finalGuestNumber);
 
-            if (_tourReservationViewModel.SelectedTourVoucher != null)
-                TourVoucherService.DeleteById(_tourReservationViewModel.SelectedTourVoucher.Id);
-
+            
             _tourReservationViewModel.ReloadWindow();
         }
 

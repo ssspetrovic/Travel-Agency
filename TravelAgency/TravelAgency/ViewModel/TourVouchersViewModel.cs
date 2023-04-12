@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Windows.Data;
-using TravelAgency.Repository;
+using TravelAgency.Service;
 
 namespace TravelAgency.ViewModel
 {
@@ -10,9 +10,9 @@ namespace TravelAgency.ViewModel
 
         public TourVouchersViewModel()
         {
-            var tourVoucherRepository = new TourVoucherRepository();
-            tourVoucherRepository.DeleteExpired();
-            _vouchersCollectionViewSource = new CollectionViewSource() { Source = tourVoucherRepository.GetAllAsCollection() };
+            var tourVoucherService = new TourVoucherService();
+            //tourVoucherService.DeleteExpired();
+            _vouchersCollectionViewSource = new CollectionViewSource() { Source = tourVoucherService.GetAllAsCollection() };
         }
 
         public ICollectionView VouchersCollectionSource => _vouchersCollectionViewSource.View;

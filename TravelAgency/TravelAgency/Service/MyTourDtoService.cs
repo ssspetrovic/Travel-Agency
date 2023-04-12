@@ -73,7 +73,7 @@ namespace TravelAgency.Service
                 return;
             }
 
-            if (_myToursViewModel?.SelectedTour.Status != MyTourDto.TourStatus.Active && _myToursViewModel?.SelectedTour.Status != MyTourDto.TourStatus.Inactive)
+            if (_myToursViewModel?.SelectedTour.Status != MyTourDto.TourStatus.Active)
             {
                 MessageBox.Show("Cannot join this tour!", "Error");
                 return;

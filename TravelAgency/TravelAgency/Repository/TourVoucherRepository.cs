@@ -43,7 +43,7 @@ namespace TravelAgency.Repository
             databaseConnection.Open();
             using var deleteCommand = databaseConnection.CreateCommand();
             deleteCommand.CommandText = "DELETE FROM TourVoucher WHERE $ExpiringDate > ExpiringDate";
-            deleteCommand.Parameters.AddWithValue("$ExpiringDate", DateTime.Now.ToString("d/M/yyyy"));
+            deleteCommand.Parameters.AddWithValue("$ExpiringDate", DateTime.Now);
             deleteCommand.ExecuteNonQuery();
         }
 
