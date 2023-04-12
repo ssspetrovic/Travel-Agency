@@ -107,7 +107,8 @@ namespace TravelAgency.Service
         public void Remove()
         {
             var lastKeyPoint = GetActiveTourColumn("KeyPointsList").Split(", ").Last().Split(":")[0];
-            CurrentKeyPoint = _locationService.GetById(Parse(lastKeyPoint))!.City;
+            if(lastKeyPoint != "Error")
+                CurrentKeyPoint = _locationService.GetById(Parse(lastKeyPoint))!.City;
             _activeTourRepository.Remove();
         }
 

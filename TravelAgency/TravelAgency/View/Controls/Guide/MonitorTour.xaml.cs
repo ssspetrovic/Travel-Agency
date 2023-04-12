@@ -272,7 +272,7 @@ namespace TravelAgency.View.Controls.Guide
             }
 
             if (e.Key == Key.Enter && MonitorDataGrid.SelectedItem != null)
-                TourIsActive_OnClick(sender, e);
+                TourIsActive_OnClick(sender, e, false);
 
             if (e.Key == Key.A)
                 CurrentActiveTour_OnClick(sender, e);
@@ -283,10 +283,10 @@ namespace TravelAgency.View.Controls.Guide
             Visibility = Visibility.Visible;
         }
 
-        private void TourIsActive_OnClick(object sender, RoutedEventArgs routedEventArgs)
+        private void TourIsActive_OnClick(object sender, RoutedEventArgs routedEventArgs, bool needsUpdate)
         {
 
-            if (!_activeTourService.IsActive())
+            if (!_activeTourService.IsActive() || needsUpdate)
             {
                 var drv = (DataRowView)MonitorDataGrid.SelectedItem;
 
@@ -296,6 +296,7 @@ namespace TravelAgency.View.Controls.Guide
                 var activeKeyPoints = selectedTour.KeyPoints.ToDictionary(location => location!.Id, _ => false);
 
                 var currentKeyPoint = selectedTour.Location;
+                _activeTourService.Remove();
                 _activeTourService.Add(new ActiveTour(selectedTour.Name, activeKeyPoints, tourists, currentKeyPoint.City));
 
                 var myTourDtoService = new MyTourDtoService();
@@ -316,9 +317,7 @@ namespace TravelAgency.View.Controls.Guide
 
             if (_activeTourService.IsActive())
             {
-                var currentTour = new CurrentActiveTour();
-                currentTour.Show();
-                Close();
+                TourIsActive_OnClick(sender, e, true);
             }
             else
                 MessageBox.Show("There is no active tour at the moment!");
