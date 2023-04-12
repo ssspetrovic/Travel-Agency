@@ -74,15 +74,15 @@ namespace TravelAgency.Repository
             {
                 //var startDate = selectReader.GetDateTime(4);
                 //var endDate = selectReader.GetDateTime(5);
-                var gradeComplaisent = selectReader.GetFloat(6);
+                var gradeComplacent = selectReader.GetFloat(6);
                 var gradeClean = selectReader.GetFloat(7);
 
                 DateTime startDate = new DateTime(2023, 3, 15);
                 DateTime endDate = new DateTime(2023, 3, 19);
                 //gradeClean = -1;
-                //gradeComplaisent = -1;
+                //gradeComplacent = -1;
 
-                if (gradeComplaisent == -1 && gradeClean == -1)
+                if (gradeComplacent == -1 && gradeClean == -1)
                 {
                     //DateTime endDate = DateTime.ParseExact(txtEndDate.Text, "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
                     double days = (DateTime.Now - endDate).TotalDays;
