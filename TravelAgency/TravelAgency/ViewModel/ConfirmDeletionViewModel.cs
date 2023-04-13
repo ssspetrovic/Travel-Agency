@@ -3,7 +3,6 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using TravelAgency.Model;
-using TravelAgency.Repository;
 using TravelAgency.Service;
 
 namespace TravelAgency.ViewModel
