@@ -49,7 +49,7 @@ namespace TravelAgency.Repository
                     WHERE ExpirationDate < $CurrentDate;
                 ";
             updateCommand.Parameters.AddWithValue("$ExpiredStatus", (int)TourVoucher.VoucherStatus.Expired);
-            updateCommand.Parameters.AddWithValue("$CurrentDate", DateTime.Now.Date);
+            updateCommand.Parameters.AddWithValue("$CurrentDate", DateTime.Today.Date);
             updateCommand.ExecuteNonQuery();
         }
 
@@ -107,7 +107,7 @@ namespace TravelAgency.Repository
             using var selectReader = selectCommand.ExecuteReader();
 
             if (!selectReader.Read())
-                return new TourVoucher(0, touristId, "No user", "No Voucher", DateTime.Now.Date, TourVoucher.VoucherStatus.Expired);
+                return new TourVoucher(0, touristId, "No user", "No Voucher", DateTime.Today.Date, TourVoucher.VoucherStatus.Expired);
 
             return new TourVoucher(selectReader.GetInt32(0),
                 selectReader.GetInt32(1),

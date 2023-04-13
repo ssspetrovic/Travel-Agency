@@ -29,7 +29,7 @@ namespace TravelAgency.ViewModel
                     .Split(", ")
                     .Select(DateTime.Parse);
 
-                var filteredDates = tourDates.Where(date => date >= DateTime.Now.AddHours(48));
+                var filteredDates = tourDates.Where(date => date >= DateTime.Today.AddHours(48).Date);
                 return new ObservableCollection<string>(filteredDates.Select(date => date.ToString("MM/dd/yyyy",new CultureInfo("en-US"))));
             }
         }
