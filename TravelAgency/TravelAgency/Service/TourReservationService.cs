@@ -64,7 +64,7 @@ namespace TravelAgency.Service
             {
                 if (_tourReservationViewModel.SelectedTourVoucher != null)
                 {
-                    if (!_tourReservationViewModel.SelectedTourVoucher.Description!.Contains("Valid"))
+                    if (!_tourReservationViewModel.SelectedTourVoucher.Description.Contains("Valid"))
                     {
                         MessageBox.Show("Cannot use invalid voucher", "Error");
                         return;

@@ -6,7 +6,9 @@ namespace TravelAgency.Model
     {
         void Add(TourVoucher tourVoucher);
         void DeleteById(int id);
-        void DeleteExpired();
+        void UpdateAllVouchers();
+        void UseVoucher(int id);
         ObservableCollection<TourVoucher> GetAllAsCollection();
+        TourVoucher GetVoucherByTouristId(int touristId);
     }
 }

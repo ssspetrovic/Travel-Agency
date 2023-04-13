@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -41,7 +40,7 @@ namespace TravelAgency.View.Controls.Guide
             var tourDates = deletedTour.Date.Split(", ").ToList();
 
             foreach (var tourist in tourists)
-                tourVoucherRepository.Add(new TourVoucher(tourist.Id, tourist.UserName, "Valid Voucher", DateTime.ParseExact(DateTime.Now.AddYears(1).ToString("d/M/yyyy"), "d/M/yyyy", CultureInfo.InvariantCulture)));
+                tourVoucherRepository.Add(new TourVoucher(tourist.Id, tourist.UserName, "Valid Voucher", DateTime.Now.AddYears(1).Date, TourVoucher.VoucherStatus.Valid));
 
             if (tourDates.Count < 2)
             {

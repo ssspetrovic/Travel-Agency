@@ -11,7 +11,6 @@ namespace TravelAgency.ViewModel
         public TourVouchersViewModel()
         {
             var tourVoucherService = new TourVoucherService();
-            //tourVoucherService.DeleteExpired();
             _vouchersCollectionViewSource = new CollectionViewSource() { Source = tourVoucherService.GetAllAsCollection() };
         }
 

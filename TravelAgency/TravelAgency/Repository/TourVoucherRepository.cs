@@ -14,15 +14,14 @@ namespace TravelAgency.Repository
             using var insertCommand = databaseConnection.CreateCommand();
             insertCommand.CommandText =
                 @"
-                    INSERT INTO TourVoucher (TouristId, TouristUsername, Description, ExpiringDate, GuideId)
-                    VALUES ($TouristId, $TouristUsername, $Description, $ExpiringDate, $GuideId)
+                    INSERT INTO TourVoucher (TouristId, TouristUsername, Description, ExpirationDate, Status)
+                    VALUES ($TouristId, $TouristUsername, $Description, $ExpirationDate, $Status)
                 ";
-
             insertCommand.Parameters.AddWithValue("TouristId", tourVoucher.TouristId);
             insertCommand.Parameters.AddWithValue("$TouristUsername", tourVoucher.TouristUsername);
             insertCommand.Parameters.AddWithValue("Description", tourVoucher.Description);
-            insertCommand.Parameters.AddWithValue("ExpiringDate", tourVoucher.ExpirationDate.ToString("d/M/yyyy"));
-            insertCommand.Parameters.AddWithValue("$GuideId", 1);
+            insertCommand.Parameters.AddWithValue("ExpirationDate", tourVoucher.ExpirationDate.Date);
+            insertCommand.Parameters.AddWithValue("$Status", tourVoucher.Status);
             insertCommand.ExecuteNonQuery();
         }
 
@@ -37,14 +36,38 @@ namespace TravelAgency.Repository
             deleteCommand.ExecuteNonQuery();
         }
 
-        public void DeleteExpired()
+        public void UpdateAllVouchers()
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
-            using var deleteCommand = databaseConnection.CreateCommand();
-            deleteCommand.CommandText = "DELETE FROM TourVoucher WHERE $ExpiringDate > ExpiringDate";
-            deleteCommand.Parameters.AddWithValue("$ExpiringDate", DateTime.Now);
-            deleteCommand.ExecuteNonQuery();
+
+            using var updateCommand = databaseConnection.CreateCommand();
+            updateCommand.CommandText =
+                @"
+                    UPDATE TourVoucher
+                    SET Status = $ExpiredStatus
+                    WHERE ExpirationDate < $CurrentDate;
+                ";
+            updateCommand.Parameters.AddWithValue("$ExpiredStatus", (int)TourVoucher.VoucherStatus.Expired);
+            updateCommand.Parameters.AddWithValue("$CurrentDate", DateTime.Now.Date);
+            updateCommand.ExecuteNonQuery();
+        }
+
+        public void UseVoucher(int id)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            using var updateCommand = databaseConnection.CreateCommand();
+            updateCommand.CommandText =
+                @"
+                    UPDATE TourVoucher
+                    SET Status = $UsedStatus
+                    WHERE Id = $id;
+                ";
+            updateCommand.Parameters.AddWithValue("$UsedStatus", (int)TourVoucher.VoucherStatus.Used);
+            updateCommand.Parameters.AddWithValue("$Id", id);
+            updateCommand.ExecuteNonQuery();
         }
 
         public ObservableCollection<TourVoucher> GetAllAsCollection()
@@ -65,14 +88,15 @@ namespace TravelAgency.Repository
                     selectReader.GetInt32(1),
                     selectReader.GetString(2),
                     selectReader.GetString(3),
-                    selectReader.GetDateTime(4)
+                    selectReader.GetDateTime(4),
+                    (TourVoucher.VoucherStatus)selectReader.GetInt32(5)
                 ));
             }
 
             return vouchers;
         }
 
-        public TourVoucher GetVoucherByTourist(int touristId)
+        public TourVoucher GetVoucherByTouristId(int touristId)
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
@@ -83,13 +107,14 @@ namespace TravelAgency.Repository
             using var selectReader = selectCommand.ExecuteReader();
 
             if (!selectReader.Read())
-                return new TourVoucher(0, touristId, "No user", "No Voucher", DateTime.Now);
+                return new TourVoucher(0, touristId, "No user", "No Voucher", DateTime.Now.Date, TourVoucher.VoucherStatus.Expired);
 
             return new TourVoucher(selectReader.GetInt32(0),
                 selectReader.GetInt32(1),
                 selectReader.GetString(2),
                 selectReader.GetString(3),
-                selectReader.GetDateTime(4));
+                selectReader.GetDateTime(4),
+                (TourVoucher.VoucherStatus)selectReader.GetInt32(5));
         }
     }
 }
