@@ -162,7 +162,7 @@
                                             Header="Description" />
                                         <GridViewColumn
                                             Width="Auto"
-                                            DisplayMemberBinding="{Binding Path=ExpirationDate}"
+                                            DisplayMemberBinding="{Binding Path=ExpirationDate, StringFormat={}{0:dd/MM/yyyy}}"
                                             Header="Expiration date" />
                                     </GridView>
                                 </ListView.View>

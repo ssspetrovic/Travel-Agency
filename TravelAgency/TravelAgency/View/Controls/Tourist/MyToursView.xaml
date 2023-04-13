@@ -161,7 +161,7 @@
                                         Header="Country" />
                                     <GridViewColumn
                                         Width="Auto"
-                                        DisplayMemberBinding="{Binding Path=Date, StringFormat='{}{0:MM/dd/yyyy}'}"
+                                        DisplayMemberBinding="{Binding Path=Date, StringFormat={}{0:dd/MM/yyyy}}"
                                         Header="Date" />
                                     <GridViewColumn
                                         Width="Auto"
