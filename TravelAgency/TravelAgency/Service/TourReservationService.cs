@@ -62,17 +62,6 @@ namespace TravelAgency.Service
             }
             else
             {
-                if (_tourReservationViewModel.SelectedTourVoucher != null)
-                {
-                    if (!_tourReservationViewModel.SelectedTourVoucher.Description.Contains("Valid"))
-                    {
-                        MessageBox.Show("Cannot use invalid voucher", "Error");
-                        return;
-                    }
-
-                    TourVoucherService.DeleteById(_tourReservationViewModel.SelectedTourVoucher!.Id);
-                }
-
                 if (_tourReservationViewModel.SelectedTour == null) return;
                 TourService.UpdateMaxGuests(_tourReservationViewModel.SelectedTour.Id, _tourReservationViewModel.SelectedTour.MaxGuests - finalGuestNumber);
                 
