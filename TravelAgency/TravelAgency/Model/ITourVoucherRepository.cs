@@ -9,6 +9,7 @@ namespace TravelAgency.Model
         void UpdateAllVouchers();
         void UseVoucher(int id);
         ObservableCollection<TourVoucher> GetAllAsCollection();
+        ObservableCollection<TourVoucher> GetAllValidAsCollection();
         TourVoucher GetVoucherByTouristId(int touristId);
     }
 }

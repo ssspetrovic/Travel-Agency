@@ -96,6 +96,34 @@ namespace TravelAgency.Repository
             return vouchers;
         }
 
+        public ObservableCollection<TourVoucher> GetAllValidAsCollection()
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            using var selectCommand = databaseConnection.CreateCommand();
+            selectCommand.CommandText = "SELECT * FROM TourVoucher WHERE TouristUsername = $CurrentUserUsername AND Status = $ValidStatus";
+            selectCommand.Parameters.AddWithValue("$CurrentUserUsername", CurrentUser.Username);
+            selectCommand.Parameters.AddWithValue("$ValidStatus", (int)TourVoucher.VoucherStatus.Valid);
+            using var selectReader = selectCommand.ExecuteReader();
+
+            var validVouchers = new ObservableCollection<TourVoucher>();
+            while (selectReader.Read())
+            {
+                validVouchers.Add(new TourVoucher(
+                    selectReader.GetInt32(0),
+                    selectReader.GetInt32(1),
+                    selectReader.GetString(2),
+                    selectReader.GetString(3),
+                    selectReader.GetDateTime(4),
+                    (TourVoucher.VoucherStatus)selectReader.GetInt32(6)
+                ));
+            }
+
+            return validVouchers;
+        }
+
+
         public TourVoucher GetVoucherByTouristId(int touristId)
         {
             using var databaseConnection = GetConnection();
