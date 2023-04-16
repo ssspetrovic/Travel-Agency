@@ -89,7 +89,7 @@ namespace TravelAgency.Repository
                     selectReader.GetString(2),
                     selectReader.GetString(3),
                     selectReader.GetDateTime(4),
-                    (TourVoucher.VoucherStatus)selectReader.GetInt32(5)
+                    (TourVoucher.VoucherStatus)selectReader.GetInt32(6)
                 ));
             }
 
@@ -114,7 +114,7 @@ namespace TravelAgency.Repository
                 selectReader.GetString(2),
                 selectReader.GetString(3),
                 selectReader.GetDateTime(4),
-                (TourVoucher.VoucherStatus)selectReader.GetInt32(5));
+                (TourVoucher.VoucherStatus)selectReader.GetInt32(6));
         }
     }
 }

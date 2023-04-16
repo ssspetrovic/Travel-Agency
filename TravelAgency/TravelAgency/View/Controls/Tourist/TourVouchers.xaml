@@ -155,15 +155,18 @@
                                 ItemsSource="{Binding VouchersCollectionSource}">
                                 <ListView.View>
                                     <GridView AllowsColumnReorder="False">
-                                        <!--<GridViewColumn Width="Auto" Header="No." />-->
                                         <GridViewColumn
-                                            Width="500"
+                                            Width="450"
                                             DisplayMemberBinding="{Binding Path=Description}"
                                             Header="Description" />
                                         <GridViewColumn
                                             Width="Auto"
                                             DisplayMemberBinding="{Binding Path=ExpirationDate, StringFormat={}{0:dd/MM/yyyy}}"
                                             Header="Expiration date" />
+                                        <GridViewColumn
+                                            Width="Auto"
+                                            DisplayMemberBinding="{Binding Status}"
+                                            Header="Status" />
                                     </GridView>
                                 </ListView.View>
                             </ListView>
