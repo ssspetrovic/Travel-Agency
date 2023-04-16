@@ -66,7 +66,7 @@ namespace TravelAgency.Repository
                     WHERE Id = $id;
                 ";
             updateCommand.Parameters.AddWithValue("$UsedStatus", (int)TourVoucher.VoucherStatus.Used);
-            updateCommand.Parameters.AddWithValue("$Id", id);
+            updateCommand.Parameters.AddWithValue("$id", id);
             updateCommand.ExecuteNonQuery();
         }
 
