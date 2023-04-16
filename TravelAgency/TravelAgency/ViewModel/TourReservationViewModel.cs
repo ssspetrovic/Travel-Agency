@@ -216,7 +216,7 @@ namespace TravelAgency.ViewModel
             _toursCollection = new CollectionViewSource() { Source = TourReservationService.TourService.GetAllAsCollection() };
             _toursCollection.Filter += ToursCollection_Filter;
             _filterLanguages = Enum.GetValues(typeof(Language));
-            _tourVouchers = TourReservationService.TourVoucherService.GetAllAsCollection();
+            _tourVouchers = TourReservationService.TourVoucherService.GetAllValidAsCollection();
 
             if (!ToursSourceCollection.IsEmpty)
                 IsListViewShown = true;

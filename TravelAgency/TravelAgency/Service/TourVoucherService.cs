@@ -38,6 +38,11 @@ namespace TravelAgency.Service
             return _tourVoucherRepository.GetAllAsCollection();
         }
 
+        public ObservableCollection<TourVoucher> GetAllValidAsCollection()
+        {
+            return _tourVoucherRepository.GetAllValidAsCollection();
+        }
+
         public TourVoucher GetVoucherByTouristId(int touristId)
         {
             return _tourVoucherRepository.GetVoucherByTouristId(touristId);
