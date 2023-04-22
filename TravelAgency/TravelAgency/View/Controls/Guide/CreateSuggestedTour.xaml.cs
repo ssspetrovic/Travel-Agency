@@ -221,10 +221,10 @@ namespace TravelAgency.View.Controls.Guide
             }
 
             if (e.Key == Key.A)
-                CreateByLocation_OnClick();
+                CreateByLocation_OnClick(sender, e);
 
             if (e.Key == Key.B)
-                CreateByLanguage_OnClick();
+                CreateByLanguage_OnClick(sender, e);
         }
 
         private void Shortcuts_Closed(object? sender, EventArgs eventArgs)
@@ -232,14 +232,14 @@ namespace TravelAgency.View.Controls.Guide
             Visibility = Visibility.Visible;
         }
 
-        private void CreateByLocation_OnClick()
+        private void CreateByLocation_OnClick(object sender, RoutedEventArgs routedEventArgs)
         {
             var createTour = new CreateTour();
             createTour.Show();
             Close();
         }
 
-        private void CreateByLanguage_OnClick()
+        private void CreateByLanguage_OnClick(object sender, RoutedEventArgs routedEventArgs)
         {
             var createTour = new CreateTour();
             createTour.Show();
