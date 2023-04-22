@@ -1,9 +1,7 @@
 ﻿using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Data;
-using Microsoft.VisualBasic;
 using TravelAgency.Model;
 
 namespace TravelAgency.Repository

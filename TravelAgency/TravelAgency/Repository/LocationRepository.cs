@@ -43,5 +43,21 @@ namespace TravelAgency.Repository
         {
             return cities.Select(GetByCity).ToList();
         }
+
+        public List<Location> GetAll()
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+            var locations = new List<Location>();
+
+            const string selectStatement = "select * from Location";
+            using var selectCommand = new SqliteCommand( selectStatement, databaseConnection);
+            using var selectReader = selectCommand.ExecuteReader();
+
+            while(selectReader.Read())
+                locations.Add(new Location(selectReader.GetInt32(0), selectReader.GetString(1), selectReader.GetString(2)));
+
+            return locations;
+        }
     }
 }

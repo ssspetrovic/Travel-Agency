@@ -27,5 +27,10 @@ namespace TravelAgency.Service
         {
             return _locationRepository.GetByAllCities(cities);
         }
+
+        public List<Location> GetAll()
+        {
+            return _locationRepository.GetAll();
+        }
     }
 }
