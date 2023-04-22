@@ -223,11 +223,35 @@ namespace TravelAgency.View.Controls.Guide
                 Visibility = Visibility.Collapsed;
                 shortcuts.Show();
             }
+
+            if (e.Key == Key.Tab && TourRequestDataGrid.Items.Count > 0)
+            {
+                e.Handled = true;
+                TourRequestDataGrid.SelectedIndex =
+                    (TourRequestDataGrid.SelectedIndex + 1) % TourRequestDataGrid.Items.Count;
+            }
+
+            if (e.Key == Key.F)
+                FilterRequests_OnClick(sender, e);
+
         }
 
         private void Shortcuts_Closed(object? sender, EventArgs eventArgs)
         {
             Visibility = Visibility.Visible;
+        }
+
+        private new void Closed(object? sender, EventArgs eventArgs)
+        {
+            Visibility = Visibility.Visible;
+        }
+
+        private void FilterRequests_OnClick(object sender, RoutedEventArgs e)
+        {
+            var filterRequests = new FilterRequests();
+            filterRequests.Closed += Closed;
+            Visibility = Visibility.Collapsed;
+            filterRequests.Show();
         }
     }
 }

@@ -19,7 +19,7 @@
     mc:Ignorable="d">
 
     <Window.DataContext>
-        <viewModel:GuideViewModel />
+        <viewModel:AcceptTourViewModel />
     </Window.DataContext>
 
     <Window.Resources>
@@ -354,7 +354,60 @@
                                 TextAlignment="Right" />
                         </Grid>
 
-                        <Grid Grid.Row="3" />
+                        <Grid Grid.Row="3">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="80" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Button
+                                x:Name="BtnFilter"
+                                Width="225"
+                                Background="#68cbf8"
+                                BorderThickness="0"
+                                Click="FilterRequests_OnClick"
+                                Content="Filter Requests (F)"
+                                Cursor="Hand"
+                                FontSize="16"
+                                FontWeight="Medium"
+                                Foreground="#ffffff" />
+                            <DataGrid
+                                x:Name="TourRequestDataGrid"
+                                Grid.Row="1"
+                                Margin="10"
+                                AutoGenerateColumns="False"
+                                Background="#ffffff"
+                                CanUserAddRows="False"
+                                Foreground="#68cbf8"
+                                ItemsSource="{Binding TourRequestData}">
+                                <DataGrid.Resources>
+                                    <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                                        <Setter Property="Foreground" Value="#68cbf8" />
+                                    </Style>
+                                </DataGrid.Resources>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn
+                                        Binding="{Binding Path=Location_Id}"
+                                        Header="Location"
+                                        IsReadOnly="True" />
+                                    <DataGridTextColumn
+                                        Binding="{Binding Path=Description}"
+                                        Header="Description"
+                                        IsReadOnly="True" />
+                                    <DataGridTextColumn
+                                        Binding="{Binding Path=Language}"
+                                        Header="Language"
+                                        IsReadOnly="True" />
+                                    <DataGridTextColumn
+                                        Binding="{Binding Path=NumberOfGuests}"
+                                        Header="Number of Guests"
+                                        IsReadOnly="True" />
+                                    <DataGridTextColumn
+                                        Binding="{Binding Path=DateRange}"
+                                        Header="Date Range"
+                                        IsReadOnly="True" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
                     </Grid>
 
                 </Border>

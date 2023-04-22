@@ -407,7 +407,7 @@
 
                         <Grid Grid.Row="4">
                             <Button
-                                x:Name="BtnLogin"
+                                x:Name="BtnActiveTour"
                                 Width="250"
                                 Background="#68cbf8"
                                 BorderThickness="0"
