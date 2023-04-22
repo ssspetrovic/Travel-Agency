@@ -6,9 +6,6 @@ using System;
 
 namespace TravelAgency.View.Controls.Guide
 {
-    /// <summary>
-    /// Interaction logic for CreateSuggestedTour.xaml
-    /// </summary>
     public partial class CreateSuggestedTour
     {
         public CreateSuggestedTour()
@@ -224,10 +221,10 @@ namespace TravelAgency.View.Controls.Guide
             }
 
             if (e.Key == Key.A)
-                CreateByLocation_OnClick(sender, e);
+                CreateByLocation_OnClick();
 
             if (e.Key == Key.B)
-                CreateByLanguage_OnClick(sender, e);
+                CreateByLanguage_OnClick();
         }
 
         private void Shortcuts_Closed(object? sender, EventArgs eventArgs)
@@ -235,14 +232,14 @@ namespace TravelAgency.View.Controls.Guide
             Visibility = Visibility.Visible;
         }
 
-        private void CreateByLocation_OnClick(object sender, RoutedEventArgs e)
+        private void CreateByLocation_OnClick()
         {
             var createTour = new CreateTour();
             createTour.Show();
             Close();
         }
 
-        private void CreateByLanguage_OnClick(object sender, RoutedEventArgs e)
+        private void CreateByLanguage_OnClick()
         {
             var createTour = new CreateTour();
             createTour.Show();
