@@ -20,7 +20,7 @@ namespace TravelAgency.Repository
             insertCommand.Parameters.AddWithValue("TouristId", tourVoucher.TouristId);
             insertCommand.Parameters.AddWithValue("$TouristUsername", tourVoucher.TouristUsername);
             insertCommand.Parameters.AddWithValue("Description", tourVoucher.Description);
-            insertCommand.Parameters.AddWithValue("ExpirationDate", tourVoucher.ExpirationDate.Date);
+            insertCommand.Parameters.AddWithValue("ExpirationDate", tourVoucher.ExpirationDate.ToString("yyyy-MM-dd"));
             insertCommand.Parameters.AddWithValue("$Status", tourVoucher.Status);
             insertCommand.ExecuteNonQuery();
         }

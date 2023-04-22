@@ -110,11 +110,11 @@ namespace TravelAgency.Service
                 const string selectStatement = "select * from TourVoucher where TouristId = $TouristId and GuideId = $GuideId";
                 using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
                 selectCommand.Parameters.AddWithValue("$TouristId", tourist.Id);
-                selectCommand.Parameters.AddWithValue("$GuideId", 1);
+                selectCommand.Parameters.AddWithValue("$GuideId", 0);
                 using var selectReader = selectCommand.ExecuteReader();
-                if (selectReader.Read())
-                    if (selectReader.GetString(3).Contains("Valid"))
-                        withVoucher++;
+                if (!selectReader.Read()) continue;
+                if ((TourVoucher.VoucherStatus)selectReader.GetInt32(6) == TourVoucher.VoucherStatus.Valid)
+                    withVoucher++;
             }
 
 
