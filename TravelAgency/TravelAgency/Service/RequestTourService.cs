@@ -16,5 +16,10 @@ namespace TravelAgency.Service
         {
             return _requestTourRepository.GetAllAsDataTable(dt);
         }
+
+        public string GetMostRequestedStat(string column)
+        {
+            return _requestTourRepository.GetMostRequestedStat(column);
+        }
     }
 }

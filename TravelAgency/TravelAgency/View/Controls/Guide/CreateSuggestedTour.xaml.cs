@@ -222,11 +222,31 @@ namespace TravelAgency.View.Controls.Guide
                 Visibility = Visibility.Collapsed;
                 shortcuts.Show();
             }
+
+            if (e.Key == Key.A)
+                CreateByLocation_OnClick(sender, e);
+
+            if (e.Key == Key.B)
+                CreateByLanguage_OnClick(sender, e);
         }
 
         private void Shortcuts_Closed(object? sender, EventArgs eventArgs)
         {
             Visibility = Visibility.Visible;
+        }
+
+        private void CreateByLocation_OnClick(object sender, RoutedEventArgs e)
+        {
+            var createTour = new CreateTour();
+            createTour.Show();
+            Close();
+        }
+
+        private void CreateByLanguage_OnClick(object sender, RoutedEventArgs e)
+        {
+            var createTour = new CreateTour();
+            createTour.Show();
+            Close();
         }
     }
 }
