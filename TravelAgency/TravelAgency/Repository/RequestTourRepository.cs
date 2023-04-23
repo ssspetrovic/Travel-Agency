@@ -24,11 +24,24 @@ namespace TravelAgency.Repository
 
             var selectStatement =
                 "select " + column + ", count(*) as RequestedLocation from RequestedTour group by " + column + " order by RequestedLocation desc limit 1";
-            using var selectCommand = new SqliteCommand( selectStatement, databaseConnection);
+            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
             using var selectReader = selectCommand.ExecuteReader();
 
             if (!selectReader.Read()) return "No Requests!";
             return selectReader.GetString(0);
+        }
+
+        public DataTable UpdateDataTable(DataTable dt, string ids)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            var selectStatement = "select * from RequestedTour where Id in (" + ids + ")";
+            using var selectCommand = new SqliteCommand( selectStatement, databaseConnection);
+
+            dt.Clear();
+            dt.Load(selectCommand.ExecuteReader());
+            return dt;
         }
     }
 }

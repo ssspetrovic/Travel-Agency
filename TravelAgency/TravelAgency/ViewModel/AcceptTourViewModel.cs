@@ -1,5 +1,4 @@
 ﻿using System.Data;
-using System.Windows;
 using TravelAgency.Service;
 
 namespace TravelAgency.ViewModel
@@ -11,18 +10,33 @@ namespace TravelAgency.ViewModel
         public AcceptTourViewModel()
         {
             _requestTourService = new RequestTourService();
+            _updateView = "";
+            TourRequestData = GetTourRequestData();
         }
 
-        public DataView TourRequestData
-        {
-            get
-            {
-                var dt = new DataTable();
-                dt = _requestTourService.GetAllAsDataTable(dt);
-                ConvertTourColumn(dt, "Location_Id", typeof(string), "Location");
+        private string _updateView;
 
-                return dt.DefaultView;
+        public DataView TourRequestData { get; set; }
+
+        public DataView GetTourRequestData()
+        {
+            var dt = new DataTable();
+            dt = UpdateView == "" ? _requestTourService.GetAllAsDataTable(dt) : _requestTourService.UpdateDataTable(dt, UpdateView);
+
+            ConvertTourColumn(dt, "Location_Id", typeof(string), "Location");
+            return dt.DefaultView;
+        }
+
+        public string UpdateView
+        {
+            get => _updateView;
+            set
+            {
+                if (_updateView == value) return;
+                _updateView = value;
+                OnPropertyChanged();
             }
         }
     }
+
 }

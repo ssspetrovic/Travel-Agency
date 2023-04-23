@@ -33,6 +33,5 @@ namespace TravelAgency.ViewModel
                 return new ObservableCollection<string>(filteredDates.Select(date => date.ToString("MM/dd/yyyy",new CultureInfo("en-US"))));
             }
         }
-
     }
 }

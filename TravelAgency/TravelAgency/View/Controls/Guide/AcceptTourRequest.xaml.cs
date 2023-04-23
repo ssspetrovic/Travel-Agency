@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
+using TravelAgency.ViewModel;
 
 
 namespace TravelAgency.View.Controls.Guide
@@ -12,9 +13,12 @@ namespace TravelAgency.View.Controls.Guide
     /// </summary>
     public partial class AcceptTourRequest
     {
+        private readonly AcceptTourViewModel _acceptTourViewModel;
+
         public AcceptTourRequest()
         {
             InitializeComponent();
+            _acceptTourViewModel = new AcceptTourViewModel();
         }
 
         [DllImport("user32.dll")]
@@ -232,7 +236,10 @@ namespace TravelAgency.View.Controls.Guide
             }
 
             if (e.Key == Key.F)
+            {
+                e.Handled = true;
                 FilterRequests_OnClick(sender, e);
+            }
 
         }
 
@@ -241,17 +248,28 @@ namespace TravelAgency.View.Controls.Guide
             Visibility = Visibility.Visible;
         }
 
-        private new void Closed(object? sender, EventArgs eventArgs)
+        private void AuthenticateFilters()
         {
-            Visibility = Visibility.Visible;
+            if (_acceptTourViewModel.UpdateView != "Empty") return;
+
+            _acceptTourViewModel.UpdateView = "";
+            _acceptTourViewModel.TourRequestData = _acceptTourViewModel.GetTourRequestData();
         }
 
         private void FilterRequests_OnClick(object sender, RoutedEventArgs e)
         {
             var filterRequests = new FilterRequests();
-            filterRequests.Closed += Closed;
+            filterRequests.Closed += (_, _) =>
+            {
+                _acceptTourViewModel.UpdateView = filterRequests.UpdateView();
+                _acceptTourViewModel.TourRequestData = _acceptTourViewModel.GetTourRequestData();
+                AuthenticateFilters();
+                TourRequestDataGrid.ItemsSource = _acceptTourViewModel.TourRequestData;
+                Visibility = Visibility.Visible;
+            };
             Visibility = Visibility.Collapsed;
             filterRequests.Show();
         }
+
     }
 }
