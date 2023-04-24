@@ -28,14 +28,48 @@ namespace TravelAgency.Service
             return _requestTourRepository.GetMostRequestedStat(column);
         }
 
-        public List<RequestTour> FindByLocationId(int locationId)
+        private List<RequestTour> FindByDateRange(string parameter)
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
 
-            const string selectStatement = "select * from RequestedTour where Location_Id = $Location_Id";
+            const string selectStatement = "select * from RequestedTour";
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
-            selectCommand.Parameters.AddWithValue("$Location_Id", locationId);
+
+            using var selectReader = selectCommand.ExecuteReader();
+            var requestedTours = new List<RequestTour>();
+
+            while (selectReader.Read())
+            {
+                var dateRange = selectReader.GetString(5);
+
+                if (!DateTime.TryParse(dateRange.Split(" - ")[0], out var startDate) ||
+                    !DateTime.TryParse(dateRange.Split(" - ")[1], out var endDate) ||
+                    !DateTime.TryParse(parameter, out var date)) continue;
+
+                if (date >= startDate && date <= endDate)
+                    requestedTours.Add(new RequestTour(selectReader.GetInt32(0), _locationService.GetById(selectReader.GetInt32(1))!, selectReader.GetString(2),
+                        (Language)Enum.Parse(typeof(Language), selectReader.GetString(3)), selectReader.GetInt32(4), selectReader.GetString(5),
+                        (Status)selectReader.GetInt32(6), selectReader.IsDBNull(7) ? "Empty" : selectReader.GetString(7)));
+            }
+
+            return requestedTours;
+        }
+
+        public List<RequestTour> FindByParameter(string parameter, string parameterName)
+        {
+            if (parameterName == "DateRange")
+                return FindByDateRange(parameter);
+
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            var selectStatement = "select * from RequestedTour where " + parameterName + " = ";
+            if (parameterName == "Language")
+                selectStatement += "'" + parameter + "'";
+            else
+                selectStatement += parameter;
+            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
 
             using var selectReader = selectCommand.ExecuteReader();
             var requestedTours = new List<RequestTour>();

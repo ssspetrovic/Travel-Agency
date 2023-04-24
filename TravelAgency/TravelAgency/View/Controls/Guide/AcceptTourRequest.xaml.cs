@@ -248,12 +248,13 @@ namespace TravelAgency.View.Controls.Guide
             Visibility = Visibility.Visible;
         }
 
-        private void AuthenticateFilters()
+        private bool AuthenticateFilters()
         {
-            if (_acceptTourViewModel.UpdateView != "Empty") return;
+            if (_acceptTourViewModel.UpdateView != "Empty") return true;
 
             _acceptTourViewModel.UpdateView = "";
             _acceptTourViewModel.TourRequestData = _acceptTourViewModel.GetTourRequestData();
+            return false;
         }
 
         private void FilterRequests_OnClick(object sender, RoutedEventArgs e)
@@ -262,8 +263,8 @@ namespace TravelAgency.View.Controls.Guide
             filterRequests.Closed += (_, _) =>
             {
                 _acceptTourViewModel.UpdateView = filterRequests.UpdateView();
-                _acceptTourViewModel.TourRequestData = _acceptTourViewModel.GetTourRequestData();
-                AuthenticateFilters();
+                if (AuthenticateFilters())
+                    _acceptTourViewModel.TourRequestData = _acceptTourViewModel.GetTourRequestData();
                 TourRequestDataGrid.ItemsSource = _acceptTourViewModel.TourRequestData;
                 Visibility = Visibility.Visible;
             };
