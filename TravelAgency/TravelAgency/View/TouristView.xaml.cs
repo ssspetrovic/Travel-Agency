@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls.Primitives;
 using TravelAgency.View.Controls.Tourist;
 
@@ -34,9 +35,7 @@ namespace TravelAgency.View
 
         private void TourReservationButton_OnClick(object sender, RoutedEventArgs e)
         {
-            var tourReservation = new TourReservationView();
-            tourReservation.Show();
-            Close();
+            ContentFrame.Source = new Uri("Controls/Tourist/TourReservationView.xaml", UriKind.Relative);
         }
 
         private void MyToursButton_OnClick(object sender, RoutedEventArgs e)

@@ -323,13 +323,13 @@ namespace TravelAgency.ViewModel
         // Called to reload window after the reservation was made
         public void ReloadWindow()
         {
-            Current.Dispatcher.Invoke(() =>
-            {
-                _mainWindow = new TourReservationView();
-                var currentWindow = Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
-                _mainWindow.Show();
-                currentWindow?.Close();
-            });
+            //Current.Dispatcher.Invoke(() =>
+            //{
+            //    _mainWindow = new TourReservationView();
+            //    var currentWindow = Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
+            //    _mainWindow.Show();
+            //    currentWindow?.Close();
+            //});
         }
     }
 }

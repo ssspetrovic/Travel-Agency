@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls.Primitives;
 using TravelAgency.ViewModel;
 
@@ -36,7 +37,8 @@ namespace TravelAgency.View.Controls.Tourist
         private void TourReservationButton_OnClick(object sender, RoutedEventArgs e)
         {
             var tourReservation = new TourReservationView();
-            tourReservation.Show();
+            //tourReservation.Show();
+            throw new NotImplementedException();
             Close();
         }
         private void MyToursButton_OnClick(object sender, RoutedEventArgs e)
