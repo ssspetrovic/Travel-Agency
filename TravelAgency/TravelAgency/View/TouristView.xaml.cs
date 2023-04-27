@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls.Primitives;
-using TravelAgency.View.Controls.Tourist;
 
 namespace TravelAgency.View
 {
@@ -46,7 +45,6 @@ namespace TravelAgency.View
         private void MyVouchersButton_OnClick(object sender, RoutedEventArgs e)
         {
             ContentFrame.Source = new Uri("Controls/Tourist/MyTourVouchersView.xaml", UriKind.Relative);
-
         }
     }
 }
