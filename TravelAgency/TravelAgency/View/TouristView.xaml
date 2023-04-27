@@ -122,6 +122,7 @@
                         FontSize="18"
                         Style="{StaticResource MaterialDesignFlatButton}" />
                 </WrapPanel>
+                <Frame x:Name="ContentFrame" Grid.Row="1" />
             </Grid>
         </Grid>
     </Border>
