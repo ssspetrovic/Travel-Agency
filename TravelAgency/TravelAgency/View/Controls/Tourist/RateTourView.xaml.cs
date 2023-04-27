@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls.Primitives;
-using TravelAgency.Model;
 using TravelAgency.ViewModel;
 
 namespace TravelAgency.View.Controls.Tourist
@@ -37,10 +36,7 @@ namespace TravelAgency.View.Controls.Tourist
 
         private void TourReservationButton_OnClick(object sender, RoutedEventArgs e)
         {
-            var tourReservation = new TourReservationView();
-            //tourReservation.Show();
             throw new NotImplementedException();
-            Close();
         }
 
         private void MyToursButton_OnClick(object sender, RoutedEventArgs e)
@@ -51,9 +47,7 @@ namespace TravelAgency.View.Controls.Tourist
 
         private void MyVouchersButton_OnClick(object sender, RoutedEventArgs e)
         {
-            var myVouchersView = new TourVouchers();
-            myVouchersView.Show();
-            Close();
+            throw new NotImplementedException();
         }
 
         private void CancelButton_OnClick(object sender, RoutedEventArgs e)
