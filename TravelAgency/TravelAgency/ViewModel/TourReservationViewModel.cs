@@ -14,7 +14,6 @@ namespace TravelAgency.ViewModel
 {
     public class TourReservationViewModel : BaseViewModel
     {
-        private TouristView? _mainWindow;
         public new event PropertyChangedEventHandler? PropertyChanged;
 
         private readonly CollectionViewSource _toursCollection;
@@ -326,15 +325,15 @@ namespace TravelAgency.ViewModel
         {
             Current.Dispatcher.Invoke(() =>
             {
-                _mainWindow = new TouristView
+                var currentWindow = Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
+                var mainWindow = new TouristView
                 {
                     ContentFrame =
                     {
                         Source = new Uri("Controls/Tourist/TourReservationView.xaml", UriKind.Relative)
                     }
                 };
-                var currentWindow = Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
-                _mainWindow.Show();
+                mainWindow.Show();
                 currentWindow?.Close();
             });
         }

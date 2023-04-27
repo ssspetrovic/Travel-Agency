@@ -35,16 +35,19 @@ namespace TravelAgency.View
         private void TourReservationButton_OnClick(object sender, RoutedEventArgs e)
         {
             ContentFrame.Source = new Uri("Controls/Tourist/TourReservationView.xaml", UriKind.Relative);
+            TourReservationButton.IsChecked = true;
         }
 
         private void MyToursButton_OnClick(object sender, RoutedEventArgs e)
         {
             ContentFrame.Source = new Uri("Controls/Tourist/MyToursView.xaml", UriKind.Relative);
+            MyToursButton.IsChecked = true;
         }
 
         private void MyVouchersButton_OnClick(object sender, RoutedEventArgs e)
         {
             ContentFrame.Source = new Uri("Controls/Tourist/MyTourVouchersView.xaml", UriKind.Relative);
+            MyVouchersButton.IsChecked = true;
         }
     }
 }

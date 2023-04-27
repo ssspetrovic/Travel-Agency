@@ -1,6 +1,4 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Controls.Primitives;
+﻿using System.Windows;
 using TravelAgency.ViewModel;
 
 namespace TravelAgency.View.Controls.Tourist
@@ -10,49 +8,15 @@ namespace TravelAgency.View.Controls.Tourist
     /// </summary>
     public partial class RateTourView
     {
-        public RateTourView(string tourName = "/")
+        public RateTourView(string selectedTourName = "/")
         {
             InitializeComponent();
-            DataContext = new RateTourViewModel(tourName);
-        }
-
-        private void SignOutButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            var signInView = new SignInView();
-            signInView.Show();
-            Close();
-        }
-
-        private void HeaderThumb_OnDragDelta(object sender, DragDeltaEventArgs e)
-        {
-            Left += e.HorizontalChange;
-            Top += e.VerticalChange;
-        }
-
-        private void CloseButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
-        private void TourReservationButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void MyToursButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
-
-        }
-
-        private void MyVouchersButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
+            DataContext = new RateTourViewModel(selectedTourName);
         }
 
         private void CancelButton_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            NavigationService?.Navigate(new MyToursView());
         }
 
         private void SubmitButton_OnClick(object sender, RoutedEventArgs e)

@@ -17,7 +17,7 @@ namespace TravelAgency.ViewModel
         private MyTourDto? _selectedTour;
         public MyTourDtoService MyTourDtoService { get; }
         public string? InvitationText { get; set; }
-        
+
         public MyTourDto? SelectedTour
         {
             get => _selectedTour;
@@ -49,8 +49,8 @@ namespace TravelAgency.ViewModel
             if (!IsAttendanceConfirmed()) return;
             touristService.UpdateAppearanceByUsername(CurrentUser.Username, TouristAppearance.Present);
             MyTourDtoService.UpdateStatus(tourName, MyTourDto.TourStatus.Attending);
-
         }
+
         private bool IsAttendanceConfirmed()
         {
             var dialog = new AcceptInvitationDialog()
@@ -78,8 +78,10 @@ namespace TravelAgency.ViewModel
             }
 
             var currentWindow = Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
+            var nextWindow = new TouristView();
             var rateTourView = new RateTourView(SelectedTour.Name);
-            rateTourView.Show();
+            nextWindow.ContentFrame.NavigationService.Navigate(rateTourView);
+            nextWindow.Show();
             currentWindow?.Close();
         }
 

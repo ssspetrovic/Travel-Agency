@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Diagnostics;
+using System.Windows.Forms;
 using TravelAgency.DTO;
 using TravelAgency.Model;
 using TravelAgency.Service;
@@ -87,6 +88,7 @@ namespace TravelAgency.ViewModel
             }
 
             TourNameHeader = $"'{tourName}'";
+            Debug.WriteLine(TourNameHeader);
         }
 
         public void Submit()
