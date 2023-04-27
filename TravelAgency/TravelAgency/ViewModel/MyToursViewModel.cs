@@ -93,7 +93,7 @@ namespace TravelAgency.ViewModel
                 {
                     ContentFrame =
                     {
-                        Source = new Uri("Controls/Tourist/TourReservationView.xaml", UriKind.Relative)
+                        Source = new Uri("Controls/Tourist/MyToursViewModel.xaml", UriKind.Relative)
                     }
                 };
                 var currentWindow = Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
