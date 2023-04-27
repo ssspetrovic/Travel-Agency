@@ -103,8 +103,6 @@ namespace TravelAgency.Service
 
             var finalGuestNumber = selectedTour != null ? CalculateFinalGuestNumber(guestNumber, selectedTour.MaxGuests) : guestNumber;
             HandleFinalGuestNumber(finalGuestNumber);
-
-
             _tourReservationViewModel.ReloadWindow();
         }
 
