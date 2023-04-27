@@ -1,5 +1,4 @@
-﻿using System.Windows.Controls;
-using TravelAgency.ViewModel;
+﻿using TravelAgency.ViewModel;
 
 namespace TravelAgency.View.Controls.Tourist
 {
