@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Data;
 using TravelAgency.Model;
 using TravelAgency.Service;
+using TravelAgency.View;
 using TravelAgency.View.Controls.Tourist;
 using static System.Windows.Application;
 
@@ -13,7 +14,7 @@ namespace TravelAgency.ViewModel
 {
     public class TourReservationViewModel : BaseViewModel
     {
-        private TourReservationView? _mainWindow;
+        private TouristView? _mainWindow;
         public new event PropertyChangedEventHandler? PropertyChanged;
 
         private readonly CollectionViewSource _toursCollection;
@@ -323,13 +324,19 @@ namespace TravelAgency.ViewModel
         // Called to reload window after the reservation was made
         public void ReloadWindow()
         {
-            //Current.Dispatcher.Invoke(() =>
-            //{
-            //    _mainWindow = new TourReservationView();
-            //    var currentWindow = Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
-            //    _mainWindow.Show();
-            //    currentWindow?.Close();
-            //});
+            Current.Dispatcher.Invoke(() =>
+            {
+                _mainWindow = new TouristView
+                {
+                    ContentFrame =
+                    {
+                        Source = new Uri("Controls/Tourist/TourReservationView.xaml", UriKind.Relative)
+                    }
+                };
+                var currentWindow = Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
+                _mainWindow.Show();
+                currentWindow?.Close();
+            });
         }
     }
 }
