@@ -1,10 +1,11 @@
-﻿using System.Collections.ObjectModel;
-using System.Diagnostics;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using TravelAgency.DTO;
 using TravelAgency.Model;
 using TravelAgency.Service;
+using TravelAgency.View;
 using TravelAgency.View.Controls.Tourist;
 using static System.Windows.Application;
 using MessageBox = System.Windows.Forms.MessageBox;
@@ -86,7 +87,13 @@ namespace TravelAgency.ViewModel
         {
             Current.Dispatcher.Invoke(() =>
             {
-                var mainWindow = new MyToursView();
+                var mainWindow = new TouristView
+                {
+                    ContentFrame =
+                    {
+                        Source = new Uri("Controls/Tourist/TourReservationView.xaml", UriKind.Relative)
+                    }
+                };
                 var currentWindow = Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
                 mainWindow.Show();
                 currentWindow?.Close();

@@ -40,9 +40,7 @@ namespace TravelAgency.View
 
         private void MyToursButton_OnClick(object sender, RoutedEventArgs e)
         {
-            var myToursView = new MyToursView();
-            myToursView.Show();
-            Close();
+            ContentFrame.Source = new Uri("Controls/Tourist/MyToursView.xaml", UriKind.Relative);
         }
 
         private void MyVouchersButton_OnClick(object sender, RoutedEventArgs e)

@@ -44,9 +44,7 @@ namespace TravelAgency.View.Controls.Tourist
 
         private void MyToursButton_OnClick(object sender, RoutedEventArgs e)
         {
-            var myToursView = new MyToursView();
-            myToursView.Show();
-            Close();
+            throw new NotImplementedException();
         }
 
         private void MyVouchersButton_OnClick(object sender, RoutedEventArgs e)

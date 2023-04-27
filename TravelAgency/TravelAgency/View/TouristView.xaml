@@ -122,7 +122,10 @@
                         FontSize="18"
                         Style="{StaticResource MaterialDesignFlatButton}" />
                 </WrapPanel>
-                <Frame x:Name="ContentFrame" Grid.Row="1" />
+                <Frame
+                    x:Name="ContentFrame"
+                    Grid.Row="1"
+                    NavigationUIVisibility="Hidden" />
             </Grid>
         </Grid>
     </Border>
