@@ -17,7 +17,7 @@
     </d:Page.Background>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="80" />
+            <RowDefinition Height="40" />
             <RowDefinition Height="30" />
             <RowDefinition />
             <RowDefinition />
@@ -37,7 +37,7 @@
             d:Text="- Tour name -"
             FontSize="20"
             Text="{Binding TourNameHeader}" />
-        <Grid Grid.Row="2" Margin="150,15">
+        <Grid Grid.Row="2" Margin="150,20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition Width="Auto" />

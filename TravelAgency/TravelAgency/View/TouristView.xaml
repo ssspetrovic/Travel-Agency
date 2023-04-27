@@ -46,6 +46,7 @@
                         <RadioButton
                             x:Name="HomeButton"
                             Height="50"
+                            Click="HomeButton_OnClick"
                             Content="Home"
                             FontSize="17"
                             Foreground="White"

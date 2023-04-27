@@ -12,19 +12,20 @@ namespace TravelAgency.View
         public TouristView()
         {
             InitializeComponent();
-        }
-
-        private void SignOutButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            var signInView = new SignInView();
-            signInView.Show();
-            Close();
+            ContentFrame.Source = new Uri("Controls/Tourist/HomePage.xaml", UriKind.Relative);
+            HomeButton.IsChecked = true;
         }
 
         private void HeaderThumb_OnDragDelta(object sender, DragDeltaEventArgs e)
         {
             Left += e.HorizontalChange;
             Top += e.VerticalChange;
+        }
+
+        private void HomeButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            ContentFrame.Source = new Uri("Controls/Tourist/HomePage.xaml", UriKind.Relative);
+            HomeButton.IsChecked = true;
         }
 
         private void CloseButton_OnClick(object sender, RoutedEventArgs e)
@@ -48,6 +49,13 @@ namespace TravelAgency.View
         {
             ContentFrame.Source = new Uri("Controls/Tourist/MyTourVouchersView.xaml", UriKind.Relative);
             MyVouchersButton.IsChecked = true;
+        }
+
+        private void SignOutButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var signInView = new SignInView();
+            signInView.Show();
+            Close();
         }
     }
 }

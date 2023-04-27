@@ -38,13 +38,16 @@
                 <Button
                     x:Name="ConfirmButton"
                     Width="110"
+                    Height="35"
                     Margin="0,0,8,0"
+                    VerticalContentAlignment="Center"
                     Click="ConfirmButton_OnClick"
                     Content="Confirm"
                     FontSize="15" />
                 <Button
                     x:Name="CancelButton"
                     Width="110"
+                    Height="35"
                     Margin="8,0,0,0"
                     Click="CancelButton_OnClick"
                     Content="Cancel"
