@@ -45,9 +45,8 @@ namespace TravelAgency.View
 
         private void MyVouchersButton_OnClick(object sender, RoutedEventArgs e)
         {
-            var myVouchersView = new TourVouchers();
-            myVouchersView.Show();
-            Close();
+            ContentFrame.Source = new Uri("Controls/Tourist/MyTourVouchersView.xaml", UriKind.Relative);
+
         }
     }
 }

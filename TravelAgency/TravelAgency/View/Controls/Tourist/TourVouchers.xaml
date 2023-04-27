@@ -124,7 +124,7 @@
                 </WrapPanel>
                 <Grid Grid.Row="1" Margin="0,20">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="80" />
+                        <RowDefinition Height="40" />
                         <RowDefinition />
                     </Grid.RowDefinitions>
                     <TextBlock
@@ -135,7 +135,7 @@
                         FontWeight="Medium"
                         Style="{StaticResource MaterialDesignHeadline1TextBlock}"
                         Text="My vouchers" />
-                    <Grid Grid.Row="1" Margin="30,0">
+                    <Grid Grid.Row="1" Margin="30,15,30,0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition />
