@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Data;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
+using TravelAgency.Service;
 using TravelAgency.ViewModel;
+using Brushes = System.Windows.Media.Brushes;
 
 
 namespace TravelAgency.View.Controls.Guide
@@ -14,11 +17,13 @@ namespace TravelAgency.View.Controls.Guide
     public partial class AcceptTourRequest
     {
         private readonly AcceptTourViewModel _acceptTourViewModel;
+        private readonly TourService _tourService;
 
         public AcceptTourRequest()
         {
             InitializeComponent();
             _acceptTourViewModel = new AcceptTourViewModel();
+            _tourService = new TourService();
         }
 
         [DllImport("user32.dll")]
@@ -241,6 +246,8 @@ namespace TravelAgency.View.Controls.Guide
                 FilterRequests_OnClick(sender, e);
             }
 
+            if (e.Key == Key.Enter && TourRequestDataGrid.SelectedItem != null)
+                CreateRequestedTour((DataRowView)TourRequestDataGrid.SelectedItem);
         }
 
         private void Shortcuts_Closed(object? sender, EventArgs eventArgs)
@@ -272,5 +279,35 @@ namespace TravelAgency.View.Controls.Guide
             filterRequests.Show();
         }
 
+        private void CreateRequestedTour(DataRowView drv)
+        {
+            var selectRequestedTourDateViewModel = new SelectRequestedTourDateViewModel(drv["DateRange"].ToString()!);
+            var selectRequestedTourDate = new SelectRequestedTourDate(selectRequestedTourDateViewModel);
+            selectRequestedTourDate.ShowDialog();
+            if (!selectRequestedTourDate.GetConformation()) return;
+
+            if (!_tourService.CheckIfDatesExist(selectRequestedTourDate.GetSelectedDates()))
+            {
+                var createTour = new CreateTour
+                {
+                    DateList =
+                    {
+                        Text = selectRequestedTourDate.GetSelectedDates(),
+                        Focusable = false
+                    },
+                    DatePick =
+                    {
+                        Background = Brushes.Gray,
+                        SelectedDate = null,
+                        Focusable = false
+                    }
+                };
+                createTour.Show();
+                Close();
+            }
+            else
+                MessageBox.Show("You already have a tour in the selected date range!");
+
+        }
     }
 }
