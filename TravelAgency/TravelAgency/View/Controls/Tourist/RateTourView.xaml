@@ -145,7 +145,8 @@
                 Height="40"
                 Margin="0,0,20,0"
                 Click="CancelButton_OnClick"
-                Content="Cancel" />
+                Content="Cancel"
+                Style="{StaticResource MaterialDesignFlatButton}" />
             <Button
                 x:Name="SubmitButton"
                 Width="120"
