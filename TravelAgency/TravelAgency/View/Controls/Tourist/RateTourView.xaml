@@ -87,7 +87,6 @@
                         HorizontalContentAlignment="Left"
                         VerticalContentAlignment="Top"
                         FontSize="14"
-                        Text="{Binding Comment}"
                         TextWrapping="Wrap" />
                 </Border>
             </Grid>
@@ -109,8 +108,7 @@
                     <TextBlock
                         x:Name="PhotosTextBlock"
                         Padding="5"
-                        FontSize="13"
-                        Text="{Binding PhotoUrls}" />
+                        FontSize="13" />
                 </Border>
                 <WrapPanel
                     Grid.Row="2"
@@ -146,6 +144,7 @@
                 Margin="0,0,20,0"
                 Click="CancelButton_OnClick"
                 Content="Cancel"
+                FontSize="15"
                 Style="{StaticResource MaterialDesignFlatButton}" />
             <Button
                 x:Name="SubmitButton"

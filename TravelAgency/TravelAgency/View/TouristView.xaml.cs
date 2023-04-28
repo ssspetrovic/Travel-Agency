@@ -51,6 +51,12 @@ namespace TravelAgency.View
             MyVouchersButton.IsChecked = true;
         }
 
+        private void RequestTourButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            ContentFrame.Source = new Uri("Controls/Tourist/RegularTourRequestView.xaml", UriKind.Relative);
+            MyVouchersButton.IsChecked = true;
+        }
+
         private void SignOutButton_OnClick(object sender, RoutedEventArgs e)
         {
             var signInView = new SignInView();

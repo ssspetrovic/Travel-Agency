@@ -50,7 +50,6 @@
                             Content="Home"
                             FontSize="17"
                             Foreground="White"
-                            IsChecked="True"
                             Style="{StaticResource MenuButtonStyle}" />
                         <RadioButton
                             x:Name="TourReservationButton"
@@ -73,6 +72,14 @@
                             Height="50"
                             Click="MyVouchersButton_OnClick"
                             Content="My vouchers"
+                            FontSize="17"
+                            Foreground="White"
+                            Style="{StaticResource MenuButtonStyle}" />
+                        <RadioButton
+                            x:Name="RequestTourButton"
+                            Height="50"
+                            Click="RequestTourButton_OnClick"
+                            Content="Request a tour"
                             FontSize="17"
                             Foreground="White"
                             Style="{StaticResource MenuButtonStyle}" />

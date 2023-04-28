@@ -39,7 +39,7 @@
                     <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
-                    <RowDefinition Height="150" />
+                    <RowDefinition Height="140" />
                     <RowDefinition Height="60" />
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
@@ -47,11 +47,11 @@
                         <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="0" Margin="50,15,30,15">
+                    <StackPanel Grid.Column="0" Margin="50,10,30,10">
                         <Label Content="Country" />
                         <TextBox x:Name="CountryTextBox" Style="{StaticResource FilterTextBoxStyle}" />
                     </StackPanel>
-                    <StackPanel Grid.Column="1" Margin="30,15,50,15">
+                    <StackPanel Grid.Column="1" Margin="30,10,50,10">
                         <Label Content="City" />
                         <TextBox x:Name="CityTextBox" Style="{StaticResource FilterTextBoxStyle}" />
                     </StackPanel>
@@ -61,7 +61,7 @@
                         <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="0" Margin="50,15,30,15">
+                    <StackPanel Grid.Column="0" Margin="50,10,30,10">
                         <Label Content="Language" />
                         <ComboBox
                             x:Name="LanguageComboBox"
@@ -75,7 +75,7 @@
                             SelectedItem="{Binding SelectedFilterLanguage}"
                             Style="{StaticResource MaterialDesignComboBox}" />
                     </StackPanel>
-                    <StackPanel Grid.Column="1" Margin="30,15,50,15">
+                    <StackPanel Grid.Column="1" Margin="30,10,50,10">
                         <Label Content="Guest number" />
                         <TextBox x:Name="GuestNumberTextBox" Style="{StaticResource FilterTextBoxStyle}" />
                     </StackPanel>
@@ -85,16 +85,16 @@
                         <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="0" Margin="50,15,30,15">
+                    <StackPanel Grid.Column="0" Margin="50,10,30,10">
                         <Label Content="Country" />
                         <DatePicker x:Name="StartingDateDatePicker" />
                     </StackPanel>
-                    <StackPanel Grid.Column="1" Margin="30,15,50,15">
+                    <StackPanel Grid.Column="1" Margin="30,10,50,10">
                         <Label Content="City" />
                         <DatePicker x:Name="EndingDateDatePicker" />
                     </StackPanel>
                 </Grid>
-                <Grid Grid.Row="3" Margin="50,15">
+                <Grid Grid.Row="3" Margin="50,15,50,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition />
@@ -104,7 +104,11 @@
                         x:Name="DescriptionTextBox"
                         Grid.Row="1"
                         Height="Auto"
-                        Style="{StaticResource FilterTextBoxStyle}" />
+                        Padding="5"
+                        VerticalContentAlignment="Top"
+                        FontSize="12"
+                        Style="{StaticResource FilterTextBoxStyle}"
+                        TextWrapping="Wrap" />
                 </Grid>
                 <WrapPanel
                     Grid.Row="4"
@@ -116,13 +120,14 @@
                         Width="100"
                         Margin="0,0,15,0"
                         Content="Cancel"
+                        FontSize="13"
                         Style="{StaticResource MaterialDesignFlatButton}" />
                     <Button
                         x:Name="SubmitButton"
                         Width="100"
                         Margin="15,0,0,0"
                         Content="Submit"
-                        FontSize="15" />
+                        FontSize="13" />
                 </WrapPanel>
             </Grid>
         </Border>
