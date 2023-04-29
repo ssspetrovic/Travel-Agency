@@ -48,15 +48,35 @@
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" Margin="50,10,30,10">
-                        <Label Content="Country" />
-                        <TextBox x:Name="CountryTextBox" Style="{StaticResource FilterTextBoxStyle}" />
+                        <Label Content="Starting date" />
+                        <DatePicker x:Name="StartingDateDatePicker" SelectedDate="{Binding StartingDate}" />
                     </StackPanel>
                     <StackPanel Grid.Column="1" Margin="30,10,50,10">
-                        <Label Content="City" />
-                        <TextBox x:Name="CityTextBox" Style="{StaticResource FilterTextBoxStyle}" />
+                        <Label Content="Ending date" />
+                        <DatePicker x:Name="EndingDateDatePicker" SelectedDate="{Binding EndingDate}" />
                     </StackPanel>
                 </Grid>
                 <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Margin="50,10,30,10">
+                        <Label Content="Country" />
+                        <TextBox
+                            x:Name="CountryTextBox"
+                            Style="{StaticResource FilterTextBoxStyle}"
+                            Text="{Binding Country}" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Margin="30,10,50,10">
+                        <Label Content="City" />
+                        <TextBox
+                            x:Name="CityTextBox"
+                            Style="{StaticResource FilterTextBoxStyle}"
+                            Text="{Binding City}" />
+                    </StackPanel>
+                </Grid>
+                <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition />
@@ -66,32 +86,22 @@
                         <ComboBox
                             x:Name="LanguageComboBox"
                             Padding="5"
-                            materialDesign:HintAssist.Hint="Select"
+                            materialDesign:HintAssist.Hint="Select a language"
                             materialDesign:TextFieldAssist.TextFieldCornerRadius="3"
                             materialDesign:TextFieldAssist.UnderlineCornerRadius="3"
                             BorderBrush="{StaticResource MaterialDesignDivider}"
                             BorderThickness="1"
-                            ItemsSource="{Binding FilterLanguages}"
-                            SelectedItem="{Binding SelectedFilterLanguage}"
+                            ItemsSource="{Binding Languages}"
+                            MaxDropDownHeight="190"
+                            SelectedItem="{Binding Language}"
                             Style="{StaticResource MaterialDesignComboBox}" />
                     </StackPanel>
                     <StackPanel Grid.Column="1" Margin="30,10,50,10">
                         <Label Content="Guest number" />
-                        <TextBox x:Name="GuestNumberTextBox" Style="{StaticResource FilterTextBoxStyle}" />
-                    </StackPanel>
-                </Grid>
-                <Grid Grid.Row="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="0" Margin="50,10,30,10">
-                        <Label Content="Starting date" />
-                        <DatePicker x:Name="StartingDateDatePicker" />
-                    </StackPanel>
-                    <StackPanel Grid.Column="1" Margin="30,10,50,10">
-                        <Label Content="Ending date" />
-                        <DatePicker x:Name="EndingDateDatePicker" />
+                        <TextBox
+                            x:Name="GuestNumberTextBox"
+                            Style="{StaticResource FilterTextBoxStyle}"
+                            Text="{Binding GuestNumber}" />
                     </StackPanel>
                 </Grid>
                 <Grid Grid.Row="3" Margin="50,15,50,0">
@@ -108,6 +118,7 @@
                         VerticalContentAlignment="Top"
                         FontSize="12"
                         Style="{StaticResource FilterTextBoxStyle}"
+                        Text="{Binding Description}"
                         TextWrapping="Wrap" />
                 </Grid>
                 <WrapPanel

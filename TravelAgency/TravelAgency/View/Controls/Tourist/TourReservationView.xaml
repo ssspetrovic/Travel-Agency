@@ -81,12 +81,13 @@
                         x:Name="FilterLanguageComboBox"
                         Height="30"
                         Padding="5"
-                        materialDesign:HintAssist.Hint="Select"
+                        materialDesign:HintAssist.Hint="Select a language"
                         materialDesign:TextFieldAssist.TextFieldCornerRadius="3"
                         materialDesign:TextFieldAssist.UnderlineCornerRadius="3"
                         BorderBrush="{StaticResource MaterialDesignDivider}"
                         BorderThickness="1"
                         ItemsSource="{Binding FilterLanguages}"
+                        MaxDropDownHeight="190"
                         SelectedItem="{Binding SelectedFilterLanguage}"
                         Style="{StaticResource MaterialDesignComboBox}" />
                     <Label Margin="0,10,0,0" Content="Duration" />

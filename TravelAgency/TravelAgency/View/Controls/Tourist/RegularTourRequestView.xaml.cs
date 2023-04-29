@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
 using TravelAgency.ViewModel;
 
 namespace TravelAgency.View.Controls.Tourist
@@ -22,7 +21,7 @@ namespace TravelAgency.View.Controls.Tourist
 
         private void SubmitButton_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new System.NotImplementedException();
+            ((RegularTourRequestViewModel)DataContext).SubmitTourRequest();
         }
     }
 }
