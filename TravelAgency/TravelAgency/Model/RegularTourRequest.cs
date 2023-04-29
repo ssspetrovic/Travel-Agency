@@ -4,14 +4,28 @@ namespace TravelAgency.Model
 {
     internal class RegularTourRequest
     {
+        public int Id { get; set; }
+        public int TouristId { get; set; }
         public Location Location { get; set; }
         public Language Language { get; set; }
         public DateTime StartingDate { get; set; }
         public DateTime EndingDate { get; set; }
         public string Description { get; set; }
 
-        public RegularTourRequest(Location location, Language language, DateTime startingDate, DateTime endingDate, string description)
+        public RegularTourRequest(int touristId, Location location, Language language, DateTime startingDate, DateTime endingDate, string description)
         {
+            TouristId = touristId;
+            Location = location;
+            Language = language;
+            StartingDate = startingDate;
+            EndingDate = endingDate;
+            Description = description;
+        }
+
+        public RegularTourRequest(int Id, int touristId, Location location, Language language, DateTime startingDate, DateTime endingDate, string description)
+        {
+            Id = Id;
+            TouristId = touristId;
             Location = location;
             Language = language;
             StartingDate = startingDate;

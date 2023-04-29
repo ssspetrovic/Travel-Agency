@@ -213,7 +213,7 @@ namespace TravelAgency.ViewModel
         public TourReservationViewModel()
         {
             TourReservationService = new TourReservationService(this);
-            _toursCollection = new CollectionViewSource() { Source = TourReservationService.TourService.GetAllAsCollection() };
+            _toursCollection = new CollectionViewSource { Source = TourReservationService.TourService.GetAllAsCollection() };
             _toursCollection.Filter += ToursCollection_Filter;
             _filterLanguages = Enum.GetValues(typeof(Language));
             _tourVouchers = TourReservationService.TourVoucherService.GetAllValidAsCollection();
