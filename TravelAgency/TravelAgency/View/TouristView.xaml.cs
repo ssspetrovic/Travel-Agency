@@ -53,8 +53,8 @@ namespace TravelAgency.View
 
         private void RequestTourButton_OnClick(object sender, RoutedEventArgs e)
         {
-            ContentFrame.Source = new Uri("Controls/Tourist/RegularTourRequestView.xaml", UriKind.Relative);
-            MyVouchersButton.IsChecked = true;
+            ContentFrame.Source = new Uri("Controls/Tourist/RequestTourView.xaml", UriKind.Relative);
+            RequestTourButton.IsChecked = true;
         }
 
         private void SignOutButton_OnClick(object sender, RoutedEventArgs e)
