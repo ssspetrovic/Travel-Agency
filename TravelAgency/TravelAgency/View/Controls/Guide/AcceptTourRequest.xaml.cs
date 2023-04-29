@@ -24,6 +24,7 @@ namespace TravelAgency.View.Controls.Guide
             InitializeComponent();
             _acceptTourViewModel = new AcceptTourViewModel();
             _tourService = new TourService();
+            new LocationService();
         }
 
         [DllImport("user32.dll")]
@@ -290,6 +291,24 @@ namespace TravelAgency.View.Controls.Guide
             {
                 var createTour = new CreateTour
                 {
+                    ComboBoxLocation =
+                    {
+                        Text = drv["Location_Id"].ToString()!.Split(", ")[0],
+                        Focusable = false, 
+                        Background = Brushes.Gray
+                    },
+                    ComboBoxLanguage =
+                    {
+                        Text = drv["Language"].ToString(),
+                        Focusable = false,
+                        Background = Brushes.Gray
+                    },
+                    MaxGuestsText =
+                    {
+                        Text = drv["NumberOfGuests"].ToString(),
+                        Focusable = false,
+                        Background = Brushes.Gray
+                    },
                     DateList =
                     {
                         Text = selectRequestedTourDate.GetSelectedDates(),
@@ -297,9 +316,9 @@ namespace TravelAgency.View.Controls.Guide
                     },
                     DatePick =
                     {
-                        Background = Brushes.Gray,
                         SelectedDate = null,
-                        Focusable = false
+                        Focusable = false,
+                        Background = Brushes.Gray
                     }
                 };
                 createTour.Show();
