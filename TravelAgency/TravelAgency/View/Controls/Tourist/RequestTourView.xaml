@@ -14,6 +14,52 @@
     <d:Page.Background>
         <SolidColorBrush Color="White" />
     </d:Page.Background>
-
-    <Grid />
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition />
+            <RowDefinition Height="70" />
+        </Grid.RowDefinitions>
+        <TextBlock
+            Grid.Row="0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="25"
+            FontWeight="Medium"
+            Style="{StaticResource MaterialDesignHeadline1TextBlock}"
+            Text="Request a tour" />
+        <StackPanel
+            Grid.Row="1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
+            <TextBlock FontSize="20" Text="What kind of custom tour request would you like to create?" />
+            <WrapPanel
+                Margin="0,30"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+                <Button
+                    Margin="0,0,10,0"
+                    Content="Regular tour request"
+                    FontSize="13" />
+                <Button
+                    Margin="10,0,0,0"
+                    Content="Complex tour request"
+                    FontSize="13" />
+            </WrapPanel>
+        </StackPanel>
+        <WrapPanel
+            Grid.Row="2"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
+            <TextBlock
+                Margin="0,0,10,0"
+                FontSize="13"
+                Text="Looking for already created requests?" />
+            <TextBlock
+                FontSize="13"
+                FontWeight="DemiBold"
+                Text="My requests"
+                TextDecorations="Underline" />
+        </WrapPanel>
+    </Grid>
 </Page>
