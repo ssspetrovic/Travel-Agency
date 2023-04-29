@@ -38,11 +38,14 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center">
                 <Button
+                    x:Name="RegularTourRequestButton"
                     Margin="0,0,10,0"
+                    Click="RegularTourRequestButton_OnClick"
                     Content="Regular tour request"
                     FontSize="13" />
                 <Button
-                    Margin="10,0,0,0"
+                    x:Name="ComplexTourRequestButton"
+                    Margin="25,0,0,0"
                     Content="Complex tour request"
                     FontSize="13" />
             </WrapPanel>

@@ -17,7 +17,7 @@ namespace TravelAgency.View.Controls.Tourist
 
         private void CancelButton_OnClick(object sender, RoutedEventArgs e)
         {
-            NavigationService?.Navigate(new HomeView());
+            NavigationService?.GoBack();
         }
 
         private void SubmitButton_OnClick(object sender, RoutedEventArgs e)
