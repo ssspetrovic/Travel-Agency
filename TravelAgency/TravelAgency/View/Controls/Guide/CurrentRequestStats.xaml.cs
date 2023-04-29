@@ -5,13 +5,14 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using TravelAgency.ViewModel;
 
+
 namespace TravelAgency.View.Controls.Guide
 {
-    public partial class TourStats
+    public partial class CurrentRequestStats
     {
-        public TourStats()
+        public CurrentRequestStats(CurrentRequestStatsViewModel currentRequestStatsViewModel)
         {
-            DataContext = new TourStatsViewModel();
+            DataContext = currentRequestStatsViewModel;
             InitializeComponent();
         }
 
@@ -224,23 +225,13 @@ namespace TravelAgency.View.Controls.Guide
 
             if (e.Key == Key.Tab)
             {
-                TourStatsTabControl.SelectedIndex = (TourStatsTabControl.SelectedIndex + 1) % TourStatsTabControl.Items.Count;
+                CurrentRequestStatsTabControl.SelectedIndex = (CurrentRequestStatsTabControl.SelectedIndex + 1) % CurrentRequestStatsTabControl.Items.Count;
             }
-
-            if (e.Key == Key.Enter)
-                AllFinishedTours_OnClick(sender, e);
         }
 
         private void Shortcuts_Closed(object? sender, EventArgs eventArgs)
         {
             Visibility = Visibility.Visible;
-        }
-
-        private void AllFinishedTours_OnClick(object sender, RoutedEventArgs e)
-        {
-            var allFinishedTours = new AllFinishedTours();
-            allFinishedTours.Show();
-            Close();
         }
     }
 }

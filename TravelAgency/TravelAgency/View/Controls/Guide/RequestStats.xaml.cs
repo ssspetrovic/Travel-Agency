@@ -4,12 +4,10 @@ using System.Windows.Interop;
 using System.Windows;
 using System;
 using System.Windows.Controls;
+using TravelAgency.ViewModel;
 
 namespace TravelAgency.View.Controls.Guide
 {
-    /// <summary>
-    /// Interaction logic for RequestStats.xaml
-    /// </summary>
     public partial class RequestStats
     {
         private bool _currentListView;
@@ -271,11 +269,23 @@ namespace TravelAgency.View.Controls.Guide
         private void GetLocationStats_OnKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key != Key.Enter) return;
+
+            CurrentRequestStatsViewModel.DataType = "Location:" + sender.ToString()!.Split(":")[1];
+            var currentRequestStatsViewModel = new CurrentRequestStatsViewModel();
+            var currentRequestStats = new CurrentRequestStats(currentRequestStatsViewModel);
+            currentRequestStats.Show();
+            Close();
         }
 
         private void GetLanguageStats_OnKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key != Key.Enter) return;
+
+            CurrentRequestStatsViewModel.DataType = "Language:" + sender.ToString()!.Split(":")[1];
+            var currentRequestStatsViewModel = new CurrentRequestStatsViewModel();
+            var currentRequestStats = new CurrentRequestStats(currentRequestStatsViewModel);
+            currentRequestStats.Show();
+            Close();
         }
     }
 }

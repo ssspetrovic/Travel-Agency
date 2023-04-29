@@ -1,22 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using TravelAgency.Model;
 using TravelAgency.Service;
 
 namespace TravelAgency.ViewModel
 {
     public class RequestStatsViewModel : GuideViewModel
     {
-        private readonly LocationService _locationService;
+        private readonly RequestTourService _requestTourService;
 
         public RequestStatsViewModel()
         {
-            _locationService = new LocationService();
+            _requestTourService = new RequestTourService();
         }
 
-        public List<string> Locations => _locationService.GetAll().Select(location => $"{location.City}, {location.Country}").ToList();
-        public List<string> Languages => Enum.GetNames(typeof(Language)).ToList();
+        public List<string> Locations => _requestTourService.GetAllRequestedLocations().Select(location => $"{location.City}, {location.Country}").ToList();
+        public List<string> Languages => _requestTourService.GetAllRequestedLanguages();
 
     }
 }

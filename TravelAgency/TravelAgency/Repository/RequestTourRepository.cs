@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.Sqlite;
+﻿using System.Collections.Generic;
+using Microsoft.Data.Sqlite;
 using System.Data;
 
 namespace TravelAgency.Repository
@@ -42,6 +43,22 @@ namespace TravelAgency.Repository
             dt.Clear();
             dt.Load(selectCommand.ExecuteReader());
             return dt;
+        }
+
+        public List<string> GetAllRequestedLanguages()
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            var languages = new List<string>();
+            const string selectStatement = "select distinct Language from RequestedTour";
+            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
+
+            using var selectReader = selectCommand.ExecuteReader();
+            while (selectReader.Read())
+                languages.Add(selectReader.GetString(0));
+
+            return languages;
         }
     }
 }
