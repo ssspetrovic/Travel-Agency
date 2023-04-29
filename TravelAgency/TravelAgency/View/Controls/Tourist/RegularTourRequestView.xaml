@@ -86,11 +86,11 @@
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" Margin="50,10,30,10">
-                        <Label Content="Country" />
+                        <Label Content="Starting date" />
                         <DatePicker x:Name="StartingDateDatePicker" />
                     </StackPanel>
                     <StackPanel Grid.Column="1" Margin="30,10,50,10">
-                        <Label Content="City" />
+                        <Label Content="Ending date" />
                         <DatePicker x:Name="EndingDateDatePicker" />
                     </StackPanel>
                 </Grid>
