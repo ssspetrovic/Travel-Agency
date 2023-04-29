@@ -59,5 +59,24 @@ namespace TravelAgency.Repository
 
             return locations;
         }
+
+        public string FindLocationIdByText(string text)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            const string selectStatement = "SELECT * FROM Location WHERE City LIKE '%' || $City || '%' OR Country LIKE '%' || $Country || '%'";
+            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
+            selectCommand.Parameters.AddWithValue("$City", text);
+            selectCommand.Parameters.AddWithValue("$Country", text);
+
+
+            using var selectReader = selectCommand.ExecuteReader();
+            var ids = "";
+
+            while (selectReader.Read())
+                ids += ", " + selectReader.GetInt32(0);
+            return ids.Length == 0 ? "Empty" : ids.Substring(2, ids.Length - 2);
+        }
     }
 }

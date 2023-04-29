@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,9 +10,6 @@ using TravelAgency.Service;
 
 namespace TravelAgency.View.Controls.Guide
 {
-    /// <summary>
-    /// Interaction logic for ConfirmDeletion.xaml
-    /// </summary>
     public partial class ConfirmDeletion
     {
         private readonly TouristService _touristService;

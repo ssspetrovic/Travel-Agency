@@ -127,5 +127,23 @@ namespace TravelAgency.Repository
             updateCommand.Parameters.AddWithValue("id", id);
             updateCommand.ExecuteNonQuery();
         }
+
+        public bool CheckIfDatesExist(string dates)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            var similarDates = dates.Split(", ");
+            var selectStatement = "select * from Tour where Date like $Date0";
+
+            for (var i = 1; i < similarDates.Length; i++)
+                selectStatement += " or Date like $Date" + i;
+            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
+
+            for (var i = 0; i < similarDates.Length; i++)
+                selectCommand.Parameters.AddWithValue("$Date" + i, "%" + similarDates[i] + "%");
+            return selectCommand.ExecuteReader().Read();
+        }
+
     }
 }

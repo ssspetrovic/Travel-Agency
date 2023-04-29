@@ -370,6 +370,11 @@
                                 FontSize="16"
                                 FontWeight="Medium"
                                 Foreground="#ffffff" />
+                            <TextBox
+                                x:Name="UpdateViewBox"
+                                Grid.Row="0"
+                                Text="{Binding UpdateView, Mode=TwoWay}"
+                                Visibility="Hidden" />
                             <DataGrid
                                 x:Name="TourRequestDataGrid"
                                 Grid.Row="1"
