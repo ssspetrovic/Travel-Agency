@@ -24,7 +24,6 @@ namespace TravelAgency.View.Controls.Guide
             InitializeComponent();
             _acceptTourViewModel = new AcceptTourViewModel();
             _tourService = new TourService();
-            new LocationService();
         }
 
         [DllImport("user32.dll")]
@@ -312,7 +311,6 @@ namespace TravelAgency.View.Controls.Guide
                     DateList =
                     {
                         Text = selectRequestedTourDate.GetSelectedDates(),
-                        Focusable = false
                     },
                     DatePick =
                     {

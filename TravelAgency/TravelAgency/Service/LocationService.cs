@@ -37,5 +37,6 @@ namespace TravelAgency.Service
         {
             return _locationRepository.FindLocationIdByText(text);
         }
+
     }
 }

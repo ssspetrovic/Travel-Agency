@@ -28,7 +28,7 @@ namespace TravelAgency.Repository
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
 
-            const string selectStatement = @"select * from Location where City = $City ";
+            const string selectStatement = @"select * from Location where City = $City";
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
             selectCommand.Parameters.AddWithValue("$City", city);
             using var selectReader = selectCommand.ExecuteReader();

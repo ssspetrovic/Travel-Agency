@@ -3,6 +3,8 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows;
 using System;
+using System.Data;
+using System.Windows.Media;
 
 namespace TravelAgency.View.Controls.Guide
 {
@@ -234,14 +236,34 @@ namespace TravelAgency.View.Controls.Guide
 
         private void CreateByLocation_OnClick(object sender, RoutedEventArgs routedEventArgs)
         {
-            var createTour = new CreateTour();
+            var createTour = new CreateTour
+            {
+                ComboBoxLocation =
+                {
+                    Text = LocationText.Text.Split(", ")[0],
+                    Focusable = false,
+                    Background = Brushes.Gray
+                },
+                KeyPointsList =
+                {
+                    Text = LocationText.Text.Split(", ")[0]
+                }
+            };
             createTour.Show();
             Close();
         }
 
         private void CreateByLanguage_OnClick(object sender, RoutedEventArgs routedEventArgs)
         {
-            var createTour = new CreateTour();
+            var createTour = new CreateTour
+            {
+                ComboBoxLanguage =
+                {
+                    Text = LanguageText.Text,
+                    Focusable = false,
+                    Background = Brushes.Gray
+                }
+            };
             createTour.Show();
             Close();
         }
