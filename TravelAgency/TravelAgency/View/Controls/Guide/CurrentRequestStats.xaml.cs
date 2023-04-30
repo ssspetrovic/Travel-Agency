@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Globalization;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
+using TravelAgency.Model;
+using TravelAgency.Service;
 using TravelAgency.ViewModel;
 
 
@@ -10,10 +14,14 @@ namespace TravelAgency.View.Controls.Guide
 {
     public partial class CurrentRequestStats
     {
+        private readonly RequestTourService _requestTourService;
+        private string _year = "";
+
         public CurrentRequestStats(CurrentRequestStatsViewModel currentRequestStatsViewModel)
         {
             DataContext = currentRequestStatsViewModel;
             InitializeComponent();
+            _requestTourService = new RequestTourService();
         }
 
         [DllImport("user32.dll")]
@@ -37,74 +45,18 @@ namespace TravelAgency.View.Controls.Guide
 
         private void Button_MaximizeClick(object sender, RoutedEventArgs e)
         {
-            this.WindowState = this.WindowState == WindowState.Normal ? WindowState.Maximized : WindowState.Normal;
+            WindowState = this.WindowState == WindowState.Normal ? WindowState.Maximized : WindowState.Normal;
         }
 
         private void Button_MinimizeClick(object sender, RoutedEventArgs e)
         {
-            this.WindowState = WindowState.Minimized;
+            WindowState = WindowState.Minimized;
         }
 
         private void ShortcutView_OnClick(object sender, RoutedEventArgs e)
         {
             var shortcuts = new Shortcuts();
             shortcuts.Show();
-            Close();
-        }
-
-        private void Home_OnClick(object sender, RoutedEventArgs e)
-        {
-            var guideView = new GuideView();
-            guideView.Show();
-            Close();
-        }
-
-        private void NewTour_OnClick(object sender, RoutedEventArgs e)
-        {
-            var createTour = new CreateTour();
-            createTour.Show();
-            Close();
-        }
-
-        private void MonitorTour_OnClick(object sender, RoutedEventArgs e)
-        {
-            var monitorTour = new MonitorTour();
-            monitorTour.Show();
-            Close();
-        }
-
-        private void CancelTour_OnClick(object sender, RoutedEventArgs e)
-        {
-            var cancelTour = new CancelTour();
-            cancelTour.Show();
-            Close();
-        }
-
-        private void TourStats_OnClick(object sender, RoutedEventArgs e)
-        {
-            var tourStats = new TourStats();
-            tourStats.Show();
-            Close();
-        }
-
-        private void TourReview_OnClick(object sender, RoutedEventArgs e)
-        {
-            var reviewTour = new ReviewTour();
-            reviewTour.Show();
-            Close();
-        }
-
-        private void AcceptTourRequest_OnClick(object sender, RoutedEventArgs e)
-        {
-            var acceptTourRequest = new AcceptTourRequest();
-            acceptTourRequest.Show();
-            Close();
-        }
-
-        private void ComplexTourRequest_OnClick(object sender, RoutedEventArgs e)
-        {
-            var complexTourRequest = new ComplexTourRequest();
-            complexTourRequest.Show();
             Close();
         }
 
@@ -115,103 +67,12 @@ namespace TravelAgency.View.Controls.Guide
             Close();
         }
 
-        private void CreateSuggestedTour_OnClick(object sender, RoutedEventArgs e)
-        {
-            var createSuggestedTour = new CreateSuggestedTour();
-            createSuggestedTour.Show();
-            Close();
-        }
-
-        private void Logout_OnClick(object sender, RoutedEventArgs e)
-        {
-            var signInView = new SignInView();
-            signInView.Show();
-            Close();
-        }
-
-        private void Resign_OnClick(object sender, RoutedEventArgs e)
-        {
-            var resign = new Resign();
-            resign.Show();
-            Close();
-        }
-
         private void ChangeViews_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.F1)
-            {
-                var guideView = new GuideView();
-                guideView.Show();
-                Close();
-            }
-
-            if (e.Key == Key.F2)
-            {
-                var createTour = new CreateTour();
-                createTour.Show();
-                Close();
-            }
-
-            if (e.Key == Key.F3)
-            {
-                var monitorTour = new MonitorTour();
-                monitorTour.Show();
-                Close();
-            }
-
-            if (e.Key == Key.F4)
-            {
-                var cancelTour = new CancelTour();
-                cancelTour.Show();
-                Close();
-            }
-
-            if (e.Key == Key.F5)
-            {
-                var tourStats = new TourStats();
-                tourStats.Show();
-                Close();
-            }
-
-            if (e.Key == Key.F6)
-            {
-                var reviewTour = new ReviewTour();
-                reviewTour.Show();
-                Close();
-            }
-
-            if (e.Key == Key.F7)
-            {
-                var acceptTourRequest = new AcceptTourRequest();
-                acceptTourRequest.Show();
-                Close();
-            }
-
-            if (e.Key == Key.F8)
-            {
-                var complexTourRequest = new ComplexTourRequest();
-                complexTourRequest.Show();
-                Close();
-            }
-
-            if (e.Key == Key.F9)
+            if (e.Key == Key.Escape)
             {
                 var requestStats = new RequestStats();
                 requestStats.Show();
-                Close();
-            }
-
-            if (e.SystemKey == Key.F10)
-            {
-                var createSuggestedTour = new CreateSuggestedTour();
-                createSuggestedTour.Show();
-                Close();
-            }
-
-            if (e.Key == Key.F11)
-            {
-                var resign = new Resign();
-                resign.Show();
                 Close();
             }
 
@@ -226,6 +87,24 @@ namespace TravelAgency.View.Controls.Guide
             if (e.Key == Key.Tab)
             {
                 CurrentRequestStatsTabControl.SelectedIndex = (CurrentRequestStatsTabControl.SelectedIndex + 1) % CurrentRequestStatsTabControl.Items.Count;
+                var selectedTab = (CurrentRequestTabs) CurrentRequestStatsTabControl.SelectedItem;
+                if (selectedTab != null)
+                    _year = selectedTab.Title;
+            }
+
+            if (e.Key is >= Key.F1 and <= Key.F12 || e.SystemKey == Key.F10)
+            {
+                if (!int.TryParse(_year, out _)) return;
+                var month = e.Key - Key.F1 + 1;
+                if (e.SystemKey == Key.F10)
+                    month = 10;
+                var showMonthlyRequestStatsViewModel = new ShowMonthlyRequestStatsViewModel()
+                {
+                    NumberOfRequests = _requestTourService.GetRequestsByDate("", month, _year).Sum(tour => tour.NumberOfGuests).ToString(),
+                    CurrentMonth = new DateTimeFormatInfo().GetMonthName(month) + ", " + _year
+                };
+                var showMonthlyRequestStats = new ShowMonthlyRequestStats(showMonthlyRequestStatsViewModel);
+                showMonthlyRequestStats.Show();
             }
         }
 

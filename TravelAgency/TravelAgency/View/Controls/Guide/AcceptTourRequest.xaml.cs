@@ -311,7 +311,6 @@ namespace TravelAgency.View.Controls.Guide
                     DateList =
                     {
                         Text = selectRequestedTourDate.GetSelectedDates(),
-                        Focusable = false
                     },
                     DatePick =
                     {

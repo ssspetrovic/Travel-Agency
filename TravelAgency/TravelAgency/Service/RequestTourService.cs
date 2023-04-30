@@ -3,10 +3,11 @@ using Microsoft.Data.Sqlite;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Linq;
+using System.Windows.Forms;
 using LiveCharts;
 using TravelAgency.Model;
 using TravelAgency.Repository;
-using LiveCharts.Defaults;
 
 namespace TravelAgency.Service
 {
@@ -138,29 +139,27 @@ namespace TravelAgency.Service
             return requestedTours;
         }
 
-        public ChartValues<double> GetComparisons(ObservableCollection<RequestTour> requestedTours, string dataType)
+        public ChartValues<double> GetComparisons(ObservableCollection<RequestTour> requestedTours, string dataType, string dataContent)
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
 
             var countStatement = new List<int>();
-            var chartData = new ChartValues<double> { requestedTours.Count };
-
             var selectStatement = "select count(*) from RequestedTour group by ";
 
             if (dataType == "Location")
-                selectStatement += "Location_Id";
+                selectStatement += "Location_Id order by case Location_Id when " + _locationService.GetByCity(dataContent.Split(",")[0].Trim())!.Id + " then 0 else 1 end";
             else
-                selectStatement += "Language";
+                selectStatement += "Language order by case Language when '" + dataContent.Trim() + "' then 0 else 1 end";
 
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
             using var selectReader = selectCommand.ExecuteReader();
 
             while (selectReader.Read())
                 countStatement.Add(selectReader.GetInt32(0));
-            countStatement.Remove(requestedTours.Count);
 
-            foreach(var count in countStatement)
+            var chartData = new ChartValues<double>();
+            foreach (var count in countStatement)
                 chartData.Add(count);
 
             return chartData;
@@ -187,6 +186,37 @@ namespace TravelAgency.Service
         public List<string> GetAllRequestedLanguages()
         {
             return _requestTourRepository.GetAllRequestedLanguages();
+        }
+
+        public List<RequestTour> GetRequestsByDate(string day, int month, string year)
+        {
+            var requestedTours = new List<RequestTour>();
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            const string selectStatement = "select * from RequestedTour where DateRange like '%' || $Month || '/%' || $Day || '%/' || '%' || $Year";
+            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
+            selectCommand.Parameters.AddWithValue("$Month", month);
+            selectCommand.Parameters.AddWithValue("$Day", day);
+            selectCommand.Parameters.AddWithValue("$Year", year);
+
+            using var selectReader = selectCommand.ExecuteReader();
+
+            while (selectReader.Read())
+                requestedTours.Add(new RequestTour(selectReader.GetInt32(0), _locationService.GetById(selectReader.GetInt32(1))!, selectReader.GetString(2),
+                    (Language)Enum.Parse(typeof(Language), selectReader.GetString(3)), selectReader.GetInt32(4), selectReader.GetString(5),
+                    (Status)selectReader.GetInt32(6), selectReader.IsDBNull(7) ? "Empty" : selectReader.GetString(7)));
+
+            requestedTours = requestedTours.Where(tour => {
+                var dateRange = tour.DateRange.Split(" - ");
+                var startDate = DateTime.Parse(dateRange[0]);
+                var endDate = DateTime.Parse(dateRange[1]);
+                return startDate.Month == month || endDate.Month == month;
+            }).ToList();
+
+
+
+            return requestedTours;
         }
     }
 }

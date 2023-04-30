@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using LiveCharts;
 using LiveCharts.Wpf;
 using TravelAgency.Model;
@@ -32,16 +33,16 @@ namespace TravelAgency.ViewModel
                     Title = "Overall", 
                     DataType = DataType.Split(":")[0], 
                     DataContent = DataType.Split(":")[1], 
-                    NumberOfRequests = _tabAllData.Count,
+                    NumberOfRequests = "Number of Requests: " + _tabAllData.Sum(tour => tour.NumberOfGuests),
                     BarData = new SeriesCollection
                     {
                         new ColumnSeries
                         {
-                            Title = "Primer",
-                            Values = _requestTourService.GetComparisons(_tabAllData, DataType.Split(":")[0])
+                            Title = "Comparison of our current " + DataType.Split(":")[0] + " with others.",
+                            Values = _requestTourService.GetComparisons(_tabAllData, DataType.Split(":")[0], DataType.Split(":")[1])
                         }
                     },
-                    BarLabels = new[] {"10", "3", "5", "3"}
+                    BarLabels = new[] {DataType.Split(":")[1]}
 
                 },
                 new CurrentRequestTabs
@@ -49,32 +50,32 @@ namespace TravelAgency.ViewModel
                     Title = "2023",
                     DataType = DataType.Split(":")[0],
                     DataContent = DataType.Split(":")[1],
-                    NumberOfRequests = _tab2023Data.Count,
+                    NumberOfRequests = "Number of Requests: " + _tab2023Data.Sum(tour => tour.NumberOfGuests),
                     BarData = new SeriesCollection
                     {
                         new ColumnSeries
                         {
-                            Title = "Primer",
-                            Values = new ChartValues<double> {10, 3, 5, 3}
+                            Title = "Comparison of our current " + DataType.Split(":")[0] + " with others.",
+                            Values = _requestTourService.GetComparisons(_tab2023Data, DataType.Split(":")[0], DataType.Split(":")[1])
                         }
                     },
-                    BarLabels = new[] {"10", "3", "5", "3"}
+                    BarLabels = new[] {DataType.Split(":")[1]}
                 },
                 new CurrentRequestTabs 
                 { 
                     Title = "2022",
                     DataType = DataType.Split(":")[0],
                     DataContent = DataType.Split(":")[1],
-                    NumberOfRequests = _tab2022Data.Count,
+                    NumberOfRequests = "Number of Requests: " + _tab2022Data.Sum(tour => tour.NumberOfGuests),
                     BarData = new SeriesCollection
                     {
                         new ColumnSeries
                         {
-                            Title = "Primer",
-                            Values = new ChartValues<double> {10, 3, 5, 3}
+                            Title = "Comparison of our current " + DataType.Split(":")[0] + " with others.",
+                            Values = _requestTourService.GetComparisons(_tab2022Data, DataType.Split(":")[0], DataType.Split(":")[1])
                         }
                     },
-                    BarLabels = new[] {"10", "3", "5", "3"}
+                    BarLabels = new[] {DataType.Split(":")[1]}
                 }
             };
     }
