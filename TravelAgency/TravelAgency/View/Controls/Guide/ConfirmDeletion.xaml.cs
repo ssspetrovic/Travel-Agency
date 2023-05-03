@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,9 +10,6 @@ using TravelAgency.Service;
 
 namespace TravelAgency.View.Controls.Guide
 {
-    /// <summary>
-    /// Interaction logic for ConfirmDeletion.xaml
-    /// </summary>
     public partial class ConfirmDeletion
     {
         private readonly TouristService _touristService;
@@ -35,13 +31,14 @@ namespace TravelAgency.View.Controls.Guide
 
         private void CancelTour()
         {
-            var tourVoucherRepository = new TourVoucherRepository();
+            var tourVoucherService = new TourVoucherService();
             var deletedTour = _tourService.GetByName(TourNameText.Text);
             var tourists = _touristService.GetByTour(deletedTour);
             var tourDates = deletedTour.Date.Split(", ").ToList();
 
             foreach (var tourist in tourists)
-                tourVoucherRepository.Add(new TourVoucher(tourist.Id, tourist.UserName, "Valid Voucher", DateTime.ParseExact(DateTime.Now.AddYears(1).ToString("d/M/yyyy"), "d/M/yyyy", CultureInfo.InvariantCulture)));
+                tourVoucherService.Add(new TourVoucher(tourist.Id, tourist.UserName, "Voucher for Cancelled Tour", 
+                    Convert.ToDateTime(DateTime.Now.AddYears(1).ToString("yyyy-MM-dd")).Date,  TourVoucher.VoucherStatus.Valid));
 
             if (tourDates.Count < 2)
             {

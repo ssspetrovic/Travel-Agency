@@ -89,6 +89,7 @@ namespace TravelAgency.Service
             DateTime convertedEndDate = Convert.ToDateTime(endDate);
 
 
+
             foreach (Reservation reservation in reservations)
             {
                 if((reservation.StartDate<= convertedStartDate && reservation.EndDate>= convertedStartDate) || (reservation.StartDate <= convertedEndDate && reservation.EndDate >= convertedEndDate))

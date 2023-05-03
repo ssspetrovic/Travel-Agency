@@ -1,6 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls.Primitives;
-using TravelAgency.View.Controls.Tourist;
 
 namespace TravelAgency.View
 {
@@ -12,19 +12,20 @@ namespace TravelAgency.View
         public TouristView()
         {
             InitializeComponent();
-        }
-
-        private void SignOutButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            var signInView = new SignInView();
-            signInView.Show();
-            Close();
+            ContentFrame.Source = new Uri("Controls/Tourist/HomeView.xaml", UriKind.Relative);
+            HomeButton.IsChecked = true;
         }
 
         private void HeaderThumb_OnDragDelta(object sender, DragDeltaEventArgs e)
         {
             Left += e.HorizontalChange;
             Top += e.VerticalChange;
+        }
+
+        private void HomeButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            ContentFrame.Source = new Uri("Controls/Tourist/HomeView.xaml", UriKind.Relative);
+            HomeButton.IsChecked = true;
         }
 
         private void CloseButton_OnClick(object sender, RoutedEventArgs e)
@@ -34,22 +35,32 @@ namespace TravelAgency.View
 
         private void TourReservationButton_OnClick(object sender, RoutedEventArgs e)
         {
-            var tourReservation = new TourReservationView();
-            tourReservation.Show();
-            Close();
+            ContentFrame.Source = new Uri("Controls/Tourist/TourReservationView.xaml", UriKind.Relative);
+            TourReservationButton.IsChecked = true;
         }
 
         private void MyToursButton_OnClick(object sender, RoutedEventArgs e)
         {
-            var myToursView = new MyToursView();
-            myToursView.Show();
-            Close();
+            ContentFrame.Source = new Uri("Controls/Tourist/MyToursView.xaml", UriKind.Relative);
+            MyToursButton.IsChecked = true;
         }
 
         private void MyVouchersButton_OnClick(object sender, RoutedEventArgs e)
         {
-            var myVouchersView = new TourVouchers();
-            myVouchersView.Show();
+            ContentFrame.Source = new Uri("Controls/Tourist/MyTourVouchersView.xaml", UriKind.Relative);
+            MyVouchersButton.IsChecked = true;
+        }
+
+        private void RequestTourButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            ContentFrame.Source = new Uri("Controls/Tourist/RequestTourView.xaml", UriKind.Relative);
+            RequestTourButton.IsChecked = true;
+        }
+
+        private void SignOutButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var signInView = new SignInView();
+            signInView.Show();
             Close();
         }
     }

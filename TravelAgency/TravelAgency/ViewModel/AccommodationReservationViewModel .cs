@@ -179,9 +179,15 @@ namespace TravelAgency.ViewModel
 
                 var _reservationService = new ReservationService();
 
-               if (int.Parse(GuestNumber) > SelectedAccommodation.ReservableDays)
+                var ReservableDays = (EndDate - StartDate).TotalDays;
+
+                if (int.Parse(GuestNumber) < SelectedAccommodation.MinGuest || int.Parse(GuestNumber) > SelectedAccommodation.MaxGuest)
                {
-                   MessageBox.Show("You have selected too many people for this Accommodation!");
+                   MessageBox.Show("You have selected an invalid number of people!");
+               }
+               else if (SelectedAccommodation.ReservableDays < ReservableDays)
+               {
+                   MessageBox.Show("The number of days you are trying to reserve is invalid!");
                }
                else if (!_reservationService.IsReservationValid(EndDate, StartDate, SelectedAccommodation.ReservableDays))
                {

@@ -1,10 +1,11 @@
-﻿using System.Collections.ObjectModel;
-using System.Diagnostics;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using TravelAgency.DTO;
 using TravelAgency.Model;
 using TravelAgency.Service;
+using TravelAgency.View;
 using TravelAgency.View.Controls.Tourist;
 using static System.Windows.Application;
 using MessageBox = System.Windows.Forms.MessageBox;
@@ -16,7 +17,7 @@ namespace TravelAgency.ViewModel
         private MyTourDto? _selectedTour;
         public MyTourDtoService MyTourDtoService { get; }
         public string? InvitationText { get; set; }
-        
+
         public MyTourDto? SelectedTour
         {
             get => _selectedTour;
@@ -48,8 +49,8 @@ namespace TravelAgency.ViewModel
             if (!IsAttendanceConfirmed()) return;
             touristService.UpdateAppearanceByUsername(CurrentUser.Username, TouristAppearance.Present);
             MyTourDtoService.UpdateStatus(tourName, MyTourDto.TourStatus.Attending);
-
         }
+
         private bool IsAttendanceConfirmed()
         {
             var dialog = new AcceptInvitationDialog()
@@ -77,8 +78,10 @@ namespace TravelAgency.ViewModel
             }
 
             var currentWindow = Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
+            var nextWindow = new TouristView();
             var rateTourView = new RateTourView(SelectedTour.Name);
-            rateTourView.Show();
+            nextWindow.ContentFrame.NavigationService.Navigate(rateTourView);
+            nextWindow.Show();
             currentWindow?.Close();
         }
 
@@ -86,7 +89,13 @@ namespace TravelAgency.ViewModel
         {
             Current.Dispatcher.Invoke(() =>
             {
-                var mainWindow = new MyToursView();
+                var mainWindow = new TouristView
+                {
+                    ContentFrame =
+                    {
+                        Source = new Uri("Controls/Tourist/MyToursView.xaml", UriKind.Relative)
+                    }
+                };
                 var currentWindow = Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
                 mainWindow.Show();
                 currentWindow?.Close();

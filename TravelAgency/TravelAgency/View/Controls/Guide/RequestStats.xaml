@@ -19,7 +19,7 @@
     mc:Ignorable="d">
 
     <Window.DataContext>
-        <viewModel:GuideViewModel />
+        <viewModel:RequestStatsViewModel />
     </Window.DataContext>
 
     <Window.Resources>
@@ -354,7 +354,90 @@
                                 TextAlignment="Right" />
                         </Grid>
 
-                        <Grid Grid.Row="3" />
+                        <Grid Grid.Row="3">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="80" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock
+                                    Margin="0,15,0,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="28"
+                                    FontWeight="Medium"
+                                    Foreground="#68cbf8"
+                                    Text="Locations"
+                                    TextWrapping="Wrap" />
+                                <TextBlock
+                                    Grid.Column="1"
+                                    Margin="0,15,0,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="28"
+                                    FontWeight="Medium"
+                                    Foreground="#68cbf8"
+                                    Text="Languages"
+                                    TextWrapping="Wrap" />
+                            </Grid>
+
+                            <Grid Grid.Row="1" Margin="15">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <Border
+                                    Margin="100,0"
+                                    BorderBrush="#68cbf8"
+                                    BorderThickness="3,0,3,0">
+                                    <ListView
+                                        Name="ListViewLocations"
+                                        FontSize="16"
+                                        Foreground="#68cbf8"
+                                        ItemsSource="{Binding Locations}">
+                                        <ListView.ItemContainerStyle>
+                                            <Style TargetType="ListViewItem">
+                                                <Setter Property="Margin" Value="0,10" />
+                                                <EventSetter Event="KeyDown" Handler="GetLocationStats_OnKeyDown" />
+                                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                                <Setter Property="BorderBrush" Value="#68cbf8" />
+                                                <Setter Property="BorderThickness" Value="1.5" />
+                                            </Style>
+                                        </ListView.ItemContainerStyle>
+                                    </ListView>
+                                </Border>
+
+
+                                <Border
+                                    Grid.Column="1"
+                                    Margin="100,0"
+                                    BorderBrush="#68cbf8"
+                                    BorderThickness="3,0,3,0">
+                                    <ListView
+                                        Name="ListViewLanguages"
+                                        FontSize="16"
+                                        Foreground="#68cbf8"
+                                        ItemsSource="{Binding Languages}">
+                                        <ListView.ItemContainerStyle>
+                                            <Style TargetType="ListViewItem">
+                                                <Setter Property="Margin" Value="0,10" />
+                                                <EventSetter Event="KeyDown" Handler="GetLanguageStats_OnKeyDown" />
+                                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                                <Setter Property="BorderBrush" Value="#68cbf8" />
+                                                <Setter Property="BorderThickness" Value="1.5" />
+                                            </Style>
+                                        </ListView.ItemContainerStyle>
+                                    </ListView>
+                                </Border>
+                            </Grid>
+
+
+                        </Grid>
                     </Grid>
 
                 </Border>

@@ -1,7 +1,14 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Diagnostics;
+using System.Linq;
+using System.Windows;
 using TravelAgency.DTO;
 using TravelAgency.Model;
 using TravelAgency.Service;
+using TravelAgency.View;
+using static System.Windows.Application;
+using MessageBox = System.Windows.Forms.MessageBox;
+
 
 namespace TravelAgency.ViewModel
 {
@@ -87,6 +94,7 @@ namespace TravelAgency.ViewModel
             }
 
             TourNameHeader = $"'{tourName}'";
+            Debug.WriteLine(TourNameHeader);
         }
 
         public void Submit()
@@ -113,8 +121,18 @@ namespace TravelAgency.ViewModel
             ));
 
             var myTourDtoService = new MyTourDtoService();
+
             myTourDtoService.UpdateStatus(TourName, MyTourDto.TourStatus.Rated);
-            MyToursViewModel.ReloadWindow();
+            var mainWindow = new TouristView
+            {
+                ContentFrame =
+                {
+                    Source = new Uri("Controls/Tourist/MyToursView.xaml", UriKind.Relative)
+                }
+            };
+            var currentWindow = Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
+            mainWindow.Show();
+            currentWindow?.Close();
         }
 
         public void AddUrl()

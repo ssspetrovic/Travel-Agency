@@ -23,14 +23,29 @@ namespace TravelAgency.Service
             _tourVoucherRepository.DeleteById(id);
         }
 
-        public void DeleteExpired()
+        public void UpdateAllVouchers()
         {
-            _tourVoucherRepository.DeleteExpired();
+            _tourVoucherRepository.UpdateAllVouchers();
+        }
+
+        public void UseVoucher(int id)
+        {
+            _tourVoucherRepository.UseVoucher(id);
         }
 
         public ObservableCollection<TourVoucher> GetAllAsCollection()
         {
             return _tourVoucherRepository.GetAllAsCollection();
+        }
+
+        public ObservableCollection<TourVoucher> GetAllValidAsCollection()
+        {
+            return _tourVoucherRepository.GetAllValidAsCollection();
+        }
+
+        public TourVoucher GetVoucherByTouristId(int touristId)
+        {
+            return _tourVoucherRepository.GetVoucherByTouristId(touristId);
         }
     }
 }

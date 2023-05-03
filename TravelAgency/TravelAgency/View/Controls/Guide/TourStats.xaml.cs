@@ -7,9 +7,6 @@ using TravelAgency.ViewModel;
 
 namespace TravelAgency.View.Controls.Guide
 {
-    /// <summary>
-    /// Interaction logic for TourStats.xaml
-    /// </summary>
     public partial class TourStats
     {
         public TourStats()

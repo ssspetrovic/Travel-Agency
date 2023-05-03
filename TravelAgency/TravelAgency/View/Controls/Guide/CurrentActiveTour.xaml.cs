@@ -147,8 +147,6 @@ namespace TravelAgency.View.Controls.Guide
                     }
                 }
             }
-
-
         }
 
         private void Shortcuts_Closed(object? sender, EventArgs eventArgs)

@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Data;
 using TravelAgency.Model;
 using TravelAgency.Service;
+using TravelAgency.View;
 using TravelAgency.View.Controls.Tourist;
 using static System.Windows.Application;
 
@@ -13,7 +14,6 @@ namespace TravelAgency.ViewModel
 {
     public class TourReservationViewModel : BaseViewModel
     {
-        private TourReservationView? _mainWindow;
         public new event PropertyChangedEventHandler? PropertyChanged;
 
         private readonly CollectionViewSource _toursCollection;
@@ -213,10 +213,10 @@ namespace TravelAgency.ViewModel
         public TourReservationViewModel()
         {
             TourReservationService = new TourReservationService(this);
-            _toursCollection = new CollectionViewSource() { Source = TourReservationService.TourService.GetAllAsCollection() };
+            _toursCollection = new CollectionViewSource { Source = TourReservationService.TourService.GetAllAsCollection() };
             _toursCollection.Filter += ToursCollection_Filter;
             _filterLanguages = Enum.GetValues(typeof(Language));
-            _tourVouchers = TourReservationService.TourVoucherService.GetAllAsCollection();
+            _tourVouchers = TourReservationService.TourVoucherService.GetAllValidAsCollection();
 
             if (!ToursSourceCollection.IsEmpty)
                 IsListViewShown = true;
@@ -325,9 +325,15 @@ namespace TravelAgency.ViewModel
         {
             Current.Dispatcher.Invoke(() =>
             {
-                _mainWindow = new TourReservationView();
                 var currentWindow = Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
-                _mainWindow.Show();
+                var mainWindow = new TouristView
+                {
+                    ContentFrame =
+                    {
+                        Source = new Uri("Controls/Tourist/TourReservationView.xaml", UriKind.Relative)
+                    }
+                };
+                mainWindow.Show();
                 currentWindow?.Close();
             });
         }

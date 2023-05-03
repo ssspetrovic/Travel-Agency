@@ -36,20 +36,23 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center">
                 <Button
-                    x:Name="ConfirmButton"
-                    Width="110"
-                    Margin="0,0,8,0"
-                    Click="ConfirmButton_OnClick"
-                    Content="Confirm"
-                    FontSize="15" />
-                <Button
                     x:Name="CancelButton"
                     Width="110"
-                    Margin="8,0,0,0"
+                    Height="35"
+                    Margin="0,0,8,0"
                     Click="CancelButton_OnClick"
                     Content="Cancel"
                     FontSize="15"
                     Style="{StaticResource MaterialDesignFlatDarkButton}" />
+                <Button
+                    x:Name="ConfirmButton"
+                    Width="110"
+                    Height="35"
+                    Margin="8,0,0,0"
+                    VerticalContentAlignment="Center"
+                    Click="ConfirmButton_OnClick"
+                    Content="Confirm"
+                    FontSize="15" />
             </WrapPanel>
         </Grid>
     </Border>

@@ -124,5 +124,10 @@ namespace TravelAgency.Service
         {
             _tourRepository.Add(tour);
         }
+
+        public bool CheckIfDatesExist(string dates)
+        {
+            return _tourRepository.CheckIfDatesExist(dates);
+        }
     }
 }
