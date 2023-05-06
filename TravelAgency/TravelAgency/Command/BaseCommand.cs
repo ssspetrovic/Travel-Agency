@@ -13,7 +13,7 @@ namespace TravelAgency.Command
             _execute = execute;
         }
 
-        public BaseCommand(Action<T> execute, Predicate<T>? canExecute)
+        private  BaseCommand(Action<T> execute, Predicate<T>? canExecute)
         {
             _execute = execute;
             _canExecute = canExecute;

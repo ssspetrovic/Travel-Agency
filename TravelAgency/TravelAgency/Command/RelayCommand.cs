@@ -9,19 +9,18 @@ namespace TravelAgency.Command
 {
     public class RelayCommand : ICommand
     {
-        private readonly Action _executeAction;
-        private readonly Predicate<object> _canExecuteAction;
+        private readonly Action<object> _execute;
+        private readonly Predicate<object>? _canExecute;
 
-        public RelayCommand(Action executeAction)
+        public RelayCommand(Action<object> executeAction) : this(executeAction, null)
         {
-            _executeAction = executeAction;
-            _canExecuteAction = null!;
+            _execute = executeAction;
         }
 
-        public RelayCommand(Action executeAction, Predicate<object> canExecuteAction)
+        public RelayCommand(Action<object> executeAction, Predicate<object>? canExecute)
         {
-            _executeAction = executeAction;
-            _canExecuteAction = canExecuteAction;
+            _execute = executeAction;
+            _canExecute = canExecute;
         }
 
         public event EventHandler? CanExecuteChanged
@@ -32,12 +31,12 @@ namespace TravelAgency.Command
 
         public bool CanExecute(object? parameter)
         {
-            return parameter != null && _canExecuteAction(parameter);
+            return parameter != null && (_canExecute?.Invoke(parameter) ?? true);
         }
 
         public void Execute(object? parameter)
         {
-            if (parameter != null) _executeAction();
+            if (parameter != null) _execute(parameter);
         }
     }
 }
