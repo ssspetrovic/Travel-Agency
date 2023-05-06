@@ -4,11 +4,11 @@ using System.Windows;
 
 namespace TravelAgency.VML
 {
-    public static class ViewModelLocator
+    public static class GuideViewModelLocator
     {
         public static readonly DependencyProperty AutoHookedUpViewModelProperty =
             DependencyProperty.RegisterAttached("AutoHookedUpViewModel",
-                typeof(bool), typeof(ViewModelLocator),
+                typeof(bool), typeof(GuideViewModelLocator),
                 new PropertyMetadata(false, AutoHookedUpViewModelChanged));
 
         public static bool GetAutoHookedUpViewModel(DependencyObject obj)

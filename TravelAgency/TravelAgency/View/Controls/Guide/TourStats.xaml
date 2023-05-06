@@ -8,7 +8,7 @@
     xmlns:vml="clr-namespace:TravelAgency.VML"
     Width="800"
     Height="500"
-    vml:ViewModelLocator.AutoHookedUpViewModel="True"
+    vml:GuideViewModelLocator.AutoHookedUpViewModel="True"
     Background="Transparent"
     KeyDown="ChangeViews_KeyDown"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
