@@ -4,7 +4,7 @@ using TravelAgency.Service;
 
 namespace TravelAgency.ViewModel
 {
-    public class RequestStatsViewModel : GuideViewModel
+    public class RequestStatsViewModel : HomePageViewModel
     {
         private readonly RequestTourService _requestTourService;
 

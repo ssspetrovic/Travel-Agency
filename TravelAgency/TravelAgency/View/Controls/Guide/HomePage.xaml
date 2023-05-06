@@ -1,0 +1,65 @@
+﻿<UserControl
+    x:Class="TravelAgency.View.Controls.Guide.HomePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vml="clr-namespace:TravelAgency.VML"
+    Width="800"
+    Height="500"
+    vml:ViewModelLocator.AutoHookedUpViewModel="True"
+    Background="Transparent"
+    KeyDown="ChangeViews_KeyDown"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    mc:Ignorable="d">
+
+    <ListView
+        x:Name="GuideViewListView"
+        Foreground="#68cbf8"
+        ItemsSource="{Binding Tours}">
+        <ListView.View>
+            <GridView>
+                <GridView.ColumnHeaderContainerStyle>
+                    <Style TargetType="{x:Type GridViewColumnHeader}">
+                        <Setter Property="Foreground" Value="#68cbf8" />
+                        <Setter Property="FontWeight" Value="Bold" />
+                        <Setter Property="FontSize" Value="15" />
+                    </Style>
+                </GridView.ColumnHeaderContainerStyle>
+                <GridViewColumn
+                    Width="200"
+                    DisplayMemberBinding="{Binding Path=Name}"
+                    Header="Name" />
+                <GridViewColumn
+                    Width="200"
+                    DisplayMemberBinding="{Binding Path=Location_Id}"
+                    Header="Location" />
+                <GridViewColumn
+                    Width="200"
+                    DisplayMemberBinding="{Binding Path=Description}"
+                    Header="Description" />
+                <GridViewColumn
+                    Width="200"
+                    DisplayMemberBinding="{Binding Path=Language}"
+                    Header="Language" />
+
+                <GridViewColumn
+                    Width="200"
+                    DisplayMemberBinding="{Binding Path=MaxGuests}"
+                    Header="Max Guests" />
+                <GridViewColumn
+                    Width="200"
+                    DisplayMemberBinding="{Binding Path=LocationList}"
+                    Header="Key Points" />
+                <GridViewColumn
+                    Width="200"
+                    DisplayMemberBinding="{Binding Path=Date}"
+                    Header="Date" />
+                <GridViewColumn
+                    Width="200"
+                    DisplayMemberBinding="{Binding Path=Duration}"
+                    Header="Duration" />
+            </GridView>
+        </ListView.View>
+    </ListView>
+</UserControl>

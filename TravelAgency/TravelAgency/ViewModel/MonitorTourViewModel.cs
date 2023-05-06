@@ -6,7 +6,7 @@ using TravelAgency.Service;
 
 namespace TravelAgency.ViewModel
 {
-    public class MonitorTourViewModel : GuideViewModel
+    public class MonitorTourViewModel : HomePageViewModel
     {
         private readonly TourService _tourService;
 

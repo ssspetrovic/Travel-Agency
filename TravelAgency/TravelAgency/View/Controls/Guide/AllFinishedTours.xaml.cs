@@ -51,7 +51,7 @@ namespace TravelAgency.View.Controls.Guide
 
         private void Home_OnClick(object sender, RoutedEventArgs e)
         {
-            var guideView = new GuideView();
+            var guideView = new View.Guide();
             guideView.Show();
             Close();
         }
@@ -59,8 +59,12 @@ namespace TravelAgency.View.Controls.Guide
 
         private void TourStats_OnClick(object sender, RoutedEventArgs e)
         {
-            var tourStats = new TourStats();
-            tourStats.Show();
+            var window = new View.Guide
+            {
+                Content = new TourStats(),
+                Title = "Tour Stats"
+            };
+            window.Show();
             Close();
         }
 
@@ -68,15 +72,19 @@ namespace TravelAgency.View.Controls.Guide
         {
             if (e.Key == Key.F1)
             {
-                var guideView = new GuideView();
+                var guideView = new View.Guide();
                 guideView.Show();
                 Close();
             }
 
             if (e.Key == Key.F2 || e.Key == Key.Escape)
             {
-                var tourStats = new TourStats();
-                tourStats.Show();
+                var window = new View.Guide
+                {
+                    Content = new TourStats(),
+                    Title = "Tour Stats"
+                };
+                window.Show();
                 Close();
             }
 

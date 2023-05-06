@@ -1,24 +1,25 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
+using TravelAgency.View.Controls.Guide;
 
-namespace TravelAgency.View.Controls.Guide
+namespace TravelAgency.View
 {
     /// <summary>
-    /// Interaction logic for Shortcuts.xaml
+    /// Interaction logic for Guide.xaml
     /// </summary>
-    public partial class Shortcuts
+    public partial class Guide
     {
-
-        public Shortcuts()
+        public Guide()
         {
             InitializeComponent();
             this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
         }
 
         [DllImport("user32.dll")]
-        public static extern nint SendMessage(nint wnd, int wMsg, nint wParam, nint lParam);
+        public static extern nint SendMessage(nint wnd,  int wMsg, nint wParam, nint lParam);
 
         private void PanelControlBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -46,31 +47,41 @@ namespace TravelAgency.View.Controls.Guide
             this.WindowState = WindowState.Minimized;
         }
 
-        private void Home_OnClick(object sender, RoutedEventArgs e)
+        private void ShortcutView_OnClick(object sender, RoutedEventArgs e)
         {
-            var guideView = new View.Guide();
-            guideView.Show();
+            var shortcuts = new Shortcuts();
+            shortcuts.Show();
             Close();
         }
 
-        private void GoBack_OnClick(object sender, RoutedEventArgs e)
+        private void Logout_OnClick(object sender, RoutedEventArgs e)
         {
+            var signInView = new SignInView();
+            signInView.Show();
             Close();
+        }
+
+        private void Resign_OnClick(object sender, RoutedEventArgs e)
+        {
+            var resign = new Resign();
+            resign.ShowDialog();
         }
 
         private void ChangeViews_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.F1)
+            if (e.Key == Key.Oem3)
             {
-                var guideView = new View.Guide();
-                guideView.Show();
-                Close();
+                var shortcuts = new Shortcuts();
+                shortcuts.Closed += Shortcuts_Closed;
+                Visibility = Visibility.Collapsed;
+                shortcuts.Show();
             }
 
-            if (e.Key == Key.F2)
-            {
-                Close();
-            }
+        }
+
+        private void Shortcuts_Closed(object? sender, EventArgs eventArgs)
+        {
+            Visibility = Visibility.Visible;
         }
     }
 }

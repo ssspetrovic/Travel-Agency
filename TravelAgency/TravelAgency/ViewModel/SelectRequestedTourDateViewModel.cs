@@ -4,7 +4,7 @@ using System.Globalization;
 
 namespace TravelAgency.ViewModel
 {
-    public class SelectRequestedTourDateViewModel : GuideViewModel
+    public class SelectRequestedTourDateViewModel : HomePageViewModel
     {
         public SelectRequestedTourDateViewModel()
         {

@@ -12,7 +12,7 @@ namespace TravelAgency.View
         public TouristView()
         {
             InitializeComponent();
-            ContentFrame.Source = new Uri("Controls/Tourist/HomeView.xaml", UriKind.Relative);
+            ContentFrame.Source = new Uri("Controls/Tourist/HomePage.xaml", UriKind.Relative);
             HomeButton.IsChecked = true;
         }
 
@@ -24,7 +24,7 @@ namespace TravelAgency.View
 
         private void HomeButton_OnClick(object sender, RoutedEventArgs e)
         {
-            ContentFrame.Source = new Uri("Controls/Tourist/HomeView.xaml", UriKind.Relative);
+            ContentFrame.Source = new Uri("Controls/Tourist/HomePage.xaml", UriKind.Relative);
             HomeButton.IsChecked = true;
         }
 

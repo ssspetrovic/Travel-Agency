@@ -7,7 +7,7 @@ using TravelAgency.Service;
 
 namespace TravelAgency.ViewModel
 {
-    public class ConfirmDeletionViewModel : GuideViewModel
+    public class ConfirmDeletionViewModel : HomePageViewModel
     {
         public readonly TourService TourService;
 

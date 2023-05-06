@@ -3,7 +3,7 @@ using TravelAgency.Service;
 
 namespace TravelAgency.ViewModel
 {
-    public class AllFinishedToursViewModel : GuideViewModel
+    public class AllFinishedToursViewModel : HomePageViewModel
     {
 
         private readonly FinishedTourService _finishedTourService;

@@ -3,7 +3,7 @@ using TravelAgency.Service;
 
 namespace TravelAgency.ViewModel
 {
-    public class AcceptTourViewModel : GuideViewModel
+    public class AcceptTourViewModel : HomePageViewModel
     {
         private readonly RequestTourService _requestTourService;
 
@@ -34,7 +34,7 @@ namespace TravelAgency.ViewModel
             {
                 if (_updateView == value) return;
                 _updateView = value;
-                OnPropertyChanged();
+                OnPropertyChanged(_updateView);
             }
         }
     }

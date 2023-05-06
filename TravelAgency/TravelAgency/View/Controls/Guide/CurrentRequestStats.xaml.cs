@@ -55,15 +55,23 @@ namespace TravelAgency.View.Controls.Guide
 
         private void ShortcutView_OnClick(object sender, RoutedEventArgs e)
         {
-            var shortcuts = new Shortcuts();
-            shortcuts.Show();
+            var window = new View.Guide
+            {
+                Content = new Shortcuts(),
+                Title = "Shortcuts"
+            };
+            window.Show();
             Close();
         }
 
         private void RequestStats_OnClick(object sender, RoutedEventArgs e)
         {
-            var requestStats = new RequestStats();
-            requestStats.Show();
+            var window = new View.Guide
+            {
+                Content = new RequestStats(),
+                Title = "Request Stats"
+            };
+            window.Show();
             Close();
         }
 
@@ -71,8 +79,12 @@ namespace TravelAgency.View.Controls.Guide
         {
             if (e.Key == Key.Escape)
             {
-                var requestStats = new RequestStats();
-                requestStats.Show();
+                var window = new View.Guide
+                {
+                    Content = new RequestStats(),
+                    Title = "Request Stats"
+                };
+                window.Show();
                 Close();
             }
 

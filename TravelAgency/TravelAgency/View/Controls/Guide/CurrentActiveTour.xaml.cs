@@ -69,15 +69,22 @@ namespace TravelAgency.View.Controls.Guide
 
         private void Home_OnClick(object sender, RoutedEventArgs e)
         {
-            var guideView = new GuideView();
-            guideView.Show();
+            var window = new View.Guide
+            {
+                Content = new HomePage(),
+                Title = "Home Page"
+            };
+            window.Show();
             Close();
         }
-
         private void MonitorTour_OnClick(object sender, RoutedEventArgs e)
         {
-            var monitorTour = new MonitorTour();
-            monitorTour.Show();
+            var window = new View.Guide()
+            {
+                Content = new MonitorTour(),
+                Title = "Monitor Tour"
+            };
+            window.Show();
             Close();
         }
 
@@ -85,15 +92,19 @@ namespace TravelAgency.View.Controls.Guide
         {
             if (e.Key == Key.F1)
             {
-                var guideView = new GuideView();
+                var guideView = new View.Guide();
                 guideView.Show();
                 Close();
             }
 
             if (e.Key == Key.F2 || e.Key == Key.Escape)
             {
-                var monitorTour = new MonitorTour();
-                monitorTour.Show();
+                var window = new View.Guide
+                {
+                    Content = new MonitorTour(),
+                    Title = "Monitor Tour"
+                };
+                window.Show();
                 Close();
             }
 
@@ -296,8 +307,12 @@ namespace TravelAgency.View.Controls.Guide
         private void FinishTour_OnClick(object sender, RoutedEventArgs e)
         {
             AddFinishedTour();
-            var reviewTour = new ReviewTour();
-            reviewTour.Show();
+            var window = new View.Guide
+            {
+                Content = new ReviewTour(),
+                Title = "Review Tour"
+            };
+            window.Show();
             Close();
         }
 
@@ -321,5 +336,6 @@ namespace TravelAgency.View.Controls.Guide
             currentTour.Show();
             Close();
         }
+
     }
 }

@@ -17,7 +17,7 @@
     mc:Ignorable="d">
 
     <Window.DataContext>
-        <viewModel:GuideViewModel />
+        <viewModel:HomePageViewModel />
     </Window.DataContext>
 
     <Window.Resources>

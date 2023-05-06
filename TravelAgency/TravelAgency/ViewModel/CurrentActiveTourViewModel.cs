@@ -5,7 +5,7 @@ using TravelAgency.Service;
 
 namespace TravelAgency.ViewModel
 {
-    public class CurrentActiveTourViewModel : GuideViewModel
+    public class CurrentActiveTourViewModel : HomePageViewModel
     {
         private readonly TouristService _touristService;
         private readonly ActiveTourService _activeTourService;

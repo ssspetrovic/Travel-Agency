@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using TravelAgency.Model;
@@ -73,7 +72,7 @@ namespace TravelAgency.View
                                 }
                             case Role.Guide:
                                 {
-                                    var guideView = new GuideView();
+                                    var guideView = new Guide();
                                     guideView.Show();
                                     break;
                                 }

@@ -1,91 +1,130 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Linq;
+using System.Windows;
 using TravelAgency.Model;
-using TravelAgency.Repository;
-using TravelAgency.Service;
+using TravelAgency.View;
+using TravelAgency.View.Controls.Guide;
 
 namespace TravelAgency.ViewModel
 {
     public class GuideViewModel : BaseViewModel
     {
-        private readonly TourService _tourService;
-        private readonly LocationService _locationService;
+        public MyICommand<string> NavCommand { get; private set; }
+        public MyICommand<string> ReserveCommand { get; private set; }
+        private BaseViewModel _currentViewModel = new HomePageViewModel();
+        public MyICommand LogOutCommand { get; private set; }
+        public MyICommand ResignCommand { get; private set; }
 
         public GuideViewModel()
         {
-            _locationService = new LocationService();
-            _tourService = new TourService();
+            NavCommand = new MyICommand<string>(OnNav);
+            ReserveCommand = new MyICommand<string>(OnReserve);
+            CurrentViewModel = _currentViewModel;
+            LogOutCommand = new MyICommand(LogOut);
+            ResignCommand = new MyICommand(Resign);
         }
-
 
         public string LoadCurrentUserData => "Welcome " + CurrentUser.DisplayName;
 
-        public DataView Tours
+        public BaseViewModel CurrentViewModel
         {
-            get
+            get => _currentViewModel;
+            set => SetProperty(ref _currentViewModel, value);
+        }
+
+        private void OnReserve(string destination)
+        {
+            switch (destination)
             {
-                var dt = new DataTable();
-                dt = _tourService.GetAllAsDataTable(dt);
-
-                ConvertTourColumn(dt, "Location_Id", typeof(string), "Location");
-                ConvertTourColumn(dt, "Language", typeof(string), "Language");
-                ConvertTourColumn(dt, "LocationList", typeof(string), "KeyPoints");
-
-                return dt.DefaultView;
+                case "HomePage":
+                    CurrentViewModel = new HomePageViewModel();
+                    break;
+                case "CreateTour":
+                    CurrentViewModel = new CreateTourViewModel();
+                    break;
+                case "Monitor":
+                    CurrentViewModel = new MonitorTourViewModel();
+                    break;
+                case "CancelTour":
+                    CurrentViewModel = new CancelTourViewModel();
+                    break;
+                case "TourStats":
+                    CurrentViewModel = new TourStatsViewModel();
+                    break;
+                case "TourReview":
+                    CurrentViewModel = new ReviewTourViewModel();
+                    break;
+                case "AcceptTour":
+                    CurrentViewModel = new AcceptTourViewModel();
+                    break;
+                case "ComplexTour":
+                    CurrentViewModel = new ComplexTourViewModel();
+                    break;
+                case "RequestStats":
+                    CurrentViewModel = new RequestStatsViewModel();
+                    break;
+                case "CreateSuggested":
+                    CurrentViewModel = new CreateSuggestedTourViewModel();
+                    break;
+                case "LogOut":
+                    LogOut();
+                    break;
+                case "Resign":
+                    Resign();
+                    break;
             }
         }
 
-        public string GetKeyPoints(DataRow row, string columnName)
+        private void OnNav(string destination)
         {
-            var keyPointsString = "";
-
-            foreach (var id in row[columnName].ToString()?.Split(", ")!)
+            switch (destination)
             {
-                var keyPointId = Convert.ToInt32(id);
-                keyPointsString += "; " + _locationService.GetById(keyPointId)?.City + ", " + _locationService.GetById(keyPointId)?.Country;
+                case "HomePage":
+                    CurrentViewModel = new HomePageViewModel();
+                    break;
+                case "CreateTour":
+                    CurrentViewModel = new CreateTourViewModel();
+                    break;
+                case "Monitor":
+                    CurrentViewModel = new MonitorTourViewModel();
+                    break;
+                case "CancelTour":
+                    CurrentViewModel = new CancelTourViewModel();
+                    break;
+                case "TourStats":
+                    CurrentViewModel = new TourStatsViewModel();
+                    break;
+                case "TourReview":
+                    CurrentViewModel = new ReviewTourViewModel();
+                    break;
+                case "AcceptTour":
+                    CurrentViewModel = new AcceptTourViewModel();
+                    break;
+                case "ComplexTour":
+                    CurrentViewModel = new ComplexTourViewModel();
+                    break;
+                case "RequestStats":
+                    CurrentViewModel = new RequestStatsViewModel();
+                    break;
+                case "CreateSuggested":
+                    CurrentViewModel = new CreateSuggestedTourViewModel();
+                    break;
             }
-            keyPointsString = keyPointsString.Substring(2, keyPointsString.Length - 2);
-
-            return keyPointsString;
         }
 
-        public string? GetConvertedRow(string tourParameter, DataRow row, string columnName)
+        private void LogOut()
         {
-            switch (tourParameter)
-            {
-                case "Language":
-                    return Enum.GetName(typeof(Language), row["Language"]);
-                case "Location":
-                {
-                    var locationId = Convert.ToInt32(row["Location_Id"]);
-                    return _locationService.GetById(locationId)?.City + ", " +
-                           _locationService.GetById(locationId)?.Country;
-                }
-                case "KeyPoints":
-                    return GetKeyPoints(row, columnName);
-                default:
-                    return "";
-            }
+            var currentWindow = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive)!;
+            var signInView = new SignInView();
+            signInView.Show();
+            currentWindow.Close();
         }
 
-        public void ConvertTourColumn(DataTable dt, string columnName, Type newType, string tourParameter)
+        private void Resign()
         {
-            var textList = new List<string?>();
-
-            foreach (DataRow row in dt.Rows)
-                textList.Add(GetConvertedRow(tourParameter, row, columnName));
-
-            dt.Columns.Remove(columnName);
-            var dc = new DataColumn(columnName, newType);
-            dt.Columns.Add(dc);
-            dc.SetOrdinal(dt.Columns[columnName]!.Ordinal);
-
-            var i = 0;
-            foreach (DataRow row in dt.Rows)
-            {
-                row[columnName] = textList[i++];
-            }
+            var currentWindow = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive)!;
+            var resignationView = new Resign();
+            resignationView.Show();
+            currentWindow.Close();
         }
     }
 }
