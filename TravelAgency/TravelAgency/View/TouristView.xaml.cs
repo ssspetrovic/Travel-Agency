@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls.Primitives;
+using TravelAgency.ViewModel;
 
 namespace TravelAgency.View
 {
@@ -9,11 +11,16 @@ namespace TravelAgency.View
     /// </summary>
     public partial class TouristView
     {
+        public TouristViewModel ViewModel { get; set; }
+
         public TouristView()
         {
             InitializeComponent();
-            ContentFrame.Source = new Uri("Controls/Tourist/HomeView.xaml", UriKind.Relative);
-            HomeButton.IsChecked = true;
+            Debug.WriteLine("In");
+            ViewModel = new TouristViewModel(ContentFrame.NavigationService);
+            DataContext = ViewModel;
+            //ContentFrame.Source = new Uri("Controls/Tourist/HomeView.xaml", UriKind.Relative);
+            //HomeButton.IsChecked = true;
         }
 
         private void HeaderThumb_OnDragDelta(object sender, DragDeltaEventArgs e)

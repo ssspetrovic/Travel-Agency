@@ -8,14 +8,14 @@ namespace TravelAgency.Command
         private readonly Action<object> _execute;
         private readonly Predicate<object>? _canExecute;
 
-        public RelayCommand(Action<object> executeAction) : this(executeAction, null)
+        public RelayCommand(Action<object> execute) : this(execute, null)
         {
-            _execute = executeAction;
+            _execute = execute;
         }
 
-        public RelayCommand(Action<object> executeAction, Predicate<object>? canExecute)
+        public RelayCommand(Action<object> execute, Predicate<object>? canExecute)
         {
-            _execute = executeAction;
+            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
             _canExecute = canExecute;
         }
 
@@ -25,14 +25,14 @@ namespace TravelAgency.Command
             remove => CommandManager.RequerySuggested -= value;
         }
 
-        public bool CanExecute(object? parameter)
+        public bool CanExecute(object parameter)
         {
-            return parameter != null && (_canExecute?.Invoke(parameter) ?? true);
+            return _canExecute?.Invoke(parameter) ?? true;
         }
 
-        public void Execute(object? parameter)
+        public void Execute(object parameter)
         {
-            if (parameter != null) _execute(parameter);
+            _execute(parameter);
         }
     }
 }

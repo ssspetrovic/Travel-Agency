@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Navigation;
 using TravelAgency.Command;
 using TravelAgency.View.Controls.Tourist;
 
 namespace TravelAgency.ViewModel
 {
-    internal class TouristViewModel
+    public class TouristViewModel
     {
         #region Fields and Properties
         public NavigationService NavigationService { get; set; }
@@ -27,6 +28,7 @@ namespace TravelAgency.ViewModel
 
         private void Execute_NavigateToHomePageCommand(object? parameter)
         {
+            Debug.WriteLine("In");
             NavigationService.Navigate(new HomeView());
         }
 
@@ -39,7 +41,9 @@ namespace TravelAgency.ViewModel
 
         public TouristViewModel(NavigationService navigationService)
         {
-            NavigationService = navigationService; 
+            Debug.WriteLine("In vm");
+            NavigationService = navigationService;
+            Debug.WriteLine(NavigateToHomePageCommand);
             NavigateToHomePageCommand =
                 new RelayCommand(Execute_NavigateToHomePageCommand, CanExecute_NavigationCommand);
             NavigateToMyToursPageCommand =

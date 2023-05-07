@@ -46,7 +46,7 @@
                         <RadioButton
                             x:Name="HomeButton"
                             Height="50"
-                            Click="HomeButton_OnClick"
+                            Command="{Binding NavigateToHomePageCommand}"
                             Content="HomePage"
                             FontSize="17"
                             Foreground="White"
@@ -133,7 +133,8 @@
                 <Frame
                     x:Name="ContentFrame"
                     Grid.Row="1"
-                    NavigationUIVisibility="Hidden" />
+                    NavigationUIVisibility="Hidden"
+                    Source="Controls/Tourist/HomeView.xaml" />
             </Grid>
         </Grid>
     </Border>
