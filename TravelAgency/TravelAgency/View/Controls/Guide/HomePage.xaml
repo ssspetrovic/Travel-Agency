@@ -2,6 +2,7 @@
     x:Class="TravelAgency.View.Controls.Guide.HomePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vml="clr-namespace:TravelAgency.VML"
@@ -9,14 +10,26 @@
     Height="500"
     vml:GuideViewModelLocator.AutoHookedUpViewModel="True"
     Background="Transparent"
-    KeyDown="ChangeViews_KeyDown"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     mc:Ignorable="d">
 
     <ListView
-        x:Name="GuideViewListView"
+        Focusable="False"
         Foreground="#68cbf8"
-        ItemsSource="{Binding Tours}">
+        IsTabStop="True"
+        ItemsSource="{Binding Tours}"
+        KeyboardNavigation.TabIndex="0"
+        KeyboardNavigation.TabNavigation="Cycle"
+        SelectedIndex="{Binding SelectedTourIndex}"
+        SelectedItem="{Binding SelectedTour}">
+        <b:Interaction.Triggers>
+            <b:KeyTrigger Key="Tab">
+                <b:InvokeCommandAction Command="{Binding TabPressedCommand}" />
+            </b:KeyTrigger>
+            <b:KeyTrigger Key="Enter">
+                <b:InvokeCommandAction Command="{Binding KeyBindings}" CommandParameter="EnterPressed" />
+            </b:KeyTrigger>
+        </b:Interaction.Triggers>
         <ListView.View>
             <GridView>
                 <GridView.ColumnHeaderContainerStyle>
@@ -42,7 +55,6 @@
                     Width="200"
                     DisplayMemberBinding="{Binding Path=Language}"
                     Header="Language" />
-
                 <GridViewColumn
                     Width="200"
                     DisplayMemberBinding="{Binding Path=MaxGuests}"
