@@ -54,7 +54,7 @@
                         <RadioButton
                             x:Name="TourReservationButton"
                             Height="50"
-                            Click="TourReservationButton_OnClick"
+                            Command="{Binding NavigateToTourReservationPageCommand}"
                             Content="Tour reservation"
                             FontSize="17"
                             Foreground="White"
@@ -62,7 +62,7 @@
                         <RadioButton
                             x:Name="MyToursButton"
                             Height="50"
-                            Click="MyToursButton_OnClick"
+                            Command="{Binding NavigateToMyToursPageCommand}"
                             Content="My tours"
                             FontSize="17"
                             Foreground="White"
@@ -70,7 +70,7 @@
                         <RadioButton
                             x:Name="MyVouchersButton"
                             Height="50"
-                            Click="MyVouchersButton_OnClick"
+                            Command="{Binding NavigateToMyTourVouchersPageCommand}"
                             Content="My vouchers"
                             FontSize="17"
                             Foreground="White"
@@ -78,7 +78,7 @@
                         <RadioButton
                             x:Name="RequestTourButton"
                             Height="50"
-                            Click="RequestTourButton_OnClick"
+                            Command="{Binding NavigateToRequestTourPageCommand}"
                             Content="Request a tour"
                             FontSize="17"
                             Foreground="White"
@@ -88,7 +88,7 @@
                         x:Name="SignOutButton"
                         Grid.Row="2"
                         Height="50"
-                        Click="SignOutButton_OnClick"
+                        Command="{Binding SignOutCommand}"
                         Style="{StaticResource MenuButtonStyle}">
                         <WrapPanel
                             Width="150"
@@ -125,7 +125,7 @@
                         Height="35"
                         Margin="5"
                         HorizontalAlignment="Right"
-                        Click="CloseButton_OnClick"
+                        Command="{Binding CloseWindowCommand}"
                         Content="✕"
                         FontSize="18"
                         Style="{StaticResource MaterialDesignFlatButton}" />
