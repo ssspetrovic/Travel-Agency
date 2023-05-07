@@ -1,8 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.Linq;
-using System.Windows;
-using System.Windows.Navigation;
+﻿using System.Windows.Navigation;
 using TravelAgency.Command;
 using TravelAgency.View;
 using TravelAgency.View.Controls.Tourist;
@@ -10,7 +6,7 @@ using TravelAgency.WindowHelpers;
 
 namespace TravelAgency.ViewModel
 {
-    public class TouristViewModel
+    public class TouristViewModel : BaseViewModel
     {
         #region Fields and Properties
         private readonly IWindowManager _windowManager;
@@ -21,8 +17,31 @@ namespace TravelAgency.ViewModel
         public RelayCommand NavigateToRateTourPageCommand { get; set; }
         public RelayCommand NavigateToRequestTourPageCommand { get; set; }
         public RelayCommand NavigateToTourReservationPageCommand { get; set; }
+        //public DelegateCommand<DragDeltaEventArgs> DragDeltaCommand { get; set; }
         public RelayCommand CloseWindowCommand { get; set; }
         public RelayCommand SignOutCommand { get; set; }
+
+        //private double _thumbLeft;
+        //public double ThumbLeft
+        //{
+        //    get => _thumbLeft;
+        //    set
+        //    {
+        //        _thumbLeft = value;
+        //        OnPropertyChanged();
+        //    }
+        //}
+
+        //private double _thumbTop;
+        //public double ThumbTop
+        //{
+        //    get => _thumbTop;
+        //    set
+        //    {
+        //        _thumbTop = value;
+        //        OnPropertyChanged();
+        //    }
+        //}
         #endregion
 
         #region Actions
@@ -61,6 +80,12 @@ namespace TravelAgency.ViewModel
             NavigationService.Navigate(new TourReservationView());
         }
 
+        //private void Execute_DragDeltaCommand(DragDeltaEventArgs e)
+        //{
+        //    ThumbLeft += e.HorizontalChange;
+        //    ThumbTop += e.VerticalChange;
+        //}
+
         private void Execute_CloseWindowCommand(object parameter)
         {
             _windowManager.CloseWindow<TouristView>();
@@ -73,6 +98,7 @@ namespace TravelAgency.ViewModel
         }
         #endregion
 
+        #region Constructors
         public TouristViewModel(IWindowManager windowManager, NavigationService navigationService)
         {
             _windowManager = windowManager;
@@ -89,10 +115,13 @@ namespace TravelAgency.ViewModel
                 new RelayCommand(Execute_NavigateToRequestTourPageCommand, CanExecute_NavigationCommand);
             NavigateToTourReservationPageCommand =
                 new RelayCommand(Execute_NavigateToTourReservationPageCommand, CanExecute_NavigationCommand);
+            //DragDeltaCommand =
+            //    new DelegateCommand<DragDeltaEventArgs>(Execute_DragDeltaCommand);
             CloseWindowCommand =
                 new RelayCommand(Execute_CloseWindowCommand, CanExecute_NavigationCommand);
             SignOutCommand =
                 new RelayCommand(Execute_SignOutCommand, CanExecute_NavigationCommand);
         }
+        #endregion
     }
 }

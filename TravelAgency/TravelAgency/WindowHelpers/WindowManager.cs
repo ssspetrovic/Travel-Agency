@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Linq;
+using System.Windows;
 
 namespace TravelAgency.WindowHelpers
 {
@@ -19,6 +21,22 @@ namespace TravelAgency.WindowHelpers
                 break;
             }
         }
-    }
 
+        public Window? GetWindowFromViewModel(object viewModel)
+        {
+            var view = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.DataContext == viewModel);
+            return view;
+        }
+
+        public void MoveWindow(Window window, double deltaX, double deltaY)
+        {
+            if (window == null)
+            {
+                throw new ArgumentNullException(nameof(window));
+            }
+
+            window.Left += deltaX;
+            window.Top += deltaY;
+        }
+    }
 }

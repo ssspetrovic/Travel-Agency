@@ -1,5 +1,4 @@
-﻿using System.Windows;
-using System.Windows.Controls.Primitives;
+﻿using System.Windows.Controls.Primitives;
 using TravelAgency.ViewModel;
 using TravelAgency.WindowHelpers;
 
