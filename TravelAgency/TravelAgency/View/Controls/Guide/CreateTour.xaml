@@ -2,6 +2,7 @@
     x:Class="TravelAgency.View.Controls.Guide.CreateTour"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vml="clr-namespace:TravelAgency.VML"
@@ -9,13 +10,15 @@
     Height="500"
     vml:GuideViewModelLocator.AutoHookedUpViewModel="True"
     Background="Transparent"
-    KeyDown="ChangeViews_KeyDown"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     mc:Ignorable="d">
+
     <ScrollViewer x:Name="CreateTourScrollViewer">
         <StackPanel
             x:Name="CreateTourStackPanel"
             Width="250"
+            FocusManager.FocusedElement="{Binding ElementName=NameText}"
+            KeyboardNavigation.TabNavigation="Cycle"
             Orientation="Vertical">
             <TextBlock
                 Margin="0,15,0,0"
@@ -33,7 +36,10 @@
                 CaretBrush="#4fc3f7"
                 FontSize="13"
                 FontWeight="Medium"
-                Foreground="#68cbf8" />
+                Foreground="{Binding NameTextColor}"
+                KeyboardNavigation.TabIndex="1"
+                Text="{Binding NameText, Mode=TwoWay}" />
+
             <TextBlock
                 Margin="0,15,0,0"
                 FontSize="12"
@@ -50,7 +56,9 @@
                 BorderThickness="0,0,0,1"
                 FontSize="13"
                 FontWeight="Medium"
-                Foreground="#68cbf8">
+                Foreground="#68cbf8"
+                KeyboardNavigation.TabIndex="2"
+                Text="{Binding ComboBoxLocation, Mode=TwoWay}">
                 <ComboBoxItem>Tokyo</ComboBoxItem>
                 <ComboBoxItem>Delhi</ComboBoxItem>
                 <ComboBoxItem>Shanghai</ComboBoxItem>
@@ -86,7 +94,10 @@
                 CaretBrush="#4fc3f7"
                 FontSize="13"
                 FontWeight="Medium"
-                Foreground="#68cbf8" />
+                Foreground="#68cbf8"
+                KeyboardNavigation.TabIndex="3"
+                Text="{Binding DescriptionText, Mode=TwoWay}" />
+
             <TextBlock
                 Margin="0,15,0,0"
                 FontSize="12"
@@ -103,7 +114,9 @@
                 BorderThickness="0,0,0,1"
                 FontSize="13"
                 FontWeight="Medium"
-                Foreground="#68cbf8">
+                Foreground="#68cbf8"
+                KeyboardNavigation.TabIndex="4"
+                Text="{Binding ComboBoxLanguage, Mode=TwoWay}">
                 <ComboBoxItem>English</ComboBoxItem>
                 <ComboBoxItem>Spanish</ComboBoxItem>
                 <ComboBoxItem>French</ComboBoxItem>
@@ -133,7 +146,9 @@
                 CaretBrush="#4fc3f7"
                 FontSize="13"
                 FontWeight="Medium"
-                Foreground="#68cbf8" />
+                Foreground="#68cbf8"
+                KeyboardNavigation.TabIndex="5"
+                Text="{Binding MaxGuestsText, Mode=TwoWay}" />
 
             <TextBlock
                 Margin="0,15,0,0"
@@ -151,7 +166,9 @@
                 BorderThickness="0,0,0,1"
                 FontSize="13"
                 FontWeight="Medium"
-                Foreground="#68cbf8">
+                Foreground="#68cbf8"
+                KeyboardNavigation.TabIndex="6"
+                Text="{Binding ComboBoxKeyPoints, Mode=TwoWay}">
                 <ComboBoxItem Content="Tokyo" />
                 <ComboBoxItem Content="Delhi" />
                 <ComboBoxItem Content="Shanghai" />
@@ -168,6 +185,17 @@
                 <ComboBoxItem Content="Kolkata" />
                 <ComboBoxItem Content="Manila" />
                 <ComboBoxItem Content="Bar" />
+
+                <ComboBox.InputBindings>
+                    <KeyBinding
+                        Key="Enter"
+                        Command="{Binding KeyPointsCommands}"
+                        CommandParameter="Add" />
+                    <KeyBinding
+                        Key="Delete"
+                        Command="{Binding KeyPointsCommands}"
+                        CommandParameter="Delete" />
+                </ComboBox.InputBindings>
             </ComboBox>
             <TextBlock
                 x:Name="KeyPointsList"
@@ -175,6 +203,7 @@
                 FontSize="12"
                 FontWeight="Medium"
                 Foreground="#68cbf8"
+                Text="{Binding KeyPointsList, Mode=TwoWay}"
                 TextWrapping="Wrap" />
 
             <TextBlock
@@ -190,15 +219,19 @@
                 Margin="0,5,0,0"
                 VerticalContentAlignment="Center"
                 BorderThickness="0,0,0,1"
+                Focusable="True"
                 Foreground="#68cbf8"
-                PreviewKeyDown="DatePick_PreviewKeyDown" />
-
+                KeyboardNavigation.TabIndex="7"
+                PreviewKeyDown="DatePick_PreviewKeyDown"
+                PreviewKeyUp="DatePick_PreviewKeyUp"
+                SelectedDate="{Binding DatePick, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock
                 x:Name="DateList"
                 Margin="0,15,0,0"
                 FontSize="12"
                 FontWeight="Medium"
                 Foreground="#68cbf8"
+                Text="{Binding DateList, Mode=TwoWay}"
                 TextWrapping="Wrap" />
 
             <TextBlock
@@ -218,7 +251,9 @@
                 CaretBrush="#4fc3f7"
                 FontSize="13"
                 FontWeight="Medium"
-                Foreground="#68cbf8" />
+                Foreground="#68cbf8"
+                KeyboardNavigation.TabIndex="8"
+                Text="{Binding DurationText, Mode=TwoWay}" />
 
             <TextBlock
                 Margin="0,15,0,0"
@@ -237,21 +272,37 @@
                 CaretBrush="#4fc3f7"
                 FontSize="13"
                 FontWeight="Medium"
-                Foreground="#68cbf8" />
+                Foreground="#68cbf8"
+                KeyboardNavigation.TabIndex="9"
+                PreviewKeyDown="GoToTop_OnKeyDown"
+                Text="{Binding ImagesText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <TextBox.InputBindings>
+                    <KeyBinding
+                        Command="{Binding ImagesCommands}"
+                        CommandParameter="Add"
+                        Gesture="Enter" />
+                    <KeyBinding
+                        Command="{Binding ImagesCommands}"
+                        CommandParameter="Delete"
+                        Gesture="Delete" />
+                </TextBox.InputBindings>
+            </TextBox>
             <TextBlock
                 x:Name="ImagesList"
                 Margin="0,15,0,0"
                 FontSize="12"
                 FontWeight="Medium"
                 Foreground="#68cbf8"
+                Text="{Binding ImagesList, Mode=TwoWay}"
                 TextWrapping="Wrap" />
 
             <TextBlock
                 Name="ErrorMessageText"
-                Margin="0,10,0,0"
+                Margin="0,0,0,0"
                 FontSize="12"
                 FontWeight="Medium"
                 Foreground="DarkRed"
+                Text="{Binding ErrorMessageText, UpdateSourceTrigger=PropertyChanged}"
                 TextWrapping="Wrap" />
 
             <Button
@@ -261,12 +312,21 @@
                 Margin="0,0,0,10"
                 Background="#68cbf8"
                 BorderThickness="0"
-                Click="Confirm_OnClick"
                 Content="Create Tour"
                 Cursor="Hand"
                 FontSize="12"
                 FontWeight="Medium"
-                Foreground="#ffffff" />
+                Foreground="#ffffff"
+                IsEnabled="{Binding IsCreateTourEnabled}">
+                <b:Interaction.Triggers>
+                    <b:KeyTrigger Key="RightShift">
+                        <b:InvokeCommandAction Command="{Binding CreateTourCommand}" CommandParameter="Create" />
+                    </b:KeyTrigger>
+                    <b:EventTrigger EventName="MouseLeftButtonDown">
+                        <b:InvokeCommandAction Command="{Binding CreateTourCommand}" CommandName="Button" />
+                    </b:EventTrigger>
+                </b:Interaction.Triggers>
+            </Button>
         </StackPanel>
     </ScrollViewer>
 </UserControl>
