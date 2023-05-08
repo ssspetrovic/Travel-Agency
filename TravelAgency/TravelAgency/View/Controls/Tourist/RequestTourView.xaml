@@ -39,15 +39,19 @@
                 VerticalAlignment="Center">
                 <Button
                     x:Name="RegularTourRequestButton"
+                    Width="120"
+                    Height="40"
                     Margin="0,0,10,0"
                     Click="RegularTourRequestButton_OnClick"
-                    Content="Regular tour request"
-                    FontSize="13" />
+                    Content="Regular"
+                    FontSize="15" />
                 <Button
                     x:Name="ComplexTourRequestButton"
+                    Width="120"
+                    Height="40"
                     Margin="25,0,0,0"
-                    Content="Complex tour request"
-                    FontSize="13" />
+                    Content="Complex"
+                    FontSize="15" />
             </WrapPanel>
         </StackPanel>
         <WrapPanel
