@@ -1,7 +1,8 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
 using System.Windows;
+using System.Windows.Navigation;
+using TravelAgency.Command;
 using TravelAgency.DTO;
 using TravelAgency.Model;
 using TravelAgency.Service;
@@ -9,17 +10,22 @@ using TravelAgency.View;
 using static System.Windows.Application;
 using MessageBox = System.Windows.Forms.MessageBox;
 
-
 namespace TravelAgency.ViewModel
 {
     internal class RateTourViewModel : BaseViewModel
     {
+        private readonly NavigationService _navigationService;
         private int _guideKnowledgeGrade;
         private int _guideLanguageGrade;
         private int _tourInterestingnessGrade;
         private string? _comment;
         private string? _photoUrls;
         private string? _url;
+        public string TourNameHeader { get; }
+        private string TourName { get; }
+        public RelayCommand CancelRatingCommand { get; set; }
+        public RelayCommand SubmitRelayCommand { get; set; }
+        public RelayCommand AddPhotoCommand { get; set; }
 
         public int GuideKnowledgeGrade
         {
@@ -80,12 +86,16 @@ namespace TravelAgency.ViewModel
             }
         }
 
-        public string TourNameHeader { get; }
-        private string TourName { get; }
-
-        public RateTourViewModel(string tourName)
+        public RateTourViewModel(NavigationService navigationService, string tourName)
         {
+            _navigationService = navigationService;
             TourName = tourName;
+            CancelRatingCommand =
+                new RelayCommand(Execute_CancelRatingCommand, CanExecute_CancelRatingCommand);
+            SubmitRelayCommand =
+                new RelayCommand(Execute_SubmitRelayCommand, CanExecute_SubmitRelayCommand);
+            AddPhotoCommand =
+                new RelayCommand(Execute_AddPhotoCommand, CanExecute_AddPhotoCommand);
 
             if (TourNameHeader == "/")
             {
@@ -94,8 +104,37 @@ namespace TravelAgency.ViewModel
             }
 
             TourNameHeader = $"'{tourName}'";
-            Debug.WriteLine(TourNameHeader);
         }
+
+        private void Execute_CancelRatingCommand(object parameter)
+        {
+
+        }
+
+        private void Execute_SubmitRelayCommand(object parameter)
+        {
+
+        }
+
+        private void Execute_AddPhotoCommand(object parameter)
+        {
+
+        }
+
+        private bool CanExecute_CancelRatingCommand(object parameter)
+        {
+            return true;
+        }
+        private bool CanExecute_SubmitRelayCommand(object parameter)
+        {
+            return true;
+        }
+
+        private bool CanExecute_AddPhotoCommand(object parameter)
+        {
+            return true;
+        }
+
 
         public void Submit()
         {

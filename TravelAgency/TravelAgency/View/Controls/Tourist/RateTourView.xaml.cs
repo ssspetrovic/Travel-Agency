@@ -11,7 +11,7 @@ namespace TravelAgency.View.Controls.Tourist
         public RateTourView(string selectedTourName = "/")
         {
             InitializeComponent();
-            DataContext = new RateTourViewModel(selectedTourName);
+            DataContext = new RateTourViewModel(NavigationService!, selectedTourName);
         }
 
         private void CancelButton_OnClick(object sender, RoutedEventArgs e)
