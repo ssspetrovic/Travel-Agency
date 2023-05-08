@@ -1,4 +1,6 @@
-﻿namespace TravelAgency.View.Controls.Tourist
+﻿using System.Diagnostics;
+
+namespace TravelAgency.View.Controls.Tourist
 {
     /// <summary>
     /// Interaction logic for HomePage.xaml
@@ -7,6 +9,7 @@
     {
         public HomeView()
         {
+            Debug.WriteLine("IN HOME");
             InitializeComponent();
         }
     }

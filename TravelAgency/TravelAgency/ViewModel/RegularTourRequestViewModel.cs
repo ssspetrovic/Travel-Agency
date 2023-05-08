@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Navigation;
 using TravelAgency.Command;
 using TravelAgency.Model;
 using TravelAgency.Service;
+using TravelAgency.View.Controls.Tourist;
 
 namespace TravelAgency.ViewModel
 {
-    internal class RegularTourRequestViewModel : BaseViewModel
+    public class RegularTourRequestViewModel : BaseViewModel
     {
         #region Fields
         private readonly NavigationService _navigationService;
@@ -21,6 +23,8 @@ namespace TravelAgency.ViewModel
         private Array _languages;
         public RelayCommand SubmitRequestCommand { get; set; }
         public RelayCommand CancelRequestCommand { get; set; }
+        public RelayCommand NavigateToMyTourRequestsCommand { get; set; }
+        private TourRequestAcceptedDialog? Dialog { get; set; }
         #endregion
 
         #region Properties
@@ -117,12 +121,20 @@ namespace TravelAgency.ViewModel
                 Description!,
                 RegularTourRequest.TourRequestStatus.OnHold));
 
-            
+            Dialog?.ShowDialog();
+            Dialog = new TourRequestAcceptedDialog(this);
         }
 
         private void Execute_CancelRequestCommand(object parameter)
         {
             _navigationService.GoBack();
+        }
+
+        private void Execute_NavigateToMyTourRequestsCommand(object parameter)
+        {
+            Debug.WriteLine("IN");
+            _navigationService.Navigate(new HomeView());
+            Dialog?.Close();
         }
 
         private bool CanExecute_SubmitRequestCommand(object parameter)
@@ -153,8 +165,12 @@ namespace TravelAgency.ViewModel
             _navigationService = navigationService;
             _tourRequestService = new RegularTourRequestService();
             _languages = Enum.GetValues(typeof(Language));
-            SubmitRequestCommand = new RelayCommand(Execute_SubmitRequestCommand, CanExecute_SubmitRequestCommand);
-            CancelRequestCommand = new RelayCommand(Execute_CancelRequestCommand, CanExecute_CancelRequestCommand);
+            SubmitRequestCommand =
+                new RelayCommand(Execute_SubmitRequestCommand, CanExecute_SubmitRequestCommand);
+            CancelRequestCommand =
+                new RelayCommand(Execute_CancelRequestCommand, CanExecute_CancelRequestCommand);
+            NavigateToMyTourRequestsCommand =
+                new RelayCommand(Execute_NavigateToMyTourRequestsCommand, CanExecute_CancelRequestCommand);
         }
         #endregion
     }
