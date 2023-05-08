@@ -62,18 +62,18 @@
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" Margin="50,10,30,10">
-                        <Label Content="Country" />
-                        <TextBox
-                            x:Name="CountryTextBox"
-                            Style="{StaticResource FilterTextBoxStyle}"
-                            Text="{Binding Country}" />
-                    </StackPanel>
-                    <StackPanel Grid.Column="1" Margin="30,10,50,10">
                         <Label Content="City" />
                         <TextBox
                             x:Name="CityTextBox"
                             Style="{StaticResource FilterTextBoxStyle}"
                             Text="{Binding City}" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Margin="30,10,50,10">
+                        <Label Content="Country" />
+                        <TextBox
+                            x:Name="CountryTextBox"
+                            Style="{StaticResource FilterTextBoxStyle}"
+                            Text="{Binding Country}" />
                     </StackPanel>
                 </Grid>
                 <Grid Grid.Row="2">

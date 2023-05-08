@@ -1,4 +1,5 @@
-﻿using TravelAgency.Model;
+﻿using System.Collections.ObjectModel;
+using TravelAgency.Model;
 using TravelAgency.Repository;
 
 namespace TravelAgency.Service
@@ -10,6 +11,16 @@ namespace TravelAgency.Service
         public void Add(RegularTourRequest tourRequest)
         {
             _tourRequestRepository.Add(tourRequest);
+        }
+
+        public void UpdateStatus(int id, RegularTourRequest.TourRequestStatus newStatus)
+        {
+            _tourRequestRepository.UpdateStatus(id, newStatus);
+        }
+
+        public ObservableCollection<RegularTourRequest> GetAllAsCollection()
+        {
+            return _tourRequestRepository.GetAllAsCollection();
         }
 
         public RegularTourRequestService()

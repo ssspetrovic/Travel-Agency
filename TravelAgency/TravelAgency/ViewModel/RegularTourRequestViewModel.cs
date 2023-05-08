@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Windows.Navigation;
 using TravelAgency.Command;
 using TravelAgency.Model;
+using TravelAgency.Service;
 
 namespace TravelAgency.ViewModel
 {
@@ -10,6 +10,7 @@ namespace TravelAgency.ViewModel
     {
         #region Fields
         private readonly NavigationService _navigationService;
+        private readonly RegularTourRequestService _tourRequestService;
         private string? _country;
         private string? _city;
         private Language? _language;
@@ -22,6 +23,7 @@ namespace TravelAgency.ViewModel
         public RelayCommand CancelRequestCommand { get; set; }
         #endregion
 
+        #region Properties
         public string? Country
         {
             get => _country;
@@ -101,16 +103,19 @@ namespace TravelAgency.ViewModel
                 OnPropertyChanged();
             }
         }
+        #endregion
 
+        #region Actions
         private void Execute_SubmitRequestCommand(object parameter)
         {
-            Debug.WriteLine(Country);
-            Debug.WriteLine(City);
-            Debug.WriteLine(Language);
-            Debug.WriteLine(GuestNumber);
-            Debug.WriteLine(StartingDate);
-            Debug.WriteLine(EndingDate);
-            Debug.WriteLine(Description);
+            _tourRequestService.Add(new RegularTourRequest(
+                CurrentUser.Username,
+                new Location(City!, Country!),
+                Language,
+                int.Parse(GuestNumber!),
+                $"{StartingDate?.ToString("yyyy-MM-dd")} - {EndingDate?.ToString("yyyy-MM-dd")}",
+                Description!,
+                RegularTourRequest.TourRequestStatus.OnHold));
         }
 
         private void Execute_CancelRequestCommand(object parameter)
@@ -132,19 +137,23 @@ namespace TravelAgency.ViewModel
         {
             return true;
         }
+        #endregion
 
         private bool IsDateRangeValid(DateTime? startingDate, DateTime? endingDate)
         {
-            if (startingDate == null || endingDate == null) return false;
+            if (startingDate < DateTime.Now || startingDate == null || endingDate == null) return false;
             return startingDate < endingDate;
         }
 
+        #region Constructors
         public RegularTourRequestViewModel(NavigationService navigationService)
         {
             _navigationService = navigationService;
+            _tourRequestService = new RegularTourRequestService();
             _languages = Enum.GetValues(typeof(Language));
             SubmitRequestCommand = new RelayCommand(Execute_SubmitRequestCommand, CanExecute_SubmitRequestCommand);
             CancelRequestCommand = new RelayCommand(Execute_CancelRequestCommand, CanExecute_CancelRequestCommand);
         }
+        #endregion
     }
 }
