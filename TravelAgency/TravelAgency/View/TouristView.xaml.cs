@@ -1,6 +1,5 @@
 ﻿using System.Windows.Controls.Primitives;
 using TravelAgency.ViewModel;
-using TravelAgency.WindowHelpers;
 
 namespace TravelAgency.View
 {
@@ -13,7 +12,7 @@ namespace TravelAgency.View
         {
             InitializeComponent();
             HomeButton.IsChecked = true;
-            DataContext = new TouristViewModel(new WindowManager(), ContentFrame.NavigationService);
+            DataContext = new TouristViewModel(ContentFrame.NavigationService);
         }
 
         private void HeaderThumb_OnDragDelta(object sender, DragDeltaEventArgs e)

@@ -13,15 +13,5 @@ namespace TravelAgency.View.Controls.Tourist
             InitializeComponent();
             DataContext = new MyToursViewModel();
         }
-
-        private void JoinTourButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            ((MyToursViewModel)DataContext).MyTourDtoService.JoinTour();
-        }
-
-        private void RateTourButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            ((MyToursViewModel)DataContext).RateTour();
-        }
     }
 }

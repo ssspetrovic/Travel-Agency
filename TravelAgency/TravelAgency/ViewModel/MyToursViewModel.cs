@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using TravelAgency.Command;
 using TravelAgency.DTO;
 using TravelAgency.Model;
 using TravelAgency.Service;
@@ -15,8 +16,11 @@ namespace TravelAgency.ViewModel
     internal class MyToursViewModel : BaseViewModel
     {
         private MyTourDto? _selectedTour;
-        public MyTourDtoService MyTourDtoService { get; }
+        private MyTourDtoService MyTourDtoService { get; }
         public string? InvitationText { get; set; }
+        public RelayCommand JoinTourCommand { get; set; }
+        public RelayCommand RateTourCommand { get; set; }
+        public ObservableCollection<MyTourDto> MyTours { get; set; }
 
         public MyTourDto? SelectedTour
         {
@@ -28,13 +32,44 @@ namespace TravelAgency.ViewModel
             }
         }
 
-        public ObservableCollection<MyTourDto> MyTours { get; set; }
-
         public MyToursViewModel()
         {
             MyTourDtoService = new MyTourDtoService(this);
             CheckForInvitation();
             MyTours = MyTourDtoService.GetAllAsCollection();
+            JoinTourCommand = new RelayCommand(Execute_JoinTourCommand, CanExecute_JoinTourCommand);
+            RateTourCommand = new RelayCommand(Execute_RateTourCommand, CanExecute_RateTourCommand);
+        }
+
+        private void Execute_JoinTourCommand(object parameter)
+        {
+            MyTourDtoService.JoinTour(SelectedTour);
+        }
+
+        private void Execute_RateTourCommand(object parameter)
+        {
+            if (!MyTourDtoService.IsTourValid())
+            {
+                MessageBox.Show("Cannot rate this tour!", "Error");
+                return;
+            }
+
+            var currentWindow = Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
+            var nextWindow = new TouristView();
+            var rateTourView = new RateTourView(SelectedTour!.Name);
+            nextWindow.ContentFrame.NavigationService.Navigate(rateTourView);
+            nextWindow.Show();
+            currentWindow?.Close();
+        }
+
+        private bool CanExecute_JoinTourCommand(object parameter)
+        {
+            return SelectedTour != null;
+        }
+
+        private bool CanExecute_RateTourCommand(object parameter)
+        {
+            return SelectedTour != null;
         }
 
         private void CheckForInvitation()
@@ -61,28 +96,6 @@ namespace TravelAgency.ViewModel
 
             dialog.ShowDialog();
             return AcceptInvitationDialog.ConfirmStatus;
-        }
-
-        public void RateTour()
-        {
-            if (SelectedTour == null)
-            {
-                MessageBox.Show("Please select a tour!", "Error");
-                return;
-            }
-
-            if (!MyTourDtoService.IsTourValid())
-            {
-                MessageBox.Show("Cannot rate this tour!", "Error");
-                return;
-            }
-
-            var currentWindow = Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
-            var nextWindow = new TouristView();
-            var rateTourView = new RateTourView(SelectedTour.Name);
-            nextWindow.ContentFrame.NavigationService.Navigate(rateTourView);
-            nextWindow.Show();
-            currentWindow?.Close();
         }
 
         public static void ReloadWindow()

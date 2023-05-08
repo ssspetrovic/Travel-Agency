@@ -77,14 +77,14 @@
                 Width="120"
                 Height="40"
                 Margin="0,0,15,0"
-                Click="JoinTourButton_OnClick"
+                Command="{Binding JoinTourCommand}"
                 Content="Join tour" />
             <Button
                 x:Name="RateTourButton"
                 Width="120"
                 Height="40"
                 Margin="15,0,0,0"
-                Click="RateTourButton_OnClick"
+                Command="{Binding RateTourCommand}"
                 Content="Rate tour" />
         </WrapPanel>
     </Grid>

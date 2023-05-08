@@ -16,31 +16,9 @@ namespace TravelAgency.ViewModel
         public RelayCommand NavigateToRateTourPageCommand { get; set; }
         public RelayCommand NavigateToRequestTourPageCommand { get; set; }
         public RelayCommand NavigateToTourReservationPageCommand { get; set; }
-        //public DelegateCommand<DragDeltaEventArgs> DragDeltaCommand { get; set; }
         public RelayCommand CloseWindowCommand { get; set; }
         public RelayCommand SignOutCommand { get; set; }
 
-        //private double _thumbLeft;
-        //public double ThumbLeft
-        //{
-        //    get => _thumbLeft;
-        //    set
-        //    {
-        //        _thumbLeft = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
-
-        //private double _thumbTop;
-        //public double ThumbTop
-        //{
-        //    get => _thumbTop;
-        //    set
-        //    {
-        //        _thumbTop = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
 
         private bool CanExecute_NavigationCommand(object parameter)
         {
@@ -77,12 +55,6 @@ namespace TravelAgency.ViewModel
             NavigationService.Navigate(new TourReservationView());
         }
 
-        //private void Execute_DragDeltaCommand(DragDeltaEventArgs e)
-        //{
-        //    ThumbLeft += e.HorizontalChange;
-        //    ThumbTop += e.VerticalChange;
-        //}
-
         private void Execute_CloseWindowCommand(object parameter)
         {
             _windowManager.CloseWindow<TouristView>();
@@ -94,9 +66,9 @@ namespace TravelAgency.ViewModel
             _windowManager.CloseWindow<TouristView>();
         }
 
-        public TouristViewModel(IWindowManager windowManager, NavigationService navigationService)
+        public TouristViewModel(NavigationService navigationService)
         {
-            _windowManager = windowManager;
+            _windowManager = new WindowManager();
             NavigationService = navigationService;
             NavigateToHomePageCommand =
                 new RelayCommand(Execute_NavigateToHomePageCommand, CanExecute_NavigationCommand);
@@ -110,8 +82,6 @@ namespace TravelAgency.ViewModel
                 new RelayCommand(Execute_NavigateToRequestTourPageCommand, CanExecute_NavigationCommand);
             NavigateToTourReservationPageCommand =
                 new RelayCommand(Execute_NavigateToTourReservationPageCommand, CanExecute_NavigationCommand);
-            //DragDeltaCommand =
-            //    new DelegateCommand<DragDeltaEventArgs>(Execute_DragDeltaCommand);
             CloseWindowCommand =
                 new RelayCommand(Execute_CloseWindowCommand, CanExecute_NavigationCommand);
             SignOutCommand =
