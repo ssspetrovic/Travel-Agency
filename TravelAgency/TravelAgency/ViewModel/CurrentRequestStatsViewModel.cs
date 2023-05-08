@@ -7,7 +7,7 @@ using TravelAgency.Service;
 
 namespace TravelAgency.ViewModel
 {
-    public class CurrentRequestStatsViewModel : GuideViewModel
+    public class CurrentRequestStatsViewModel : HomePageViewModel
     {
         private readonly ObservableCollection<RequestTour> _tabAllData;
         private readonly ObservableCollection<RequestTour> _tab2023Data;

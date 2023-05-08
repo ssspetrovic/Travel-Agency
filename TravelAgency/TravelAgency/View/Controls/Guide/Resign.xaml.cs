@@ -2,9 +2,6 @@
 
 namespace TravelAgency.View.Controls.Guide
 {
-    /// <summary>
-    /// Interaction logic for Resign.xaml
-    /// </summary>
     public partial class Resign
     {
         public Resign()
@@ -19,7 +16,7 @@ namespace TravelAgency.View.Controls.Guide
 
         private void CancelButton_OnClick(object sender, RoutedEventArgs e)
         {
-            var guideView = new GuideView();
+            var guideView = new View.Guide();
             guideView.Show();
             Close();
         }

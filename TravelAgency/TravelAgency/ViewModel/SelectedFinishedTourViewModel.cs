@@ -7,7 +7,7 @@ using TravelAgency.Service;
 
 namespace TravelAgency.ViewModel;
 
-public class SelectedFinishedTourViewModel : GuideViewModel
+public class SelectedFinishedTourViewModel : HomePageViewModel
 {
 
     private readonly FinishedTourService _finishedTourService;

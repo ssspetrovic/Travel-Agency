@@ -1,15 +1,20 @@
 ﻿<Window
-    x:Class="TravelAgency.View.GuideView"
+    x:Class="TravelAgency.View.Guide"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModel="clr-namespace:TravelAgency.ViewModel"
-    Title="Sign In"
+    xmlns:views="clr-namespace:TravelAgency.View.Controls.Guide"
+    xmlns:vml="clr-namespace:TravelAgency.VML"
+    xmlns:wfi="clr-namespace:System.Windows.Forms.Integration;assembly=WindowsFormsIntegration"
+    Title="Guide"
     Width="1280"
     Height="720"
+    vml:GuideViewModelLocator.AutoHookedUpViewModel="True"
     AllowsTransparency="True"
     Background="Transparent"
     KeyDown="ChangeViews_KeyDown"
@@ -23,7 +28,38 @@
     </Window.DataContext>
 
     <Window.Resources>
-        <ResourceDictionary>
+        <DataTemplate DataType="{x:Type viewModel:HomePageViewModel}">
+            <views:HomePage />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:CreateTourViewModel}">
+            <views:CreateTour />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:MonitorTourViewModel}">
+            <views:MonitorTour />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:CancelTourViewModel}">
+            <views:CancelTour />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:TourStatsViewModel}">
+            <views:TourStats />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:ReviewTourViewModel}">
+            <views:ReviewTour />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:AcceptTourViewModel}">
+            <views:AcceptTour />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:ComplexTourViewModel}">
+            <views:ComplexTour />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:RequestStatsViewModel}">
+            <views:RequestStats />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:CreateSuggestedTourViewModel}">
+            <views:CreateSuggestedTour />
+        </DataTemplate>
+
+        <ResourceDictionary x:Key="ResourceDictionary">
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
@@ -77,7 +113,8 @@
                         <!--  Options  -->
                         <RadioButton
                             Height="45"
-                            Click="Home_OnClick"
+                            Command="{Binding Path=NavCommand}"
+                            CommandParameter="HomePage"
                             Foreground="#fffafa"
                             Style="{StaticResource MenuButton}">
                             <StackPanel Orientation="Horizontal">
@@ -85,13 +122,19 @@
                                     Foreground="#fffafa"
                                     Icon="Home"
                                     Style="{StaticResource MenuButtonIcon}" />
-                                <TextBlock Style="{StaticResource MenuButtonText}" Text="Home" />
+                                <TextBlock Style="{StaticResource MenuButtonText}" Text="Home Page" />
                             </StackPanel>
+                            <i:Interaction.Triggers>
+                                <i:KeyTrigger Key="F1">
+                                    <i:InvokeCommandAction Command="{Binding ReserveCommand}" CommandParameter="HomePage" />
+                                </i:KeyTrigger>
+                            </i:Interaction.Triggers>
                         </RadioButton>
 
                         <RadioButton
                             Height="45"
-                            Click="NewTour_OnClick"
+                            Command="{Binding Path=NavCommand}"
+                            CommandParameter="CreateTour"
                             Foreground="#fffafa"
                             Style="{StaticResource MenuButton}">
                             <StackPanel Orientation="Horizontal">
@@ -101,11 +144,17 @@
                                     Style="{StaticResource MenuButtonIcon}" />
                                 <TextBlock Style="{StaticResource MenuButtonText}" Text="New Tour" />
                             </StackPanel>
+                            <i:Interaction.Triggers>
+                                <i:KeyTrigger Key="F2">
+                                    <i:InvokeCommandAction Command="{Binding ReserveCommand}" CommandParameter="CreateTour" />
+                                </i:KeyTrigger>
+                            </i:Interaction.Triggers>
                         </RadioButton>
 
                         <RadioButton
                             Height="45"
-                            Click="MonitorTour_OnClick"
+                            Command="{Binding Path=NavCommand}"
+                            CommandParameter="Monitor"
                             Foreground="#fffafa"
                             Style="{StaticResource MenuButton}">
                             <StackPanel Orientation="Horizontal">
@@ -115,11 +164,17 @@
                                     Style="{StaticResource MenuButtonIcon}" />
                                 <TextBlock Style="{StaticResource MenuButtonText}" Text="Monitor Tour" />
                             </StackPanel>
+                            <i:Interaction.Triggers>
+                                <i:KeyTrigger Key="F3">
+                                    <i:InvokeCommandAction Command="{Binding ReserveCommand}" CommandParameter="Monitor" />
+                                </i:KeyTrigger>
+                            </i:Interaction.Triggers>
                         </RadioButton>
 
                         <RadioButton
                             Height="45"
-                            Click="CancelTour_OnClick"
+                            Command="{Binding Path=NavCommand}"
+                            CommandParameter="CancelTour"
                             Foreground="#fffafa"
                             Style="{StaticResource MenuButton}">
                             <StackPanel Orientation="Horizontal">
@@ -129,11 +184,17 @@
                                     Style="{StaticResource MenuButtonIcon}" />
                                 <TextBlock Style="{StaticResource MenuButtonText}" Text="Cancel Tour" />
                             </StackPanel>
+                            <i:Interaction.Triggers>
+                                <i:KeyTrigger Key="F4">
+                                    <i:InvokeCommandAction Command="{Binding ReserveCommand}" CommandParameter="CancelTour" />
+                                </i:KeyTrigger>
+                            </i:Interaction.Triggers>
                         </RadioButton>
 
                         <RadioButton
                             Height="45"
-                            Click="TourStats_OnClick"
+                            Command="{Binding Path=NavCommand}"
+                            CommandParameter="TourStats"
                             Foreground="#fffafa"
                             Style="{StaticResource MenuButton}">
                             <StackPanel Orientation="Horizontal">
@@ -143,11 +204,17 @@
                                     Style="{StaticResource MenuButtonIcon}" />
                                 <TextBlock Style="{StaticResource MenuButtonText}" Text="Tour Stats" />
                             </StackPanel>
+                            <i:Interaction.Triggers>
+                                <i:KeyTrigger Key="F5">
+                                    <i:InvokeCommandAction Command="{Binding ReserveCommand}" CommandParameter="TourStats" />
+                                </i:KeyTrigger>
+                            </i:Interaction.Triggers>
                         </RadioButton>
 
                         <RadioButton
                             Height="45"
-                            Click="TourReview_OnClick"
+                            Command="{Binding Path=NavCommand}"
+                            CommandParameter="TourReview"
                             Foreground="#fffafa"
                             Style="{StaticResource MenuButton}">
                             <StackPanel Orientation="Horizontal">
@@ -157,11 +224,17 @@
                                     Style="{StaticResource MenuButtonIcon}" />
                                 <TextBlock Style="{StaticResource MenuButtonText}" Text="Tour Review" />
                             </StackPanel>
+                            <i:Interaction.Triggers>
+                                <i:KeyTrigger Key="F6">
+                                    <i:InvokeCommandAction Command="{Binding ReserveCommand}" CommandParameter="TourReview" />
+                                </i:KeyTrigger>
+                            </i:Interaction.Triggers>
                         </RadioButton>
 
                         <RadioButton
                             Height="45"
-                            Click="AcceptTourRequest_OnClick"
+                            Command="{Binding Path=NavCommand}"
+                            CommandParameter="AcceptTour"
                             Foreground="#fffafa"
                             Style="{StaticResource MenuButton}">
                             <StackPanel Orientation="Horizontal">
@@ -171,11 +244,17 @@
                                     Style="{StaticResource MenuButtonIcon}" />
                                 <TextBlock Style="{StaticResource MenuButtonText}" Text="Accept Tour Request" />
                             </StackPanel>
+                            <i:Interaction.Triggers>
+                                <i:KeyTrigger Key="F7">
+                                    <i:InvokeCommandAction Command="{Binding ReserveCommand}" CommandParameter="AcceptTour" />
+                                </i:KeyTrigger>
+                            </i:Interaction.Triggers>
                         </RadioButton>
 
                         <RadioButton
                             Height="45"
-                            Click="ComplexTourRequest_OnClick"
+                            Command="{Binding Path=NavCommand}"
+                            CommandParameter="ComplexTour"
                             Foreground="#fffafa"
                             Style="{StaticResource MenuButton}">
                             <StackPanel Orientation="Horizontal">
@@ -185,11 +264,17 @@
                                     Style="{StaticResource MenuButtonIcon}" />
                                 <TextBlock Style="{StaticResource MenuButtonText}" Text="Complex Tour Request" />
                             </StackPanel>
+                            <i:Interaction.Triggers>
+                                <i:KeyTrigger Key="F8">
+                                    <i:InvokeCommandAction Command="{Binding ReserveCommand}" CommandParameter="ComplexTour" />
+                                </i:KeyTrigger>
+                            </i:Interaction.Triggers>
                         </RadioButton>
 
                         <RadioButton
                             Height="45"
-                            Click="RequestStats_OnClick"
+                            Command="{Binding Path=NavCommand}"
+                            CommandParameter="RequestStats"
                             Foreground="#fffafa"
                             Style="{StaticResource MenuButton}">
                             <StackPanel Orientation="Horizontal">
@@ -199,11 +284,17 @@
                                     Style="{StaticResource MenuButtonIcon}" />
                                 <TextBlock Style="{StaticResource MenuButtonText}" Text="Request Stats" />
                             </StackPanel>
+                            <i:Interaction.Triggers>
+                                <i:KeyTrigger Key="F9">
+                                    <i:InvokeCommandAction Command="{Binding ReserveCommand}" CommandParameter="RequestStats" />
+                                </i:KeyTrigger>
+                            </i:Interaction.Triggers>
                         </RadioButton>
 
                         <RadioButton
                             Height="45"
-                            Click="CreateSuggestedTour_OnClick"
+                            Command="{Binding Path=NavCommand}"
+                            CommandParameter="CreateSuggested"
                             Foreground="#fffafa"
                             Style="{StaticResource MenuButton}">
                             <StackPanel Orientation="Horizontal">
@@ -213,6 +304,11 @@
                                     Style="{StaticResource MenuButtonIcon}" />
                                 <TextBlock Style="{StaticResource MenuButtonText}" Text="Create Suggested Tour" />
                             </StackPanel>
+                            <i:Interaction.Triggers>
+                                <i:KeyTrigger Key="F10">
+                                    <i:InvokeCommandAction Command="{Binding ReserveCommand}" CommandParameter="CreateSuggested" />
+                                </i:KeyTrigger>
+                            </i:Interaction.Triggers>
                         </RadioButton>
 
                         <Grid>
@@ -230,7 +326,13 @@
                                 Cursor="Hand"
                                 FontSize="12"
                                 FontWeight="Medium"
-                                Foreground="#ffffff" />
+                                Foreground="#ffffff">
+                                <i:Interaction.Triggers>
+                                    <i:KeyTrigger Key="F11">
+                                        <i:InvokeCommandAction Command="{Binding ReserveCommand}" CommandParameter="LogOut" />
+                                    </i:KeyTrigger>
+                                </i:Interaction.Triggers>
+                            </Button>
                             <Button
                                 x:Name="BtnResign"
                                 Grid.Column="1"
@@ -242,7 +344,13 @@
                                 Cursor="Hand"
                                 FontSize="12"
                                 FontWeight="Medium"
-                                Foreground="#ffffff" />
+                                Foreground="#ffffff">
+                                <i:Interaction.Triggers>
+                                    <i:KeyTrigger Key="F12">
+                                        <i:InvokeCommandAction Command="{Binding ReserveCommand}" CommandParameter="Resign" />
+                                    </i:KeyTrigger>
+                                </i:Interaction.Triggers>
+                            </Button>
                         </Grid>
                     </StackPanel>
 
@@ -354,58 +462,15 @@
                                 TextAlignment="Right" />
                         </Grid>
 
-                        <Grid Grid.Row="3" Margin="25">
-                            <ListView
-                                x:Name="GuideViewListView"
-                                Margin="10"
-                                Foreground="#68cbf8"
-                                ItemsSource="{Binding Tours}">
-                                <ListView.View>
-                                    <GridView>
-                                        <GridView.ColumnHeaderContainerStyle>
-                                            <Style TargetType="{x:Type GridViewColumnHeader}">
-                                                <Setter Property="Foreground" Value="#68cbf8" />
-                                                <Setter Property="FontWeight" Value="Bold" />
-                                                <Setter Property="FontSize" Value="15" />
-                                            </Style>
-                                        </GridView.ColumnHeaderContainerStyle>
-                                        <GridViewColumn
-                                            Width="200"
-                                            DisplayMemberBinding="{Binding Path=Name}"
-                                            Header="Name" />
-                                        <GridViewColumn
-                                            Width="200"
-                                            DisplayMemberBinding="{Binding Path=Location_Id}"
-                                            Header="Location" />
-                                        <GridViewColumn
-                                            Width="200"
-                                            DisplayMemberBinding="{Binding Path=Description}"
-                                            Header="Description" />
-                                        <GridViewColumn
-                                            Width="200"
-                                            DisplayMemberBinding="{Binding Path=Language}"
-                                            Header="Language" />
-
-                                        <GridViewColumn
-                                            Width="200"
-                                            DisplayMemberBinding="{Binding Path=MaxGuests}"
-                                            Header="Max Guests" />
-                                        <GridViewColumn
-                                            Width="200"
-                                            DisplayMemberBinding="{Binding Path=LocationList}"
-                                            Header="Key Points" />
-                                        <GridViewColumn
-                                            Width="200"
-                                            DisplayMemberBinding="{Binding Path=Date}"
-                                            Header="Date" />
-                                        <GridViewColumn
-                                            Width="200"
-                                            DisplayMemberBinding="{Binding Path=Duration}"
-                                            Header="Duration" />
-                                    </GridView>
-                                </ListView.View>
-                            </ListView>
+                        <Grid Grid.Row="3" Margin="15">
+                            <ContentControl
+                                Width="Auto"
+                                Height="Auto"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                Content="{Binding CurrentViewModel}" />
                         </Grid>
+
                     </Grid>
 
                 </Border>

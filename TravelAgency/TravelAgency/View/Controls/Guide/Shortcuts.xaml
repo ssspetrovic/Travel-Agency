@@ -19,7 +19,7 @@
     mc:Ignorable="d">
 
     <Window.DataContext>
-        <viewModel:GuideViewModel />
+        <viewModel:HomePageViewModel />
     </Window.DataContext>
 
     <materialDesign:Card
@@ -72,7 +72,7 @@
                                     Foreground="#fffafa"
                                     Icon="Home"
                                     Style="{StaticResource MenuButtonIcon}" />
-                                <TextBlock Style="{StaticResource MenuButtonText}" Text="Home" />
+                                <TextBlock Style="{StaticResource MenuButtonText}" Text="HomePage" />
                             </StackPanel>
                         </RadioButton>
 

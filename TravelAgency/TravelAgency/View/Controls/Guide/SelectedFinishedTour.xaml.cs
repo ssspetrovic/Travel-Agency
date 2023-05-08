@@ -48,7 +48,7 @@ namespace TravelAgency.View.Controls.Guide
 
         private void Home_OnClick(object sender, RoutedEventArgs e)
         {
-            var guideView = new GuideView();
+            var guideView = new View.Guide();
             guideView.Show();
             Close();
         }
@@ -72,7 +72,7 @@ namespace TravelAgency.View.Controls.Guide
         {
             if (e.Key == Key.F1)
             {
-                var guideView = new GuideView();
+                var guideView = new View.Guide();
                 guideView.Show();
                 Close();
             }

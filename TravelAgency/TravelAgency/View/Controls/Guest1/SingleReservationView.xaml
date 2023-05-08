@@ -51,7 +51,7 @@
                             x:Name="HomeButton"
                             Height="50"
                             Click="HomeButton_OnClick"
-                            Content="Home"
+                            Content="HomePage"
                             FontSize="17"
                             Foreground="White"
                             Style="{StaticResource MenuButtonStyle}" />

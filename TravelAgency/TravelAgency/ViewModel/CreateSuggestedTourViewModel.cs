@@ -2,7 +2,7 @@
 
 namespace TravelAgency.ViewModel
 {
-    public class CreateSuggestedTourViewModel : GuideViewModel
+    public class CreateSuggestedTourViewModel : HomePageViewModel
     {
         private readonly RequestTourService _requestTourService;
         private readonly LocationService _locationService;
