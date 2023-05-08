@@ -126,7 +126,7 @@
                     <Button
                         x:Name="AddUrlButton"
                         Margin="10,0,0,0"
-                        Click="AddUrlButton_OnClick"
+                        Command="{Binding AddPhotoCommand}"
                         Content="Add"
                         FontSize="12" />
                 </WrapPanel>
@@ -142,7 +142,7 @@
                 Width="120"
                 Height="40"
                 Margin="0,0,20,0"
-                Click="CancelButton_OnClick"
+                Command="{Binding CancelRatingCommand}"
                 Content="Cancel"
                 FontSize="15"
                 Style="{StaticResource MaterialDesignFlatButton}" />
@@ -151,7 +151,7 @@
                 Width="120"
                 Height="40"
                 Margin="20,0,0,0"
-                Click="SubmitButton_OnClick"
+                Command="{Binding SubmitRatingCommand}"
                 Content="Submit"
                 FontSize="15" />
         </WrapPanel>

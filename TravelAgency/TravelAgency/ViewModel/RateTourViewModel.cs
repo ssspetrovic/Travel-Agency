@@ -7,6 +7,7 @@ using TravelAgency.DTO;
 using TravelAgency.Model;
 using TravelAgency.Service;
 using TravelAgency.View;
+using TravelAgency.View.Controls.Tourist;
 using static System.Windows.Application;
 using MessageBox = System.Windows.Forms.MessageBox;
 
@@ -24,7 +25,7 @@ namespace TravelAgency.ViewModel
         public string TourNameHeader { get; }
         private string TourName { get; }
         public RelayCommand CancelRatingCommand { get; set; }
-        public RelayCommand SubmitRelayCommand { get; set; }
+        public RelayCommand SubmitRatingCommand { get; set; }
         public RelayCommand AddPhotoCommand { get; set; }
 
         public int GuideKnowledgeGrade
@@ -92,8 +93,8 @@ namespace TravelAgency.ViewModel
             TourName = tourName;
             CancelRatingCommand =
                 new RelayCommand(Execute_CancelRatingCommand, CanExecute_CancelRatingCommand);
-            SubmitRelayCommand =
-                new RelayCommand(Execute_SubmitRelayCommand, CanExecute_SubmitRelayCommand);
+            SubmitRatingCommand =
+                new RelayCommand(Execute_SubmitRatingCommand, CanExecute_SubmitRatingCommand);
             AddPhotoCommand =
                 new RelayCommand(Execute_AddPhotoCommand, CanExecute_AddPhotoCommand);
 
@@ -108,33 +109,53 @@ namespace TravelAgency.ViewModel
 
         private void Execute_CancelRatingCommand(object parameter)
         {
-
+            _navigationService.Navigate(new MyToursView());
         }
 
-        private void Execute_SubmitRelayCommand(object parameter)
+        private void Execute_SubmitRatingCommand(object parameter)
         {
+            var touristService = new TouristService();
+            var tourRatingService = new TourRatingService();
+            var tourService = new TourService();
+            var tourist = touristService.GetByUsername(CurrentUser.Username);
 
+            tourRatingService.Add(new TourRating(
+                tourist.Id,
+                tourService.GetByName(TourName).Id,
+                (Grade)GuideKnowledgeGrade,
+                (Grade)GuideLanguageGrade,
+                (Grade)TourInterestingnessGrade,
+                Comment ?? "",
+                PhotoUrls ?? ""
+            ));
+
+            var myTourDtoService = new MyTourDtoService();
+            myTourDtoService.UpdateStatus(TourName, MyTourDto.TourStatus.Rated);
+            _navigationService.Navigate(new MyToursView());
         }
 
         private void Execute_AddPhotoCommand(object parameter)
         {
-
+            var formattedUri = Url!.Trim();
+            formattedUri = $"{formattedUri};\r\n";
+            PhotoUrls += formattedUri;
+            Url = string.Empty;
         }
 
         private bool CanExecute_CancelRatingCommand(object parameter)
         {
             return true;
         }
-        private bool CanExecute_SubmitRelayCommand(object parameter)
+
+        private bool CanExecute_SubmitRatingCommand(object parameter)
         {
-            return true;
+            return GuideKnowledgeGrade == 0 || GuideLanguageGrade == 0 || TourInterestingnessGrade == 0;
         }
 
         private bool CanExecute_AddPhotoCommand(object parameter)
         {
-            return true;
+            return !string.IsNullOrEmpty(Url);
         }
-
 
         public void Submit()
         {
