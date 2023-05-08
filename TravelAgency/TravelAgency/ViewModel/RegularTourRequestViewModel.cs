@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Windows.Navigation;
 using TravelAgency.Command;
 using TravelAgency.Model;
 
@@ -8,6 +9,7 @@ namespace TravelAgency.ViewModel
     internal class RegularTourRequestViewModel : BaseViewModel
     {
         #region Fields
+        private readonly NavigationService _navigationService;
         private string? _country;
         private string? _city;
         private Language? _language;
@@ -17,6 +19,7 @@ namespace TravelAgency.ViewModel
         private string? _description;
         private Array _languages;
         public RelayCommand SubmitRequestCommand { get; set; }
+        public RelayCommand CancelRequestCommand { get; set; }
         #endregion
 
         public string? Country
@@ -99,11 +102,6 @@ namespace TravelAgency.ViewModel
             }
         }
 
-        private bool CanExecute_SubmitRequestCommand(object parameter)
-        {
-            return true;
-        }
-
         private void Execute_SubmitRequestCommand(object parameter)
         {
             Debug.WriteLine(Country);
@@ -115,11 +113,38 @@ namespace TravelAgency.ViewModel
             Debug.WriteLine(Description);
         }
 
-
-        public RegularTourRequestViewModel()
+        private void Execute_CancelRequestCommand(object parameter)
         {
+            _navigationService.GoBack();
+        }
+
+        private bool CanExecute_SubmitRequestCommand(object parameter)
+        {
+            return !string.IsNullOrEmpty(Country) &&
+                   !string.IsNullOrEmpty(City) &&
+                   Language != null &&
+                   IsDateRangeValid(StartingDate, EndingDate) &&
+                   int.TryParse(GuestNumber, out _) &&
+                   !string.IsNullOrEmpty(Description);
+        }
+
+        private bool CanExecute_CancelRequestCommand(object parameter)
+        {
+            return true;
+        }
+
+        private bool IsDateRangeValid(DateTime? startingDate, DateTime? endingDate)
+        {
+            if (startingDate == null || endingDate == null) return false;
+            return startingDate < endingDate;
+        }
+
+        public RegularTourRequestViewModel(NavigationService navigationService)
+        {
+            _navigationService = navigationService;
             _languages = Enum.GetValues(typeof(Language));
             SubmitRequestCommand = new RelayCommand(Execute_SubmitRequestCommand, CanExecute_SubmitRequestCommand);
+            CancelRequestCommand = new RelayCommand(Execute_CancelRequestCommand, CanExecute_CancelRequestCommand);
         }
 
         public void SubmitTourRequest()

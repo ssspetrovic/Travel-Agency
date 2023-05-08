@@ -72,7 +72,7 @@ namespace TravelAgency.ViewModel
 
         private void Execute_NavigateToRequestTourPageCommand(object parameter)
         {
-            NavigationService.Navigate(new RequestTourView());
+            NavigationService.Navigate(new RequestTourView(NavigationService));
         }
 
         private void Execute_NavigateToTourReservationPageCommand(object parameter)

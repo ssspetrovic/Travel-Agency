@@ -1,4 +1,4 @@
-﻿using System.Windows;
+﻿using System.Windows.Navigation;
 using TravelAgency.ViewModel;
 
 namespace TravelAgency.View.Controls.Tourist
@@ -8,20 +8,10 @@ namespace TravelAgency.View.Controls.Tourist
     /// </summary>
     public partial class RegularTourRequestView
     {
-        public RegularTourRequestView()
+        public RegularTourRequestView(NavigationService navigationService)
         {
             InitializeComponent();
-            DataContext = new RegularTourRequestViewModel();
-        }
-
-        private void CancelButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            NavigationService?.GoBack();
-        }
-
-        private void SubmitButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            ((RegularTourRequestViewModel)DataContext).SubmitTourRequest();
+            DataContext = new RegularTourRequestViewModel(navigationService);
         }
     }
 }

@@ -1,21 +1,24 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Navigation;
 
 namespace TravelAgency.View.Controls.Tourist
 {
     /// <summary>
     /// Interaction logic for RequestTourView.xaml
     /// </summary>
-    public partial class RequestTourView : Page
+    public partial class RequestTourView
     {
-        public RequestTourView()
+        private readonly NavigationService _navigationService;
+        public RequestTourView(NavigationService navigationService)
         {
             InitializeComponent();
+            _navigationService = navigationService;
         }
 
         private void RegularTourRequestButton_OnClick(object sender, RoutedEventArgs e)
         {
-            NavigationService?.Navigate(new RegularTourRequestView());
+            NavigationService?.Navigate(new RegularTourRequestView(_navigationService));
         }
     }
 }
