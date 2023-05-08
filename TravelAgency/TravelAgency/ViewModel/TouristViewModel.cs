@@ -8,7 +8,6 @@ namespace TravelAgency.ViewModel
 {
     public class TouristViewModel : BaseViewModel
     {
-        #region Fields and Properties
         private readonly IWindowManager _windowManager;
         private NavigationService NavigationService { get; set; }
         public RelayCommand NavigateToHomePageCommand { get; set; }
@@ -42,9 +41,7 @@ namespace TravelAgency.ViewModel
         //        OnPropertyChanged();
         //    }
         //}
-        #endregion
 
-        #region Actions
         private bool CanExecute_NavigationCommand(object parameter)
         {
             return true;
@@ -96,9 +93,7 @@ namespace TravelAgency.ViewModel
             _windowManager.ShowWindow<SignInView>();
             _windowManager.CloseWindow<TouristView>();
         }
-        #endregion
 
-        #region Constructors
         public TouristViewModel(IWindowManager windowManager, NavigationService navigationService)
         {
             _windowManager = windowManager;
@@ -122,6 +117,5 @@ namespace TravelAgency.ViewModel
             SignOutCommand =
                 new RelayCommand(Execute_SignOutCommand, CanExecute_NavigationCommand);
         }
-        #endregion
     }
 }

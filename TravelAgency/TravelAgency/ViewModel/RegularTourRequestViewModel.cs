@@ -9,7 +9,6 @@ namespace TravelAgency.ViewModel
 {
     public class RegularTourRequestViewModel : BaseViewModel
     {
-        #region Fields
         private readonly NavigationService _navigationService;
         private readonly RegularTourRequestService _tourRequestService;
         private string? _country;
@@ -24,9 +23,7 @@ namespace TravelAgency.ViewModel
         public RelayCommand CancelRequestCommand { get; set; }
         public RelayCommand NavigateToMyTourRequestsCommand { get; set; }
         private TourRequestAcceptedDialog? Dialog { get; set; }
-        #endregion
 
-        #region Properties
         public string? Country
         {
             get => _country;
@@ -106,9 +103,7 @@ namespace TravelAgency.ViewModel
                 OnPropertyChanged();
             }
         }
-        #endregion
 
-        #region Actions
         private void Execute_SubmitRequestCommand(object parameter)
         {
             _tourRequestService.Add(new RegularTourRequest(
@@ -149,7 +144,6 @@ namespace TravelAgency.ViewModel
         {
             return true;
         }
-        #endregion
 
         private bool IsDateRangeValid(DateTime? startingDate, DateTime? endingDate)
         {
@@ -157,7 +151,6 @@ namespace TravelAgency.ViewModel
             return startingDate < endingDate;
         }
 
-        #region Constructors
         public RegularTourRequestViewModel(NavigationService navigationService)
         {
             _navigationService = navigationService;
@@ -170,6 +163,5 @@ namespace TravelAgency.ViewModel
             NavigateToMyTourRequestsCommand =
                 new RelayCommand(Execute_NavigateToMyTourRequestsCommand, CanExecute_CancelRequestCommand);
         }
-        #endregion
     }
 }
