@@ -116,6 +116,8 @@ namespace TravelAgency.ViewModel
                 $"{StartingDate?.ToString("yyyy-MM-dd")} - {EndingDate?.ToString("yyyy-MM-dd")}",
                 Description!,
                 RegularTourRequest.TourRequestStatus.OnHold));
+
+            
         }
 
         private void Execute_CancelRequestCommand(object parameter)
