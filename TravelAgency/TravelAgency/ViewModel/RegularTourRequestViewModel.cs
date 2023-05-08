@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Windows.Navigation;
 using TravelAgency.Command;
 using TravelAgency.Model;
@@ -121,8 +120,8 @@ namespace TravelAgency.ViewModel
                 Description!,
                 RegularTourRequest.TourRequestStatus.OnHold));
 
-            Dialog?.ShowDialog();
             Dialog = new TourRequestAcceptedDialog(this);
+            Dialog?.ShowDialog();
         }
 
         private void Execute_CancelRequestCommand(object parameter)
@@ -132,9 +131,8 @@ namespace TravelAgency.ViewModel
 
         private void Execute_NavigateToMyTourRequestsCommand(object parameter)
         {
-            Debug.WriteLine("IN");
-            _navigationService.Navigate(new HomeView());
             Dialog?.Close();
+            _navigationService.Navigate(new HomeView());
         }
 
         private bool CanExecute_SubmitRequestCommand(object parameter)
