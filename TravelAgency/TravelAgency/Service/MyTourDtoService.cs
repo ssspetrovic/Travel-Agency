@@ -83,8 +83,7 @@ namespace TravelAgency.Service
 
             var touristService = new TouristService();
             touristService.JoinTour(CurrentUser.Username, selectedTour.TourId, selectedTour.Location.City);
-
-            MyToursViewModel.ReloadWindow();
+            //MyToursViewModel.ReloadWindow();
         }
     }
 }

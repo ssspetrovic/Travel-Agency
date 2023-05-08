@@ -1,4 +1,4 @@
-﻿using System.Windows;
+﻿using System.Windows.Navigation;
 using TravelAgency.ViewModel;
 
 namespace TravelAgency.View.Controls.Tourist
@@ -8,25 +8,10 @@ namespace TravelAgency.View.Controls.Tourist
     /// </summary>
     public partial class RateTourView
     {
-        public RateTourView(string selectedTourName = "/")
+        public RateTourView(NavigationService navigationService, string selectedTourName = "/")
         {
             InitializeComponent();
-            DataContext = new RateTourViewModel(NavigationService!, selectedTourName);
+            DataContext = new RateTourViewModel(navigationService, selectedTourName);
         }
-
-        //private void CancelButton_OnClick(object sender, RoutedEventArgs e)
-        //{
-        //    NavigationService?.Navigate(new MyToursView());
-        //}
-
-        //private void SubmitButton_OnClick(object sender, RoutedEventArgs e)
-        //{
-        //    ((RateTourViewModel)DataContext).Submit();
-        //}
-
-        //private void AddUrlButton_OnClick(object sender, RoutedEventArgs e)
-        //{
-        //    ((RateTourViewModel)DataContext).AddUrl();
-        //}
     }
 }

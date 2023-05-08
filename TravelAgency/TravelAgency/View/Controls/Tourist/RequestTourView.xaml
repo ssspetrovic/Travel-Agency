@@ -40,7 +40,7 @@
                 <Button
                     x:Name="RegularTourRequestButton"
                     Width="120"
-                    Height="40"
+                    Height="35"
                     Margin="0,0,10,0"
                     Click="RegularTourRequestButton_OnClick"
                     Content="Regular"
@@ -48,7 +48,7 @@
                 <Button
                     x:Name="ComplexTourRequestButton"
                     Width="120"
-                    Height="40"
+                    Height="35"
                     Margin="25,0,0,0"
                     Content="Complex"
                     FontSize="15" />

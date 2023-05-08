@@ -32,12 +32,12 @@ namespace TravelAgency.ViewModel
 
         private void Execute_NavigateToMyToursPageCommand(object parameter)
         {
-            NavigationService.Navigate(new MyToursView());
+            NavigationService.Navigate(new MyToursView(NavigationService));
         }
 
         private void Execute_NavigateToRateTourPageCommand(object parameter)
         {
-            NavigationService.Navigate(new RateTourView());
+            NavigationService.Navigate(new RateTourView(NavigationService));
         }
 
         private void Execute_NavigateToMyTourVouchersPageCommand(object parameter)

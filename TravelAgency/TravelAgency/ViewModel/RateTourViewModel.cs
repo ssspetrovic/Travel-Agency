@@ -7,7 +7,6 @@ using TravelAgency.DTO;
 using TravelAgency.Model;
 using TravelAgency.Service;
 using TravelAgency.View;
-using TravelAgency.View.Controls.Tourist;
 using static System.Windows.Application;
 using MessageBox = System.Windows.Forms.MessageBox;
 
@@ -25,7 +24,7 @@ namespace TravelAgency.ViewModel
         public string TourNameHeader { get; }
         private string TourName { get; }
         public RelayCommand CancelRatingCommand { get; set; }
-        public RelayCommand SubmitRatingCommand { get; set; }
+        public RelayCommand SubmitRelayCommand { get; set; }
         public RelayCommand AddPhotoCommand { get; set; }
 
         public int GuideKnowledgeGrade
@@ -91,28 +90,23 @@ namespace TravelAgency.ViewModel
         {
             _navigationService = navigationService;
             TourName = tourName;
+            TourNameHeader = $"'{tourName}'";
+            
             CancelRatingCommand =
                 new RelayCommand(Execute_CancelRatingCommand, CanExecute_CancelRatingCommand);
-            SubmitRatingCommand =
-                new RelayCommand(Execute_SubmitRatingCommand, CanExecute_SubmitRatingCommand);
+            SubmitRelayCommand =
+                new RelayCommand(Execute_SubmitRelayCommand, CanExecute_SubmitRelayCommand);
             AddPhotoCommand =
                 new RelayCommand(Execute_AddPhotoCommand, CanExecute_AddPhotoCommand);
-
-            if (TourNameHeader == "/")
-            {
-                MessageBox.Show("Error with selected tour!", "Error");
-                return;
-            }
-
-            TourNameHeader = $"'{tourName}'";
         }
 
         private void Execute_CancelRatingCommand(object parameter)
         {
-            _navigationService.Navigate(new MyToursView());
+            _navigationService.GoBack();
         }
 
-        private void Execute_SubmitRatingCommand(object parameter)
+        // TODO Test this method
+        private void Execute_SubmitRelayCommand(object parameter)
         {
             var touristService = new TouristService();
             var tourRatingService = new TourRatingService();
@@ -131,7 +125,6 @@ namespace TravelAgency.ViewModel
 
             var myTourDtoService = new MyTourDtoService();
             myTourDtoService.UpdateStatus(TourName, MyTourDto.TourStatus.Rated);
-            _navigationService.Navigate(new MyToursView());
         }
 
         private void Execute_AddPhotoCommand(object parameter)
@@ -146,10 +139,9 @@ namespace TravelAgency.ViewModel
         {
             return true;
         }
-
-        private bool CanExecute_SubmitRatingCommand(object parameter)
+        private bool CanExecute_SubmitRelayCommand(object parameter)
         {
-            return GuideKnowledgeGrade == 0 || GuideLanguageGrade == 0 || TourInterestingnessGrade == 0;
+            return GuideKnowledgeGrade != 0 && GuideLanguageGrade != 0 && TourInterestingnessGrade != 0;
         }
 
         private bool CanExecute_AddPhotoCommand(object parameter)
@@ -157,6 +149,7 @@ namespace TravelAgency.ViewModel
             return !string.IsNullOrEmpty(Url);
         }
 
+        // TODO Test this method
         public void Submit()
         {
             if (GuideKnowledgeGrade == 0 || GuideLanguageGrade == 0 || TourInterestingnessGrade == 0)
@@ -193,20 +186,6 @@ namespace TravelAgency.ViewModel
             var currentWindow = Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
             mainWindow.Show();
             currentWindow?.Close();
-        }
-
-        public void AddUrl()
-        {
-            if (string.IsNullOrEmpty(Url))
-            {
-                MessageBox.Show("Invalid link!", "Error");
-                return;
-            }
-
-            var formattedUri = Url.Trim();
-            formattedUri = $"{formattedUri};\r\n";
-            PhotoUrls += formattedUri;
-            Url = string.Empty;
         }
     }
 }

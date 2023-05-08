@@ -108,7 +108,8 @@
                     <TextBlock
                         x:Name="PhotosTextBlock"
                         Padding="5"
-                        FontSize="13" />
+                        FontSize="13"
+                        Text="{Binding PhotoUrls}" />
                 </Border>
                 <WrapPanel
                     Grid.Row="2"
