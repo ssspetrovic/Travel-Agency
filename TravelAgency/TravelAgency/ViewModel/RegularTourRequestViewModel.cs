@@ -141,7 +141,7 @@ namespace TravelAgency.ViewModel
 
         private bool IsDateRangeValid(DateTime? startingDate, DateTime? endingDate)
         {
-            if (startingDate < DateTime.Now || startingDate == null || endingDate == null) return false;
+            if (startingDate <= DateTime.Now || startingDate == null || endingDate == null) return false;
             return startingDate < endingDate;
         }
 
