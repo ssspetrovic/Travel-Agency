@@ -146,16 +146,5 @@ namespace TravelAgency.ViewModel
             SubmitRequestCommand = new RelayCommand(Execute_SubmitRequestCommand, CanExecute_SubmitRequestCommand);
             CancelRequestCommand = new RelayCommand(Execute_CancelRequestCommand, CanExecute_CancelRequestCommand);
         }
-
-        public void SubmitTourRequest()
-        {
-            Debug.WriteLine(Country);
-            Debug.WriteLine(City);
-            Debug.WriteLine(Language);
-            Debug.WriteLine(GuestNumber);
-            Debug.WriteLine(StartingDate);
-            Debug.WriteLine(EndingDate);
-            Debug.WriteLine(Description);
-        }
     }
 }
