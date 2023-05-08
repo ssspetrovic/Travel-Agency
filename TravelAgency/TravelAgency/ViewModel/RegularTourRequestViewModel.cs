@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
+using TravelAgency.Command;
 using TravelAgency.Model;
 
 namespace TravelAgency.ViewModel
 {
     internal class RegularTourRequestViewModel : BaseViewModel
     {
+        #region Fields
         private string? _country;
         private string? _city;
         private Language? _language;
@@ -14,6 +16,8 @@ namespace TravelAgency.ViewModel
         private DateTime? _endingDate;
         private string? _description;
         private Array _languages;
+        public RelayCommand SubmitRequestCommand { get; set; }
+        #endregion
 
         public string? Country
         {
@@ -95,9 +99,27 @@ namespace TravelAgency.ViewModel
             }
         }
 
+        private bool CanExecute_SubmitRequestCommand(object parameter)
+        {
+            return true;
+        }
+
+        private void Execute_SubmitRequestCommand(object parameter)
+        {
+            Debug.WriteLine(Country);
+            Debug.WriteLine(City);
+            Debug.WriteLine(Language);
+            Debug.WriteLine(GuestNumber);
+            Debug.WriteLine(StartingDate);
+            Debug.WriteLine(EndingDate);
+            Debug.WriteLine(Description);
+        }
+
+
         public RegularTourRequestViewModel()
         {
             _languages = Enum.GetValues(typeof(Language));
+            SubmitRequestCommand = new RelayCommand(Execute_SubmitRequestCommand, CanExecute_SubmitRequestCommand);
         }
 
         public void SubmitTourRequest()
