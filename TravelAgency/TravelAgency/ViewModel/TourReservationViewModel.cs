@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Windows;
 using System.Windows.Data;
 using System.Windows.Navigation;
 using TravelAgency.Command;
 using TravelAgency.Model;
 using TravelAgency.Service;
-using TravelAgency.View;
 using TravelAgency.View.Controls.Tourist;
 using static System.Windows.Application;
 
@@ -222,6 +219,7 @@ namespace TravelAgency.ViewModel
         private void Execute_MakeReservationCommand(object parameter)
         {
             TourReservationService.MakeReservation();
+            _navigationService.Navigate(new TourReservationView(_navigationService));
         }
 
         private void Execute_ApplyFilterCommand(object parameter)
@@ -368,24 +366,6 @@ namespace TravelAgency.ViewModel
             EnteredFilterGuestNumber = null;
             RaisePropertyChanged(nameof(FilterText));
             _toursCollection.View.Refresh();
-        }
-
-        // Called to reload window after the reservation was made
-        public void ReloadWindow()
-        {
-            Current.Dispatcher.Invoke(() =>
-            {
-                var currentWindow = Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
-                var mainWindow = new TouristView
-                {
-                    ContentFrame =
-                    {
-                        Source = new Uri("Controls/Tourist/TourReservationView.xaml", UriKind.Relative)
-                    }
-                };
-                mainWindow.Show();
-                currentWindow?.Close();
-            });
         }
     }
 }
