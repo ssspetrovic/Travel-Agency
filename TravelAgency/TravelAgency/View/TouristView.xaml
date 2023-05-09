@@ -41,10 +41,10 @@
                             Width="55"
                             Height="55"
                             BorderBrush="White"
-                            BorderThickness="2"
+                            BorderThickness="3"
                             CornerRadius="5">
                             <fa:IconImage
-                                Width="35"
+                                Width="30"
                                 Foreground="White"
                                 Icon="UserAlt" />
                         </Border>
@@ -61,72 +61,88 @@
                         Grid.Row="1"
                         BorderBrush="White"
                         BorderThickness="0,2">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition Height="50" />
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Margin="0,5">
+                                <RadioButton
+                                    x:Name="HomeButton"
+                                    Height="50"
+                                    Command="{Binding NavigateToHomePageCommand}"
+                                    Content="Home"
+                                    FontSize="19"
+                                    Foreground="White"
+                                    Style="{StaticResource MenuButtonStyle}" />
+                                <RadioButton
+                                    x:Name="MyToursButton"
+                                    Height="50"
+                                    Command="{Binding NavigateToMyToursPageCommand}"
+                                    Content="My tours"
+                                    FontSize="19"
+                                    Foreground="White"
+                                    Style="{StaticResource MenuButtonStyle}" />
+                                <RadioButton
+                                    x:Name="MyVouchersButton"
+                                    Height="50"
+                                    Command="{Binding NavigateToMyTourVouchersPageCommand}"
+                                    Content="My vouchers"
+                                    FontSize="19"
+                                    Foreground="White"
+                                    Style="{StaticResource MenuButtonStyle}" />
+                                <RadioButton
+                                    x:Name="TourReservationButton"
+                                    Height="50"
+                                    Command="{Binding NavigateToTourReservationPageCommand}"
+                                    Content="Browse tours"
+                                    FontSize="19"
+                                    Foreground="White"
+                                    Style="{StaticResource MenuButtonStyle}" />
+                                <RadioButton
+                                    x:Name="RequestTourButton"
+                                    Height="50"
+                                    Command="{Binding NavigateToRequestTourPageCommand}"
+                                    Content="Request a tour"
+                                    FontSize="19"
+                                    Foreground="White"
+                                    Style="{StaticResource MenuButtonStyle}" />
 
-                        <StackPanel Margin="0,5">
+                            </StackPanel>
                             <RadioButton
-                                x:Name="HomeButton"
+                                x:Name="SignOutButton"
+                                Grid.Row="1"
                                 Height="50"
-                                Command="{Binding NavigateToHomePageCommand}"
-                                Content="Home"
-                                FontSize="19"
-                                Foreground="White"
-                                Style="{StaticResource MenuButtonStyle}" />
-                            <RadioButton
-                                x:Name="MyToursButton"
-                                Height="50"
-                                Command="{Binding NavigateToMyToursPageCommand}"
-                                Content="My tours"
-                                FontSize="19"
-                                Foreground="White"
-                                Style="{StaticResource MenuButtonStyle}" />
-                            <RadioButton
-                                x:Name="MyVouchersButton"
-                                Height="50"
-                                Command="{Binding NavigateToMyTourVouchersPageCommand}"
-                                Content="My vouchers"
-                                FontSize="19"
-                                Foreground="White"
-                                Style="{StaticResource MenuButtonStyle}" />
-                            <RadioButton
-                                x:Name="TourReservationButton"
-                                Height="50"
-                                Command="{Binding NavigateToTourReservationPageCommand}"
-                                Content="Browse tours"
-                                FontSize="19"
-                                Foreground="White"
-                                Style="{StaticResource MenuButtonStyle}" />
-                            <RadioButton
-                                x:Name="RequestTourButton"
-                                Height="50"
-                                Command="{Binding NavigateToRequestTourPageCommand}"
-                                Content="Request a tour"
-                                FontSize="19"
-                                Foreground="White"
-                                Style="{StaticResource MenuButtonStyle}" />
-                        </StackPanel>
+                                VerticalAlignment="Bottom"
+                                Command="{Binding SignOutCommand}"
+                                Style="{StaticResource MenuButtonStyle}">
+                                <WrapPanel
+                                    Width="150"
+                                    Height="40"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center">
+                                    <fa:IconImage
+                                        Margin="25,10,10,0"
+                                        Icon="RightFromBracket"
+                                        Style="{StaticResource LogOutIconStyle}" />
+                                    <TextBlock
+                                        Margin="0,8,5,0"
+                                        FontSize="19"
+                                        Foreground="White"
+                                        Text="Sign out" />
+                                </WrapPanel>
+                            </RadioButton>
+                        </Grid>
                     </Border>
-                    <RadioButton
-                        x:Name="SignOutButton"
+                    <WrapPanel
                         Grid.Row="2"
-                        Height="50"
-                        Command="{Binding SignOutCommand}"
-                        Style="{StaticResource MenuButtonStyle}">
-                        <WrapPanel
-                            Width="150"
-                            Height="40"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center">
-                            <fa:IconImage
-                                Margin="25,10,5,0"
-                                Icon="RightFromBracket"
-                                Style="{StaticResource LogOutIconStyle}" />
-                            <TextBlock
-                                Margin="0,8,5,0"
-                                FontSize="19"
-                                Foreground="White"
-                                Text="Sign out" />
-                        </WrapPanel>
-                    </RadioButton>
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                        <TextBlock
+                            FontSize="19"
+                            Foreground="White"
+                            Text="Tooltips" />
+                    </WrapPanel>
                 </Grid>
             </Border>
             <Grid Grid.Column="1">
