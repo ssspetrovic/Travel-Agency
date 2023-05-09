@@ -1,4 +1,8 @@
-﻿using TravelAgency.Service;
+﻿using System.Linq;
+using System.Windows;
+using TravelAgency.DTO;
+using TravelAgency.Service;
+using TravelAgency.View;
 
 namespace TravelAgency.ViewModel
 {
@@ -11,6 +15,34 @@ namespace TravelAgency.ViewModel
         {
             _requestTourService = new RequestTourService();
             _locationService = new LocationService();
+            CreateLocation = new MyICommand(CreateLoc);
+            CreateLanguage = new MyICommand(CreateLang);
+        }
+
+        public MyICommand CreateLocation { get; private set; }
+        public MyICommand CreateLanguage { get; private set; }
+
+        public void CreateLoc()
+        {
+            CreateAcceptedTourDto.Location = MostRequestedLocation.Split(", ")[0];
+            CreateTourView();
+        }
+
+        public void CreateLang()
+        {
+            CreateAcceptedTourDto.Language = MostRequestedLanguage;
+            CreateTourView();
+        }
+
+        public void CreateTourView()
+        {
+            var currentWindow = Application.Current.Windows.OfType<Guide>().FirstOrDefault();
+            var newWindow = new Guide();
+            if (newWindow.DataContext is not GuideViewModel guideViewModel) return;
+            guideViewModel.CurrentViewModel = new CreateTourViewModel();
+            newWindow.Title = "Create Tour";
+            newWindow.Show();
+            currentWindow!.Close();
         }
 
         public string MostRequestedLocation

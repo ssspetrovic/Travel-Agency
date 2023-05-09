@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace TravelAgency.ViewModel
@@ -20,5 +21,6 @@ namespace TravelAgency.ViewModel
         }
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
+
     }
 }

@@ -1,0 +1,87 @@
+﻿<Page
+    x:Class="TravelAgency.View.Tourist.HomeView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="TouristHomePage"
+    d:DesignHeight="571"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <ResourceDictionary Source="/Resources/Styles/TouristDictionary.xaml" />
+    </Page.Resources>
+    <d:Page.Background>
+        <SolidColorBrush Color="White" />
+    </d:Page.Background>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="260" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <StackPanel
+            Grid.Row="0"
+            Margin="0,35"
+            VerticalAlignment="Bottom">
+            <TextBlock
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="25"
+                FontWeight="DemiBold"
+                Style="{StaticResource MaterialDesignHeadline1TextBlock}"
+                Text="Welcome to our Agency!" />
+            <TextBlock
+                Margin="0,5"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="20"
+                FontWeight="Normal"
+                Text="What would you like to do?" />
+        </StackPanel>
+        <StackPanel Grid.Row="1">
+            <TextBlock
+                x:Name="BrowseToursLink"
+                Margin="0,8"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="18"
+                Text="Browse tours"
+                TextDecorations="Underline">
+                <b:Interaction.Triggers>
+                    <b:EventTrigger EventName="MouseDown">
+                        <b:InvokeCommandAction Command="{Binding NavigateToBrowseToursCommand}" />
+                    </b:EventTrigger>
+                </b:Interaction.Triggers>
+            </TextBlock>
+            <TextBlock
+                x:Name="RequestTourLink"
+                Margin="0,8"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="18"
+                Text="Request a custom tour"
+                TextDecorations="Underline">
+                <b:Interaction.Triggers>
+                    <b:EventTrigger EventName="MouseDown">
+                        <b:InvokeCommandAction Command="{Binding NavigateToTourRequest}" />
+                    </b:EventTrigger>
+                </b:Interaction.Triggers>
+            </TextBlock>
+            <TextBlock
+                x:Name="OpenWizardLink"
+                Margin="0,8"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="18"
+                Text="Open a help wizard"
+                TextDecorations="Underline">
+                <b:Interaction.Triggers>
+                    <b:EventTrigger EventName="MouseDown">
+                        <b:InvokeCommandAction Command="{Binding NavigateToHelpWizard}" />
+                    </b:EventTrigger>
+                </b:Interaction.Triggers>
+            </TextBlock>
+        </StackPanel>
+    </Grid>
+</Page>

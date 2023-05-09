@@ -2,8 +2,8 @@
 using System.Windows;
 using TravelAgency.Model;
 using TravelAgency.Repository;
-using TravelAgency.View.Controls.Tourist;
-using TravelAgency.ViewModel;
+using TravelAgency.View.Tourist;
+using TravelAgency.ViewModel.Tourist;
 
 namespace TravelAgency.Service
 {
@@ -14,14 +14,6 @@ namespace TravelAgency.Service
 
         public TourService TourService { get; }
         public TourVoucherService TourVoucherService { get; }
-
-        public TourReservationService()
-        {
-            _tourReservationViewModel = new TourReservationViewModel();
-            _tourReservationRepository = new TourReservationRepository();
-            TourVoucherService = new TourVoucherService();
-            TourService = new TourService();
-        }
 
         public TourReservationService(TourReservationViewModel tourReservationViewModel)
         {
@@ -103,7 +95,7 @@ namespace TravelAgency.Service
 
             var finalGuestNumber = selectedTour != null ? CalculateFinalGuestNumber(guestNumber, selectedTour.MaxGuests) : guestNumber;
             HandleFinalGuestNumber(finalGuestNumber);
-            _tourReservationViewModel.ReloadWindow();
+            //_tourReservationViewModel.ReloadWindow();
         }
 
         public Collection<TourReservation> GetAllAsCollection()

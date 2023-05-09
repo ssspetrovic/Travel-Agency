@@ -11,7 +11,7 @@ using TravelAgency.View;
 using TravelAgency.DTO;
 using TravelAgency.Service;
 using System.Runtime.CompilerServices;
-using TravelAgency.View.Controls.Tourist;
+using TravelAgency.View.Tourist;
 
 namespace TravelAgency.ViewModel
 {

@@ -5,7 +5,7 @@ using System.Windows.Forms;
 using TravelAgency.DTO;
 using TravelAgency.Model;
 using TravelAgency.Repository;
-using TravelAgency.ViewModel;
+using TravelAgency.ViewModel.Tourist;
 
 namespace TravelAgency.Service
 {
@@ -62,29 +62,28 @@ namespace TravelAgency.Service
                 return false;
 
             var tourRatingService = new TourRatingService();
-            return CurrentUser.Username != null && tourRatingService.IsTourRateable(CurrentUser.Username, _myToursViewModel?.SelectedTour!.Name);
+            return tourRatingService.IsTourRateable(CurrentUser.Username, _myToursViewModel?.SelectedTour!.Name);
         }
 
-        public void JoinTour()
+        public void JoinTour(MyTourDto? selectedTour)
         {
-            if (_myToursViewModel?.SelectedTour == null)
+            if (selectedTour == null)
             {
                 MessageBox.Show("No tour selected!", "Error");
                 return;
             }
 
-            if (_myToursViewModel?.SelectedTour.Status != MyTourDto.TourStatus.Active)
+            if (selectedTour.Status != MyTourDto.TourStatus.Active)
             {
                 MessageBox.Show("Cannot join this tour!", "Error");
                 return;
             }
 
-            UpdateStatus(_myToursViewModel.SelectedTour.Name, MyTourDto.TourStatus.Requested);
+            UpdateStatus(selectedTour.Name, MyTourDto.TourStatus.Requested);
 
             var touristService = new TouristService();
-            touristService.JoinTour(CurrentUser.Username, _myToursViewModel.SelectedTour.TourId, _myToursViewModel.SelectedTour.Location.City);
-
-            MyToursViewModel.ReloadWindow();
+            touristService.JoinTour(CurrentUser.Username, selectedTour.TourId, selectedTour.Location.City);
+            //MyToursViewModel.ReloadWindow();
         }
     }
 }
