@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Windows;
 using System.Windows.Media;
+using TravelAgency.DTO;
 using TravelAgency.Model;
 using TravelAgency.Service;
 using TravelAgency.View;
+using Application = System.Windows.Application;
 using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace TravelAgency.ViewModel
@@ -29,6 +30,19 @@ namespace TravelAgency.ViewModel
         private string? _comboBoxKeyPoints;
         private bool _isCreateTourEnabled;
 
+        private SolidColorBrush _locationBackground = Brushes.Transparent;
+        private SolidColorBrush _languageBackground = Brushes.Transparent;
+        private SolidColorBrush _guestsBackground = Brushes.Transparent;
+        private SolidColorBrush _dateBackground = Brushes.Transparent;
+
+        private bool _locationFocus = true;
+        private bool _languageFocus = true;
+        private bool _guestsFocus = true;
+        private bool _dateFocus = true;
+
+        private int _languageIndex;
+        private int _locationIndex;
+
         private readonly TourService _tourService;
         private readonly LocationService _locationService;
 
@@ -39,6 +53,132 @@ namespace TravelAgency.ViewModel
             CreateTourCommand = new MyICommand<string>(Confirm);
             KeyPointsCommands = new MyICommand<string>(KeyPoints);
             ImagesCommands = new MyICommand<string>(Images);
+
+            _dateList = CreateAcceptedTourDto.DateList;
+            _maxGuestsText = CreateAcceptedTourDto.MaxGuests;
+            _comboBoxLanguage = CreateAcceptedTourDto.Language.Trim();
+            _comboBoxLocation = CreateAcceptedTourDto.Location.Trim();
+
+            if (_comboBoxLocation != string.Empty)
+            {
+                _locationIndex = _locationService.GetByCity(_comboBoxLocation)!.Id -1;
+                _keyPointsList = _comboBoxLocation;
+                _locationBackground = Brushes.Gray;
+                _locationFocus = false;
+            }
+
+            if (_comboBoxLanguage != string.Empty)
+            {
+                _languageIndex = (int) Enum.Parse(typeof(Language), _comboBoxLanguage); 
+                _languageBackground = Brushes.Gray;
+                _languageFocus = false;
+            }
+
+            if (_maxGuestsText != string.Empty)
+            {
+                _guestsBackground = Brushes.Gray;
+                _guestsFocus = false;
+            }
+
+            if (_dateList != string.Empty)
+            {
+                _datePick = null;
+                _dateBackground = Brushes.Gray;
+                _dateFocus = false;
+            }
+        }
+        public int LanguageIndex
+        {
+            get => _languageIndex;
+            set
+            {
+                _languageIndex = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int LocationIndex
+        {
+            get => _locationIndex;
+            set
+            {
+                _locationIndex = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public SolidColorBrush LocationBackground
+        {
+            get => _locationBackground;
+            set
+            {
+                _locationBackground = value;
+                OnPropertyChanged();
+            }
+        } 
+        public SolidColorBrush LanguageBackground
+        {
+            get => _languageBackground;
+            set
+            {
+                _languageBackground = value;
+                OnPropertyChanged();
+            }
+        } 
+        public SolidColorBrush GuestsBackground
+        {
+            get => _guestsBackground;
+            set
+            {
+                _guestsBackground = value;
+                OnPropertyChanged();
+            }
+        }
+        public SolidColorBrush DateBackground
+        {
+            get => _dateBackground;
+            set
+            {
+                _dateBackground = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool LocationFocus
+        {
+            get => _locationFocus;
+            set
+            {
+                _locationFocus = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool LanguageFocus
+        {
+            get => _languageFocus;
+            set
+            {
+                _languageFocus = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool GuestsFocus
+        {
+            get => _guestsFocus;
+            set
+            {
+                _guestsFocus = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool DateFocus
+        {
+            get => _dateFocus;
+            set
+            {
+                _dateFocus = value;
+                OnPropertyChanged();
+            }
         }
 
         public MyICommand<string> CreateTourCommand { get; private set; }
@@ -158,7 +298,8 @@ namespace TravelAgency.ViewModel
 
         private void Confirm(string create)
         {
-            if (create != "Create" && create != "Button") return;
+            if (!IsCreateTourEnabled) return;
+            if (create != "Create" && create != "Button" ) return;
             var currentLocation = _locationService.GetByCity(ComboBoxLocation!);
             var maxGuests = int.Parse(MaxGuestsText!);
             var duration = float.Parse(DurationText!);
@@ -179,8 +320,13 @@ namespace TravelAgency.ViewModel
 
             var mainWindow = Application.Current.Windows.OfType<Guide>().FirstOrDefault();
             if (mainWindow!.DataContext is GuideViewModel guideViewModel)
-                guideViewModel.CurrentViewModel = new MonitorTourViewModel();
-            
+                guideViewModel.CurrentViewModel = new HomePageViewModel();
+
+            CreateAcceptedTourDto.Location = string.Empty;
+            CreateAcceptedTourDto.Language = string.Empty;
+            CreateAcceptedTourDto.MaxGuests = string.Empty;
+            CreateAcceptedTourDto.DateList = string.Empty;
+
         }
 
         private SolidColorBrush _nameTextColor = new((Color)ColorConverter.ConvertFromString("#68cbf8"));
@@ -210,14 +356,6 @@ namespace TravelAgency.ViewModel
             get => _nameText;
             set
             {
-                if (string.IsNullOrEmpty(value) || value.Length < 3)
-                {
-                    FocusControl(nameof(NameText));
-                    _nameTextColor = Brushes.Red;
-                }
-                else
-                    _nameTextColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#68cbf8"));
-
                 _nameText = value;
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(NameTextColor));
@@ -230,10 +368,6 @@ namespace TravelAgency.ViewModel
             get => _comboBoxLocation;
             set
             {
-                if (string.IsNullOrEmpty(value))
-                {
-                    FocusControl(nameof(ComboBoxLocation));
-                }
                 _comboBoxLocation = value;
                 OnPropertyChanged();
                 Validate();
@@ -255,10 +389,6 @@ namespace TravelAgency.ViewModel
             get => _comboBoxLanguage;
             set
             {
-                if (string.IsNullOrEmpty(value))
-                {
-                    FocusControl(nameof(ComboBoxLanguage));
-                }
                 _comboBoxLanguage = value;
                 OnPropertyChanged();
                 Validate();
@@ -270,15 +400,6 @@ namespace TravelAgency.ViewModel
             get => _maxGuestsText;
             set
             {
-                if (string.IsNullOrEmpty(value))
-                {
-                    FocusControl(nameof(MaxGuestsText));
-                }
-                else if (!int.TryParse(value, out int maxGuests) || maxGuests < 1)
-                {
-                    FocusControl(nameof(MaxGuestsText));
-                    IsCreateTourEnabled = false;
-                }
                 _maxGuestsText = value;
                 OnPropertyChanged();
                 Validate();
@@ -290,14 +411,6 @@ namespace TravelAgency.ViewModel
             get => _keyPointsList;
             set
             {
-                if (string.IsNullOrEmpty(value))
-                {
-                    FocusControl(nameof(KeyPointsList));
-                }
-                else if (!value.Contains(","))
-                {
-                    FocusControl(nameof(KeyPointsList));
-                }
                 _keyPointsList = value;
                 OnPropertyChanged();
                 Validate();
@@ -319,10 +432,6 @@ namespace TravelAgency.ViewModel
             get => _dateList;
             set
             {
-                if (string.IsNullOrEmpty(value))
-                {
-                    FocusControl(nameof(DateList));
-                }
                 _dateList = value;
                 OnPropertyChanged();
                 Validate();
@@ -344,14 +453,6 @@ namespace TravelAgency.ViewModel
             get => _durationText;
             set
             {
-                if (string.IsNullOrEmpty(value))
-                {
-                    FocusControl(nameof(DurationText));
-                }
-                else if (!double.TryParse(value, out double duration) || duration < 1)
-                {
-                    FocusControl(nameof(DurationText));
-                }
                 _durationText = value;
                 OnPropertyChanged();
                 Validate();
@@ -363,10 +464,6 @@ namespace TravelAgency.ViewModel
             get => _imagesList;
             set
             {
-                if (string.IsNullOrEmpty(value))
-                {
-                    FocusControl(nameof(ImagesList));
-                }
                 _imagesList = value;
                 OnPropertyChanged();
                 Validate();
@@ -379,37 +476,6 @@ namespace TravelAgency.ViewModel
             {
                 _imagesText = value;
                 OnPropertyChanged();
-            }
-        }
-
-        private void FocusControl(string error)
-        {
-            switch (error)
-            {
-                case nameof(NameText):
-                    //
-                    break;
-                case nameof(ComboBoxLocation):
-                    // Focus ComboBoxLocation control
-                    break;
-                case nameof(ComboBoxLanguage):
-                    // Focus ComboBoxLanguage control
-                    break;
-                case nameof(MaxGuestsText):
-                    // Focus MaxGuestsTextBox control
-                    break;
-                case nameof(KeyPointsList):
-                    // Focus KeyPointsTextBox control
-                    break;
-                case nameof(DateList):
-                    // Focus DateTextBox control
-                    break;
-                case nameof(DurationText):
-                    // Focus DurationTextBox control
-                    break;
-                case nameof(ImagesList):
-                    // Focus ImagesTextBox control
-                    break;
             }
         }
 

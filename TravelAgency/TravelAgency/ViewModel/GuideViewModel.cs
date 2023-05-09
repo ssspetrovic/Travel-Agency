@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Windows;
+using TravelAgency.DTO;
 using TravelAgency.Model;
 using TravelAgency.View;
 using TravelAgency.View.Controls.Guide;
@@ -13,14 +14,16 @@ namespace TravelAgency.ViewModel
         private BaseViewModel _currentViewModel = new HomePageViewModel();
         public MyICommand LogOutCommand { get; private set; }
         public MyICommand ResignCommand { get; private set; }
+        public string CurrentViewName { get; set; }
 
         public GuideViewModel()
         {
             NavCommand = new MyICommand<string>(OnNav);
-            ReserveCommand = new MyICommand<string>(OnReserve);
-            CurrentViewModel = _currentViewModel;
+            ReserveCommand = new MyICommand<string>(OnNav);
             LogOutCommand = new MyICommand(LogOut);
             ResignCommand = new MyICommand(Resign);
+            CurrentViewModel = _currentViewModel;
+            CurrentViewName = "All Tours";
         }
 
         public string LoadCurrentUserData => "Welcome " + CurrentUser.DisplayName;
@@ -28,87 +31,61 @@ namespace TravelAgency.ViewModel
         public BaseViewModel CurrentViewModel
         {
             get => _currentViewModel;
-            set => SetProperty(ref _currentViewModel, value);
-        }
-
-        private void OnReserve(string destination)
-        {
-            switch (destination)
+            set
             {
-                case "HomePage":
-                    CurrentViewModel = new HomePageViewModel();
-                    break;
-                case "CreateTour":
-                    CurrentViewModel = new CreateTourViewModel();
-                    break;
-                case "Monitor":
-                    CurrentViewModel = new MonitorTourViewModel();
-                    break;
-                case "CancelTour":
-                    CurrentViewModel = new CancelTourViewModel();
-                    break;
-                case "TourStats":
-                    CurrentViewModel = new TourStatsViewModel();
-                    break;
-                case "TourReview":
-                    CurrentViewModel = new ReviewTourViewModel();
-                    break;
-                case "AcceptTour":
-                    CurrentViewModel = new AcceptTourViewModel();
-                    break;
-                case "ComplexTour":
-                    CurrentViewModel = new ComplexTourViewModel();
-                    break;
-                case "RequestStats":
-                    CurrentViewModel = new RequestStatsViewModel();
-                    break;
-                case "CreateSuggested":
-                    CurrentViewModel = new CreateSuggestedTourViewModel();
-                    break;
-                case "LogOut":
-                    LogOut();
-                    break;
-                case "Resign":
-                    Resign();
-                    break;
+                _currentViewModel = value;
+                OnPropertyChanged();
             }
         }
 
         private void OnNav(string destination)
         {
+            var currentWindow = Application.Current.Windows.OfType<Guide>().FirstOrDefault();
+            var newWindow = new Guide();
+            if (newWindow.DataContext is not GuideViewModel guideViewModel) return;
             switch (destination)
             {
-                case "HomePage":
-                    CurrentViewModel = new HomePageViewModel();
+                case "Home Page":
+                    guideViewModel.CurrentViewModel = new HomePageViewModel();
                     break;
-                case "CreateTour":
-                    CurrentViewModel = new CreateTourViewModel();
+                case "Create Tour":
+                    guideViewModel.CurrentViewModel = new CreateTourViewModel();
+                    CreateAcceptedTourDto.Location = string.Empty;
+                    CreateAcceptedTourDto.Language = string.Empty;
+                    CreateAcceptedTourDto.MaxGuests = string.Empty;
+                    CreateAcceptedTourDto.DateList = string.Empty;
                     break;
-                case "Monitor":
-                    CurrentViewModel = new MonitorTourViewModel();
+                case "Monitor Tour":
+                    guideViewModel.CurrentViewModel = new MonitorTourViewModel();
                     break;
-                case "CancelTour":
-                    CurrentViewModel = new CancelTourViewModel();
+                case "Cancel Tour":
+                    guideViewModel.CurrentViewModel = new CancelTourViewModel();
                     break;
-                case "TourStats":
-                    CurrentViewModel = new TourStatsViewModel();
+                case "Tour Stats":
+                    guideViewModel.CurrentViewModel = new TourStatsViewModel();
                     break;
-                case "TourReview":
-                    CurrentViewModel = new ReviewTourViewModel();
+                case "Tour Review":
+                    guideViewModel.CurrentViewModel = new ReviewTourViewModel();
                     break;
-                case "AcceptTour":
-                    CurrentViewModel = new AcceptTourViewModel();
+                case "Accept Tour Requests":
+                    guideViewModel.CurrentViewModel = new AcceptTourViewModel();
                     break;
-                case "ComplexTour":
-                    CurrentViewModel = new ComplexTourViewModel();
+                case "Complex Tour Requests":
+                    guideViewModel.CurrentViewModel = new ComplexTourViewModel();
                     break;
-                case "RequestStats":
-                    CurrentViewModel = new RequestStatsViewModel();
+                case "Request Stats":
+                    guideViewModel.CurrentViewModel = new RequestStatsViewModel();
                     break;
-                case "CreateSuggested":
-                    CurrentViewModel = new CreateSuggestedTourViewModel();
+                case "Create Suggested Tour":
+                    guideViewModel.CurrentViewModel = new CreateSuggestedTourViewModel();
+                    break;
+                case "Shortcuts":
+                    guideViewModel.CurrentViewModel = new ShortcutsViewModel();
                     break;
             }
+            newWindow.Title = destination;
+            newWindow.Show();
+            currentWindow!.Close();
         }
 
         private void LogOut()

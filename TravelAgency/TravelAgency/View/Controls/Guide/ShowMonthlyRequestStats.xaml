@@ -2,6 +2,7 @@
     x:Class="TravelAgency.View.Controls.Guide.ShowMonthlyRequestStats"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -11,7 +12,6 @@
     Height="400"
     AllowsTransparency="True"
     Background="Transparent"
-    KeyDown="ShowMonthlyRequestStats_OnKeyDown"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
@@ -87,10 +87,16 @@
                     Width="90"
                     Height="30"
                     Background="#68cbf8"
-                    Click="Exit_OnClick"
+                    Command="{Binding ExitMonth}"
                     Content="Exit"
                     FontSize="12"
-                    Foreground="#ffffff" />
+                    Foreground="#ffffff">
+                    <b:Interaction.Triggers>
+                        <b:KeyTrigger Key="Escape">
+                            <b:InvokeCommandAction Command="{Binding ExitMonth}" />
+                        </b:KeyTrigger>
+                    </b:Interaction.Triggers>
+                </Button>
 
             </Grid>
         </materialDesign:DialogHost>

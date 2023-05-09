@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
-using System.Windows.Forms;
 using LiveCharts;
 using TravelAgency.Model;
 using TravelAgency.Repository;

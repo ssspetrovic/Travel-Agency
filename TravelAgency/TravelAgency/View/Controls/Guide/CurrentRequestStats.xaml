@@ -2,6 +2,7 @@
     x:Class="TravelAgency.View.Controls.Guide.CurrentRequestStats"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
     xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
@@ -13,7 +14,6 @@
     Height="720"
     AllowsTransparency="True"
     Background="Transparent"
-    KeyDown="ChangeViews_KeyDown"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
@@ -22,6 +22,45 @@
     <Window.DataContext>
         <viewModel:CurrentRequestStatsViewModel />
     </Window.DataContext>
+
+    <b:Interaction.Triggers>
+        <b:KeyTrigger Key="F1" ActiveOnFocus="True">
+            <b:InvokeCommandAction Command="{Binding SelectStatsByMonth}" CommandParameter="F1" />
+        </b:KeyTrigger>
+        <b:KeyTrigger Key="F2" ActiveOnFocus="True">
+            <b:InvokeCommandAction Command="{Binding SelectStatsByMonth}" CommandParameter="F2" />
+        </b:KeyTrigger>
+        <b:KeyTrigger Key="F3" ActiveOnFocus="True">
+            <b:InvokeCommandAction Command="{Binding SelectStatsByMonth}" CommandParameter="F3" />
+        </b:KeyTrigger>
+        <b:KeyTrigger Key="F4" ActiveOnFocus="True">
+            <b:InvokeCommandAction Command="{Binding SelectStatsByMonth}" CommandParameter="F4" />
+        </b:KeyTrigger>
+        <b:KeyTrigger Key="F5" ActiveOnFocus="True">
+            <b:InvokeCommandAction Command="{Binding SelectStatsByMonth}" CommandParameter="F5" />
+        </b:KeyTrigger>
+        <b:KeyTrigger Key="F6" ActiveOnFocus="True">
+            <b:InvokeCommandAction Command="{Binding SelectStatsByMonth}" CommandParameter="F6" />
+        </b:KeyTrigger>
+        <b:KeyTrigger Key="F7" ActiveOnFocus="True">
+            <b:InvokeCommandAction Command="{Binding SelectStatsByMonth}" CommandParameter="F7" />
+        </b:KeyTrigger>
+        <b:KeyTrigger Key="F8" ActiveOnFocus="True">
+            <b:InvokeCommandAction Command="{Binding SelectStatsByMonth}" CommandParameter="F8" />
+        </b:KeyTrigger>
+        <b:KeyTrigger Key="F9" ActiveOnFocus="True">
+            <b:InvokeCommandAction Command="{Binding SelectStatsByMonth}" CommandParameter="F9" />
+        </b:KeyTrigger>
+        <b:KeyTrigger Key="F10" ActiveOnFocus="True">
+            <b:InvokeCommandAction Command="{Binding SelectStatsByMonth}" CommandParameter="F10" />
+        </b:KeyTrigger>
+        <b:KeyTrigger Key="F11" ActiveOnFocus="True">
+            <b:InvokeCommandAction Command="{Binding SelectStatsByMonth}" CommandParameter="F11" />
+        </b:KeyTrigger>
+        <b:KeyTrigger Key="F12" ActiveOnFocus="True">
+            <b:InvokeCommandAction Command="{Binding SelectStatsByMonth}" CommandParameter="F12" />
+        </b:KeyTrigger>
+    </b:Interaction.Triggers>
 
     <Window.Resources>
         <ResourceDictionary>
@@ -78,7 +117,7 @@
                         <!--  Options  -->
                         <RadioButton
                             Height="45"
-                            Click="RequestStats_OnClick"
+                            Command="{Binding NavCommand}"
                             Foreground="#fffafa"
                             Style="{StaticResource MenuButton}">
                             <StackPanel Orientation="Horizontal">
@@ -88,6 +127,11 @@
                                     Style="{StaticResource MenuButtonIcon}" />
                                 <TextBlock Style="{StaticResource MenuButtonText}" Text="Go Back" />
                             </StackPanel>
+                            <b:Interaction.Triggers>
+                                <b:KeyTrigger Key="Escape">
+                                    <b:InvokeCommandAction Command="{Binding NavCommand}" />
+                                </b:KeyTrigger>
+                            </b:Interaction.Triggers>
                         </RadioButton>
                     </StackPanel>
 
@@ -106,7 +150,6 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="25" />
                             <RowDefinition Height="35" />
-                            <RowDefinition Height="20" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
@@ -189,23 +232,20 @@
 
                         </Grid>
 
-                        <Grid Grid.Row="2">
-                            <TextBlock
-                                Padding="0,0,80,0"
-                                FontSize="12"
-                                Foreground="#68cbf8"
-                                MouseLeftButtonDown="ShortcutView_OnClick"
-                                Text="Shortcuts (`)"
-                                TextAlignment="Right" />
-                        </Grid>
-
                         <TabControl
-                            Name="CurrentRequestStatsTabControl"
-                            Grid.Row="3"
-                            Margin="15,0"
+                            Grid.Row="2"
                             Background="#ffffff"
+                            Focusable="True"
                             Foreground="#68cbf8"
-                            ItemsSource="{Binding Tabs}">
+                            ItemsSource="{Binding Tabs}"
+                            KeyboardNavigation.TabIndex="0"
+                            KeyboardNavigation.TabNavigation="Cycle"
+                            SelectedIndex="{Binding TabsIndex}">
+                            <b:Interaction.Triggers>
+                                <b:KeyTrigger Key="Tab" ActiveOnFocus="True">
+                                    <b:InvokeCommandAction Command="{Binding TabTourStats}" />
+                                </b:KeyTrigger>
+                            </b:Interaction.Triggers>
                             <TabControl.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock x:Name="TitleText" Text="{Binding Title}" />

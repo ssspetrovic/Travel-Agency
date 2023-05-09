@@ -1,4 +1,7 @@
-﻿namespace TravelAgency.ViewModel
+﻿using TravelAgency.View.Controls.Guide;
+using TravelAgency.WindowHelpers;
+
+namespace TravelAgency.ViewModel
 {
     public class ShowMonthlyRequestStatsViewModel : BaseViewModel
     {
@@ -6,6 +9,14 @@
         {
             _currentMonth = "";
             _numberOfRequests = "";
+            ExitMonth = new MyICommand(Exit);
+        }
+
+        public MyICommand ExitMonth { get; private set; }
+
+        private void Exit()
+        {
+            new WindowManager().CloseWindow<ShowMonthlyRequestStats>();
         }
 
         private string _currentMonth;

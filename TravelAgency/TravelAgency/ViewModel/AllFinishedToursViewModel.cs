@@ -1,5 +1,10 @@
 ﻿using System.Data;
+using System.Linq;
+using System.Windows;
 using TravelAgency.Service;
+using TravelAgency.View.Controls.Guide;
+using TravelAgency.View;
+using TravelAgency.Model;
 
 namespace TravelAgency.ViewModel
 {
@@ -11,6 +16,41 @@ namespace TravelAgency.ViewModel
         public AllFinishedToursViewModel()
         {
             _finishedTourService = new FinishedTourService();
+            NavCommand = new MyICommand<string>(OnNav);
+            SelectFinishedTourCommand = new MyICommand(SelectTour);
+        }
+
+        public MyICommand<string> NavCommand { get; private set; }
+        public MyICommand SelectFinishedTourCommand { get; private set; }
+        public string LoadCurrentUserData => "Welcome " + CurrentUser.DisplayName;
+
+        public void SelectTour()
+        {
+            CurrentFinishedTour.Name = SelectedTour!["Name"].ToString()!;
+            var window = Application.Current.Windows.OfType<AllFinishedTours>().FirstOrDefault();
+            var selectedFinishedTour = new SelectedFinishedTour();
+            selectedFinishedTour.Show();
+            window!.Close();
+        }
+
+        public void OnNav(string command)
+        {
+            var window = Application.Current.Windows.OfType<AllFinishedTours>().FirstOrDefault();
+            var mainWindow = new Guide();
+            if (mainWindow.DataContext is not GuideViewModel guideViewModel) return;
+            switch (command) 
+            {
+                case "HomePage":
+                    guideViewModel.CurrentViewModel = new HomePageViewModel();
+                    mainWindow.Show();
+                    window!.Close();
+                    break;
+                case "TourStats":
+                    guideViewModel.CurrentViewModel = new TourStatsViewModel();
+                    mainWindow.Show();
+                    window!.Close();
+                    break;
+            }
         }
 
         public DataView FinishedTours

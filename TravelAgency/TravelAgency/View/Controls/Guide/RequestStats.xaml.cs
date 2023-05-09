@@ -1,8 +1,4 @@
-﻿using System.Runtime.InteropServices;
-using System.Windows.Input;
-using System.Windows.Interop;
-using System.Windows;
-using System;
+﻿using System.Windows.Input;
 using System.Windows.Controls;
 using TravelAgency.ViewModel;
 
@@ -15,19 +11,11 @@ namespace TravelAgency.View.Controls.Guide
         public RequestStats()
         {
             InitializeComponent();
+            DataContext = new RequestStatsViewModel();
         }
 
         private void ChangeViews_KeyDown(object sender, KeyEventArgs e)
         {
-
-            if (e.Key == Key.Oem3)
-            {
-                var shortcuts = new Shortcuts();
-                shortcuts.Closed += Shortcuts_Closed;
-                Visibility = Visibility.Collapsed;
-                shortcuts.Show();
-            }
-
             if (e.Key == Key.LeftShift)
             {
                 _currentListView = !_currentListView;
@@ -64,34 +52,23 @@ namespace TravelAgency.View.Controls.Guide
                 }
             }
         }
-
-        private void Shortcuts_Closed(object? sender, EventArgs eventArgs)
-        {
-            Visibility = Visibility.Visible;
-        }
+        
 
         private void GetLocationStats_OnKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key != Key.Enter) return;
-
             CurrentRequestStatsViewModel.DataType = "Location:" + sender.ToString()!.Split(":")[1];
-            var currentRequestStatsViewModel = new CurrentRequestStatsViewModel();
-            var currentRequestStats = new CurrentRequestStats(currentRequestStatsViewModel);
-            currentRequestStats.Show();
-            var currentWindow = Window.GetWindow(this);
-            currentWindow?.Close();
+            var viewModel = DataContext as RequestStatsViewModel;
+            viewModel!.Selected();
+
         }
 
         private void GetLanguageStats_OnKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key != Key.Enter) return;
-
             CurrentRequestStatsViewModel.DataType = "Language:" + sender.ToString()!.Split(":")[1];
-            var currentRequestStatsViewModel = new CurrentRequestStatsViewModel();
-            var currentRequestStats = new CurrentRequestStats(currentRequestStatsViewModel);
-            currentRequestStats.Show();
-            var currentWindow = Window.GetWindow(this);
-            currentWindow?.Close();
+            var viewModel = DataContext as RequestStatsViewModel;
+            viewModel!.Selected();
         }
     }
 }
