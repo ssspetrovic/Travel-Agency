@@ -234,7 +234,7 @@ namespace TravelAgency.ViewModel
         // TODO
         private bool CanExecute_MakeReservationCommand(object parameter)
         {
-            return true;
+            return SelectedTour != null && int.TryParse(GuestNumber, out var guests) && guests > 0;
         }
 
         // TODO
