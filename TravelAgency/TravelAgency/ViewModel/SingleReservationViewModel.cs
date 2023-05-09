@@ -112,7 +112,7 @@ namespace TravelAgency.ViewModel
             {
                 _reservation = value;
                 Accommodation = reservationService.GetAccommodation(_reservation.AccommodationId);
-                Image = new BitmapImage(new Uri(Accommodation.PictureUrl, UriKind.Absolute));
+                Image = new BitmapImage(new Uri(Accommodation.PictureUrl, UriKind.Absolute)); //TODO: change up
                 StartDate = _reservation.StartDate.ToDateTime(TimeOnly.MinValue);
                 EndDate = _reservation.EndDate.ToDateTime(TimeOnly.MinValue);
             }
