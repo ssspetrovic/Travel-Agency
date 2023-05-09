@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Data;
+using TravelAgency.Command;
 using TravelAgency.Model;
 using TravelAgency.Service;
 using TravelAgency.View;
@@ -210,8 +211,53 @@ namespace TravelAgency.ViewModel
         }
         public ICollectionView ToursSourceCollection => _toursCollection.View;
 
+        public RelayCommand MakeReservationCommand { get; set; }
+        public RelayCommand ApplyFilterCommand { get; set; }
+        public RelayCommand ResetFilterCommand { get; set; }
+
+
+        private void Execute_MakeReservationCommand(object parameter)
+        {
+            TourReservationService.MakeReservation();
+        }
+
+        private void Execute_ApplyFilterCommand(object parameter)
+        {
+            ApplyFilter();
+        }
+
+        private void Execute_ResetFilterCommand(object parameter)
+        {
+            ResetFilter();
+        }
+
+        // TODO
+        private bool CanExecute_MakeReservationCommand(object parameter)
+        {
+            return true;
+        }
+
+        // TODO
+        private bool CanExecute_ApplyFilterCommand(object parameter)
+        {
+            return true;
+        }
+
+        // TODO
+        private bool CanExecute_ResetFilterCommand(object parameter)
+        {
+            return true;
+        }
+
         public TourReservationViewModel()
         {
+            MakeReservationCommand =
+                new RelayCommand(Execute_MakeReservationCommand, CanExecute_MakeReservationCommand);
+            ApplyFilterCommand =
+                new RelayCommand(Execute_ApplyFilterCommand, CanExecute_ApplyFilterCommand);
+            ResetFilterCommand =
+                new RelayCommand(Execute_ResetFilterCommand, CanExecute_ResetFilterCommand);
+
             TourReservationService = new TourReservationService(this);
             _toursCollection = new CollectionViewSource { Source = TourReservationService.TourService.GetAllAsCollection() };
             _toursCollection.Filter += ToursCollection_Filter;
