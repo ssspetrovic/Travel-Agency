@@ -19,12 +19,6 @@ namespace TravelAgency.ViewModel
         public RelayCommand CloseWindowCommand { get; set; }
         public RelayCommand SignOutCommand { get; set; }
 
-
-        private bool CanExecute_NavigationCommand(object parameter)
-        {
-            return true;
-        }
-
         private void Execute_NavigateToHomePageCommand(object parameter)
         {
             NavigationService.Navigate(new HomeView());
@@ -70,22 +64,14 @@ namespace TravelAgency.ViewModel
         {
             _windowManager = new WindowManager();
             NavigationService = navigationService;
-            NavigateToHomePageCommand =
-                new RelayCommand(Execute_NavigateToHomePageCommand, CanExecute_NavigationCommand);
-            NavigateToMyToursPageCommand =
-                new RelayCommand(Execute_NavigateToMyToursPageCommand, CanExecute_NavigationCommand);
-            NavigateToRateTourPageCommand =
-                new RelayCommand(Execute_NavigateToRateTourPageCommand, CanExecute_NavigationCommand);
-            NavigateToMyTourVouchersPageCommand =
-                new RelayCommand(Execute_NavigateToMyTourVouchersPageCommand, CanExecute_NavigationCommand);
-            NavigateToRequestTourPageCommand =
-                new RelayCommand(Execute_NavigateToRequestTourPageCommand, CanExecute_NavigationCommand);
-            NavigateToTourReservationPageCommand =
-                new RelayCommand(Execute_NavigateToTourReservationPageCommand, CanExecute_NavigationCommand);
-            CloseWindowCommand =
-                new RelayCommand(Execute_CloseWindowCommand, CanExecute_NavigationCommand);
-            SignOutCommand =
-                new RelayCommand(Execute_SignOutCommand, CanExecute_NavigationCommand);
-        }
+            NavigateToHomePageCommand = new RelayCommand(Execute_NavigateToHomePageCommand);
+            NavigateToMyToursPageCommand = new RelayCommand(Execute_NavigateToMyToursPageCommand);
+            NavigateToRateTourPageCommand = new RelayCommand(Execute_NavigateToRateTourPageCommand);
+            NavigateToMyTourVouchersPageCommand = new RelayCommand(Execute_NavigateToMyTourVouchersPageCommand);
+            NavigateToRequestTourPageCommand = new RelayCommand(Execute_NavigateToRequestTourPageCommand);
+            NavigateToTourReservationPageCommand = new RelayCommand(Execute_NavigateToTourReservationPageCommand);
+            CloseWindowCommand = new RelayCommand(Execute_CloseWindowCommand);
+            SignOutCommand = new RelayCommand(Execute_SignOutCommand);
+        }   
     }
 }

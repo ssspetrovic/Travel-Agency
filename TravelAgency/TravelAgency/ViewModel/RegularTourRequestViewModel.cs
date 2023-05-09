@@ -140,11 +140,6 @@ namespace TravelAgency.ViewModel
                    !string.IsNullOrEmpty(Description);
         }
 
-        private bool CanExecute_CancelRequestCommand(object parameter)
-        {
-            return true;
-        }
-
         private bool IsDateRangeValid(DateTime? startingDate, DateTime? endingDate)
         {
             if (startingDate <= DateTime.Now || startingDate == null || endingDate == null) return false;
@@ -156,12 +151,9 @@ namespace TravelAgency.ViewModel
             _navigationService = navigationService;
             _tourRequestService = new RegularTourRequestService();
             _languages = Enum.GetValues(typeof(Language));
-            SubmitRequestCommand =
-                new RelayCommand(Execute_SubmitRequestCommand, CanExecute_SubmitRequestCommand);
-            CancelRequestCommand =
-                new RelayCommand(Execute_CancelRequestCommand, CanExecute_CancelRequestCommand);
-            NavigateToMyTourRequestsCommand =
-                new RelayCommand(Execute_NavigateToMyTourRequestsCommand, CanExecute_CancelRequestCommand);
+            SubmitRequestCommand = new RelayCommand(Execute_SubmitRequestCommand, CanExecute_SubmitRequestCommand);
+            CancelRequestCommand = new RelayCommand(Execute_CancelRequestCommand);
+            NavigateToMyTourRequestsCommand = new RelayCommand(Execute_NavigateToMyTourRequestsCommand);
         }
     }
 }

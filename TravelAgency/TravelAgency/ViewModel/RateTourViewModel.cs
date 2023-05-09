@@ -93,7 +93,7 @@ namespace TravelAgency.ViewModel
             TourNameHeader = $"'{tourName}'";
             
             CancelRatingCommand =
-                new RelayCommand(Execute_CancelRatingCommand, CanExecute_CancelRatingCommand);
+                new RelayCommand(Execute_CancelRatingCommand);
             SubmitRelayCommand =
                 new RelayCommand(Execute_SubmitRelayCommand, CanExecute_SubmitRelayCommand);
             AddPhotoCommand =
@@ -135,10 +135,6 @@ namespace TravelAgency.ViewModel
             Url = string.Empty;
         }
 
-        private bool CanExecute_CancelRatingCommand(object parameter)
-        {
-            return true;
-        }
         private bool CanExecute_SubmitRelayCommand(object parameter)
         {
             return GuideKnowledgeGrade != 0 && GuideLanguageGrade != 0 && TourInterestingnessGrade != 0;

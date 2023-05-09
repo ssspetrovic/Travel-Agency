@@ -109,7 +109,7 @@
                         x:Name="PhotosTextBlock"
                         Padding="5"
                         FontSize="13"
-                        Text="{Binding PhotoUrls}" />
+                        Text="{Binding PhotoUrls, UpdateSourceTrigger=PropertyChanged}" />
                 </Border>
                 <WrapPanel
                     Grid.Row="2"
@@ -123,7 +123,7 @@
                         Padding="5"
                         HorizontalAlignment="Left"
                         FontSize="13"
-                        Text="{Binding Url}" />
+                        Text="{Binding Url, UpdateSourceTrigger=PropertyChanged}" />
                     <Button
                         x:Name="AddUrlButton"
                         Margin="10,0,0,0"

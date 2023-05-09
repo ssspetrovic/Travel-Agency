@@ -243,14 +243,10 @@ namespace TravelAgency.ViewModel
         public TourReservationViewModel(NavigationService navigationService)
         {
             _navigationService = navigationService;
-            MakeReservationCommand =
-                new RelayCommand(Execute_MakeReservationCommand, CanExecute_MakeReservationCommand);
-            ApplyFilterCommand =
-                new RelayCommand(Execute_ApplyFilterCommand);
-            ResetFilterCommand =
-                new RelayCommand(Execute_ResetFilterCommand);
-            SelectionChangedCommand =
-                new RelayCommand(Execute_SelectionChangedCommand);
+            MakeReservationCommand = new RelayCommand(Execute_MakeReservationCommand, CanExecute_MakeReservationCommand);
+            ApplyFilterCommand = new RelayCommand(Execute_ApplyFilterCommand);
+            ResetFilterCommand = new RelayCommand(Execute_ResetFilterCommand);
+            SelectionChangedCommand = new RelayCommand(Execute_SelectionChangedCommand);
 
             TourReservationService = new TourReservationService(this);
             _toursCollection = new CollectionViewSource { Source = TourReservationService.TourService.GetAllAsCollection() };

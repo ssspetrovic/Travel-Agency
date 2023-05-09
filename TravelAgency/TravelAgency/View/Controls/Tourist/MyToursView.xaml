@@ -36,7 +36,7 @@
             <ListView
                 d:ItemsSource="{d:SampleData ItemCount=5}"
                 ItemsSource="{Binding MyTours}"
-                SelectedItem="{Binding SelectedTour}">
+                SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn
