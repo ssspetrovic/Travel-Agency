@@ -1,4 +1,6 @@
-﻿namespace TravelAgency.View.Tourist
+﻿using TravelAgency.ViewModel.Tourist;
+
+namespace TravelAgency.View.Tourist
 {
     /// <summary>
     /// Interaction logic for UserProfileView.xaml
@@ -8,6 +10,7 @@
         public UserProfileView()
         {
             InitializeComponent();
+            DataContext = new UserProfileViewModel();
         }
     }
 }

@@ -17,6 +17,7 @@ namespace TravelAgency.ViewModel.Tourist
         public RelayCommand NavigateToRateTourPageCommand { get; set; }
         public RelayCommand NavigateToRequestTourPageCommand { get; set; }
         public RelayCommand NavigateToTourReservationPageCommand { get; set; }
+        public RelayCommand NavigateToUserProfileCommand { get; set; }
         public RelayCommand CloseWindowCommand { get; set; }
         public RelayCommand SignOutCommand { get; set; }
         public string? Username { get; set; }
@@ -51,6 +52,12 @@ namespace TravelAgency.ViewModel.Tourist
             NavigationService.Navigate(new TourReservationView(NavigationService));
         }
 
+        private void Execute_NavigateToUserProfileCommand(object parameter)
+        {
+            _windowManager.ShowWindow<UserProfileView>();
+            _windowManager.CloseWindow<TouristView>();
+        }
+
         private void Execute_CloseWindowCommand(object parameter)
         {
             _windowManager.CloseWindow<TouristView>();
@@ -72,6 +79,7 @@ namespace TravelAgency.ViewModel.Tourist
             NavigateToMyTourVouchersPageCommand = new RelayCommand(Execute_NavigateToMyTourVouchersPageCommand);
             NavigateToRequestTourPageCommand = new RelayCommand(Execute_NavigateToRequestTourPageCommand);
             NavigateToTourReservationPageCommand = new RelayCommand(Execute_NavigateToTourReservationPageCommand);
+            NavigateToUserProfileCommand = new RelayCommand(Execute_NavigateToUserProfileCommand);
             CloseWindowCommand = new RelayCommand(Execute_CloseWindowCommand);
             SignOutCommand = new RelayCommand(Execute_SignOutCommand);
             Username = CurrentUser.DisplayName;
