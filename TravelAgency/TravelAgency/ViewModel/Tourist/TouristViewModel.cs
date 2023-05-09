@@ -5,7 +5,7 @@ using TravelAgency.View;
 using TravelAgency.View.Tourist;
 using TravelAgency.WindowHelpers;
 
-namespace TravelAgency.ViewModel
+namespace TravelAgency.ViewModel.Tourist
 {
     public class TouristViewModel : BaseViewModel
     {
@@ -76,6 +76,6 @@ namespace TravelAgency.ViewModel
             SignOutCommand = new RelayCommand(Execute_SignOutCommand);
             Username = CurrentUser.DisplayName;
             navigationService.Navigate(new HomeView(navigationService));
-        }   
+        }
     }
 }

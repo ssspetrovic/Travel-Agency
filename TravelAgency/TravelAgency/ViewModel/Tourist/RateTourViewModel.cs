@@ -10,7 +10,7 @@ using TravelAgency.View.Tourist;
 using static System.Windows.Application;
 using MessageBox = System.Windows.Forms.MessageBox;
 
-namespace TravelAgency.ViewModel
+namespace TravelAgency.ViewModel.Tourist
 {
     internal class RateTourViewModel : BaseViewModel
     {
@@ -91,7 +91,7 @@ namespace TravelAgency.ViewModel
             _navigationService = navigationService;
             TourName = tourName;
             TourNameHeader = $"'{tourName}'";
-            
+
             CancelRatingCommand =
                 new RelayCommand(Execute_CancelRatingCommand);
             SubmitRelayCommand =

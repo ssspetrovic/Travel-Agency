@@ -5,7 +5,7 @@ using TravelAgency.Model;
 using TravelAgency.Service;
 using TravelAgency.View.Tourist;
 
-namespace TravelAgency.ViewModel
+namespace TravelAgency.ViewModel.Tourist
 {
     public class RegularTourRequestViewModel : BaseViewModel
     {

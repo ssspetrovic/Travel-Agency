@@ -1,5 +1,5 @@
 ﻿using System.Windows.Navigation;
-using TravelAgency.ViewModel;
+using TravelAgency.ViewModel.Tourist;
 
 namespace TravelAgency.View.Tourist
 {

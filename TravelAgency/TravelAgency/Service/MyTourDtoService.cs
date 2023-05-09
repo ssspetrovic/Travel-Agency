@@ -5,7 +5,7 @@ using System.Windows.Forms;
 using TravelAgency.DTO;
 using TravelAgency.Model;
 using TravelAgency.Repository;
-using TravelAgency.ViewModel;
+using TravelAgency.ViewModel.Tourist;
 
 namespace TravelAgency.Service
 {

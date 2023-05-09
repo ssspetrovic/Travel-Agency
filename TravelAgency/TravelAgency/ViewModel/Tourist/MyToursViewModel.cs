@@ -10,7 +10,7 @@ using TravelAgency.Service;
 using TravelAgency.View.Tourist;
 using static System.Windows.Application;
 
-namespace TravelAgency.ViewModel
+namespace TravelAgency.ViewModel.Tourist
 {
     internal class MyToursViewModel : BaseViewModel
     {

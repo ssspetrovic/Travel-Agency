@@ -2,7 +2,7 @@
 using System.Windows.Data;
 using TravelAgency.Service;
 
-namespace TravelAgency.ViewModel
+namespace TravelAgency.ViewModel.Tourist
 {
     internal class TourVouchersViewModel : BaseViewModel
     {

@@ -3,7 +3,7 @@ using System.Windows;
 using TravelAgency.Model;
 using TravelAgency.Repository;
 using TravelAgency.View.Tourist;
-using TravelAgency.ViewModel;
+using TravelAgency.ViewModel.Tourist;
 
 namespace TravelAgency.Service
 {

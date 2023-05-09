@@ -3,7 +3,7 @@ using TravelAgency.Command;
 using TravelAgency.View.Tourist;
 using TravelAgency.WindowHelpers;
 
-namespace TravelAgency.ViewModel
+namespace TravelAgency.ViewModel.Tourist
 {
     internal class HomeViewModel
     {
@@ -26,7 +26,7 @@ namespace TravelAgency.ViewModel
             window.RequestTourButton.IsChecked = true;
             _navigationService.Navigate(new RequestTourView(_navigationService));
         }
-        
+
         // TODO Fix navigation when the Wizard View is implemented
         private void Execute_NavigateToHelpWizard(object parameter)
         {
