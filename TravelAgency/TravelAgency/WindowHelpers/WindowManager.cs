@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Windows;
+﻿using System.Windows;
 
 namespace TravelAgency.WindowHelpers
 {
@@ -22,21 +20,15 @@ namespace TravelAgency.WindowHelpers
             }
         }
 
-        public Window? GetWindowFromViewModel(object viewModel)
+        public T GetWindow<T>() where T : Window, new()
         {
-            var view = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.DataContext == viewModel);
-            return view;
-        }
-
-        public void MoveWindow(Window window, double deltaX, double deltaY)
-        {
-            if (window == null)
+            foreach (var window in Application.Current.Windows)
             {
-                throw new ArgumentNullException(nameof(window));
+                if (window.GetType() != typeof(T)) continue;
+                return (T)window;
             }
 
-            window.Left += deltaX;
-            window.Top += deltaY;
+            return new T();
         }
     }
 }

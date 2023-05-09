@@ -133,8 +133,7 @@
                 <Frame
                     x:Name="ContentFrame"
                     Grid.Row="1"
-                    NavigationUIVisibility="Hidden"
-                    Source="Controls/Tourist/HomeView.xaml" />
+                    NavigationUIVisibility="Hidden" />
             </Grid>
         </Grid>
     </Border>

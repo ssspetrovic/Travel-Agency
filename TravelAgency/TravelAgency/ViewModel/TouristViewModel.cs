@@ -72,6 +72,7 @@ namespace TravelAgency.ViewModel
             NavigateToTourReservationPageCommand = new RelayCommand(Execute_NavigateToTourReservationPageCommand);
             CloseWindowCommand = new RelayCommand(Execute_CloseWindowCommand);
             SignOutCommand = new RelayCommand(Execute_SignOutCommand);
+            navigationService.Navigate(new HomeView(navigationService));
         }   
     }
 }
