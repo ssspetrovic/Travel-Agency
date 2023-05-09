@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Navigation;
 using TravelAgency.ViewModel;
 
 namespace TravelAgency.View.Controls.Tourist
@@ -9,10 +10,10 @@ namespace TravelAgency.View.Controls.Tourist
     /// </summary>
     public partial class TourReservationView
     {
-        public TourReservationView()
+        public TourReservationView(NavigationService navigationService)
         {
             InitializeComponent();
-            DataContext = new TourReservationViewModel();
+            DataContext = new TourReservationViewModel(navigationService);
         }
 
         private void ToursListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)

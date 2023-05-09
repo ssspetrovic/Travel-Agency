@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Navigation;
 using TravelAgency.Command;
 using TravelAgency.Model;
 using TravelAgency.Service;
@@ -15,6 +16,8 @@ namespace TravelAgency.ViewModel
 {
     public class TourReservationViewModel : BaseViewModel
     {
+        private readonly NavigationService _navigationService;
+
         public new event PropertyChangedEventHandler? PropertyChanged;
 
         private readonly CollectionViewSource _toursCollection;
@@ -249,8 +252,9 @@ namespace TravelAgency.ViewModel
             return true;
         }
 
-        public TourReservationViewModel()
+        public TourReservationViewModel(NavigationService navigationService)
         {
+            _navigationService = navigationService;
             MakeReservationCommand =
                 new RelayCommand(Execute_MakeReservationCommand, CanExecute_MakeReservationCommand);
             ApplyFilterCommand =
