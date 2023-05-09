@@ -37,6 +37,8 @@ namespace TravelAgency.ViewModel
         private string? _newGuestNumber;
         private string? _guestNumberText;
         private TourVoucher? _selectedTourVoucher;
+        public TourReservationService TourReservationService { get; set; }
+        public bool IsGuestNumberEntered { get; set; }
 
         public ObservableCollection<TourVoucher> TourVouchers
         {
@@ -47,10 +49,6 @@ namespace TravelAgency.ViewModel
                 OnPropertyChanged();
             }
         }
-
-        public TourReservationService TourReservationService { get; set; }
-
-        public bool IsGuestNumberEntered { get; set; }
 
         public TourVoucher? SelectedTourVoucher
         {
@@ -214,7 +212,7 @@ namespace TravelAgency.ViewModel
         public RelayCommand MakeReservationCommand { get; set; }
         public RelayCommand ApplyFilterCommand { get; set; }
         public RelayCommand ResetFilterCommand { get; set; }
-
+        public RelayCommand SelectionChangedCommand { get; set; }
 
         private void Execute_MakeReservationCommand(object parameter)
         {
@@ -232,22 +230,14 @@ namespace TravelAgency.ViewModel
             ResetFilter();
         }
 
-        // TODO
+        private void Execute_SelectionChangedCommand(object parameter)
+        {
+            IsTourSelected = SelectedTour != null;
+        }
+
         private bool CanExecute_MakeReservationCommand(object parameter)
         {
             return SelectedTour != null && int.TryParse(GuestNumber, out var guests) && guests > 0;
-        }
-
-        // TODO
-        private bool CanExecute_ApplyFilterCommand(object parameter)
-        {
-            return true;
-        }
-
-        // TODO
-        private bool CanExecute_ResetFilterCommand(object parameter)
-        {
-            return true;
         }
 
         public TourReservationViewModel(NavigationService navigationService)
@@ -256,9 +246,11 @@ namespace TravelAgency.ViewModel
             MakeReservationCommand =
                 new RelayCommand(Execute_MakeReservationCommand, CanExecute_MakeReservationCommand);
             ApplyFilterCommand =
-                new RelayCommand(Execute_ApplyFilterCommand, CanExecute_ApplyFilterCommand);
+                new RelayCommand(Execute_ApplyFilterCommand);
             ResetFilterCommand =
-                new RelayCommand(Execute_ResetFilterCommand, CanExecute_ResetFilterCommand);
+                new RelayCommand(Execute_ResetFilterCommand);
+            SelectionChangedCommand =
+                new RelayCommand(Execute_SelectionChangedCommand);
 
             TourReservationService = new TourReservationService(this);
             _toursCollection = new CollectionViewSource { Source = TourReservationService.TourService.GetAllAsCollection() };
