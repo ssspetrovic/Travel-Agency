@@ -8,11 +8,11 @@ namespace TravelAgency.View.Tourist
     /// </summary>
     public partial class TouristView
     {
-        public TouristView()
+        public TouristView(NextView nextView = NextView.Home)
         {
             InitializeComponent();
             HomeButton.IsChecked = true;
-            DataContext = new TouristViewModel(ContentFrame.NavigationService);
+            DataContext = new TouristViewModel(ContentFrame.NavigationService, nextView);
         }
 
         private void HeaderThumb_OnDragDelta(object sender, DragDeltaEventArgs e)

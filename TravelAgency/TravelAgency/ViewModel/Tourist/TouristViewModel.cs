@@ -10,45 +10,53 @@ namespace TravelAgency.ViewModel.Tourist
     public class TouristViewModel : BaseViewModel
     {
         private readonly IWindowManager _windowManager;
-        private NavigationService NavigationService { get; set; }
+        private readonly NavigationService _navigationService;
         public RelayCommand NavigateToHomePageCommand { get; set; }
         public RelayCommand NavigateToMyToursPageCommand { get; set; }
         public RelayCommand NavigateToMyTourVouchersPageCommand { get; set; }
         public RelayCommand NavigateToRateTourPageCommand { get; set; }
         public RelayCommand NavigateToRequestTourPageCommand { get; set; }
         public RelayCommand NavigateToTourReservationPageCommand { get; set; }
+        public RelayCommand NavigateToUserProfileCommand { get; set; }
         public RelayCommand CloseWindowCommand { get; set; }
         public RelayCommand SignOutCommand { get; set; }
         public string? Username { get; set; }
 
         private void Execute_NavigateToHomePageCommand(object parameter)
         {
-            NavigationService.Navigate(new HomeView(NavigationService));
+            _navigationService.Navigate(new HomeView(_navigationService));
         }
 
         private void Execute_NavigateToMyToursPageCommand(object parameter)
         {
-            NavigationService.Navigate(new MyToursView(NavigationService));
+            _navigationService.Navigate(new MyToursView(_navigationService));
         }
 
         private void Execute_NavigateToRateTourPageCommand(object parameter)
         {
-            NavigationService.Navigate(new RateTourView(NavigationService));
+            _navigationService.Navigate(new RateTourView(_navigationService));
         }
 
         private void Execute_NavigateToMyTourVouchersPageCommand(object parameter)
         {
-            NavigationService.Navigate(new MyTourVouchersView());
+            _navigationService.Navigate(new MyTourVouchersView());
         }
 
         private void Execute_NavigateToRequestTourPageCommand(object parameter)
         {
-            NavigationService.Navigate(new RequestTourView(NavigationService));
+            _navigationService.Navigate(new RequestTourView(_navigationService));
         }
 
         private void Execute_NavigateToTourReservationPageCommand(object parameter)
         {
-            NavigationService.Navigate(new TourReservationView(NavigationService));
+            _navigationService.Navigate(new TourReservationView(_navigationService));
+        }
+
+        private void Execute_NavigateToUserProfileCommand(object parameter)
+        {
+            var userProfileWindow = new UserProfileView(_navigationService);
+            userProfileWindow.Show();
+            _windowManager.CloseWindow<TouristView>();
         }
 
         private void Execute_CloseWindowCommand(object parameter)
@@ -62,20 +70,46 @@ namespace TravelAgency.ViewModel.Tourist
             _windowManager.CloseWindow<TouristView>();
         }
 
-        public TouristViewModel(NavigationService navigationService)
+        private void NavigateToNextView(NextView nextView)
+        {
+            switch (nextView)
+            {
+                case NextView.MyRequests:
+                    // TODO
+                    break;
+                case NextView.Notifications:
+                    // TODO
+                    break;
+                case NextView.MyTours:
+                    _navigationService.Navigate(new MyToursView(_navigationService));
+                    break;
+                case NextView.MyVouchers:
+                    _navigationService.Navigate(new MyTourVouchersView());
+                    break;
+                case NextView.Home:
+                default:
+                    _navigationService.Navigate(new HomeView(_navigationService));
+                    break;
+            }
+        }
+
+        public TouristViewModel(NavigationService navigationService, NextView nextView)
         {
             _windowManager = new WindowManager();
-            NavigationService = navigationService;
+            _navigationService = navigationService;
+
             NavigateToHomePageCommand = new RelayCommand(Execute_NavigateToHomePageCommand);
             NavigateToMyToursPageCommand = new RelayCommand(Execute_NavigateToMyToursPageCommand);
             NavigateToRateTourPageCommand = new RelayCommand(Execute_NavigateToRateTourPageCommand);
             NavigateToMyTourVouchersPageCommand = new RelayCommand(Execute_NavigateToMyTourVouchersPageCommand);
             NavigateToRequestTourPageCommand = new RelayCommand(Execute_NavigateToRequestTourPageCommand);
             NavigateToTourReservationPageCommand = new RelayCommand(Execute_NavigateToTourReservationPageCommand);
+            NavigateToUserProfileCommand = new RelayCommand(Execute_NavigateToUserProfileCommand);
             CloseWindowCommand = new RelayCommand(Execute_CloseWindowCommand);
             SignOutCommand = new RelayCommand(Execute_SignOutCommand);
+            
             Username = CurrentUser.DisplayName;
-            navigationService.Navigate(new HomeView(navigationService));
+            NavigateToNextView(nextView);
         }
     }
 }
