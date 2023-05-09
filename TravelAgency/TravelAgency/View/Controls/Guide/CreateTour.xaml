@@ -17,7 +17,6 @@
         <StackPanel
             x:Name="CreateTourStackPanel"
             Width="250"
-            FocusManager.FocusedElement="{Binding ElementName=NameText}"
             KeyboardNavigation.TabNavigation="Cycle"
             Orientation="Vertical">
             <TextBlock
@@ -52,12 +51,14 @@
                 Height="28"
                 Margin="0,5,0,0"
                 VerticalContentAlignment="Center"
-                Background="Transparent"
+                Background="{Binding LocationBackground}"
                 BorderThickness="0,0,0,1"
+                Focusable="{Binding LocationFocus}"
                 FontSize="13"
                 FontWeight="Medium"
                 Foreground="#68cbf8"
                 KeyboardNavigation.TabIndex="2"
+                SelectedIndex="{Binding LocationIndex}"
                 Text="{Binding ComboBoxLocation, Mode=TwoWay}">
                 <ComboBoxItem>Tokyo</ComboBoxItem>
                 <ComboBoxItem>Delhi</ComboBoxItem>
@@ -110,12 +111,14 @@
                 Height="28"
                 Margin="0,5,0,0"
                 VerticalContentAlignment="Center"
-                Background="Transparent"
+                Background="{Binding LanguageBackground}"
                 BorderThickness="0,0,0,1"
+                Focusable="{Binding LanguageFocus}"
                 FontSize="13"
                 FontWeight="Medium"
                 Foreground="#68cbf8"
                 KeyboardNavigation.TabIndex="4"
+                SelectedIndex="{Binding LanguageIndex}"
                 Text="{Binding ComboBoxLanguage, Mode=TwoWay}">
                 <ComboBoxItem>English</ComboBoxItem>
                 <ComboBoxItem>Spanish</ComboBoxItem>
@@ -141,9 +144,10 @@
                 Height="28"
                 Margin="0,5,0,0"
                 VerticalContentAlignment="Center"
-                Background="Transparent"
+                Background="{Binding GuestsBackground}"
                 BorderThickness="0,0,0,1"
                 CaretBrush="#4fc3f7"
+                Focusable="{Binding GuestsFocus}"
                 FontSize="13"
                 FontWeight="Medium"
                 Foreground="#68cbf8"
@@ -218,8 +222,9 @@
                 Height="28"
                 Margin="0,5,0,0"
                 VerticalContentAlignment="Center"
+                Background="{Binding DateBackground}"
                 BorderThickness="0,0,0,1"
-                Focusable="True"
+                Focusable="{Binding DateFocus}"
                 Foreground="#68cbf8"
                 KeyboardNavigation.TabIndex="7"
                 PreviewKeyDown="DatePick_PreviewKeyDown"

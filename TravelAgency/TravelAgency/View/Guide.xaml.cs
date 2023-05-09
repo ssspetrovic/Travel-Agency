@@ -1,15 +1,10 @@
-﻿using System;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
-using TravelAgency.View.Controls.Guide;
 
 namespace TravelAgency.View
 {
-    /// <summary>
-    /// Interaction logic for Guide.xaml
-    /// </summary>
     public partial class Guide
     {
         public Guide()
@@ -45,43 +40,6 @@ namespace TravelAgency.View
         private void Button_MinimizeClick(object sender, RoutedEventArgs e)
         {
             this.WindowState = WindowState.Minimized;
-        }
-
-        private void ShortcutView_OnClick(object sender, RoutedEventArgs e)
-        {
-            var shortcuts = new Shortcuts();
-            shortcuts.Show();
-            Close();
-        }
-
-        private void Logout_OnClick(object sender, RoutedEventArgs e)
-        {
-            var signInView = new SignInView();
-            signInView.Show();
-            Close();
-        }
-
-        private void Resign_OnClick(object sender, RoutedEventArgs e)
-        {
-            var resign = new Resign();
-            resign.ShowDialog();
-        }
-
-        private void ChangeViews_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Oem3)
-            {
-                var shortcuts = new Shortcuts();
-                shortcuts.Closed += Shortcuts_Closed;
-                Visibility = Visibility.Collapsed;
-                shortcuts.Show();
-            }
-
-        }
-
-        private void Shortcuts_Closed(object? sender, EventArgs eventArgs)
-        {
-            Visibility = Visibility.Visible;
         }
     }
 }
