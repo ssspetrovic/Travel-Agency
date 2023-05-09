@@ -15,22 +15,21 @@ namespace TravelAgency.ViewModel.Tourist
 
         private void Execute_NavigateToBrowseToursCommand(object parameter)
         {
-            var window = _windowManager.GetWindow<TouristView>();
+            var window = _windowManager.GetTouristViewWindow();
             window.TourReservationButton.IsChecked = true;
             _navigationService.Navigate(new TourReservationView(_navigationService));
         }
 
         private void Execute_NavigateToTourRequest(object parameter)
         {
-            var window = _windowManager.GetWindow<TouristView>();
+            var window = _windowManager.GetTouristViewWindow();
             window.RequestTourButton.IsChecked = true;
             _navigationService.Navigate(new RequestTourView(_navigationService));
         }
 
-        // TODO Fix navigation when the Wizard View is implemented
         private void Execute_NavigateToHelpWizard(object parameter)
         {
-
+            // TODO Fix navigation when the Wizard View is implemented
         }
 
         public HomeViewModel(NavigationService navigationService)

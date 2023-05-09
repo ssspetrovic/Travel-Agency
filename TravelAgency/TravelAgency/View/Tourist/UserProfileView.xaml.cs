@@ -1,4 +1,5 @@
-﻿using TravelAgency.ViewModel.Tourist;
+﻿using System.Windows.Navigation;
+using TravelAgency.ViewModel.Tourist;
 
 namespace TravelAgency.View.Tourist
 {
@@ -7,10 +8,10 @@ namespace TravelAgency.View.Tourist
     /// </summary>
     public partial class UserProfileView
     {
-        public UserProfileView()
+        public UserProfileView(NavigationService navigationService)
         {
             InitializeComponent();
-            DataContext = new UserProfileViewModel();
+            DataContext = new UserProfileViewModel(navigationService);
         }
     }
 }

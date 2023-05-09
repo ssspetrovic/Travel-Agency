@@ -1,4 +1,6 @@
 ﻿using System.Windows;
+using TravelAgency.View.Tourist;
+using TravelAgency.ViewModel.Tourist;
 
 namespace TravelAgency.WindowHelpers
 {
@@ -29,6 +31,17 @@ namespace TravelAgency.WindowHelpers
             }
 
             return new T();
+        }
+
+        public TouristView GetTouristViewWindow()
+        {
+            foreach (var window in Application.Current.Windows)
+            {
+                if (window.GetType() != typeof(TouristView)) continue;
+                return (TouristView)window;
+            }
+
+            return new TouristView();
         }
     }
 }

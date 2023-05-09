@@ -19,7 +19,7 @@
     <Window.Resources>
         <ResourceDictionary Source="/Resources/Styles/TouristDictionary.xaml" />
     </Window.Resources>
-    <Border Background="{StaticResource MaterialDesignBackground}" CornerRadius="15">
+    <Border Background="{StaticResource MaterialDesignBackground}" CornerRadius="20,15,15,20">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200" />
@@ -114,7 +114,6 @@
                                     FontSize="19"
                                     Foreground="White"
                                     Style="{StaticResource MenuButtonStyle}" />
-
                             </StackPanel>
                             <RadioButton
                                 x:Name="SignOutButton"
