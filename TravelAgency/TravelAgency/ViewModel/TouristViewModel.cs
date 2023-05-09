@@ -1,5 +1,6 @@
 ﻿using System.Windows.Navigation;
 using TravelAgency.Command;
+using TravelAgency.Model;
 using TravelAgency.View;
 using TravelAgency.View.Controls.Tourist;
 using TravelAgency.WindowHelpers;
@@ -18,6 +19,7 @@ namespace TravelAgency.ViewModel
         public RelayCommand NavigateToTourReservationPageCommand { get; set; }
         public RelayCommand CloseWindowCommand { get; set; }
         public RelayCommand SignOutCommand { get; set; }
+        public string? Username { get; set; }
 
         private void Execute_NavigateToHomePageCommand(object parameter)
         {
@@ -72,6 +74,7 @@ namespace TravelAgency.ViewModel
             NavigateToTourReservationPageCommand = new RelayCommand(Execute_NavigateToTourReservationPageCommand);
             CloseWindowCommand = new RelayCommand(Execute_CloseWindowCommand);
             SignOutCommand = new RelayCommand(Execute_SignOutCommand);
+            Username = CurrentUser.DisplayName;
             navigationService.Navigate(new HomeView(navigationService));
         }   
     }
