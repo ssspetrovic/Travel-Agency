@@ -16,15 +16,53 @@
     </d:Page.Background>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40" />
+            <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <TextBlock
+        <StackPanel
             Grid.Row="0"
-            HorizontalAlignment="Center"
-            FontSize="25"
-            FontWeight="Medium"
-            Style="{StaticResource MaterialDesignHeadline1TextBlock}"
-            Text="Home View" />
+            Margin="0,50"
+            VerticalAlignment="Bottom">
+            <TextBlock
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="25"
+                FontWeight="DemiBold"
+                Style="{StaticResource MaterialDesignHeadline1TextBlock}"
+                Text="Welcome to our Agency!" />
+            <TextBlock
+                Margin="0,5"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="19"
+                FontWeight="Normal"
+                Text="What would you like to do?" />
+        </StackPanel>
+        <StackPanel Grid.Row="1">
+            <TextBlock
+                x:Name="BrowseToursLink"
+                Margin="0,6"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="18"
+                Text="Browse tours"
+                TextDecorations="Underline" />
+            <TextBlock
+                x:Name="RequestTourLink"
+                Margin="0,6"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="18"
+                Text="Request a custom tour"
+                TextDecorations="Underline" />
+            <TextBlock
+                x:Name="OpenWizardLink"
+                Margin="0,6"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="18"
+                Text="Open a help wizard"
+                TextDecorations="Underline" />
+        </StackPanel>
     </Grid>
 </Page>
