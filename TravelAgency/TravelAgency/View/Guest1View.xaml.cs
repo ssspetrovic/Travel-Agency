@@ -13,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TravelAgency.View.Controls.Guest1;
-using TravelAgency.View.Controls.Tourist;
+using TravelAgency.View.Tourist;
 
 namespace TravelAgency.View
 {

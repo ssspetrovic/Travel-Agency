@@ -2,7 +2,7 @@
 using System.Windows;
 using TravelAgency.Model;
 using TravelAgency.Repository;
-using TravelAgency.View.Controls.Tourist;
+using TravelAgency.View.Tourist;
 using TravelAgency.ViewModel;
 
 namespace TravelAgency.Service

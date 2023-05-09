@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls.Primitives;
 using TravelAgency.ViewModel;
 
-namespace TravelAgency.View
+namespace TravelAgency.View.Tourist
 {
     /// <summary>
     /// Interaction logic for TouristView.xaml

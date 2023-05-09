@@ -1,6 +1,6 @@
 ﻿using TravelAgency.ViewModel;
 
-namespace TravelAgency.View.Controls.Tourist
+namespace TravelAgency.View.Tourist
 {
     /// <summary>
     /// Interaction logic for MyTourVouchersView.xaml

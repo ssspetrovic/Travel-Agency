@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Navigation;
 
-namespace TravelAgency.View.Controls.Tourist
+namespace TravelAgency.View.Tourist
 {
     /// <summary>
     /// Interaction logic for RequestTourView.xaml

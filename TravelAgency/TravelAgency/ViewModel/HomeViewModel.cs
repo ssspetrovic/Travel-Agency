@@ -1,7 +1,6 @@
 ﻿using System.Windows.Navigation;
 using TravelAgency.Command;
-using TravelAgency.View;
-using TravelAgency.View.Controls.Tourist;
+using TravelAgency.View.Tourist;
 using TravelAgency.WindowHelpers;
 
 namespace TravelAgency.ViewModel

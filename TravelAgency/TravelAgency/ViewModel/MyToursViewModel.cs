@@ -7,8 +7,7 @@ using TravelAgency.Command;
 using TravelAgency.DTO;
 using TravelAgency.Model;
 using TravelAgency.Service;
-using TravelAgency.View;
-using TravelAgency.View.Controls.Tourist;
+using TravelAgency.View.Tourist;
 using static System.Windows.Application;
 
 namespace TravelAgency.ViewModel

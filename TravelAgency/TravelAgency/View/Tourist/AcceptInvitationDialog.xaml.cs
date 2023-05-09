@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace TravelAgency.View.Controls.Tourist
+namespace TravelAgency.View.Tourist
 {
     /// <summary>
     /// Interaction logic for AcceptInvitationDialog.xaml

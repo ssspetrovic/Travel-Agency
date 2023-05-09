@@ -3,6 +3,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using TravelAgency.Model;
 using TravelAgency.Repository;
+using TravelAgency.View.Tourist;
 
 namespace TravelAgency.View
 {
@@ -18,8 +19,8 @@ namespace TravelAgency.View
 
         private void HeaderThumb_OnDragDelta(object sender, DragDeltaEventArgs e)
         {
-            Left = Left + e.HorizontalChange;
-            Top = Top + e.VerticalChange;
+            Left += e.HorizontalChange;
+            Top += e.VerticalChange;
         }
 
         private void CloseButton_OnClick(object sender, RoutedEventArgs e)
