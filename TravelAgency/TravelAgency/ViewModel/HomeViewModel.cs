@@ -1,8 +1,10 @@
-﻿namespace TravelAgency.ViewModel
+﻿using System.Windows.Navigation;
+
+namespace TravelAgency.ViewModel
 {
     internal class HomeViewModel
     {
-        public HomeViewModel()
+        public HomeViewModel(NavigationService navigationService)
         {
 
         }

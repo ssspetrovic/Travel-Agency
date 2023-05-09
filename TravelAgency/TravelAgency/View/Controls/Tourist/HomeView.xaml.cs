@@ -1,13 +1,17 @@
-﻿namespace TravelAgency.View.Controls.Tourist
+﻿using System.Windows.Navigation;
+using TravelAgency.ViewModel;
+
+namespace TravelAgency.View.Controls.Tourist
 {
     /// <summary>
     /// Interaction logic for HomePage.xaml
     /// </summary>
     public partial class HomeView
     {
-        public HomeView()
+        public HomeView(NavigationService navigationService)
         {
             InitializeComponent();
+            DataContext = new HomeViewModel(navigationService);
         }
     }
 }

@@ -124,10 +124,11 @@ namespace TravelAgency.ViewModel
             _navigationService.GoBack();
         }
 
+        // TODO Change navigation when the view is implemented
         private void Execute_NavigateToMyTourRequestsCommand(object parameter)
         {
             Dialog?.Close();
-            _navigationService.Navigate(new HomeView());
+            _navigationService.Navigate(new HomeView(_navigationService));
         }
 
         private bool CanExecute_SubmitRequestCommand(object parameter)

@@ -21,7 +21,7 @@ namespace TravelAgency.ViewModel
 
         private void Execute_NavigateToHomePageCommand(object parameter)
         {
-            NavigationService.Navigate(new HomeView());
+            NavigationService.Navigate(new HomeView(NavigationService));
         }
 
         private void Execute_NavigateToMyToursPageCommand(object parameter)
