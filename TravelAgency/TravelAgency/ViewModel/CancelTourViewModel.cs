@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
+using TravelAgency.Model;
 using TravelAgency.Service;
+using TravelAgency.View.Controls.Guide;
 
 namespace TravelAgency.ViewModel
 {
@@ -13,6 +15,26 @@ namespace TravelAgency.ViewModel
         public CancelTourViewModel()
         {
             _tourService = new TourService();
+            CancelTourCommands = new MyICommand<string>(CancelCommands);
+        }
+
+        public MyICommand<string> CancelTourCommands { get; private set; }
+
+        public void CancelCommands(string commands)
+        {
+            switch (commands)
+            {
+                case "KeyPPressed":
+                    GetPictures();
+                    break;
+                case "EnterPressed":
+                    CancelledTour.Name = _tourService.GetByName(SelectedTour!["Name"].ToString()).Name;
+                    var confirmDeletion = new ConfirmDeletion();
+                    confirmDeletion.PasswordBox.Focus();
+                    confirmDeletion.ShowDialog();
+                    OnPropertyChanged(nameof(CancelTours));
+                    break;
+            }
         }
 
         public DataView CancelTours

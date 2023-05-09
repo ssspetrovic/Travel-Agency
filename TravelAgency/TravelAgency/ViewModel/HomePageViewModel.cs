@@ -14,10 +14,10 @@ namespace TravelAgency.ViewModel
         private readonly LocationService _locationService;
         private DataRowView? _selectedTour;
         private int _selectedTourIndex;
+        public bool FocusLocations = true;
 
         public MyICommand<string> KeyBindings { get; private set; }
         public MyICommand TabPressedCommand { get; private set; }
-
 
         public HomePageViewModel()
         {
@@ -54,35 +54,36 @@ namespace TravelAgency.ViewModel
                 SelectedTourIndex++;
         }
 
-
-
         public void Keys(string keys)
         {
             switch (keys)
             {
                 case "EnterPressed":
-                    if (SelectedTour != null)
-                    {
-                        var images = _tourService.GetByName(SelectedTour["Name"].ToString()).Photos;
-                        var links = images.Split(", ");
-                        foreach (var link in links)
-                        {
-                            if (Uri.TryCreate(link, UriKind.Absolute, out var uriResult) &&
-                                (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps))
-                            {
-                                Process.Start(new ProcessStartInfo
-                                {
-                                    FileName = uriResult.AbsoluteUri,
-                                    UseShellExecute = true
-                                });
-                            }
-                            else
-                            {
-                                MessageBox.Show($"Invalid link: {link}");
-                            }
-                        }
-                    }
+                    GetPictures();
                     break;
+            }
+        }
+
+        public void GetPictures()
+        {
+            if (SelectedTour == null) return;
+            var images = _tourService.GetByName(SelectedTour["Name"].ToString()).Photos;
+            var links = images.Split(", ");
+            foreach (var link in links)
+            {
+                if (Uri.TryCreate(link, UriKind.Absolute, out var uriResult) &&
+                    (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps))
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = uriResult.AbsoluteUri,
+                        UseShellExecute = true
+                    });
+                }
+                else
+                {
+                    MessageBox.Show($"Invalid link: {link}");
+                }
             }
         }
 

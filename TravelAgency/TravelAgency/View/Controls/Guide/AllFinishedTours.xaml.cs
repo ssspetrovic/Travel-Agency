@@ -2,20 +2,15 @@
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows;
-using System.Data;
-using TravelAgency.Model;
-using System;
+using TravelAgency.ViewModel;
 
 namespace TravelAgency.View.Controls.Guide
-{
-    /// <summary>
-    /// Interaction logic for AllFinishedTours.xaml
-    /// </summary>
-    public partial class AllFinishedTours
+{ public partial class AllFinishedTours
     {
         public AllFinishedTours()
         {
             InitializeComponent();
+            DataContext = new AllFinishedToursViewModel();
         }
 
 
@@ -46,79 +41,6 @@ namespace TravelAgency.View.Controls.Guide
         private void Button_MinimizeClick(object sender, RoutedEventArgs e)
         {
             this.WindowState = WindowState.Minimized;
-        }
-
-
-        private void Home_OnClick(object sender, RoutedEventArgs e)
-        {
-            var guideView = new View.Guide();
-            guideView.Show();
-            Close();
-        }
-
-
-        private void TourStats_OnClick(object sender, RoutedEventArgs e)
-        {
-            var window = new View.Guide
-            {
-                Content = new TourStats(),
-                Title = "Tour Stats"
-            };
-            window.Show();
-            Close();
-        }
-
-        private void ChangeViews_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.F1)
-            {
-                var guideView = new View.Guide();
-                guideView.Show();
-                Close();
-            }
-
-            if (e.Key == Key.F2 || e.Key == Key.Escape)
-            {
-                var window = new View.Guide
-                {
-                    Content = new TourStats(),
-                    Title = "Tour Stats"
-                };
-                window.Show();
-                Close();
-            }
-
-            if (e.Key == Key.Oem3)
-            {
-                var shortcuts = new Shortcuts();
-                shortcuts.Closed += Shortcuts_Closed;
-                Visibility = Visibility.Collapsed;
-                shortcuts.Show();
-            }
-
-            if (e.Key == Key.Tab && FinishedToursListView.Items.Count > 0)
-            {
-                e.Handled = true;
-                FinishedToursListView.SelectedIndex = 
-                    (FinishedToursListView.SelectedIndex + 1) % FinishedToursListView.Items.Count;
-            }
-
-            if (e.Key == Key.Enter && FinishedToursListView.SelectedItem != null)
-            {
-                if (e.Handled) return;
-                e.Handled = true;
-
-                var selectedItem = (DataRowView)FinishedToursListView.SelectedItem;
-                CurrentFinishedTour.Name = selectedItem["Name"].ToString()!;
-                var selectedFinishedTour = new SelectedFinishedTour();
-                selectedFinishedTour.Show();
-                Close();
-            }
-        }
-
-        private void Shortcuts_Closed(object? sender, EventArgs eventArgs)
-        {
-            Visibility = Visibility.Visible;
         }
 
     }

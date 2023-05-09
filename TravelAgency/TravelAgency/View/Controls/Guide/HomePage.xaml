@@ -23,10 +23,10 @@
         SelectedIndex="{Binding SelectedTourIndex}"
         SelectedItem="{Binding SelectedTour}">
         <b:Interaction.Triggers>
-            <b:KeyTrigger Key="Tab">
+            <b:KeyTrigger Key="Tab" ActiveOnFocus="True">
                 <b:InvokeCommandAction Command="{Binding TabPressedCommand}" />
             </b:KeyTrigger>
-            <b:KeyTrigger Key="Enter">
+            <b:KeyTrigger Key="Enter" ActiveOnFocus="True">
                 <b:InvokeCommandAction Command="{Binding KeyBindings}" CommandParameter="EnterPressed" />
             </b:KeyTrigger>
         </b:Interaction.Triggers>

@@ -9,6 +9,5 @@
     Height="500"
     vml:GuideViewModelLocator.AutoHookedUpViewModel="True"
     Background="Transparent"
-    KeyDown="ChangeViews_KeyDown"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     mc:Ignorable="d" />

@@ -1,9 +1,13 @@
 ﻿using LiveCharts;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
 using TravelAgency.Model;
 using TravelAgency.Service;
+using TravelAgency.View.Controls.Guide;
+using TravelAgency.View;
 
 namespace TravelAgency.ViewModel
 {
@@ -13,15 +17,47 @@ namespace TravelAgency.ViewModel
         private readonly ObservableCollection<FinishedTour> _tabAllData;
         private readonly ObservableCollection<FinishedTour> _tab2023Data;
         private readonly ObservableCollection<FinishedTour> _tab2022Data;
+        private int _tabsIndex;
 
         public TourStatsViewModel()
         {
+            TabTourStats = new MyICommand(TabPressed);
             _finishedTourService = new FinishedTourService();
             _tabAllData = _finishedTourService.GetAllTimeBestTour();
             _tab2023Data = _finishedTourService.GetBestOf2022Tour();
             _tab2022Data = _finishedTourService.GetBestOf2023Tour();
+            GetMoreStats = new MyICommand(Stats);
         }
         
+        public MyICommand TabTourStats { get; private set; }
+        public MyICommand GetMoreStats { get; private set; }
+
+        public void TabPressed()
+        {
+            if (TabsIndex < 2)
+                TabsIndex++;
+            else
+                TabsIndex = 0;
+        }
+
+        private void Stats()
+        {
+            var window = Application.Current.Windows.OfType<Guide>().FirstOrDefault();
+            var allFinishedTours = new AllFinishedTours();
+            allFinishedTours.Show();
+            window!.Close();
+        }
+
+        public int TabsIndex
+        {
+            get => _tabsIndex;
+            set
+            {
+                _tabsIndex = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ObservableCollection<TabData> Tabs =>
             new()
             {
