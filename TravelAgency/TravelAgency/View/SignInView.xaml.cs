@@ -67,7 +67,7 @@ namespace TravelAgency.View
                         {
                             case Role.Owner:
                                 {
-                                    var mainView = new OwnerView();
+                                    var mainView = new OwnerMainView();
                                     mainView.Show();
                                     break;
                                 }

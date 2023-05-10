@@ -1,0 +1,58 @@
+﻿<Page x:Class="TravelAgency.View.Controls.Owner.GradeGuestsView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TravelAgency.View.Controls.Owner"
+      mc:Ignorable="d" 
+      d:DesignHeight="690" d:DesignWidth="430"
+      Title="GradeGuestsView">
+
+    <Grid Background="White">
+        <Label Content="Grade Guest" HorizontalAlignment="Left" Margin="22,21,0,0" VerticalAlignment="Top" FontSize="18"/>
+        <ListView x:Name="GuestListView" d:ItemsSource="{d:SampleData ItemCount=3}" ItemsSource="{Binding ReservationsSourceCollection}" SelectedItem="{Binding SelectedReservation}" Margin="22,58,-266,468" FontSize="12">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn
+                        Width="Auto"
+                        DisplayMemberBinding="{Binding Id}"
+                        Header="ReservationId" />
+                    <GridViewColumn
+                        Width="Auto"
+                        DisplayMemberBinding="{Binding GuestId}"
+                        Header="Guest" />
+                    <GridViewColumn
+                        Width="Auto"
+                        DisplayMemberBinding="{Binding AccommodationId}"
+                        Header="Accommodation" />
+                    <GridViewColumn
+                        Width="Auto"
+                        DisplayMemberBinding="{Binding StartDate}"
+                        Header="Start Date" />
+                    <GridViewColumn
+                        Width="Auto"
+                        DisplayMemberBinding="{Binding EndDate}"
+                        Header="End Date" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <RadioButton x:Name="rbComplaisent1" Content="1" HorizontalAlignment="Left" Margin="34,310,0,0" VerticalAlignment="Top" GroupName="grade_complaisent" IsChecked="True"/>
+        <RadioButton x:Name="rbComplaisent2" Content="2" HorizontalAlignment="Left" Margin="34,328,0,0" VerticalAlignment="Top" GroupName="grade_complaisent"/>
+        <RadioButton x:Name="rbComplaisent3" Content="3" HorizontalAlignment="Left" Margin="34,346,0,0" VerticalAlignment="Top" GroupName="grade_complaisent"/>
+        <RadioButton x:Name="rbComplaisent4" Content="4" HorizontalAlignment="Left" Margin="34,364,0,0" VerticalAlignment="Top" GroupName="grade_complaisent"/>
+        <RadioButton x:Name="rbComplaisent5" Content="5" HorizontalAlignment="Left" Margin="34,382,0,0" VerticalAlignment="Top" GroupName="grade_complaisent"/>
+        <RadioButton x:Name="rbClean1" Content="1" HorizontalAlignment="Left" Margin="313,310,0,0" VerticalAlignment="Top" GroupName="grade_clean" IsChecked="True"/>
+        <RadioButton x:Name="rbClean2" Content="2" HorizontalAlignment="Left" Margin="313,328,0,0" VerticalAlignment="Top" GroupName="grade_clean"/>
+        <RadioButton x:Name="rbClean3" Content="3" HorizontalAlignment="Left" Margin="313,346,0,0" VerticalAlignment="Top" GroupName="grade_clean"/>
+        <RadioButton x:Name="rbClean4" Content="4" HorizontalAlignment="Left" Margin="313,364,0,0" VerticalAlignment="Top" GroupName="grade_clean"/>
+        <RadioButton x:Name="rbClean5" Content="5" HorizontalAlignment="Left" Margin="313,382,0,0" VerticalAlignment="Top" GroupName="grade_clean"/>
+        <Label Content="Grade Complaisent" HorizontalAlignment="Left" Margin="34,286,0,0" VerticalAlignment="Top"/>
+        <Label Content="Grade Clean" HorizontalAlignment="Left" Margin="313,286,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtReservationId" DataContext="{Binding SelectedItem, ElementName=GuestListView}" HorizontalAlignment="Left" Margin="127,256,0,0" TextWrapping="Wrap" Text="{Binding Id}" VerticalAlignment="Top" Width="29" FontWeight="Bold" IsEnabled="False"/>
+        <Label Content="Reservation ID:" HorizontalAlignment="Left" Margin="34,257,0,0" VerticalAlignment="Top"/>
+        <Label Content="Comment" HorizontalAlignment="Left" Margin="77,449,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnGrade" Content="Grade" HorizontalAlignment="Left" Margin="77,523,0,0" VerticalAlignment="Top" Width="71" Click="btnGrade_Click"/>
+        <TextBox x:Name="txtComment" HorizontalAlignment="Left" Margin="77,473,0,0" TextWrapping="Wrap" Text="No comment" VerticalAlignment="Top" Width="181" Height="30"/>
+
+    </Grid>
+</Page>

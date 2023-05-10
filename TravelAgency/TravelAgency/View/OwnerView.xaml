@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelAgency.View"
         mc:Ignorable="d"
-        Title="OwnerView" Height="520" Width="800">
+        Title="OwnerView" Height="520" Width="1100
+        ">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="28*"/>
@@ -20,6 +21,8 @@
         <Button x:Name="btnDisplayGuestsGrades" Grid.Column="1" Content="Display Guest's Grades" HorizontalAlignment="Left" Margin="26,174,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Click="btnDisplayGuestsGrades_Click"/>
         <Button x:Name="btnSuperOwner" Grid.Column="1" Content="Owner Title" HorizontalAlignment="Left" Margin="26,222,0,0" VerticalAlignment="Top" Click="btnSuperOwner_Click"/>
         <Button x:Name="btnHandleRequests" Grid.Column="1" Content="Handle Reservation Change Requests" HorizontalAlignment="Left" Margin="26,268,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="274" Click="btnHandleRequests_Click"/>
+        <StackPanel x:Name="stekPanel" Grid.Column="2" Margin="98,0,10,0"/>
+        <Button Grid.Column="1" Content="Button" HorizontalAlignment="Left" Margin="136,439,0,0" VerticalAlignment="Top" Click="Button_Click"/>
 
     </Grid>
 </Window>

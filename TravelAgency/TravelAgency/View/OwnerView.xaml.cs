@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -80,6 +81,11 @@ namespace TravelAgency.View
             var reservationChangeRequests = new ReservationChangeRequestsView();
             reservationChangeRequests.Show();
             Close();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var gradeGuestView = new GradeGuest();
         }
     }
 }
