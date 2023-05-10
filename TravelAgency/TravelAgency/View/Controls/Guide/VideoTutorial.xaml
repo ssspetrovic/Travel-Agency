@@ -1,0 +1,63 @@
+﻿<Window
+    x:Class="TravelAgency.View.Controls.Guide.VideoTutorial"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModel="clr-namespace:TravelAgency.ViewModel"
+    Width="933"
+    Height="525"
+    AllowsTransparency="True"
+    Background="Transparent"
+    Left="620"
+    PreviewKeyDown="VideoTutorial_OnPreviewKeyDown"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    Top="300"
+    WindowStartupLocation="Manual"
+    WindowStyle="None"
+    mc:Ignorable="d">
+
+    <Window.DataContext>
+        <viewModel:VideoTutorialViewModel />
+    </Window.DataContext>
+
+    <Border Background="White">
+        <Grid>
+            <MediaElement
+                Name="VideoPlayer"
+                LoadedBehavior="Manual"
+                MediaEnded="VideoPlayer_OnMediaEnded"
+                Source="{Binding Url}"
+                Stretch="Uniform" />
+
+            <TextBlock
+                Name="MuteTextBlock"
+                Padding="20,35"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                FontSize="20"
+                FontWeight="Bold"
+                Foreground="#4fc3f7"
+                Text="Press M to Unmute" />
+
+            <Button
+                Margin="0,10"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Background="#68cbf8"
+                BorderThickness="0"
+                Command="{Binding CloseCommand}"
+                Content="Turn Off">
+                <b:Interaction.Triggers>
+                    <b:KeyTrigger Key="Escape">
+                        <b:InvokeCommandAction Command="{Binding CloseCommand}" />
+                    </b:KeyTrigger>
+                </b:Interaction.Triggers>
+            </Button>
+        </Grid>
+    </Border>
+
+
+
+</Window>

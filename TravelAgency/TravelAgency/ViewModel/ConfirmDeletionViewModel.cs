@@ -48,8 +48,10 @@ namespace TravelAgency.ViewModel
             }
 
             new WindowManager().CloseWindow<ConfirmDeletion>();
-            var mainWindow = Application.Current.Windows.OfType<Guide>().FirstOrDefault()!.DataContext as GuideViewModel;
-            mainWindow!.CurrentViewModel = new HomePageViewModel();
+            var mainWindow = Application.Current.Windows.OfType<Guide>().FirstOrDefault()!;
+            mainWindow.Title = "Home Page";
+            if (mainWindow.DataContext is GuideViewModel guideViewModel)
+                guideViewModel.CurrentViewModel = new HomePageViewModel();
         }
 
         private void CancelTour()

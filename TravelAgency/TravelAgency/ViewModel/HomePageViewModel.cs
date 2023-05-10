@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Diagnostics;
 using System.Windows.Forms;
+using System.Windows.Media.Imaging;
 using TravelAgency.Model;
 using TravelAgency.Service;
+using TravelAgency.View.Controls.Guide;
 
 namespace TravelAgency.ViewModel
 {
@@ -14,18 +15,18 @@ namespace TravelAgency.ViewModel
         private readonly LocationService _locationService;
         private DataRowView? _selectedTour;
         private int _selectedTourIndex;
-        public bool FocusLocations = true;
 
-        public MyICommand<string> KeyBindings { get; private set; }
+        public MyICommand GetPictures { get; private set; }
         public MyICommand TabPressedCommand { get; private set; }
 
         public HomePageViewModel()
         {
             _locationService = new LocationService();
             _tourService = new TourService();
-            KeyBindings = new MyICommand<string>(Keys);
+            GetPictures = new MyICommand(Picture);
             _selectedTour = null;
             TabPressedCommand = new MyICommand(TabPressed);
+            SelectedTour = Tours[0];
         }
 
         public DataRowView? SelectedTour
@@ -54,31 +55,24 @@ namespace TravelAgency.ViewModel
                 SelectedTourIndex++;
         }
 
-        public void Keys(string keys)
+        public void Picture()
         {
-            switch (keys)
-            {
-                case "EnterPressed":
-                    GetPictures();
-                    break;
-            }
+            ParseLinks();
         }
 
-        public void GetPictures()
-        {
-            if (SelectedTour == null) return;
-            var images = _tourService.GetByName(SelectedTour["Name"].ToString()).Photos;
+        public void ParseLinks()
+        { 
+            var images = SelectedTour != null ? _tourService.GetByName(SelectedTour["Name"].ToString()).Photos : _tourService.GetByName(Tours[0]["Name"].ToString()).Photos;
             var links = images.Split(", ");
             foreach (var link in links)
             {
                 if (Uri.TryCreate(link, UriKind.Absolute, out var uriResult) &&
                     (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps))
                 {
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = uriResult.AbsoluteUri,
-                        UseShellExecute = true
-                    });
+
+                    var popupWindow = new PopupPictures();
+                    popupWindow.DataContext = new PopupPicturesViewModel { CurrentImageSource = new BitmapImage(uriResult) };
+                    popupWindow.ShowDialog();
                 }
                 else
                 {

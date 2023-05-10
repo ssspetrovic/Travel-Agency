@@ -15,6 +15,7 @@ namespace TravelAgency.View
         public SignInView()
         {
             InitializeComponent();
+            UsernameTextBox.Focus();
         }
 
         private void HeaderThumb_OnDragDelta(object sender, DragDeltaEventArgs e)

@@ -24,12 +24,14 @@ namespace TravelAgency.ViewModel
 
         public void CreateLoc()
         {
+            CreateAcceptedTourDto.Language = "";
             CreateAcceptedTourDto.Location = MostRequestedLocation.Split(", ")[0];
             CreateTourView();
         }
 
         public void CreateLang()
         {
+            CreateAcceptedTourDto.Location = "";
             CreateAcceptedTourDto.Language = MostRequestedLanguage;
             CreateTourView();
         }

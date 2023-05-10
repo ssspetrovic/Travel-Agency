@@ -239,7 +239,7 @@
                             Foreground="#68cbf8"
                             ItemsSource="{Binding Tabs}"
                             KeyboardNavigation.TabIndex="0"
-                            KeyboardNavigation.TabNavigation="Cycle"
+                            KeyboardNavigation.TabNavigation="Contained"
                             SelectedIndex="{Binding TabsIndex}">
                             <b:Interaction.Triggers>
                                 <b:KeyTrigger Key="Tab" ActiveOnFocus="True">
@@ -309,10 +309,11 @@
 
                                         <lvc:CartesianChart
                                             Grid.Row="1"
+                                            Focusable="False"
                                             LegendLocation="Bottom"
                                             Series="{Binding BarData}">
                                             <lvc:CartesianChart.AxisX>
-                                                <lvc:Axis>
+                                                <lvc:Axis Foreground="#4fc3f7">
                                                     <lvc:Axis.Labels>
                                                         <Binding Path="BarLabels" />
                                                     </lvc:Axis.Labels>

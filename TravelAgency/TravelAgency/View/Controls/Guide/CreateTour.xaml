@@ -10,6 +10,7 @@
     Height="500"
     vml:GuideViewModelLocator.AutoHookedUpViewModel="True"
     Background="Transparent"
+    FocusManager.FocusedElement="{Binding ElementName=NameText}"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     mc:Ignorable="d">
 
@@ -159,7 +160,7 @@
                 FontSize="12"
                 FontWeight="Medium"
                 Foreground="#68cbf8"
-                Text="Key Points"
+                Text="Key Points (Press Enter to Add To The List)"
                 TextWrapping="Wrap" />
             <ComboBox
                 x:Name="ComboBoxKeyPoints"
@@ -215,7 +216,7 @@
                 FontSize="12"
                 FontWeight="Medium"
                 Foreground="#68cbf8"
-                Text="Date"
+                Text="Date (Press Enter to Add To The List)"
                 TextWrapping="Wrap" />
             <DatePicker
                 x:Name="DatePick"
@@ -265,7 +266,7 @@
                 FontSize="12"
                 FontWeight="Medium"
                 Foreground="#68cbf8"
-                Text="Images"
+                Text="Images (Press Enter to Add To The List)"
                 TextWrapping="Wrap" />
             <TextBox
                 x:Name="ImagesText"

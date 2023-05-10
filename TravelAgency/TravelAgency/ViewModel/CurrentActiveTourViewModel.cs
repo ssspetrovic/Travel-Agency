@@ -161,6 +161,7 @@ namespace TravelAgency.ViewModel
             RemoveTour(tour.Date.Split(", ").ToList(), tourists);
             _activeTourService.Remove();
             var mainWindow = Application.Current.Windows.OfType<View.Guide>().FirstOrDefault();
+            mainWindow.Title = "Review Tour";
             if (mainWindow!.DataContext is GuideViewModel guideViewModel)
                 guideViewModel.CurrentViewModel = new ReviewTourViewModel();
         }

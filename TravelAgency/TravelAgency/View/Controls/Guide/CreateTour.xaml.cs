@@ -13,7 +13,6 @@ namespace TravelAgency.View.Controls.Guide
         {
             InitializeComponent();
             DataContext = new CreateTourViewModel();
-            NameText.Focus();
         }
 
         private void DatePick_PreviewKeyDown(object sender, KeyEventArgs e)

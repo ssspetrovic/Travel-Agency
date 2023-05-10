@@ -12,6 +12,8 @@ namespace TravelAgency.ViewModel
     {
         private readonly RequestTourService _requestTourService;
         private readonly TourService _tourService;
+        private DataRowView? _acceptTour;
+        private int _acceptTourIndex;
 
         public AcceptTourViewModel()
         {
@@ -51,18 +53,19 @@ namespace TravelAgency.ViewModel
 
         public void CreateCommand()
         {
-            if (SelectedTourIndex == -1) return;
-            var selectRequestedTourDateViewModel = new SelectRequestedTourDateViewModel(TourRequestData[SelectedTourIndex]["DateRange"].ToString()!);
+            var selectRequestedTourDateViewModel = AcceptTour != null ? new SelectRequestedTourDateViewModel(AcceptTour["DateRange"].ToString()!) :
+                new SelectRequestedTourDateViewModel(TourRequestData[0]["DateRange"].ToString()!);
             var selectRequestedTourDate = new SelectRequestedTourDate(selectRequestedTourDateViewModel);
             selectRequestedTourDate.ShowDialog();
             if (!selectRequestedTourDate.GetConformation()) return;
 
             if (!_tourService.CheckIfDatesExist(selectRequestedTourDate.GetSelectedDates()))
             {
+                var parameters = AcceptTour == null ? TourRequestData[0] : AcceptTour;
                 CreateAcceptedTourDto.DateList = selectRequestedTourDate.GetSelectedDates();
-                CreateAcceptedTourDto.Location = TourRequestData[SelectedTourIndex]["Location_id"].ToString()!.Split(", ")[0];
-                CreateAcceptedTourDto.Language = TourRequestData[SelectedTourIndex]["Language"].ToString()!;
-                CreateAcceptedTourDto.MaxGuests = TourRequestData[SelectedTourIndex]["NumberOfGuests"].ToString()!;
+                CreateAcceptedTourDto.Location = parameters["Location_id"].ToString()!.Split(", ")[0];
+                CreateAcceptedTourDto.Language = parameters["Language"].ToString()!;
+                CreateAcceptedTourDto.MaxGuests = parameters["NumberOfGuests"].ToString()!;
 
                 var currentWindow = Application.Current.Windows.OfType<Guide>().FirstOrDefault();
                 var newWindow = new Guide();
@@ -96,6 +99,26 @@ namespace TravelAgency.ViewModel
                 if (_updateView == value) return;
                 _updateView = value;
                 OnPropertyChanged(_updateView);
+            }
+        }
+
+        public DataRowView? AcceptTour
+        {
+            get => _acceptTour;
+            set
+            {
+                _acceptTour = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int AcceptTourIndex
+        {
+            get => _acceptTourIndex;
+            set
+            {
+                _acceptTourIndex = value;
+                OnPropertyChanged();
             }
         }
     }

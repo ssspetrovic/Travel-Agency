@@ -16,6 +16,7 @@ namespace TravelAgency.ViewModel
         {
             _tourService = new TourService();
             CancelTourCommands = new MyICommand<string>(CancelCommands);
+            SelectedTour = CancelTours.Count > 0 ? CancelTours[0] : null;
         }
 
         public MyICommand<string> CancelTourCommands { get; private set; }
@@ -25,10 +26,10 @@ namespace TravelAgency.ViewModel
             switch (commands)
             {
                 case "KeyPPressed":
-                    GetPictures();
+                    ParseLinks();
                     break;
                 case "EnterPressed":
-                    CancelledTour.Name = _tourService.GetByName(SelectedTour!["Name"].ToString()).Name;
+                    CancelledTour.Name = SelectedTour != null ? _tourService.GetByName(SelectedTour!["Name"].ToString()).Name : _tourService.GetByName(CancelTours[0]["Name"].ToString()).Name;
                     var confirmDeletion = new ConfirmDeletion();
                     confirmDeletion.PasswordBox.Focus();
                     confirmDeletion.ShowDialog();

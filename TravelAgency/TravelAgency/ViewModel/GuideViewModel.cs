@@ -9,11 +9,9 @@ namespace TravelAgency.ViewModel
 {
     public class GuideViewModel : BaseViewModel
     {
-        public MyICommand<string> NavCommand { get; private set; }
-        public MyICommand<string> ReserveCommand { get; private set; }
+        
         private BaseViewModel _currentViewModel = new HomePageViewModel();
-        public MyICommand LogOutCommand { get; private set; }
-        public MyICommand ResignCommand { get; private set; }
+        
         public string CurrentViewName { get; set; }
 
         public GuideViewModel()
@@ -22,9 +20,16 @@ namespace TravelAgency.ViewModel
             ReserveCommand = new MyICommand<string>(OnNav);
             LogOutCommand = new MyICommand(LogOut);
             ResignCommand = new MyICommand(Resign);
+            VideoTutorialCommand = new MyICommand(VideoCommand);
             CurrentViewModel = _currentViewModel;
             CurrentViewName = "All Tours";
         }
+
+        public MyICommand<string> NavCommand { get; private set; }
+        public MyICommand<string> ReserveCommand { get; private set; }
+        public MyICommand LogOutCommand { get; private set; }
+        public MyICommand ResignCommand { get; private set; }
+        public MyICommand VideoTutorialCommand { get; private set; }
 
         public string LoadCurrentUserData => "Welcome " + CurrentUser.DisplayName;
 
@@ -38,7 +43,21 @@ namespace TravelAgency.ViewModel
             }
         }
 
-        private void OnNav(string destination)
+        private void VideoCommand()
+        {
+            var videoTutorialViewModel = new VideoTutorialViewModel();
+            var currentWindow = Application.Current.Windows.OfType<Guide>().FirstOrDefault();
+            videoTutorialViewModel.Url += currentWindow!.Title != "Shortcuts" ? currentWindow!.Title + ".mp4" : "video.mp4";
+
+            var videoTutorial = new VideoTutorial
+            {
+                DataContext = videoTutorialViewModel,
+            };
+
+            videoTutorial.ShowDialog();
+        }
+
+        public void OnNav(string destination)
         {
             var currentWindow = Application.Current.Windows.OfType<Guide>().FirstOrDefault();
             var newWindow = new Guide();

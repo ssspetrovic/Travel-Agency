@@ -10,9 +10,10 @@
     xmlns:viewModel="clr-namespace:TravelAgency.ViewModel"
     xmlns:views="clr-namespace:TravelAgency.View.Controls.Guide"
     xmlns:vml="clr-namespace:TravelAgency.VML"
-    Title="All Tours"
+    Title="Home Page"
     Width="1280"
     Height="720"
+    PreviewKeyDown="Guide_OnPreviewKeyDown"
     vml:GuideViewModelLocator.AutoHookedUpViewModel="True"
     AllowsTransparency="True"
     Background="Transparent"
@@ -461,19 +462,39 @@
 
                         </Grid>
 
-                        <TextBlock
-                            Grid.Row="2"
-                            Padding="0,0,80,0"
-                            FontSize="12"
-                            Foreground="#68cbf8"
-                            Text="Shortcuts (`)"
-                            TextAlignment="Right">
-                            <i:Interaction.Triggers>
-                                <i:KeyTrigger Key="Oem3">
-                                    <i:InvokeCommandAction Command="{Binding ReserveCommand}" CommandParameter="Shortcuts" />
-                                </i:KeyTrigger>
-                            </i:Interaction.Triggers>
-                        </TextBlock>
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock
+                                Padding="80,0,0,0"
+                                FontSize="12"
+                                Foreground="#68cbf8"
+                                Text="Video Tutorial (`)"
+                                TextAlignment="Left">
+                                <i:Interaction.Triggers>
+                                    <i:KeyTrigger Key="Oem3">
+                                        <i:InvokeCommandAction Command="{Binding VideoTutorialCommand}" />
+                                    </i:KeyTrigger>
+                                </i:Interaction.Triggers>
+                            </TextBlock>
+                            <TextBlock
+                                Grid.Column="1"
+                                Padding="0,0,80,0"
+                                FontSize="12"
+                                Foreground="#68cbf8"
+                                Text="Shortcuts (=)"
+                                TextAlignment="Right">
+                                <i:Interaction.Triggers>
+                                    <i:KeyTrigger Key="OemPlus">
+                                        <i:InvokeCommandAction Command="{Binding ReserveCommand}" CommandParameter="Shortcuts" />
+                                    </i:KeyTrigger>
+                                </i:Interaction.Triggers>
+                            </TextBlock>
+
+                        </Grid>
 
                         <ContentControl
                             Grid.Row="3"

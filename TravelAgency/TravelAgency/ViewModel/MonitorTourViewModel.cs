@@ -25,6 +25,7 @@ namespace TravelAgency.ViewModel
             _activeTourService = new ActiveTourService();
             _touristService = new TouristService();
             ActiveTourCommands = new MyICommand<string>(OnActive);
+            SelectedTour = ToursToday.Count > 0 ? ToursToday[0] : null;
         }
 
         public MyICommand<string> ActiveTourCommands { get; private set; }
@@ -38,7 +39,7 @@ namespace TravelAgency.ViewModel
                         GetActiveTour(false);
                     break;
                 case "KeyPPressed":
-                    GetPictures();
+                    ParseLinks();
                     break;
                 case "KeyAPressed":
                     if (_activeTourService.IsActive())
@@ -59,7 +60,10 @@ namespace TravelAgency.ViewModel
                     selectedTour = _tourService.GetByName(_activeTourService.GetActiveTourColumn("Name"));
                 else
                 {
-                    selectedTour = _tourService.GetByName(SelectedTour!["Name"].ToString());
+                    if(SelectedTour == null)
+                        selectedTour = _tourService.GetByName(ToursToday[0]["Name"].ToString());
+                    else 
+                        selectedTour = _tourService.GetByName(SelectedTour!["Name"].ToString());
                 }
 
                 var tourists = _touristService.GetByTour(selectedTour);

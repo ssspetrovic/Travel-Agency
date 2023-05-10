@@ -27,7 +27,7 @@
                 <b:InvokeCommandAction Command="{Binding TabPressedCommand}" />
             </b:KeyTrigger>
             <b:KeyTrigger Key="Enter" ActiveOnFocus="True">
-                <b:InvokeCommandAction Command="{Binding KeyBindings}" CommandParameter="EnterPressed" />
+                <b:InvokeCommandAction Command="{Binding GetPictures}" />
             </b:KeyTrigger>
         </b:Interaction.Triggers>
         <ListView.View>

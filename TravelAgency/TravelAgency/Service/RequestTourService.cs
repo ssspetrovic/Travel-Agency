@@ -93,12 +93,12 @@ namespace TravelAgency.Service
         public string GetSelectStatementForCollection(string dataType)
         {
             var selectStatement = "select * from RequestedTour where ";
-            if (dataType == "Location")
+            if (dataType.Split(":")[0] == "Location")
                 selectStatement += @"Location_Id = (select Location_Id from (select Location_Id, count(Location_Id) as 
-                        Location_Count from RequestedTour group by Location_Id order by Location_Count desc limit 1) as Max_Location)";
+                        Location_Count from RequestedTour where Location_Id = " + _locationService.GetByCity(dataType.Split(":")[1].Split(", ")[0].Trim())!.Id +" group by Location_Id order by Location_Count desc limit 1) as Max_Location)";
             else
                 selectStatement += @"Language = (select Language from (select Language, count(Language) as 
-                        Language_Count from RequestedTour group by Language order by Language_Count desc limit 1) as Max_Language)";
+                        Language_Count from RequestedTour where Language = '" + dataType.Split(":")[1].Trim() + "' group by Language order by Language_Count desc limit 1) as Max_Language)";
             return selectStatement;
         }
 
@@ -138,30 +138,56 @@ namespace TravelAgency.Service
             return requestedTours;
         }
 
-        public ChartValues<double> GetComparisons(ObservableCollection<RequestTour> requestedTours, string dataType, string dataContent)
+        public List<string> GetComparisonReader(string dataType, string dataContent)
         {
+            var comparisonList = new List<string>();
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
 
-            var countStatement = new List<int>();
-            var selectStatement = "select count(*) from RequestedTour group by ";
+            var selectStatement = "select count(*), ";
 
             if (dataType == "Location")
-                selectStatement += "Location_Id order by case Location_Id when " + _locationService.GetByCity(dataContent.Split(",")[0].Trim())!.Id + " then 0 else 1 end";
+                selectStatement += "Location_Id from RequestedTour group by Location_Id order by case Location_Id when " + _locationService.GetByCity(dataContent.Split(",")[0].Trim())!.Id + " then 0 else 1 end";
             else
-                selectStatement += "Language order by case Language when '" + dataContent.Trim() + "' then 0 else 1 end";
+                selectStatement += "Language from RequestedTour group by Language order by case Language when '" + dataContent.Trim() + "' then 0 else 1 end";
 
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
             using var selectReader = selectCommand.ExecuteReader();
 
             while (selectReader.Read())
-                countStatement.Add(selectReader.GetInt32(0));
+            {
+                if (dataType == "Location")
+                    comparisonList.Add(selectReader.GetInt32(0) + ":" + _locationService.GetById(selectReader.GetInt32(1))!.City);
+                else
+                    comparisonList.Add(selectReader.GetInt32(0) + ":" + selectReader.GetString(1));
+            }
+            return comparisonList;
+        }
+
+        public ChartValues<double> GetComparisons(ObservableCollection<RequestTour> requestedTours, string dataType, string dataContent)
+        {
+            var countStatement = new List<int>();
+            var comparisonList = GetComparisonReader(dataType, dataContent);
+
+            foreach (var comparison in comparisonList)
+                countStatement.Add(int.Parse(comparison.Split(":")[0]));
 
             var chartData = new ChartValues<double>();
             foreach (var count in countStatement)
                 chartData.Add(count);
 
             return chartData;
+        }
+
+        public string[] GetComparisonLabels(ObservableCollection<RequestTour> tabAllData, string dataType, string dataContent)
+        {
+            var countLabels = new List<string>();
+            var comparisonList = GetComparisonReader(dataType, dataContent);
+
+            foreach (var comparison in comparisonList)
+                countLabels.Add(comparison.Split(":")[1]);
+
+            return countLabels.ToArray();
         }
 
         public List<Location> GetAllRequestedLocations()
@@ -187,17 +213,22 @@ namespace TravelAgency.Service
             return _requestTourRepository.GetAllRequestedLanguages();
         }
 
-        public List<RequestTour> GetRequestsByDate(string day, int month, string year)
+        public List<RequestTour> GetRequestsByDate(string day, int month, string year, string dataType)
         {
             var requestedTours = new List<RequestTour>();
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
+            var columnName = dataType.Split(":")[0] == "Location" ? "Location_Id" : "Language";
+            var columnData = columnName == "Language"
+                ? dataType.Split(":")[1].Trim()
+                : _locationService.GetByCity(dataType.Split(":")[1].Split(", ")[0].Trim())!.Id.ToString();
 
-            const string selectStatement = "select * from RequestedTour where DateRange like '%' || $Month || '/%' || $Day || '%/' || '%' || $Year";
+            var selectStatement = "select * from RequestedTour where DateRange like '%' || $Month || '/%' || $Day || '%/' || '%' || $Year and " + columnName + " = $DataType";
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
             selectCommand.Parameters.AddWithValue("$Month", month);
             selectCommand.Parameters.AddWithValue("$Day", day);
             selectCommand.Parameters.AddWithValue("$Year", year);
+            selectCommand.Parameters.AddWithValue("DataType", columnData);
 
             using var selectReader = selectCommand.ExecuteReader();
 
@@ -217,5 +248,6 @@ namespace TravelAgency.Service
 
             return requestedTours;
         }
+
     }
 }

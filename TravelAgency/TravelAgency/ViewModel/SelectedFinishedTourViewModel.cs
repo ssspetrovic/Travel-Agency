@@ -35,21 +35,21 @@ public class SelectedFinishedTourViewModel : HomePageViewModel
        
         switch (command)
         {
-            case "HomePage":
+            case "Home Page":
                 var mainWindow = new Guide();
+                mainWindow.Title = "Home Page";
                 if (mainWindow.DataContext is not GuideViewModel guideViewModel) return;
                 guideViewModel.CurrentViewModel = new HomePageViewModel();
                 mainWindow.Title = command;
                 mainWindow.Show();
                 window!.Close();
                 break;
-            case "AllFinishedTours":
+            case "All Finished Tours":
                 var allFinishedTours = new AllFinishedTours();
                 allFinishedTours.Title = command;
                 allFinishedTours.Show();
                 window!.Close();
                 break;
-
         }
 
     }

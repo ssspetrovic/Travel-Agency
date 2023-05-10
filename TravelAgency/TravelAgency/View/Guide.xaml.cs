@@ -1,7 +1,9 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
+using TravelAgency.ViewModel;
 
 namespace TravelAgency.View
 {
@@ -40,6 +42,16 @@ namespace TravelAgency.View
         private void Button_MinimizeClick(object sender, RoutedEventArgs e)
         {
             this.WindowState = WindowState.Minimized;
+        }
+
+        private void Guide_OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.SystemKey == Key.F10)
+            {
+                var currentWindow = Application.Current.Windows.OfType<Guide>().FirstOrDefault();
+                if (currentWindow!.DataContext is not GuideViewModel guideViewModel) return;
+                guideViewModel.OnNav("Create Suggested Tour");
+            }
         }
     }
 }

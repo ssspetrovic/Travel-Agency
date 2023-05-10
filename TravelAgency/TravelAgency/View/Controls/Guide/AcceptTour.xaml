@@ -45,8 +45,8 @@
             ItemsSource="{Binding TourRequestData}"
             KeyboardNavigation.TabIndex="0"
             KeyboardNavigation.TabNavigation="Cycle"
-            SelectedIndex="{Binding SelectedTourIndex}"
-            SelectedItem="{Binding SelectedTour}">
+            SelectedIndex="{Binding AcceptTourIndex}"
+            SelectedItem="{Binding AcceptTour}">
             <b:Interaction.Triggers>
                 <b:KeyTrigger Key="Tab" ActiveOnFocus="True">
                     <b:InvokeCommandAction Command="{Binding TabPressedCommand}" />

@@ -518,6 +518,9 @@ namespace TravelAgency.ViewModel
 
             IsCreateTourEnabled = isImagesValid && isLocationValid && isLanguageValid && isMaxGuestsValid && isKeyPointsValid && isDateValid && isDurationValid && isNameValid;
 
+            if (IsCreateTourEnabled)
+                ErrorMessageText = "Press Right Shift To Finalize Creation";
+
             OnPropertyChanged(nameof(IsCreateTourEnabled));
             OnPropertyChanged(nameof(ErrorMessageText));
         }

@@ -24,10 +24,9 @@ namespace TravelAgency.ViewModel
         public CurrentRequestStatsViewModel()
         {
             _requestTourService = new RequestTourService();
-            var dataType = DataType.Split(":")[0];
-            _tabAllData = _requestTourService.GetAllTimeRequestedTour(dataType);
-            _tab2023Data = _requestTourService.GetMostRequestedToursByYear(dataType, "2023");
-            _tab2022Data = _requestTourService.GetMostRequestedToursByYear(dataType, "2023");
+            _tabAllData = _requestTourService.GetAllTimeRequestedTour(DataType);
+            _tab2023Data = _requestTourService.GetMostRequestedToursByYear(DataType, "2023");
+            _tab2022Data = _requestTourService.GetMostRequestedToursByYear(DataType, "2022");
             NavCommand = new MyICommand(OnNav);
             TabTourStats = new MyICommand(TabPressed);
             SelectStatsByMonth = new MyICommand<string>(ByMonth);
@@ -58,9 +57,26 @@ namespace TravelAgency.ViewModel
             {
                 if (TabsIndex == 0) return;
                 int monthNumber = key - Key.F1 + 1;
+                var tourList = _requestTourService.GetRequestsByDate("", monthNumber, Tabs[TabsIndex].Title, DataType);
+                var numberOfRequests = 0.0;
+
+                if (tourList.Count > 0)
+                {
+                    var minStartDate = tourList.Min(tour => DateTime.Parse(tour.DateRange.Split(" - ")[0]));
+                    var maxEndDate = tourList.Max(tour => DateTime.Parse(tour.DateRange.Split(" - ")[1]));
+
+                    if (minStartDate.Month != monthNumber)
+                        minStartDate = new DateTime(minStartDate.Year, monthNumber - 1, DateTime.DaysInMonth(minStartDate.Year, monthNumber - 1));
+                    if (maxEndDate.Month != monthNumber)
+                        maxEndDate = new DateTime(maxEndDate.Year, monthNumber, DateTime.DaysInMonth(maxEndDate.Year, monthNumber));
+
+                    numberOfRequests = (maxEndDate - minStartDate).TotalDays;
+                }
+               
                 var showMonthlyRequestStatsViewModel = new ShowMonthlyRequestStatsViewModel()
                 {
-                    NumberOfRequests = _requestTourService.GetRequestsByDate("", monthNumber, Tabs[TabsIndex].Title).Sum(tour => tour.NumberOfGuests).ToString(),
+                    NumberOfRequests = numberOfRequests.ToString(CultureInfo.CurrentCulture),
+
                     CurrentMonth = new DateTimeFormatInfo().GetMonthName(monthNumber) + ", " + Tabs[TabsIndex].Title
                 };
                 var showMonthlyRequestStats = new ShowMonthlyRequestStats(showMonthlyRequestStatsViewModel);
@@ -71,10 +87,7 @@ namespace TravelAgency.ViewModel
         public void TabPressed()
         {
             if (TabsIndex < 2)
-            {
                 TabsIndex++;
-                
-            }
             else
                 TabsIndex = 0;
         }
@@ -98,17 +111,23 @@ namespace TravelAgency.ViewModel
                 {
                     Title = "Overall", 
                     DataType = DataType.Split(":")[0], 
-                    DataContent = DataType.Split(":")[1], 
-                    NumberOfRequests = "Number of Requests: " + _tabAllData.Sum(tour => tour.NumberOfGuests),
+                    DataContent = DataType.Split(":")[1],
+                    NumberOfRequests = "Number of Requests: " + _tabAllData.Sum(tour =>
+                    {
+                        var dates = tour.DateRange.Split(" - ");
+                        var startDate = DateTime.Parse(dates[0]);
+                        var endDate = DateTime.Parse(dates[1]);
+                        return (endDate - startDate).TotalDays;
+                    }),
                     BarData = new SeriesCollection
                     {
                         new ColumnSeries
                         {
-                            Title = "Comparison of our current " + DataType.Split(":")[0] + " with others.",
+                            Title = "Current " + DataType.Split(":")[0] + " requests.",
                             Values = _requestTourService.GetComparisons(_tabAllData, DataType.Split(":")[0], DataType.Split(":")[1])
                         }
                     },
-                    BarLabels = new[] {DataType.Split(":")[1]}
+                    BarLabels = _requestTourService.GetComparisonLabels(_tabAllData, DataType.Split(":")[0], DataType.Split(":")[1])
 
                 },
                 new CurrentRequestTabs
@@ -116,7 +135,13 @@ namespace TravelAgency.ViewModel
                     Title = "2023",
                     DataType = DataType.Split(":")[0],
                     DataContent = DataType.Split(":")[1],
-                    NumberOfRequests = "Number of Requests: " + _tab2023Data.Sum(tour => tour.NumberOfGuests),
+                    NumberOfRequests = "Number of Requests: " + _tab2023Data.Sum(tour =>
+                    {
+                        var dates = tour.DateRange.Split(" - ");
+                        var startDate = DateTime.Parse(dates[0]);
+                        var endDate = DateTime.Parse(dates[1]);
+                        return (endDate - startDate).TotalDays;
+                    }),
                     BarData = new SeriesCollection
                     {
                         new ColumnSeries
@@ -125,14 +150,21 @@ namespace TravelAgency.ViewModel
                             Values = _requestTourService.GetComparisons(_tab2023Data, DataType.Split(":")[0], DataType.Split(":")[1])
                         }
                     },
-                    BarLabels = new[] {DataType.Split(":")[1]}
+                    BarLabels = _requestTourService.GetComparisonLabels(_tab2023Data, DataType.Split(":")[0], DataType.Split(":")[1])
                 },
                 new CurrentRequestTabs 
                 { 
                     Title = "2022",
                     DataType = DataType.Split(":")[0],
                     DataContent = DataType.Split(":")[1],
-                    NumberOfRequests = "Number of Requests: " + _tab2022Data.Sum(tour => tour.NumberOfGuests),
+                    NumberOfRequests = "Number of Requests: " + _tab2022Data.Sum(tour =>
+                    {
+                        var dates = tour.DateRange.Split(" - ");
+                        var startDate = DateTime.Parse(dates[0]);
+                        var endDate = DateTime.Parse(dates[1]);
+                        return (endDate - startDate).TotalDays;
+                    }),
+
                     BarData = new SeriesCollection
                     {
                         new ColumnSeries
@@ -141,7 +173,7 @@ namespace TravelAgency.ViewModel
                             Values = _requestTourService.GetComparisons(_tab2022Data, DataType.Split(":")[0], DataType.Split(":")[1])
                         }
                     },
-                    BarLabels = new[] {DataType.Split(":")[1]}
+                    BarLabels = _requestTourService.GetComparisonLabels(_tab2022Data, DataType.Split(":")[0], DataType.Split(":")[1])
                 }
             };
     }
