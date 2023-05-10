@@ -38,7 +38,8 @@
                     <StackPanel
                         Grid.Row="0"
                         HorizontalAlignment="Center"
-                        VerticalAlignment="Center">
+                        VerticalAlignment="Center"
+                        Background="Transparent">
                         <b:Interaction.Triggers>
                             <b:EventTrigger EventName="MouseDown">
                                 <b:InvokeCommandAction Command="{Binding NavigateToUserProfileCommand}" />

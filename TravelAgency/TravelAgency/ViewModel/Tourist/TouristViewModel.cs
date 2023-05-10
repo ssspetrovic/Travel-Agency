@@ -54,8 +54,7 @@ namespace TravelAgency.ViewModel.Tourist
 
         private void Execute_NavigateToUserProfileCommand(object parameter)
         {
-            // TODO
-            _windowManager.CloseWindow<TouristView>();
+            _navigationService.Navigate(new UserProfileView());
         }
 
         private void Execute_CloseWindowCommand(object parameter)
