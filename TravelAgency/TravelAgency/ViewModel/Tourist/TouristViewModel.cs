@@ -54,9 +54,7 @@ namespace TravelAgency.ViewModel.Tourist
 
         private void Execute_NavigateToUserProfileCommand(object parameter)
         {
-            var userProfileWindow = new UserProfileView(_navigationService);
-            userProfileWindow.Show();
-            _windowManager.CloseWindow<TouristView>();
+            _navigationService.Navigate(new UserProfileView());
         }
 
         private void Execute_CloseWindowCommand(object parameter)
@@ -70,30 +68,7 @@ namespace TravelAgency.ViewModel.Tourist
             _windowManager.CloseWindow<TouristView>();
         }
 
-        private void NavigateToNextView(NextView nextView)
-        {
-            switch (nextView)
-            {
-                case NextView.MyRequests:
-                    // TODO
-                    break;
-                case NextView.Notifications:
-                    // TODO
-                    break;
-                case NextView.MyTours:
-                    _navigationService.Navigate(new MyToursView(_navigationService));
-                    break;
-                case NextView.MyVouchers:
-                    _navigationService.Navigate(new MyTourVouchersView());
-                    break;
-                case NextView.Home:
-                default:
-                    _navigationService.Navigate(new HomeView(_navigationService));
-                    break;
-            }
-        }
-
-        public TouristViewModel(NavigationService navigationService, NextView nextView)
+        public TouristViewModel(NavigationService navigationService)
         {
             _windowManager = new WindowManager();
             _navigationService = navigationService;
@@ -107,9 +82,8 @@ namespace TravelAgency.ViewModel.Tourist
             NavigateToUserProfileCommand = new RelayCommand(Execute_NavigateToUserProfileCommand);
             CloseWindowCommand = new RelayCommand(Execute_CloseWindowCommand);
             SignOutCommand = new RelayCommand(Execute_SignOutCommand);
-            
+
             Username = CurrentUser.DisplayName;
-            NavigateToNextView(nextView);
         }
     }
 }

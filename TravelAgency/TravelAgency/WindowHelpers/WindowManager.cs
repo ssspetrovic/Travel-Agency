@@ -32,16 +32,5 @@ namespace TravelAgency.WindowHelpers
 
             return new T();
         }
-
-        public TouristView GetTouristViewWindow()
-        {
-            foreach (var window in Application.Current.Windows)
-            {
-                if (window.GetType() != typeof(TouristView)) continue;
-                return (TouristView)window;
-            }
-
-            return new TouristView();
-        }
     }
 }

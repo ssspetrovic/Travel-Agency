@@ -9,6 +9,7 @@
         <Setter Property="Height" Value="20" />
         <Setter Property="Foreground" Value="White" />
     </Style>
+
     <Style
         x:Key="MenuButtonStyle"
         BasedOn="{StaticResource {x:Type ToggleButton}}"
@@ -26,6 +27,7 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            <Setter Property="Height" Value="50" />
             <Setter Property="Width" Value="200" />
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="BorderThickness" Value="0" />
@@ -39,6 +41,47 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+
+    <Style
+        x:Key="UserProfileButtonStyle"
+        BasedOn="{StaticResource {x:Type ToggleButton}}"
+        TargetType="{x:Type RadioButton}">
+        <Setter Property="Width" Value="55" />
+        <Setter Property="Height" Value="55" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RadioButton">
+                    <Border
+                        x:Name="UserBorder"
+                        Width="55"
+                        Height="55"
+                        Padding="0"
+                        BorderBrush="White"
+                        BorderThickness="3"
+                        CornerRadius="5">
+                        <fa:IconImage
+                            x:Name="UserIconImage"
+                            Width="30"
+                            Foreground="White"
+                            Icon="UserAlt" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="UserBorder" Property="Background" Value="White" />
+                            <Setter TargetName="UserIconImage" Property="Foreground" Value="#3F51B5" />
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="False">
+                            <Setter TargetName="UserBorder" Property="Background" Value="Transparent" />
+                            <Setter TargetName="UserIconImage" Property="Foreground" Value="White" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style
         x:Key="FilterTextBoxStyle"
         BasedOn="{StaticResource {x:Type TextBox}}"
@@ -54,6 +97,7 @@
             <Setter Property="BorderBrush" Value="{StaticResource MaterialDesignDivider}" />
         </Style.Setters>
     </Style>
+
     <Style x:Key="ToggleSwitchBasicStyle" TargetType="{x:Type controls:ToggleSwitch}">
         <Setter Property="MaxHeight" Value="20" />
         <Setter Property="MaxWidth" Value="40" />

@@ -7,7 +7,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="TourReservationView"
-    d:DesignHeight="571"
+    d:DesignHeight="616"
     d:DesignWidth="800"
     mc:Ignorable="d">
     <Page.Resources>
@@ -18,7 +18,7 @@
     </d:Page.Background>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40" />
+            <RowDefinition Height="90" />
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
@@ -35,7 +35,7 @@
                 x:Name="SearchTextBox"
                 Width="400"
                 Height="40"
-                Margin="0,10"
+                Margin="0,0,0,10"
                 Padding="15,0"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
@@ -52,7 +52,7 @@
                 Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock
                 Margin="0,5"
-                FontSize="15"
+                FontSize="14"
                 Style="{StaticResource MaterialDesignBody2TextBlock}"
                 Text="Select a tour to make a reservation"
                 TextAlignment="Center" />
@@ -67,17 +67,28 @@
                 BorderBrush="{StaticResource MaterialDesignDivider}"
                 BorderThickness="0,2,2,2">
                 <StackPanel Margin="30,0">
-                    <Label Margin="0,10,0,0" Content="City" />
+                    <Label
+                        Margin="0,10,0,0"
+                        Content="City"
+                        FontSize="14" />
                     <TextBox
                         x:Name="FilterCityTextBox"
+                        FontSize="14"
                         Style="{StaticResource FilterTextBoxStyle}"
                         Text="{Binding EnteredFilterCity}" />
-                    <Label Margin="0,10,0,0" Content="Country" />
+                    <Label
+                        Margin="0,10,0,0"
+                        Content="Country"
+                        FontSize="14" />
                     <TextBox
                         x:Name="FilterCountryTextBox"
+                        FontSize="14"
                         Style="{StaticResource FilterTextBoxStyle}"
                         Text="{Binding EnteredFilterCountry}" />
-                    <Label Margin="0,10,0,0" Content="Language" />
+                    <Label
+                        Margin="0,10,0,0"
+                        Content="Language"
+                        FontSize="14" />
                     <ComboBox
                         x:Name="FilterLanguageComboBox"
                         Height="30"
@@ -87,18 +98,27 @@
                         materialDesign:TextFieldAssist.UnderlineCornerRadius="3"
                         BorderBrush="{StaticResource MaterialDesignDivider}"
                         BorderThickness="1"
+                        FontSize="14"
                         ItemsSource="{Binding FilterLanguages}"
                         MaxDropDownHeight="190"
                         SelectedItem="{Binding SelectedFilterLanguage}"
                         Style="{StaticResource MaterialDesignComboBox}" />
-                    <Label Margin="0,10,0,0" Content="Duration" />
+                    <Label
+                        Margin="0,10,0,0"
+                        Content="Duration"
+                        FontSize="14" />
                     <TextBox
                         x:Name="FilterDurationTextBox"
+                        FontSize="14"
                         Style="{StaticResource FilterTextBoxStyle}"
                         Text="{Binding EnteredFilterDuration}" />
-                    <Label Margin="0,10,0,0" Content="Number of guests" />
+                    <Label
+                        Margin="0,10,0,0"
+                        Content="Number of guests"
+                        FontSize="14" />
                     <TextBox
                         x:Name="FilterGuestNumberTextBox"
+                        FontSize="14"
                         Style="{StaticResource FilterTextBoxStyle}"
                         Text="{Binding EnteredFilterGuestNumber}" />
                     <Button
@@ -107,11 +127,12 @@
                         Command="{Binding ApplyFilterCommand}"
                         Content="Apply filter"
                         FontFamily="{StaticResource MaterialDesignFont}"
-                        FontSize="13" />
+                        FontSize="14" />
                     <Button
                         x:Name="ResetFilterButton"
                         Command="{Binding ResetFilterCommand}"
                         Content="Reset filter"
+                        FontSize="14"
                         Style="{StaticResource MaterialDesignFlatButton}" />
                 </StackPanel>
             </Border>
@@ -191,7 +212,7 @@
                         <Label
                             VerticalAlignment="Center"
                             Content="Number of guests:"
-                            FontSize="16" />
+                            FontSize="14" />
                         <TextBox
                             x:Name="GuestNumberTextBox"
                             Width="80"
@@ -200,7 +221,7 @@
                             VerticalContentAlignment="Center"
                             BorderBrush="{DynamicResource MaterialDesignDivider}"
                             BorderThickness="0,0,0,2"
-                            FontSize="16"
+                            FontSize="14"
                             Style="{StaticResource MaterialDesignTextBoxBase}"
                             Text="{Binding GuestNumber, UpdateSourceTrigger=PropertyChanged}" />
                     </WrapPanel>
@@ -223,7 +244,7 @@
                             BorderBrush="{StaticResource MaterialDesignDivider}"
                             BorderThickness="1"
                             DisplayMemberPath="Description"
-                            FontSize="15"
+                            FontSize="14"
                             ItemsSource="{Binding TourVouchers}"
                             SelectedItem="{Binding SelectedTourVoucher}"
                             Style="{StaticResource MaterialDesignComboBox}" />
@@ -233,7 +254,7 @@
                             Margin="20,0,0,0"
                             Command="{Binding MakeReservationCommand}"
                             Content="Make a reservation"
-                            FontSize="15" />
+                            FontSize="14" />
                     </WrapPanel>
                 </StackPanel>
             </Grid>
