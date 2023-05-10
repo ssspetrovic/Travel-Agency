@@ -6,7 +6,7 @@
     xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="UserProfileView"
-    d:DesignHeight="571"
+    d:DesignHeight="616"
     d:DesignWidth="800"
     mc:Ignorable="d">
     <Page.Resources>
@@ -21,24 +21,23 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0" Margin="170,30,170,10">
+            <Grid Grid.Row="0" Margin="170,60,170,10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                <TextBlock
+                <Label
                     Grid.Row="0"
                     Height="Auto"
-                    Margin="10,5"
-                    FontSize="15"
-                    Foreground="#3F51B5"
-                    Text="User information" />
+                    Margin="10,0"
+                    Content="User information"
+                    FontSize="14" />
                 <Border
                     Grid.Row="1"
                     BorderBrush="#3F51B5"
                     BorderThickness="2"
                     CornerRadius="5">
-                    <Grid>
+                    <Grid Margin="70,0,70,40">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition />
@@ -64,11 +63,11 @@
                                 HorizontalAlignment=" Center"
                                 VerticalAlignment="Center"
                                 d:Text="Tourist"
-                                FontSize="16"
+                                FontSize="14"
                                 Foreground="#3F51B5"
                                 Text="{Binding FirstName}" />
                         </StackPanel>
-                        <Grid Grid.Row="1" Margin="60,0,60,40">
+                        <Grid Grid.Row="1">
                             <Grid.RowDefinitions>
                                 <RowDefinition />
                                 <RowDefinition />
@@ -174,18 +173,17 @@
                     </Grid>
                 </Border>
             </Grid>
-            <Grid Grid.Row="1" Margin="170,0,170,60">
+            <Grid Grid.Row="1" Margin="170,0,170,90">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                <TextBlock
+                <Label
                     Grid.Row="0"
                     Height="Auto"
-                    Margin="10,5"
-                    FontSize="15"
-                    Foreground="#3F51B5"
-                    Text="Exports" />
+                    Margin="10,0"
+                    Content="Exports"
+                    FontSize="14" />
                 <Border
                     Grid.Row="1"
                     BorderBrush="#3F51B5"

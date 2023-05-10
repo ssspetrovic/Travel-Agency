@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="RequestTourView"
-    d:DesignHeight="571"
+    d:DesignHeight="616"
     d:DesignWidth="800"
     mc:Ignorable="d">
     <Page.Resources>
@@ -16,9 +16,9 @@
     </d:Page.Background>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
+            <RowDefinition Height="90" />
             <RowDefinition />
-            <RowDefinition Height="70" />
+            <RowDefinition Height="75" />
         </Grid.RowDefinitions>
         <TextBlock
             Grid.Row="0"
@@ -58,13 +58,16 @@
             Grid.Row="2"
             HorizontalAlignment="Center"
             VerticalAlignment="Center">
+            <Label
+                Margin="0,0,5,0"
+                Content="Looking for already created requests?"
+                FontSize="14" />
             <TextBlock
-                Margin="0,0,10,0"
-                FontSize="13"
-                Text="Looking for already created requests?" />
-            <TextBlock
-                FontSize="13"
+                Margin="0,5"
+                FontFamily="{StaticResource MaterialDesignFont}"
+                FontSize="14"
                 FontWeight="DemiBold"
+                Foreground="#3F51B5"
                 Text="My requests"
                 TextDecorations="Underline" />
         </WrapPanel>

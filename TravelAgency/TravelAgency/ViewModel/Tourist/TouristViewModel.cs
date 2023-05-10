@@ -82,7 +82,7 @@ namespace TravelAgency.ViewModel.Tourist
             NavigateToUserProfileCommand = new RelayCommand(Execute_NavigateToUserProfileCommand);
             CloseWindowCommand = new RelayCommand(Execute_CloseWindowCommand);
             SignOutCommand = new RelayCommand(Execute_SignOutCommand);
-            
+
             Username = CurrentUser.DisplayName;
         }
     }
