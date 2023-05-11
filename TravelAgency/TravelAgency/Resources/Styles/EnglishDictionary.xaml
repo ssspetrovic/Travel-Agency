@@ -71,6 +71,7 @@
     <System:String x:Key="Comment">Comment</System:String>
     <System:String x:Key="No comment">No comment</System:String>
     <System:String x:Key="Grade Guest">Grade Guest</System:String>
+    <System:String x:Key="Request From Guest">Request From Guest</System:String>
 
 
     <!--DISPLAY GUESTS REVIEWS-->

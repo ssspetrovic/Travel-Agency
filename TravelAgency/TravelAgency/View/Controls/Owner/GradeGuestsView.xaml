@@ -10,7 +10,7 @@
 
     <Grid Style="{DynamicResource Grid}" Name="grid">
         <Label Style="{DynamicResource Label}" Content="{DynamicResource Guests}" HorizontalAlignment="Left" Margin="22,21,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
-        <ListView x:Name="GuestListView" d:ItemsSource="{d:SampleData ItemCount=3}" ItemsSource="{Binding ReservationsSourceCollection}" SelectedItem="{Binding SelectedReservation}" Margin="22,58,32,494" FontSize="12">
+        <ListView x:Name="GuestListView" d:ItemsSource="{d:SampleData ItemCount=3}" ItemsSource="{Binding ReservationsSourceCollection}" SelectedItem="{Binding SelectedReservation}" Margin="22,58,32,494" FontSize="12" SelectionChanged="GuestListView_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn
@@ -58,6 +58,8 @@
         <Label Style="{DynamicResource Label}" Content="{DynamicResource Comment}" HorizontalAlignment="Left" Margin="23,428,0,0" VerticalAlignment="Top" FontSize="14"/>
         <Button Style="{DynamicResource Batn}" x:Name="btnGrade" Content="{DynamicResource Grade Guest}" HorizontalAlignment="Left" Margin="157,603,0,0" VerticalAlignment="Top" Width="106" Click="btnGrade_Click" FontSize="16" Height="40"/>
         <TextBox Style="{DynamicResource TextBox}" x:Name="txtComment" HorizontalAlignment="Left" Margin="23,457,0,0" TextWrapping="Wrap" Text="{DynamicResource No comment}" VerticalAlignment="Top" Width="375" Height="113" FontSize="14"/>
+        <Label Style="{DynamicResource Label}" HorizontalAlignment="Left" Margin="23,207,0,0" VerticalAlignment="Top" FontSize="14" Content="{DynamicResource Request From Guest}"/>
+        <TextBox Style="{DynamicResource TextBox}" x:Name="txtReservationId_Copy" DataContext="{Binding SelectedItem, ElementName=GuestListView}" HorizontalAlignment="Left" Margin="163,212,0,0" TextWrapping="Wrap" Text="{Binding GuestId}" VerticalAlignment="Top" Width="159" FontWeight="Bold" IsEnabled="False"/>
 
     </Grid>
 </Page>

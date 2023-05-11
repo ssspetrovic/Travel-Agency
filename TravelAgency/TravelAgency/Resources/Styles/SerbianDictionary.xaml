@@ -71,6 +71,7 @@
     <System:String x:Key="Comment">Komentar</System:String>
     <System:String x:Key="No comment">Bez komentara</System:String>
     <System:String x:Key="Grade Guest">Oceni Gosta</System:String>
+    <System:String x:Key="Request From Guest">Zahtev Od Gosta</System:String>
 
 
     <!--DISPLAY GUESTS REVIEWS-->

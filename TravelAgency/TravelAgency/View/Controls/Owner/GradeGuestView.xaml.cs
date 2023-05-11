@@ -53,5 +53,10 @@ namespace TravelAgency.View.Controls.Owner
             else
                 MessageBox.Show("No reservation selected!");
         }
+
+        private void GuestListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

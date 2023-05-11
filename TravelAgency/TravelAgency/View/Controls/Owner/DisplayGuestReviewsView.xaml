@@ -9,7 +9,7 @@
       Title="DisplayGuestReviewsView">
 
     <Grid Style="{DynamicResource Grid}">
-        <ListView x:Name="GuestListView" d:ItemsSource="{d:SampleData ItemCount=3}" ItemsSource="{Binding GuestsGradesSourceCollection}" SelectedItem="{Binding SelectedGuestsGrade}" Margin="22,58,27,492" FontSize="12">
+        <ListView x:Name="GuestListView" d:ItemsSource="{d:SampleData ItemCount=3}" ItemsSource="{Binding GuestsGradesSourceCollection}" SelectedItem="{Binding SelectedGuestsGrade}" Margin="22,58,27,492" FontSize="12" SelectionChanged="GuestListView_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn
@@ -46,8 +46,16 @@
             </ListView.View>
         </ListView>
         <Label Style="{DynamicResource Label}" Content="{DynamicResource Guests}" HorizontalAlignment="Left" Margin="22,21,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
-        <TextBox Style="{DynamicResource TextBox}" x:Name="txtAccommodationComment" DataContext="{Binding SelectedItem, ElementName=GuestListView}" HorizontalAlignment="Left" Margin="156,262,0,0" TextWrapping="Wrap" Text="{Binding AccommodationComment}" VerticalAlignment="Top" Width="233" FontWeight="Bold" IsEnabled="False" Height="120"/>
-        <Label Style="{DynamicResource Label}" Content="{DynamicResource Guests comment}" HorizontalAlignment="Left" Margin="22,257,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <TextBox Style="{DynamicResource TextBox}" x:Name="txtAccommodationComment" DataContext="{Binding SelectedItem, ElementName=GuestListView}" HorizontalAlignment="Left" Margin="220,425,0,0" TextWrapping="Wrap" Text="{Binding AccommodationComment}" VerticalAlignment="Top" Width="160" FontWeight="Bold" IsEnabled="False" Height="129"/>
+        <Label Style="{DynamicResource Label}" Content="{DynamicResource Guests comment}" HorizontalAlignment="Left" Margin="36,417,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <Label Style="{DynamicResource Label}" Content="{DynamicResource Accommodation}" HorizontalAlignment="Left" Margin="36,262,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <TextBox Style="{DynamicResource TextBox}" x:Name="txtAccommodation" DataContext="{Binding SelectedItem, ElementName=GuestListView}" Margin="170,267,0,0" TextWrapping="Wrap" Text="{Binding AccommodationId}" VerticalAlignment="Top" Width="159" FontWeight="Bold" IsEnabled="False"/>
+        <Label Style="{DynamicResource Label}" Content="{DynamicResource Guest}" HorizontalAlignment="Left" Margin="36,303,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <TextBox Style="{DynamicResource TextBox}" x:Name="txtGuest" DataContext="{Binding SelectedItem, ElementName=GuestListView}" Margin="220,308,50,0" TextWrapping="Wrap" Text="{Binding GuestId}" VerticalAlignment="Top" Width="159" FontWeight="Bold" IsEnabled="False"/>
+        <Label Style="{DynamicResource Label}" Content="{DynamicResource Grade Clean}" HorizontalAlignment="Left" Margin="36,340,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <TextBox Style="{DynamicResource TextBox}" x:Name="txtGradeClean" DataContext="{Binding SelectedItem, ElementName=GuestListView}" Margin="220,346,50,0" TextWrapping="Wrap" Text="{Binding GradeAccommodationClean}" VerticalAlignment="Top" Width="159" FontWeight="Bold" IsEnabled="False"/>
+        <Label Style="{DynamicResource Label}" Content="{DynamicResource Grade Owner}" HorizontalAlignment="Left" Margin="36,379,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <TextBox Style="{DynamicResource TextBox}" x:Name="txtGradeOwner" DataContext="{Binding SelectedItem, ElementName=GuestListView}" Margin="220,384,50,0" TextWrapping="Wrap" Text="{Binding GradeAccommodationOwner}" VerticalAlignment="Top" Width="159" FontWeight="Bold" IsEnabled="False"/>
 
     </Grid>
 </Page>
