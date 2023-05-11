@@ -11,7 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TravelAgency.Model;
 using TravelAgency.View.Controls.Owner;
+using TravelAgency.ViewModel;
 
 namespace TravelAgency.View
 {
@@ -23,8 +25,11 @@ namespace TravelAgency.View
         public OwnerMainView()
         {
             InitializeComponent();
+
             HomePageView homePageView = new HomePageView();
             mainFrame.Navigate(homePageView);
+            btnLightTheme.Visibility = Visibility.Visible;
+            btnDarkTheme.Visibility = Visibility.Hidden;
             stekPanel.Visibility = Visibility.Hidden;
         }
 
@@ -43,7 +48,7 @@ namespace TravelAgency.View
             stekPanel.Visibility = Visibility.Hidden;
             HomePageView homePageView = new HomePageView();
             mainFrame.Navigate(homePageView);
-            lblSelectedTab.Content = "Home Page";
+            lblSelectedTab.Content = btnHomePage.Content;
         }
 
         private void btnRegisterAccommodation_Click(object sender, RoutedEventArgs e)
@@ -51,7 +56,7 @@ namespace TravelAgency.View
             stekPanel.Visibility = Visibility.Hidden;
             RegisterAccommodationView registerAccommodationView = new RegisterAccommodationView();
             mainFrame.Navigate(registerAccommodationView);
-            lblSelectedTab.Content = "Register Accommodation";
+            lblSelectedTab.Content = btnRegisterAccommodation.Content;
         }
 
         private void btnReservationChangeRequest_Click(object sender, RoutedEventArgs e)
@@ -59,7 +64,7 @@ namespace TravelAgency.View
             stekPanel.Visibility = Visibility.Hidden;
             ReservationChangeRequestView reservationChangeRequestView = new ReservationChangeRequestView();
             mainFrame.Navigate(reservationChangeRequestView);
-            lblSelectedTab.Content = "Reservation Change Requests";
+            lblSelectedTab.Content = btnReservationChangeRequest.Content;
         }
 
         private void btnGradeGuest_Click(object sender, RoutedEventArgs e)
@@ -67,7 +72,7 @@ namespace TravelAgency.View
             stekPanel.Visibility = Visibility.Hidden;
             GradeGuestsView gradeGuestsView = new GradeGuestsView();
             mainFrame.Navigate(gradeGuestsView);
-            lblSelectedTab.Content = "Grade Guests";
+            lblSelectedTab.Content = btnGradeGuest.Content;
         }
 
         private void btnDisplayGuestReviews_Click(object sender, RoutedEventArgs e)
@@ -75,7 +80,66 @@ namespace TravelAgency.View
             stekPanel.Visibility = Visibility.Hidden;
             DisplayGuestReviewsView displayGuestReviewsView = new DisplayGuestReviewsView();
             mainFrame.Navigate(displayGuestReviewsView);
-            lblSelectedTab.Content = "Display Guest Reviews";
+            lblSelectedTab.Content = btnDisplayGuestReviews.Content;
+        }
+
+        private void btnLanguage_Click(object sender, RoutedEventArgs e)
+        {
+            var resourceDictionary = new ResourceDictionary();
+            if (CurrentLanguageAndTheme.languageId == 1)
+            {
+                resourceDictionary.Source = new Uri($"/Resources/Styles/EnglishDictionary.xaml", UriKind.Relative);
+                CurrentLanguageAndTheme.languageId = 0;
+            }
+            else
+            {
+                resourceDictionary.Source = new Uri($"/Resources/Styles/SerbianDictionary.xaml", UriKind.Relative);
+                CurrentLanguageAndTheme.languageId = 1;
+            }
+            Application.Current.Resources.MergedDictionaries[0] = resourceDictionary;
+        }
+
+        private void btnLightTheme_Click(object sender, RoutedEventArgs e)
+        {
+            var resourceDictionary = new ResourceDictionary();
+            if (CurrentLanguageAndTheme.themeId == 1)
+            {
+                resourceDictionary.Source = new Uri($"/Resources/Styles/LightTheme.xaml", UriKind.Relative);
+                CurrentLanguageAndTheme.themeId = 0;
+            }
+            else
+            {
+                resourceDictionary.Source = new Uri($"/Resources/Styles/DarkTheme.xaml", UriKind.Relative);
+                CurrentLanguageAndTheme.themeId = 1;
+            }
+            Application.Current.Resources.MergedDictionaries[1] = resourceDictionary;
+            btnLightTheme.Visibility = Visibility.Hidden;
+            btnDarkTheme.Visibility = Visibility.Visible;
+        }
+
+        private void btnDarkTheme_Click(object sender, RoutedEventArgs e)
+        {
+            var resourceDictionary = new ResourceDictionary();
+            if (CurrentLanguageAndTheme.themeId == 1)
+            {
+                resourceDictionary.Source = new Uri($"/Resources/Styles/LightTheme.xaml", UriKind.Relative);
+                CurrentLanguageAndTheme.themeId = 0;
+            }
+            else
+            {
+                resourceDictionary.Source = new Uri($"/Resources/Styles/DarkTheme.xaml", UriKind.Relative);
+                CurrentLanguageAndTheme.themeId = 1;
+            }
+            Application.Current.Resources.MergedDictionaries[1] = resourceDictionary;
+            btnLightTheme.Visibility = Visibility.Visible;
+            btnDarkTheme.Visibility = Visibility.Hidden;
+        }
+
+        private void btnLogOut_Click(object sender, RoutedEventArgs e)
+        {
+            var signInView = new SignInView();
+            signInView.Show();
+            Close();
         }
     }
 }

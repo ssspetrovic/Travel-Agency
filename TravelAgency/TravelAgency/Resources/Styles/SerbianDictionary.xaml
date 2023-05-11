@@ -1,0 +1,17 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:System="clr-namespace:System;assembly=mscorlib">
+
+    <System:String x:Key="Welcome_Owner">Dobrodošli Vlasnik</System:String>
+    <System:String x:Key="Language">Srpski</System:String>
+    <System:String x:Key="LightTheme">Svetla Tema</System:String>
+    <System:String x:Key="DarkTheme">Tamna Tema</System:String>
+
+    <System:String x:Key="Menu">Meni</System:String>
+    <System:String x:Key="HomePage">Početna Strana</System:String>
+    <System:String x:Key="RegisterAccommodation">Registruj smeštaj</System:String>
+    <System:String x:Key="ReservationChangeRequests">Zahtevi za izmenu rezervacije</System:String>
+    <System:String x:Key="GradeGuests">Oceni Goste</System:String>
+    <System:String x:Key="DisplayGuestReviews">Prikaz Ocena Gostiju</System:String>
+    <System:String x:Key="LogOut">Izloguj Se</System:String>
+</ResourceDictionary>
