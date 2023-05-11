@@ -139,7 +139,7 @@ namespace TravelAgency.ViewModel.Tourist
         private void Execute_NavigateToMyTourRequestsCommand(object parameter)
         {
             Dialog?.Close();
-            _navigationService.Navigate(new HomeView(_navigationService));
+            _navigationService.Navigate(new RegularTourRequestView(_navigationService));
         }
 
         private bool CanExecute_SubmitRequestCommand(object parameter)

@@ -21,14 +21,14 @@ namespace TravelAgency.ViewModel.Tourist
         public RelayCommand CloseWindowCommand { get; set; }
         public RelayCommand SignOutCommand { get; set; }
         public string? Username { get; set; }
-        private bool _isToolTipSwitchToggled;
+        private bool _isTooltipsSwitchToggled;
 
-        public bool IsToolTipSwitchToggled
+        public bool IsTooltipsSwitchToggled
         {
-            get => _isToolTipSwitchToggled;
+            get => _isTooltipsSwitchToggled;
             set
             {
-                _isToolTipSwitchToggled = value;
+                _isTooltipsSwitchToggled = value;
                 OnPropertyChanged();
             }
         }
@@ -49,12 +49,12 @@ namespace TravelAgency.ViewModel.Tourist
             SignOutCommand = new RelayCommand(Execute_SignOutCommand);
 
             Username = CurrentUser.DisplayName;
-            _navigationService.Navigate(new HomeView(_navigationService));
+            _navigationService.Navigate(new HomeView(_navigationService, this));
         }
 
         private void Execute_NavigateToHomePageCommand(object parameter)
         {
-            _navigationService.Navigate(new HomeView(_navigationService));
+            _navigationService.Navigate(new HomeView(_navigationService, this));
         }
 
         private void Execute_NavigateToMyToursPageCommand(object parameter)
@@ -69,7 +69,7 @@ namespace TravelAgency.ViewModel.Tourist
 
         private void Execute_NavigateToMyTourVouchersPageCommand(object parameter)
         {
-            _navigationService.Navigate(new MyTourVouchersView());
+            _navigationService.Navigate(new MyTourVouchersView(this));
         }
 
         private void Execute_NavigateToRequestTourPageCommand(object parameter)
@@ -79,7 +79,7 @@ namespace TravelAgency.ViewModel.Tourist
 
         private void Execute_NavigateToTourReservationPageCommand(object parameter)
         {
-            _navigationService.Navigate(new TourReservationView(_navigationService));
+            _navigationService.Navigate(new TourReservationView(_navigationService, this));
         }
 
         private void Execute_NavigateToUserProfileCommand(object parameter)

@@ -7,10 +7,10 @@ namespace TravelAgency.View.Tourist
     /// </summary>
     public partial class MyTourVouchersView
     {
-        public MyTourVouchersView()
+        public MyTourVouchersView(TouristViewModel touristViewModel)
         {
             InitializeComponent();
-            DataContext = new TourVouchersViewModel();
+            DataContext = new TourVouchersViewModel(touristViewModel);
         }
     }
 }

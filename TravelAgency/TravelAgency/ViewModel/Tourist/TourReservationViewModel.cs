@@ -13,6 +13,7 @@ namespace TravelAgency.ViewModel.Tourist
 {
     public class TourReservationViewModel : BaseViewModel
     {
+        private readonly TouristViewModel _touristViewModel;
         private readonly NavigationService _navigationService;
 
         public new event PropertyChangedEventHandler? PropertyChanged;
@@ -39,7 +40,17 @@ namespace TravelAgency.ViewModel.Tourist
         private TourVoucher? _selectedTourVoucher;
         public TourReservationService TourReservationService { get; set; }
         public bool IsGuestNumberEntered { get; set; }
+        private bool _isTooltipsSwitchToggled;
 
+        public bool IsTooltipsSwitchToggled
+        {
+            get => _isTooltipsSwitchToggled;
+            set
+            {
+                _isTooltipsSwitchToggled = value;
+                OnPropertyChanged();
+            }
+        }
         public ObservableCollection<TourVoucher> TourVouchers
         {
             get => _tourVouchers;
@@ -214,8 +225,11 @@ namespace TravelAgency.ViewModel.Tourist
         public RelayCommand ResetFilterCommand { get; set; }
         public RelayCommand SelectionChangedCommand { get; set; }
 
-        public TourReservationViewModel(NavigationService navigationService)
+        public TourReservationViewModel(NavigationService navigationService, TouristViewModel touristViewModel)
         {
+            _touristViewModel = touristViewModel;
+            IsTooltipsSwitchToggled = _touristViewModel.IsTooltipsSwitchToggled;
+            _touristViewModel.PropertyChanged += TouristViewModel_PropertyChanged;
             _navigationService = navigationService;
             MakeReservationCommand = new RelayCommand(Execute_MakeReservationCommand, CanExecute_MakeReservationCommand);
             ApplyFilterCommand = new RelayCommand(Execute_ApplyFilterCommand);
@@ -239,7 +253,7 @@ namespace TravelAgency.ViewModel.Tourist
         private void Execute_MakeReservationCommand(object parameter)
         {
             TourReservationService.MakeReservation();
-            _navigationService.Navigate(new TourReservationView(_navigationService));
+            _navigationService.Navigate(new TourReservationView(_navigationService, _touristViewModel));
         }
 
         private void Execute_ApplyFilterCommand(object parameter)
@@ -266,6 +280,12 @@ namespace TravelAgency.ViewModel.Tourist
         {
             return location.City.Equals(SelectedTour?.Location.City) &&
                    location.Country.Equals(SelectedTour?.Location.Country);
+        }
+
+        private void TouristViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName != nameof(TouristViewModel.IsTooltipsSwitchToggled)) return;
+            if (sender != null) IsTooltipsSwitchToggled = ((TouristViewModel)sender).IsTooltipsSwitchToggled;
         }
 
         private bool IsMatchingFilterText(Tour tour, string filterTextUpper)
