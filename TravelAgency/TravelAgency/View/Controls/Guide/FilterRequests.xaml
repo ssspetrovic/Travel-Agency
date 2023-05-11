@@ -129,8 +129,8 @@
                             CaretBrush="#4fc3f7"
                             FontSize="13"
                             FontWeight="Medium"
-                            Foreground="#68cbf8" 
-                            PreviewTextInput="GuestsBox_PreviewTextInput"/>
+                            Foreground="#68cbf8"
+                            PreviewTextInput="GuestsBox_PreviewTextInput" />
 
                         <TextBlock
                             Grid.Row="3"
@@ -169,8 +169,8 @@
                             Margin="0,5,0,0"
                             VerticalContentAlignment="Center"
                             BorderThickness="0,0,0,1"
-                            Foreground="#68cbf8" 
-                            PreviewKeyDown="DatePick_PreviewKeyDown"/>
+                            Foreground="#68cbf8"
+                            PreviewKeyDown="DatePick_PreviewKeyDown" />
 
                     </Grid>
 

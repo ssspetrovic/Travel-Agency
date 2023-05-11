@@ -3,6 +3,7 @@ using Microsoft.Data.Sqlite;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using LiveCharts;
@@ -47,11 +48,12 @@ namespace TravelAgency.Service
             {
                 var dateRange = selectReader.GetString(5);
 
-                if (!DateTime.TryParse(dateRange.Split(" - ")[0], out var startDate) ||
-                    !DateTime.TryParse(dateRange.Split(" - ")[1], out var endDate) ||
-                    !DateTime.TryParse(parameter, out var date)) continue;
 
-                if (date >= startDate && date <= endDate)
+                var formattedStartDate = DateTime.ParseExact(dateRange.Split(" - ")[0], "MM/dd/yyyy", new CultureInfo("en-US"));
+                var formattedEndDate = DateTime.ParseExact(dateRange.Split(" - ")[1], "MM/dd/yyyy", new CultureInfo("en-US"));
+                var date = DateTime.Parse(parameter);
+
+                if (date >= formattedStartDate && date <= formattedEndDate)
                     requestedTours.Add(new RequestTour(selectReader.GetInt32(0), _locationService.GetById(selectReader.GetInt32(1))!, selectReader.GetString(2),
                         (Language)Enum.Parse(typeof(Language), selectReader.GetString(3)), selectReader.GetInt32(4), selectReader.GetString(5),
                         (Status)selectReader.GetInt32(6), selectReader.IsDBNull(7) ? "Empty" : selectReader.GetString(7)));
