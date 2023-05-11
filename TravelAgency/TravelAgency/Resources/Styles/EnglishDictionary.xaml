@@ -59,4 +59,17 @@
     <System:String x:Key="Reject">Reject</System:String>
     <System:String x:Key="Reject reason">Reject reason</System:String>
 
+
+    <!--RESERVATION CHANGE REQUEST-->
+    <System:String x:Key="Guests">Guests</System:String>
+    <System:String x:Key="Reservation">Reservation</System:String>
+    <System:String x:Key="Accommodation">Accommodation</System:String>
+    <System:String x:Key="Start Date">Start Date</System:String>
+    <System:String x:Key="End Date">End Date</System:String>
+    <System:String x:Key="Grade Complacent">Grade Complacent</System:String>
+    <System:String x:Key="Grade Clean">Grade Clean</System:String>
+    <System:String x:Key="Comment">Comment</System:String>
+    <System:String x:Key="No comment">No comment</System:String>
+    <System:String x:Key="Grade Guest">Grade Guest</System:String>
+
 </ResourceDictionary>

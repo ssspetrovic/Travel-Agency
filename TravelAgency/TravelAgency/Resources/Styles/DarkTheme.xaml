@@ -37,4 +37,8 @@
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="Background" Value="Black"/>
     </Style>
+    <Style x:Key="RadioButton" TargetType="{x:Type RadioButton}">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Background" Value="Black"/>
+    </Style>
 </ResourceDictionary>

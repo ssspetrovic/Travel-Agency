@@ -12,7 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TravelAgency.Model;
 using TravelAgency.Repository;
+using TravelAgency.View.Controls.Guest1;
 using TravelAgency.ViewModel;
 
 namespace TravelAgency.View.Controls.Owner
@@ -28,6 +30,7 @@ namespace TravelAgency.View.Controls.Owner
         {
             InitializeComponent();
             DataContext = _viewModel;
+            ChangeColorListView();
         }
 
         private void btnGrade_Click(object sender, RoutedEventArgs e)
@@ -36,15 +39,36 @@ namespace TravelAgency.View.Controls.Owner
             {
                 int reservationId = Convert.ToInt32(txtReservationId.Text);
                 string comment = txtComment.Text;
-                // TODO fix bug
-                //float gradeComplaisent = Convert.ToInt32(grid.Children.OfType<RadioButton>().FirstOrDefault(r => r.GroupName == "grade_complaisent" && r.IsChecked.HasValue && r.IsChecked.Value).Content);
-                //float gradeClean = Convert.ToInt32(grid.Children.OfType<RadioButton>().FirstOrDefault(r => r.GroupName == "grade_clean" && r.IsChecked.HasValue && r.IsChecked.Value).Content);
+                float gradeComplaisent = Convert.ToInt32(grid.Children.OfType<RadioButton>().FirstOrDefault(r => r.GroupName == "grade_complaisent" && r.IsChecked.HasValue && r.IsChecked.Value).Content);
+                float gradeClean = Convert.ToInt32(grid.Children.OfType<RadioButton>().FirstOrDefault(r => r.GroupName == "grade_clean" && r.IsChecked.HasValue && r.IsChecked.Value).Content);
 
-                //reservationRepository.UpdateReservationAfterGrading(reservationId, comment, gradeComplaisent, gradeClean);
-                MessageBox.Show("Graded!");
+                reservationRepository.UpdateReservationAfterGrading(reservationId, comment, gradeComplaisent, gradeClean);
+                if (CurrentLanguageAndTheme.languageId == 0)
+                    MessageBox.Show("Guest graded successfully!", "Message");
+                else
+                    MessageBox.Show("Gost ocenjen uspešno!", "Poruka");
             }
             else
-                MessageBox.Show("No reservation selected!");
+            {
+                if (CurrentLanguageAndTheme.languageId == 0)
+                    MessageBox.Show("No reservation selected...", "Message");
+                else
+                    MessageBox.Show("Nije izabrana ni jedna rezervacija", "Poruka");
+            }
+        }
+
+        private void ChangeColorListView()
+        {
+            if (CurrentLanguageAndTheme.themeId == 0)
+            {
+                GuestListView.Background = Brushes.White;
+                GuestListView.Foreground = Brushes.Black;
+            }
+            else
+            {
+                GuestListView.Background = Brushes.Black;
+                GuestListView.Foreground = Brushes.White;
+            }
         }
     }
 }

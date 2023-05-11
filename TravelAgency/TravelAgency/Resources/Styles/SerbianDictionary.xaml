@@ -59,4 +59,17 @@
     <System:String x:Key="Reject">Odbij</System:String>
     <System:String x:Key="Reject reason">Razlog za odbijanje</System:String>
 
+
+    <!--RESERVATION CHANGE REQUEST-->
+    <System:String x:Key="Guests">Gosti</System:String>
+    <System:String x:Key="Reservation">Rezervacija</System:String>
+    <System:String x:Key="Accommodation">Smeštaj</System:String>
+    <System:String x:Key="Start Date">Početni Datum</System:String>
+    <System:String x:Key="End Date">Krajnji Datum</System:String>
+    <System:String x:Key="Grade Complacent">Ocena poštovanja pravila</System:String>
+    <System:String x:Key="Grade Clean">Ocena čistoće</System:String>
+    <System:String x:Key="Comment">Komentar</System:String>
+    <System:String x:Key="No comment">Bez komentara</System:String>
+    <System:String x:Key="Grade Guest">Oceni Gosta</System:String>
+
 </ResourceDictionary>

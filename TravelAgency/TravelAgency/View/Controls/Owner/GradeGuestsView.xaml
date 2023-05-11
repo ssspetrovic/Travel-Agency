@@ -8,51 +8,56 @@
       d:DesignHeight="690" d:DesignWidth="430"
       Title="GradeGuestsView">
 
-    <Grid Background="White" Name="grid">
-        <Label Content="Grade Guest" HorizontalAlignment="Left" Margin="22,21,0,0" VerticalAlignment="Top" FontSize="18"/>
-        <ListView x:Name="GuestListView" d:ItemsSource="{d:SampleData ItemCount=3}" ItemsSource="{Binding ReservationsSourceCollection}" SelectedItem="{Binding SelectedReservation}" Margin="22,58,-266,468" FontSize="12">
+    <Grid Style="{DynamicResource Grid}" Name="grid">
+        <Label Style="{DynamicResource Label}" Content="{DynamicResource Guests}" HorizontalAlignment="Left" Margin="22,21,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+        <ListView x:Name="GuestListView" d:ItemsSource="{d:SampleData ItemCount=3}" ItemsSource="{Binding ReservationsSourceCollection}" SelectedItem="{Binding SelectedReservation}" Margin="22,58,32,494" FontSize="12">
             <ListView.View>
                 <GridView>
                     <GridViewColumn
                         Width="Auto"
                         DisplayMemberBinding="{Binding Id}"
-                        Header="ReservationId" />
+                        Header="{DynamicResource Reservation}"
+                        HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
                     <GridViewColumn
                         Width="Auto"
                         DisplayMemberBinding="{Binding GuestId}"
-                        Header="Guest" />
+                        Header="{DynamicResource Guest}"
+                        HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
                     <GridViewColumn
                         Width="Auto"
                         DisplayMemberBinding="{Binding AccommodationId}"
-                        Header="Accommodation" />
+                        Header="{DynamicResource Accommodation}"
+                        HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
                     <GridViewColumn
                         Width="Auto"
                         DisplayMemberBinding="{Binding StartDate}"
-                        Header="Start Date" />
+                        Header="{DynamicResource Start Date}"
+                        HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
                     <GridViewColumn
                         Width="Auto"
                         DisplayMemberBinding="{Binding EndDate}"
-                        Header="End Date" />
+                        Header="{DynamicResource End Date}"
+                        HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <RadioButton x:Name="rbComplaisent1" Content="1" HorizontalAlignment="Left" Margin="34,310,0,0" VerticalAlignment="Top" GroupName="grade_complaisent" IsChecked="True"/>
-        <RadioButton x:Name="rbComplaisent2" Content="2" HorizontalAlignment="Left" Margin="34,328,0,0" VerticalAlignment="Top" GroupName="grade_complaisent"/>
-        <RadioButton x:Name="rbComplaisent3" Content="3" HorizontalAlignment="Left" Margin="34,346,0,0" VerticalAlignment="Top" GroupName="grade_complaisent"/>
-        <RadioButton x:Name="rbComplaisent4" Content="4" HorizontalAlignment="Left" Margin="34,364,0,0" VerticalAlignment="Top" GroupName="grade_complaisent"/>
-        <RadioButton x:Name="rbComplaisent5" Content="5" HorizontalAlignment="Left" Margin="34,382,0,0" VerticalAlignment="Top" GroupName="grade_complaisent"/>
-        <RadioButton x:Name="rbClean1" Content="1" HorizontalAlignment="Left" Margin="313,310,0,0" VerticalAlignment="Top" GroupName="grade_clean" IsChecked="True"/>
-        <RadioButton x:Name="rbClean2" Content="2" HorizontalAlignment="Left" Margin="313,328,0,0" VerticalAlignment="Top" GroupName="grade_clean"/>
-        <RadioButton x:Name="rbClean3" Content="3" HorizontalAlignment="Left" Margin="313,346,0,0" VerticalAlignment="Top" GroupName="grade_clean"/>
-        <RadioButton x:Name="rbClean4" Content="4" HorizontalAlignment="Left" Margin="313,364,0,0" VerticalAlignment="Top" GroupName="grade_clean"/>
-        <RadioButton x:Name="rbClean5" Content="5" HorizontalAlignment="Left" Margin="313,382,0,0" VerticalAlignment="Top" GroupName="grade_clean"/>
-        <Label Content="Grade Complaisent" HorizontalAlignment="Left" Margin="34,286,0,0" VerticalAlignment="Top"/>
-        <Label Content="Grade Clean" HorizontalAlignment="Left" Margin="313,286,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtReservationId" DataContext="{Binding SelectedItem, ElementName=GuestListView}" HorizontalAlignment="Left" Margin="127,256,0,0" TextWrapping="Wrap" Text="{Binding Id}" VerticalAlignment="Top" Width="29" FontWeight="Bold" IsEnabled="False"/>
-        <Label Content="Reservation ID:" HorizontalAlignment="Left" Margin="34,257,0,0" VerticalAlignment="Top"/>
-        <Label Content="Comment" HorizontalAlignment="Left" Margin="77,449,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btnGrade" Content="Grade" HorizontalAlignment="Left" Margin="77,523,0,0" VerticalAlignment="Top" Width="71" Click="btnGrade_Click"/>
-        <TextBox x:Name="txtComment" HorizontalAlignment="Left" Margin="77,473,0,0" TextWrapping="Wrap" Text="No comment" VerticalAlignment="Top" Width="181" Height="30"/>
+        <RadioButton Style="{DynamicResource RadioButton}" x:Name="rbComplaisent1" Content="1" HorizontalAlignment="Left" Margin="23,313,0,0" VerticalAlignment="Top" GroupName="grade_complaisent" IsChecked="True" FontSize="14"/>
+        <RadioButton Style="{DynamicResource RadioButton}" x:Name="rbComplaisent2" Content="2" HorizontalAlignment="Left" Margin="23,331,0,0" VerticalAlignment="Top" GroupName="grade_complaisent" FontSize="14"/>
+        <RadioButton Style="{DynamicResource RadioButton}" x:Name="rbComplaisent3" Content="3" HorizontalAlignment="Left" Margin="23,349,0,0" VerticalAlignment="Top" GroupName="grade_complaisent" FontSize="14"/>
+        <RadioButton Style="{DynamicResource RadioButton}" x:Name="rbComplaisent4" Content="4" HorizontalAlignment="Left" Margin="23,367,0,0" VerticalAlignment="Top" GroupName="grade_complaisent" FontSize="14"/>
+        <RadioButton Style="{DynamicResource RadioButton}" x:Name="rbComplaisent5" Content="5" HorizontalAlignment="Left" Margin="23,385,0,0" VerticalAlignment="Top" GroupName="grade_complaisent" FontSize="14"/>
+        <RadioButton Style="{DynamicResource RadioButton}" x:Name="rbClean1" Content="1" HorizontalAlignment="Left" Margin="237,313,0,0" VerticalAlignment="Top" GroupName="grade_clean" IsChecked="True" FontSize="14"/>
+        <RadioButton Style="{DynamicResource RadioButton}" x:Name="rbClean2" Content="2" HorizontalAlignment="Left" Margin="237,331,0,0" VerticalAlignment="Top" GroupName="grade_clean" FontSize="14"/>
+        <RadioButton Style="{DynamicResource RadioButton}" x:Name="rbClean3" Content="3" HorizontalAlignment="Left" Margin="237,349,0,0" VerticalAlignment="Top" GroupName="grade_clean" FontSize="14"/>
+        <RadioButton Style="{DynamicResource RadioButton}" x:Name="rbClean4" Content="4" HorizontalAlignment="Left" Margin="237,367,0,0" VerticalAlignment="Top" GroupName="grade_clean" FontSize="14"/>
+        <RadioButton Style="{DynamicResource RadioButton}" x:Name="rbClean5" Content="5" HorizontalAlignment="Left" Margin="237,385,0,0" VerticalAlignment="Top" GroupName="grade_clean" FontSize="14"/>
+        <Label Style="{DynamicResource Label}" Content="{DynamicResource Grade Complacent}" HorizontalAlignment="Left" Margin="23,286,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <Label Style="{DynamicResource Label}" Content="{DynamicResource Grade Clean}" HorizontalAlignment="Left" Margin="237,286,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <TextBox Style="{DynamicResource TextBox}" x:Name="txtReservationId" DataContext="{Binding SelectedItem, ElementName=GuestListView}" HorizontalAlignment="Left" Margin="133,242,0,0" TextWrapping="Wrap" Text="{Binding Id}" VerticalAlignment="Top" Width="29" FontWeight="Bold" IsEnabled="False"/>
+        <Label Style="{DynamicResource Label}" Content="{DynamicResource Reservation ID}" HorizontalAlignment="Left" Margin="22,236,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <Label Style="{DynamicResource Label}" Content="{DynamicResource Comment}" HorizontalAlignment="Left" Margin="23,428,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <Button Style="{DynamicResource Batn}" x:Name="btnGrade" Content="{DynamicResource Grade Guest}" HorizontalAlignment="Left" Margin="157,603,0,0" VerticalAlignment="Top" Width="106" Click="btnGrade_Click" FontSize="16" Height="40"/>
+        <TextBox Style="{DynamicResource TextBox}" x:Name="txtComment" HorizontalAlignment="Left" Margin="23,457,0,0" TextWrapping="Wrap" Text="{DynamicResource No comment}" VerticalAlignment="Top" Width="375" Height="113" FontSize="14"/>
 
     </Grid>
 </Page>
