@@ -40,66 +40,74 @@
                 Text="What would you like to do?" />
         </StackPanel>
         <StackPanel Grid.Row="1">
-            <TextBlock
+            <Label
                 x:Name="BrowseToursLink"
                 Margin="0,8"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                FontSize="18"
-                Foreground="#3F51B5"
-                Text="Browse tours"
-                TextDecorations="Underline">
+                FontSize="20"
+                FontWeight="DemiBold"
+                Foreground="#3F51B5">
+                <Label.Content>
+                    <TextBlock Text="Browse tours" TextDecorations="Underline" />
+                </Label.Content>
                 <b:Interaction.Triggers>
                     <b:EventTrigger EventName="MouseDown">
                         <b:InvokeCommandAction Command="{Binding NavigateToBrowseToursCommand}" />
                     </b:EventTrigger>
                 </b:Interaction.Triggers>
-            </TextBlock>
-            <TextBlock
+            </Label>
+            <Label
                 x:Name="RequestTourLink"
                 Margin="0,8"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                FontSize="18"
-                Foreground="#3F51B5"
-                Text="Request a custom tour"
-                TextDecorations="Underline">
+                FontSize="20"
+                FontWeight="DemiBold"
+                Foreground="#3F51B5">
+                <Label.Content>
+                    <TextBlock Text="Request a custom tour" TextDecorations="Underline" />
+                </Label.Content>
                 <b:Interaction.Triggers>
                     <b:EventTrigger EventName="MouseDown">
                         <b:InvokeCommandAction Command="{Binding NavigateToTourRequest}" />
                     </b:EventTrigger>
                 </b:Interaction.Triggers>
-            </TextBlock>
-            <TextBlock
+            </Label>
+            <Label
                 x:Name="RequestStatisticsLink"
                 Margin="0,8"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                FontSize="18"
-                Foreground="#3F51B5"
-                Text="Tour request statistics"
-                TextDecorations="Underline">
+                FontSize="20"
+                FontWeight="DemiBold"
+                Foreground="#3F51B5">
+                <Label.Content>
+                    <TextBlock Text="Tour request statistics" TextDecorations="Underline" />
+                </Label.Content>
                 <b:Interaction.Triggers>
                     <b:EventTrigger EventName="MouseDown">
                         <b:InvokeCommandAction Command="{Binding NavigateToHelpWizard}" />
                     </b:EventTrigger>
                 </b:Interaction.Triggers>
-            </TextBlock>
-            <TextBlock
+            </Label>
+            <Label
                 x:Name="OpenWizardLink"
                 Margin="0,8"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                FontSize="18"
-                Foreground="#3F51B5"
-                Text="Open a help wizard"
-                TextDecorations="Underline">
+                FontSize="20"
+                FontWeight="DemiBold"
+                Foreground="#3F51B5">
+                <Label.Content>
+                    <TextBlock Text="Open a help wizard" TextDecorations="Underline" />
+                </Label.Content>
                 <b:Interaction.Triggers>
                     <b:EventTrigger EventName="MouseDown">
                         <b:InvokeCommandAction Command="{Binding NavigateToHelpWizard}" />
                     </b:EventTrigger>
                 </b:Interaction.Triggers>
-            </TextBlock>
+            </Label>
         </StackPanel>
     </Grid>
 </Page>
