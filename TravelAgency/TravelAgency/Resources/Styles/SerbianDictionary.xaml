@@ -42,6 +42,7 @@
     <System:String x:Key="Apartment">Apartman</System:String>
     <System:String x:Key="House">Kuća</System:String>
     <System:String x:Key="Cottage">Koliba</System:String>
+    <System:String x:Key="Incorrect input">Neispravan unos</System:String>
 
 
     <!--RESERVATION CHANGE REQUEST-->

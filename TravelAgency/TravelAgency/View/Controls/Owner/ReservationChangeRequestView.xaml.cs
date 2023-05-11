@@ -36,7 +36,7 @@ namespace TravelAgency.View.Controls.Owner
 
         private void btnAccept_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if(lblReservationId.Content != null)
             {
                 int reservationId = Convert.ToInt32(lblReservationId.Content);
                 DateTime newStartDate = Convert.ToDateTime(lblNewStartDate.Content);
@@ -48,7 +48,7 @@ namespace TravelAgency.View.Controls.Owner
                 else
                     MessageBox.Show("Zahtev za izmenu rezervacije uspeštno prihvaćen!", "Poruka");
             }
-            catch
+            else
             {
                 if (CurrentLanguageAndTheme.languageId == 0)
                     MessageBox.Show("You need to select a request first...", "Message");
@@ -59,7 +59,7 @@ namespace TravelAgency.View.Controls.Owner
 
         private void btnReject_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (lblReservationId.Content != null)
             {
                 int reservationId = Convert.ToInt32(lblReservationId.Content);
                 delayRequestRepository.RejectDelayRequest(reservationId, txtRejection.Text);
@@ -68,7 +68,7 @@ namespace TravelAgency.View.Controls.Owner
                 else
                     MessageBox.Show("Zahtev za izmenu rezervacije uspeštno odbijen!", "Poruka");
             }
-            catch
+            else
             {
                 if (CurrentLanguageAndTheme.languageId == 0)
                     MessageBox.Show("You need to select a request first...", "Message");

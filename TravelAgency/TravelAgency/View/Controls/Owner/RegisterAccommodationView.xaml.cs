@@ -23,6 +23,7 @@ namespace TravelAgency.View.Controls.Owner
     /// </summary>
     public partial class RegisterAccommodationView : Page
     {
+        int validate;
         public RegisterAccommodationView()
         {
             InitializeComponent();
@@ -52,6 +53,13 @@ namespace TravelAgency.View.Controls.Owner
                     item.Background = Brushes.Black; item.Foreground = Brushes.White;
                 }
             }
+
+            lblNameINC.Visibility = Visibility.Hidden;
+            lblResINC.Visibility = Visibility.Hidden;
+            lblMaxINC.Visibility = Visibility.Hidden;
+            lblMinINC.Visibility = Visibility.Hidden;
+            lblDescINC.Visibility = Visibility.Hidden;
+            lblAddressINC.Visibility = Visibility.Hidden;
         }
 
         private AccommodationType findAccommodationType(string text)
@@ -65,6 +73,11 @@ namespace TravelAgency.View.Controls.Owner
         }
         private void btnCreate_Click(object sender, RoutedEventArgs e)
         {
+            validate = 0;
+            ValidateInput();
+            if (validate != 0)
+                return;
+
             var accommodationRepository = new AccommodationRepository();
 
             var name = txtName.Text;
@@ -78,11 +91,21 @@ namespace TravelAgency.View.Controls.Owner
             var description = txtDescription.Text;
             var ownerId = CurrentUser.Id;
 
+            if(minDaysReservation > maxDaysReservation)
+            {
+                if (CurrentLanguageAndTheme.languageId == 0)
+                    MessageBox.Show("Minimum number of guests is higher that the maximum!", "Message");
+                else
+                    MessageBox.Show("Minimalni broj gostiju je veci od maksimuma!", "Poruka");
+                return;
+            }
+
             Accommodation accommodation = new Accommodation(name, currentLocation!.Id, type, minDaysReservation, maxDaysReservation, address, reservableDays,
                 ImagesList.Text, description, ownerId);
             try
             {
-                accommodationRepository.Add(accommodation);
+
+                //accommodationRepository.Add(accommodation);
                 if (CurrentLanguageAndTheme.languageId == 0)
                     MessageBox.Show("Accommodation registered successfuly!", "Message");
                 else
@@ -126,6 +149,136 @@ namespace TravelAgency.View.Controls.Owner
         private void btnClearImages_Click(object sender, RoutedEventArgs e)
         {
             ImagesList.Text = "";
+        }
+
+        private void NameValidation()
+        {
+            if (string.IsNullOrWhiteSpace(txtName.Text))
+            {
+                lblNameINC.Visibility = Visibility.Visible;
+                validate++;
+            }
+            else
+            {
+                lblNameINC.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void AddressValidation()
+        {
+            if (string.IsNullOrWhiteSpace(txtAdress.Text))
+            {
+                lblAddressINC.Visibility = Visibility.Visible;
+                validate++;
+            }
+            else
+            {
+                lblAddressINC.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void DescriptionValidation()
+        {
+            if (string.IsNullOrWhiteSpace(txtDescription.Text))
+            {
+                lblDescINC.Visibility = Visibility.Visible;
+                validate++;
+            }
+            else
+            {
+                lblDescINC.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void MinGuestValidation()
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(txtMinReservationDays.Text))
+                {
+                    lblMinINC.Visibility = Visibility.Visible;
+                    validate++;
+                    return;
+                }
+                int number = Convert.ToInt32(txtMinReservationDays.Text);
+                if (number < 1)
+                {
+                    lblMinINC.Visibility = Visibility.Visible;
+                    validate++;
+                    return;
+                }
+                else
+                    lblMinINC.Visibility = Visibility.Hidden;
+            }
+            catch
+            {
+                lblMinINC.Visibility = Visibility.Visible;
+                validate++;
+            }
+        }
+
+        private void MaxGuestValidation()
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(txtMaxReservationDays.Text))
+                {
+                    lblMaxINC.Visibility = Visibility.Visible;
+                    validate++;
+                    return;
+                }
+                int number = Convert.ToInt32(txtMaxReservationDays.Text);
+                if (number < 1)
+                {
+                    lblMaxINC.Visibility = Visibility.Visible;
+                    validate++;
+                    return;
+                }
+                else
+                    lblMaxINC.Visibility = Visibility.Hidden;
+            }
+            catch
+            {
+                lblMaxINC.Visibility = Visibility.Visible;
+                validate++;
+            }
+        }
+
+        private void ReservableDaysValidation()
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(txtReservableDays.Text))
+                {
+                    lblResINC.Visibility = Visibility.Visible;
+                    validate++;
+                    return;
+                }
+                int number = Convert.ToInt32(txtReservableDays.Text);
+                if (number < 1)
+                {
+                    lblResINC.Visibility = Visibility.Visible;
+                    validate++;
+                    return;
+                }
+                else
+                    lblResINC.Visibility = Visibility.Hidden;
+            }
+            catch
+            {
+                lblResINC.Visibility = Visibility.Visible;
+                validate++;
+            }
+        }
+
+        private void ValidateInput()
+        {
+            NameValidation();
+            AddressValidation();
+            MinGuestValidation();
+            MaxGuestValidation();
+            ReservableDaysValidation();
+            DescriptionValidation();
         }
     }
 }

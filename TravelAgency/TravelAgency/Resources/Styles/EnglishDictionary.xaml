@@ -42,6 +42,7 @@
     <System:String x:Key="Apartment">Apartment</System:String>
     <System:String x:Key="House">House</System:String>
     <System:String x:Key="Cottage">Cottage</System:String>
+    <System:String x:Key="Incorrect input">Incorrect input</System:String>
 
 
     <!--RESERVATION CHANGE REQUEST-->

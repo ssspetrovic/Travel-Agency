@@ -53,6 +53,12 @@
         <TextBox Style="{DynamicResource TextBox}" x:Name="txtDescription" HorizontalAlignment="Left" Margin="54,533,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="334"/>
         <Button Style="{DynamicResource Batn}" x:Name="btnCreate" Content="{DynamicResource Register}" HorizontalAlignment="Center" Margin="0,590,0,0" VerticalAlignment="Top" Click="btnCreate_Click" Height="44" Width="98" FontSize="18"/>
         <Label Style="{DynamicResource Label}" Content="{DynamicResource Added Image URLS}" HorizontalAlignment="Left" Margin="54,447,0,0" VerticalAlignment="Top" Width="127"/>
+        <Label x:Name="lblNameINC" Content="{DynamicResource Incorrect input}" HorizontalAlignment="Left" Margin="54,60,0,0" VerticalAlignment="Top" Foreground="#DDEF1616"/>
+        <Label x:Name="lblAddressINC" Content="{DynamicResource Incorrect input}" HorizontalAlignment="Left" Margin="54,185,0,0" VerticalAlignment="Top" Foreground="#DDEF1616"/>
+        <Label x:Name="lblMinINC" Content="{DynamicResource Incorrect input}" HorizontalAlignment="Left" Margin="54,314,0,0" VerticalAlignment="Top" Foreground="#DDEF1616"/>
+        <Label x:Name="lblMaxINC" Content="{DynamicResource Incorrect input}" HorizontalAlignment="Left" Margin="238,314,0,0" VerticalAlignment="Top" Foreground="#DDEF1616"/>
+        <Label x:Name="lblResINC" Content="{DynamicResource Incorrect input}" HorizontalAlignment="Left" Margin="54,379,0,0" VerticalAlignment="Top" Foreground="#DDEF1616"/>
+        <Label x:Name="lblDescINC" Content="{DynamicResource Incorrect input}" HorizontalAlignment="Left" Margin="54,549,0,0" VerticalAlignment="Top" Foreground="#DDEF1616"/>
 
     </Grid>
 </Page>
