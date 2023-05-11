@@ -86,6 +86,7 @@ namespace TravelAgency.Repository
                 {
                     //DateTime endDate = DateTime.ParseExact(txtEndDate.Text, "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
                     double days = (DateTime.Now - endDate).TotalDays;
+                    days = 4; //DELETE THIS
                     if (days <= 5)
                     {
                         count++;
@@ -160,6 +161,7 @@ namespace TravelAgency.Repository
                 {
                     //DateTime endDate = DateTime.ParseExact(txtEndDate.Text, "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
                     double days = (DateTime.Now - endDate).TotalDays;
+                    days = 4; //DELETE THIS
                     if (days <= 5)
                     {
                         Reservation res = new Reservation(id, comment, startDate, endDate, gradeComplacent, gradeClean, guestId, accommodationId);

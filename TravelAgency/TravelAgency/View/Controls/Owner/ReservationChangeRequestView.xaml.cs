@@ -31,36 +31,49 @@ namespace TravelAgency.View.Controls.Owner
         {
             InitializeComponent();
             DataContext = _viewModel;
+            ChangeColorListView();
         }
 
         private void btnAccept_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if(lblReservationId.Content != null)
             {
                 int reservationId = Convert.ToInt32(lblReservationId.Content);
                 DateTime newStartDate = Convert.ToDateTime(lblNewStartDate.Content);
                 DateTime newEndDate = Convert.ToDateTime(lblNewEndDate.Content);
                 reservationRepository.AcceptReservationChangeRequest(reservationId, newStartDate, newEndDate);
                 delayRequestRepository.AcceptDelayRequest(reservationId);
-                MessageBox.Show("Request accepted successfully");
+                if (CurrentLanguageAndTheme.languageId == 0)
+                    MessageBox.Show("Reservation change request accepted successfully!", "Message");
+                else
+                    MessageBox.Show("Zahtev za izmenu rezervacije uspeštno prihvaćen!", "Poruka");
             }
-            catch
+            else
             {
-                MessageBox.Show("Select a request first...");
+                if (CurrentLanguageAndTheme.languageId == 0)
+                    MessageBox.Show("You need to select a request first...", "Message");
+                else
+                    MessageBox.Show("Morate prvo zahtev izabrati...", "Poruka");
             }
         }
 
         private void btnReject_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (lblReservationId.Content != null)
             {
                 int reservationId = Convert.ToInt32(lblReservationId.Content);
                 delayRequestRepository.RejectDelayRequest(reservationId, txtRejection.Text);
-                MessageBox.Show("Request rejected successfully");
+                if (CurrentLanguageAndTheme.languageId == 0)
+                    MessageBox.Show("Reservation change request rejected successfully!", "Message");
+                else
+                    MessageBox.Show("Zahtev za izmenu rezervacije uspeštno odbijen!", "Poruka");
             }
-            catch
+            else
             {
-                MessageBox.Show("Select a request first...");
+                if (CurrentLanguageAndTheme.languageId == 0)
+                    MessageBox.Show("You need to select a request first...", "Message");
+                else
+                    MessageBox.Show("Morate prvo zahtev izabrati...", "Poruka");
             }
         }
 
@@ -89,13 +102,33 @@ namespace TravelAgency.View.Controls.Owner
             }
             if (available)
             {
-                lblAvailable.Content = "Available!";
+                if (CurrentLanguageAndTheme.languageId == 0)
+                    lblAvailable.Content = "Available!";
+                else
+                    lblAvailable.Content = "Slobodno!";
                 lblAvailable.Foreground = Brushes.LightGreen;
             }
             else
             {
-                lblAvailable.Content = "Not available!";
+                if (CurrentLanguageAndTheme.languageId == 0)
+                    lblAvailable.Content = "Not available!";
+                else
+                    lblAvailable.Content = "Nije slobodno!";
                 lblAvailable.Foreground = Brushes.DarkRed;
+            }
+        }
+
+        private void ChangeColorListView()
+        {
+            if(CurrentLanguageAndTheme.themeId == 0)
+            {
+                RequestListView.Background = Brushes.White;
+                RequestListView.Foreground = Brushes.Black;
+            }
+            else
+            {
+                RequestListView.Background = Brushes.Black;
+                RequestListView.Foreground = Brushes.White;
             }
         }
     }

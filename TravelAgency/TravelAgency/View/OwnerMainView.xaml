@@ -17,16 +17,16 @@
         </Border>
         <Label Style="{DynamicResource Label}" x:Name="lblSelectedTab" Content="Home Page" HorizontalAlignment="Center" Margin="0,12,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
         <StackPanel x:Name="stekPanel" Style="{DynamicResource StekPanel}" Margin="0,0,50,0">
-            <Button x:Name="btnHomePage" Style="{DynamicResource Batn}" Content="{DynamicResource HomePage}" Click="btnHomePage_Click"/>
-            <Button x:Name="btnRegisterAccommodation" Style="{DynamicResource Batn}" Content="{DynamicResource RegisterAccommodation}" Click="btnRegisterAccommodation_Click"/>
-            <Button x:Name="btnReservationChangeRequest" Style="{DynamicResource Batn}" Content="{DynamicResource ReservationChangeRequests}" Click="btnReservationChangeRequest_Click"/>
-            <Button x:Name="btnGradeGuest" Style="{DynamicResource Batn}" Content="{DynamicResource GradeGuests}" Click="btnGradeGuest_Click"/>
-            <Button x:Name="btnDisplayGuestReviews" Style="{DynamicResource Batn}" Content="{DynamicResource DisplayGuestReviews}" Click="btnDisplayGuestReviews_Click"/>
-            <Button Style="{DynamicResource Batn}" x:Name="btnLogOut" Content="{DynamicResource LogOut}" Click="btnLogOut_Click"/>
-            <Grid Height="611">
-                <Button x:Name="btnLightTheme" Style="{DynamicResource Batn}" Content="{DynamicResource LightTheme}" Click="btnLightTheme_Click" Margin="252,554,10,20"/>
-                <Button x:Name="btnLanguage" Style="{DynamicResource Batn}" Content="{DynamicResource Language}" Click="btnLanguage_Click" Margin="10,554,264,20"/>
-                <Button x:Name="btnDarkTheme" Style="{DynamicResource Batn}" Content="{DynamicResource DarkTheme}" Click="btnDarkTheme_Click" Margin="252,554,10,20"/>
+            <Button x:Name="btnHomePage" Style="{DynamicResource Batn}" Content="{DynamicResource HomePage}" Click="btnHomePage_Click" Height="35" FontSize="16"/>
+            <Button x:Name="btnRegisterAccommodation" Style="{DynamicResource Batn}" Content="{DynamicResource RegisterAccommodation}" Click="btnRegisterAccommodation_Click" Height="35" FontSize="16"/>
+            <Button x:Name="btnReservationChangeRequest" Style="{DynamicResource Batn}" Content="{DynamicResource ReservationChangeRequests}" Click="btnReservationChangeRequest_Click" Height="35" FontSize="16"/>
+            <Button x:Name="btnGradeGuest" Style="{DynamicResource Batn}" Content="{DynamicResource GradeGuests}" Click="btnGradeGuest_Click" Height="35" FontSize="16"/>
+            <Button x:Name="btnDisplayGuestReviews" Style="{DynamicResource Batn}" Content="{DynamicResource DisplayGuestReviews}" Click="btnDisplayGuestReviews_Click" Height="35" FontSize="16"/>
+            <Button Style="{DynamicResource Batn}" x:Name="btnLogOut" Content="{DynamicResource LogOut}" Click="btnLogOut_Click" Height="35" FontSize="16"/>
+            <Grid Height="539">
+                <Button x:Name="btnLightTheme" Style="{DynamicResource Batn}" Content="{DynamicResource LightTheme}" Click="btnLightTheme_Click" Margin="252,489,10,10" FontSize="16"/>
+                <Button x:Name="btnLanguage" Style="{DynamicResource Batn}" Content="{DynamicResource Language}" Click="btnLanguage_Click" Margin="10,489,276,10" FontSize="16"/>
+                <Button x:Name="btnDarkTheme" Style="{DynamicResource Batn}" Content="{DynamicResource DarkTheme}" Click="btnDarkTheme_Click" Margin="252,489,10,10" FontSize="16"/>
             </Grid>
         </StackPanel>
 

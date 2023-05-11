@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 using TravelAgency.Model;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace TravelAgency.Repository
 {
@@ -55,7 +56,30 @@ namespace TravelAgency.Repository
 
         public User GetById(int id)
         {
-            throw new NotImplementedException();
+            User user = null!;
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+            var selectCommand = databaseConnection.CreateCommand();
+            selectCommand.CommandText = @"SELECT * FROM User WHERE Id = $Id";
+
+            selectCommand.Parameters.AddWithValue("$Id", id);
+            using var selectReader = selectCommand.ExecuteReader();
+
+            if (selectReader.Read())
+            {
+                user = new User()
+                {
+                    Id = selectReader.GetInt32(0),
+                    UserName = selectReader.GetString(1),
+                    Password = selectReader.GetString(2),
+                    Name = selectReader.GetString(3),
+                    Surname = selectReader.GetString(4),
+                    Email = selectReader.GetString(5),
+                    Role = (Role)selectReader.GetInt32(6)
+                };
+            }
+
+            return user;
         }
 
         public User GetByUsername(string? username)

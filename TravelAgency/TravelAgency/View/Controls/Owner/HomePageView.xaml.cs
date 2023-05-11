@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,7 @@ namespace TravelAgency.View.Controls.Owner
     public partial class HomePageView : Page
     {
         ReservationRepository reservationRepository = new ReservationRepository();
+        DelayRequestRepository delayRequestRepository = new DelayRequestRepository();
         public HomePageView()
         {
             InitializeComponent();
@@ -30,16 +32,35 @@ namespace TravelAgency.View.Controls.Owner
 
             int gradeCount = reservationRepository.CountGradesForOwner(CurrentUser.Id);
             double averageGrade = reservationRepository.AverageGradeForOwner(CurrentUser.Id);
-            lblReviews.Content = gradeCount.ToString();
-            lblAverage.Content = averageGrade.ToString();
+
+            lblNumReviews.Content = lblNumReviews.Content + " " + gradeCount.ToString();
+            lblGradeAverage.Content = lblGradeAverage.Content + " " + averageGrade.ToString();
 
             if (gradeCount >= 50 && averageGrade >= 9.5)
-                lblTitle.Content = "Title: Super Owner";
+            {
+                if (CurrentLanguageAndTheme.languageId == 0)
+                    lblTitle.Content = "Title: Super Owner";
+                else
+                    lblTitle.Content = "Titula: Super Vlasnik";
+            }
             else
-                lblTitle.Content = "Title: Regular Owner";
+            {
+                if (CurrentLanguageAndTheme.languageId == 0)
+                    lblTitle.Content = "Title: Regular Owner";
+                else
+                    lblTitle.Content = "Titula: Običan Vlasnik";
+            }
+
+            int count1 = reservationRepository.CountReservationsToGrade();
+            lblToGrade.Content = lblToGrade.Content + " " + count1.ToString();
+
+            int count2 = getReservationChangeRequestCount();
+            lblToChange.Content = lblToChange.Content + " " + count2.ToString();
+
+            lblForums.Content = lblForums.Content + " 0"; 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void btnGradeGuest_Click(object sender, RoutedEventArgs e)
         {
             OwnerMainView mainWindow = null;
             foreach (Window window in Application.Current.Windows)
@@ -52,8 +73,37 @@ namespace TravelAgency.View.Controls.Owner
             }
 
             Frame mainFrame = mainWindow.mainFrame;
-            RegisterAccommodationView registerAccommodationView = new RegisterAccommodationView();
-            mainFrame.Navigate(registerAccommodationView);
+            GradeGuestsView gradeGuestsView = new GradeGuestsView();
+            mainFrame.Navigate(gradeGuestsView);
+        }
+
+        private void btnReservationChangeRequest_Click(object sender, RoutedEventArgs e)
+        {
+            OwnerMainView mainWindow = null;
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window is OwnerMainView)
+                {
+                    mainWindow = (OwnerMainView)window;
+                    break;
+                }
+            }
+
+            Frame mainFrame = mainWindow.mainFrame;
+            ReservationChangeRequestView reservationChangeRequestView = new ReservationChangeRequestView();
+            mainFrame.Navigate(reservationChangeRequestView);
+        }
+
+        private int getReservationChangeRequestCount()
+        {
+            ObservableCollection<DelayRequest> delayRequests = delayRequestRepository.GetDelayRequests(CurrentUser.Id);
+            int count = delayRequests.Count;
+            return count;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
