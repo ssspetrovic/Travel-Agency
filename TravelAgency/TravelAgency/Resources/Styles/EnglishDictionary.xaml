@@ -1,0 +1,17 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:System="clr-namespace:System;assembly=mscorlib">
+
+    <System:String x:Key="Welcome_Owner">Welcome Owner</System:String>
+    <System:String x:Key="Language">English</System:String>
+    <System:String x:Key="LightTheme">Light Theme</System:String>
+    <System:String x:Key="DarkTheme">Dark Theme</System:String>
+
+    <System:String x:Key="Menu">Menu</System:String>
+    <System:String x:Key="HomePage">Home Page</System:String>
+    <System:String x:Key="RegisterAccommodation">Register Accommodation</System:String>
+    <System:String x:Key="ReservationChangeRequests">Reservation Change Requests</System:String>
+    <System:String x:Key="GradeGuests">Grade Guests</System:String>
+    <System:String x:Key="DisplayGuestReviews">Display Guest Reviews</System:String>
+    <System:String x:Key="LogOut">Log Out</System:String>
+</ResourceDictionary>

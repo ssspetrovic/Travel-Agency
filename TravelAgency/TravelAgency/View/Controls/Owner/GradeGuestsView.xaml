@@ -8,7 +8,7 @@
       d:DesignHeight="690" d:DesignWidth="430"
       Title="GradeGuestsView">
 
-    <Grid Background="White">
+    <Grid Background="White" Name="grid">
         <Label Content="Grade Guest" HorizontalAlignment="Left" Margin="22,21,0,0" VerticalAlignment="Top" FontSize="18"/>
         <ListView x:Name="GuestListView" d:ItemsSource="{d:SampleData ItemCount=3}" ItemsSource="{Binding ReservationsSourceCollection}" SelectedItem="{Binding SelectedReservation}" Margin="22,58,-266,468" FontSize="12">
             <ListView.View>
