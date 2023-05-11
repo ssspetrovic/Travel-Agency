@@ -27,11 +27,13 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center">
             <TextBlock
+                HorizontalAlignment="Center"
                 FontSize="25"
                 FontWeight="Medium"
                 Style="{StaticResource MaterialDesignHeadline1TextBlock}"
                 Text="Rate a tour" />
             <TextBlock
+                HorizontalAlignment="Center"
                 d:Text="- Tour name -"
                 FontSize="20"
                 Text="{Binding TourNameHeader}" />
@@ -42,18 +44,18 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0">
-                <TextBlock
+                <Label
                     Margin="0,2,0,0"
-                    FontSize="14"
-                    Text="How would you rate guide's knowledge?" />
-                <TextBlock
+                    Content="How would you rate guide's knowledge?"
+                    FontSize="14" />
+                <Label
                     Margin="0,19,0,0"
-                    FontSize="14"
-                    Text="How would you rate guide's fluency?" />
-                <TextBlock
+                    Content="How would you rate guide's fluency?"
+                    FontSize="14" />
+                <Label
                     Margin="0,15,0,0"
-                    FontSize="14"
-                    Text="How interesting did you find the tour?" />
+                    Content="How interesting did you find the tour?"
+                    FontSize="14" />
             </StackPanel>
             <StackPanel Grid.Column="1">
                 <materialDesign:RatingBar Value="{Binding GuideKnowledgeGrade, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -74,8 +76,7 @@
                 <Label
                     Grid.Row="0"
                     Content="Additional comment (optional):"
-                    FontSize="14"
-                    FontWeight="DemiBold" />
+                    FontSize="14" />
                 <Border
                     Grid.Row="1"
                     BorderBrush="{StaticResource MaterialDesignDivider}"
@@ -86,6 +87,7 @@
                         HorizontalContentAlignment="Left"
                         VerticalContentAlignment="Top"
                         FontSize="14"
+                        Text="{Binding Comment}"
                         TextWrapping="Wrap" />
                 </Border>
             </Grid>
@@ -98,8 +100,7 @@
                 <Label
                     Grid.Row="0"
                     Content="Photos from the tour (optional):"
-                    FontSize="14"
-                    FontWeight="DemiBold" />
+                    FontSize="14" />
                 <Border
                     Grid.Row="1"
                     BorderBrush="{StaticResource MaterialDesignDivider}"
@@ -121,7 +122,7 @@
                         Margin="0,0,10,0"
                         Padding="5"
                         HorizontalAlignment="Left"
-                        FontSize="13"
+                        FontSize="14"
                         Text="{Binding Url, UpdateSourceTrigger=PropertyChanged}" />
                     <Button
                         x:Name="AddUrlButton"
@@ -139,21 +140,21 @@
             VerticalAlignment="Center">
             <Button
                 x:Name="CancelButton"
-                Width="120"
+                Width="110"
                 Height="40"
                 Margin="0,0,20,0"
                 Command="{Binding CancelRatingCommand}"
                 Content="Cancel"
-                FontSize="15"
+                FontSize="14"
                 Style="{StaticResource MaterialDesignFlatButton}" />
             <Button
                 x:Name="SubmitButton"
-                Width="120"
+                Width="110"
                 Height="40"
                 Margin="20,0,0,0"
                 Command="{Binding SubmitRatingCommand}"
                 Content="Submit"
-                FontSize="15" />
+                FontSize="14" />
         </WrapPanel>
     </Grid>
 </Page>

@@ -16,7 +16,7 @@ namespace TravelAgency.ViewModel.Tourist
     {
         private readonly NavigationService _navigationService;
         private MyTourDto? _selectedTour;
-        private MyTourDtoService MyTourDtoService { get; }
+        private readonly MyTourDtoService _myTourDtoService;
         public string? InvitationText { get; set; }
         public RelayCommand JoinTourCommand { get; set; }
         public RelayCommand RateTourCommand { get; set; }
@@ -35,9 +35,9 @@ namespace TravelAgency.ViewModel.Tourist
         public MyToursViewModel(NavigationService navigationService)
         {
             _navigationService = navigationService;
-            MyTourDtoService = new MyTourDtoService(this);
+            _myTourDtoService = new MyTourDtoService();
             CheckForInvitation();
-            MyTours = MyTourDtoService.GetAllAsCollection();
+            MyTours = _myTourDtoService.GetAllAsCollection();
             JoinTourCommand = new RelayCommand(Execute_JoinTourCommand, CanExecute_JoinTourCommand);
             RateTourCommand = new RelayCommand(Execute_RateTourCommand, CanExecute_RateTourCommand);
         }
@@ -45,7 +45,7 @@ namespace TravelAgency.ViewModel.Tourist
         // TODO Test this method
         private void Execute_JoinTourCommand(object parameter)
         {
-            MyTourDtoService.JoinTour(SelectedTour);
+            _myTourDtoService.JoinTour(SelectedTour);
             _navigationService.Navigate(new MyToursView(_navigationService));
         }
 
@@ -56,12 +56,12 @@ namespace TravelAgency.ViewModel.Tourist
 
         private bool CanExecute_JoinTourCommand(object parameter)
         {
-            return SelectedTour != null && MyTourDtoService.IsTourValid();
+            return _myTourDtoService.CanJoinTour(SelectedTour);
         }
 
         private bool CanExecute_RateTourCommand(object parameter)
         {
-            return SelectedTour != null;
+            return _myTourDtoService.CanRateTour(SelectedTour);
         }
 
         private void CheckForInvitation()
@@ -75,7 +75,7 @@ namespace TravelAgency.ViewModel.Tourist
 
             if (!IsAttendanceConfirmed()) return;
             touristService.UpdateAppearanceByUsername(CurrentUser.Username, TouristAppearance.Present);
-            MyTourDtoService.UpdateStatus(tourName, MyTourDto.TourStatus.Attending);
+            _myTourDtoService.UpdateStatus(tourName, MyTourDto.TourStatus.Attending);
         }
 
         private bool IsAttendanceConfirmed()

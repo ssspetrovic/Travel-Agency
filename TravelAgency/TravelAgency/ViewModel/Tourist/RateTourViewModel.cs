@@ -1,14 +1,9 @@
-﻿using System;
-using System.Linq;
-using System.Windows;
-using System.Windows.Navigation;
+﻿using System.Windows.Navigation;
 using TravelAgency.Command;
 using TravelAgency.DTO;
 using TravelAgency.Model;
 using TravelAgency.Service;
 using TravelAgency.View.Tourist;
-using static System.Windows.Application;
-using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace TravelAgency.ViewModel.Tourist
 {
@@ -23,9 +18,12 @@ namespace TravelAgency.ViewModel.Tourist
         private string? _url;
         public string TourNameHeader { get; }
         private string TourName { get; }
+        private OkDialog? Dialog { get; set; }
+
         public RelayCommand CancelRatingCommand { get; set; }
-        public RelayCommand SubmitRelayCommand { get; set; }
+        public RelayCommand SubmitRatingCommand { get; set; }
         public RelayCommand AddPhotoCommand { get; set; }
+        public RelayCommand NavigateToMyToursCommand { get; set; }
 
         public int GuideKnowledgeGrade
         {
@@ -92,12 +90,10 @@ namespace TravelAgency.ViewModel.Tourist
             TourName = tourName;
             TourNameHeader = $"'{tourName}'";
 
-            CancelRatingCommand =
-                new RelayCommand(Execute_CancelRatingCommand);
-            SubmitRelayCommand =
-                new RelayCommand(Execute_SubmitRelayCommand, CanExecute_SubmitRelayCommand);
-            AddPhotoCommand =
-                new RelayCommand(Execute_AddPhotoCommand, CanExecute_AddPhotoCommand);
+            CancelRatingCommand = new RelayCommand(Execute_CancelRatingCommand);
+            SubmitRatingCommand = new RelayCommand(Execute_SubmitRatingCommand, CanExecute_SubmitRatingCommand);
+            AddPhotoCommand = new RelayCommand(Execute_AddPhotoCommand, CanExecute_AddPhotoCommand);
+            NavigateToMyToursCommand = new RelayCommand(Execute_NavigateToMyToursCommand);
         }
 
         private void Execute_CancelRatingCommand(object parameter)
@@ -106,7 +102,7 @@ namespace TravelAgency.ViewModel.Tourist
         }
 
         // TODO Test this method
-        private void Execute_SubmitRelayCommand(object parameter)
+        private void Execute_SubmitRatingCommand(object parameter)
         {
             var touristService = new TouristService();
             var tourRatingService = new TourRatingService();
@@ -125,6 +121,18 @@ namespace TravelAgency.ViewModel.Tourist
 
             var myTourDtoService = new MyTourDtoService();
             myTourDtoService.UpdateStatus(TourName, MyTourDto.TourStatus.Rated);
+            Dialog = new OkDialog
+            {
+                Label =
+                {
+                    Content = "Tour successfully rated!"
+                },
+                Button =
+                {
+                    Command = NavigateToMyToursCommand
+                }
+            };
+            Dialog.Show();
         }
 
         private void Execute_AddPhotoCommand(object parameter)
@@ -135,7 +143,13 @@ namespace TravelAgency.ViewModel.Tourist
             Url = string.Empty;
         }
 
-        private bool CanExecute_SubmitRelayCommand(object parameter)
+        private void Execute_NavigateToMyToursCommand(object parameter)
+        {
+            _navigationService.Navigate(new MyToursView(_navigationService));
+            Dialog?.Close();
+        }
+
+        private bool CanExecute_SubmitRatingCommand(object parameter)
         {
             return GuideKnowledgeGrade != 0 && GuideLanguageGrade != 0 && TourInterestingnessGrade != 0;
         }
@@ -143,45 +157,6 @@ namespace TravelAgency.ViewModel.Tourist
         private bool CanExecute_AddPhotoCommand(object parameter)
         {
             return !string.IsNullOrEmpty(Url);
-        }
-
-        // TODO Test this method
-        public void Submit()
-        {
-            if (GuideKnowledgeGrade == 0 || GuideLanguageGrade == 0 || TourInterestingnessGrade == 0)
-            {
-                MessageBox.Show("Please select ratings properly!", "Error");
-                return;
-            }
-
-            var touristService = new TouristService();
-            var tourRatingService = new TourRatingService();
-            var tourService = new TourService();
-            var tourist = touristService.GetByUsername(CurrentUser.Username);
-
-            tourRatingService.Add(new TourRating(
-                tourist.Id,
-                tourService.GetByName(TourName).Id,
-                (Grade)GuideKnowledgeGrade,
-                (Grade)GuideLanguageGrade,
-                (Grade)TourInterestingnessGrade,
-                Comment ?? "",
-                PhotoUrls ?? ""
-            ));
-
-            var myTourDtoService = new MyTourDtoService();
-
-            myTourDtoService.UpdateStatus(TourName, MyTourDto.TourStatus.Rated);
-            var mainWindow = new TouristView
-            {
-                ContentFrame =
-                {
-                    Source = new Uri("Controls/Tourist/MyToursView.xaml", UriKind.Relative)
-                }
-            };
-            var currentWindow = Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
-            mainWindow.Show();
-            currentWindow?.Close();
         }
     }
 }

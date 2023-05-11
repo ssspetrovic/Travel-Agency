@@ -328,7 +328,7 @@ namespace TravelAgency.ViewModel.Tourist
             };
 
             GuestNumberText =
-                $"Tour can't take that many guests. Number of spaces left: {SelectedTour?.MaxGuests}";
+                $"There are more spaces available in the tour ({SelectedTour?.MaxGuests}).";
 
             dialog.ShowDialog();
 

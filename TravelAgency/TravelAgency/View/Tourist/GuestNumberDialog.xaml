@@ -21,14 +21,15 @@
         CornerRadius="15">
         <StackPanel Margin="0,30,0,30">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock
+                <Label
                     HorizontalAlignment="Center"
-                    FontSize="16"
-                    Text="{Binding GuestNumberText}" />
-                <TextBlock
+                    d:Content="There are more spaces available in the tour (x)."
+                    Content="{Binding GuestNumberText}"
+                    FontSize="16" />
+                <Label
                     HorizontalAlignment="Center"
-                    FontSize="16"
-                    Text="Do you want to change the number of guests?" />
+                    Content="Do you want to change the number of guests?"
+                    FontSize="16" />
             </StackPanel>
             <StackPanel>
                 <WrapPanel
