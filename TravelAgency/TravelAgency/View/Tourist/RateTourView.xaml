@@ -18,6 +18,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="116" />
+            <RowDefinition Height="30" />
             <RowDefinition Height="Auto" />
             <RowDefinition />
             <RowDefinition Height="120" />
@@ -38,32 +39,59 @@
                 FontSize="20"
                 Text="{Binding TourNameHeader}" />
         </StackPanel>
-        <Grid Grid.Row="1" Margin="150,0">
+        <Label
+            Grid.Row="1"
+            Margin="0,0"
+            HorizontalAlignment="Center"
+            Content="All grades are required"
+            FontSize="14"
+            Foreground="#3F51B5"
+            Visibility="{Binding IsTooltipsSwitchToggled, Converter={StaticResource BooleanToVisibilityConverter}}" />
+        <Grid Grid.Row="2" Width="480">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0">
-                <Label
-                    Margin="0,2,0,0"
-                    Content="How would you rate guide's knowledge?"
-                    FontSize="14" />
-                <Label
-                    Margin="0,19,0,0"
-                    Content="How would you rate guide's fluency?"
-                    FontSize="14" />
-                <Label
-                    Margin="0,15,0,0"
-                    Content="How interesting did you find the tour?"
-                    FontSize="14" />
-            </StackPanel>
-            <StackPanel Grid.Column="1">
-                <materialDesign:RatingBar Value="{Binding GuideKnowledgeGrade, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                <materialDesign:RatingBar Margin="0,13,0,0" Value="{Binding GuideLanguageGrade, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                <materialDesign:RatingBar Margin="0,13,0,0" Value="{Binding TourInterestingnessGrade, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            </StackPanel>
+            <Label
+                Grid.Row="0"
+                Grid.Column="0"
+                VerticalAlignment="Center"
+                Content="How would you rate guide's knowledge?"
+                FontSize="14" />
+            <Label
+                Grid.Row="1"
+                Grid.Column="0"
+                VerticalAlignment="Center"
+                Content="How would you rate guide's fluency?"
+                FontSize="14" />
+            <Label
+                Grid.Row="2"
+                Grid.Column="0"
+                VerticalAlignment="Center"
+                Content="How interesting did you find the tour?"
+                FontSize="14" />
+            <materialDesign:RatingBar
+                Grid.Row="0"
+                Grid.Column="1"
+                VerticalAlignment="Center"
+                Value="{Binding GuideKnowledgeGrade, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <materialDesign:RatingBar
+                Grid.Row="1"
+                Grid.Column="1"
+                VerticalAlignment="Center"
+                Value="{Binding GuideLanguageGrade, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <materialDesign:RatingBar
+                Grid.Row="2"
+                Grid.Column="1"
+                VerticalAlignment="Center"
+                Value="{Binding TourInterestingnessGrade, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </Grid>
-        <Grid Grid.Row="2" Margin="50,30,50,0">
+        <Grid Grid.Row="3" Margin="50,30,50,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
@@ -134,7 +162,7 @@
             </Grid>
         </Grid>
         <WrapPanel
-            Grid.Row="3"
+            Grid.Row="4"
             Width="Auto"
             HorizontalAlignment="Center"
             VerticalAlignment="Center">

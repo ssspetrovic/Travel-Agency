@@ -61,7 +61,7 @@
             Visibility="{Binding IsTooltipsSwitchToggled, Converter={StaticResource BooleanToVisibilityConverter}}" />
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="220" />
+                <ColumnDefinition Width="225" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Border
@@ -70,7 +70,7 @@
                 BorderThickness="0,2,2,2">
                 <StackPanel Margin="30,0">
                     <WrapPanel Margin="0,10,0,0">
-                        <Label Content="City" FontSize="14" />
+                        <Label Content="City:" FontSize="14" />
                         <Label
                             Content="(text)"
                             FontSize="14"
@@ -83,7 +83,7 @@
                         Style="{StaticResource FilterTextBoxStyle}"
                         Text="{Binding EnteredFilterCity}" />
                     <WrapPanel Margin="0,10,0,0">
-                        <Label Content="Country" FontSize="14" />
+                        <Label Content="Country:" FontSize="14" />
                         <Label
                             Content="(text)"
                             FontSize="14"
@@ -96,7 +96,7 @@
                         Style="{StaticResource FilterTextBoxStyle}"
                         Text="{Binding EnteredFilterCountry}" />
                     <WrapPanel Margin="0,10,0,0">
-                        <Label Content="Language" FontSize="14" />
+                        <Label Content="Language:" FontSize="14" />
                         <Label
                             Content="(selection)"
                             FontSize="14"
@@ -118,7 +118,7 @@
                         SelectedItem="{Binding SelectedFilterLanguage}"
                         Style="{StaticResource MaterialDesignComboBox}" />
                     <WrapPanel Margin="0,10,0,0">
-                        <Label Content="Duration" FontSize="14" />
+                        <Label Content="Duration:" FontSize="14" />
                         <Label
                             Content="(decimal)"
                             FontSize="14"
@@ -131,7 +131,7 @@
                         Style="{StaticResource FilterTextBoxStyle}"
                         Text="{Binding EnteredFilterDuration}" />
                     <WrapPanel Margin="0,10,0,0">
-                        <Label Content="No. of guests" FontSize="14" />
+                        <Label Content="Guest number:" FontSize="14" />
                         <Label
                             Content="(integer)"
                             FontSize="14"
@@ -170,7 +170,6 @@
                     <ListView
                         x:Name="ToursListView"
                         Height="Auto"
-                        Margin="0,0,0,0"
                         HorizontalAlignment="Center"
                         d:ItemsSource="{d:SampleData ItemCount=3}"
                         ItemsSource="{Binding ToursSourceCollection}"
@@ -236,18 +235,17 @@
                 <StackPanel
                     x:Name="ReserveStackPanel"
                     Grid.Row="2"
-                    Margin="0,10">
-                    <WrapPanel Height="40" Margin="195,0,0,0">
+                    Margin="0,10,0,0">
+                    <WrapPanel Height="Auto" Margin="215,0,0,0">
                         <Label
                             VerticalAlignment="Center"
-                            Content="Number of guests:"
+                            Content="Guest number:"
                             FontSize="14" />
                         <TextBox
                             x:Name="GuestNumberTextBox"
-                            Width="50"
-                            Height="40"
+                            Width="40"
+                            Height="30"
                             Margin="10,0"
-                            VerticalAlignment="Center"
                             HorizontalContentAlignment="Center"
                             VerticalContentAlignment="Center"
                             BorderBrush="{DynamicResource MaterialDesignDivider}"

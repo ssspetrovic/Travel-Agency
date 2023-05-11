@@ -75,7 +75,7 @@
                                 </Grid.ColumnDefinitions>
                                 <Label
                                     Grid.Column="0"
-                                    Content="Starting date"
+                                    Content="Starting date:"
                                     FontSize="14" />
                                 <Label
                                     Grid.Column="1"
@@ -95,7 +95,7 @@
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
-                                <Label Content="Ending date" FontSize="14" />
+                                <Label Content="Ending date:" FontSize="14" />
                                 <Label
                                     Grid.Column="1"
                                     Content="(pick)"
@@ -122,7 +122,7 @@
                                 </Grid.ColumnDefinitions>
                                 <Label
                                     Grid.Column="0"
-                                    Content="City"
+                                    Content="City:"
                                     FontSize="14" />
                                 <Label
                                     Grid.Column="1"
@@ -145,7 +145,7 @@
                                 </Grid.ColumnDefinitions>
                                 <Label
                                     Grid.Column="0"
-                                    Content="Country"
+                                    Content="Country:"
                                     FontSize="14" />
                                 <Label
                                     Grid.Column="1"
@@ -174,7 +174,7 @@
                                 </Grid.ColumnDefinitions>
                                 <Label
                                     Grid.Column="0"
-                                    Content="Language"
+                                    Content="Language:"
                                     FontSize="14" />
                                 <Label
                                     Grid.Column="1"
@@ -205,7 +205,7 @@
                                 </Grid.ColumnDefinitions>
                                 <Label
                                     Grid.Column="0"
-                                    Content="Guest number"
+                                    Content="Guest number:"
                                     FontSize="14" />
                                 <Label
                                     Grid.Column="1"
@@ -233,7 +233,7 @@
                             </Grid.ColumnDefinitions>
                             <Label
                                 Grid.Column="0"
-                                Content="Description"
+                                Content="Description:"
                                 FontSize="14" />
                             <Label
                                 Grid.Column="1"

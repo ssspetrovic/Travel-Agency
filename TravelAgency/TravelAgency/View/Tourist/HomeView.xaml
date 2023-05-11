@@ -46,6 +46,7 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 FontSize="18"
+                Foreground="#3F51B5"
                 Text="Browse tours"
                 TextDecorations="Underline">
                 <b:Interaction.Triggers>
@@ -60,6 +61,7 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 FontSize="18"
+                Foreground="#3F51B5"
                 Text="Request a custom tour"
                 TextDecorations="Underline">
                 <b:Interaction.Triggers>
@@ -74,6 +76,7 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 FontSize="18"
+                Foreground="#3F51B5"
                 Text="Tour request statistics"
                 TextDecorations="Underline">
                 <b:Interaction.Triggers>
@@ -88,6 +91,7 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 FontSize="18"
+                Foreground="#3F51B5"
                 Text="Open a help wizard"
                 TextDecorations="Underline">
                 <b:Interaction.Triggers>

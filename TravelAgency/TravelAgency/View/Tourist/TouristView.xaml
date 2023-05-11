@@ -61,6 +61,13 @@
                                 Foreground="White"
                                 Style="{StaticResource MenuButtonStyle}" />
                             <RadioButton
+                                x:Name="NotificationsButton"
+                                Command="{Binding NavigateToUserProfileCommand}"
+                                Content="Notifications"
+                                FontSize="19"
+                                Foreground="White"
+                                Style="{StaticResource MenuButtonStyle}" />
+                            <RadioButton
                                 x:Name="MyToursButton"
                                 Command="{Binding NavigateToMyToursPageCommand}"
                                 Content="My tours"
@@ -71,6 +78,13 @@
                                 x:Name="MyVouchersButton"
                                 Command="{Binding NavigateToMyTourVouchersPageCommand}"
                                 Content="My vouchers"
+                                FontSize="19"
+                                Foreground="White"
+                                Style="{StaticResource MenuButtonStyle}" />
+                            <RadioButton
+                                x:Name="MyRequestsButton"
+                                Command="{Binding NavigateToUserProfileCommand}"
+                                Content="My requests"
                                 FontSize="19"
                                 Foreground="White"
                                 Style="{StaticResource MenuButtonStyle}" />

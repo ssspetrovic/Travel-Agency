@@ -1,4 +1,5 @@
-﻿using System.Windows.Navigation;
+﻿using System.ComponentModel;
+using System.Windows.Navigation;
 using TravelAgency.Command;
 using TravelAgency.DTO;
 using TravelAgency.Model;
@@ -25,7 +26,18 @@ namespace TravelAgency.ViewModel.Tourist
         public RelayCommand CancelRatingCommand { get; set; }
         public RelayCommand SubmitRatingCommand { get; set; }
         public RelayCommand AddPhotoCommand { get; set; }
-        public RelayCommand NavigateToMyToursCommand { get; set; }
+        private RelayCommand NavigateToMyToursCommand { get; set; }
+        private bool _isTooltipsSwitchToggled;
+
+        public bool IsTooltipsSwitchToggled
+        {
+            get => _isTooltipsSwitchToggled;
+            set
+            {
+                _isTooltipsSwitchToggled = value;
+                OnPropertyChanged();
+            }
+        }
 
         public int GuideKnowledgeGrade
         {
@@ -89,6 +101,8 @@ namespace TravelAgency.ViewModel.Tourist
         public RateTourViewModel(NavigationService navigationService, TouristViewModel touristViewModel, string tourName)
         {
             _touristViewModel = touristViewModel;
+            IsTooltipsSwitchToggled = _touristViewModel.IsTooltipsSwitchToggled;
+            _touristViewModel.PropertyChanged += TouristViewModel_PropertyChanged;;
             _navigationService = navigationService;
             TourName = tourName;
             TourNameHeader = $"'{tourName}'";
@@ -97,6 +111,12 @@ namespace TravelAgency.ViewModel.Tourist
             SubmitRatingCommand = new RelayCommand(Execute_SubmitRatingCommand, CanExecute_SubmitRatingCommand);
             AddPhotoCommand = new RelayCommand(Execute_AddPhotoCommand, CanExecute_AddPhotoCommand);
             NavigateToMyToursCommand = new RelayCommand(Execute_NavigateToMyToursCommand);
+        }
+
+        private void TouristViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName != nameof(TouristViewModel.IsTooltipsSwitchToggled)) return;
+            if (sender != null) IsTooltipsSwitchToggled = ((TouristViewModel)sender).IsTooltipsSwitchToggled;
         }
 
         private void Execute_CancelRatingCommand(object parameter)

@@ -9,10 +9,10 @@
     Height="250"
     AllowsTransparency="True"
     Background="Transparent"
-    Left="700"
+    Left="630"
     ResizeMode="NoResize"
     ShowInTaskbar="False"
-    Top="308"
+    Top="298"
     WindowStartupLocation="Manual"
     WindowStyle="None"
     mc:Ignorable="d">

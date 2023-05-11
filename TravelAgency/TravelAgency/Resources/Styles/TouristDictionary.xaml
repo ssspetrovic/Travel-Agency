@@ -69,8 +69,8 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="True">
-                            <Setter TargetName="UserBorder" Property="Background" Value="White" />
-                            <Setter TargetName="UserIconImage" Property="Foreground" Value="#3F51B5" />
+                            <Setter TargetName="UserBorder" Property="Background" Value="#7986CB " />
+                            <Setter TargetName="UserIconImage" Property="Foreground" Value="White" />
                         </Trigger>
                         <Trigger Property="IsChecked" Value="False">
                             <Setter TargetName="UserBorder" Property="Background" Value="Transparent" />
