@@ -9,9 +9,11 @@
     Height="180"
     AllowsTransparency="True"
     Background="Transparent"
+    Left="700"
     ResizeMode="NoResize"
     ShowInTaskbar="False"
-    WindowStartupLocation="CenterScreen"
+    Top="308"
+    WindowStartupLocation="Manual"
     WindowStyle="None"
     mc:Ignorable="d">
     <Border
@@ -29,7 +31,7 @@
                 Grid.Row="0"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                d:Content="Request successfully created!"
+                d:Content="Something successfully done!"
                 FontSize="15" />
             <Button
                 x:Name="Button"
