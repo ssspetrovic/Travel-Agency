@@ -16,7 +16,11 @@
     WindowStyle="None"
     mc:Ignorable="d">
     <Window.Resources>
-        <ResourceDictionary Source="/Resources/Styles/TouristDictionary.xaml" />
+        <ResourceDictionary x:Name="Dictionary">
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Styles/TouristDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Window.Resources>
     <Grid Background="{StaticResource MaterialDesignBackground}">
         <Grid>
@@ -115,7 +119,7 @@
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center">
                                 <fa:IconImage
-                                    Margin="25,10,10,0"
+                                    Margin="25,11,10,0"
                                     Icon="RightFromBracket"
                                     Style="{StaticResource LogOutIconStyle}" />
                                 <TextBlock

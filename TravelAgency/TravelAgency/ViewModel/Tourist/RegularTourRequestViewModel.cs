@@ -170,7 +170,7 @@ namespace TravelAgency.ViewModel.Tourist
         private void Execute_NavigateToMyTourRequestsCommand(object parameter)
         {
             Dialog?.Close();
-            _navigationService.Navigate(new RegularTourRequestView(_navigationService, _touristViewModel));
+            _navigationService.Navigate(new RequestTourView(_navigationService, _touristViewModel));
         }
 
         private bool CanExecute_SubmitRequestCommand(object parameter)

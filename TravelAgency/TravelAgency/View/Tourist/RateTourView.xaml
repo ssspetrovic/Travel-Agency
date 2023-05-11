@@ -10,7 +10,31 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
     <Page.Resources>
-        <ResourceDictionary Source="/Resources/Styles/TouristDictionary.xaml" />
+        <ResourceDictionary x:Name="Dictionary">
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Styles/TouristDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style
+                x:Key="AnimatedLabelStyle"
+                BasedOn="{StaticResource MaterialDesignLabel}"
+                TargetType="Label">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Visibility, RelativeSource={RelativeSource Self}}" Value="Visible">
+                        <DataTrigger.EnterActions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation
+                                        Storyboard.TargetProperty="Opacity"
+                                        From="0"
+                                        To="1"
+                                        Duration="0:0:0.2" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </DataTrigger.EnterActions>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
     </Page.Resources>
     <d:Page.Background>
         <SolidColorBrush Color="White" />
@@ -46,6 +70,7 @@
             Content="All grades are required"
             FontSize="14"
             Foreground="#3F51B5"
+            Style="{StaticResource AnimatedLabelStyle}"
             Visibility="{Binding IsTooltipsSwitchToggled, Converter={StaticResource BooleanToVisibilityConverter}}" />
         <Grid Grid.Row="2" Width="480">
             <Grid.RowDefinitions>
