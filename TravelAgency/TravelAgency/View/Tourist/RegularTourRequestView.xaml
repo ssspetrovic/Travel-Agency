@@ -148,7 +148,7 @@
                             Margin="0,0,15,0"
                             Command="{Binding CancelRequestCommand}"
                             Content="Cancel"
-                            FontSize="13"
+                            FontSize="14"
                             Style="{StaticResource MaterialDesignFlatButton}" />
                         <Button
                             x:Name="SubmitButton"
@@ -156,7 +156,7 @@
                             Margin="15,0,0,0"
                             Command="{Binding SubmitRequestCommand}"
                             Content="Submit"
-                            FontSize="13" />
+                            FontSize="14" />
                     </WrapPanel>
                 </Grid>
             </Border>

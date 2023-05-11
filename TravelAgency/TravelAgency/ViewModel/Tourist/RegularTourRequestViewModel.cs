@@ -21,8 +21,7 @@ namespace TravelAgency.ViewModel.Tourist
         private Array _languages;
         public RelayCommand SubmitRequestCommand { get; set; }
         public RelayCommand CancelRequestCommand { get; set; }
-        public RelayCommand NavigateToMyTourRequestsCommand { get; set; }
-        private TourRequestAcceptedDialog? Dialog { get; set; }
+        private OkDialog? Dialog { get; set; }
 
         public string? Country
         {
@@ -115,7 +114,17 @@ namespace TravelAgency.ViewModel.Tourist
                 Description!,
                 RegularTourRequest.TourRequestStatus.OnHold));
 
-            Dialog = new TourRequestAcceptedDialog(this);
+            Dialog = new OkDialog
+            {
+                Label =
+                {
+                    Content = "Request successfully created!"
+                },
+                Button =
+                {
+                    Command = new RelayCommand(Execute_NavigateToMyTourRequestsCommand)
+                }
+            };
             Dialog?.ShowDialog();
         }
 
@@ -143,7 +152,7 @@ namespace TravelAgency.ViewModel.Tourist
 
         private bool IsDateRangeValid(DateTime? startingDate, DateTime? endingDate)
         {
-            if (startingDate <= DateTime.Now || startingDate == null || endingDate == null) return false;
+            if (startingDate < DateTime.Today || startingDate == null || endingDate == null) return false;
             return startingDate < endingDate;
         }
 
@@ -154,7 +163,6 @@ namespace TravelAgency.ViewModel.Tourist
             _languages = Enum.GetValues(typeof(Language));
             SubmitRequestCommand = new RelayCommand(Execute_SubmitRequestCommand, CanExecute_SubmitRequestCommand);
             CancelRequestCommand = new RelayCommand(Execute_CancelRequestCommand);
-            NavigateToMyTourRequestsCommand = new RelayCommand(Execute_NavigateToMyTourRequestsCommand);
         }
     }
 }
