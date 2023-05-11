@@ -8,40 +8,46 @@
       d:DesignHeight="690" d:DesignWidth="430"
       Title="DisplayGuestReviewsView">
 
-    <Grid Background="White">
-        <ListView x:Name="GuestListView" d:ItemsSource="{d:SampleData ItemCount=3}" ItemsSource="{Binding GuestsGradesSourceCollection}" SelectedItem="{Binding SelectedGuestsGrade}" Margin="10,73,-283,441">
+    <Grid Style="{DynamicResource Grid}">
+        <ListView x:Name="GuestListView" d:ItemsSource="{d:SampleData ItemCount=3}" ItemsSource="{Binding GuestsGradesSourceCollection}" SelectedItem="{Binding SelectedGuestsGrade}" Margin="22,58,27,492" FontSize="12">
             <ListView.View>
                 <GridView>
                     <GridViewColumn
                         Width="Auto"
                         DisplayMemberBinding="{Binding GuestId}"
-                        Header="Guest" />
+                        Header="{DynamicResource Guest}"
+                        HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
                     <GridViewColumn
                         Width="Auto"
                         DisplayMemberBinding="{Binding AccommodationId}"
-                        Header="Accommodation" />
+                        Header="{DynamicResource Accommodation}"
+                        HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
                     <GridViewColumn
                         Width="Auto"
                         DisplayMemberBinding="{Binding StartDate}"
-                        Header="Start Date" />
+                        Header="{DynamicResource Start Date}"
+                        HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
                     <GridViewColumn
                         Width="Auto"
                         DisplayMemberBinding="{Binding EndDate}"
-                        Header="End Date" />
+                        Header="{DynamicResource End Date}"
+                        HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
                     <GridViewColumn
                         Width="Auto"
                         DisplayMemberBinding="{Binding GradeAccommodationClean}"
-                        Header="Grade Clean" />
+                        Header="{DynamicResource Grade Clean}"
+                        HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
                     <GridViewColumn
                         Width="Auto"
                         DisplayMemberBinding="{Binding GradeAccommodationOwner}"
-                        Header="Grade Owner" />
+                        Header="{DynamicResource Grade Owner}"
+                        HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Label Content="Guests" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top" FontSize="18"/>
-        <TextBox x:Name="txtAccommodationComment" DataContext="{Binding SelectedItem, ElementName=GuestListView}" HorizontalAlignment="Left" Margin="10,364,0,0" TextWrapping="Wrap" Text="{Binding AccommodationComment}" VerticalAlignment="Top" Width="393" FontWeight="Bold" IsEnabled="False"/>
-        <Label Content="Guest's comment about the accommodation:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="14"/>
+        <Label Style="{DynamicResource Label}" Content="{DynamicResource Guests}" HorizontalAlignment="Left" Margin="22,21,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+        <TextBox Style="{DynamicResource TextBox}" x:Name="txtAccommodationComment" DataContext="{Binding SelectedItem, ElementName=GuestListView}" HorizontalAlignment="Left" Margin="156,262,0,0" TextWrapping="Wrap" Text="{Binding AccommodationComment}" VerticalAlignment="Top" Width="233" FontWeight="Bold" IsEnabled="False" Height="120"/>
+        <Label Style="{DynamicResource Label}" Content="{DynamicResource Guests comment}" HorizontalAlignment="Left" Margin="22,257,0,0" VerticalAlignment="Top" FontSize="14"/>
 
     </Grid>
 </Page>

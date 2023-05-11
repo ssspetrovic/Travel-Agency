@@ -72,4 +72,9 @@
     <System:String x:Key="No comment">Bez komentara</System:String>
     <System:String x:Key="Grade Guest">Oceni Gosta</System:String>
 
+
+    <!--DISPLAY GUESTS REVIEWS-->
+    <System:String x:Key="Grade Owner">Ocena Vlasnika</System:String>
+    <System:String x:Key="Guests comment">Gostov komentar</System:String>
+
 </ResourceDictionary>

@@ -72,4 +72,9 @@
     <System:String x:Key="No comment">No comment</System:String>
     <System:String x:Key="Grade Guest">Grade Guest</System:String>
 
+
+    <!--DISPLAY GUESTS REVIEWS-->
+    <System:String x:Key="Grade Owner">Grade Owner</System:String>
+    <System:String x:Key="Guests comment">Guest's comment</System:String>
+
 </ResourceDictionary>

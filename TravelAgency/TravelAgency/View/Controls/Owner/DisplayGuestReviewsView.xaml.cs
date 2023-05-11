@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TravelAgency.Model;
 using TravelAgency.ViewModel;
 
 namespace TravelAgency.View.Controls.Owner
@@ -26,6 +27,21 @@ namespace TravelAgency.View.Controls.Owner
         {
             InitializeComponent();
             DataContext = _viewModel;
+            ChangeColorListView();
+        }
+
+        private void ChangeColorListView()
+        {
+            if (CurrentLanguageAndTheme.themeId == 0)
+            {
+                GuestListView.Background = Brushes.White;
+                GuestListView.Foreground = Brushes.Black;
+            }
+            else
+            {
+                GuestListView.Background = Brushes.Black;
+                GuestListView.Foreground = Brushes.White;
+            }
         }
     }
 }
