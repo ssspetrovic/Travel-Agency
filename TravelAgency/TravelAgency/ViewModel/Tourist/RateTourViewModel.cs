@@ -4,6 +4,7 @@ using TravelAgency.DTO;
 using TravelAgency.Model;
 using TravelAgency.Service;
 using TravelAgency.View.Tourist;
+using static System.Windows.Application;
 
 namespace TravelAgency.ViewModel.Tourist
 {
@@ -123,6 +124,7 @@ namespace TravelAgency.ViewModel.Tourist
             myTourDtoService.UpdateStatus(TourName, MyTourDto.TourStatus.Rated);
             Dialog = new OkDialog
             {
+                Owner = Current.MainWindow,
                 Label =
                 {
                     Content = "Tour successfully rated!"

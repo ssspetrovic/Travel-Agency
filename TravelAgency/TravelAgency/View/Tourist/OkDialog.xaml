@@ -40,7 +40,8 @@
                 VerticalAlignment="Center"
                 VerticalContentAlignment="Center"
                 Command="{Binding NavigateToMyTourRequestsCommand}"
-                Content="OK" />
+                Content="OK"
+                FontSize="14" />
         </Grid>
     </Border>
 </Window>

@@ -42,7 +42,7 @@
                     Margin="0,0,8,0"
                     Click="CancelButton_OnClick"
                     Content="Cancel"
-                    FontSize="15"
+                    FontSize="14"
                     Style="{StaticResource MaterialDesignFlatDarkButton}" />
                 <Button
                     x:Name="ConfirmButton"
@@ -52,7 +52,7 @@
                     VerticalContentAlignment="Center"
                     Click="ConfirmButton_OnClick"
                     Content="Confirm"
-                    FontSize="15" />
+                    FontSize="14" />
             </WrapPanel>
         </Grid>
     </Border>

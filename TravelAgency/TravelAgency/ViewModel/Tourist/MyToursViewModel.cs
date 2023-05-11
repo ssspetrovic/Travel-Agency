@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Windows;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Navigation;
 using TravelAgency.Command;
 using TravelAgency.DTO;
@@ -21,6 +18,7 @@ namespace TravelAgency.ViewModel.Tourist
         public RelayCommand JoinTourCommand { get; set; }
         public RelayCommand RateTourCommand { get; set; }
         public ObservableCollection<MyTourDto> MyTours { get; set; }
+        private OkDialog? Dialog { get; set; }
 
         public MyTourDto? SelectedTour
         {
@@ -46,12 +44,30 @@ namespace TravelAgency.ViewModel.Tourist
         private void Execute_JoinTourCommand(object parameter)
         {
             _myTourDtoService.JoinTour(SelectedTour);
-            _navigationService.Navigate(new MyToursView(_navigationService));
+            Dialog = new OkDialog
+            {
+                Owner = Current.MainWindow,
+                Label =
+                {
+                    Content = "Successfully joined the tour."
+                },
+                Button =
+                {
+                    Command = new RelayCommand(Execute_NavigateToMyToursCommand)
+                }
+            };
+            Dialog?.Show();
         }
 
         private void Execute_RateTourCommand(object parameter)
         {
             _navigationService.Navigate(new RateTourView(_navigationService, SelectedTour!.Name));
+        }
+
+        private void Execute_NavigateToMyToursCommand(object parameter)
+        {
+            Dialog?.Close();
+            _navigationService.Navigate(new MyToursView(_navigationService));
         }
 
         private bool CanExecute_JoinTourCommand(object parameter)

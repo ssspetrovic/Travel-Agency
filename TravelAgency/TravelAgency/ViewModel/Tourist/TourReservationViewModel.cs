@@ -207,12 +207,34 @@ namespace TravelAgency.ViewModel.Tourist
                 RaisePropertyChanged(nameof(FilterText));
             }
         }
-        public ICollectionView ToursSourceCollection => _toursCollection.View;
 
+        public ICollectionView ToursSourceCollection => _toursCollection.View;
         public RelayCommand MakeReservationCommand { get; set; }
         public RelayCommand ApplyFilterCommand { get; set; }
         public RelayCommand ResetFilterCommand { get; set; }
         public RelayCommand SelectionChangedCommand { get; set; }
+
+        public TourReservationViewModel(NavigationService navigationService)
+        {
+            _navigationService = navigationService;
+            MakeReservationCommand = new RelayCommand(Execute_MakeReservationCommand, CanExecute_MakeReservationCommand);
+            ApplyFilterCommand = new RelayCommand(Execute_ApplyFilterCommand);
+            ResetFilterCommand = new RelayCommand(Execute_ResetFilterCommand);
+            SelectionChangedCommand = new RelayCommand(Execute_SelectionChangedCommand);
+
+            TourReservationService = new TourReservationService(this);
+            _toursCollection = new CollectionViewSource { Source = TourReservationService.TourService.GetAllAsCollection() };
+            _toursCollection.Filter += ToursCollection_Filter;
+            _filterLanguages = Enum.GetValues(typeof(Language));
+            _tourVouchers = TourReservationService.TourVoucherService.GetAllValidAsCollection();
+
+            if (!ToursSourceCollection.IsEmpty)
+                IsListViewShown = true;
+
+            IsTourSelected = false;
+            IsGuestNumberEntered = false;
+            ResetFilter();
+        }
 
         private void Execute_MakeReservationCommand(object parameter)
         {
@@ -238,28 +260,6 @@ namespace TravelAgency.ViewModel.Tourist
         private bool CanExecute_MakeReservationCommand(object parameter)
         {
             return SelectedTour != null && int.TryParse(GuestNumber, out var guests) && guests > 0;
-        }
-
-        public TourReservationViewModel(NavigationService navigationService)
-        {
-            _navigationService = navigationService;
-            MakeReservationCommand = new RelayCommand(Execute_MakeReservationCommand, CanExecute_MakeReservationCommand);
-            ApplyFilterCommand = new RelayCommand(Execute_ApplyFilterCommand);
-            ResetFilterCommand = new RelayCommand(Execute_ResetFilterCommand);
-            SelectionChangedCommand = new RelayCommand(Execute_SelectionChangedCommand);
-
-            TourReservationService = new TourReservationService(this);
-            _toursCollection = new CollectionViewSource { Source = TourReservationService.TourService.GetAllAsCollection() };
-            _toursCollection.Filter += ToursCollection_Filter;
-            _filterLanguages = Enum.GetValues(typeof(Language));
-            _tourVouchers = TourReservationService.TourVoucherService.GetAllValidAsCollection();
-
-            if (!ToursSourceCollection.IsEmpty)
-                IsListViewShown = true;
-
-            IsTourSelected = false;
-            IsGuestNumberEntered = false;
-            ResetFilter();
         }
 
         private bool IsLocationEqual(Location location)
