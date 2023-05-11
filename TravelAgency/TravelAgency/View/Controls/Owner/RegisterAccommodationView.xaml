@@ -8,11 +8,11 @@
       d:DesignHeight="690" d:DesignWidth="430"
       Title="RegisterAccommodationView">
 
-    <Grid Background="White">
-        <Label Content="Name" HorizontalAlignment="Left" Margin="54,20,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtName" HorizontalAlignment="Left" Margin="54,44,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="332"/>
-        <Label Content="Location" HorizontalAlignment="Left" Margin="54,84,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cmbLocation" HorizontalAlignment="Left" Margin="54,108,0,0" VerticalAlignment="Top" Width="332" SelectedIndex="0">
+    <Grid Style="{DynamicResource Grid}">
+        <Label Style="{DynamicResource Label}" Content="{DynamicResource Name}" HorizontalAlignment="Left" Margin="54,18,0,0" VerticalAlignment="Top"/>
+        <TextBox Style="{DynamicResource TextBox}" x:Name="txtName" HorizontalAlignment="Left" Margin="54,44,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="332"/>
+        <Label Style="{DynamicResource Label}" Content="{DynamicResource Location}" HorizontalAlignment="Left" Margin="54,84,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cmbLocation" HorizontalAlignment="Left" Margin="54,108,0,0" VerticalAlignment="Top" Width="165" SelectedIndex="0">
             <ComboBoxItem Content="Tokyo"/>
             <ComboBoxItem Content="Delhi"/>
             <ComboBoxItem Content="Shanghai"/>
@@ -30,28 +30,29 @@
             <ComboBoxItem Content="Manila"/>
             <ComboBoxItem Content="Bar"/>
         </ComboBox>
-        <Label Content="Address" HorizontalAlignment="Left" Margin="54,146,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtAdress" HorizontalAlignment="Left" Margin="54,170,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="332"/>
-        <Label Content="Type" HorizontalAlignment="Left" Margin="54,209,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cmbType" HorizontalAlignment="Left" Margin="54,233,0,0" VerticalAlignment="Top" Width="332" SelectedIndex="0">
-            <ComboBoxItem Content="Apartment"/>
-            <ComboBoxItem Content="House"/>
-            <ComboBoxItem Content="Cottage"/>
+        <Label Style="{DynamicResource Label}" Content="{DynamicResource Address}" HorizontalAlignment="Left" Margin="54,146,0,0" VerticalAlignment="Top"/>
+        <TextBox Style="{DynamicResource TextBox}" x:Name="txtAdress" HorizontalAlignment="Left" Margin="54,170,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="332"/>
+        <Label Style="{DynamicResource Label}" Content="{DynamicResource Type}" HorizontalAlignment="Left" Margin="54,209,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cmbType" HorizontalAlignment="Left" Margin="54,233,0,0" VerticalAlignment="Top" Width="166" SelectedIndex="0">
+            <ComboBoxItem Content="{DynamicResource Apartment}"/>
+            <ComboBoxItem Content="{DynamicResource House}"/>
+            <ComboBoxItem Content="{DynamicResource Cottage}"/>
         </ComboBox>
-        <Label Content="Minimum reservation days" HorizontalAlignment="Left" Margin="53,274,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtMinReservationDays" HorizontalAlignment="Left" Margin="54,298,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="148"/>
-        <Label Content="Maximum reservation days" HorizontalAlignment="Left" Margin="237,274,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtMaxReservationDays" HorizontalAlignment="Left" Margin="238,298,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="148"/>
-        <Label Content="Reservable Days" HorizontalAlignment="Left" Margin="53,338,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtReservableDays" HorizontalAlignment="Left" Margin="54,362,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="41"/>
-        <Label Content="Image" HorizontalAlignment="Left" Margin="53,401,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtImage" HorizontalAlignment="Left" Margin="53,425,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="txtAddUrl" Content="Add Url" HorizontalAlignment="Left" Margin="185,425,0,0" VerticalAlignment="Top" Height="25" Width="68" FontSize="10" Click="txtAddUrl_Click"/>
-        <Button x:Name="btnClearImages" Content="Clear" HorizontalAlignment="Left" Margin="258,425,0,0" VerticalAlignment="Top" Height="25" Width="70" FontSize="10" Click="btnClearImages_Click"/>
-        <TextBox x:Name="ImagesList" HorizontalAlignment="Center" Margin="0,455,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="332"/>
-        <Label Content="Description" HorizontalAlignment="Left" Margin="49,494,0,0" VerticalAlignment="Top" Width="113"/>
-        <TextBox x:Name="txtDescription" HorizontalAlignment="Left" Margin="53,518,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="334"/>
-        <Button x:Name="btnCreate" Content="Register" HorizontalAlignment="Center" Margin="0,598,0,0" VerticalAlignment="Top" Click="btnCreate_Click"/>
+        <Label Style="{DynamicResource Label}" Content="{DynamicResource Minimum number of guests}" HorizontalAlignment="Left" Margin="50,274,0,0" VerticalAlignment="Top"/>
+        <TextBox Style="{DynamicResource TextBox}" x:Name="txtMinReservationDays" HorizontalAlignment="Left" Margin="54,298,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="148"/>
+        <Label Style="{DynamicResource Label}" Content="{DynamicResource Maximum number of guests}" HorizontalAlignment="Left" Margin="232,274,0,0" VerticalAlignment="Top"/>
+        <TextBox Style="{DynamicResource TextBox}" x:Name="txtMaxReservationDays" HorizontalAlignment="Left" Margin="238,298,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="148"/>
+        <Label Style="{DynamicResource Label}" Content="{DynamicResource Reservable Days}" HorizontalAlignment="Left" Margin="53,338,0,0" VerticalAlignment="Top"/>
+        <TextBox Style="{DynamicResource TextBox}" x:Name="txtReservableDays" HorizontalAlignment="Left" Margin="54,364,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="148"/>
+        <Label Style="{DynamicResource Label}" Content="{DynamicResource Image URL}" HorizontalAlignment="Left" Margin="53,401,0,0" VerticalAlignment="Top"/>
+        <TextBox Style="{DynamicResource TextBox}" x:Name="txtImage" HorizontalAlignment="Left" Margin="54,425,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="148"/>
+        <Button Style="{DynamicResource Batn}" x:Name="txtAddUrl" Content="{DynamicResource Add URL}" HorizontalAlignment="Left" Margin="244,421,0,0" VerticalAlignment="Top" Height="25" Width="68" FontSize="10" Click="txtAddUrl_Click"/>
+        <Button Style="{DynamicResource Batn}" x:Name="btnClearImages" Content="{DynamicResource Clear}" HorizontalAlignment="Left" Margin="317,421,0,0" VerticalAlignment="Top" Height="25" Width="70" FontSize="10" Click="btnClearImages_Click"/>
+        <TextBox Style="{DynamicResource TextBox}" x:Name="ImagesList" HorizontalAlignment="Left" Margin="54,473,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="332"/>
+        <Label Style="{DynamicResource Label}" Content="{DynamicResource Description}" HorizontalAlignment="Left" Margin="54,507,0,0" VerticalAlignment="Top" Width="113"/>
+        <TextBox Style="{DynamicResource TextBox}" x:Name="txtDescription" HorizontalAlignment="Left" Margin="54,533,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="334"/>
+        <Button Style="{DynamicResource Batn}" x:Name="btnCreate" Content="{DynamicResource Register}" HorizontalAlignment="Center" Margin="0,590,0,0" VerticalAlignment="Top" Click="btnCreate_Click" Height="44" Width="98" FontSize="18"/>
+        <Label Style="{DynamicResource Label}" Content="{DynamicResource Added Image URLS}" HorizontalAlignment="Left" Margin="54,447,0,0" VerticalAlignment="Top" Width="127"/>
 
     </Grid>
 </Page>

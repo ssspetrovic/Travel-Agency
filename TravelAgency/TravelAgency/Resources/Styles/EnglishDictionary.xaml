@@ -2,7 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:System="clr-namespace:System;assembly=mscorlib">
 
-    <System:String x:Key="Welcome_Owner">Welcome Owner</System:String>
     <System:String x:Key="Language">English</System:String>
     <System:String x:Key="LightTheme">Light Theme</System:String>
     <System:String x:Key="DarkTheme">Dark Theme</System:String>
@@ -14,4 +13,34 @@
     <System:String x:Key="GradeGuests">Grade Guests</System:String>
     <System:String x:Key="DisplayGuestReviews">Display Guest Reviews</System:String>
     <System:String x:Key="LogOut">Log Out</System:String>
+    
+    <!--HOME PAGE-->
+    <System:String x:Key="WelcomeOwner">Welcome Owner</System:String>
+    <System:String x:Key="Title">Title:</System:String>
+    <System:String x:Key="Number of reviews:">Number of reviews:</System:String>
+    <System:String x:Key="Grade point average:">Grade point average:</System:String>
+    <System:String x:Key="Tasks">Tasks</System:String>
+    <System:String x:Key="Guests to grade:">Guests to grade:</System:String>
+    <System:String x:Key="Requests for reservation change:">Requests for reservation change:</System:String>
+    <System:String x:Key="New forums:">New forums:</System:String>
+
+
+    <!--REGISTER ACCOMMODATION-->
+    <System:String x:Key="Name">Name</System:String>
+    <System:String x:Key="Location">Location</System:String>
+    <System:String x:Key="Address">Address</System:String>
+    <System:String x:Key="Type">Type</System:String>
+    <System:String x:Key="Minimum number of guests">Minimum number of guests</System:String>
+    <System:String x:Key="Maximum number of guests">Maximum number of guests</System:String>
+    <System:String x:Key="Reservable Days">Reservable Days</System:String>
+    <System:String x:Key="Image URL">Image URL</System:String>
+    <System:String x:Key="Add URL">Add URL</System:String>
+    <System:String x:Key="Clear">Clear</System:String>
+    <System:String x:Key="Added Image URLS">Added Image URLS</System:String>
+    <System:String x:Key="Description">Description</System:String>
+    <System:String x:Key="Register">Register</System:String>
+    <System:String x:Key="Apartment">Apartment</System:String>
+    <System:String x:Key="House">House</System:String>
+    <System:String x:Key="Cottage">Cottage</System:String>
+
 </ResourceDictionary>

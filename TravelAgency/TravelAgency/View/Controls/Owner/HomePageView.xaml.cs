@@ -30,13 +30,24 @@ namespace TravelAgency.View.Controls.Owner
 
             int gradeCount = reservationRepository.CountGradesForOwner(CurrentUser.Id);
             double averageGrade = reservationRepository.AverageGradeForOwner(CurrentUser.Id);
-            lblReviews.Content = gradeCount.ToString();
-            lblAverage.Content = averageGrade.ToString();
+
+            lblNumReviews.Content = lblNumReviews.Content + " " + gradeCount.ToString();
+            lblGradeAverage.Content = lblGradeAverage.Content + " " + averageGrade.ToString();
 
             if (gradeCount >= 50 && averageGrade >= 9.5)
-                lblTitle.Content = "Title: Super Owner";
+            {
+                if (CurrentLanguageAndTheme.languageId == 0)
+                    lblTitle.Content = "Title: Super Owner";
+                else
+                    lblTitle.Content = "Titula: Super Vlasnik";
+            }
             else
-                lblTitle.Content = "Title: Regular Owner";
+            {
+                if (CurrentLanguageAndTheme.languageId == 0)
+                    lblTitle.Content = "Title: Regular Owner";
+                else
+                    lblTitle.Content = "Titula: Običan Vlasnik";
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

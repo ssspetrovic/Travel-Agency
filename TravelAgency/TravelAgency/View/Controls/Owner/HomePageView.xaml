@@ -8,25 +8,23 @@
       d:DesignHeight="690" d:DesignWidth="430"
       Title="HomePageView">
 
-    <Grid Background="White">
+    <Grid Style="{DynamicResource Grid}">
         <Grid.RowDefinitions>
             <RowDefinition Height="0*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Label Content="Welcome Owner" HorizontalAlignment="Center" Margin="0,54,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Foreground="Black" FontSize="20"/>
-        <Label x:Name="lblName" Content="Name of Owner" HorizontalAlignment="Center" Margin="0,94,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Foreground="Black" FontSize="22" FontWeight="Bold"/>
-        <Label x:Name="lblTitle" Content="Title:" HorizontalAlignment="Left" Margin="134,230,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Foreground="Black" FontSize="20"/>
-        <Label Content="Number of reviews:" HorizontalAlignment="Left" Margin="97,265,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Foreground="Black" FontSize="20"/>
-        <Label Content="Grade point average:" HorizontalAlignment="Left" Margin="90,300,0,0" VerticalAlignment="Top" Foreground="Black" FontSize="20" Grid.Row="1"/>
-        <Label x:Name="lblReviews" Content="##" HorizontalAlignment="Left" Margin="281,265,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Foreground="Black" FontSize="20"/>
-        <Label x:Name="lblAverage" Content="##" HorizontalAlignment="Left" Margin="297,300,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Foreground="Black" FontSize="20"/>
-        <Button Content="-&gt;" HorizontalAlignment="Left" Margin="297,459,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Click="Button_Click" CommandParameter="{Binding ElementName=mainWindow}" Height="27"/>
-        <Label Content="Tasks" HorizontalAlignment="Center" Margin="0,398,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Foreground="Black" FontSize="22" FontWeight="Bold"/>
-        <Label x:Name="lblToGrade" Content="Guests to grade: " HorizontalAlignment="Left" Margin="97,455,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Foreground="Black" FontSize="20"/>
-        <Label x:Name="lblToChange" Content="Requests for reservation change: " HorizontalAlignment="Left" Margin="36,490,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Foreground="Black" FontSize="20"/>
-        <Label x:Name="lblForums" Content="New forums:" HorizontalAlignment="Left" Margin="116,525,0,0" VerticalAlignment="Top" Foreground="Black" FontSize="20" Grid.Row="1"/>
-        <Button Content="-&gt;" HorizontalAlignment="Left" Margin="362,494,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Click="Button_Click" CommandParameter="{Binding ElementName=mainWindow}" Height="27"/>
-        <Button Content="-&gt;" HorizontalAlignment="Left" Margin="273,529,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Click="Button_Click" CommandParameter="{Binding ElementName=mainWindow}" Height="27"/>
+        <Label Style="{DynamicResource Label}" Content="{DynamicResource WelcomeOwner}" HorizontalAlignment="Center" Margin="0,54,0,0" Grid.RowSpan="2" VerticalAlignment="Top" FontSize="20"/>
+        <Label Style="{DynamicResource Label}" x:Name="lblName" Content="Name of Owner" HorizontalAlignment="Center" Margin="0,94,0,0" Grid.RowSpan="2" VerticalAlignment="Top" FontSize="22" FontWeight="Bold"/>
+        <Label Style="{DynamicResource Label}" x:Name="lblTitle" Content="{DynamicResource Title}" HorizontalAlignment="Left" Margin="127,230,0,0" Grid.RowSpan="2" VerticalAlignment="Top" FontSize="20"/>
+        <Label x:Name="lblNumReviews" Style="{DynamicResource Label}" Content="{DynamicResource Number of reviews:}" HorizontalAlignment="Left" Margin="107,265,0,0" Grid.RowSpan="2" VerticalAlignment="Top" FontSize="20"/>
+        <Label x:Name="lblGradeAverage" Style="{DynamicResource Label}" Content="{DynamicResource Grade point average:}" HorizontalAlignment="Left" Margin="100,300,0,0" VerticalAlignment="Top" FontSize="20" Grid.Row="1"/>
+        <Button Style="{DynamicResource Batn}" Content="-&gt;" HorizontalAlignment="Left" Margin="301,459,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Click="Button_Click" CommandParameter="{Binding ElementName=mainWindow}" Height="27" Width="30" FontWeight="Bold"/>
+        <Label Style="{DynamicResource Label}" Content="{DynamicResource Tasks}" HorizontalAlignment="Center" Margin="0,398,0,0" Grid.RowSpan="2" VerticalAlignment="Top" FontSize="22" FontWeight="Bold"/>
+        <Label Style="{DynamicResource Label}" x:Name="lblToGrade" Content="{DynamicResource Guests to grade:}" HorizontalAlignment="Left" Margin="97,455,0,0" Grid.RowSpan="2" VerticalAlignment="Top" FontSize="20"/>
+        <Label Style="{DynamicResource Label}" x:Name="lblToChange" Content="{DynamicResource Requests for reservation change:}" HorizontalAlignment="Left" Margin="36,490,0,0" Grid.RowSpan="2" VerticalAlignment="Top" FontSize="20"/>
+        <Label Style="{DynamicResource Label}" x:Name="lblForums" Content="{DynamicResource New forums:}" HorizontalAlignment="Left" Margin="116,525,0,0" VerticalAlignment="Top" FontSize="20" Grid.Row="1"/>
+        <Button Style="{DynamicResource Batn}" Content="-&gt;" HorizontalAlignment="Left" Margin="378,494,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Click="Button_Click" CommandParameter="{Binding ElementName=mainWindow}" Height="27" Width="30" FontWeight="Bold"/>
+        <Button Style="{DynamicResource Batn}" Content="-&gt;" HorizontalAlignment="Left" Margin="273,529,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Click="Button_Click" CommandParameter="{Binding ElementName=mainWindow}" Height="27" Width="30" FontWeight="Bold"/>
 
     </Grid>
 </Page>

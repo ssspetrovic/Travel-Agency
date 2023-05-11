@@ -2,7 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:System="clr-namespace:System;assembly=mscorlib">
 
-    <System:String x:Key="Welcome_Owner">Dobrodošli Vlasnik</System:String>
     <System:String x:Key="Language">Srpski</System:String>
     <System:String x:Key="LightTheme">Svetla Tema</System:String>
     <System:String x:Key="DarkTheme">Tamna Tema</System:String>
@@ -14,4 +13,34 @@
     <System:String x:Key="GradeGuests">Oceni Goste</System:String>
     <System:String x:Key="DisplayGuestReviews">Prikaz Ocena Gostiju</System:String>
     <System:String x:Key="LogOut">Izloguj Se</System:String>
+
+    <!--HOME PAGE-->
+    <System:String x:Key="WelcomeOwner">Dobrodošli Vlasnik</System:String>
+    <System:String x:Key="Title">Titula:</System:String>
+    <System:String x:Key="Number of reviews:">Broj dobijenih ocena:</System:String>
+    <System:String x:Key="Grade point average:">Prosek dobijenih ocena:</System:String>
+    <System:String x:Key="Tasks">Zadaci</System:String>
+    <System:String x:Key="Guests to grade:">Gosti za oceniti:</System:String>
+    <System:String x:Key="Requests for reservation change:">Zahtevi za izmenu rezervacije:</System:String>
+    <System:String x:Key="New forums:">Novi forumi:</System:String>
+
+
+    <!--REGISTER ACCOMMODATION-->
+    <System:String x:Key="Name">Naziv</System:String>
+    <System:String x:Key="Location">Lokacija</System:String>
+    <System:String x:Key="Address">Adresa</System:String>
+    <System:String x:Key="Type">Tip smeštaja</System:String>
+    <System:String x:Key="Minimum number of guests">Minimalni broj gostiju</System:String>
+    <System:String x:Key="Maximum number of guests">Maksimalni broj gostiju</System:String>
+    <System:String x:Key="Reservable Days">Rezervisani dani</System:String>
+    <System:String x:Key="Image URL">Slika URL</System:String>
+    <System:String x:Key="Add URL">Dodaj URL</System:String>
+    <System:String x:Key="Clear">Očisti</System:String>
+    <System:String x:Key="Added Image URLS">Dodate Slike URLS</System:String>
+    <System:String x:Key="Description">Deskripcija</System:String>
+    <System:String x:Key="Register">Registruj</System:String>
+    <System:String x:Key="Apartment">Apartman</System:String>
+    <System:String x:Key="House">Kuća</System:String>
+    <System:String x:Key="Cottage">Koliba</System:String>
+
 </ResourceDictionary>

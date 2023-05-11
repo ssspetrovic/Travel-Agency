@@ -26,13 +26,39 @@ namespace TravelAgency.View.Controls.Owner
         public RegisterAccommodationView()
         {
             InitializeComponent();
+            if (CurrentLanguageAndTheme.themeId == 0)
+            {
+                cmbLocation.Background = Brushes.White; cmbLocation.Foreground = Brushes.Black;
+                cmbType.Background = Brushes.White; cmbType.Foreground = Brushes.Black;
+                foreach (ComboBoxItem item in cmbLocation.Items)
+                {
+                    item.Background = Brushes.White; item.Foreground = Brushes.Black;
+                }
+                foreach (ComboBoxItem item in cmbType.Items)
+                {
+                    item.Background = Brushes.White; item.Foreground = Brushes.Black;
+                }
+            }
+            else
+            {
+                cmbLocation.Background = Brushes.Black; cmbLocation.Foreground = Brushes.White;
+                cmbType.Background = Brushes.Black; cmbType.Foreground = Brushes.White;
+                foreach (ComboBoxItem item in cmbLocation.Items)
+                {
+                    item.Background = Brushes.Black; item.Foreground = Brushes.White;
+                }
+                foreach (ComboBoxItem item in cmbType.Items)
+                {
+                    item.Background = Brushes.Black; item.Foreground = Brushes.White;
+                }
+            }
         }
 
         private AccommodationType findAccommodationType(string text)
         {
-            if (text == "Apartment")
+            if (text == "Apartment" || text == "Apartman")
                 return AccommodationType.Apartment;
-            else if (text == "House")
+            else if (text == "House" || text == "Kuća")
                 return AccommodationType.House;
             else
                 return AccommodationType.Cottage;
