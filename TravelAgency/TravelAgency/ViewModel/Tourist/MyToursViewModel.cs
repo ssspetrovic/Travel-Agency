@@ -89,22 +89,5 @@ namespace TravelAgency.ViewModel.Tourist
             dialog.ShowDialog();
             return AcceptInvitationDialog.ConfirmStatus;
         }
-
-        public static void ReloadWindow()
-        {
-            Current.Dispatcher.Invoke(() =>
-            {
-                var mainWindow = new TouristView
-                {
-                    ContentFrame =
-                    {
-                        Source = new Uri("Controls/Tourist/MyToursView.xaml", UriKind.Relative)
-                    }
-                };
-                var currentWindow = Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
-                mainWindow.Show();
-                currentWindow?.Close();
-            });
-        }
     }
 }
