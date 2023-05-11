@@ -43,4 +43,20 @@
     <System:String x:Key="House">House</System:String>
     <System:String x:Key="Cottage">Cottage</System:String>
 
+
+    <!--RESERVATION CHANGE REQUEST-->
+    <System:String x:Key="Requests">Requests</System:String>
+    <System:String x:Key="Reservation ID">Reservation ID</System:String>
+    <System:String x:Key="Accommodation ID">Accommodation ID</System:String>
+    <System:String x:Key="Guest">Guest</System:String>
+    <System:String x:Key="Selected Accommodation ID">Selected Accommodation ID</System:String>
+    <System:String x:Key="Selected Reservation ID">Selected Reservation ID</System:String>
+    <System:String x:Key="Old Start Date">Old Start Date</System:String>
+    <System:String x:Key="New Start Date">New Start Date</System:String>
+    <System:String x:Key="Old End Date">Old End Date</System:String>
+    <System:String x:Key="New End Date">New End Date</System:String>
+    <System:String x:Key="Accept">Accept</System:String>
+    <System:String x:Key="Reject">Reject</System:String>
+    <System:String x:Key="Reject reason">Reject reason</System:String>
+
 </ResourceDictionary>

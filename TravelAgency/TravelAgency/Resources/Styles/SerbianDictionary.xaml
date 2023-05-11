@@ -43,4 +43,20 @@
     <System:String x:Key="House">Kuća</System:String>
     <System:String x:Key="Cottage">Koliba</System:String>
 
+
+    <!--RESERVATION CHANGE REQUEST-->
+    <System:String x:Key="Requests">Zahtevi</System:String>
+    <System:String x:Key="Reservation ID">Rezervacija ID</System:String>
+    <System:String x:Key="Accommodation ID">Smeštaj ID</System:String>
+    <System:String x:Key="Guest">Gost</System:String>
+    <System:String x:Key="Selected Accommodation ID">Izabrani smeštaj ID</System:String>
+    <System:String x:Key="Selected Reservation ID">Izabrana rezervacija ID</System:String>
+    <System:String x:Key="Old Start Date">Stari Početni Datum</System:String>
+    <System:String x:Key="New Start Date">Novi Početni Datum</System:String>
+    <System:String x:Key="Old End Date">Stari Krajnji Datum</System:String>
+    <System:String x:Key="New End Date">Novi Krajnji Datum</System:String>
+    <System:String x:Key="Accept">Prihvati</System:String>
+    <System:String x:Key="Reject">Odbij</System:String>
+    <System:String x:Key="Reject reason">Razlog za odbijanje</System:String>
+
 </ResourceDictionary>

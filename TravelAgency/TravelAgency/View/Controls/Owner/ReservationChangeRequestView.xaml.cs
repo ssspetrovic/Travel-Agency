@@ -102,12 +102,18 @@ namespace TravelAgency.View.Controls.Owner
             }
             if (available)
             {
-                lblAvailable.Content = "Available!";
+                if (CurrentLanguageAndTheme.languageId == 0)
+                    lblAvailable.Content = "Available!";
+                else
+                    lblAvailable.Content = "Slobodno!";
                 lblAvailable.Foreground = Brushes.LightGreen;
             }
             else
             {
-                lblAvailable.Content = "Not available!";
+                if (CurrentLanguageAndTheme.languageId == 0)
+                    lblAvailable.Content = "Not available!";
+                else
+                    lblAvailable.Content = "Nije slobodno!";
                 lblAvailable.Foreground = Brushes.DarkRed;
             }
         }
