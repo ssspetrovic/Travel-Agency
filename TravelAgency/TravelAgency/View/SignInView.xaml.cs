@@ -16,6 +16,8 @@ namespace TravelAgency.View
         {
             InitializeComponent();
             UsernameTextBox.Focus();
+            CurrentLanguageAndTheme.languageId = 0; //English default
+            CurrentLanguageAndTheme.themeId = 0; //Light default
         }
 
         private void HeaderThumb_OnDragDelta(object sender, DragDeltaEventArgs e)
