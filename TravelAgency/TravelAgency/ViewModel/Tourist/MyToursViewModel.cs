@@ -22,6 +22,7 @@ namespace TravelAgency.ViewModel.Tourist
         public ObservableCollection<MyTourDto> MyTours { get; set; }
         private OkDialog? Dialog { get; set; }
         private bool _isTooltipsSwitchToggled;
+
         public bool IsTooltipsSwitchToggled
         {
             get => _isTooltipsSwitchToggled;

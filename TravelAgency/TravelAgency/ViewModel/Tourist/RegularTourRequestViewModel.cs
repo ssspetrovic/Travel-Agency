@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows.Navigation;
 using TravelAgency.Command;
 using TravelAgency.Model;
@@ -10,6 +11,7 @@ namespace TravelAgency.ViewModel.Tourist
 {
     public class RegularTourRequestViewModel : BaseViewModel
     {
+        private readonly TouristViewModel _touristViewModel;
         private readonly NavigationService _navigationService;
         private readonly RegularTourRequestService _tourRequestService;
         private string? _country;
@@ -23,6 +25,17 @@ namespace TravelAgency.ViewModel.Tourist
         public RelayCommand SubmitRequestCommand { get; set; }
         public RelayCommand CancelRequestCommand { get; set; }
         private OkDialog? Dialog { get; set; }
+        private bool _isTooltipsSwitchToggled;
+
+        public bool IsTooltipsSwitchToggled
+        {
+            get => _isTooltipsSwitchToggled;
+            set
+            {
+                _isTooltipsSwitchToggled = value;
+                OnPropertyChanged();
+            }
+        }
 
         public string? Country
         {
@@ -104,6 +117,24 @@ namespace TravelAgency.ViewModel.Tourist
             }
         }
 
+        public RegularTourRequestViewModel(NavigationService navigationService, TouristViewModel touristViewModel)
+        {
+            _touristViewModel = touristViewModel;
+            IsTooltipsSwitchToggled = _touristViewModel.IsTooltipsSwitchToggled;
+            _touristViewModel.PropertyChanged += TouristViewModel_PropertyChanged;
+            _navigationService = navigationService;
+            _tourRequestService = new RegularTourRequestService();
+            _languages = Enum.GetValues(typeof(Language));
+            SubmitRequestCommand = new RelayCommand(Execute_SubmitRequestCommand, CanExecute_SubmitRequestCommand);
+            CancelRequestCommand = new RelayCommand(Execute_CancelRequestCommand);
+        }
+        
+        private void TouristViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName != nameof(TouristViewModel.IsTooltipsSwitchToggled)) return;
+            if (sender != null) IsTooltipsSwitchToggled = ((TouristViewModel)sender).IsTooltipsSwitchToggled;
+        }
+
         private void Execute_SubmitRequestCommand(object parameter)
         {
             _tourRequestService.Add(new RegularTourRequest(
@@ -139,7 +170,7 @@ namespace TravelAgency.ViewModel.Tourist
         private void Execute_NavigateToMyTourRequestsCommand(object parameter)
         {
             Dialog?.Close();
-            _navigationService.Navigate(new RegularTourRequestView(_navigationService));
+            _navigationService.Navigate(new RegularTourRequestView(_navigationService, _touristViewModel));
         }
 
         private bool CanExecute_SubmitRequestCommand(object parameter)
@@ -156,15 +187,6 @@ namespace TravelAgency.ViewModel.Tourist
         {
             if (startingDate < DateTime.Today || startingDate == null || endingDate == null) return false;
             return startingDate < endingDate;
-        }
-
-        public RegularTourRequestViewModel(NavigationService navigationService)
-        {
-            _navigationService = navigationService;
-            _tourRequestService = new RegularTourRequestService();
-            _languages = Enum.GetValues(typeof(Language));
-            SubmitRequestCommand = new RelayCommand(Execute_SubmitRequestCommand, CanExecute_SubmitRequestCommand);
-            CancelRequestCommand = new RelayCommand(Execute_CancelRequestCommand);
         }
     }
 }

@@ -31,20 +31,20 @@
                     Height="Auto"
                     Margin="10,0"
                     Content="User information"
-                    FontSize="14" />
+                    FontSize="15" />
                 <Border
                     Grid.Row="1"
-                    BorderBrush="#3F51B5"
+                    BorderBrush="{StaticResource MaterialDesignDivider}"
                     BorderThickness="2"
                     CornerRadius="5">
-                    <Grid Margin="70,0,70,40">
+                    <Grid Margin="70,0,70,30">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition />
                         </Grid.RowDefinitions>
                         <StackPanel
                             Grid.Row="0"
-                            Margin="0,15"
+                            Margin="0,15,0,10"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center">
                             <Border
@@ -58,14 +58,13 @@
                                     Foreground="#3F51B5"
                                     Icon="UserAlt" />
                             </Border>
-                            <TextBlock
-                                Margin="0,3,0,0"
+                            <Label
                                 HorizontalAlignment=" Center"
                                 VerticalAlignment="Center"
-                                d:Text="Tourist"
+                                d:Content="Tourist"
+                                Content="{Binding FirstName}"
                                 FontSize="14"
-                                Foreground="#3F51B5"
-                                Text="{Binding FirstName}" />
+                                Foreground="#3F51B5" />
                         </StackPanel>
                         <Grid Grid.Row="1">
                             <Grid.RowDefinitions>
@@ -79,101 +78,101 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
-                            <TextBlock
+                            <Label
                                 Grid.Row="0"
                                 Grid.Column="0"
                                 Margin="0,7"
                                 VerticalAlignment="Center"
+                                Content="Account type:"
                                 FontSize="17"
                                 FontWeight="SemiBold"
-                                Foreground="#3F51B5"
-                                Text="Account type:" />
-                            <TextBlock
+                                Foreground="#3F51B5" />
+                            <Label
                                 Grid.Row="1"
                                 Grid.Column="0"
                                 Margin="0,7"
                                 VerticalAlignment="Center"
+                                Content="First name:"
                                 FontSize="17"
                                 FontWeight="SemiBold"
-                                Foreground="#3F51B5"
-                                Text="First name:" />
-                            <TextBlock
+                                Foreground="#3F51B5" />
+                            <Label
                                 Grid.Row="2"
                                 Grid.Column="0"
                                 Margin="0,7"
                                 VerticalAlignment="Center"
+                                Content="Last name:"
                                 FontSize="17"
                                 FontWeight="SemiBold"
-                                Foreground="#3F51B5"
-                                Text="Last name:" />
-                            <TextBlock
+                                Foreground="#3F51B5" />
+                            <Label
                                 Grid.Row="3"
                                 Grid.Column="0"
                                 Margin="0,7"
                                 VerticalAlignment="Center"
+                                Content="Email:"
                                 FontSize="17"
                                 FontWeight="SemiBold"
-                                Foreground="#3F51B5"
-                                Text="Email:" />
-                            <TextBlock
+                                Foreground="#3F51B5" />
+                            <Label
                                 Grid.Row="4"
                                 Grid.Column="0"
                                 Margin="0,7"
                                 VerticalAlignment="Center"
+                                Content="Username:"
                                 FontSize="17"
                                 FontWeight="SemiBold"
-                                Foreground="#3F51B5"
-                                Text="Username:" />
-                            <TextBlock
+                                Foreground="#3F51B5" />
+                            <Label
                                 Grid.Row="0"
                                 Grid.Column="1"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
-                                d:Text="Tourist"
+                                d:Content="Tourist"
+                                Content="{Binding AccountType}"
                                 FontSize="16"
-                                FontStyle="Italic"
-                                Text="{Binding AccountType}" />
-                            <TextBlock
+                                FontStyle="Italic" />
+                            <Label
                                 Grid.Row="1"
                                 Grid.Column="1"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
-                                d:Text="Name"
+                                d:Content="Name"
+                                Content="{Binding FirstName}"
                                 FontSize="16"
-                                FontStyle="Italic"
-                                Text="{Binding FirstName}" />
-                            <TextBlock
+                                FontStyle="Italic" />
+                            <Label
                                 Grid.Row="2"
                                 Grid.Column="1"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
-                                d:Text="Last Name"
+                                d:Content="Last Name"
+                                Content="{Binding LastName}"
                                 FontSize="16"
-                                FontStyle="Italic"
-                                Text="{Binding LastName}" />
-                            <TextBlock
+                                FontStyle="Italic" />
+                            <Label
                                 Grid.Row="3"
                                 Grid.Column="1"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
-                                d:Text="srdjan@example.com"
+                                d:Content="srdjan@example.com"
+                                Content="{Binding Email}"
                                 FontSize="16"
-                                FontStyle="Italic"
-                                Text="{Binding Email}" />
-                            <TextBlock
+                                FontStyle="Italic" />
+                            <Label
                                 Grid.Row="4"
                                 Grid.Column="1"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
-                                d:Text="tourist"
+                                d:Content="tourist"
+                                Content="{Binding Username}"
                                 FontSize="16"
-                                FontStyle="Italic"
-                                Text="{Binding Username}" />
+                                FontStyle="Italic" />
                         </Grid>
                     </Grid>
                 </Border>
             </Grid>
-            <Grid Grid.Row="1" Margin="170,0,170,90">
+            <Grid Grid.Row="1" Margin="170,0,170,50">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition />
@@ -183,10 +182,10 @@
                     Height="Auto"
                     Margin="10,0"
                     Content="Exports"
-                    FontSize="14" />
+                    FontSize="15" />
                 <Border
                     Grid.Row="1"
-                    BorderBrush="#3F51B5"
+                    BorderBrush="{StaticResource MaterialDesignDivider}"
                     BorderThickness="2"
                     CornerRadius="5">
                     <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
