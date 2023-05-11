@@ -9,7 +9,6 @@ namespace TravelAgency.ViewModel.Tourist
         private readonly TouristViewModel _touristViewModel;
         private readonly CollectionViewSource _vouchersCollectionViewSource;
         private bool _isTooltipsSwitchToggled;
-
         public bool IsTooltipsSwitchToggled
         {
             get => _isTooltipsSwitchToggled;

@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows.Navigation;
 using TravelAgency.Command;
 using TravelAgency.DTO;
@@ -11,6 +12,7 @@ namespace TravelAgency.ViewModel.Tourist
 {
     internal class MyToursViewModel : BaseViewModel
     {
+        private readonly TouristViewModel _touristViewModel;
         private readonly NavigationService _navigationService;
         private MyTourDto? _selectedTour;
         private readonly MyTourDtoService _myTourDtoService;
@@ -19,6 +21,16 @@ namespace TravelAgency.ViewModel.Tourist
         public RelayCommand RateTourCommand { get; set; }
         public ObservableCollection<MyTourDto> MyTours { get; set; }
         private OkDialog? Dialog { get; set; }
+        private bool _isTooltipsSwitchToggled;
+        public bool IsTooltipsSwitchToggled
+        {
+            get => _isTooltipsSwitchToggled;
+            set
+            {
+                _isTooltipsSwitchToggled = value;
+                OnPropertyChanged();
+            }
+        }
 
         public MyTourDto? SelectedTour
         {
@@ -30,8 +42,11 @@ namespace TravelAgency.ViewModel.Tourist
             }
         }
 
-        public MyToursViewModel(NavigationService navigationService)
+        public MyToursViewModel(NavigationService navigationService, TouristViewModel touristViewModel)
         {
+            _touristViewModel = touristViewModel;
+            IsTooltipsSwitchToggled = _touristViewModel.IsTooltipsSwitchToggled;
+            _touristViewModel.PropertyChanged += TouristViewModel_PropertyChanged;
             _navigationService = navigationService;
             _myTourDtoService = new MyTourDtoService();
             CheckForInvitation();
@@ -40,7 +55,12 @@ namespace TravelAgency.ViewModel.Tourist
             RateTourCommand = new RelayCommand(Execute_RateTourCommand, CanExecute_RateTourCommand);
         }
 
-        // TODO Test this method
+        private void TouristViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName != nameof(TouristViewModel.IsTooltipsSwitchToggled)) return;
+            if (sender != null) IsTooltipsSwitchToggled = ((TouristViewModel)sender).IsTooltipsSwitchToggled;
+        }
+
         private void Execute_JoinTourCommand(object parameter)
         {
             _myTourDtoService.JoinTour(SelectedTour);
@@ -61,13 +81,13 @@ namespace TravelAgency.ViewModel.Tourist
 
         private void Execute_RateTourCommand(object parameter)
         {
-            _navigationService.Navigate(new RateTourView(_navigationService, SelectedTour!.Name));
+            _navigationService.Navigate(new RateTourView(_navigationService, _touristViewModel, SelectedTour!.Name));
         }
 
         private void Execute_NavigateToMyToursCommand(object parameter)
         {
             Dialog?.Close();
-            _navigationService.Navigate(new MyToursView(_navigationService));
+            _navigationService.Navigate(new MyToursView(_navigationService, _touristViewModel));
         }
 
         private bool CanExecute_JoinTourCommand(object parameter)

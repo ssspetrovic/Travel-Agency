@@ -42,7 +42,7 @@
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
                 Content="Use your vouchers upon tour reservation"
-                FontSize="13"
+                FontSize="14"
                 Foreground="#3F51B5"
                 Visibility="{Binding IsTooltipsSwitchToggled, Converter={StaticResource BooleanToVisibilityConverter}}" />
         </Grid>

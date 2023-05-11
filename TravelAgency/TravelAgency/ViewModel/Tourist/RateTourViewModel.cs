@@ -10,6 +10,7 @@ namespace TravelAgency.ViewModel.Tourist
 {
     internal class RateTourViewModel : BaseViewModel
     {
+        private readonly TouristViewModel _touristViewModel;
         private readonly NavigationService _navigationService;
         private int _guideKnowledgeGrade;
         private int _guideLanguageGrade;
@@ -85,8 +86,9 @@ namespace TravelAgency.ViewModel.Tourist
             }
         }
 
-        public RateTourViewModel(NavigationService navigationService, string tourName)
+        public RateTourViewModel(NavigationService navigationService, TouristViewModel touristViewModel, string tourName)
         {
+            _touristViewModel = touristViewModel;
             _navigationService = navigationService;
             TourName = tourName;
             TourNameHeader = $"'{tourName}'";
@@ -102,7 +104,6 @@ namespace TravelAgency.ViewModel.Tourist
             _navigationService.GoBack();
         }
 
-        // TODO Test this method
         private void Execute_SubmitRatingCommand(object parameter)
         {
             var touristService = new TouristService();
@@ -147,7 +148,7 @@ namespace TravelAgency.ViewModel.Tourist
 
         private void Execute_NavigateToMyToursCommand(object parameter)
         {
-            _navigationService.Navigate(new MyToursView(_navigationService));
+            _navigationService.Navigate(new MyToursView(_navigationService, _touristViewModel));
             Dialog?.Close();
         }
 

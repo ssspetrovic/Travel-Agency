@@ -14,7 +14,6 @@ namespace TravelAgency.ViewModel.Tourist
         public RelayCommand NavigateToHomePageCommand { get; set; }
         public RelayCommand NavigateToMyToursPageCommand { get; set; }
         public RelayCommand NavigateToMyTourVouchersPageCommand { get; set; }
-        public RelayCommand NavigateToRateTourPageCommand { get; set; }
         public RelayCommand NavigateToRequestTourPageCommand { get; set; }
         public RelayCommand NavigateToTourReservationPageCommand { get; set; }
         public RelayCommand NavigateToUserProfileCommand { get; set; }
@@ -40,7 +39,6 @@ namespace TravelAgency.ViewModel.Tourist
 
             NavigateToHomePageCommand = new RelayCommand(Execute_NavigateToHomePageCommand);
             NavigateToMyToursPageCommand = new RelayCommand(Execute_NavigateToMyToursPageCommand);
-            NavigateToRateTourPageCommand = new RelayCommand(Execute_NavigateToRateTourPageCommand);
             NavigateToMyTourVouchersPageCommand = new RelayCommand(Execute_NavigateToMyTourVouchersPageCommand);
             NavigateToRequestTourPageCommand = new RelayCommand(Execute_NavigateToRequestTourPageCommand);
             NavigateToTourReservationPageCommand = new RelayCommand(Execute_NavigateToTourReservationPageCommand);
@@ -59,12 +57,7 @@ namespace TravelAgency.ViewModel.Tourist
 
         private void Execute_NavigateToMyToursPageCommand(object parameter)
         {
-            _navigationService.Navigate(new MyToursView(_navigationService));
-        }
-
-        private void Execute_NavigateToRateTourPageCommand(object parameter)
-        {
-            _navigationService.Navigate(new RateTourView(_navigationService));
+            _navigationService.Navigate(new MyToursView(_navigationService, this));
         }
 
         private void Execute_NavigateToMyTourVouchersPageCommand(object parameter)
