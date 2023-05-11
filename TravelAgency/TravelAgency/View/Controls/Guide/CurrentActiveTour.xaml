@@ -25,17 +25,14 @@
     </UserControl.Resources>
 
     <b:Interaction.Triggers>
-        <b:KeyTrigger Key="E" ActiveOnFocus="True">
+        <b:KeyTrigger Key="E">
             <b:InvokeCommandAction Command="{Binding CurrentActiveTourCommands}" CommandParameter="FinishTour" />
         </b:KeyTrigger>
-        <b:KeyTrigger Key="C" ActiveOnFocus="True">
+        <b:KeyTrigger Key="C">
             <b:InvokeCommandAction Command="{Binding CurrentActiveTourCommands}" CommandParameter="CheckGuests" />
         </b:KeyTrigger>
         <b:KeyTrigger Key="Tab" ActiveOnFocus="True">
             <b:InvokeCommandAction Command="{Binding CurrentActiveTourCommands}" CommandParameter="TabLists" />
-        </b:KeyTrigger>
-        <b:KeyTrigger Key="LeftShift" ActiveOnFocus="True">
-            <b:InvokeCommandAction Command="{Binding CurrentActiveTourCommands}" CommandParameter="SwitchLists" />
         </b:KeyTrigger>
         <b:KeyTrigger Key="Enter" ActiveOnFocus="True">
             <b:InvokeCommandAction Command="{Binding CurrentActiveTourCommands}" CommandParameter="ChangeData" />

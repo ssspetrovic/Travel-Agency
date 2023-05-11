@@ -26,7 +26,6 @@ namespace TravelAgency.ViewModel
             GetPictures = new MyICommand(Picture);
             _selectedTour = null;
             TabPressedCommand = new MyICommand(TabPressed);
-            SelectedTour = Tours[0];
         }
 
         public DataRowView? SelectedTour
