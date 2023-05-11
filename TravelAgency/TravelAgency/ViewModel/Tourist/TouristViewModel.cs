@@ -21,6 +21,36 @@ namespace TravelAgency.ViewModel.Tourist
         public RelayCommand CloseWindowCommand { get; set; }
         public RelayCommand SignOutCommand { get; set; }
         public string? Username { get; set; }
+        private bool _isToolTipSwitchToggled;
+
+        public bool IsToolTipSwitchToggled
+        {
+            get => _isToolTipSwitchToggled;
+            set
+            {
+                _isToolTipSwitchToggled = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public TouristViewModel(NavigationService navigationService)
+        {
+            _windowManager = new WindowManager();
+            _navigationService = navigationService;
+
+            NavigateToHomePageCommand = new RelayCommand(Execute_NavigateToHomePageCommand);
+            NavigateToMyToursPageCommand = new RelayCommand(Execute_NavigateToMyToursPageCommand);
+            NavigateToRateTourPageCommand = new RelayCommand(Execute_NavigateToRateTourPageCommand);
+            NavigateToMyTourVouchersPageCommand = new RelayCommand(Execute_NavigateToMyTourVouchersPageCommand);
+            NavigateToRequestTourPageCommand = new RelayCommand(Execute_NavigateToRequestTourPageCommand);
+            NavigateToTourReservationPageCommand = new RelayCommand(Execute_NavigateToTourReservationPageCommand);
+            NavigateToUserProfileCommand = new RelayCommand(Execute_NavigateToUserProfileCommand);
+            CloseWindowCommand = new RelayCommand(Execute_CloseWindowCommand);
+            SignOutCommand = new RelayCommand(Execute_SignOutCommand);
+
+            Username = CurrentUser.DisplayName;
+            _navigationService.Navigate(new HomeView(_navigationService));
+        }
 
         private void Execute_NavigateToHomePageCommand(object parameter)
         {
@@ -66,24 +96,6 @@ namespace TravelAgency.ViewModel.Tourist
         {
             _windowManager.ShowWindow<SignInView>();
             _windowManager.CloseWindow<TouristView>();
-        }
-
-        public TouristViewModel(NavigationService navigationService)
-        {
-            _windowManager = new WindowManager();
-            _navigationService = navigationService;
-
-            NavigateToHomePageCommand = new RelayCommand(Execute_NavigateToHomePageCommand);
-            NavigateToMyToursPageCommand = new RelayCommand(Execute_NavigateToMyToursPageCommand);
-            NavigateToRateTourPageCommand = new RelayCommand(Execute_NavigateToRateTourPageCommand);
-            NavigateToMyTourVouchersPageCommand = new RelayCommand(Execute_NavigateToMyTourVouchersPageCommand);
-            NavigateToRequestTourPageCommand = new RelayCommand(Execute_NavigateToRequestTourPageCommand);
-            NavigateToTourReservationPageCommand = new RelayCommand(Execute_NavigateToTourReservationPageCommand);
-            NavigateToUserProfileCommand = new RelayCommand(Execute_NavigateToUserProfileCommand);
-            CloseWindowCommand = new RelayCommand(Execute_CloseWindowCommand);
-            SignOutCommand = new RelayCommand(Execute_SignOutCommand);
-
-            Username = CurrentUser.DisplayName;
         }
     }
 }

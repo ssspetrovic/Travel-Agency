@@ -89,6 +89,12 @@
                                 FontSize="19"
                                 Foreground="White"
                                 Style="{StaticResource MenuButtonStyle}" />
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="40"
+                                Text="On"
+                                Visibility="{Binding IsToolTipSwitchToggled, Converter={StaticResource BooleanToVisibilityConverter}}" />
                         </StackPanel>
                         <RadioButton
                             x:Name="SignOutButton"
@@ -132,7 +138,11 @@
                                 FontSize="19"
                                 Foreground="White"
                                 Text="Tooltips" />
-                            <controls:ToggleSwitch Margin="10,0,0,0" Style="{StaticResource ToggleSwitchBasicStyle}" />
+                            <controls:ToggleSwitch
+                                x:Name="ToolTipToggleSwitch"
+                                Margin="10,0,0,0"
+                                IsChecked="{Binding IsToolTipSwitchToggled, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                Style="{StaticResource ToggleSwitchBasicStyle}" />
                         </WrapPanel>
                     </Grid>
                 </Grid>

@@ -69,6 +69,20 @@
                 </b:Interaction.Triggers>
             </TextBlock>
             <TextBlock
+                x:Name="RequestStatisticsLink"
+                Margin="0,8"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="18"
+                Text="Tour request statistics"
+                TextDecorations="Underline">
+                <b:Interaction.Triggers>
+                    <b:EventTrigger EventName="MouseDown">
+                        <b:InvokeCommandAction Command="{Binding NavigateToHelpWizard}" />
+                    </b:EventTrigger>
+                </b:Interaction.Triggers>
+            </TextBlock>
+            <TextBlock
                 x:Name="OpenWizardLink"
                 Margin="0,8"
                 HorizontalAlignment="Center"
