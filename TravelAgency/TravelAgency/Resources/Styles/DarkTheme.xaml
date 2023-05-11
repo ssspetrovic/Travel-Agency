@@ -29,4 +29,12 @@
         <Setter Property="BorderBrush" Value="Black"/>
         <Setter Property="Foreground" Value="White"/>
     </Style>
+    <Style x:Key="ListView" TargetType="ListView">
+        <Setter Property="Background" Value="Black"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+    <Style x:Key="myHeaderStyle" TargetType="{x:Type GridViewColumnHeader}">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Background" Value="Black"/>
+    </Style>
 </ResourceDictionary>

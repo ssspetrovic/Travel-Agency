@@ -80,8 +80,21 @@ namespace TravelAgency.View.Controls.Owner
 
             Accommodation accommodation = new Accommodation(name, currentLocation!.Id, type, minDaysReservation, maxDaysReservation, address, reservableDays,
                 ImagesList.Text, description, ownerId);
-            accommodationRepository.Add(accommodation);
-            MessageBox.Show("Added Accommodation!");
+            try
+            {
+                accommodationRepository.Add(accommodation);
+                if (CurrentLanguageAndTheme.languageId == 0)
+                    MessageBox.Show("Accommodation registered successfuly!", "Message");
+                else
+                    MessageBox.Show("Smeštaj uspeštno registrovan!", "Poruka");
+            }
+            catch
+            {
+                if (CurrentLanguageAndTheme.languageId == 0)
+                    MessageBox.Show("Error while registering!", "Message");
+                else
+                    MessageBox.Show("Greška prilikom registracije!", "Poruka");
+            }
         }
 
         private void txtAddUrl_Click(object sender, RoutedEventArgs e)
