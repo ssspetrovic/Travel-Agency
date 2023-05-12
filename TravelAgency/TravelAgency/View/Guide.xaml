@@ -13,10 +13,11 @@
     Title="Home Page"
     Width="1280"
     Height="720"
-    PreviewKeyDown="Guide_OnPreviewKeyDown"
     vml:GuideViewModelLocator.AutoHookedUpViewModel="True"
     AllowsTransparency="True"
     Background="Transparent"
+    Loaded="Guide_OnLoaded"
+    PreviewKeyDown="Guide_OnPreviewKeyDown"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
@@ -75,6 +76,14 @@
                 <ResourceDictionary Source="/Resources/Styles/Buttons.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
+
+        <Storyboard x:Key="FadeAnimation">
+            <DoubleAnimation
+                Storyboard.TargetProperty="Opacity"
+                From="0"
+                To="1"
+                Duration="0:0:0.5" />
+        </Storyboard>
     </Window.Resources>
 
     <materialDesign:Card

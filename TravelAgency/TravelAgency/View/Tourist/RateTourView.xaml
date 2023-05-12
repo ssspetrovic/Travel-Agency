@@ -10,7 +10,31 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
     <Page.Resources>
-        <ResourceDictionary Source="/Resources/Styles/TouristDictionary.xaml" />
+        <ResourceDictionary x:Name="Dictionary">
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Styles/TouristDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style
+                x:Key="AnimatedLabelStyle"
+                BasedOn="{StaticResource MaterialDesignLabel}"
+                TargetType="Label">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Visibility, RelativeSource={RelativeSource Self}}" Value="Visible">
+                        <DataTrigger.EnterActions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation
+                                        Storyboard.TargetProperty="Opacity"
+                                        From="0"
+                                        To="1"
+                                        Duration="0:0:0.2" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </DataTrigger.EnterActions>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
     </Page.Resources>
     <d:Page.Background>
         <SolidColorBrush Color="White" />
@@ -18,6 +42,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="116" />
+            <RowDefinition Height="30" />
             <RowDefinition Height="Auto" />
             <RowDefinition />
             <RowDefinition Height="120" />
@@ -27,41 +52,71 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center">
             <TextBlock
+                HorizontalAlignment="Center"
                 FontSize="25"
                 FontWeight="Medium"
                 Style="{StaticResource MaterialDesignHeadline1TextBlock}"
                 Text="Rate a tour" />
             <TextBlock
+                HorizontalAlignment="Center"
                 d:Text="- Tour name -"
                 FontSize="20"
                 Text="{Binding TourNameHeader}" />
         </StackPanel>
-        <Grid Grid.Row="1" Margin="150,0">
+        <Label
+            Grid.Row="1"
+            Margin="0,0"
+            HorizontalAlignment="Center"
+            Content="All grades are required"
+            FontSize="14"
+            Foreground="#3F51B5"
+            Style="{StaticResource AnimatedLabelStyle}"
+            Visibility="{Binding IsTooltipsSwitchToggled, Converter={StaticResource BooleanToVisibilityConverter}}" />
+        <Grid Grid.Row="2" Width="480">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0">
-                <TextBlock
-                    Margin="0,2,0,0"
-                    FontSize="14"
-                    Text="How would you rate guide's knowledge?" />
-                <TextBlock
-                    Margin="0,19,0,0"
-                    FontSize="14"
-                    Text="How would you rate guide's fluency?" />
-                <TextBlock
-                    Margin="0,15,0,0"
-                    FontSize="14"
-                    Text="How interesting did you find the tour?" />
-            </StackPanel>
-            <StackPanel Grid.Column="1">
-                <materialDesign:RatingBar Value="{Binding GuideKnowledgeGrade, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                <materialDesign:RatingBar Margin="0,13,0,0" Value="{Binding GuideLanguageGrade, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                <materialDesign:RatingBar Margin="0,13,0,0" Value="{Binding TourInterestingnessGrade, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            </StackPanel>
+            <Label
+                Grid.Row="0"
+                Grid.Column="0"
+                VerticalAlignment="Center"
+                Content="How would you rate guide's knowledge?"
+                FontSize="14" />
+            <Label
+                Grid.Row="1"
+                Grid.Column="0"
+                VerticalAlignment="Center"
+                Content="How would you rate guide's fluency?"
+                FontSize="14" />
+            <Label
+                Grid.Row="2"
+                Grid.Column="0"
+                VerticalAlignment="Center"
+                Content="How interesting did you find the tour?"
+                FontSize="14" />
+            <materialDesign:RatingBar
+                Grid.Row="0"
+                Grid.Column="1"
+                VerticalAlignment="Center"
+                Value="{Binding GuideKnowledgeGrade, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <materialDesign:RatingBar
+                Grid.Row="1"
+                Grid.Column="1"
+                VerticalAlignment="Center"
+                Value="{Binding GuideLanguageGrade, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <materialDesign:RatingBar
+                Grid.Row="2"
+                Grid.Column="1"
+                VerticalAlignment="Center"
+                Value="{Binding TourInterestingnessGrade, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </Grid>
-        <Grid Grid.Row="2" Margin="50,30,50,0">
+        <Grid Grid.Row="3" Margin="50,30,50,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
@@ -74,8 +129,7 @@
                 <Label
                     Grid.Row="0"
                     Content="Additional comment (optional):"
-                    FontSize="14"
-                    FontWeight="DemiBold" />
+                    FontSize="14" />
                 <Border
                     Grid.Row="1"
                     BorderBrush="{StaticResource MaterialDesignDivider}"
@@ -86,6 +140,7 @@
                         HorizontalContentAlignment="Left"
                         VerticalContentAlignment="Top"
                         FontSize="14"
+                        Text="{Binding Comment}"
                         TextWrapping="Wrap" />
                 </Border>
             </Grid>
@@ -98,8 +153,7 @@
                 <Label
                     Grid.Row="0"
                     Content="Photos from the tour (optional):"
-                    FontSize="14"
-                    FontWeight="DemiBold" />
+                    FontSize="14" />
                 <Border
                     Grid.Row="1"
                     BorderBrush="{StaticResource MaterialDesignDivider}"
@@ -121,7 +175,7 @@
                         Margin="0,0,10,0"
                         Padding="5"
                         HorizontalAlignment="Left"
-                        FontSize="13"
+                        FontSize="14"
                         Text="{Binding Url, UpdateSourceTrigger=PropertyChanged}" />
                     <Button
                         x:Name="AddUrlButton"
@@ -133,27 +187,27 @@
             </Grid>
         </Grid>
         <WrapPanel
-            Grid.Row="3"
+            Grid.Row="4"
             Width="Auto"
             HorizontalAlignment="Center"
             VerticalAlignment="Center">
             <Button
                 x:Name="CancelButton"
-                Width="120"
+                Width="110"
                 Height="40"
                 Margin="0,0,20,0"
                 Command="{Binding CancelRatingCommand}"
                 Content="Cancel"
-                FontSize="15"
+                FontSize="14"
                 Style="{StaticResource MaterialDesignFlatButton}" />
             <Button
                 x:Name="SubmitButton"
-                Width="120"
+                Width="110"
                 Height="40"
                 Margin="20,0,0,0"
                 Command="{Binding SubmitRatingCommand}"
                 Content="Submit"
-                FontSize="15" />
+                FontSize="14" />
         </WrapPanel>
     </Grid>
 </Page>

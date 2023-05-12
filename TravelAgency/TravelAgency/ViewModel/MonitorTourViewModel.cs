@@ -25,7 +25,6 @@ namespace TravelAgency.ViewModel
             _activeTourService = new ActiveTourService();
             _touristService = new TouristService();
             ActiveTourCommands = new MyICommand<string>(OnActive);
-            SelectedTour = ToursToday.Count > 0 ? ToursToday[0] : null;
         }
 
         public MyICommand<string> ActiveTourCommands { get; private set; }

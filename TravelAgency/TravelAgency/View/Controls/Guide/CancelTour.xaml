@@ -23,7 +23,7 @@
         SelectedIndex="{Binding SelectedTourIndex}"
         SelectedItem="{Binding SelectedTour}">
         <b:Interaction.Triggers>
-            <b:KeyTrigger Key="Tab" ActiveOnFocus="True">
+            <b:KeyTrigger Key="Tab">
                 <b:InvokeCommandAction Command="{Binding TabPressedCommand}" />
             </b:KeyTrigger>
             <b:KeyTrigger Key="P" ActiveOnFocus="True">

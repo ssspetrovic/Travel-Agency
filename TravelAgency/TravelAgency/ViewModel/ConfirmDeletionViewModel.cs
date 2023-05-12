@@ -114,10 +114,10 @@ namespace TravelAgency.ViewModel
                     .GetByName(CancelledTour.Name)
                     .Date
                     .Split(", ")
-                    .Select(DateTime.Parse);
+                    .Select(dateString => DateTime.ParseExact(dateString, "MM/dd/yyyy", new CultureInfo("en-US")));
 
                 var filteredDates = tourDates.Where(date => date >= DateTime.Today.AddHours(48).Date);
-                return new ObservableCollection<string>(filteredDates.Select(date => date.ToString("MM/dd/yyyy",new CultureInfo("en-US"))));
+                return new ObservableCollection<string>(filteredDates.Select(date => date.ToString("MM/dd/yyyy", new CultureInfo("en-US"))));
             }
         }
     }

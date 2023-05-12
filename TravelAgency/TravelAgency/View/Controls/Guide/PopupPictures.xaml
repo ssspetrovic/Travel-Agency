@@ -6,10 +6,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="PopupWindow"
-    Width="800"
-    Height="500"
+    Width="933"
+    Height="525"
     Background="Transparent"
-    WindowStartupLocation="CenterScreen"
+    Left="620"
+    Top="300"
+    WindowStartupLocation="Manual"
     WindowStyle="None"
     mc:Ignorable="d">
 

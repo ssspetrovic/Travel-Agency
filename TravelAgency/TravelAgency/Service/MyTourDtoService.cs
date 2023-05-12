@@ -12,19 +12,11 @@ namespace TravelAgency.Service
     internal class MyTourDtoService
     {
         private readonly ActiveTourService _activeTourService;
-        private readonly MyToursViewModel? _myToursViewModel; // For accessing view model properties
         private readonly MyTourDtoRepository _myTourDtoRepository;
 
         public MyTourDtoService()
         {
             _activeTourService = new ActiveTourService();
-            _myTourDtoRepository = new MyTourDtoRepository();
-        }
-
-        public MyTourDtoService(MyToursViewModel? myToursViewModel)
-        {
-            _activeTourService = new ActiveTourService();
-            _myToursViewModel = myToursViewModel;
             _myTourDtoRepository = new MyTourDtoRepository();
         }
 
@@ -56,13 +48,24 @@ namespace TravelAgency.Service
             return _activeTourService.ExistsByName(tour.Name) ? MyTourDto.TourStatus.Active : MyTourDto.TourStatus.Inactive;
         }
 
-        public bool IsTourValid()
+        public bool CanRateTour(MyTourDto? selectedTour)
         {
-            if (_myToursViewModel?.SelectedTour!.Status != MyTourDto.TourStatus.Finished)
+            if (selectedTour == null)
+                return false;
+
+            if (selectedTour.Status != MyTourDto.TourStatus.Finished)
                 return false;
 
             var tourRatingService = new TourRatingService();
-            return tourRatingService.IsTourRateable(CurrentUser.Username, _myToursViewModel?.SelectedTour!.Name);
+            return tourRatingService.IsTourRateable(CurrentUser.Username, selectedTour!.Name);
+        }
+
+        public bool CanJoinTour(MyTourDto? selectedTour)
+        {
+            if (selectedTour == null)
+                return false;
+
+            return selectedTour.Status == MyTourDto.TourStatus.Active;
         }
 
         public void JoinTour(MyTourDto? selectedTour)
@@ -83,7 +86,6 @@ namespace TravelAgency.Service
 
             var touristService = new TouristService();
             touristService.JoinTour(CurrentUser.Username, selectedTour.TourId, selectedTour.Location.City);
-            //MyToursViewModel.ReloadWindow();
         }
     }
 }

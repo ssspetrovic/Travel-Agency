@@ -9,9 +9,11 @@
     Height="250"
     AllowsTransparency="True"
     Background="Transparent"
+    Left="630"
     ResizeMode="NoResize"
     ShowInTaskbar="False"
-    WindowStartupLocation="CenterOwner"
+    Top="298"
+    WindowStartupLocation="Manual"
     WindowStyle="None"
     mc:Ignorable="d">
     <Border
@@ -21,26 +23,27 @@
         CornerRadius="15">
         <StackPanel Margin="0,30,0,30">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock
+                <Label
                     HorizontalAlignment="Center"
-                    FontSize="16"
-                    Text="{Binding GuestNumberText}" />
-                <TextBlock
+                    d:Content="There are more spaces available in the tour (x)."
+                    Content="{Binding GuestNumberText}"
+                    FontSize="15" />
+                <Label
                     HorizontalAlignment="Center"
-                    FontSize="16"
-                    Text="Do you want to change the number of guests?" />
+                    Content="Do you want to change the number of guests?"
+                    FontSize="15" />
             </StackPanel>
             <StackPanel>
                 <WrapPanel
                     Height="Auto"
                     Margin="0,20,0,20"
                     HorizontalAlignment="Center">
-                    <Label Content="New guest number:" FontSize="15" />
+                    <Label Content="New guest number:" FontSize="14" />
                     <TextBox
                         Width="80"
                         Margin="7,0"
                         Padding="3,0,0,0"
-                        FontSize="15"
+                        FontSize="14"
                         Style="{StaticResource MaterialDesignTextBoxBase}"
                         Text="{Binding NewGuestNumber}" />
                 </WrapPanel>
@@ -54,7 +57,7 @@
                         Margin="0,0,10,0"
                         Click="NoThanksButton_OnClick"
                         Content="No thanks"
-                        FontSize="15"
+                        FontSize="14"
                         Style="{StaticResource MaterialDesignFlatDarkButton}" />
                     <Button
                         x:Name="UpdateButton"
@@ -62,7 +65,7 @@
                         Margin="10,0,0,0"
                         Click="UpdateButton_OnClick"
                         Content="Update"
-                        FontSize="15" />
+                        FontSize="14" />
                 </WrapPanel>
             </StackPanel>
         </StackPanel>

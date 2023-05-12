@@ -16,7 +16,11 @@
     WindowStyle="None"
     mc:Ignorable="d">
     <Window.Resources>
-        <ResourceDictionary Source="/Resources/Styles/TouristDictionary.xaml" />
+        <ResourceDictionary x:Name="Dictionary">
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Styles/TouristDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Window.Resources>
     <Grid Background="{StaticResource MaterialDesignBackground}">
         <Grid>
@@ -40,16 +44,15 @@
                                 Margin="0,15,0,0"
                                 Command="{Binding NavigateToUserProfileCommand}"
                                 Style="{StaticResource UserProfileButtonStyle}" />
-                            <TextBlock
+                            <Label
                                 x:Name="UserTextBlock"
-                                Margin="0,3,0,12"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
-                                d:Text="Tourist"
+                                d:Content="Tourist"
+                                Content="{Binding Username}"
                                 FontSize="14"
-                                Foreground="White"
-                                Text="{Binding Username}" />
-                            <Separator Background="White">
+                                Foreground="White" />
+                            <Separator Margin="0,12,0,0" Background="White">
                                 <Separator.RenderTransform>
                                     <ScaleTransform ScaleY="2" />
                                 </Separator.RenderTransform>
@@ -58,6 +61,13 @@
                                 x:Name="HomeButton"
                                 Command="{Binding NavigateToHomePageCommand}"
                                 Content="Home"
+                                FontSize="19"
+                                Foreground="White"
+                                Style="{StaticResource MenuButtonStyle}" />
+                            <RadioButton
+                                x:Name="NotificationsButton"
+                                Command="{Binding NavigateToUserProfileCommand}"
+                                Content="Notifications"
                                 FontSize="19"
                                 Foreground="White"
                                 Style="{StaticResource MenuButtonStyle}" />
@@ -72,6 +82,13 @@
                                 x:Name="MyVouchersButton"
                                 Command="{Binding NavigateToMyTourVouchersPageCommand}"
                                 Content="My vouchers"
+                                FontSize="19"
+                                Foreground="White"
+                                Style="{StaticResource MenuButtonStyle}" />
+                            <RadioButton
+                                x:Name="MyRequestsButton"
+                                Command="{Binding NavigateToUserProfileCommand}"
+                                Content="My requests"
                                 FontSize="19"
                                 Foreground="White"
                                 Style="{StaticResource MenuButtonStyle}" />
@@ -102,7 +119,7 @@
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center">
                                 <fa:IconImage
-                                    Margin="25,10,10,0"
+                                    Margin="25,11,10,0"
                                     Icon="RightFromBracket"
                                     Style="{StaticResource LogOutIconStyle}" />
                                 <TextBlock
@@ -132,7 +149,11 @@
                                 FontSize="19"
                                 Foreground="White"
                                 Text="Tooltips" />
-                            <controls:ToggleSwitch Margin="10,0,0,0" Style="{StaticResource ToggleSwitchBasicStyle}" />
+                            <controls:ToggleSwitch
+                                x:Name="TooltipsToggleSwitch"
+                                Margin="10,0,0,0"
+                                IsChecked="{Binding IsTooltipsSwitchToggled, UpdateSourceTrigger=PropertyChanged}"
+                                Style="{StaticResource ToggleSwitchBasicStyle}" />
                         </WrapPanel>
                     </Grid>
                 </Grid>

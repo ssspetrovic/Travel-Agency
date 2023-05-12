@@ -11,7 +11,31 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
     <Page.Resources>
-        <ResourceDictionary Source="/Resources/Styles/TouristDictionary.xaml" />
+        <ResourceDictionary x:Name="Dictionary">
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Styles/TouristDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style
+                x:Key="AnimatedLabelStyle"
+                BasedOn="{StaticResource MaterialDesignLabel}"
+                TargetType="Label">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Visibility, RelativeSource={RelativeSource Self}}" Value="Visible">
+                        <DataTrigger.EnterActions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation
+                                        Storyboard.TargetProperty="Opacity"
+                                        From="0"
+                                        To="1"
+                                        Duration="0:0:0.2" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </DataTrigger.EnterActions>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
     </Page.Resources>
     <d:Page.Background>
         <SolidColorBrush Color="White" />
@@ -20,6 +44,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="90" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="30" />
             <RowDefinition />
         </Grid.RowDefinitions>
         <TextBlock
@@ -35,7 +60,6 @@
                 x:Name="SearchTextBox"
                 Width="400"
                 Height="40"
-                Margin="0,0,0,10"
                 Padding="15,0"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
@@ -50,45 +74,63 @@
                 FontSize="15"
                 Style="{StaticResource MaterialDesignTextBoxBase}"
                 Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}" />
-            <TextBlock
-                Margin="0,5"
-                FontSize="14"
-                Style="{StaticResource MaterialDesignBody2TextBlock}"
-                Text="Select a tour to make a reservation"
-                TextAlignment="Center" />
         </StackPanel>
-        <Grid Row="2">
+        <Label
+            Grid.Row="2"
+            Margin="0,0"
+            HorizontalAlignment="Center"
+            Content="Start typing to filter the results"
+            FontSize="14"
+            Foreground="#3F51B5"
+            Style="{StaticResource AnimatedLabelStyle}"
+            Visibility="{Binding IsTooltipsSwitchToggled, Converter={StaticResource BooleanToVisibilityConverter}}" />
+        <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="225" />
                 <ColumnDefinition />
-                <ColumnDefinition Width="600" />
             </Grid.ColumnDefinitions>
             <Border
                 Grid.Column="0"
                 BorderBrush="{StaticResource MaterialDesignDivider}"
                 BorderThickness="0,2,2,2">
                 <StackPanel Margin="30,0">
-                    <Label
-                        Margin="0,10,0,0"
-                        Content="City"
-                        FontSize="14" />
+                    <WrapPanel Margin="0,10,0,0">
+                        <Label Content="City:" FontSize="14" />
+                        <Label
+                            Content="(text)"
+                            FontSize="14"
+                            Foreground="#3F51B5"
+                            Style="{StaticResource AnimatedLabelStyle}"
+                            Visibility="{Binding IsTooltipsSwitchToggled, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    </WrapPanel>
                     <TextBox
                         x:Name="FilterCityTextBox"
                         FontSize="14"
                         Style="{StaticResource FilterTextBoxStyle}"
                         Text="{Binding EnteredFilterCity}" />
-                    <Label
-                        Margin="0,10,0,0"
-                        Content="Country"
-                        FontSize="14" />
+                    <WrapPanel Margin="0,10,0,0">
+                        <Label Content="Country:" FontSize="14" />
+                        <Label
+                            Content="(text)"
+                            FontSize="14"
+                            Foreground="#3F51B5"
+                            Style="{StaticResource AnimatedLabelStyle}"
+                            Visibility="{Binding IsTooltipsSwitchToggled, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    </WrapPanel>
                     <TextBox
                         x:Name="FilterCountryTextBox"
                         FontSize="14"
                         Style="{StaticResource FilterTextBoxStyle}"
                         Text="{Binding EnteredFilterCountry}" />
-                    <Label
-                        Margin="0,10,0,0"
-                        Content="Language"
-                        FontSize="14" />
+                    <WrapPanel Margin="0,10,0,0">
+                        <Label Content="Language:" FontSize="14" />
+                        <Label
+                            Content="(selection)"
+                            FontSize="14"
+                            Foreground="#3F51B5"
+                            Style="{StaticResource AnimatedLabelStyle}"
+                            Visibility="{Binding IsTooltipsSwitchToggled, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    </WrapPanel>
                     <ComboBox
                         x:Name="FilterLanguageComboBox"
                         Height="30"
@@ -103,19 +145,29 @@
                         MaxDropDownHeight="190"
                         SelectedItem="{Binding SelectedFilterLanguage}"
                         Style="{StaticResource MaterialDesignComboBox}" />
-                    <Label
-                        Margin="0,10,0,0"
-                        Content="Duration"
-                        FontSize="14" />
+                    <WrapPanel Margin="0,10,0,0">
+                        <Label Content="Duration:" FontSize="14" />
+                        <Label
+                            Content="(decimal)"
+                            FontSize="14"
+                            Foreground="#3F51B5"
+                            Style="{StaticResource AnimatedLabelStyle}"
+                            Visibility="{Binding IsTooltipsSwitchToggled, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    </WrapPanel>
                     <TextBox
                         x:Name="FilterDurationTextBox"
                         FontSize="14"
                         Style="{StaticResource FilterTextBoxStyle}"
                         Text="{Binding EnteredFilterDuration}" />
-                    <Label
-                        Margin="0,10,0,0"
-                        Content="Number of guests"
-                        FontSize="14" />
+                    <WrapPanel Margin="0,10,0,0">
+                        <Label Content="Guest number:" FontSize="14" />
+                        <Label
+                            Content="(integer)"
+                            FontSize="14"
+                            Foreground="#3F51B5"
+                            Style="{StaticResource AnimatedLabelStyle}"
+                            Visibility="{Binding IsTooltipsSwitchToggled, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    </WrapPanel>
                     <TextBox
                         x:Name="FilterGuestNumberTextBox"
                         FontSize="14"
@@ -126,7 +178,6 @@
                         Margin="0,20,0,10"
                         Command="{Binding ApplyFilterCommand}"
                         Content="Apply filter"
-                        FontFamily="{StaticResource MaterialDesignFont}"
                         FontSize="14" />
                     <Button
                         x:Name="ResetFilterButton"
@@ -139,7 +190,8 @@
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition />
-                    <RowDefinition Height="150" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="130" />
                 </Grid.RowDefinitions>
                 <Border
                     Grid.Row="0"
@@ -148,7 +200,6 @@
                     <ListView
                         x:Name="ToursListView"
                         Height="Auto"
-                        Margin="0,0,20,0"
                         HorizontalAlignment="Center"
                         d:ItemsSource="{d:SampleData ItemCount=3}"
                         ItemsSource="{Binding ToursSourceCollection}"
@@ -180,12 +231,12 @@
                                     Header="Duration" />
                                 <GridViewColumn
                                     Width="Auto"
-                                    DisplayMemberBinding="{Binding Path=Language}"
-                                    Header="Language" />
+                                    DisplayMemberBinding="{Binding Path=MaxGuests}"
+                                    Header="Available" />
                                 <GridViewColumn
                                     Width="Auto"
-                                    DisplayMemberBinding="{Binding Path=MaxGuests}"
-                                    Header="Max Guests" />
+                                    DisplayMemberBinding="{Binding Path=Language}"
+                                    Header="Language" />
                                 <GridViewColumn
                                     Width="Auto"
                                     DisplayMemberBinding="{Binding Path=Date}"
@@ -204,26 +255,42 @@
                     Style="{StaticResource MaterialDesignBody2TextBlock}"
                     Text="No tours match the search criteria"
                     Visibility="{Binding IsFilteredCollectionEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                <Label
+                    Grid.Row="1"
+                    HorizontalAlignment="Center"
+                    Content="Select a tour and enter the number of guests to make a reservation"
+                    FontSize="14"
+                    Foreground="#3F51B5"
+                    Style="{StaticResource AnimatedLabelStyle}"
+                    Visibility="{Binding IsTooltipsSwitchToggled, Converter={StaticResource BooleanToVisibilityConverter}}" />
                 <StackPanel
                     x:Name="ReserveStackPanel"
-                    Grid.Row="1"
-                    Margin="0,10">
-                    <WrapPanel Height="40" HorizontalAlignment="Center">
+                    Grid.Row="2"
+                    Margin="0,10,0,0">
+                    <WrapPanel Height="Auto" Margin="215,0,0,0">
                         <Label
                             VerticalAlignment="Center"
-                            Content="Number of guests:"
+                            Content="Guest number:"
                             FontSize="14" />
                         <TextBox
                             x:Name="GuestNumberTextBox"
-                            Width="80"
-                            Height="40"
+                            Width="40"
+                            Height="30"
                             Margin="10,0"
+                            HorizontalContentAlignment="Center"
                             VerticalContentAlignment="Center"
                             BorderBrush="{DynamicResource MaterialDesignDivider}"
                             BorderThickness="0,0,0,2"
                             FontSize="14"
                             Style="{StaticResource MaterialDesignTextBoxBase}"
                             Text="{Binding GuestNumber, UpdateSourceTrigger=PropertyChanged}" />
+                        <Label
+                            VerticalAlignment="Center"
+                            Content="(integer)"
+                            FontSize="14"
+                            Foreground="#3F51B5"
+                            Style="{StaticResource AnimatedLabelStyle}"
+                            Visibility="{Binding IsTooltipsSwitchToggled, Converter={StaticResource BooleanToVisibilityConverter}}" />
                     </WrapPanel>
                     <WrapPanel
                         Width="Auto"

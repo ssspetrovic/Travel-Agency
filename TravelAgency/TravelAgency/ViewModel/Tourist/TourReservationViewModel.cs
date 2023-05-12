@@ -13,6 +13,7 @@ namespace TravelAgency.ViewModel.Tourist
 {
     public class TourReservationViewModel : BaseViewModel
     {
+        private readonly TouristViewModel _touristViewModel;
         private readonly NavigationService _navigationService;
 
         public new event PropertyChangedEventHandler? PropertyChanged;
@@ -39,7 +40,17 @@ namespace TravelAgency.ViewModel.Tourist
         private TourVoucher? _selectedTourVoucher;
         public TourReservationService TourReservationService { get; set; }
         public bool IsGuestNumberEntered { get; set; }
+        private bool _isTooltipsSwitchToggled;
 
+        public bool IsTooltipsSwitchToggled
+        {
+            get => _isTooltipsSwitchToggled;
+            set
+            {
+                _isTooltipsSwitchToggled = value;
+                OnPropertyChanged();
+            }
+        }
         public ObservableCollection<TourVoucher> TourVouchers
         {
             get => _tourVouchers;
@@ -207,17 +218,42 @@ namespace TravelAgency.ViewModel.Tourist
                 RaisePropertyChanged(nameof(FilterText));
             }
         }
-        public ICollectionView ToursSourceCollection => _toursCollection.View;
 
+        public ICollectionView ToursSourceCollection => _toursCollection.View;
         public RelayCommand MakeReservationCommand { get; set; }
         public RelayCommand ApplyFilterCommand { get; set; }
         public RelayCommand ResetFilterCommand { get; set; }
         public RelayCommand SelectionChangedCommand { get; set; }
 
+        public TourReservationViewModel(NavigationService navigationService, TouristViewModel touristViewModel)
+        {
+            _touristViewModel = touristViewModel;
+            IsTooltipsSwitchToggled = _touristViewModel.IsTooltipsSwitchToggled;
+            _touristViewModel.PropertyChanged += TouristViewModel_PropertyChanged;
+            _navigationService = navigationService;
+            MakeReservationCommand = new RelayCommand(Execute_MakeReservationCommand, CanExecute_MakeReservationCommand);
+            ApplyFilterCommand = new RelayCommand(Execute_ApplyFilterCommand);
+            ResetFilterCommand = new RelayCommand(Execute_ResetFilterCommand);
+            SelectionChangedCommand = new RelayCommand(Execute_SelectionChangedCommand);
+
+            TourReservationService = new TourReservationService(this);
+            _toursCollection = new CollectionViewSource { Source = TourReservationService.TourService.GetAllAsCollection() };
+            _toursCollection.Filter += ToursCollection_Filter;
+            _filterLanguages = Enum.GetValues(typeof(Language));
+            _tourVouchers = TourReservationService.TourVoucherService.GetAllValidAsCollection();
+
+            if (!ToursSourceCollection.IsEmpty)
+                IsListViewShown = true;
+
+            IsTourSelected = false;
+            IsGuestNumberEntered = false;
+            ResetFilter();
+        }
+
         private void Execute_MakeReservationCommand(object parameter)
         {
             TourReservationService.MakeReservation();
-            _navigationService.Navigate(new TourReservationView(_navigationService));
+            _navigationService.Navigate(new TourReservationView(_navigationService, _touristViewModel));
         }
 
         private void Execute_ApplyFilterCommand(object parameter)
@@ -240,32 +276,16 @@ namespace TravelAgency.ViewModel.Tourist
             return SelectedTour != null && int.TryParse(GuestNumber, out var guests) && guests > 0;
         }
 
-        public TourReservationViewModel(NavigationService navigationService)
-        {
-            _navigationService = navigationService;
-            MakeReservationCommand = new RelayCommand(Execute_MakeReservationCommand, CanExecute_MakeReservationCommand);
-            ApplyFilterCommand = new RelayCommand(Execute_ApplyFilterCommand);
-            ResetFilterCommand = new RelayCommand(Execute_ResetFilterCommand);
-            SelectionChangedCommand = new RelayCommand(Execute_SelectionChangedCommand);
-
-            TourReservationService = new TourReservationService(this);
-            _toursCollection = new CollectionViewSource { Source = TourReservationService.TourService.GetAllAsCollection() };
-            _toursCollection.Filter += ToursCollection_Filter;
-            _filterLanguages = Enum.GetValues(typeof(Language));
-            _tourVouchers = TourReservationService.TourVoucherService.GetAllValidAsCollection();
-
-            if (!ToursSourceCollection.IsEmpty)
-                IsListViewShown = true;
-
-            IsTourSelected = false;
-            IsGuestNumberEntered = false;
-            ResetFilter();
-        }
-
         private bool IsLocationEqual(Location location)
         {
             return location.City.Equals(SelectedTour?.Location.City) &&
                    location.Country.Equals(SelectedTour?.Location.Country);
+        }
+
+        private void TouristViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName != nameof(TouristViewModel.IsTooltipsSwitchToggled)) return;
+            if (sender != null) IsTooltipsSwitchToggled = ((TouristViewModel)sender).IsTooltipsSwitchToggled;
         }
 
         private bool IsMatchingFilterText(Tour tour, string filterTextUpper)
@@ -328,7 +348,7 @@ namespace TravelAgency.ViewModel.Tourist
             };
 
             GuestNumberText =
-                $"Tour can't take that many guests. Number of spaces left: {SelectedTour?.MaxGuests}";
+                $"There are more spaces available in the tour ({SelectedTour?.MaxGuests}).";
 
             dialog.ShowDialog();
 

@@ -9,7 +9,31 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
     <Page.Resources>
-        <ResourceDictionary Source="/Resources/Styles/TouristDictionary.xaml" />
+        <ResourceDictionary x:Name="Dictionary">
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Styles/TouristDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style
+                x:Key="AnimatedLabelStyle"
+                BasedOn="{StaticResource MaterialDesignLabel}"
+                TargetType="Label">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Visibility, RelativeSource={RelativeSource Self}}" Value="Visible">
+                        <DataTrigger.EnterActions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation
+                                        Storyboard.TargetProperty="Opacity"
+                                        From="0"
+                                        To="1"
+                                        Duration="0:0:0.2" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </DataTrigger.EnterActions>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
     </Page.Resources>
     <d:Page.Background>
         <SolidColorBrush Color="White" />
@@ -19,6 +43,7 @@
             <RowDefinition Height="90" />
             <RowDefinition Height="Auto" />
             <RowDefinition />
+            <RowDefinition Height="30" />
             <RowDefinition Height="90" />
         </Grid.RowDefinitions>
         <TextBlock
@@ -29,12 +54,28 @@
             FontWeight="Medium"
             Style="{StaticResource MaterialDesignHeadline1TextBlock}"
             Text="My tours" />
-        <Label
-            Grid.Row="1"
-            Margin="90,0"
-            Content="Reserved tours"
-            FontSize="15"
-            Style="{StaticResource MaterialDesignLabel}" />
+        <Grid Grid.Row="1" Margin="90,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Label
+                Grid.Column="0"
+                Margin="10,0"
+                Content="Reserved tours"
+                FontSize="15"
+                Style="{StaticResource MaterialDesignLabel}" />
+            <Label
+                Grid.Column="1"
+                Margin="10,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Content="Select a tour first"
+                FontSize="14"
+                Foreground="#3F51B5"
+                Style="{StaticResource AnimatedLabelStyle}"
+                Visibility="{Binding IsTooltipsSwitchToggled, Converter={StaticResource BooleanToVisibilityConverter}}" />
+        </Grid>
         <Border
             Grid.Row="2"
             Margin="80,0"
@@ -74,8 +115,33 @@
                 </ListView.View>
             </ListView>
         </Border>
+        <Grid Grid.Row="3" Margin="90,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Label
+                Grid.Column="0"
+                Margin="10,0"
+                VerticalAlignment="Center"
+                Content="You can only join active tours"
+                FontSize="14"
+                Foreground="#3F51B5"
+                Style="{StaticResource AnimatedLabelStyle}"
+                Visibility="{Binding IsTooltipsSwitchToggled, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            <Label
+                Grid.Column="1"
+                Margin="10,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Content="You can only rate finished tours"
+                FontSize="14"
+                Foreground="#3F51B5"
+                Style="{StaticResource AnimatedLabelStyle}"
+                Visibility="{Binding IsTooltipsSwitchToggled, Converter={StaticResource BooleanToVisibilityConverter}}" />
+        </Grid>
         <WrapPanel
-            Grid.Row="3"
+            Grid.Row="4"
             Width="Auto"
             HorizontalAlignment="Center"
             VerticalAlignment="Center">

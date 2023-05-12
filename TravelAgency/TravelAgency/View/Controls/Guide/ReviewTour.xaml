@@ -25,14 +25,14 @@
         <Grid Grid.Row="0">
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="125" />
             </Grid.ColumnDefinitions>
 
             <TextBlock
                 x:Name="TouristsTxt"
-                Margin="0,15,0,0"
+                Margin="0,5,0,0"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 FontSize="19"
@@ -44,7 +44,7 @@
             <TextBlock
                 x:Name="CommentsTxt"
                 Grid.Column="1"
-                Margin="0,15,0,0"
+                Margin="0,5,0,0"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 FontSize="19"
@@ -55,7 +55,7 @@
 
             <TextBlock
                 Grid.Column="2"
-                Margin="0,15,0,0"
+                Margin="0,5,0,0"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 FontSize="19"
@@ -69,9 +69,9 @@
         <Grid Grid.Row="1">
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="125" />
             </Grid.ColumnDefinitions>
 
             <ListView
@@ -91,8 +91,6 @@
             <ListView
                 Name="ListViewComments"
                 Grid.Column="1"
-                BorderBrush="Bisque"
-                BorderThickness="1"
                 FontSize="16"
                 ItemsSource="{Binding Comments}"
                 KeyboardNavigation.TabIndex="0"
@@ -167,7 +165,7 @@
 
                 <TextBlock
                     x:Name="ReportedCommentTxt"
-                    Margin="0,15,0,0"
+                    Margin="0,5,0,0"
                     FontSize="20"
                     FontWeight="Medium"
                     Foreground="#68cbf8"
@@ -178,7 +176,7 @@
                 <TextBlock
                     x:Name="ReportedTouristTxt"
                     Grid.Row="1"
-                    Margin="0,15,0,0"
+                    Margin="0,5,0,0"
                     FontSize="20"
                     FontWeight="Medium"
                     Foreground="#68cbf8"

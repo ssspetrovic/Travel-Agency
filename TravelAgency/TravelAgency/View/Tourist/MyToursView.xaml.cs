@@ -8,10 +8,10 @@ namespace TravelAgency.View.Tourist
     /// </summary>
     public partial class MyToursView
     {
-        public MyToursView(NavigationService navigationService)
+        public MyToursView(NavigationService navigationService, TouristViewModel touristViewModel)
         {
             InitializeComponent();
-            DataContext = new MyToursViewModel(navigationService);
+            DataContext = new MyToursViewModel(navigationService, touristViewModel);
         }
     }
 }

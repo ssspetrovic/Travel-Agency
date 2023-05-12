@@ -26,13 +26,13 @@ namespace TravelAgency.ViewModel
                 if (DateRange != "")
                 {
                     var dateRangeParts = DateRange.Split(" - ");
-                    var startDate = DateTime.ParseExact(dateRangeParts[0], "MM/dd/yyyy", CultureInfo.InvariantCulture);
-                    var endDate = DateTime.ParseExact(dateRangeParts[1], "MM/dd/yyyy", CultureInfo.InvariantCulture);
+                    var startDate = DateTime.ParseExact(dateRangeParts[0], "MM/dd/yyyy", new CultureInfo("en-US"));
+                    var endDate = DateTime.ParseExact(dateRangeParts[1], "MM/dd/yyyy", new CultureInfo("en-US"));
 
                     var currentDate = startDate;
                     while (currentDate <= endDate)
                     {
-                        filteredDates.Add(currentDate.ToString("MM/dd/yyyy"));
+                        filteredDates.Add(currentDate.ToString("MM/dd/yyyy", new CultureInfo("en-US")));
                         currentDate = currentDate.AddDays(1);
                     }
 

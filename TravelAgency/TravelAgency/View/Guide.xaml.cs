@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
+using System.Windows.Media.Animation;
 using TravelAgency.ViewModel;
 
 namespace TravelAgency.View
@@ -52,6 +53,12 @@ namespace TravelAgency.View
                 if (currentWindow!.DataContext is not GuideViewModel guideViewModel) return;
                 guideViewModel.OnNav("Create Suggested Tour");
             }
+        }
+
+        private void Guide_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            Storyboard fadeAnimation = (Resources["FadeAnimation"] as Storyboard)!;
+            fadeAnimation.Begin(this);
         }
     }
 }
