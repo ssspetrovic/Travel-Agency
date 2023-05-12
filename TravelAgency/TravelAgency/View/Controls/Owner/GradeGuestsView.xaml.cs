@@ -31,6 +31,8 @@ namespace TravelAgency.View.Controls.Owner
             InitializeComponent();
             DataContext = _viewModel;
             ChangeColorListView();
+
+            lblGuests.Content = lblGuests.Content + " (" + reservationRepository.CountReservationsToGrade().ToString() + ")";
         }
 
         private void btnGrade_Click(object sender, RoutedEventArgs e)
@@ -47,6 +49,7 @@ namespace TravelAgency.View.Controls.Owner
                     MessageBox.Show("Guest graded successfully!", "Message");
                 else
                     MessageBox.Show("Gost ocenjen uspešno!", "Poruka");
+                Refresh();
             }
             else
             {
@@ -76,6 +79,23 @@ namespace TravelAgency.View.Controls.Owner
             UserRepository userRepository = new UserRepository();
             User user = userRepository.GetById(Convert.ToInt32(txtReservationId_Copy.Text));
             txtReservationId_Copy.Text = user.Name + " " + user.Surname;
+        }
+
+        private void Refresh()
+        {
+            OwnerMainView mainWindow = null;
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window is OwnerMainView)
+                {
+                    mainWindow = (OwnerMainView)window;
+                    break;
+                }
+            }
+
+            Frame mainFrame = mainWindow.mainFrame;
+            GradeGuestsView gradeGuestsView = new GradeGuestsView();
+            mainFrame.Navigate(gradeGuestsView);
         }
     }
 }
