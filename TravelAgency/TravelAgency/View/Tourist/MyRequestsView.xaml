@@ -54,16 +54,41 @@
             Text="My requests" />
         <Border
             Grid.Row="1"
+            Margin="40,0"
             BorderBrush="{StaticResource MaterialDesignDivider}"
             BorderThickness="2">
-            <ListView>
+            <ListView d:ItemsSource="{d:SampleData ItemCount=5}" ItemsSource="{Binding RegularRequests}">
+                <ListView.ItemContainerStyle>
+                    <Style BasedOn="{StaticResource MaterialDesignGridViewItem}" TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Left" />
+                    </Style>
+                </ListView.ItemContainerStyle>
                 <ListView.View>
-                    <GridView>
-                        <GridViewColumn />
-                        <GridViewColumn />
-                        <GridViewColumn />
-                        <GridViewColumn />
-                        <GridViewColumn />
+                    <GridView AllowsColumnReorder="False">
+                        <GridViewColumn
+                            Width="100"
+                            DisplayMemberBinding="{Binding Path=Location.City}"
+                            Header="City" />
+                        <GridViewColumn
+                            Width="120"
+                            DisplayMemberBinding="{Binding Path=Location.Country}"
+                            Header="Country" />
+                        <GridViewColumn
+                            Width="Auto"
+                            DisplayMemberBinding="{Binding Path=Language}"
+                            Header="Language" />
+                        <GridViewColumn
+                            Width="Auto"
+                            DisplayMemberBinding="{Binding Path=DateRange}"
+                            Header="Date range" />
+                        <GridViewColumn
+                            Width="Auto"
+                            DisplayMemberBinding="{Binding Path=GuestNumber}"
+                            Header="Guest number" />
+                        <GridViewColumn
+                            Width="Auto"
+                            DisplayMemberBinding="{Binding Path=Status}"
+                            Header="Status" />
                     </GridView>
                 </ListView.View>
             </ListView>

@@ -142,7 +142,7 @@ namespace TravelAgency.ViewModel.Tourist
                 new Location(City!, Country!),
                 Language,
                 int.Parse(GuestNumber!),
-                $"{StartingDate?.ToString("yyyy-MM-dd")} - {EndingDate?.ToString("yyyy-MM-dd")}",
+                $"{StartingDate?.ToString("MM/dd/yyyy")} - {EndingDate?.ToString("MM/dd/yyyy")}",
                 Description!,
                 RegularTourRequest.TourRequestStatus.OnHold));
 
