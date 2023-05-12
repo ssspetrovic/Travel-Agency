@@ -22,13 +22,16 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid Background="{StaticResource MaterialDesignBackground}">
+    <Border Background="Transparent">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Border Grid.Column="0" Background="#3F51B5">
+            <Border
+                Grid.Column="0"
+                Background="#3F51B5"
+                CornerRadius="15,0,0,15">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -80,14 +83,14 @@
                                 Style="{StaticResource MenuButtonStyle}" />
                             <RadioButton
                                 x:Name="MyVouchersButton"
-                                Command="{Binding NavigateToMyTourVouchersPageCommand}"
+                                Command="{Binding NavigateToMyVouchersPageCommand}"
                                 Content="My vouchers"
                                 FontSize="19"
                                 Foreground="White"
                                 Style="{StaticResource MenuButtonStyle}" />
                             <RadioButton
                                 x:Name="MyRequestsButton"
-                                Command="{Binding NavigateToUserProfileCommand}"
+                                Command="{Binding NavigateToMyRequestsCommand}"
                                 Content="My requests"
                                 FontSize="19"
                                 Foreground="White"
@@ -158,11 +161,14 @@
                     </Grid>
                 </Grid>
             </Border>
-            <Border Grid.Column="1" Background="{StaticResource MaterialDesignBackground}">
+            <Border
+                Grid.Column="1"
+                Background="{StaticResource MaterialDesignBackground}"
+                CornerRadius="0,15,15,0">
                 <Grid>
                     <Frame x:Name="ContentFrame" NavigationUIVisibility="Hidden" />
                 </Grid>
             </Border>
         </Grid>
-    </Grid>
+    </Border>
 </Window>
