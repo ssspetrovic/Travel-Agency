@@ -1,4 +1,6 @@
-﻿namespace TravelAgency.View.Tourist
+﻿using System.Windows;
+
+namespace TravelAgency.View.Tourist
 {
     /// <summary>
     /// Interaction logic for OkDialog.xaml
@@ -8,6 +10,7 @@
         public OkDialog()
         {
             InitializeComponent();
+            Owner = Application.Current.MainWindow;
         }
     }
 }

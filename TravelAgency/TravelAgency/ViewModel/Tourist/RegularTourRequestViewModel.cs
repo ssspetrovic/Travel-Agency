@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Navigation;
 using TravelAgency.Command;
 using TravelAgency.Model;
@@ -147,6 +148,7 @@ namespace TravelAgency.ViewModel.Tourist
 
             Dialog = new OkDialog
             {
+                Owner = Application.Current.MainWindow,
                 Label =
                 {
                     Content = "Request successfully created!"
