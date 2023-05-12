@@ -1,11 +1,11 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Navigation;
 using TravelAgency.Command;
 using TravelAgency.Model;
 using TravelAgency.Service;
 using TravelAgency.View.Tourist;
-using static System.Windows.Application;
 
 namespace TravelAgency.ViewModel.Tourist
 {
@@ -13,7 +13,7 @@ namespace TravelAgency.ViewModel.Tourist
     {
         private readonly TouristViewModel _touristViewModel;
         private readonly NavigationService _navigationService;
-        private readonly RegularTourRequestService _tourRequestService;
+        private readonly TourRequestService _tourRequestService;
         private string? _country;
         private string? _city;
         private Language? _language;
@@ -123,7 +123,7 @@ namespace TravelAgency.ViewModel.Tourist
             IsTooltipsSwitchToggled = _touristViewModel.IsTooltipsSwitchToggled;
             _touristViewModel.PropertyChanged += TouristViewModel_PropertyChanged;
             _navigationService = navigationService;
-            _tourRequestService = new RegularTourRequestService();
+            _tourRequestService = new TourRequestService();
             _languages = Enum.GetValues(typeof(Language));
             SubmitRequestCommand = new RelayCommand(Execute_SubmitRequestCommand, CanExecute_SubmitRequestCommand);
             CancelRequestCommand = new RelayCommand(Execute_CancelRequestCommand);
@@ -142,20 +142,20 @@ namespace TravelAgency.ViewModel.Tourist
                 new Location(City!, Country!),
                 Language,
                 int.Parse(GuestNumber!),
-                $"{StartingDate?.ToString("yyyy-MM-dd")} - {EndingDate?.ToString("yyyy-MM-dd")}",
+                $"{StartingDate?.ToString("MM/dd/yyyy")} - {EndingDate?.ToString("MM/dd/yyyy")}",
                 Description!,
                 RegularTourRequest.TourRequestStatus.OnHold));
 
             Dialog = new OkDialog
             {
-                Owner = Current.MainWindow,
+                Owner = Application.Current.MainWindow,
                 Label =
                 {
                     Content = "Request successfully created!"
                 },
                 Button =
                 {
-                    Command = new RelayCommand(Execute_NavigateToMyTourRequestsCommand)
+                    Command = new RelayCommand(Execute_NavigateToMyRequestsCommand)
                 }
             };
             Dialog?.ShowDialog();
@@ -166,11 +166,10 @@ namespace TravelAgency.ViewModel.Tourist
             _navigationService.GoBack();
         }
 
-        // TODO Change navigation when the view is implemented
-        private void Execute_NavigateToMyTourRequestsCommand(object parameter)
+        private void Execute_NavigateToMyRequestsCommand(object parameter)
         {
             Dialog?.Close();
-            _navigationService.Navigate(new RequestTourView(_navigationService, _touristViewModel));
+            _navigationService.Navigate(new MyRequestsView(_navigationService, _touristViewModel));
         }
 
         private bool CanExecute_SubmitRequestCommand(object parameter)
