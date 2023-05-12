@@ -13,7 +13,7 @@ namespace TravelAgency.ViewModel.Tourist
     {
         private readonly TouristViewModel _touristViewModel;
         private readonly NavigationService _navigationService;
-        private readonly RegularTourRequestService _tourRequestService;
+        private readonly TourRequestService _tourRequestService;
         private string? _country;
         private string? _city;
         private Language? _language;
@@ -123,7 +123,7 @@ namespace TravelAgency.ViewModel.Tourist
             IsTooltipsSwitchToggled = _touristViewModel.IsTooltipsSwitchToggled;
             _touristViewModel.PropertyChanged += TouristViewModel_PropertyChanged;
             _navigationService = navigationService;
-            _tourRequestService = new RegularTourRequestService();
+            _tourRequestService = new TourRequestService();
             _languages = Enum.GetValues(typeof(Language));
             SubmitRequestCommand = new RelayCommand(Execute_SubmitRequestCommand, CanExecute_SubmitRequestCommand);
             CancelRequestCommand = new RelayCommand(Execute_CancelRequestCommand);

@@ -5,7 +5,7 @@ namespace TravelAgency.Repository
 {
     internal class RegularTourRequestRepository : RepositoryBase
     {
-        public void Add(RegularTourRequest tourRequest)
+        public void AddRegular(RegularTourRequest tourRequest)
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
@@ -26,7 +26,7 @@ namespace TravelAgency.Repository
             insertCommand.ExecuteNonQuery();
         }
 
-        public void UpdateStatus(int id, RegularTourRequest.TourRequestStatus newStatus)
+        public void UpdateStatusRegular(int id, RegularTourRequest.TourRequestStatus newStatus)
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
@@ -44,7 +44,7 @@ namespace TravelAgency.Repository
             updateCommand.ExecuteNonQuery();
         }
 
-        public ObservableCollection<RegularTourRequest> GetAllAsCollection()
+        public ObservableCollection<RegularTourRequest> GetAllRegularAsCollection()
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();

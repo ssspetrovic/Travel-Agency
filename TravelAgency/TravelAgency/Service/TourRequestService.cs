@@ -4,26 +4,26 @@ using TravelAgency.Repository;
 
 namespace TravelAgency.Service
 {
-    internal class RegularTourRequestService
+    internal class TourRequestService
     {
         private readonly RegularTourRequestRepository _tourRequestRepository;
 
         public void Add(RegularTourRequest tourRequest)
         {
-            _tourRequestRepository.Add(tourRequest);
+            _tourRequestRepository.AddRegular(tourRequest);
         }
 
         public void UpdateStatus(int id, RegularTourRequest.TourRequestStatus newStatus)
         {
-            _tourRequestRepository.UpdateStatus(id, newStatus);
+            _tourRequestRepository.UpdateStatusRegular(id, newStatus);
         }
 
         public ObservableCollection<RegularTourRequest> GetAllAsCollection()
         {
-            return _tourRequestRepository.GetAllAsCollection();
+            return _tourRequestRepository.GetAllRegularAsCollection();
         }
 
-        public RegularTourRequestService()
+        public TourRequestService()
         {
             _tourRequestRepository = new RegularTourRequestRepository();
         }

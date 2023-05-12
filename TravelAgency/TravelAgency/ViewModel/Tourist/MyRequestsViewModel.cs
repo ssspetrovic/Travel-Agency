@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TravelAgency.ViewModel.Tourist
+﻿namespace TravelAgency.ViewModel.Tourist
 {
-    internal class MyRequestsViewModel
+    internal class MyRequestsViewModel : BaseViewModel
     {
+        //private readonly TourReq
     }
 }
