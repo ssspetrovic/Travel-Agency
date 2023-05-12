@@ -26,7 +26,7 @@ namespace TravelAgency.ViewModel
 
         public void SelectTour()
         {
-            CurrentFinishedTour.Name = SelectedTour!["Name"].ToString()!;
+            CurrentFinishedTour.Name = SelectedTour == null ? FinishedTours[0]["Name"].ToString() : SelectedTour["Name"].ToString()!;
             var window = Application.Current.Windows.OfType<AllFinishedTours>().FirstOrDefault();
             var selectedFinishedTour = new SelectedFinishedTour();
             selectedFinishedTour.Show();
@@ -42,11 +42,13 @@ namespace TravelAgency.ViewModel
             {
                 case "HomePage":
                     guideViewModel.CurrentViewModel = new HomePageViewModel();
+                    mainWindow.Title = "Home Page";
                     mainWindow.Show();
                     window!.Close();
                     break;
                 case "TourStats":
                     guideViewModel.CurrentViewModel = new TourStatsViewModel();
+                    mainWindow.Title = "Tour Stats";
                     mainWindow.Show();
                     window!.Close();
                     break;
