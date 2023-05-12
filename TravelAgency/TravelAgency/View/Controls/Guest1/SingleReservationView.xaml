@@ -160,6 +160,7 @@
                         <StackPanel Orientation="Vertical">
                             <DatePicker
                                 Name="StartDateSelect"
+                                materialDesign:HintAssist.IsFloating="True"
                                 Grid.Row="2"
                                 materialDesign:HintAssist.Hint="Start Date"
                                 Width="150"
@@ -167,6 +168,7 @@
                                 SelectedDate="{Binding Path=StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             <DatePicker
                                 Name="EndDateSelect"
+                                materialDesign:HintAssist.IsFloating="True"
                                 Grid.Row="2"
                                 materialDesign:HintAssist.Hint="End Date"
                                 Width="150"

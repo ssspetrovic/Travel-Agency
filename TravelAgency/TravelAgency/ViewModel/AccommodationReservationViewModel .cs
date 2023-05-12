@@ -127,7 +127,28 @@ namespace TravelAgency.ViewModel
                 IsListViewShown = true;
         }
 
-
+        private Boolean ValidateSelect(AccommodationDTO accommodationDTO)
+        {
+            try
+            {
+                if (accommodationDTO.Equals(null)) return false;
+            }
+            catch(Exception e)
+            {
+                return false;            
+            }
+            return true;
+        }
+        private Boolean ValidateNumberInput(string str)
+        {
+            int temp;
+            return int.TryParse(str, out int n);
+        }
+        private Boolean ValidateStringInput(string str)
+        {
+            if (str == string.Empty) return false;
+            return true;
+        }
         private void AccommodationCollection_Filter(object sender, FilterEventArgs e)
         {
             if (string.IsNullOrEmpty(FilterText))
@@ -180,8 +201,11 @@ namespace TravelAgency.ViewModel
                 var _reservationService = new ReservationService();
 
                 var ReservableDays = (EndDate - StartDate).TotalDays;
-
-                if (int.Parse(GuestNumber) < SelectedAccommodation.MinGuest || int.Parse(GuestNumber) > SelectedAccommodation.MaxGuest)
+               if(!ValidateNumberInput(GuestNumber) && !ValidateSelect(SelectedAccommodation))
+                {
+                MessageBox.Show("Not all the fields have been filled in!");
+                }
+               else if (int.Parse(GuestNumber) < SelectedAccommodation.MinGuest || int.Parse(GuestNumber) > SelectedAccommodation.MaxGuest)
                {
                    MessageBox.Show("You have selected an invalid number of people!");
                }

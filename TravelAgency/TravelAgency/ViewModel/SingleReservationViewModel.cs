@@ -118,6 +118,18 @@ namespace TravelAgency.ViewModel
             }
         }
 
+        private Boolean ValidateSelect(ReservationDTO reservationDTO)
+        {
+            try
+            {
+                if (reservationDTO.Equals(null)) return false;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            return true;
+        }
         public SingleReservationViewModel()
         {
             GradeClean = 5;
@@ -134,6 +146,29 @@ namespace TravelAgency.ViewModel
             _service.Add(delayRequest);
         }
 
+        private Boolean ValidateSelect(AccommodationDTO accommodationDTO)
+        {
+            try
+            {
+                if (accommodationDTO.Equals(null)) return false;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            return true;
+        }
+        private Boolean ValidateNumberInput(string str)
+        {
+            int temp;
+            return int.TryParse(str, out int n);
+        }
+        private Boolean ValidateStringInput(string str)
+        {
+            if (str == string.Empty) return false;
+            return true;
+        }
+
         private void RaisePropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -142,7 +177,11 @@ namespace TravelAgency.ViewModel
 
         public void SubmitRating()
         {
-            if((DateOnly.FromDateTime(DateTime.Now).DayNumber - Reservation.StartDate.DayNumber) <= 5)
+            if(!ValidateStringInput(Comment) && !ValidateStringInput(PictureUrl))
+            {
+                MessageBox.Show("Not all fields have been filled!");
+            }
+            else if((DateOnly.FromDateTime(DateTime.Now).DayNumber - Reservation.StartDate.DayNumber) <= 5)
             {
                 var _service = new ReservationService();
                 _service.GradeAccommodation(Reservation.Id, Comment, PictureUrl, GradeClean, GradeOwner);
