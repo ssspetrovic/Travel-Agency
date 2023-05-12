@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
+using System.Windows;
 using System.Windows.Data;
-using TravelAgency.Service;
+using TravelAgency.Repository;
 
 namespace TravelAgency.ViewModel
 {
@@ -15,18 +11,26 @@ namespace TravelAgency.ViewModel
         private CollectionViewSource _collection;
 
 
+        public ICollectionView Collection => _collection.View;
+
         public SearchResultsViewModel()
         {
-            var _service = new LocationService();
+            var _repository = new AccommodationRepository();
             _collection = new CollectionViewSource
             {
-                Source = _service.GetAll()
+                Source = _repository.GetAll()
             };
+
         }
 
-        public CollectionViewSource Collection
+        public CollectionViewSource CollectionView
         {
             get => _collection;
+            set
+            {
+                _collection = value;
+                OnPropertyChanged();
+            }
         }
 
         private void RaisePropertyChanged(string propertyName)

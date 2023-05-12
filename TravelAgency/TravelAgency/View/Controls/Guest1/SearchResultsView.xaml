@@ -135,7 +135,96 @@
                            Style="{StaticResource MaterialDesignLabel}"
                            FontWeight="Medium"/>
                 </WrapPanel>
-                <Grid Grid.Row="2"></Grid>
+                <ListView Grid.Row="2"
+                          ItemsSource="{Binding Collection}"
+                          d:ItemsSource="{d:SampleData ItemCount=5}">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal">
+                                </WrapPanel>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            
+                            <materialDesign:Card
+          Width="220">
+          <Grid>
+            <Grid.RowDefinitions>
+              <RowDefinition
+                Height="140" />
+              <RowDefinition
+                Height="*" />
+              <RowDefinition
+                Height="Auto" />
+              <RowDefinition
+                Height="Auto" />
+              <RowDefinition
+                Height="Auto" />
+              <RowDefinition
+                Height="Auto" />
+            </Grid.RowDefinitions>
+            <Image
+              Height="140"
+              Source="{Binding PictureUrl}"
+              Stretch="UniformToFill" />
+            <Button
+              Grid.Row="0"
+              Margin="0,0,16,-20"
+              HorizontalAlignment="Right"
+              VerticalAlignment="Bottom"
+              Style="{StaticResource MaterialDesignFloatingActionMiniSecondaryButton}">
+              <materialDesign:PackIcon
+                Kind="ShareVariant" />
+            </Button>
+            <StackPanel
+              Grid.Row="1"
+              Margin="8,24,8,4">
+              <TextBlock
+                Margin="0"
+                Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                Text="{Binding Name}" />
+              <Viewbox
+                Height="16"
+                Margin="0,4,0,8"
+                HorizontalAlignment="Left">
+                <materialDesign:RatingBar
+                  Margin="0"
+                  Foreground="Gold"
+                  Orientation="Horizontal"
+                  Value="3" />
+              </Viewbox>
+              <TextBlock
+                VerticalAlignment="Center"
+                Style="{StaticResource MaterialDesignBody1TextBlock}"
+                Text="After a gentle alien becomes stranded on Earth, the being is discovered and befriended by a young boy named Elliott."
+                TextWrapping="Wrap" />
+            </StackPanel>
+            <Separator
+              Grid.Row="2"
+              Margin="8,0,8,0"
+              Style="{StaticResource MaterialDesignDarkSeparator}" />
+
+            <DockPanel
+              Grid.Row="5">
+              <Button
+                Margin="8,4,8,8"
+                HorizontalAlignment="Left"
+                Content="RESERVE"
+                Style="{StaticResource MaterialDesignFlatButton}" />
+                <Button
+                Margin="12,4,8,8"
+                HorizontalAlignment="Left"
+                Content="DETAILS"
+                Style="{StaticResource MaterialDesignFlatButton}" />
+            </DockPanel>
+          </Grid>
+        </materialDesign:Card>
+
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    
+                </ListView>
             </Grid>
         </Grid>
     </Border>

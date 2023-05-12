@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using TravelAgency.Model;
 using TravelAgency.DTO;
 using TravelAgency.Service;
+using System.Diagnostics;
 
 namespace TravelAgency.Repository
 {
@@ -63,8 +64,8 @@ namespace TravelAgency.Repository
             {
                 var location = locationService.GetById(selectReader.GetInt32(5));
                 var type = Enum.Parse<AccommodationType>(selectReader.GetString(2));
-
-               accommodationList.Add(new AccommodationDTO(selectReader.GetInt32(0), selectReader.GetString(1), location, type, selectReader.GetInt32(3), selectReader.GetInt32(4), selectReader.GetInt32(7)));
+                System.Diagnostics.Debug.WriteLine(selectReader.GetString(7) + "...");
+               accommodationList.Add(new AccommodationDTO(selectReader.GetInt32(0), selectReader.GetString(1), location, type, selectReader.GetInt32(3), selectReader.GetInt32(4), selectReader.GetInt32(7), selectReader.GetString(8)));
             }
 
             return accommodationList;
