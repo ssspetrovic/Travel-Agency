@@ -76,12 +76,12 @@ namespace TravelAgency.View.Controls.Guest1
 
         private void Search_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            _viewModel.Search();
         }
 
         private void Clear_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            _viewModel.Clear();
         }
     }
 }

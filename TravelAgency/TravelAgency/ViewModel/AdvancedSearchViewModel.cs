@@ -22,11 +22,34 @@ namespace TravelAgency.ViewModel
         private DateTime _startDate;
         private string _name;
         private string _renter;
-        private Location? _location;
-        private int _people;
+        private string? _location;
+        private string _people;
         private readonly CollectionViewSource _locations;
-        private int _days;
+        private string _days;
 
+
+        public string Renter
+        {
+            get => _renter;
+            set
+            {
+                if (_renter != value)
+                {
+                    _renter = value;
+
+                }
+                OnPropertyChanged();
+            }
+        }
+        public string GuestNumber
+        {
+            get => _people;
+            set
+            {
+                _people = value;
+                OnPropertyChanged();
+            }
+        }
 
         public DateTime StartDate
         {
@@ -34,6 +57,7 @@ namespace TravelAgency.ViewModel
             set
             {
                 _startDate = value;
+                OnPropertyChanged();
             }
         }
 
@@ -43,16 +67,29 @@ namespace TravelAgency.ViewModel
             set
             {
                 _name = value;
+                OnPropertyChanged();
             }
         }
 
 
-        public Location SelectedLocation
+        public string SelectedLocation
         {
             get => _location;
             set
             {
+                if (_location == value) return;
                 _location = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string Days
+        {
+            get => _days;
+            set
+            {
+                _days = value;
+                OnPropertyChanged();
             }
         }
 
@@ -76,6 +113,25 @@ namespace TravelAgency.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
+        }
+
+        public void Search()
+        {
+            MessageBox.Show(SelectedLocation + " " + GuestNumber);
+        }
+
+        public void Clear()
+        {
+            GuestNumber = string.Empty;
+            SelectedLocation = string.Empty;
+            Days = string.Empty;
+            Name = string.Empty;
+            Renter = string.Empty;
+            RaisePropertyChanged("GuestNumber");
+            RaisePropertyChanged("SelectedLocation");
+            RaisePropertyChanged("Name");
+            RaisePropertyChanged("Days");
+            RaisePropertyChanged("Renter");
         }
     }
 }

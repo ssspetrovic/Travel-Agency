@@ -150,27 +150,52 @@
                         Margin="30 20 0 0"
                         Orientation="Vertical">
                         <TextBox
+                            x:Name="Name"
                              VerticalAlignment="Top"
                               materialDesign:HintAssist.Hint="Name"
                               Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                              Margin="0 0 0 20">
+                              Margin="0 0 0 20"
+                              Text ="{Binding Path=Name, Mode=TwoWay, NotifyOnSourceUpdated=True}">
                         </TextBox>
                         <TextBox
-                            
+                            x:Name="Renter"
                              VerticalAlignment="Top"
                               materialDesign:HintAssist.Hint="Renter"
+                              Text="{Binding Renter, Mode=TwoWay}"
                               Style="{StaticResource MaterialDesignOutlinedTextBox}">
                         </TextBox>
                         <ComboBox Grid.Row="4"
+                                  x:Name="Location"
                               materialDesign:HintAssist.Hint="Location"
                               Grid.Column="3"
                               Margin="0 30 0 0"
                               HorizontalAlignment="Right"
                               Width="200"
-                              ItemsSource="{Binding Path=Locations}"
-                              SelectedValue="{Binding Path=SelectedLocation}"
-                              Style="{StaticResource MaterialDesignOutlinedComboBox}" 
-                                  />
+                              SelectedValue="{Binding SelectedLocation, Mode=TwoWay}"
+                              SelectedValuePath="{Binding SelectedLocation, Mode=TwoWay}"
+                              Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                              Text="{Binding SelectedLocation, Mode=TwoWay}"
+                                  
+                                  >
+                            <ComboBoxItem>Tokyo
+                            </ComboBoxItem>
+                            <ComboBoxItem>Delhi</ComboBoxItem>
+                            <ComboBoxItem>Shanghai</ComboBoxItem>
+                            <ComboBoxItem>Sao Paulo</ComboBoxItem>
+                            <ComboBoxItem>Mexico City</ComboBoxItem>
+                            <ComboBoxItem>Cairo</ComboBoxItem>
+                            <ComboBoxItem>Mumbai</ComboBoxItem>
+                            <ComboBoxItem>Beijing</ComboBoxItem>
+                            <ComboBoxItem>Osaka</ComboBoxItem>
+                            <ComboBoxItem>New York</ComboBoxItem>
+                            <ComboBoxItem>Buenos Aires</ComboBoxItem>
+                            <ComboBoxItem>Chongqing</ComboBoxItem>
+                            <ComboBoxItem>Istanbul</ComboBoxItem>
+                            <ComboBoxItem>Kolkata</ComboBoxItem>
+                            <ComboBoxItem>Manila</ComboBoxItem>
+                            <ComboBoxItem>Bar</ComboBoxItem>
+                            />
+                        </ComboBox>
                         <DockPanel>
                             <DatePicker Grid.Row="4"
                                 Grid.Column="4"
@@ -178,25 +203,29 @@
                                 materialDesign:HintAssist.Hint="Date"
                                 Style="{StaticResource MaterialDesignOutlinedDatePicker}" 
                                 VerticalAlignment="Bottom"
-                                        SelectedDate="{Binding Path=StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                SelectedDate="{Binding Path=StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Margin="100 0 0 0"
                                />
                             <TextBox Grid.Row="4"
+                                     x:Name="Days"
                               Grid.Column="3"
                               Margin="0 30 0 0"
                               HorizontalAlignment="Right"
                               Width="100"
                               materialDesign:HintAssist.Hint="Days"
+                              Text ="{Binding Path=Days, Mode=TwoWay, NotifyOnSourceUpdated=True}"
                               Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                   />
                         </DockPanel>
 
                         <TextBox Grid.Row="4"
                               Grid.Column="3"
+                                 x:Name="People"
                               Margin="0 30 0 0"
                               HorizontalAlignment="Right"
                               Width="100"
                               materialDesign:HintAssist.Hint="People"
+                              Text ="{Binding Path=GuestNumber, Mode=TwoWay, NotifyOnSourceUpdated=True}"
                               Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                   />
                         <DockPanel

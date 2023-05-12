@@ -235,7 +235,7 @@
                         Height="40"
                         Margin="30,30,526,30"
                         Click="MakeReservationButton_OnClick"
-                        Content="Make reservation"
+                        Content="Quick reservation"
                         FontSize="15" />
 
                     <DatePicker
