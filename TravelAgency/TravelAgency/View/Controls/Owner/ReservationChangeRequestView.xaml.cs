@@ -32,6 +32,7 @@ namespace TravelAgency.View.Controls.Owner
             InitializeComponent();
             DataContext = _viewModel;
             ChangeColorListView();
+            lblRequests.Content = lblRequests.Content + " (" + getReservationChangeRequestCount().ToString() + ")";
         }
 
         private void btnAccept_Click(object sender, RoutedEventArgs e)
@@ -47,6 +48,7 @@ namespace TravelAgency.View.Controls.Owner
                     MessageBox.Show("Reservation change request accepted successfully!", "Message");
                 else
                     MessageBox.Show("Zahtev za izmenu rezervacije uspeštno prihvaćen!", "Poruka");
+                Refresh();
             }
             else
             {
@@ -67,6 +69,7 @@ namespace TravelAgency.View.Controls.Owner
                     MessageBox.Show("Reservation change request rejected successfully!", "Message");
                 else
                     MessageBox.Show("Zahtev za izmenu rezervacije uspeštno odbijen!", "Poruka");
+                Refresh();
             }
             else
             {
@@ -130,6 +133,31 @@ namespace TravelAgency.View.Controls.Owner
                 RequestListView.Background = Brushes.Black;
                 RequestListView.Foreground = Brushes.White;
             }
+        }
+
+        private int getReservationChangeRequestCount()
+        {
+            DelayRequestRepository delayRequestRepository = new DelayRequestRepository();
+            ObservableCollection<DelayRequest> delayRequests = delayRequestRepository.GetDelayRequests(CurrentUser.Id);
+            int count = delayRequests.Count;
+            return count;
+        }
+
+        private void Refresh()
+        {
+            OwnerMainView mainWindow = null;
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window is OwnerMainView)
+                {
+                    mainWindow = (OwnerMainView)window;
+                    break;
+                }
+            }
+
+            Frame mainFrame = mainWindow.mainFrame;
+            ReservationChangeRequestView reservationChangeRequestView = new ReservationChangeRequestView();
+            mainFrame.Navigate(reservationChangeRequestView);
         }
     }
 }

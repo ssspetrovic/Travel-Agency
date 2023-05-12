@@ -9,7 +9,7 @@
       Title="ReservationChangeRequestView">
 
     <Grid Style="{DynamicResource Grid}">
-        <Label Style="{DynamicResource Label}" Content="{DynamicResource Requests}" HorizontalAlignment="Left" Margin="26,21,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Width="138"/>
+        <Label x:Name="lblRequests" Style="{DynamicResource Label}" Content="{DynamicResource Requests}" HorizontalAlignment="Left" Margin="26,21,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Width="138"/>
         <ListView x:Name="RequestListView" d:ItemsSource="{d:SampleData ItemCount=3}" ItemsSource="{Binding ReservationRequestSourceCollection}" SelectedItem="{Binding SelectedRequest}" Margin="26,59,22,510" SelectionChanged="RequestListView_SelectionChanged" FontSize="12">
             <ListView.View>
                 <GridView>
