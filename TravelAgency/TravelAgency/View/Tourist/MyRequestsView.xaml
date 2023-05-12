@@ -42,7 +42,8 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="90" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="290" />
+            <RowDefinition Height="250" />
         </Grid.RowDefinitions>
         <TextBlock
             Grid.Row="0"
@@ -52,46 +53,82 @@
             FontWeight="Medium"
             Style="{StaticResource MaterialDesignHeadline1TextBlock}"
             Text="My requests" />
-        <Border
-            Grid.Row="1"
-            Margin="40,0"
-            BorderBrush="{StaticResource MaterialDesignDivider}"
-            BorderThickness="2">
-            <ListView d:ItemsSource="{d:SampleData ItemCount=5}" ItemsSource="{Binding RegularRequests}">
-                <ListView.ItemContainerStyle>
-                    <Style BasedOn="{StaticResource MaterialDesignGridViewItem}" TargetType="ListViewItem">
-                        <Setter Property="HorizontalContentAlignment" Value="Left" />
-                    </Style>
-                </ListView.ItemContainerStyle>
-                <ListView.View>
-                    <GridView AllowsColumnReorder="False">
-                        <GridViewColumn
-                            Width="100"
-                            DisplayMemberBinding="{Binding Path=Location.City}"
-                            Header="City" />
-                        <GridViewColumn
-                            Width="120"
-                            DisplayMemberBinding="{Binding Path=Location.Country}"
-                            Header="Country" />
-                        <GridViewColumn
-                            Width="Auto"
-                            DisplayMemberBinding="{Binding Path=Language}"
-                            Header="Language" />
-                        <GridViewColumn
-                            Width="Auto"
-                            DisplayMemberBinding="{Binding Path=DateRange}"
-                            Header="Date range" />
-                        <GridViewColumn
-                            Width="Auto"
-                            DisplayMemberBinding="{Binding Path=GuestNumber}"
-                            Header="Guest number" />
-                        <GridViewColumn
-                            Width="Auto"
-                            DisplayMemberBinding="{Binding Path=Status}"
-                            Header="Status" />
-                    </GridView>
-                </ListView.View>
-            </ListView>
-        </Border>
+        <StackPanel Grid.Row="1" Margin="40,0">
+            <Label
+                Margin="10,0"
+                Content="Regular requests"
+                FontSize="15" />
+            <Border BorderBrush="{StaticResource MaterialDesignDivider}" BorderThickness="2">
+                <ListView
+                    Width="720"
+                    HorizontalAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    d:ItemsSource="{d:SampleData ItemCount=4}"
+                    ItemsSource="{Binding RegularRequests}">
+                    <ListView.ItemContainerStyle>
+                        <Style BasedOn="{StaticResource MaterialDesignGridViewItem}" TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            <Setter Property="Focusable" Value="False" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.View>
+                        <GridView AllowsColumnReorder="False">
+                            <GridViewColumn
+                                Width="Auto"
+                                DisplayMemberBinding="{Binding Path=Location}"
+                                Header="Location" />
+                            <GridViewColumn
+                                Width="Auto"
+                                DisplayMemberBinding="{Binding Path=Language}"
+                                Header="Language" />
+                            <GridViewColumn
+                                Width="Auto"
+                                DisplayMemberBinding="{Binding Path=DateRange}"
+                                Header="Date range" />
+                            <GridViewColumn
+                                Width="Auto"
+                                DisplayMemberBinding="{Binding Path=GuestNumber}"
+                                Header="Guests" />
+                            <GridViewColumn
+                                Width="Auto"
+                                DisplayMemberBinding="{Binding Path=Status}"
+                                Header="Status" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Border>
+            <Button
+                Width="120"
+                Height="35"
+                Margin="0,15"
+                Content="Statistics" />
+        </StackPanel>
+        <StackPanel Grid.Row="2" Margin="40,0">
+            <Label
+                Margin="10,0"
+                Content="Complex requests"
+                FontSize="15" />
+            <Border BorderBrush="{StaticResource MaterialDesignDivider}" BorderThickness="2">
+                <ListView
+                    Width="720"
+                    HorizontalAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    d:ItemsSource="{d:SampleData ItemCount=3}">
+                    <ListView.ItemContainerStyle>
+                        <Style BasedOn="{StaticResource MaterialDesignGridViewItem}" TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            <Setter Property="Focusable" Value="False" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.View>
+                        <GridView AllowsColumnReorder="False">
+                            <GridViewColumn Width="230" Header="Request ID" />
+                            <GridViewColumn Width="230" Header="Parts" />
+                            <GridViewColumn Width="240" Header="Status" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Border>
+        </StackPanel>
     </Grid>
 </Page>
