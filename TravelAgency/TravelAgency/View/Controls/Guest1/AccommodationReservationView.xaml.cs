@@ -70,6 +70,13 @@ namespace TravelAgency.View.Controls.Guest1
         {
             _viewModel.MakeReservation();
         }
+
+        private void Advanced_OnClick(object sender, RoutedEventArgs e)
+        {
+            var AdvancedSearchView = new AdvancedSearchView();
+            AdvancedSearchView.Show();
+            Close();
+        }
        
 
         private void ToursListView_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)

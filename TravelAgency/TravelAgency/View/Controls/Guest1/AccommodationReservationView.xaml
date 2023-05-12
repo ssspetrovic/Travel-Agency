@@ -215,15 +215,17 @@
                                     </GridView>
                                 </ListView.View>
                             </ListView>
-                            <TextBox
-                                Margin="20"
-                                HorizontalContentAlignment="Center"
-                                BorderThickness="0"
-                                FontSize="15"
-                                FontWeight="UltraLight"
-                                Style="{StaticResource MaterialDesignTextBox}"
-                                Text="No accommodation match the search criteria."
-                                Visibility="{Binding IsFilteredCollectionEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+                            <Button
+                                    x:Name="AdvancedSearch"
+                                    Width="80"
+                                    Height="30"
+                                    Click="Advanced_OnClick"
+                                    Content="Advanced"
+                                    Margin="0 20 0 0"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    FontSize="10" />
                         </StackPanel>
                     </Border>
                     <Button
@@ -240,24 +242,29 @@
                         Name="StartDateSelect"
                         Grid.Row="2"
                         Width="115"
-                        Height="26"
-                        Margin="243,0,358,0"
+                        materialDesign:HintAssist.IsFloating="True"
+                        materialDesign:HintAssist.Hint="Start Date"
+                        Height="50"
+                        Margin="230,0,358,0"
                         SelectedDate="{Binding Path=StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                     <DatePicker
                         Name="EndDateSelect"
+                        materialDesign:HintAssist.IsFloating="True"
                         Grid.Row="2"
+                        materialDesign:HintAssist.Hint="End Date"
                         Width="115"
-                        Height="26"
-                        Margin="434,0,167,0"
+                        Height="50"
+                        Margin="400,0,167,0"
                         SelectedDate="{Binding Path=EndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <TextBox
                         Name="GuestNumber"
+                        materialDesign:HintAssist.Hint="People"
                         Text ="{Binding Path=GuestNumber, Mode=TwoWay, NotifyOnSourceUpdated=True}"
                         Grid.Row="2"
-                        Width="30"
+                        Width="100"
                         Height="30"
-                        Margin="636,30,50,40"
+                        Margin="600,30,50,40"
                         FontSize="16"
                          />
 

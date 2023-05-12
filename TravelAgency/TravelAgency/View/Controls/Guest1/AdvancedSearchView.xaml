@@ -1,5 +1,5 @@
 ﻿<Window 
-    x:Class="TravelAgency.View.Controls.Guest1.ReservatoinView"
+    x:Class="TravelAgency.View.Controls.Guest1.AdvancedSearchView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,21 +8,19 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModel="clr-namespace:TravelAgency.ViewModel"
-    Title="Reservations"
+    Title="Single Reservation"
     Width="916"
     Height="616"
-    d:DataContext="{d:DesignInstance Type=viewModel:ReservationViewModel}"
+    d:DataContext="{d:DesignInstance Type=viewModel:AdvancedSearchViewModel}"
     AllowsTransparency="True"
     Background="Transparent"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
     mc:Ignorable="d">
-
     <Window.Resources>
         <ResourceDictionary Source="/Resources/Styles/GuestDictionary.xaml" />
     </Window.Resources>
-    
     <Border Background="{StaticResource MaterialDesignBackground}" CornerRadius="15">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -71,7 +69,6 @@
                             Click="Reservation_OnClick"
                             Content="Reservations"
                             FontSize="17"
-                            IsChecked="True"
                             Foreground="White"
                             Style="{StaticResource MenuButtonStyle}" />
                         <RadioButton
@@ -105,13 +102,13 @@
                                 Text="Sign out" />
                         </WrapPanel>
                     </RadioButton>
+
                 </Grid>
             </Border>
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="45" />
-                    <RowDefinition Height="60"/>
-                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="55" />
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <WrapPanel Grid.Row="0">
@@ -131,76 +128,120 @@
                         FontSize="18"
                         Style="{StaticResource MaterialDesignFlatButton}" />
                 </WrapPanel>
-                <WrapPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Label Content="Reservations"
+                <WrapPanel Grid.Row="1"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Top">
+                    <Label Content="Advanced Search"
                            FontSize="25"
                            Style="{StaticResource MaterialDesignLabel}"
                            FontWeight="Medium"/>
                 </WrapPanel>
-                <Separator Grid.Row="2" Width="400"/>
-                <StackPanel Grid.Row="3">
-                    <ListView
-                        Height="380"
-                        x:Name ="ReservationListView"
-                        d:ItemsSource ="{d:SampleData ItemCount=5}"
-                        ItemsSource="{Binding ReservationSourceCollection}"
-                        SelectedItem="{Binding SelectedReservations}"
-                        Style="{StaticResource MaterialDesignListView}"
-                        >
+                <Separator Grid.Row="1"
+                           Margin="0 0 0 5"
+                           VerticalAlignment="Bottom"
+                           Width="400"/>
+                <Grid Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel 
 
-                        <ListView.View>
-                            <GridView x:Name="GridView" AllowsColumnReorder="False">
-
-                                <GridViewColumn
-                                    Width="Auto"
-                                    DisplayMemberBinding="{Binding Id}"
-                                    Header="Reservation Id"/>
-
-                                <GridViewColumn
-                                    Width="Auto"
-                                    DisplayMemberBinding="{Binding AccommodationName}"
-                                    Header="Accommodation Name"/>
-
-                                <GridViewColumn
-                                    Width="Auto"
-                                    DisplayMemberBinding="{Binding Location.City}"
-                                    Header="City"/>
-                                
-                                <GridViewColumn
-                                    Width="Auto"
-                                    DisplayMemberBinding="{Binding StartDate}"
-                                    Header="Start Date"/>
-                                <GridViewColumn
-                                    Width="Auto"
-                                    DisplayMemberBinding="{Binding EndDate}"
-                                    Header="End Date"/>
-
-                            </GridView>
+                        Margin="30 20 0 0"
+                        Orientation="Vertical">
+                        <TextBox
+                             VerticalAlignment="Top"
+                              materialDesign:HintAssist.Hint="Name"
+                              Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                              Margin="0 0 0 20">
+                        </TextBox>
+                        <TextBox
                             
-                        </ListView.View>
-                    </ListView>
-                    <StackPanel Orientation="Horizontal" Margin="0 40 0 0" HorizontalAlignment="Center">
+                             VerticalAlignment="Top"
+                              materialDesign:HintAssist.Hint="Renter"
+                              Style="{StaticResource MaterialDesignOutlinedTextBox}">
+                        </TextBox>
+                        <ComboBox Grid.Row="4"
+                              materialDesign:HintAssist.Hint="Location"
+                              Grid.Column="3"
+                              Margin="0 30 0 0"
+                              HorizontalAlignment="Right"
+                              Width="200"
+                              ItemsSource="{Binding Path=Locations}"
+                              SelectedValue="{Binding Path=SelectedLocation}"
+                              Style="{StaticResource MaterialDesignOutlinedComboBox}" 
+                                  />
+                        <DockPanel>
+                            <DatePicker Grid.Row="4"
+                                Grid.Column="4"
+                                Width="120"
+                                materialDesign:HintAssist.Hint="Date"
+                                Style="{StaticResource MaterialDesignOutlinedDatePicker}" 
+                                VerticalAlignment="Bottom"
+                                        SelectedDate="{Binding Path=StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Margin="100 0 0 0"
+                               />
+                            <TextBox Grid.Row="4"
+                              Grid.Column="3"
+                              Margin="0 30 0 0"
+                              HorizontalAlignment="Right"
+                              Width="100"
+                              materialDesign:HintAssist.Hint="Days"
+                              Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                  />
+                        </DockPanel>
 
-                        <Button
-                            x:Name="RateAccommodation"
+                        <TextBox Grid.Row="4"
+                              Grid.Column="3"
+                              Margin="0 30 0 0"
+                              HorizontalAlignment="Right"
+                              Width="100"
+                              materialDesign:HintAssist.Hint="People"
+                              Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                  />
+                        <DockPanel
+                            Margin="0 40 0 0">
+                            <Button
+                            x:Name="Search"
+                            Margin="20 0 0 0 "
                             Grid.Row="2"
-                            Width="80"
-                            Height="40"
-                            Margin="0 0 100 0"
-                            Click="Details_OnClick"
-                            Content="Details"
+                            Width="100"
+                            Height="50"
+                            Click="Search_OnClick"
+                            Content="Search"
                             FontSize="15" />
+                            <Button
+                            Margin="80 0 0 0"
+                            x:Name="Clear"
+                            Grid.Row="2"
+                            Width="100"
+                            Height="50"
+                            Click="Clear_OnClick"
+                            Content="Clear"
+                            FontSize="15" />
+                        </DockPanel>
 
-                        <Button
-                            x:Name="CancelReservation"
-                            Grid.Row="2"
-                            Width="80"
-                            Height="40"
-                            Click="CancelReservation_OnClick"
-                            Content="Cancel"
-                            FontSize="15" />
                     </StackPanel>
-                </StackPanel>
+                    <StackPanel 
+                        Grid.Column="1"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Margin="0 0 0 100"
+                                >
+                        <CheckBox
+                            x:Name="HasBalcony"
+                            Content="Has a balcony" />
+                        <CheckBox
+                            x:Name="HasPool"
+                            Content="Has a pool" />
+                        <CheckBox
+                            x:Name="IsNearOcean"
+                            Content="Near Ocean" />
+                        <CheckBox
+                            x:Name="TopRated"
+                            Content="Top Rated" />
+                    </StackPanel>
+                </Grid>
             </Grid>
         </Grid>
     </Border>

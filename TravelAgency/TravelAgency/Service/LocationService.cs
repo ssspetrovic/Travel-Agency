@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using TravelAgency.Model;
 using TravelAgency.Repository;
 
@@ -28,7 +29,7 @@ namespace TravelAgency.Service
             return _locationRepository.GetByAllCities(cities);
         }
 
-        public List<Location> GetAll()
+        public ObservableCollection<Location> GetAll()
         {
             return _locationRepository.GetAll();
         }

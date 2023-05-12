@@ -1,6 +1,8 @@
 ﻿using Microsoft.Data.Sqlite;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using TravelAgency.DTO;
 using TravelAgency.Model;
 
 namespace TravelAgency.Repository
@@ -44,11 +46,11 @@ namespace TravelAgency.Repository
             return cities.Select(GetByCity).ToList();
         }
 
-        public List<Location> GetAll()
+        public ObservableCollection<Location> GetAll()
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
-            var locations = new List<Location>();
+            var locations = new ObservableCollection<Location>();
 
             const string selectStatement = "select * from Location";
             using var selectCommand = new SqliteCommand( selectStatement, databaseConnection);
