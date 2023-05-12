@@ -215,12 +215,12 @@ namespace TravelAgency.Repository
             var updateCommand = databaseConnection.CreateCommand();
             updateCommand.CommandText =
                 @"
-                    UPDATE Reservation SET comment = $userComment, gradeUserComplacent = $gradeUserComplacent, gradeUserClean = $gradeUserClean
+                    UPDATE Reservation SET userComment = $userComment, gradeUserComplacent = $gradeUserComplacent, gradeUserClean = $gradeUserClean
                     WHERE Id = $id;
                 ";
-            updateCommand.Parameters.AddWithValue("$comment", userComment);
-            updateCommand.Parameters.AddWithValue("$gradeComplacent", gradeUserComplacent);
-            updateCommand.Parameters.AddWithValue("$gradeClean", gradeUserClean);
+            updateCommand.Parameters.AddWithValue("$userComment", userComment);
+            updateCommand.Parameters.AddWithValue("$gradeUserComplacent", gradeUserComplacent);
+            updateCommand.Parameters.AddWithValue("$gradeUserClean", gradeUserClean);
             updateCommand.Parameters.AddWithValue("$id", reservationId);
             updateCommand.ExecuteNonQuery();
         }

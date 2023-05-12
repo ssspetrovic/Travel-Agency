@@ -105,11 +105,12 @@ namespace TravelAgency.View.Controls.Owner
             try
             {
 
-                //accommodationRepository.Add(accommodation);
+                accommodationRepository.Add(accommodation);
                 if (CurrentLanguageAndTheme.languageId == 0)
                     MessageBox.Show("Accommodation registered successfuly!", "Message");
                 else
                     MessageBox.Show("Smeštaj uspeštno registrovan!", "Poruka");
+                Refresh();
             }
             catch
             {
@@ -279,6 +280,23 @@ namespace TravelAgency.View.Controls.Owner
             MaxGuestValidation();
             ReservableDaysValidation();
             DescriptionValidation();
+        }
+
+        private void Refresh()
+        {
+            OwnerMainView mainWindow = null;
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window is OwnerMainView)
+                {
+                    mainWindow = (OwnerMainView)window;
+                    break;
+                }
+            }
+
+            Frame mainFrame = mainWindow.mainFrame;
+            RegisterAccommodationView registerAccommodationView = new RegisterAccommodationView();
+            mainFrame.Navigate(registerAccommodationView);
         }
     }
 }
