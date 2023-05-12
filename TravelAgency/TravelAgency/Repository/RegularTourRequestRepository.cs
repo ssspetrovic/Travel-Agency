@@ -13,7 +13,7 @@ namespace TravelAgency.Repository
             using var insertCommand = databaseConnection.CreateCommand();
             insertCommand.CommandText =
                 @"
-                    INSERT INTO RegularTourRequest (TouristUsername, City, Country, Language, DateRange, GuestNumber Description, Status)
+                    INSERT INTO RegularTourRequest (TouristUsername, City, Country, Language, DateRange, GuestNumber, Description, Status)
                     VALUES ($TouristUsername, $City, $Country, $Language, $DateRange, $GuestNumber, $Description, $Status)
                 ";
             insertCommand.Parameters.AddWithValue("$TouristUsername", tourRequest.TouristUsername);
