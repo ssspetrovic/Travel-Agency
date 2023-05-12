@@ -1,5 +1,4 @@
-﻿using System.Windows.Forms;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using TravelAgency.ViewModel;
 using static System.Char;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
@@ -28,12 +27,6 @@ namespace TravelAgency.View.Controls.Guide
                 viewModel?.Dates("Add");
             if (e.Key == Key.Delete)
                 viewModel?.Dates("Delete");
-        }
-
-        private void GoToTop_OnKeyDown(object sender, KeyEventArgs e)
-        {
-            if(e.Key == Key.Tab)
-                CreateTourScrollViewer.ScrollToTop();
         }
     }
 }

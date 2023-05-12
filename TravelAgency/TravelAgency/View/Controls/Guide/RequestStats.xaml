@@ -57,7 +57,7 @@
                 BorderThickness="3,0,3,0">
                 <ListView
                     Name="ListViewLocations"
-                    FontSize="16"
+                    FontSize="15"
                     Foreground="#68cbf8"
                     ItemsSource="{Binding Locations}"
                     KeyboardNavigation.TabIndex="0"
@@ -83,7 +83,7 @@
                 BorderThickness="3,0,3,0">
                 <ListView
                     Name="ListViewLanguages"
-                    FontSize="16"
+                    FontSize="15"
                     Foreground="#68cbf8"
                     ItemsSource="{Binding Languages}"
                     KeyboardNavigation.TabIndex="0"

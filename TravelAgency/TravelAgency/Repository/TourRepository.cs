@@ -144,6 +144,5 @@ namespace TravelAgency.Repository
                 selectCommand.Parameters.AddWithValue("$Date" + i, "%" + similarDates[i] + "%");
             return selectCommand.ExecuteReader().Read();
         }
-
     }
 }

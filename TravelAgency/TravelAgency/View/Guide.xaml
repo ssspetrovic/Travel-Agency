@@ -95,7 +95,7 @@
             <Grid>
                 <Grid.ColumnDefinitions>
                     <!--  Navigation  -->
-                    <ColumnDefinition Width="250" />
+                    <ColumnDefinition Width="290" />
 
                     <!--  Content  -->
                     <ColumnDefinition Width="*" />
@@ -139,6 +139,7 @@
                                     Icon="Home"
                                     Style="{StaticResource MenuButtonIcon}" />
                                 <TextBlock Style="{StaticResource MenuButtonText}" Text="Home Page" />
+                                <TextBlock Style="{StaticResource MenuButtonText}" Text="  (F1)" />
                             </StackPanel>
                             <i:Interaction.Triggers>
                                 <i:KeyTrigger Key="F1">
@@ -159,6 +160,7 @@
                                     Icon="Bus"
                                     Style="{StaticResource MenuButtonIcon}" />
                                 <TextBlock Style="{StaticResource MenuButtonText}" Text="New Tour" />
+                                <TextBlock Style="{StaticResource MenuButtonText}" Text="  (F2)" />
                             </StackPanel>
                             <i:Interaction.Triggers>
                                 <i:KeyTrigger Key="F2">
@@ -179,6 +181,7 @@
                                     Icon="Binoculars"
                                     Style="{StaticResource MenuButtonIcon}" />
                                 <TextBlock Style="{StaticResource MenuButtonText}" Text="Monitor Tour" />
+                                <TextBlock Style="{StaticResource MenuButtonText}" Text="  (F3)" />
                             </StackPanel>
                             <i:Interaction.Triggers>
                                 <i:KeyTrigger Key="F3">
@@ -199,6 +202,7 @@
                                     Icon="CalendarXmark"
                                     Style="{StaticResource MenuButtonIcon}" />
                                 <TextBlock Style="{StaticResource MenuButtonText}" Text="Cancel Tour" />
+                                <TextBlock Style="{StaticResource MenuButtonText}" Text="  (F4)" />
                             </StackPanel>
                             <i:Interaction.Triggers>
                                 <i:KeyTrigger Key="F4">
@@ -219,6 +223,7 @@
                                     Icon="ClipboardList"
                                     Style="{StaticResource MenuButtonIcon}" />
                                 <TextBlock Style="{StaticResource MenuButtonText}" Text="Tour Stats" />
+                                <TextBlock Style="{StaticResource MenuButtonText}" Text="  (F5)" />
                             </StackPanel>
                             <i:Interaction.Triggers>
                                 <i:KeyTrigger Key="F5">
@@ -239,6 +244,7 @@
                                     Icon="Star"
                                     Style="{StaticResource MenuButtonIcon}" />
                                 <TextBlock Style="{StaticResource MenuButtonText}" Text="Tour Review" />
+                                <TextBlock Style="{StaticResource MenuButtonText}" Text="  (F6)" />
                             </StackPanel>
                             <i:Interaction.Triggers>
                                 <i:KeyTrigger Key="F6">
@@ -259,6 +265,7 @@
                                     Icon="Plane"
                                     Style="{StaticResource MenuButtonIcon}" />
                                 <TextBlock Style="{StaticResource MenuButtonText}" Text="Accept Tour Request" />
+                                <TextBlock Style="{StaticResource MenuButtonText}" Text="  (F7)" />
                             </StackPanel>
                             <i:Interaction.Triggers>
                                 <i:KeyTrigger Key="F7">
@@ -279,6 +286,7 @@
                                     Icon="MapLocationDot"
                                     Style="{StaticResource MenuButtonIcon}" />
                                 <TextBlock Style="{StaticResource MenuButtonText}" Text="Complex Tour Request" />
+                                <TextBlock Style="{StaticResource MenuButtonText}" Text="  (F8)" />
                             </StackPanel>
                             <i:Interaction.Triggers>
                                 <i:KeyTrigger Key="F8">
@@ -299,6 +307,7 @@
                                     Icon="RectangleList"
                                     Style="{StaticResource MenuButtonIcon}" />
                                 <TextBlock Style="{StaticResource MenuButtonText}" Text="Request Stats" />
+                                <TextBlock Style="{StaticResource MenuButtonText}" Text="  (F9)" />
                             </StackPanel>
                             <i:Interaction.Triggers>
                                 <i:KeyTrigger Key="F9">
@@ -319,6 +328,8 @@
                                     Icon="Ship"
                                     Style="{StaticResource MenuButtonIcon}" />
                                 <TextBlock Style="{StaticResource MenuButtonText}" Text="Create Suggested Tour" />
+                                <TextBlock Style="{StaticResource MenuButtonText}" Text="  (F10)" />
+
                             </StackPanel>
                             <i:Interaction.Triggers>
                                 <i:KeyTrigger Key="F10">
@@ -337,7 +348,7 @@
                                 Margin="10,20,10,0"
                                 Background="#68cbf8"
                                 BorderThickness="0"
-                                Content="Logout"
+                                Content="Logout (F11)"
                                 Cursor="Hand"
                                 FontSize="12"
                                 FontWeight="Medium"
@@ -357,7 +368,7 @@
                                 Margin="10,20,10,0"
                                 Background="#68cbf8"
                                 BorderThickness="0"
-                                Content="Resign"
+                                Content="Resign (F12)"
                                 Cursor="Hand"
                                 FontSize="12"
                                 FontWeight="Medium"
@@ -475,6 +486,7 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
                                 <ColumnDefinition />
+                                <ColumnDefinition />
                             </Grid.ColumnDefinitions>
 
                             <TextBlock
@@ -491,6 +503,18 @@
                             </TextBlock>
                             <TextBlock
                                 Grid.Column="1"
+                                FontSize="12"
+                                Foreground="#68cbf8"
+                                Text="PDF Generator (-)"
+                                TextAlignment="Center">
+                                <i:Interaction.Triggers>
+                                    <i:KeyTrigger Key="OemMinus">
+                                        <i:InvokeCommandAction Command="{Binding PdfGeneratorCommand}" />
+                                    </i:KeyTrigger>
+                                </i:Interaction.Triggers>
+                            </TextBlock>
+                            <TextBlock
+                                Grid.Column="2"
                                 Padding="0,0,80,0"
                                 FontSize="12"
                                 Foreground="#68cbf8"

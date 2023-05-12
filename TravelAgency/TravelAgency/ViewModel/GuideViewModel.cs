@@ -21,6 +21,7 @@ namespace TravelAgency.ViewModel
             LogOutCommand = new MyICommand(LogOut);
             ResignCommand = new MyICommand(Resign);
             VideoTutorialCommand = new MyICommand(VideoCommand);
+            PdfGeneratorCommand = new MyICommand(PdfGenerator);
             CurrentViewModel = _currentViewModel;
             CurrentViewName = "All Tours";
         }
@@ -30,6 +31,7 @@ namespace TravelAgency.ViewModel
         public MyICommand LogOutCommand { get; private set; }
         public MyICommand ResignCommand { get; private set; }
         public MyICommand VideoTutorialCommand { get; private set; }
+        public MyICommand PdfGeneratorCommand { get; private set; }
 
         public string LoadCurrentUserData => "Welcome " + CurrentUser.DisplayName;
 
@@ -43,11 +45,17 @@ namespace TravelAgency.ViewModel
             }
         }
 
+        private void PdfGenerator()
+        {
+            var pdfDateChoice = new PdfDateChoice();
+            pdfDateChoice.ShowDialog();
+        }
+
         private void VideoCommand()
         {
             var videoTutorialViewModel = new VideoTutorialViewModel();
             var currentWindow = Application.Current.Windows.OfType<Guide>().FirstOrDefault();
-            videoTutorialViewModel.Url += currentWindow!.Title != "Shortcuts" ? currentWindow!.Title + ".mp4" : "video.mp4";
+            videoTutorialViewModel.Url += currentWindow!.Title != "Shortcuts" ? currentWindow.Title + ".mp4" : "video.mp4";
 
             var videoTutorial = new VideoTutorial
             {

@@ -1,8 +1,10 @@
-﻿using Microsoft.Data.Sqlite;
+﻿using System;
+using Microsoft.Data.Sqlite;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
+using iTextSharp.text;
 using TravelAgency.Model;
 using TravelAgency.Repository;
 
@@ -129,5 +131,32 @@ namespace TravelAgency.Service
         {
             return _tourRepository.CheckIfDatesExist(dates);
         }
+
+        public List<Paragraph> CreateDocumentData(DateTime startDate, DateTime endDate)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            var documentData = new List<Paragraph>();
+
+            const string selectStatement = "select * from Tour";
+            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
+            using var selectReader = selectCommand.ExecuteReader();
+
+            while (selectReader.Read())
+            {
+                foreach (var date in selectReader.GetString(7).Split(","))
+                {
+                    var currentDate = DateTime.Parse(date);
+                    if (currentDate <= startDate || currentDate >= endDate) continue;
+                    var paragraph = new Paragraph("Tour: " + selectReader.GetString(1) + ", Starting Location: " + _locationService.GetById(selectReader.GetInt32(2))!.City + ", Language: " + (Language)selectReader.GetInt32(4));
+                    documentData.Add(paragraph);
+                    break;
+                }
+            }
+
+            return documentData;
+        }
+
     }
 }

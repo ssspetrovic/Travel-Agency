@@ -483,35 +483,49 @@ namespace TravelAgency.ViewModel
         {
             ErrorMessageText = string.Empty;
 
-            bool isImagesValid = !string.IsNullOrEmpty(ImagesList);
+            var isImagesValid = !string.IsNullOrEmpty(ImagesList);
+
+            if (isImagesValid)
+            {
+                var imageUrls = ImagesList!.Split(',');
+
+                foreach (string imageUrl in imageUrls)
+                {
+                    if (Uri.TryCreate(imageUrl, UriKind.Absolute, out Uri result) &&
+                        (result.Scheme == Uri.UriSchemeHttp || result.Scheme == Uri.UriSchemeHttps)) continue;
+                    isImagesValid = false;
+                    break;
+                }
+            }
+
             if (!isImagesValid)
-                ErrorMessageText = "Please add at least one image for the tour.";
+                ErrorMessageText = "Please add at least one image for the tour (*NOTE - Image links have to be valid!).";
 
-            bool isDateValid = !string.IsNullOrEmpty(DateList);
-            if (!isDateValid)
-                ErrorMessageText = "Please add at least one date for the tour.";
-
-            bool isDurationValid = !string.IsNullOrEmpty(DurationText) && Regex.IsMatch(DurationText, @"^\d+(\.\d+)?$");
+            var isDurationValid = !string.IsNullOrEmpty(DurationText) && Regex.IsMatch(DurationText, @"^\d+(\.\d+)?$");
             if (!isDurationValid)
                 ErrorMessageText = "Please enter a valid duration (in hours) for the tour (e.g. 2.5).";
 
-            bool isKeyPointsValid = !string.IsNullOrEmpty(KeyPointsList) && KeyPointsList.Contains(",");
-            if (!isKeyPointsValid)
-                ErrorMessageText = "Please add at least one key point (separated by commas) for the tour.";
+            var isDateValid = !string.IsNullOrEmpty(DateList);
+            if (!isDateValid)
+                ErrorMessageText = "Please add at least one date for the tour.";
 
-            bool isMaxGuestsValid = !string.IsNullOrEmpty(MaxGuestsText) && Regex.IsMatch(MaxGuestsText, "^[0-9]+$");
+            var isKeyPointsValid = ComboBoxLocation != null && !string.IsNullOrEmpty(KeyPointsList) && KeyPointsList.Contains(",") && KeyPointsList.Split(", ")[0].Contains(ComboBoxLocation);
+            if (!isKeyPointsValid)
+                ErrorMessageText = "Please add at least two key points (separated by commas) for the tour (*NOTE - First Key Point HAS to be the same as Location).";
+
+            var isMaxGuestsValid = !string.IsNullOrEmpty(MaxGuestsText) && Regex.IsMatch(MaxGuestsText, "^[0-9]+$");
             if (!isMaxGuestsValid)
                 ErrorMessageText = "Please enter a valid number of maximum guests for the tour (must be a positive integer).";
 
-            bool isLanguageValid = !string.IsNullOrEmpty(ComboBoxLanguage);
+            var isLanguageValid = !string.IsNullOrEmpty(ComboBoxLanguage);
             if (!isLanguageValid)
                 ErrorMessageText = "Please select a language for the tour.";
 
-            bool isLocationValid = !string.IsNullOrEmpty(ComboBoxLocation);
+            var isLocationValid = !string.IsNullOrEmpty(ComboBoxLocation);
             if (!isLocationValid)
                 ErrorMessageText = "Please select a location for the tour.";
 
-            bool isNameValid = !string.IsNullOrEmpty(NameText) && NameText.Length >= 3;
+            var isNameValid = !string.IsNullOrEmpty(NameText) && NameText.Length >= 3;
             if (!isNameValid)
                 ErrorMessageText = "Please enter a valid name for the tour (must be at least 3 characters long).";
 
