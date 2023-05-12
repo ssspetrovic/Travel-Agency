@@ -76,7 +76,9 @@ namespace TravelAgency.View.Controls.Guest1
 
         private void Search_OnClick(object sender, RoutedEventArgs e)
         {
-            _viewModel.Search();
+            var searchResultsView = new SearchResultsView();
+            searchResultsView.Show(); 
+            Close();
         }
 
         private void Clear_OnClick(object sender, RoutedEventArgs e)
