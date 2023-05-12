@@ -1,8 +1,4 @@
-﻿using System;
-using System.Windows.Controls;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-
-namespace TravelAgency.Model
+﻿namespace TravelAgency.Model
 {
     internal class RegularTourRequest
     {

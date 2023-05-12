@@ -9,11 +9,8 @@
     Height="180"
     AllowsTransparency="True"
     Background="Transparent"
-    Left="435"
     ResizeMode="NoResize"
     ShowInTaskbar="False"
-    Top="372"
-    WindowStartupLocation="Manual"
     WindowStyle="None"
     mc:Ignorable="d">
     <Border

@@ -5,7 +5,6 @@ using TravelAgency.Command;
 using TravelAgency.Model;
 using TravelAgency.Service;
 using TravelAgency.View.Tourist;
-using static System.Windows.Application;
 
 namespace TravelAgency.ViewModel.Tourist
 {
@@ -148,14 +147,13 @@ namespace TravelAgency.ViewModel.Tourist
 
             Dialog = new OkDialog
             {
-                Owner = Current.MainWindow,
                 Label =
                 {
                     Content = "Request successfully created!"
                 },
                 Button =
                 {
-                    Command = new RelayCommand(Execute_NavigateToMyTourRequestsCommand)
+                    Command = new RelayCommand(Execute_NavigateToMyRequestsCommand)
                 }
             };
             Dialog?.ShowDialog();
@@ -166,11 +164,10 @@ namespace TravelAgency.ViewModel.Tourist
             _navigationService.GoBack();
         }
 
-        // TODO Change navigation when the view is implemented
-        private void Execute_NavigateToMyTourRequestsCommand(object parameter)
+        private void Execute_NavigateToMyRequestsCommand(object parameter)
         {
             Dialog?.Close();
-            _navigationService.Navigate(new RequestTourView(_navigationService, _touristViewModel));
+            _navigationService.Navigate(new MyRequestsView(_navigationService, _touristViewModel));
         }
 
         private bool CanExecute_SubmitRequestCommand(object parameter)
