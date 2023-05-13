@@ -1,4 +1,6 @@
-﻿namespace TravelAgency.View.Tourist
+﻿using TravelAgency.ViewModel.Tourist;
+
+namespace TravelAgency.View.Tourist
 {
     /// <summary>
     /// Interaction logic for RequestsStatisticsView.xaml
@@ -8,6 +10,7 @@
         public RequestsStatisticsView()
         {
             InitializeComponent();
+            DataContext = new RequestsStatisticsViewModel();
         }
     }
 }

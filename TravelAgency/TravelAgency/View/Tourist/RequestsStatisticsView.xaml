@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="RequestsStatisticsView"
@@ -65,13 +66,15 @@
                 CornerRadius="10">
                 <Grid>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
                         <RowDefinition />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <ComboBox
                         x:Name="RequestsYearCombobox"
+                        Grid.Row="0"
                         Width="100"
-                        Margin="10"
+                        Margin="10,10,10,0"
                         Padding="5"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
@@ -82,8 +85,21 @@
                         BorderThickness="1"
                         FontSize="14"
                         MaxDropDownHeight="190" />
-                    <WrapPanel
+                    <lvc:PieChart
+                        Name="PieVoucher"
                         Grid.Row="1"
+                        Width="300"
+                        LegendLocation="Right"
+                        Series="{Binding PieChartDataSeries}">
+                        <lvc:PieChart.ChartLegend>
+                            <lvc:DefaultLegend
+                                Margin="10"
+                                FontSize="14"
+                                Orientation="Vertical" />
+                        </lvc:PieChart.ChartLegend>
+                    </lvc:PieChart>
+                    <WrapPanel
+                        Grid.Row="2"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center">
                         <Label Content="Average number of guests in accepted tour requests:" FontSize="14" />
