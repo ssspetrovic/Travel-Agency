@@ -84,7 +84,7 @@ namespace TravelAgency.ViewModel.Tourist
         
         private void Execute_NavigateToRequestTourPageCommand(object parameter)
         {
-            _navigationService.Navigate(new RequestTourView(_navigationService));
+            _navigationService.Navigate(new RequestTourView(_navigationService, this));
         }
 
         private void Execute_CloseWindowCommand(object parameter)
