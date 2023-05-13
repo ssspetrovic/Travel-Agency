@@ -58,7 +58,10 @@
                 Margin="10,0"
                 Content="Regular requests"
                 FontSize="15" />
-            <Border BorderBrush="{StaticResource MaterialDesignDivider}" BorderThickness="2">
+            <Border
+                BorderBrush="{StaticResource MaterialDesignDivider}"
+                BorderThickness="2"
+                CornerRadius="10">
                 <ListView
                     Width="720"
                     HorizontalAlignment="Center"
@@ -108,7 +111,10 @@
                 Margin="10,0"
                 Content="Complex requests"
                 FontSize="15" />
-            <Border BorderBrush="{StaticResource MaterialDesignDivider}" BorderThickness="2">
+            <Border
+                BorderBrush="{StaticResource MaterialDesignDivider}"
+                BorderThickness="2"
+                CornerRadius="10">
                 <ListView
                     Width="720"
                     HorizontalAlignment="Center"
