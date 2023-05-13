@@ -28,7 +28,7 @@ namespace TravelAgency.ViewModel
             _tab2022Data = _finishedTourService.GetBestOf2023Tour();
             GetMoreStats = new MyICommand(Stats);
         }
-        
+
         public MyICommand TabTourStats { get; private set; }
         public MyICommand GetMoreStats { get; private set; }
 

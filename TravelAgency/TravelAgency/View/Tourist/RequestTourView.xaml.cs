@@ -1,5 +1,4 @@
-﻿using System.Windows;
-using System.Windows.Navigation;
+﻿using System.Windows.Navigation;
 using TravelAgency.ViewModel.Tourist;
 
 namespace TravelAgency.View.Tourist
@@ -16,11 +15,6 @@ namespace TravelAgency.View.Tourist
             InitializeComponent();
             _navigationService = navigationService;
             _touristViewModel = touristViewModel;
-        }
-
-        private void RegularTourRequestButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            NavigationService?.Navigate(new RegularTourRequestView(_navigationService, _touristViewModel));
         }
     }
 }

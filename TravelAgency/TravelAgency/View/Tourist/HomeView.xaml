@@ -86,11 +86,11 @@
                 Foreground="#3F51B5"
                 Style="{StaticResource LabelHoverStyle}">
                 <Label.Content>
-                    <TextBlock Text="Tour request statistics" TextDecorations="Underline" />
+                    <TextBlock Text="Tour requests statistics" TextDecorations="Underline" />
                 </Label.Content>
                 <b:Interaction.Triggers>
                     <b:EventTrigger EventName="MouseDown">
-                        <b:InvokeCommandAction Command="{Binding NavigateToHelpWizard}" />
+                        <b:InvokeCommandAction Command="{Binding NavigateToRequestsStatisticsCommand}" />
                     </b:EventTrigger>
                 </b:Interaction.Triggers>
             </Label>

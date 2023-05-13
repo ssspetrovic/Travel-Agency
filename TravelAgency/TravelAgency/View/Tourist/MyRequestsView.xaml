@@ -67,7 +67,8 @@
                     HorizontalAlignment="Center"
                     HorizontalContentAlignment="Center"
                     d:ItemsSource="{d:SampleData ItemCount=4}"
-                    ItemsSource="{Binding RegularRequests}">
+                    ItemsSource="{Binding RegularRequests}"
+                    Style="{StaticResource MaterialDesignListView}">
                     <ListView.ItemContainerStyle>
                         <Style BasedOn="{StaticResource MaterialDesignGridViewItem}" TargetType="ListViewItem">
                             <Setter Property="HorizontalContentAlignment" Value="Center" />

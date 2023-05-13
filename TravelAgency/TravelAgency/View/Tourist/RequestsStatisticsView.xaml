@@ -65,14 +65,18 @@
                 BorderThickness="2"
                 CornerRadius="10">
                 <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
                         <RowDefinition />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <ComboBox
                         x:Name="RequestsYearCombobox"
                         Grid.Row="0"
+                        Grid.Column="0"
                         Width="100"
                         Margin="10,10,10,0"
                         Padding="5"
@@ -86,9 +90,12 @@
                         FontSize="14"
                         MaxDropDownHeight="190" />
                     <lvc:PieChart
-                        Name="PieVoucher"
-                        Grid.Row="1"
+                        Name="RequestsPieChart"
+                        Grid.Row="0"
+                        Grid.Column="1"
                         Width="300"
+                        Margin="10"
+                        DataTooltip="{x:Null}"
                         LegendLocation="Right"
                         Series="{Binding PieChartDataSeries}">
                         <lvc:PieChart.ChartLegend>
@@ -99,7 +106,9 @@
                         </lvc:PieChart.ChartLegend>
                     </lvc:PieChart>
                     <WrapPanel
-                        Grid.Row="2"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center">
                         <Label Content="Average number of guests in accepted tour requests:" FontSize="14" />
