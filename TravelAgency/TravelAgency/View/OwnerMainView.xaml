@@ -22,11 +22,12 @@
             <Button x:Name="btnReservationChangeRequest" Style="{DynamicResource Batn}" Content="{DynamicResource ReservationChangeRequests}" Click="btnReservationChangeRequest_Click" Height="35" FontSize="16"/>
             <Button x:Name="btnGradeGuest" Style="{DynamicResource Batn}" Content="{DynamicResource GradeGuests}" Click="btnGradeGuest_Click" Height="35" FontSize="16"/>
             <Button x:Name="btnDisplayGuestReviews" Style="{DynamicResource Batn}" Content="{DynamicResource DisplayGuestReviews}" Click="btnDisplayGuestReviews_Click" Height="35" FontSize="16"/>
+            <Button Style="{DynamicResource Batn}" x:Name="btnScheduleRenovation" Content="Schedule Renovation" Click="btnScheduleRenovation_Click" Height="35" FontSize="16"/>
             <Button Style="{DynamicResource Batn}" x:Name="btnLogOut" Content="{DynamicResource LogOut}" Click="btnLogOut_Click" Height="35" FontSize="16"/>
-            <Grid Height="539">
-                <Button x:Name="btnLightTheme" Style="{DynamicResource Batn}" Content="{DynamicResource LightTheme}" Click="btnLightTheme_Click" Margin="252,489,10,10" FontSize="16"/>
-                <Button x:Name="btnLanguage" Style="{DynamicResource Batn}" Content="{DynamicResource Language}" Click="btnLanguage_Click" Margin="10,489,276,10" FontSize="16"/>
-                <Button x:Name="btnDarkTheme" Style="{DynamicResource Batn}" Content="{DynamicResource DarkTheme}" Click="btnDarkTheme_Click" Margin="252,489,10,10" FontSize="16"/>
+            <Grid Height="503">
+                <Button x:Name="btnLightTheme" Style="{DynamicResource Batn}" Content="{DynamicResource LightTheme}" Click="btnLightTheme_Click" Margin="252,408,10,31" FontSize="16"/>
+                <Button x:Name="btnLanguage" Style="{DynamicResource Batn}" Content="{DynamicResource Language}" Click="btnLanguage_Click" Margin="10,408,276,31" FontSize="16"/>
+                <Button x:Name="btnDarkTheme" Style="{DynamicResource Batn}" Content="{DynamicResource DarkTheme}" Click="btnDarkTheme_Click" Margin="252,408,10,31" FontSize="16" RenderTransformOrigin="0.476,0.747"/>
             </Grid>
         </StackPanel>
 

@@ -96,9 +96,25 @@ namespace TravelAgency.Repository
             return null;
         }
 
-        public Accommodation? GetByName(string? name)
+        public AccommodationDTO GetByName(string name)
         {
-            throw new NotImplementedException();
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+            var locationService = new LocationService();
+
+            const string selectStatement = @"select * from Accommodation where name = $name";
+            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
+            selectCommand.Parameters.AddWithValue("$name", name);
+            using var selectReader = selectCommand.ExecuteReader();
+
+            if (selectReader.Read())
+            {
+                System.Diagnostics.Debug.WriteLine(selectCommand.ToString());
+                var location = locationService.GetById(selectReader.GetInt32(5));
+                var type = Enum.Parse<AccommodationType>(selectReader.GetString(2));
+                return new AccommodationDTO(selectReader.GetInt32(0), selectReader.GetString(1), location, type, selectReader.GetInt32(3), selectReader.GetInt32(4), selectReader.GetInt32(7), selectReader.GetString(8));
+            }
+            return null;
         }
 
         public int GetOwnerIdByAccommodationId(int accommodationId)

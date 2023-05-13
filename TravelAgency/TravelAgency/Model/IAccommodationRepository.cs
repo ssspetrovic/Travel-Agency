@@ -18,7 +18,7 @@ namespace TravelAgency.Model
         void Edit(Accommodation accommodation);
         void Remove(int id);
         AccommodationDTO GetById(int id);
-        Accommodation? GetByName(string? name);
+        AccommodationDTO GetByName(string name);
         DataTable GetByAll(DataTable dt);
         Language FindLanguage(string language);
         ObservableCollection<AccommodationDTO> GetAll();
