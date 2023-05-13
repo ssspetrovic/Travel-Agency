@@ -47,7 +47,7 @@ namespace TravelAgency.ViewModel.Tourist
         {
             var window = _windowManager.GetWindow<TouristView>();
             window.RequestTourButton.IsChecked = true;
-            _navigationService.Navigate(new RequestTourView(_navigationService, _touristViewModel));
+            _navigationService.Navigate(new RequestTourView(_navigationService));
         }
 
         private void Execute_NavigateToRequestsStatisticsCommand(object parameter)
