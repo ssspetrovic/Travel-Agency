@@ -1,14 +1,127 @@
-﻿<Page x:Class="TravelAgency.View.Tourist.RequestsStatisticsView"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:TravelAgency.View.Tourist"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="RequestsStatisticsView">
-
+﻿<Page
+    x:Class="TravelAgency.View.Tourist.RequestsStatisticsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="RequestsStatisticsView"
+    d:DesignHeight="616"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <ResourceDictionary x:Name="Dictionary">
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Styles/TouristDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style
+                x:Key="AnimatedLabelStyle"
+                BasedOn="{StaticResource MaterialDesignLabel}"
+                TargetType="Label">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Visibility, RelativeSource={RelativeSource Self}}" Value="Visible">
+                        <DataTrigger.EnterActions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation
+                                        Storyboard.TargetProperty="Opacity"
+                                        From="0"
+                                        To="1"
+                                        Duration="0:0:0.2" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </DataTrigger.EnterActions>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
+    </Page.Resources>
+    <d:Page.Background>
+        <SolidColorBrush Color="White" />
+    </d:Page.Background>
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="90" />
+            <RowDefinition Height="239" />
+            <RowDefinition Height="278" />
+        </Grid.RowDefinitions>
+        <TextBlock
+            Grid.Row="0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="25"
+            FontWeight="Medium"
+            Style="{StaticResource MaterialDesignHeadline1TextBlock}"
+            Text="Requests statistics" />
+        <StackPanel Grid.Row="1" Margin="40,0">
+            <Label
+                Margin="10,0"
+                Content="Percentage of accepted/denied requests"
+                FontSize="15" />
+            <Border
+                Height="209"
+                BorderBrush="{StaticResource MaterialDesignDivider}"
+                BorderThickness="2"
+                CornerRadius="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <ComboBox
+                        x:Name="RequestsYearCombobox"
+                        Width="100"
+                        Margin="10"
+                        Padding="5"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        materialDesign:HintAssist.Hint="All years"
+                        materialDesign:TextFieldAssist.TextFieldCornerRadius="3"
+                        materialDesign:TextFieldAssist.UnderlineCornerRadius="3"
+                        BorderBrush="{StaticResource MaterialDesignDivider}"
+                        BorderThickness="1"
+                        FontSize="14"
+                        MaxDropDownHeight="190" />
+                    <WrapPanel
+                        Grid.Row="1"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                        <Label Content="Average number of guests in accepted tour requests:" FontSize="14" />
+                        <Label FontSize="14" FontWeight="DemiBold">
+                            <Label.Content>
+                                <TextBlock d:Text="42.31" TextDecorations="Underline" />
+                            </Label.Content>
+                        </Label>
+                    </WrapPanel>
+                </Grid>
+            </Border>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Margin="40,10,40,20">
+            <Label
+                Margin="10,0"
+                Content="Percentage of accepted/denied requests"
+                FontSize="15" />
+            <Border
+                Height="219"
+                BorderBrush="{StaticResource MaterialDesignDivider}"
+                BorderThickness="2"
+                CornerRadius="10">
+                <ComboBox
+                    x:Name="LanguageComboBox"
+                    Width="100"
+                    Margin="0,10"
+                    Padding="5"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    materialDesign:HintAssist.Hint="All years"
+                    materialDesign:TextFieldAssist.TextFieldCornerRadius="3"
+                    materialDesign:TextFieldAssist.UnderlineCornerRadius="3"
+                    BorderBrush="{StaticResource MaterialDesignDivider}"
+                    BorderThickness="1"
+                    FontSize="14"
+                    MaxDropDownHeight="190" />
+            </Border>
+        </StackPanel>
+
     </Grid>
 </Page>

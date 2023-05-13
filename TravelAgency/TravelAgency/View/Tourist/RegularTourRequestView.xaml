@@ -41,7 +41,7 @@
     </d:Page.Background>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="75" />
+            <RowDefinition Height="90" />
             <RowDefinition />
         </Grid.RowDefinitions>
         <TextBlock
@@ -52,7 +52,7 @@
             FontWeight="Medium"
             Style="{StaticResource MaterialDesignHeadline1TextBlock}"
             Text="Regular tour request" />
-        <StackPanel Grid.Row="1" Margin="150,20,150,50">
+        <StackPanel Grid.Row="1" Margin="150,0,150,50">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
