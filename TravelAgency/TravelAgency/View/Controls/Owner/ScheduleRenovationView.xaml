@@ -1,0 +1,39 @@
+﻿<Page x:Class="TravelAgency.View.Controls.Owner.ScheduleRenovationView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TravelAgency.View.Controls.Owner"
+      mc:Ignorable="d" 
+      d:DesignHeight="690" d:DesignWidth="430"
+      Title="ScheduleRenovationView">
+
+    <Grid Style="{DynamicResource Grid}">
+        <ComboBox x:Name="cmbAccName" HorizontalAlignment="Center" Margin="0,61,0,0" VerticalAlignment="Top" Width="324" ItemsSource="{Binding AccommodationsSourceCollection}"/>
+        <DatePicker x:Name="pickStartDate" HorizontalAlignment="Left" Margin="53,144,0,0" VerticalAlignment="Top" Width="127"/>
+        <DatePicker x:Name="pickEndDate" HorizontalAlignment="Left" Margin="250,144,0,0" VerticalAlignment="Top" Width="127"/>
+        <TextBox x:Name="txtDuration" HorizontalAlignment="Left" Margin="53,210,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="127"/>
+        <Button x:Name="btnCheck" Content="Check Availibility" HorizontalAlignment="Center" Margin="0,266,0,0" VerticalAlignment="Top" Width="324" Click="btnCheck_Click"/>
+        <ListView x:Name="FreeDatesListView" d:ItemsSource="{d:SampleData ItemCount=3}" ItemsSource="{Binding ReservationsSourceCollection}" SelectedItem="{Binding SelectedReservation}" Margin="53,331,53,236" FontSize="12">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn
+                        Width="Auto"
+                        DisplayMemberBinding="{Binding Id}"
+                        Header="{DynamicResource Reservation}"
+                        HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
+                    <GridViewColumn
+                        Width="Auto"
+                        DisplayMemberBinding="{Binding StartDate}"
+                        Header="{DynamicResource Start Date}"
+                        HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Label Content="Label" HorizontalAlignment="Left" Margin="53,491,0,0" VerticalAlignment="Top"/>
+        <Label Content="Label" HorizontalAlignment="Left" Margin="53,520,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Center" Margin="0,571,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="324"/>
+        <Button Content="Button" HorizontalAlignment="Center" Margin="0,648,0,0" VerticalAlignment="Top" Width="162"/>
+
+    </Grid>
+</Page>
