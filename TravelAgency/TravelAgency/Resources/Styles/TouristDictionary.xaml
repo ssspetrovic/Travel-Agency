@@ -129,4 +129,16 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style
+        x:Key="LabelHoverStyle"
+        BasedOn="{StaticResource MaterialDesignLabel}"
+        TargetType="Label">
+        <Setter Property="Cursor" Value="Arrow" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Cursor" Value="Hand" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 </ResourceDictionary>

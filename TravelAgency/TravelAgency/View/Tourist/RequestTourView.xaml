@@ -69,7 +69,8 @@
                 VerticalAlignment="Center"
                 FontSize="14"
                 FontWeight="DemiBold"
-                Foreground="#3F51B5">
+                Foreground="#3F51B5"
+                Style="{StaticResource LabelHoverStyle}">
                 <Label.Content>
                     <TextBlock Text="My requests" TextDecorations="Underline" />
                 </Label.Content>
