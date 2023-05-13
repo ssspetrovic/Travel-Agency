@@ -47,7 +47,8 @@
                 VerticalAlignment="Center"
                 FontSize="20"
                 FontWeight="DemiBold"
-                Foreground="#3F51B5">
+                Foreground="#3F51B5"
+                Style="{StaticResource LabelHoverStyle}">
                 <Label.Content>
                     <TextBlock Text="Browse tours" TextDecorations="Underline" />
                 </Label.Content>
@@ -64,7 +65,8 @@
                 VerticalAlignment="Center"
                 FontSize="20"
                 FontWeight="DemiBold"
-                Foreground="#3F51B5">
+                Foreground="#3F51B5"
+                Style="{StaticResource LabelHoverStyle}">
                 <Label.Content>
                     <TextBlock Text="Request a custom tour" TextDecorations="Underline" />
                 </Label.Content>
@@ -81,7 +83,8 @@
                 VerticalAlignment="Center"
                 FontSize="20"
                 FontWeight="DemiBold"
-                Foreground="#3F51B5">
+                Foreground="#3F51B5"
+                Style="{StaticResource LabelHoverStyle}">
                 <Label.Content>
                     <TextBlock Text="Tour request statistics" TextDecorations="Underline" />
                 </Label.Content>
@@ -98,7 +101,8 @@
                 VerticalAlignment="Center"
                 FontSize="20"
                 FontWeight="DemiBold"
-                Foreground="#3F51B5">
+                Foreground="#3F51B5"
+                Style="{StaticResource LabelHoverStyle}">
                 <Label.Content>
                     <TextBlock Text="Open a help wizard" TextDecorations="Underline" />
                 </Label.Content>

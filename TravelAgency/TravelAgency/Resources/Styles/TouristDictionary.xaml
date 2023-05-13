@@ -27,6 +27,7 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            <Setter Property="Cursor" Value="Arrow" />
             <Setter Property="Height" Value="50" />
             <Setter Property="Width" Value="200" />
             <Setter Property="Background" Value="Transparent" />
@@ -37,6 +38,7 @@
                 <Setter Property="Background" Value="#7986CB " />
             </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Cursor" Value="Hand" />
                 <Setter Property="Background" Value="#5C6BC0 " />
             </Trigger>
         </Style.Triggers>
@@ -75,6 +77,9 @@
                         <Trigger Property="IsChecked" Value="False">
                             <Setter TargetName="UserBorder" Property="Background" Value="Transparent" />
                             <Setter TargetName="UserIconImage" Property="Foreground" Value="White" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -123,6 +128,9 @@
                         <Trigger Property="IsChecked" Value="True">
                             <Setter TargetName="ToggleCircle" Property="HorizontalAlignment" Value="Right" />
                             <Setter TargetName="ToggleBackground" Property="Background" Value="#333333" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
