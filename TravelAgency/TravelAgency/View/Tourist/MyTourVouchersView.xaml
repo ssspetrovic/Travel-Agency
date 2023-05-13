@@ -75,7 +75,8 @@
             Grid.Row="2"
             Margin="80,0,80,50"
             BorderBrush="{StaticResource MaterialDesignDivider}"
-            BorderThickness="2">
+            BorderThickness="2"
+            CornerRadius="10">
             <ListView
                 x:Name="MyVouchersListView"
                 d:ItemsSource="{d:SampleData ItemCount=5}"

@@ -80,7 +80,8 @@
             Grid.Row="2"
             Margin="80,0"
             BorderBrush="{StaticResource MaterialDesignDivider}"
-            BorderThickness="2">
+            BorderThickness="2"
+            CornerRadius="10">
             <ListView
                 d:ItemsSource="{d:SampleData ItemCount=5}"
                 ItemsSource="{Binding MyTours}"
