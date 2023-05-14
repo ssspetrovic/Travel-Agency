@@ -121,7 +121,6 @@
                         ItemsSource="{Binding YearsCollection}"
                         SelectedItem="{Binding SelectedCartesianYear, UpdateSourceTrigger=PropertyChanged}"
                         Style="{StaticResource StatisticsComboBoxStyle}" />
-
                     <lvc:CartesianChart
                         Grid.Row="1"
                         Grid.Column="0"
@@ -135,7 +134,11 @@
                             <lvc:Axis
                                 Title="Language"
                                 FontSize="12"
-                                Labels="{Binding LanguageLabels}" />
+                                Labels="{Binding LanguageLabels}">
+                                <lvc:Axis.Separator>
+                                    <lvc:Separator Step="1" />
+                                </lvc:Axis.Separator>
+                            </lvc:Axis>
                         </lvc:CartesianChart.AxisY>
                     </lvc:CartesianChart>
                     <GridSplitter
@@ -156,7 +159,11 @@
                             <lvc:Axis
                                 Title="Location"
                                 FontSize="12"
-                                Labels="{Binding LocationLabels}" />
+                                Labels="{Binding LocationLabels}">
+                                <lvc:Axis.Separator>
+                                    <lvc:Separator Step="1" />
+                                </lvc:Axis.Separator>
+                            </lvc:Axis>
                         </lvc:CartesianChart.AxisY>
                     </lvc:CartesianChart>
                 </Grid>
