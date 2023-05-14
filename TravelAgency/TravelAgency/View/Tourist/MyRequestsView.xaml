@@ -13,26 +13,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Resources/Styles/TouristDictionary.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Style
-                x:Key="AnimatedLabelStyle"
-                BasedOn="{StaticResource MaterialDesignLabel}"
-                TargetType="Label">
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding Visibility, RelativeSource={RelativeSource Self}}" Value="Visible">
-                        <DataTrigger.EnterActions>
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <DoubleAnimation
-                                        Storyboard.TargetProperty="Opacity"
-                                        From="0"
-                                        To="1"
-                                        Duration="0:0:0.2" />
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </DataTrigger.EnterActions>
-                    </DataTrigger>
-                </Style.Triggers>
-            </Style>
         </ResourceDictionary>
     </Page.Resources>
     <d:Page.Background>

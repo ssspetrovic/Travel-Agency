@@ -168,4 +168,25 @@
         <Setter Property="MaxDropDownHeight" Value="190" />
     </Style>
 
+    <Style
+        x:Key="AnimatedLabelStyle"
+        BasedOn="{StaticResource MaterialDesignLabel}"
+        TargetType="Label">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Visibility, RelativeSource={RelativeSource Self}}" Value="Visible">
+                <DataTrigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="Opacity"
+                                From="0"
+                                To="1"
+                                Duration="0:0:0.2" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </DataTrigger.EnterActions>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
 </ResourceDictionary>
