@@ -27,10 +27,43 @@ namespace TravelAgency.ViewModel
         private DateTime _endDate;
         private string _comment;
         private string _pictureUrl;
+        private string _areGradesShown;
+        private string _isTextShown;
+        private string _gradeMessage;
 
 
         private readonly ReservationService reservationService = new();
 
+
+
+        public string GradeMessage
+        {
+            get => _gradeMessage;
+            set
+            {
+                _gradeMessage = value;
+                OnPropertyChanged();
+            }
+        }
+        public string AreGradesShown
+        {
+            get => _areGradesShown;
+            set
+            {
+                _areGradesShown = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string IsTextShown
+        {
+            get => _isTextShown;
+            set
+            {
+                _isTextShown = value;
+                OnPropertyChanged();
+            }
+        }
 
         public string Comment
         {
@@ -115,6 +148,7 @@ namespace TravelAgency.ViewModel
                 Image = new BitmapImage(new Uri(Accommodation.PictureUrl, UriKind.Absolute)); //TODO: change up
                 StartDate = _reservation.StartDate.ToDateTime(TimeOnly.MinValue);
                 EndDate = _reservation.EndDate.ToDateTime(TimeOnly.MinValue);
+                UpdatePersonalGradeView();
             }
         }
 
@@ -135,6 +169,50 @@ namespace TravelAgency.ViewModel
             GradeClean = 5;
             GradeOwner = 5;
             var _reservationService = new ReservationService();
+        }
+
+        public void UpdatePersonalGradeView()
+        {
+            var _service = new ReservationService();
+            
+            if (_reservation == null)
+            {
+                MessageBox.Show("There was a problem while loading the reservation in question.");
+            }
+            else if(Reservation.GradeAccommodationClean == -1 || Reservation.GradeAccommodationOwner == -1)
+            {
+                AreGradesShown = "Hidden";
+                IsTextShown = "Visible";
+                GradeMessage = "You need to rate the owner before you can see your rating";
+                Reservation.GradeAccommodationClean = 0;
+                Reservation.GradeAccommodationOwner = 0;
+                Reservation.GradeGuestClean = 0;
+                Reservation.GradeGuestComplacent = 0;
+                RaisePropertyChanged("AreGradesShown");
+                RaisePropertyChanged("IsTextShown");
+                RaisePropertyChanged("GradeMessage");
+
+
+            }
+            else if(Reservation.GradeGuestClean == -1 || Reservation.GradeGuestComplacent == -1)
+            {
+                AreGradesShown = "Hidden";
+                IsTextShown = "Visible";
+                GradeMessage = "You have not been rated";
+                Reservation.GradeGuestClean = 0;
+                Reservation.GradeGuestComplacent = 0;
+                RaisePropertyChanged("AreGradesShown");
+                RaisePropertyChanged("IsTextShown");
+                RaisePropertyChanged("GradeMessage");
+            }
+            else
+            {
+                AreGradesShown = "Visible";
+                IsTextShown = "Hidden";
+                RaisePropertyChanged("AreGradesShown");
+                RaisePropertyChanged("IsTextShown");
+            }
+            
         }
 
         public void SendDelayRequest()
@@ -191,6 +269,8 @@ namespace TravelAgency.ViewModel
             {
                 MessageBox.Show("You need to submit ratings within 5 days!");
             }
+
+            UpdatePersonalGradeView();
         }
     }
 }

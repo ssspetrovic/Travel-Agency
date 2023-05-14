@@ -179,7 +179,13 @@
                         </StackPanel>
 
                     </StackPanel>
-                    <StackPanel Orientation="Vertical" Grid.Column="1" Margin="0 10 0 0">
+
+                    <Grid Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Vertical" Grid.Column="0" Margin="0 10 0 0">
                         <StackPanel>
                             <Label>
                                 Cleanliness rating
@@ -199,7 +205,40 @@
                               Value="{Binding Path = GradeOwner, Mode=TwoWay, NotifyOnSourceUpdated=True}" />
                         </StackPanel>
                     </StackPanel>
+                        <StackPanel Orientation="Vertical" Grid.Column="1" Margin="0 10 0 0"
+                                    Visibility="{Binding AreGradesShown, NotifyOnSourceUpdated=True}">
+                            <StackPanel>
+                                <Label>
+                                    Your cleanliness
+                                </Label>
+                                <materialDesign:RatingBar
+                              x:Name="YourCleanGrade"
+                              IsReadOnly="True"
+                              Value="{Binding Reservation.GradeGuestClean}" />
+                            </StackPanel>
+                            <StackPanel>
+                                <Label
+                                 Margin="0 30 0 0">
+                                    Your compliency
+                                </Label>
+                                <materialDesign:RatingBar
+                              IsReadOnly="True"
+                              x:Name="YourComplientGrade"
+                              Value="{Binding Reservation.GradeGuestComplacent}" />
+                            </StackPanel>
 
+                        </StackPanel>
+                        <TextBlock 
+                                Visibility="{Binding IsTextShown, NotifyOnSourceUpdated=True}"
+                                Margin="0 0 0 0"
+                                Grid.Column="1"
+                                Width="140"
+                                TextWrapping="WrapWithOverflow"
+                                VerticalAlignment="center"
+                                FontSize="14"
+                                Text="You have not been rated yet"
+                               />
+                    </Grid>
 
                 </Grid>
                 <Grid Grid.Row="3">
