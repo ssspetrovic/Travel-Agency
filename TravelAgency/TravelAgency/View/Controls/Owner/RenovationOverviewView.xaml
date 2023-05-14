@@ -1,0 +1,76 @@
+﻿<Page x:Class="TravelAgency.View.Controls.Owner.RenovationOverviewView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TravelAgency.View.Controls.Owner"
+      mc:Ignorable="d" 
+      d:DesignHeight="690" d:DesignWidth="430"
+      Title="RenovationOverviewView">
+
+    <Grid Style="{DynamicResource Grid}">
+        <ListView x:Name="PreviousRenovationsListView" d:ItemsSource="{d:SampleData ItemCount=3}" ItemsSource="{Binding PreviousRenovationsSourceCollection}" Margin="22,58,21,494" FontSize="12">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn
+                        Width="Auto"
+                        DisplayMemberBinding="{Binding Id}"
+                        Header="RenovationId"
+                        HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
+                    <GridViewColumn
+                        Width="Auto"
+                        DisplayMemberBinding="{Binding AccommodationId}"
+                        Header="Accommodation"
+                        HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
+                    <GridViewColumn
+                        Width="Auto"
+                        DisplayMemberBinding="{Binding StartDate}"
+                        Header="Start Date"
+                        HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
+                    <GridViewColumn
+                        Width="Auto"
+                        DisplayMemberBinding="{Binding EndDate}"
+                        Header="End Date"
+                        HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
+                    <GridViewColumn
+                        Width="Auto"
+                        DisplayMemberBinding="{Binding Duration}"
+                        Header="Duration"
+                        HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <ListView x:Name="FutureRenovationsListView" d:ItemsSource="{d:SampleData ItemCount=3}" ItemsSource="{Binding FutureRenovationsSourceCollection}" Margin="22,321,22,231" FontSize="12">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn
+                        Width="Auto"
+                        DisplayMemberBinding="{Binding Id}"
+                        Header="RenovationId"
+                        HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
+                    <GridViewColumn
+                        Width="Auto"
+                        DisplayMemberBinding="{Binding AccommodationId}"
+                        Header="Accommodation"
+                        HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
+                    <GridViewColumn
+                        Width="Auto"
+                        DisplayMemberBinding="{Binding StartDate}"
+                        Header="Start Date"
+                        HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
+                    <GridViewColumn
+                        Width="Auto"
+                        DisplayMemberBinding="{Binding EndDate}"
+                        Header="End Date"
+                        HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
+                    <GridViewColumn
+                        Width="Auto"
+                        DisplayMemberBinding="{Binding Duration}"
+                        Header="Duration"
+                        HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+    </Grid>
+</Page>

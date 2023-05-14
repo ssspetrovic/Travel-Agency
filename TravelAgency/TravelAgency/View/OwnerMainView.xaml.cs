@@ -149,5 +149,13 @@ namespace TravelAgency.View
             mainFrame.Navigate(scheduleRenovationView);
             lblSelectedTab.Content = btnScheduleRenovation.Content;
         }
+
+        private void btnRenovationOverview_Click(object sender, RoutedEventArgs e)
+        {
+            stekPanel.Visibility = Visibility.Hidden;
+            RenovationOverviewView renovationOverviewView = new RenovationOverviewView();
+            mainFrame.Navigate(renovationOverviewView);
+            lblSelectedTab.Content = btnRenovationOverview.Content;
+        }
     }
 }
