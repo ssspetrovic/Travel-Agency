@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Forms;
 using TravelAgency.Model;
 
@@ -91,17 +93,23 @@ namespace TravelAgency.Repository
             databaseConnection.Open();
 
             using var selectCommand = databaseConnection.CreateCommand();
-            selectCommand.CommandText = "SELECT DISTINCT SUBSTR(DateRange, INSTR(DateRange, '/') + 4, 5) FROM RegularTourRequest";
+            selectCommand.CommandText =
+                @"
+                    SELECT DISTINCT
+                    SUBSTR(DateRange, 7, 4) AS StartYear,
+                    SUBSTR(DateRange, -4, 4) AS EndYear FROM RegularTourRequest
+                ";
+            var selectReader = selectCommand.ExecuteReader();
 
-            using var selectReader = selectCommand.ExecuteReader();
-
-            var years = new ObservableCollection<string>();
+            var years = new List<string>();
             while (selectReader.Read())
             {
                 years.Add(selectReader.GetString(0));
+                years.Add(selectReader.GetString(1));
             }
 
-            return years;
+            var distinctYears = years.Distinct().ToList();
+            return new ObservableCollection<string>(distinctYears);
         }
     }
 }
