@@ -61,7 +61,7 @@ namespace TravelAgency.Repository
             else
             {
                 selectCommand.CommandText =
-                    "SELECT * FROM RegularTourRequest WHERE TouristUsername = $CurrentUserUsername AND SUBSTR(DateRange, 7, 4) = $year";
+                    "SELECT * FROM RegularTourRequest WHERE TouristUsername = $CurrentUserUsername AND SUBSTR(DateRange, 7, 4) = $year OR SUBSTR(DateRange, -4, 4) = $year";
                 selectCommand.Parameters.AddWithValue("$year", year);
             }
 
