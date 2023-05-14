@@ -54,14 +54,14 @@ namespace TravelAgency.Repository
 
             using var selectCommand = databaseConnection.CreateCommand();
 
-            if (year == null)
+            if (year is "All years" or null)
             {
                 selectCommand.CommandText = "SELECT * FROM RegularTourRequest WHERE TouristUsername = $CurrentUserUsername";
             }
             else
             {
                 selectCommand.CommandText =
-                    "SELECT * FROM RegularTourRequest WHERE ToristUsername = $CurrentUserUsername AND SUBSTR(DateRange, 7, 4) = $year";
+                    "SELECT * FROM RegularTourRequest WHERE TouristUsername = $CurrentUserUsername AND SUBSTR(DateRange, 7, 4) = $year";
                 selectCommand.Parameters.AddWithValue("$year", year);
             }
 

@@ -10,6 +10,7 @@ namespace TravelAgency.ViewModel.Tourist
 {
     internal class RequestsStatisticsViewModel : BaseViewModel
     {
+        private readonly TourRequestsStatisticsService _statisticsService;
         private string? _selectedYear;
 
         public string? SelectedYear
@@ -47,28 +48,13 @@ namespace TravelAgency.ViewModel.Tourist
 
         public RequestsStatisticsViewModel()
         {
+            _statisticsService = new TourRequestsStatisticsService();
             var requestService = new RegularTourRequestService();
             _yearsCollection = requestService.GetAllYears();
             _yearsCollection.Add("All years");
             _selectedYear = "All years";
 
-            _pieChartDataSeries = new SeriesCollection
-            {
-                new PieSeries
-                {
-                    Title = "Accepted",
-                    Values = new ChartValues<ObservableValue> { new(30 * 0.01) },
-                    LabelPoint = chartPoint => $"{Math.Round(chartPoint.Y * 100)}%",
-                    DataLabels = true,
-                },
-                new PieSeries
-                {
-                    Title = "Denied",
-                    Values = new ChartValues<ObservableValue> { new(70 * 0.01) },
-                    LabelPoint = chartPoint => $"{Math.Round(chartPoint.Y * 100)}%",
-                    DataLabels = true,
-                }
-            };
+            _pieChartDataSeries = _statisticsService.GetRequestsSeriesCollection(SelectedYear);
         }
     }
 }
