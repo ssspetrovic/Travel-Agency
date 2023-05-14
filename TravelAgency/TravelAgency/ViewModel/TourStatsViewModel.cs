@@ -14,9 +14,9 @@ namespace TravelAgency.ViewModel
     public class TourStatsViewModel : HomePageViewModel
     {
         private readonly FinishedTourService _finishedTourService;
-        private readonly ObservableCollection<FinishedTour> _tabAllData;
-        private readonly ObservableCollection<FinishedTour> _tab2023Data;
-        private readonly ObservableCollection<FinishedTour> _tab2022Data;
+        private readonly ObservableCollection<Tour> _tabAllData;
+        private readonly ObservableCollection<Tour> _tab2023Data;
+        private readonly ObservableCollection<Tour> _tab2022Data;
         private int _tabsIndex;
 
         public TourStatsViewModel()

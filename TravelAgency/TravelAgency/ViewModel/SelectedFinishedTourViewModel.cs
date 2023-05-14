@@ -14,7 +14,7 @@ public class SelectedFinishedTourViewModel : HomePageViewModel
 {
 
     private readonly FinishedTourService _finishedTourService;
-    private readonly FinishedTour _currentFinishedTour;
+    private readonly Tour _currentFinishedTour;
     private readonly TourVoucherService _voucherService;
     private string _currentFinishedTourName;
 

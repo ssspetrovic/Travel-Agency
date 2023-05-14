@@ -29,8 +29,27 @@ namespace TravelAgency.Model
         public string Date { get; set; } = null!;
         public float Duration { get; set; }
         public string Photos { get; set; } = null!;
+        public List<Tourist> Tourists { get; set; } = null!;
+
 
         public Tour() {}
+
+        public Tour(string name, List<Location?> keyPoints, List<Tourist> tourists, string date)
+        {
+            Name = name;
+            KeyPoints = keyPoints;
+            Tourists = tourists;
+            Date = date;
+        }
+
+        public Tour(int id, string name, List<Location?> keyPoints, List<Tourist> tourists, string date)
+        {
+            Id = id;
+            Name = name;
+            KeyPoints = keyPoints;
+            Tourists = tourists;
+            Date = date;
+        }
 
         public Tour(string name, Location location, string? description, Language language, int maxGuests, List<Location?> keyPoints, string date, float duration, string photos)
         {
@@ -57,6 +76,21 @@ namespace TravelAgency.Model
             Date = date;
             Duration = duration;
             Photos = photos;
+        }
+
+        public Tour(int id, string name, Location location, string? description, Language language, int maxGuests, List<Location?> keyPoints, string date, float duration, string photos, List<Tourist> tourists)
+        {
+            Id = id;
+            Name = name;
+            Location = location;
+            Description = description;
+            Language = language;
+            MaxGuests = maxGuests;
+            KeyPoints = keyPoints;
+            Date = date;
+            Duration = duration;
+            Photos = photos;
+            Tourists = tourists;
         }
 
         public override string ToString()

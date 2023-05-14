@@ -5,7 +5,6 @@ namespace TravelAgency.Model
     public class ActiveTour : Tour
     {
         public Dictionary<int, bool> CheckedKeyPoints { get; set; }
-        public List<Tourist> Tourists { get; set; }
         public string CurrentKeyPoint { get; set; }
 
         public ActiveTour(string name, Dictionary<int, bool> checkedKeyPoints, List<Tourist> tourists, string currentKeyPoint)
