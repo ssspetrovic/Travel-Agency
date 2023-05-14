@@ -32,8 +32,8 @@
         </ListView>
         <Label x:Name="lblStartDate" HorizontalAlignment="Left" Margin="53,491,0,0" VerticalAlignment="Top" DataContext="{Binding SelectedItem, ElementName=FreeDatesListView}" Content="{Binding startDate}"/>
         <Label x:Name="lblEndDate" HorizontalAlignment="Left" Margin="53,520,0,0" VerticalAlignment="Top" DataContext="{Binding SelectedItem, ElementName=FreeDatesListView}" Content="{Binding endDate}"/>
-        <TextBox HorizontalAlignment="Center" Margin="0,571,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="324"/>
-        <Button Content="Button" HorizontalAlignment="Center" Margin="0,648,0,0" VerticalAlignment="Top" Width="162"/>
+        <TextBox x:Name="txtDescription" HorizontalAlignment="Center" Margin="0,571,0,0" TextWrapping="Wrap" Text="Description" VerticalAlignment="Top" Width="324"/>
+        <Button x:Name="btnAppoint" Content="Appoint Renovation" HorizontalAlignment="Center" Margin="0,634,0,0" VerticalAlignment="Top" Width="162" Click="btnAppoint_Click"/>
         <Label x:Name="lblCountFreeDates" Content="Free: ##" HorizontalAlignment="Left" Margin="250,218,0,0" VerticalAlignment="Top"/>
 
     </Grid>
