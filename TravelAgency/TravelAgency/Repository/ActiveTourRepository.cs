@@ -10,9 +10,9 @@ namespace TravelAgency.Repository
         public string GetAllKeyPoints(ActiveTour activeTour)
         {
             var allKeyPoints = "";
-            activeTour.KeyPoints[activeTour.KeyPoints.First().Key] = true;
+            activeTour.CheckedKeyPoints[activeTour.CheckedKeyPoints.First().Key] = true;
 
-            foreach (var tour in activeTour.KeyPoints)
+            foreach (var tour in activeTour.CheckedKeyPoints)
             {
                 allKeyPoints += tour.Key + ":" + tour.Value + ", ";
             }

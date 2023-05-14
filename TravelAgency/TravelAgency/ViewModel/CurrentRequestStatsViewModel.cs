@@ -53,35 +53,37 @@ namespace TravelAgency.ViewModel
 
         public void ByMonth(string month)
         {
-            if (Enum.TryParse(month, out Key key) && key >= Key.F1 && key <= Key.F12)
+            if (!Enum.TryParse(month, out Key key)) return;
+            if (TabsIndex == 0) return;
+            var monthNumber = key - Key.F1 + 1;
+
+            if (month == "October")
+                monthNumber = 10;
+
+            var tourList = _requestTourService.GetRequestsByDate("", monthNumber, Tabs[TabsIndex].Title, DataType);
+            var numberOfRequests = 0.0;
+
+            if (tourList.Count > 0)
             {
-                if (TabsIndex == 0) return;
-                int monthNumber = key - Key.F1 + 1;
-                var tourList = _requestTourService.GetRequestsByDate("", monthNumber, Tabs[TabsIndex].Title, DataType);
-                var numberOfRequests = 0.0;
+                var minStartDate = tourList.Min(tour => DateTime.Parse(tour.DateRange.Split(" - ")[0]));
+                var maxEndDate = tourList.Max(tour => DateTime.Parse(tour.DateRange.Split(" - ")[1]));
 
-                if (tourList.Count > 0)
-                {
-                    var minStartDate = tourList.Min(tour => DateTime.Parse(tour.DateRange.Split(" - ")[0]));
-                    var maxEndDate = tourList.Max(tour => DateTime.Parse(tour.DateRange.Split(" - ")[1]));
+                if (minStartDate.Month != monthNumber)
+                    minStartDate = new DateTime(minStartDate.Year, monthNumber - 1, DateTime.DaysInMonth(minStartDate.Year, monthNumber - 1));
+                if (maxEndDate.Month != monthNumber)
+                    maxEndDate = new DateTime(maxEndDate.Year, monthNumber, DateTime.DaysInMonth(maxEndDate.Year, monthNumber));
 
-                    if (minStartDate.Month != monthNumber)
-                        minStartDate = new DateTime(minStartDate.Year, monthNumber - 1, DateTime.DaysInMonth(minStartDate.Year, monthNumber - 1));
-                    if (maxEndDate.Month != monthNumber)
-                        maxEndDate = new DateTime(maxEndDate.Year, monthNumber, DateTime.DaysInMonth(maxEndDate.Year, monthNumber));
-
-                    numberOfRequests = (maxEndDate - minStartDate).TotalDays;
-                }
-               
-                var showMonthlyRequestStatsViewModel = new ShowMonthlyRequestStatsViewModel()
-                {
-                    NumberOfRequests = numberOfRequests.ToString(CultureInfo.CurrentCulture),
-
-                    CurrentMonth = new DateTimeFormatInfo().GetMonthName(monthNumber) + ", " + Tabs[TabsIndex].Title
-                };
-                var showMonthlyRequestStats = new ShowMonthlyRequestStats(showMonthlyRequestStatsViewModel);
-                showMonthlyRequestStats.Show();
+                numberOfRequests = (maxEndDate - minStartDate).TotalDays;
             }
+               
+            var showMonthlyRequestStatsViewModel = new ShowMonthlyRequestStatsViewModel()
+            {
+                NumberOfRequests = numberOfRequests.ToString(CultureInfo.CurrentCulture),
+
+                CurrentMonth = new DateTimeFormatInfo().GetMonthName(monthNumber) + ", " + Tabs[TabsIndex].Title
+            };
+            var showMonthlyRequestStats = new ShowMonthlyRequestStats(showMonthlyRequestStatsViewModel);
+            showMonthlyRequestStats.Show();
         }
 
         public void TabPressed()
@@ -104,10 +106,10 @@ namespace TravelAgency.ViewModel
 
         public static string DataType { get; set; } = null!;
 
-        public ObservableCollection<CurrentRequestTabs> Tabs =>
+        public ObservableCollection<RequestsData> Tabs =>
             new()
             {
-                new CurrentRequestTabs
+                new RequestsData
                 {
                     Title = "Overall", 
                     DataType = DataType.Split(":")[0], 
@@ -130,7 +132,7 @@ namespace TravelAgency.ViewModel
                     BarLabels = _requestTourService.GetComparisonLabels(_tabAllData, DataType.Split(":")[0], DataType.Split(":")[1])
 
                 },
-                new CurrentRequestTabs
+                new RequestsData
                 { 
                     Title = "2023",
                     DataType = DataType.Split(":")[0],
@@ -152,7 +154,7 @@ namespace TravelAgency.ViewModel
                     },
                     BarLabels = _requestTourService.GetComparisonLabels(_tab2023Data, DataType.Split(":")[0], DataType.Split(":")[1])
                 },
-                new CurrentRequestTabs 
+                new RequestsData 
                 { 
                     Title = "2022",
                     DataType = DataType.Split(":")[0],

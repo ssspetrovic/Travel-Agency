@@ -1,35 +1,34 @@
-﻿using System.Collections.Generic;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using TravelAgency.Model;
 using TravelAgency.ViewModel;
 
 namespace TravelAgency.View.Controls.Guide
 {
     public partial class ConfirmDeletion
     {
+        private readonly ConfirmDeletionViewModel _confirmDeletionViewModel;
+
         public ConfirmDeletion()
         {
             InitializeComponent();
-            DataContext = new ConfirmDeletionViewModel();
+            _confirmDeletionViewModel = new ConfirmDeletionViewModel();
+            DataContext = _confirmDeletionViewModel;
         }
 
         private void DateChecked(object sender, RoutedEventArgs e)
         {
-            CancelledTour.Date = ((RadioButton)sender).Content.ToString();
+            _confirmDeletionViewModel.SelectedDate = ((RadioButton)sender).Content.ToString()!;
         }
 
         private void ConfirmDeletion_OnKeyDown(object sender, KeyEventArgs e)
         {
-            var viewModel = DataContext as ConfirmDeletionViewModel;
-
             if (e.Key == Key.Enter)
             {
-                viewModel!.ConfirmDeletion(PasswordBox.Password);
+                _confirmDeletionViewModel.ConfirmDeletion(PasswordBox.Password, TourNameText.Text);
             }
 
-            var dateOptionsList = viewModel!.InitializeRadioButtonData(DateOptionsItemsControl);
+            var dateOptionsList = _confirmDeletionViewModel.InitializeRadioButtonData(DateOptionsItemsControl);
 
             if (e.Key is >= Key.F1 and <= Key.F12)
             {

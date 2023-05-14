@@ -19,10 +19,6 @@
     WindowStyle="None"
     mc:Ignorable="d">
 
-    <Window.DataContext>
-        <viewModel:SelectedFinishedTourViewModel />
-    </Window.DataContext>
-
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -191,7 +187,15 @@
                                     FontSize="18"
                                     FontWeight="Bold"
                                     Foreground="#4fc3f7"
-                                    Text="Finished Tour" />
+                                    Text="Finished Tour:" />
+                                <TextBlock
+                                    x:Name="CurrentFinishedTourName"
+                                    Margin="15,0"
+                                    VerticalAlignment="Center"
+                                    FontSize="18"
+                                    FontWeight="Bold"
+                                    Foreground="#4fc3f7"
+                                    Text="{Binding CurrentFinishedTourName}" />
 
                             </StackPanel>
 

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
-using TravelAgency.Model;
 using TravelAgency.Service;
 using TravelAgency.View.Controls.Guide;
 
@@ -28,8 +27,12 @@ namespace TravelAgency.ViewModel
                     ParseLinks();
                     break;
                 case "EnterPressed":
-                    CancelledTour.Name = SelectedTour != null ? _tourService.GetByName(SelectedTour!["Name"].ToString()).Name : _tourService.GetByName(CancelTours[0]["Name"].ToString()).Name;
+                    var cancelledTour = SelectedTour != null ? _tourService.GetByName(SelectedTour!["Name"].ToString()).Name : _tourService.GetByName(CancelTours[0]["Name"].ToString()).Name;
                     var confirmDeletion = new ConfirmDeletion();
+                    confirmDeletion.DataContext = new ConfirmDeletionViewModel
+                    {
+                        DeletedTourName = cancelledTour
+                    };
                     confirmDeletion.PasswordBox.Focus();
                     confirmDeletion.ShowDialog();
                     OnPropertyChanged(nameof(CancelTours));

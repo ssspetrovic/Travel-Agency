@@ -2,18 +2,16 @@
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows;
-using System;
+using TravelAgency.ViewModel;
 
 namespace TravelAgency.View.Controls.Guide
 {
-    /// <summary>
-    /// Interaction logic for SelectedFinishedTour.xaml
-    /// </summary>
     public partial class SelectedFinishedTour
     {
         public SelectedFinishedTour()
         {
             InitializeComponent();
+            DataContext = new SelectedFinishedTourViewModel(CurrentFinishedTourName.Text);
         }
 
         [DllImport("user32.dll")]
@@ -27,7 +25,7 @@ namespace TravelAgency.View.Controls.Guide
 
         private void PanelControlBar_MouseEnter(object sender, MouseEventArgs e)
         {
-            this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
+            MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
         }
 
         private void Button_CloseClick(object sender, RoutedEventArgs e)
@@ -37,12 +35,12 @@ namespace TravelAgency.View.Controls.Guide
 
         private void Button_MaximizeClick(object sender, RoutedEventArgs e)
         {
-            this.WindowState = this.WindowState == WindowState.Normal ? WindowState.Maximized : WindowState.Normal;
+            WindowState = WindowState == WindowState.Normal ? WindowState.Maximized : WindowState.Normal;
         }
 
         private void Button_MinimizeClick(object sender, RoutedEventArgs e)
         {
-            this.WindowState = WindowState.Minimized;
+            WindowState = WindowState.Minimized;
         }
 
     }

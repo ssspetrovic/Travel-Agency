@@ -6,7 +6,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewModel="clr-namespace:TravelAgency.ViewModel"
     Title="Confirm Deletion"
     Width="650"
     Height="400"
@@ -18,9 +17,6 @@
     WindowStyle="None"
     mc:Ignorable="d">
 
-    <Window.DataContext>
-        <viewModel:ConfirmDeletionViewModel />
-    </Window.DataContext>
 
     <Window.Resources>
         <ResourceDictionary>
@@ -86,6 +82,13 @@
                             FontSize="10"
                             Foreground="#4fc3f7"
                             Text="*Use function keys to choose a date to cancel!" />
+                        <TextBlock
+                            x:Name="SelectedDate"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="10"
+                            Foreground="#4fc3f7"
+                            Text="{Binding SelectedDate}" />
                     </StackPanel>
 
                 </Grid>

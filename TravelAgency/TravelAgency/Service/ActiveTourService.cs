@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.Sqlite;
+﻿using System.Collections.Generic;
+using Microsoft.Data.Sqlite;
 using System.Linq;
 using System.Windows.Forms;
 using TravelAgency.Model;
@@ -58,36 +59,36 @@ namespace TravelAgency.Service
 
         }
 
+        public string KeyPointsValidation(string currentKeyPoint, string lastKeyPoint, int index, List<string> allKeyPoints)
+        {
+            var location = allKeyPoints[index];
+
+            if (location.Contains(currentKeyPoint + ":True"))
+            {
+                MessageBox.Show("We already passed " + _locationService.GetById(Parse(currentKeyPoint))!.City + "!");
+                return lastKeyPoint;
+            }
+
+            if (!location.Contains(currentKeyPoint + ":False")) return allKeyPoints[index];
+
+            if (lastKeyPoint.Contains(":True"))
+            {
+                allKeyPoints[index] = currentKeyPoint + ":True";
+                CurrentKeyPoint = currentKeyPoint;
+                return lastKeyPoint;
+            }
+            
+            MessageBox.Show("You can't skip key points!");
+            return lastKeyPoint;
+        }
+
         public string FindCurrentKeyPoint(string currentKeyPoint, string keyPoints)
         {
             var allKeyPoints = keyPoints.Split(", ").ToList();
             var lastKeyPoint = "";
 
             for (var i = 0; i < allKeyPoints.Capacity; i++)
-            {
-                var location = allKeyPoints[i];
-
-                if (location.Contains(currentKeyPoint + ":True"))
-                {
-                    MessageBox.Show("We already passed " + _locationService.GetById(Parse(currentKeyPoint))!.City + "!");
-                    break;
-                }
-
-                if (location.Contains(currentKeyPoint + ":False"))
-                    if (lastKeyPoint.Contains(":True"))
-                    {
-                        allKeyPoints[i] = currentKeyPoint + ":True";
-                        CurrentKeyPoint = currentKeyPoint;
-                        break;
-                    }
-                    else
-                    {
-                        MessageBox.Show("You can't skip key points!");
-                        break;
-                    }
-
-                lastKeyPoint = allKeyPoints[i];
-            }
+                lastKeyPoint = KeyPointsValidation(currentKeyPoint, lastKeyPoint, i, allKeyPoints);
 
             return string.Join(", ", allKeyPoints);
         }
@@ -104,7 +105,7 @@ namespace TravelAgency.Service
             return selectReader.Read() ? selectReader.GetString(0) : "Error";
         }
 
-        public void Remove()
+        public void RemoveLastKeyPoint()
         {
             var lastKeyPoint = GetActiveTourColumn("KeyPointsList").Split(", ").Last().Split(":")[0];
             if(lastKeyPoint != "Error")

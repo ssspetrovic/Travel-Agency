@@ -159,10 +159,10 @@ namespace TravelAgency.ViewModel
                 _finishedTourService.Add(new FinishedTour(tour.Id, tour.Name, _tourService.GetKeyPoints(string.Join(", ", keyPointParts.Select(p => p[..p.IndexOf(':')]))), _touristService.GetByTour(tour), tour.Date.Split(", ")[0]));
 
             RemoveTour(tour.Date.Split(", ").ToList(), tourists);
-            _activeTourService.Remove();
+            _activeTourService.RemoveLastKeyPoint();
             var mainWindow = Application.Current.Windows.OfType<View.Guide>().FirstOrDefault();
-            mainWindow.Title = "Review Tour";
-            if (mainWindow!.DataContext is GuideViewModel guideViewModel)
+            mainWindow!.Title = "Review Tour";
+            if (mainWindow.DataContext is GuideViewModel guideViewModel)
                 guideViewModel.CurrentViewModel = new ReviewTourViewModel();
         }
 

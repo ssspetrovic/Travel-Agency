@@ -5,7 +5,6 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Globalization;
 using System.Linq;
-using System.Windows;
 using LiveCharts;
 using TravelAgency.Model;
 using TravelAgency.Repository;
@@ -69,6 +68,9 @@ namespace TravelAgency.Service
 
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
+
+            if (parameterName == "MaxGuests")
+                parameterName = "NumberOfGuests";
 
             var selectStatement = "select * from RequestedTour where " + parameterName + " = ";
             if (parameterName == "Language")
@@ -141,7 +143,7 @@ namespace TravelAgency.Service
             return requestedTours;
         }
 
-        public List<string> GetComparisonReader(string dataType, string dataContent)
+        public List<string> GetComparisonList(string dataType, string dataContent)
         {
             var comparisonList = new List<string>();
             using var databaseConnection = GetConnection();
@@ -170,7 +172,7 @@ namespace TravelAgency.Service
         public ChartValues<double> GetComparisons(ObservableCollection<RequestTour> requestedTours, string dataType, string dataContent)
         {
             var countStatement = new List<int>();
-            var comparisonList = GetComparisonReader(dataType, dataContent);
+            var comparisonList = GetComparisonList(dataType, dataContent);
 
             foreach (var comparison in comparisonList)
                 countStatement.Add(int.Parse(comparison.Split(":")[0]));
@@ -185,7 +187,7 @@ namespace TravelAgency.Service
         public string[] GetComparisonLabels(ObservableCollection<RequestTour> tabAllData, string dataType, string dataContent)
         {
             var countLabels = new List<string>();
-            var comparisonList = GetComparisonReader(dataType, dataContent);
+            var comparisonList = GetComparisonList(dataType, dataContent);
 
             foreach (var comparison in comparisonList)
                 countLabels.Add(comparison.Split(":")[1]);

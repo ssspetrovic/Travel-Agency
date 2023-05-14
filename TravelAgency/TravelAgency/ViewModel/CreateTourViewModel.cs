@@ -491,7 +491,7 @@ namespace TravelAgency.ViewModel
 
                 foreach (string imageUrl in imageUrls)
                 {
-                    if (Uri.TryCreate(imageUrl, UriKind.Absolute, out Uri result) &&
+                    if (Uri.TryCreate(imageUrl, UriKind.Absolute, out Uri? result) &&
                         (result.Scheme == Uri.UriSchemeHttp || result.Scheme == Uri.UriSchemeHttps)) continue;
                     isImagesValid = false;
                     break;

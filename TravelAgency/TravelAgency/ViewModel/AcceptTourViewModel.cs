@@ -13,7 +13,6 @@ namespace TravelAgency.ViewModel
         private readonly RequestTourService _requestTourService;
         private readonly TourService _tourService;
         private DataRowView? _acceptTour;
-        private int _acceptTourIndex;
 
         public AcceptTourViewModel()
         {
@@ -28,6 +27,8 @@ namespace TravelAgency.ViewModel
         private string _updateView;
         public MyICommand FilterTourCommand { get; private set; }
         public MyICommand CreateAcceptedTourCommand { get; private set; }
+        public DataView TourRequestData { get; set; }
+
 
         public void FilterCommand()
         {
@@ -39,6 +40,7 @@ namespace TravelAgency.ViewModel
                     TourRequestData = GetTourRequestData();
                 OnPropertyChanged(nameof(TourRequestData));
             };
+
             filterRequests.ShowDialog();
         }
 
@@ -48,7 +50,18 @@ namespace TravelAgency.ViewModel
 
             UpdateView = "";
             TourRequestData = GetTourRequestData();
+
             return false;
+        }
+
+
+        public DataView GetTourRequestData()
+        {
+            var dt = new DataTable();
+            dt = UpdateView == "" ? _requestTourService.GetAllAsDataTable(dt) : _requestTourService.UpdateDataTable(dt, UpdateView);
+
+            ConvertTourColumn(dt, "Location_Id", typeof(string), "Location");
+            return dt.DefaultView;
         }
 
         public void CreateCommand()
@@ -65,7 +78,7 @@ namespace TravelAgency.ViewModel
                 CreateAcceptedTourDto.DateList = selectRequestedTourDate.GetSelectedDates();
                 CreateAcceptedTourDto.Location = parameters["Location_id"].ToString()!.Split(", ")[0];
                 CreateAcceptedTourDto.Language = parameters["Language"].ToString()!;
-                CreateAcceptedTourDto.MaxGuests = parameters["NumberOfGuests"].ToString()!;
+                CreateAcceptedTourDto.MaxGuests = parameters["MaxGuests"].ToString()!;
 
                 var currentWindow = Application.Current.Windows.OfType<Guide>().FirstOrDefault();
                 var newWindow = new Guide();
@@ -77,18 +90,7 @@ namespace TravelAgency.ViewModel
             }
             else
                 MessageBox.Show("You already have a tour in the selected date range!");
-           
-        }
 
-        public DataView TourRequestData { get; set; }
-
-        public DataView GetTourRequestData()
-        {
-            var dt = new DataTable();
-            dt = UpdateView == "" ? _requestTourService.GetAllAsDataTable(dt) : _requestTourService.UpdateDataTable(dt, UpdateView);
-
-            ConvertTourColumn(dt, "Location_Id", typeof(string), "Location");
-            return dt.DefaultView;
         }
 
         public string UpdateView
@@ -108,16 +110,6 @@ namespace TravelAgency.ViewModel
             set
             {
                 _acceptTour = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public int AcceptTourIndex
-        {
-            get => _acceptTourIndex;
-            set
-            {
-                _acceptTourIndex = value;
                 OnPropertyChanged();
             }
         }

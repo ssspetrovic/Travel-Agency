@@ -18,12 +18,16 @@ namespace TravelAgency.ViewModel
     {
         private readonly TourService _tourService;
         private readonly TouristService _touristService;
+        private string _deletedTourName;
+        private string _selectedDate;
 
         public ConfirmDeletionViewModel()
         {
             _tourService = new TourService();
             _touristService = new TouristService();
             CancelDeletion = new MyICommand(Cancel);
+            _deletedTourName = "";
+            _selectedDate = "";
         }
 
         public MyICommand CancelDeletion { get; private set; }
@@ -35,17 +39,14 @@ namespace TravelAgency.ViewModel
             mainWindow!.CurrentViewModel = new CancelTourViewModel();
         }
 
-        public void ConfirmDeletion(string password)
+        public void ConfirmDeletion(string password, string tourName)
         {
-            if (!AuthenticateDeletion(password) || CancelledTour.Date == null)
-            {
+            DeletedTourName = tourName;
+
+            if (!AuthenticateDeletion(password) || DeletedTourName == "")
                 MessageBox.Show("Tour cancel was not successful");
-            }
             else
-            {
                 CancelTour();
-                CancelledTour.Date = null;
-            }
 
             new WindowManager().CloseWindow<ConfirmDeletion>();
             var mainWindow = Application.Current.Windows.OfType<Guide>().FirstOrDefault()!;
@@ -74,10 +75,9 @@ namespace TravelAgency.ViewModel
                 }
                 _tourService.Remove(deletedTour.Id);
             }
-
             else
             {
-                var cancelledDate = CancelledTour.Date!;
+                var cancelledDate = SelectedDate;
                 _tourService.RemoveDate(cancelledDate, tourDates, deletedTour.Id);
             }
         }
@@ -89,7 +89,24 @@ namespace TravelAgency.ViewModel
         }
 
 
-        public string DeletedTourName => CancelledTour.Name!;
+        public string DeletedTourName
+        {
+            get => _deletedTourName;
+            set
+            {
+                _deletedTourName = value;
+                OnPropertyChanged();
+            }
+        }
+        public string SelectedDate
+        {
+            get => _selectedDate;
+            set
+            {
+                _selectedDate = value;
+                OnPropertyChanged();
+            }
+        }
 
         public List<RadioButton> InitializeRadioButtonData(ItemsControl itemsControl)
         {
@@ -110,11 +127,11 @@ namespace TravelAgency.ViewModel
         {
             get
             {
-                var tourDates = _tourService
-                    .GetByName(CancelledTour.Name)
+                var tourDates = DeletedTourName != "" ? _tourService
+                    .GetByName(DeletedTourName)
                     .Date
                     .Split(", ")
-                    .Select(dateString => DateTime.ParseExact(dateString, "MM/dd/yyyy", new CultureInfo("en-US")));
+                    .Select(dateString => DateTime.ParseExact(dateString, "MM/dd/yyyy", new CultureInfo("en-US"))) : new List<DateTime>();
 
                 var filteredDates = tourDates.Where(date => date >= DateTime.Today.AddHours(48).Date);
                 return new ObservableCollection<string>(filteredDates.Select(date => date.ToString("MM/dd/yyyy", new CultureInfo("en-US"))));

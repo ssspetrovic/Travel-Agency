@@ -16,13 +16,15 @@ public class SelectedFinishedTourViewModel : HomePageViewModel
     private readonly FinishedTourService _finishedTourService;
     private readonly FinishedTour _currentFinishedTour;
     private readonly TourVoucherService _voucherService;
+    private string _currentFinishedTourName;
 
-    public SelectedFinishedTourViewModel()
+    public SelectedFinishedTourViewModel(string tourName)
     {
         _finishedTourService = new FinishedTourService();
-        _currentFinishedTour = _finishedTourService.FindFinishedTourByName(CurrentFinishedTour.Name!);
         _voucherService = new TourVoucherService();
         NavCommand = new MyICommand<string>(OnNav);
+        _currentFinishedTourName = tourName;
+        _currentFinishedTour = _finishedTourService.FindFinishedTourByName(CurrentFinishedTourName);
     }
 
     public string LoadCurrentUserData => "Welcome " + CurrentUser.DisplayName;
@@ -54,7 +56,17 @@ public class SelectedFinishedTourViewModel : HomePageViewModel
 
     }
 
-    public TabData FinishedTourStats => new()
+    public string CurrentFinishedTourName
+    {
+        get => _currentFinishedTourName;
+        set
+        {
+            _currentFinishedTourName = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public StatsData FinishedTourStats => new()
     {
         Name = "You selected: " + _currentFinishedTour.Name,
         KeyPoints = _currentFinishedTour.KeyPoints!,
