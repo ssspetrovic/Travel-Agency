@@ -1,9 +1,5 @@
 ﻿using LiveCharts;
-using LiveCharts.Defaults;
-using LiveCharts.Wpf;
-using System;
 using System.Collections.ObjectModel;
-using TravelAgency.Repository;
 using TravelAgency.Service;
 
 namespace TravelAgency.ViewModel.Tourist
