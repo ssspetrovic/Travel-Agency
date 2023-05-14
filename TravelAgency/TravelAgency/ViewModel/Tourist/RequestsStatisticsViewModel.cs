@@ -21,13 +21,24 @@ namespace TravelAgency.ViewModel.Tourist
         }
 
 
-        private string? _selectedYear;
-        public string? SelectedYear
+        private string? _selectedPieYear;
+        public string? SelectedPieYear
         {
-            get => _selectedYear;
+            get => _selectedPieYear;
             set
             {
-                _selectedYear = value;
+                _selectedPieYear = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string? _selectedBarYear;
+        public string? SelectedBarYear
+        {
+            get => _selectedBarYear;
+            set
+            {
+                _selectedBarYear = value;
                 OnPropertyChanged();
             }
         }
@@ -61,18 +72,19 @@ namespace TravelAgency.ViewModel.Tourist
             var requestService = new RegularTourRequestService();
             _yearsCollection = requestService.GetAllYears();
             _yearsCollection.Add("All years");
-            _selectedYear = "All years";
+            _selectedPieYear = "All years";
+            _selectedBarYear = "All years";
 
-            _pieChartDataSeries = _statisticsService.GetAcceptanceSeriesCollection(SelectedYear);
-            _averageRequests = _statisticsService.GetAverageRequestsByStatus(SelectedYear);
-            PropertyChanged += OnSelectedYearChanged;
+            _pieChartDataSeries = _statisticsService.GetAcceptanceSeriesCollection(SelectedPieYear);
+            _averageRequests = _statisticsService.GetAverageRequestsByStatus(SelectedPieYear);
+            PropertyChanged += OnSelectedPieYearChanged;
         }
 
-        private void OnSelectedYearChanged(object? sender, PropertyChangedEventArgs e)
+        private void OnSelectedPieYearChanged(object? sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName != nameof(SelectedYear)) return;
-            _pieChartDataSeries = _statisticsService.GetAcceptanceSeriesCollection(SelectedYear);
-            _averageRequests = _statisticsService.GetAverageRequestsByStatus(SelectedYear);
+            if (e.PropertyName != nameof(SelectedPieYear)) return;
+            _pieChartDataSeries = _statisticsService.GetAcceptanceSeriesCollection(SelectedPieYear);
+            _averageRequests = _statisticsService.GetAverageRequestsByStatus(SelectedPieYear);
             OnPropertyChanged(nameof(PieChartDataSeries));
             OnPropertyChanged(nameof(AverageRequests));
         }
