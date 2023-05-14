@@ -11,6 +11,7 @@
     xmlns:viewModel="clr-namespace:TravelAgency.ViewModel"
     Title="Sign In"
     Width="1280"
+    PreviewKeyDown="CurrentRequestStats_OnPreviewKeyDown"
     Height="720"
     AllowsTransparency="True"
     Background="Transparent"

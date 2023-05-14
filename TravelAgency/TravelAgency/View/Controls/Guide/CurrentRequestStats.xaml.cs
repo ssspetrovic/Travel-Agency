@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
@@ -43,6 +44,16 @@ namespace TravelAgency.View.Controls.Guide
         private void Button_MinimizeClick(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
+        }
+
+        private void CurrentRequestStats_OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.SystemKey == Key.F10)
+            {
+                var currentWindow = Application.Current.Windows.OfType<CurrentRequestStats>().FirstOrDefault();
+                if (currentWindow!.DataContext is not CurrentRequestStatsViewModel currentRequestStatsViewModel) return;
+                currentRequestStatsViewModel.ByMonth("F10");
+            }
         }
     }
 }

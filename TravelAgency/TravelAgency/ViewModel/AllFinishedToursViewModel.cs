@@ -26,9 +26,12 @@ namespace TravelAgency.ViewModel
 
         public void SelectTour()
         {
-            CurrentFinishedTour.Name = SelectedTour == null ? FinishedTours[0]["Name"].ToString() : SelectedTour["Name"].ToString()!;
+            var tourName = SelectedTour == null ? FinishedTours[0]["Name"].ToString() : SelectedTour["Name"].ToString()!;
             var window = Application.Current.Windows.OfType<AllFinishedTours>().FirstOrDefault();
-            var selectedFinishedTour = new SelectedFinishedTour();
+            var selectedFinishedTour = new SelectedFinishedTour
+            {
+                DataContext = new SelectedFinishedTourViewModel(tourName!)
+            };
             selectedFinishedTour.Show();
             window!.Close();
         }

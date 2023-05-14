@@ -12,10 +12,10 @@ namespace TravelAgency.Model
         public string Voucher { get; set; } = null!;
     }
 
-    public class TabData
+    public class StatsData
     {
         public string? Title { get; set; }
-        public ObservableCollection<FinishedTour>? Data { get; set; }
+        public ObservableCollection<Tour>? Data { get; set; }
         public string? Name { get; set; }
         public List<Location>? KeyPoints { get; set; }
         public List<TouristInfo>? Tourists { get; set; }

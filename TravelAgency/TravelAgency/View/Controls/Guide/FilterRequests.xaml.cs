@@ -55,7 +55,7 @@ namespace TravelAgency.View.Controls.Guide
 
             if (GuestsBox.Text.Length > 0)
             {
-                var foundTours = _requestTourService.FindByParameter(GuestsBox.Text, "NumberOfGuests");
+                var foundTours = _requestTourService.FindByParameter(GuestsBox.Text, "MaxGuests");
                 if (requestedTours.Count == 0)
                     requestedTours = foundTours.ToList();
                 else

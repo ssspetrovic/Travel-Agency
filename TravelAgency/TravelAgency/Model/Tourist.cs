@@ -54,5 +54,11 @@
             Age = age;
         }
 
+        public Tourist(int id, string username, string password, string name, string surname, string email, Role role, TouristAppearance touristAppearance, int locationId, int age) : base(id, username, password, name, surname, email, role)
+        {
+            TouristAppearance = touristAppearance;
+            LocationId = locationId;
+            Age = age;
+        }
     }
 }

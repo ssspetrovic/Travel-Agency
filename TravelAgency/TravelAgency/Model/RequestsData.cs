@@ -2,7 +2,7 @@
 
 namespace TravelAgency.Model
 {
-    public class CurrentRequestTabs
+    public class RequestsData
     {
         public string Title { get; set; } = null!;
         public string DataType { get; set; } = null!;

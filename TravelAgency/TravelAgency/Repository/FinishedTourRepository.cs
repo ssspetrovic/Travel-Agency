@@ -8,7 +8,7 @@ namespace TravelAgency.Repository
 {
     internal class FinishedTourRepository : RepositoryBase
     {
-        public string GetAllKeyPoints(FinishedTour finishedTour)
+        public string GetAllKeyPoints(Tour finishedTour)
         {
             var allKeyPoints = "";
 
@@ -22,7 +22,7 @@ namespace TravelAgency.Repository
             return allKeyPoints;
         }
 
-        public string GetAllTourists(FinishedTour finishedTour)
+        public string GetAllTourists(Tour finishedTour)
         {
             var allTourists = "";
 
@@ -37,7 +37,7 @@ namespace TravelAgency.Repository
         }
 
 
-        public void Add(FinishedTour finishedTour)
+        public void Add(Tour finishedTour)
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
@@ -54,7 +54,7 @@ namespace TravelAgency.Repository
             insertCommand.ExecuteNonQuery();
         }
 
-        public void Edit(FinishedTour finishedTour)
+        public void Edit(Tour finishedTour)
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
@@ -70,23 +70,23 @@ namespace TravelAgency.Repository
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
 
-            const string selectStatement = "select * from FinishedTour where Id = $Id";
+            const string selectStatement = "select * from FinishedTour where Name = $Name";
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
 
-            selectCommand.Parameters.AddWithValue("$Id", tour.Id);
+            selectCommand.Parameters.AddWithValue("$Id", tour.Name);
             var selectReader = selectCommand.ExecuteReader();
 
             return selectReader.Read();
         }
 
-        public ObservableCollection<FinishedTour> FindBestTourByYear(ObservableCollection<FinishedTour> allFinishedTours, string year)
+        public ObservableCollection<Tour> FindBestTourByYear(ObservableCollection<Tour> allFinishedTours, string year)
         {
-            var finishedToursByYear = new ObservableCollection<FinishedTour>();
+            var finishedToursByYear = new ObservableCollection<Tour>();
             foreach (var finishedTour in allFinishedTours)
                 if (finishedTour.Date.Contains(year))
                     finishedToursByYear.Add(finishedTour);
 
-            var bestTour = new ObservableCollection<FinishedTour> { finishedToursByYear[0] };
+            var bestTour = new ObservableCollection<Tour> { finishedToursByYear[0] };
 
             foreach (var finishedTour in finishedToursByYear)
                 if (bestTour[0].Tourists.Count < finishedTour.Tourists.Count)
@@ -95,7 +95,7 @@ namespace TravelAgency.Repository
             return bestTour;
         }
 
-        public ChartValues<int> GetAgeGroup (FinishedTour finishedTour)
+        public ChartValues<int> GetAgeGroup (Tour finishedTour)
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();

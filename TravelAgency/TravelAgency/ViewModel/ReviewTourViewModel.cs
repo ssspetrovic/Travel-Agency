@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using TravelAgency.Model;
 using TravelAgency.Service;
 
 namespace TravelAgency.ViewModel
@@ -13,13 +12,14 @@ namespace TravelAgency.ViewModel
         private readonly TourService _tourService;
         private string _reportedComment;
         private string _reportedTourist;
+        public string CurrentReviewTourName;
 
         public ReviewTourViewModel()
         {
             _tourRatingService = new TourRatingService();
             _tourService = new TourService();
             var finishedTourService = new FinishedTourService();
-            CurrentReviewTour.Name = finishedTourService.GetNewTourName();
+            CurrentReviewTourName = finishedTourService.GetNewTourName();
             ConfirmReportCommand = new MyICommand(ConfirmReport);
             _reportedComment = "";
             _reportedTourist = "";
@@ -51,16 +51,16 @@ namespace TravelAgency.ViewModel
             OnPropertyChanged(ReportedTourist);
         }
 
-        public string ReviewTourName => "Tour: " + CurrentReviewTour.Name;
+        public string ReviewTourName => "Tour: " + CurrentReviewTourName;
 
         public List<string> Tourists =>
-            _tourRatingService.GetTouristsByTourId(_tourService.GetByName(CurrentReviewTour.Name).Id);
+            _tourRatingService.GetTouristsByTourId(_tourService.GetByName(CurrentReviewTourName).Id);
 
         public List<string> Comments => 
-            _tourRatingService.GetCommentsByTourId(_tourService.GetByName(CurrentReviewTour.Name).Id);
+            _tourRatingService.GetCommentsByTourId(_tourService.GetByName(CurrentReviewTourName).Id);
 
         public List<string> Ratings =>
-            _tourRatingService.GetRatingsByTourId(_tourService.GetByName(CurrentReviewTour.Name).Id);
+            _tourRatingService.GetRatingsByTourId(_tourService.GetByName(CurrentReviewTourName).Id);
 
         public string AverageRating =>
             Ratings.Any(r => !r.EndsWith("⚠️"))

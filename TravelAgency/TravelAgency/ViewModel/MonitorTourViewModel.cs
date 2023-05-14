@@ -70,7 +70,7 @@ namespace TravelAgency.ViewModel
                 var activeKeyPoints = selectedTour.KeyPoints.ToDictionary(location => location!.Id, _ => false);
 
                 var currentKeyPoint = selectedTour.Location;
-                _activeTourService.Remove();
+                _activeTourService.RemoveLastKeyPoint();
                 _activeTourService.Add(new ActiveTour(selectedTour.Name, activeKeyPoints, tourists, currentKeyPoint.City));
 
                 var myTourDtoService = new MyTourDtoService();

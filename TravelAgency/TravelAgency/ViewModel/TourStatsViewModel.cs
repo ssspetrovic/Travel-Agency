@@ -14,9 +14,9 @@ namespace TravelAgency.ViewModel
     public class TourStatsViewModel : HomePageViewModel
     {
         private readonly FinishedTourService _finishedTourService;
-        private readonly ObservableCollection<FinishedTour> _tabAllData;
-        private readonly ObservableCollection<FinishedTour> _tab2023Data;
-        private readonly ObservableCollection<FinishedTour> _tab2022Data;
+        private readonly ObservableCollection<Tour> _tabAllData;
+        private readonly ObservableCollection<Tour> _tab2023Data;
+        private readonly ObservableCollection<Tour> _tab2022Data;
         private int _tabsIndex;
 
         public TourStatsViewModel()
@@ -58,11 +58,11 @@ namespace TravelAgency.ViewModel
             }
         }
 
-        public ObservableCollection<TabData> Tabs =>
+        public ObservableCollection<StatsData> Tabs =>
             new()
             {
 
-                new TabData
+                new StatsData
                 { Title = "All Tours", Data = _tabAllData, Name = "Best Tour: " + _tabAllData[0].Name, KeyPoints = _tabAllData[0].KeyPoints!, BarData = new SeriesCollection
                     {
                         new ColumnSeries
@@ -85,7 +85,7 @@ namespace TravelAgency.ViewModel
                             DataLabels = true
                         }
                     } },
-                new TabData { Title = "2023", Data = _tab2023Data, Name = "Best Tour: " + _tab2023Data[0].Name, KeyPoints = _tab2023Data[0].KeyPoints!,  BarData = new SeriesCollection
+                new StatsData { Title = "2023", Data = _tab2023Data, Name = "Best Tour: " + _tab2023Data[0].Name, KeyPoints = _tab2023Data[0].KeyPoints!,  BarData = new SeriesCollection
                     {
                         new ColumnSeries
                         {
@@ -107,7 +107,7 @@ namespace TravelAgency.ViewModel
                             DataLabels = true
                         }
                     } },
-                new TabData { Title = "2022", Data = _tab2022Data, Name = "Best Tour: " + _tab2022Data[0].Name, KeyPoints = _tab2022Data[0].KeyPoints!, BarData = new SeriesCollection
+                new StatsData { Title = "2022", Data = _tab2022Data, Name = "Best Tour: " + _tab2022Data[0].Name, KeyPoints = _tab2022Data[0].KeyPoints!, BarData = new SeriesCollection
                     {
                         new ColumnSeries
                         {

@@ -32,12 +32,12 @@ namespace TravelAgency.Service
             return _finishedTourRepository.CheckExistingTours(tour);
         }
 
-        public void Edit(FinishedTour finishedTour)
+        public void Edit(Tour finishedTour)
         {
             _finishedTourRepository.Edit(finishedTour);
         }
 
-        public void Add(FinishedTour finishedTour)
+        public void Add(Tour finishedTour)
         {
             _finishedTourRepository.Add(finishedTour);
         }
@@ -74,7 +74,7 @@ namespace TravelAgency.Service
             return retVal;
         }
 
-        public FinishedTour FindFinishedTourByName(string name)
+        public Tour FindFinishedTourByName(string name)
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
@@ -86,20 +86,20 @@ namespace TravelAgency.Service
             using var selectReader = selectCommand.ExecuteReader();
 
             if (!selectReader.Read())
-                return new FinishedTour();
+                return new Tour();
 
-            return new FinishedTour(selectReader.GetInt32(0), selectReader.GetString(1),
+            return new Tour(selectReader.GetInt32(0), selectReader.GetString(1),
                 GetAllKeyPointsByIds(selectReader.GetString(2)), GetAllTouristsByNames(selectReader.GetString(3)),
                 selectReader.GetString(4));
         }
 
-        public IChartValues GetAgeGroup(FinishedTour finishedTour)
+        public IChartValues GetAgeGroup(Tour finishedTour)
         {
             return _finishedTourRepository.GetAgeGroup(finishedTour);
         }
 
 
-        public ChartValues<ObservableValue> GetVoucherOdds(FinishedTour finishedTour)
+        public ChartValues<ObservableValue> GetVoucherOdds(Tour finishedTour)
         {
             var withVoucher = 0;
             using var databaseConnection = GetConnection();
@@ -133,18 +133,18 @@ namespace TravelAgency.Service
             return retVal;
         }
 
-        public ObservableCollection<FinishedTour> GetBestTour(SqliteCommand selectCommand)
+        public ObservableCollection<Tour> GetBestTour(SqliteCommand selectCommand)
         {
             using var selectReader = selectCommand.ExecuteReader();
-            var finishedTours = new ObservableCollection<FinishedTour>();
+            var finishedTours = new ObservableCollection<Tour>();
             while (selectReader.Read())
-                finishedTours.Add(new FinishedTour(selectReader.GetInt32(0), selectReader.GetString(1), 
+                finishedTours.Add(new Tour(selectReader.GetInt32(0), selectReader.GetString(1), 
                     GetKeyPoints(selectReader.GetString(2)), FinishedTourTourists(selectReader.GetString(3)), selectReader.GetString(4)));
 
             return finishedTours;
         }
 
-        public ObservableCollection<FinishedTour> GetAllTimeBestTour()
+        public ObservableCollection<Tour> GetAllTimeBestTour()
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
@@ -154,7 +154,7 @@ namespace TravelAgency.Service
             return GetBestTour(selectCommand);
         }
 
-        public ObservableCollection<FinishedTour> GetBestOf2022Tour()
+        public ObservableCollection<Tour> GetBestOf2022Tour()
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
@@ -164,7 +164,7 @@ namespace TravelAgency.Service
             return _finishedTourRepository.FindBestTourByYear(GetBestTour(selectCommand), "2022");
         }
 
-        public ObservableCollection<FinishedTour> GetBestOf2023Tour()
+        public ObservableCollection<Tour> GetBestOf2023Tour()
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
