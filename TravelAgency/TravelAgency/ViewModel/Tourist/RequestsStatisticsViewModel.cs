@@ -1,5 +1,6 @@
 ﻿using LiveCharts;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using TravelAgency.Service;
 
 namespace TravelAgency.ViewModel.Tourist
@@ -51,6 +52,14 @@ namespace TravelAgency.ViewModel.Tourist
             _selectedYear = "All years";
 
             _pieChartDataSeries = _statisticsService.GetAcceptanceSeriesCollection(SelectedYear);
+            PropertyChanged += OnSelectedYearChanged;
+        }
+
+        private void OnSelectedYearChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName != nameof(SelectedYear)) return;
+            _pieChartDataSeries = _statisticsService.GetAcceptanceSeriesCollection(SelectedYear);
+            OnPropertyChanged(nameof(PieChartDataSeries));
         }
     }
 }

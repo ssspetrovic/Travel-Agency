@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using LiveCharts;
 using LiveCharts.Defaults;
@@ -20,6 +21,7 @@ namespace TravelAgency.Service
 
         public SeriesCollection GetAcceptanceSeriesCollection(string? year)
         {
+            Debug.WriteLine("in");
             var requestStats = GetAcceptanceRateForYear(year);
 
             return new SeriesCollection
