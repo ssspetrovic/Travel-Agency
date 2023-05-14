@@ -71,7 +71,7 @@ namespace TravelAgency.Service
             var regularTourRequests = filteredRequests.ToList();
             if (!regularTourRequests.Any()) return 0;
 
-            return regularTourRequests.Average(request => request.GuestNumber);
+            return double.Round(regularTourRequests.Average(request => request.GuestNumber), 3);
         }
     }
 }
