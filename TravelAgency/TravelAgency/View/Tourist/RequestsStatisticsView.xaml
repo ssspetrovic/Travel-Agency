@@ -78,7 +78,7 @@
                         Grid.Row="0"
                         Grid.Column="0"
                         Width="100"
-                        Margin="10,10,10,0"
+                        Margin="10"
                         Padding="5"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
@@ -129,7 +129,7 @@
         <StackPanel Grid.Row="2" Margin="40,10,40,20">
             <Label
                 Margin="10,0"
-                Content="Percentage of accepted/denied requests"
+                Content="Number of requests in regard of language/location"
                 FontSize="15" />
             <Border
                 Height="219"
@@ -139,9 +139,9 @@
                 <ComboBox
                     x:Name="LanguageComboBox"
                     Width="100"
-                    Margin="0,10"
+                    Margin="10"
                     Padding="5"
-                    HorizontalAlignment="Center"
+                    HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     materialDesign:HintAssist.Hint="All years"
                     materialDesign:TextFieldAssist.TextFieldCornerRadius="3"
@@ -152,6 +152,5 @@
                     MaxDropDownHeight="190" />
             </Border>
         </StackPanel>
-
     </Grid>
 </Page>
