@@ -1,6 +1,7 @@
 ﻿using LiveCharts;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using TravelAgency.Service;
 
 namespace TravelAgency.ViewModel.Tourist
@@ -20,7 +21,6 @@ namespace TravelAgency.ViewModel.Tourist
             }
         }
 
-
         private string? _selectedPieYear;
         public string? SelectedPieYear
         {
@@ -32,13 +32,13 @@ namespace TravelAgency.ViewModel.Tourist
             }
         }
 
-        private string? _selectedBarYear;
-        public string? SelectedBarYear
+        private string? _selectedCartesianYear;
+        public string? SelectedCartesianYear
         {
-            get => _selectedBarYear;
+            get => _selectedCartesianYear;
             set
             {
-                _selectedBarYear = value;
+                _selectedCartesianYear = value;
                 OnPropertyChanged();
             }
         }
@@ -54,14 +54,35 @@ namespace TravelAgency.ViewModel.Tourist
             }
         }
 
-        private SeriesCollection _pieChartDataSeries;
-
-        public SeriesCollection PieChartDataSeries
+        private SeriesCollection _acceptancePieSeriesCollection;
+        public SeriesCollection AcceptancePieSeriesCollection
         {
-            get => _pieChartDataSeries;
+            get => _acceptancePieSeriesCollection;
             set
             {
-                _pieChartDataSeries = value;
+                _acceptancePieSeriesCollection = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private SeriesCollection _languageCartesianSeriesCollection;
+        public SeriesCollection LanguageCartesianSeriesCollection
+        {
+            get => _languageCartesianSeriesCollection;
+            set
+            {
+                _languageCartesianSeriesCollection = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string[] _languageLabels;
+        public string[] LanguageLabels
+        {
+            get => _languageLabels;
+            set
+            {
+                _languageLabels = value;
                 OnPropertyChanged();
             }
         }
@@ -73,19 +94,28 @@ namespace TravelAgency.ViewModel.Tourist
             _yearsCollection = requestService.GetAllYears();
             _yearsCollection.Add("All years");
             _selectedPieYear = "All years";
-            _selectedBarYear = "All years";
+            _selectedCartesianYear = "All years";
 
-            _pieChartDataSeries = _statisticsService.GetAcceptanceSeriesCollection(SelectedPieYear);
+            _acceptancePieSeriesCollection = _statisticsService.GetAcceptanceSeriesCollection(SelectedPieYear);
             _averageRequests = _statisticsService.GetAverageRequestsByStatus(SelectedPieYear);
+            _languageCartesianSeriesCollection = _statisticsService.GetLanguageCartesianSeriesCollection(null);
             PropertyChanged += OnSelectedPieYearChanged;
+
+            var dict = _statisticsService.GetLanguageCountDictionary(null);
+            var labels = _statisticsService.GetLanguageLabels(dict);
+
+            foreach (var pair in dict)
+            {
+                Debug.WriteLine(pair);
+            }
         }
 
         private void OnSelectedPieYearChanged(object? sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName != nameof(SelectedPieYear)) return;
-            _pieChartDataSeries = _statisticsService.GetAcceptanceSeriesCollection(SelectedPieYear);
+            _acceptancePieSeriesCollection = _statisticsService.GetAcceptanceSeriesCollection(SelectedPieYear);
             _averageRequests = _statisticsService.GetAverageRequestsByStatus(SelectedPieYear);
-            OnPropertyChanged(nameof(PieChartDataSeries));
+            OnPropertyChanged(nameof(AcceptancePieSeriesCollection));
             OnPropertyChanged(nameof(AverageRequests));
         }
     }

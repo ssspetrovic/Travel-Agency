@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using LiveCharts;
 using LiveCharts.Defaults;
@@ -10,12 +11,14 @@ namespace TravelAgency.Service
 {
     internal class TourRequestsStatisticsService
     {
+        private Dictionary<Language, int> _languageCount;
         private const int PercentageMultiplier = 100;
         private readonly RegularTourRequestService _tourRequestService;
 
         public TourRequestsStatisticsService()
         {
             _tourRequestService = new RegularTourRequestService();
+            _languageCount = new Dictionary<Language, int>();
         }
 
         public SeriesCollection GetAcceptanceSeriesCollection(string? year)
@@ -72,6 +75,46 @@ namespace TravelAgency.Service
             if (!regularTourRequests.Any()) return 0;
 
             return double.Round(regularTourRequests.Average(request => request.GuestNumber), 3);
+        }
+
+        public Dictionary<Language, int> GetLanguageCountDictionary(string? year)
+        {
+            // Initializes the dictionary to to available languages and all of the values as 0
+            var languageCountsDictionary = Enum.GetValues(typeof(Language))
+                .Cast<Language>()
+                .ToDictionary(lang => lang, _ => 0);
+
+            var requests = _tourRequestService.GetAllForSelectedYearAsCollection(year);
+
+            foreach (var request in requests)
+            {
+                languageCountsDictionary[request.Language ?? Language.Unknown]++;
+            }
+
+            // Remove all pairs from dictionary where the int 
+            return languageCountsDictionary
+                .Where(pair => pair.Value != 0)
+                .ToDictionary(pair => pair.Key, pair => pair.Value);
+        }
+
+        public string[] GetLanguageLabels(Dictionary<Language, int> languageCountsDictionary)
+        {
+            return languageCountsDictionary.Keys.Select(lang => lang.ToString()).ToArray();
+        }
+
+        public SeriesCollection GetLanguageCartesianSeriesCollection(string? year)
+        {
+            var values = new ChartValues<int> { 3, 5, 6, 1, 2, 8 };
+
+            return new SeriesCollection
+            {
+                new RowSeries
+                {
+                    Title = "test",
+                    Values = values,
+                    DataLabels = true
+                }
+            };
         }
     }
 }

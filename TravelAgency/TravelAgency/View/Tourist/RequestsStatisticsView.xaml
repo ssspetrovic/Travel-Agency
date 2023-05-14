@@ -99,7 +99,7 @@
                         Margin="10"
                         DataTooltip="{x:Null}"
                         LegendLocation="Right"
-                        Series="{Binding PieChartDataSeries}">
+                        Series="{Binding AcceptancePieSeriesCollection}">
                         <lvc:PieChart.ChartLegend>
                             <lvc:DefaultLegend
                                 Margin="10"
@@ -136,22 +136,48 @@
                 BorderBrush="{StaticResource MaterialDesignDivider}"
                 BorderThickness="2"
                 CornerRadius="10">
-                <ComboBox
-                    x:Name="LanguageComboBox"
-                    Width="100"
-                    Margin="10"
-                    Padding="5"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    materialDesign:HintAssist.Hint="All years"
-                    materialDesign:TextFieldAssist.TextFieldCornerRadius="3"
-                    materialDesign:TextFieldAssist.UnderlineCornerRadius="3"
-                    BorderBrush="{StaticResource MaterialDesignDivider}"
-                    BorderThickness="1"
-                    FontSize="14"
-                    ItemsSource="{Binding YearsCollection}"
-                    MaxDropDownHeight="190"
-                    SelectedItem="{Binding SelectedBarYear}" />
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <ComboBox
+                        x:Name="LanguageComboBox"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Width="100"
+                        Margin="10"
+                        Padding="5"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        materialDesign:HintAssist.Hint="All years"
+                        materialDesign:TextFieldAssist.TextFieldCornerRadius="3"
+                        materialDesign:TextFieldAssist.UnderlineCornerRadius="3"
+                        BorderBrush="{StaticResource MaterialDesignDivider}"
+                        BorderThickness="1"
+                        FontSize="14"
+                        ItemsSource="{Binding YearsCollection}"
+                        MaxDropDownHeight="190"
+                        SelectedItem="{Binding SelectedBarYear}" />
+                    <lvc:CartesianChart
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Margin="5"
+                        DataTooltip="{x:Null}"
+                        Series="{Binding LanguageCartesianSeriesCollection}">
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis Title="Languages" />
+                        </lvc:CartesianChart.AxisX>
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis Title="Percentage" />
+                        </lvc:CartesianChart.AxisY>
+                    </lvc:CartesianChart>
+                </Grid>
             </Border>
         </StackPanel>
     </Grid>
