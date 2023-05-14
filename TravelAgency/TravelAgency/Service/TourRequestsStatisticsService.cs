@@ -18,7 +18,7 @@ namespace TravelAgency.Service
             _tourRequestService = new RegularTourRequestService();
         }
 
-        public SeriesCollection GeAcceptanceSeriesCollection(string? year)
+        public SeriesCollection GetAcceptanceSeriesCollection(string? year)
         {
             var requestStats = GetAcceptanceRateForYear(year);
 
