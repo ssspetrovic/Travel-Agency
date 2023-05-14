@@ -97,6 +97,7 @@ namespace TravelAgency.Repository
                     SELECT DISTINCT
                     SUBSTR(DateRange, 7, 4) AS StartYear,
                     SUBSTR(DateRange, -4, 4) AS EndYear FROM RegularTourRequest
+                    ORDER BY StartYear ASC, EndYear ASC
                 ";
             var selectReader = selectCommand.ExecuteReader();
 
