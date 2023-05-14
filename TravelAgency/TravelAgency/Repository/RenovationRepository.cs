@@ -55,5 +55,19 @@ namespace TravelAgency.Repository
 
             return renovationList;
         }
+
+        public void Remove(int renovationId)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            var updateCommand = databaseConnection.CreateCommand();
+            updateCommand.CommandText =
+                @"
+                    DELETE from Renovation where Id = $Id;
+                ";
+            updateCommand.Parameters.AddWithValue("$Id", renovationId);
+            updateCommand.ExecuteNonQuery();
+        }
     }
 }

@@ -35,12 +35,24 @@ namespace TravelAgency.Service
             ObservableCollection<Renovation> temp = renovationRepository.GetAll();
             foreach (Renovation renovation in temp)
             {
-                if (renovation.StartDate <= DateTime.Now)
+                if (renovation.StartDate > DateTime.Now)
                 {
                     futureRenovations.Add(renovation);
                 }
             }
             return futureRenovations;
+        }
+
+        public bool RemoveFutureRenovation(int renovationId, DateTime startDate)
+        {
+            if((startDate - DateTime.Now).TotalDays <= 5)
+            {
+                return false;
+            }
+
+            var renovationRepository = new RenovationRepository();
+            renovationRepository.Remove(renovationId);
+            return true;
         }
     }
 }

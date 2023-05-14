@@ -40,7 +40,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <ListView x:Name="FutureRenovationsListView" d:ItemsSource="{d:SampleData ItemCount=3}" ItemsSource="{Binding FutureRenovationsSourceCollection}" Margin="22,321,22,231" FontSize="12">
+        <ListView x:Name="FutureRenovationsListView" d:ItemsSource="{d:SampleData ItemCount=3}" ItemsSource="{Binding FutureRenovationsSourceCollection}" SelectedItem="{Binding SelectedRenovation}" Margin="22,321,22,231" FontSize="12" SelectionChanged="FutureRenovationsListView_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn
@@ -71,6 +71,11 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <Label Content="Renovation ID:" HorizontalAlignment="Left" Margin="51,501,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtRenovationID" HorizontalAlignment="Left" Margin="141,500,0,0" DataContext="{Binding SelectedItem, ElementName=FutureRenovationsListView}" TextWrapping="Wrap" Text="{Binding Id}" VerticalAlignment="Top" Width="30" IsEnabled="False"/>
+        <Button x:Name="btnCancelRenovation" Content="Cancel Renovation" HorizontalAlignment="Center" Margin="0,563,0,0" VerticalAlignment="Top" Width="178" Click="btnCancelRenovation_Click"/>
+        <Label Content="Start Date:" HorizontalAlignment="Left" Margin="213,501,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblStartDate" HorizontalAlignment="Left" Margin="281,500,0,0" DataContext="{Binding SelectedItem, ElementName=FutureRenovationsListView}" Content="{Binding StartDate}" VerticalAlignment="Top"/>
 
     </Grid>
 </Page>

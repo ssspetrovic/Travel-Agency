@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
+using TravelAgency.DTO;
+using TravelAgency.Model;
 using TravelAgency.Service;
 
 namespace TravelAgency.ViewModel
@@ -17,6 +19,9 @@ namespace TravelAgency.ViewModel
 
         public ICollectionView PreviousRenovationsSourceCollection => _previousRenovationsCollection.View;
         public ICollectionView FutureRenovationsSourceCollection => _futureRenovationsCollection.View;
+
+        private Renovation? _selectedRenovation;
+        private bool _isRenovationSelected;
 
         private readonly RenovationService _renovationService;
         public RenovationOverviewViewModel()
@@ -32,6 +37,27 @@ namespace TravelAgency.ViewModel
             {
                 Source = _renovationService.GetFutureRenovations()
             };
+        }
+
+        public bool IsRenovationSelected
+        {
+            get => _isRenovationSelected;
+            set
+            {
+                _isRenovationSelected = value;
+                OnPropertyChanged();
+            }
+        }
+        public Renovation? SelectedRenovation
+        {
+            get => _selectedRenovation;
+
+            set
+            {
+                _selectedRenovation = value;
+                IsRenovationSelected = true;
+                OnPropertyChanged();
+            }
         }
     }
 }
