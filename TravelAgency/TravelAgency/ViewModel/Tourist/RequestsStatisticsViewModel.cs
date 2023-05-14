@@ -54,7 +54,7 @@ namespace TravelAgency.ViewModel.Tourist
             _yearsCollection.Add("All years");
             _selectedYear = "All years";
 
-            _pieChartDataSeries = _statisticsService.GetRequestsSeriesCollection(SelectedYear);
+            _pieChartDataSeries = _statisticsService.GetAcceptanceSeriesCollection(SelectedYear);
         }
     }
 }

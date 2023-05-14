@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
@@ -9,6 +10,7 @@ namespace TravelAgency.Service
 {
     internal class TourRequestsStatisticsService
     {
+        private const int PercentageMultiplier = 100;
         private readonly RegularTourRequestService _tourRequestService;
 
         public TourRequestsStatisticsService()
@@ -16,9 +18,9 @@ namespace TravelAgency.Service
             _tourRequestService = new RegularTourRequestService();
         }
 
-        public SeriesCollection GetRequestsSeriesCollection(string? year)
+        public SeriesCollection GeAcceptanceSeriesCollection(string? year)
         {
-            var requestStats = GetAcceptedRejectedList(year);
+            var requestStats = GetAcceptanceRateForYear(year);
 
             return new SeriesCollection
             {
@@ -39,38 +41,25 @@ namespace TravelAgency.Service
             };
         }
 
-        private List<int> GetAcceptedRejectedList(string? year)
+        private (int accepted, int total) GetAcceptedAndTotalRequests(string? year)
         {
             var requests = _tourRequestService.GetAllForSelectedYearAsCollection(year);
+            var acceptedRequests = requests.Count(r => r.Status == RegularTourRequest.TourRequestStatus.Accepted);
+            return (acceptedRequests, requests.Count);
+        }
 
-            var accepted = 0;
-            var rejected = 0;
-
-            foreach (var request in requests)
-            {
-                if (request.Status != RegularTourRequest.TourRequestStatus.Accepted)
-                {
-                    accepted++;
-                }
-                else
-                {
-                    rejected++;
-                }
-            }
-
-            var total = accepted + rejected;
-
-            if (total > 0)
-            {
-                accepted = accepted / total * 100;
-                rejected = rejected / total * 100;
-            }
-            else
+        private List<int> GetAcceptanceRateForYear(string? year)
+        {
+            var (accepted, total) = GetAcceptedAndTotalRequests(year);
+            if (total == 0)
             {
                 throw new DivideByZeroException();
             }
 
-            return new List<int> { accepted, rejected };
+            var acceptanceRate = accepted * PercentageMultiplier / total;
+            var rejectionRate = PercentageMultiplier - acceptanceRate;
+
+            return new List<int> { acceptanceRate, rejectionRate };
         }
     }
 }
