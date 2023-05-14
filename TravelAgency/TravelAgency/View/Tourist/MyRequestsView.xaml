@@ -64,6 +64,7 @@
                 CornerRadius="10">
                 <ListView
                     Width="720"
+                    Height="200"
                     HorizontalAlignment="Center"
                     HorizontalContentAlignment="Center"
                     d:ItemsSource="{d:SampleData ItemCount=4}"
