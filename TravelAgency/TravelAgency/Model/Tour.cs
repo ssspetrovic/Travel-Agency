@@ -15,7 +15,8 @@ namespace TravelAgency.Model
         German,
         Chinese,
         Japanese,
-        Indian
+        Indian,
+        Unknown
     }
     public class Tour
     {
