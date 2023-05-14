@@ -13,10 +13,12 @@ namespace TravelAgency.Service
     public class AccommodationService : RepositoryBase
     {
         private readonly AccommodationRepository accommodationRepository;
+        private readonly ReservationService reservationService;
 
         public AccommodationService()
         {
             accommodationRepository = new AccommodationRepository();
+            reservationService = new ReservationService();
         }
 
         public ObservableCollection<string> GetAccommodationNames()
@@ -28,6 +30,24 @@ namespace TravelAgency.Service
                 names.Add(a.Name);
             }
             return names;
+        }
+
+        public ObservableCollection<AccommodationStatDTO> GetAccommodationStatByYear(int accID)
+        {
+            ObservableCollection<AccommodationStatDTO> accList = new ObservableCollection<AccommodationStatDTO>();
+
+            int yearStart = 2020;
+            AccommodationStatDTO statDTO = new AccommodationStatDTO();
+            for (int i = yearStart; i <= 2023; i++) 
+            {
+                statDTO.Period = i.ToString();
+                statDTO.ReservationCount = reservationService.GetReservationCountByYear(i, accID);
+
+
+                accList.Add(statDTO);
+            }
+
+            return accList;
         }
     }
 }
