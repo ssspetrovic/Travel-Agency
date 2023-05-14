@@ -136,5 +136,55 @@ namespace TravelAgency.Service
             return _accommodationRepository.GetById(reservation.AccommodationId).Location;
 
         }
+
+        public List<FreeDatesDTO> GetFreeDates(int accId, int duration, DateTime startDate, DateTime endDate) 
+        {
+            var reservationRepository = new ReservationRepository();
+            ObservableCollection<Reservation> reservations = reservationRepository.GetAllByAccommodationId(accId);
+
+            List<FreeDatesDTO> freeDates = new List<FreeDatesDTO>();
+            FreeDatesDTO f;
+
+            DateTime startTemp = startDate;
+            DateTime endTemp = startTemp.AddDays(duration - 1);
+            if (endTemp > endDate)
+            {
+                return freeDates;
+            }
+
+            f = new FreeDatesDTO(startTemp, endTemp);
+            freeDates.Add(f);
+
+            while (endTemp != endDate)
+            {
+                startTemp = startTemp.AddDays(1);
+                endTemp = endTemp.AddDays(1);
+                f = new FreeDatesDTO(startTemp, endTemp);
+                freeDates.Add(f);
+            }
+
+            List<FreeDatesDTO> finalFreeDates = new List<FreeDatesDTO>();
+            foreach (FreeDatesDTO fdto in freeDates)
+            {
+                bool available = true;
+                foreach (Reservation r in reservations)
+                {
+                    if ((fdto.startDate >= r.StartDate && fdto.startDate <= r.EndDate) || (fdto.endDate >= r.StartDate && fdto.endDate <= r.EndDate))
+                    {
+                        available = false;
+                        break;
+                    }
+                    if ((r.StartDate >= fdto.startDate && r.StartDate <= fdto.endDate) || (r.EndDate >= fdto.startDate && r.EndDate <= fdto.endDate))
+                    {
+                        available = false;
+                        break;
+                    }
+                }
+                if (available)
+                    finalFreeDates.Add(fdto);
+            }
+
+            return finalFreeDates;
+        }
     }
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
+using TravelAgency.DTO;
 using TravelAgency.Model;
 using TravelAgency.Repository;
 using TravelAgency.Service;
@@ -18,6 +19,9 @@ namespace TravelAgency.ViewModel
 
         //private Reservation? _selectedReservation;
         //private bool _isReservatoinSelected;
+
+        private FreeDatesDTO? _selectedFreeDate;
+        private bool _isFreeDateSelected;
 
         //private readonly ReservationRepository _reservationRepository;
         private readonly AccommodationService _accommodationService;
@@ -52,5 +56,27 @@ namespace TravelAgency.ViewModel
                 OnPropertyChanged();
             }
         }*/
+
+        public bool IsFreeDateSelected
+        {
+            get => _isFreeDateSelected;
+            set
+            {
+                _isFreeDateSelected = value;
+                OnPropertyChanged();
+            }
+        }
+        public FreeDatesDTO? SelectedFreeDate
+        {
+            get => _selectedFreeDate;
+
+            set
+            {
+                _selectedFreeDate = value;
+                IsFreeDateSelected = true;
+                OnPropertyChanged();
+            }
+        }
+
     }
 }

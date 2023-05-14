@@ -14,26 +14,27 @@
         <DatePicker x:Name="pickEndDate" HorizontalAlignment="Left" Margin="250,144,0,0" VerticalAlignment="Top" Width="127"/>
         <TextBox x:Name="txtDuration" HorizontalAlignment="Left" Margin="53,210,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="127"/>
         <Button x:Name="btnCheck" Content="Check Availibility" HorizontalAlignment="Center" Margin="0,266,0,0" VerticalAlignment="Top" Width="324" Click="btnCheck_Click"/>
-        <ListView x:Name="FreeDatesListView" d:ItemsSource="{d:SampleData ItemCount=3}" ItemsSource="{Binding ReservationsSourceCollection}" SelectedItem="{Binding SelectedReservation}" Margin="53,331,53,236" FontSize="12">
+        <ListView x:Name="FreeDatesListView" d:ItemsSource="{d:SampleData ItemCount=3}" SelectedItem="{Binding SelectedFreeDate}" Margin="53,331,53,236" FontSize="12">
             <ListView.View>
                 <GridView>
                     <GridViewColumn
                         Width="Auto"
-                        DisplayMemberBinding="{Binding Id}"
-                        Header="{DynamicResource Reservation}"
+                        DisplayMemberBinding="{Binding startDate}"
+                        Header="{DynamicResource Start Date}"
                         HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
                     <GridViewColumn
                         Width="Auto"
-                        DisplayMemberBinding="{Binding StartDate}"
-                        Header="{DynamicResource Start Date}"
+                        DisplayMemberBinding="{Binding endDate}"
+                        Header="{DynamicResource End Date}"
                         HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Label Content="Label" HorizontalAlignment="Left" Margin="53,491,0,0" VerticalAlignment="Top"/>
-        <Label Content="Label" HorizontalAlignment="Left" Margin="53,520,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblStartDate" HorizontalAlignment="Left" Margin="53,491,0,0" VerticalAlignment="Top" DataContext="{Binding SelectedItem, ElementName=FreeDatesListView}" Content="{Binding startDate}"/>
+        <Label x:Name="lblEndDate" HorizontalAlignment="Left" Margin="53,520,0,0" VerticalAlignment="Top" DataContext="{Binding SelectedItem, ElementName=FreeDatesListView}" Content="{Binding endDate}"/>
         <TextBox HorizontalAlignment="Center" Margin="0,571,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="324"/>
         <Button Content="Button" HorizontalAlignment="Center" Margin="0,648,0,0" VerticalAlignment="Top" Width="162"/>
+        <Label x:Name="lblCountFreeDates" Content="Free: ##" HorizontalAlignment="Left" Margin="250,218,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Page>
