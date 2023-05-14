@@ -23,6 +23,11 @@ namespace TravelAgency.Service
             return _tourRequestRepository.GetAllForSelectedYearAsCollection(year);
         }
 
+        public ObservableCollection<string> GetAllYears()
+        {
+            return _tourRequestRepository.GetAllYears();
+        }
+
         public RegularTourRequestService()
         {
             _tourRequestRepository = new RegularTourRequestRepository();

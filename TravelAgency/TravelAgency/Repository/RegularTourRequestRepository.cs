@@ -91,7 +91,7 @@ namespace TravelAgency.Repository
             databaseConnection.Open();
 
             using var selectCommand = databaseConnection.CreateCommand();
-            selectCommand.CommandText = "SELECT SUBSTR(DateRange, INSTR(DateRange, '/') + 4, 5) FROM RegularTourRequest";
+            selectCommand.CommandText = "SELECT DISTINCT SUBSTR(DateRange, INSTR(DateRange, '/') + 4, 5) FROM RegularTourRequest";
 
             using var selectReader = selectCommand.ExecuteReader();
 

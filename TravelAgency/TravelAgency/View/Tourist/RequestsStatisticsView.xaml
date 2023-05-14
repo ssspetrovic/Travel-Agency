@@ -88,7 +88,9 @@
                         BorderBrush="{StaticResource MaterialDesignDivider}"
                         BorderThickness="1"
                         FontSize="14"
-                        MaxDropDownHeight="190" />
+                        ItemsSource="{Binding YearsCollection}"
+                        MaxDropDownHeight="190"
+                        SelectedItem="{Binding SelectedYear, UpdateSourceTrigger=PropertyChanged}" />
                     <lvc:PieChart
                         Name="RequestsPieChart"
                         Grid.Row="0"
