@@ -1,4 +1,6 @@
-﻿namespace TravelAgency.Service
+﻿using System.Collections.ObjectModel;
+
+namespace TravelAgency.Service
 {
     internal class TourRequestsStatisticsService
     {

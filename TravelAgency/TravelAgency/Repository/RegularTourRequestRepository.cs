@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows.Forms;
 using TravelAgency.Model;
 
 namespace TravelAgency.Repository
@@ -45,34 +46,6 @@ namespace TravelAgency.Repository
             updateCommand.ExecuteNonQuery();
         }
 
-        public ObservableCollection<RegularTourRequest> GetAllAsCollection()
-        {
-            using var databaseConnection = GetConnection();
-            databaseConnection.Open();
-
-            using var selectCommand = databaseConnection.CreateCommand();
-            selectCommand.CommandText = "SELECT * FROM RegularTourRequest WHERE TouristUsername = $CurrentUserUsername";
-            selectCommand.Parameters.AddWithValue("$CurrentUserUsername", CurrentUser.Username);
-            using var selectReader = selectCommand.ExecuteReader();
-
-            var requests = new ObservableCollection<RegularTourRequest>();
-            while (selectReader.Read())
-            {
-                requests.Add(new RegularTourRequest(
-                    selectReader.GetInt32(0),
-                    selectReader.GetString(1),
-                    new Location(selectReader.GetString(2), selectReader.GetString(3)),
-                    (Language)selectReader.GetInt32(4),
-                    selectReader.GetInt32(5),
-                    selectReader.GetString(6),
-                    selectReader.GetString(7),
-                    (RegularTourRequest.TourRequestStatus)selectReader.GetInt32(8)
-                ));
-            }
-
-            return requests;
-        }
-
         public ObservableCollection<RegularTourRequest> GetAllForSelectedYearAsCollection(string? year = null)
         {
             using var databaseConnection = GetConnection();
@@ -110,6 +83,25 @@ namespace TravelAgency.Repository
             }
 
             return requests;
+        }
+
+        public ObservableCollection<string> GetAllYears()
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            using var selectCommand = databaseConnection.CreateCommand();
+            selectCommand.CommandText = "SELECT SUBSTR(DateRange, INSTR(DateRange, '/') + 4, 5) FROM RegularTourRequest";
+
+            using var selectReader = selectCommand.ExecuteReader();
+
+            var years = new ObservableCollection<string>();
+            while (selectReader.Read())
+            {
+                years.Add(selectReader.GetString(0));
+            }
+
+            return years;
         }
     }
 }

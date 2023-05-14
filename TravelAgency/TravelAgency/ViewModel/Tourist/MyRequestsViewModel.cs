@@ -26,7 +26,7 @@ namespace TravelAgency.ViewModel.Tourist
             var tourRequestService = new RegularTourRequestService();
             _navigationService = navigationService;
             _touristViewModel = touristViewModel;
-            _regularRequests = tourRequestService.GetAllAsCollection();
+            _regularRequests = tourRequestService.GetAllForSelectedYearAsCollection(null);
         }
     }
 }

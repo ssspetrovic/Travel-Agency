@@ -18,11 +18,6 @@ namespace TravelAgency.Service
             _tourRequestRepository.UpdateStatus(id, newStatus);
         }
 
-        public ObservableCollection<RegularTourRequest> GetAllAsCollection()
-        {
-            return _tourRequestRepository.GetAllAsCollection();
-        }
-
         public ObservableCollection<RegularTourRequest> GetAllForSelectedYearAsCollection(string? year = null)
         {
             return _tourRequestRepository.GetAllForSelectedYearAsCollection(year);
