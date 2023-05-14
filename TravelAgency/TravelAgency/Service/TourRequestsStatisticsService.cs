@@ -11,14 +11,17 @@ namespace TravelAgency.Service
 {
     internal class TourRequestsStatisticsService
     {
-        private Dictionary<Language, int> _languageCount;
         private const int PercentageMultiplier = 100;
         private readonly RegularTourRequestService _tourRequestService;
 
         public TourRequestsStatisticsService()
         {
             _tourRequestService = new RegularTourRequestService();
-            _languageCount = new Dictionary<Language, int>();
+        }
+
+        public ObservableCollection<string> GetAllYearsAsCollection()
+        {
+            return _tourRequestService.GetAllYearsAsCollection();
         }
 
         public SeriesCollection GetAcceptanceSeriesCollection(string? year)
@@ -79,22 +82,18 @@ namespace TravelAgency.Service
 
         public Dictionary<Language, int> GetLanguageCountDictionary(string? year)
         {
-            // Initializes the dictionary to to available languages and all of the values as 0
-            var languageCountsDictionary = Enum.GetValues(typeof(Language))
-                .Cast<Language>()
-                .ToDictionary(lang => lang, _ => 0);
-
             var requests = _tourRequestService.GetAllForSelectedYearAsCollection(year);
+            var languageCountsDictionary = new Dictionary<Language, int>();
 
             foreach (var request in requests)
             {
-                languageCountsDictionary[request.Language ?? Language.Unknown]++;
+                if (!languageCountsDictionary.ContainsKey(request.Language ?? Language.Unknown))
+                    languageCountsDictionary.Add(request.Language ?? Language.Unknown, 1);
+                else
+                    languageCountsDictionary[request.Language ?? Language.Unknown]++;
             }
 
-            // Remove all pairs from dictionary where the int 
-            return languageCountsDictionary
-                .Where(pair => pair.Value != 0)
-                .ToDictionary(pair => pair.Key, pair => pair.Value);
+            return languageCountsDictionary;
         }
 
         public string[] GetLanguageLabels(Dictionary<Language, int> languageCountsDictionary)
@@ -102,17 +101,79 @@ namespace TravelAgency.Service
             return languageCountsDictionary.Keys.Select(lang => lang.ToString()).ToArray();
         }
 
+        private ChartValues<int> GetLanguageChartValues(string? year)
+        {
+            var languageCountsDictionary = GetLanguageCountDictionary(year);
+            var chartValues = new ChartValues<int>();
+
+            foreach (var pair in languageCountsDictionary)
+            {
+                chartValues.Add(pair.Value);
+            }
+
+            return chartValues;
+        }
+
         public SeriesCollection GetLanguageCartesianSeriesCollection(string? year)
         {
-            var values = new ChartValues<int> { 3, 5, 6, 1, 2, 8 };
+            var values = GetLanguageChartValues(year);
 
             return new SeriesCollection
             {
                 new RowSeries
                 {
-                    Title = "test",
+                    Title = "Requests per language",
                     Values = values,
-                    DataLabels = true
+                    DataLabels = true,
+                }
+            };
+        }
+
+        public Dictionary<string, int> GetLocationCountDictionary(string? year)
+        {
+            var requests = _tourRequestService.GetAllForSelectedYearAsCollection(year);
+            var locationCountDictionary = new Dictionary<string, int>();
+
+            foreach (var request in requests)
+            {
+                if (!locationCountDictionary.ContainsKey(request.Location.Country))
+                    locationCountDictionary.Add(request.Location.Country, 1);
+                else
+                    locationCountDictionary[request.Location.Country]++;
+            }
+
+            return locationCountDictionary;
+        }
+
+        public string[] GetLocationLabels(Dictionary<string, int> locationCountsDictionary)
+        {
+            return locationCountsDictionary.Keys.Select(lang => lang.ToString()).ToArray();
+        }
+
+        private ChartValues<int> GetLocationChartValues(string? year)
+        {
+            var locationCountsDictionary = GetLocationCountDictionary(year);
+            var chartValues = new ChartValues<int>();
+
+            foreach (var pair in locationCountsDictionary)
+            {
+                chartValues.Add(pair.Value);
+            }
+
+            return chartValues;
+        }
+
+        public SeriesCollection GetLocationCartesianSeriesCollection(string? year)
+        {
+            var values = GetLocationChartValues(year);
+
+            return new SeriesCollection
+            {
+                new RowSeries
+                {
+                    Title = "Requests per location",
+                    Values = values,
+                    DataLabels = true,
                 }
             };
         }

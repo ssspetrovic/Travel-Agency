@@ -149,4 +149,23 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+
+    <Style
+        x:Key="StatisticsComboBoxStyle"
+        BasedOn="{StaticResource MaterialDesignComboBox}"
+        TargetType="ComboBox">
+        <Setter Property="Width" Value="100" />
+        <Setter Property="Margin" Value="10" />
+        <Setter Property="Padding" Value="5" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="materialDesign:HintAssist.Hint" Value="All years" />
+        <Setter Property="materialDesign:TextFieldAssist.TextFieldCornerRadius" Value="3" />
+        <Setter Property="materialDesign:TextFieldAssist.UnderlineCornerRadius" Value="3" />
+        <Setter Property="BorderBrush" Value="{StaticResource MaterialDesignDivider}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="MaxDropDownHeight" Value="190" />
+    </Style>
+
 </ResourceDictionary>

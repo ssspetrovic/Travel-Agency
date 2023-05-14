@@ -86,7 +86,7 @@ namespace TravelAgency.Repository
             return requests;
         }
 
-        public ObservableCollection<string> GetAllYears()
+        public ObservableCollection<string> GetAllYearsAsCollection()
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();

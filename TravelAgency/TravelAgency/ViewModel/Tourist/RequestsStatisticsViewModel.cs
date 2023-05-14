@@ -1,7 +1,8 @@
-﻿using LiveCharts;
+﻿using System.Collections.Generic;
+using LiveCharts;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
+using TravelAgency.Model;
 using TravelAgency.Service;
 
 namespace TravelAgency.ViewModel.Tourist
@@ -9,6 +10,8 @@ namespace TravelAgency.ViewModel.Tourist
     internal class RequestsStatisticsViewModel : BaseViewModel
     {
         private readonly TourRequestsStatisticsService _statisticsService;
+        private readonly Dictionary<Language, int> _languageCountDictionary;
+        private readonly Dictionary<string, int> _locationCountDictionary;
 
         private double _averageRequests;
         public double AverageRequests
@@ -76,6 +79,17 @@ namespace TravelAgency.ViewModel.Tourist
             }
         }
 
+        private SeriesCollection _locationCartesianSeriesCollection;
+        public SeriesCollection LocationCartesianSeriesCollection
+        {
+            get => _locationCartesianSeriesCollection;
+            set
+            {
+                _locationCartesianSeriesCollection = value;
+                OnPropertyChanged();
+            }
+        }
+
         private string[] _languageLabels;
         public string[] LanguageLabels
         {
@@ -87,27 +101,36 @@ namespace TravelAgency.ViewModel.Tourist
             }
         }
 
+        private string[] _locationLabels;
+        public string[] LocationLabels
+        {
+            get => _locationLabels;
+            set
+            {
+                _locationLabels = value;
+                OnPropertyChanged();
+            }
+        }
+
         public RequestsStatisticsViewModel()
         {
             _statisticsService = new TourRequestsStatisticsService();
-            var requestService = new RegularTourRequestService();
-            _yearsCollection = requestService.GetAllYears();
+            _yearsCollection = _statisticsService.GetAllYearsAsCollection();
             _yearsCollection.Add("All years");
             _selectedPieYear = "All years";
             _selectedCartesianYear = "All years";
 
             _acceptancePieSeriesCollection = _statisticsService.GetAcceptanceSeriesCollection(SelectedPieYear);
             _averageRequests = _statisticsService.GetAverageRequestsByStatus(SelectedPieYear);
-            _languageCartesianSeriesCollection = _statisticsService.GetLanguageCartesianSeriesCollection(null);
             PropertyChanged += OnSelectedPieYearChanged;
 
-            var dict = _statisticsService.GetLanguageCountDictionary(null);
-            var labels = _statisticsService.GetLanguageLabels(dict);
-
-            foreach (var pair in dict)
-            {
-                Debug.WriteLine(pair);
-            }
+            _languageCountDictionary = _statisticsService.GetLanguageCountDictionary(SelectedCartesianYear);
+            _locationCountDictionary = _statisticsService.GetLocationCountDictionary(SelectedCartesianYear);
+            _languageCartesianSeriesCollection = _statisticsService.GetLanguageCartesianSeriesCollection(SelectedCartesianYear);
+            _locationCartesianSeriesCollection = _statisticsService.GetLocationCartesianSeriesCollection(SelectedCartesianYear);
+            _languageLabels = _statisticsService.GetLanguageLabels(_languageCountDictionary);
+            _locationLabels = _statisticsService.GetLocationLabels(_locationCountDictionary);
+            PropertyChanged += OnSelectedCartesianYearChanged;
         }
 
         private void OnSelectedPieYearChanged(object? sender, PropertyChangedEventArgs e)
@@ -117,6 +140,19 @@ namespace TravelAgency.ViewModel.Tourist
             _averageRequests = _statisticsService.GetAverageRequestsByStatus(SelectedPieYear);
             OnPropertyChanged(nameof(AcceptancePieSeriesCollection));
             OnPropertyChanged(nameof(AverageRequests));
+        }
+
+        private void OnSelectedCartesianYearChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName != nameof(SelectedCartesianYear)) return;
+            _languageCartesianSeriesCollection = _statisticsService.GetLanguageCartesianSeriesCollection(SelectedCartesianYear);
+            _locationCartesianSeriesCollection = _statisticsService.GetLocationCartesianSeriesCollection(SelectedCartesianYear);
+            _languageLabels = _statisticsService.GetLanguageLabels(_languageCountDictionary);
+            _locationLabels = _statisticsService.GetLocationLabels(_locationCountDictionary);
+            OnPropertyChanged(nameof(LanguageCartesianSeriesCollection));
+            OnPropertyChanged(nameof(LocationCartesianSeriesCollection));
+            OnPropertyChanged(nameof(LanguageLabels));
+            OnPropertyChanged(nameof(LocationLabels));
         }
     }
 }
