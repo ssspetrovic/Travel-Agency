@@ -116,7 +116,10 @@
                         <Label Content="Average number of guests in accepted tour requests:" FontSize="14" />
                         <Label FontSize="14" FontWeight="DemiBold">
                             <Label.Content>
-                                <TextBlock d:Text="42.31" TextDecorations="Underline" />
+                                <TextBlock
+                                    d:Text="42.31"
+                                    Text="{Binding AverageRequests}"
+                                    TextDecorations="Underline" />
                             </Label.Content>
                         </Label>
                     </WrapPanel>

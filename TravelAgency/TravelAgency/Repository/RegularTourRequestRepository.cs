@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using TravelAgency.Model;
+using static TravelAgency.Model.RegularTourRequest;
 
 namespace TravelAgency.Repository
 {

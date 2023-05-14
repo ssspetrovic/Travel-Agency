@@ -61,5 +61,17 @@ namespace TravelAgency.Service
 
             return new List<int> { acceptanceRate, rejectionRate };
         }
+
+        public double GetAverageRequestsByStatus(string? year,
+            RegularTourRequest.TourRequestStatus status = RegularTourRequest.TourRequestStatus.Accepted)
+        {
+            var requests = _tourRequestService.GetAllForSelectedYearAsCollection(year);
+            var filteredRequests = requests.Where(request => request.Status == status);
+
+            var regularTourRequests = filteredRequests.ToList();
+            if (!regularTourRequests.Any()) return 0;
+
+            return regularTourRequests.Average(request => request.GuestNumber);
+        }
     }
 }

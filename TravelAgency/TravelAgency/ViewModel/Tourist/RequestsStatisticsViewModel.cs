@@ -8,8 +8,20 @@ namespace TravelAgency.ViewModel.Tourist
     internal class RequestsStatisticsViewModel : BaseViewModel
     {
         private readonly TourRequestsStatisticsService _statisticsService;
-        private string? _selectedYear;
 
+        private double _averageRequests;
+        public double AverageRequests
+        {
+            get => _averageRequests;
+            set
+            {
+                _averageRequests = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        private string? _selectedYear;
         public string? SelectedYear
         {
             get => _selectedYear;
@@ -52,6 +64,7 @@ namespace TravelAgency.ViewModel.Tourist
             _selectedYear = "All years";
 
             _pieChartDataSeries = _statisticsService.GetAcceptanceSeriesCollection(SelectedYear);
+            _averageRequests = _statisticsService.GetAverageRequestsByStatus(SelectedYear);
             PropertyChanged += OnSelectedYearChanged;
         }
 
@@ -59,7 +72,9 @@ namespace TravelAgency.ViewModel.Tourist
         {
             if (e.PropertyName != nameof(SelectedYear)) return;
             _pieChartDataSeries = _statisticsService.GetAcceptanceSeriesCollection(SelectedYear);
+            _averageRequests = _statisticsService.GetAverageRequestsByStatus(SelectedYear);
             OnPropertyChanged(nameof(PieChartDataSeries));
+            OnPropertyChanged(nameof(AverageRequests));
         }
     }
 }
