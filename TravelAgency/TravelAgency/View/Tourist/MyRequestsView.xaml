@@ -106,6 +106,7 @@
                 Width="120"
                 Height="35"
                 Margin="0,15"
+                Command="{Binding NavigateToStatisticsCommand}"
                 Content="Statistics" />
         </StackPanel>
         <StackPanel Grid.Row="2" Margin="40,0">

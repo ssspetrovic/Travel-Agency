@@ -1,7 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Navigation;
+using TravelAgency.Command;
 using TravelAgency.Model;
 using TravelAgency.Service;
+using TravelAgency.View.Tourist;
 
 namespace TravelAgency.ViewModel.Tourist
 {
@@ -9,8 +11,9 @@ namespace TravelAgency.ViewModel.Tourist
     {
         private readonly NavigationService _navigationService;
         private readonly TouristViewModel _touristViewModel;
-        private ObservableCollection<RegularTourRequest> _regularRequests;
+        public RelayCommand NavigateToStatisticsCommand { get; set; }
 
+        private ObservableCollection<RegularTourRequest> _regularRequests;
         public ObservableCollection<RegularTourRequest> RegularRequests
         {
             get => _regularRequests;
@@ -27,6 +30,12 @@ namespace TravelAgency.ViewModel.Tourist
             _navigationService = navigationService;
             _touristViewModel = touristViewModel;
             _regularRequests = tourRequestService.GetAllForSelectedYearAsCollection(null);
+            NavigateToStatisticsCommand = new RelayCommand(Execute_NavigateToStatisticsCommand);
+        }
+
+        private void Execute_NavigateToStatisticsCommand(object parameter)
+        {
+            _navigationService.Navigate(new RequestsStatisticsView());
         }
     }
 }
