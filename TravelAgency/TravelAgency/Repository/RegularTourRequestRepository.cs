@@ -5,7 +5,7 @@ namespace TravelAgency.Repository
 {
     internal class RegularTourRequestRepository : RepositoryBase
     {
-        public void AddRegular(RegularTourRequest tourRequest)
+        public void Add(RegularTourRequest tourRequest)
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
@@ -27,7 +27,7 @@ namespace TravelAgency.Repository
             insertCommand.ExecuteNonQuery();
         }
 
-        public void UpdateStatusRegular(int id, RegularTourRequest.TourRequestStatus newStatus)
+        public void UpdateStatus(int id, RegularTourRequest.TourRequestStatus newStatus)
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
@@ -45,13 +45,52 @@ namespace TravelAgency.Repository
             updateCommand.ExecuteNonQuery();
         }
 
-        public ObservableCollection<RegularTourRequest> GetAllRegularAsCollection()
+        public ObservableCollection<RegularTourRequest> GetAllAsCollection()
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
 
             using var selectCommand = databaseConnection.CreateCommand();
             selectCommand.CommandText = "SELECT * FROM RegularTourRequest WHERE TouristUsername = $CurrentUserUsername";
+            selectCommand.Parameters.AddWithValue("$CurrentUserUsername", CurrentUser.Username);
+            using var selectReader = selectCommand.ExecuteReader();
+
+            var requests = new ObservableCollection<RegularTourRequest>();
+            while (selectReader.Read())
+            {
+                requests.Add(new RegularTourRequest(
+                    selectReader.GetInt32(0),
+                    selectReader.GetString(1),
+                    new Location(selectReader.GetString(2), selectReader.GetString(3)),
+                    (Language)selectReader.GetInt32(4),
+                    selectReader.GetInt32(5),
+                    selectReader.GetString(6),
+                    selectReader.GetString(7),
+                    (RegularTourRequest.TourRequestStatus)selectReader.GetInt32(8)
+                ));
+            }
+
+            return requests;
+        }
+
+        public ObservableCollection<RegularTourRequest> GetAllForSelectedYearAsCollection(string? year = null)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            using var selectCommand = databaseConnection.CreateCommand();
+
+            if (year == null)
+            {
+                selectCommand.CommandText = "SELECT * FROM RegularTourRequest WHERE TouristUsername = $CurrentUserUsername";
+            }
+            else
+            {
+                selectCommand.CommandText =
+                    "SELECT * FROM RegularTourRequest WHERE ToristUsername = $CurrentUserUsername AND SUBSTR(DateRange, 7, 4) = $year";
+                selectCommand.Parameters.AddWithValue("$year", year);
+            }
+
             selectCommand.Parameters.AddWithValue("$CurrentUserUsername", CurrentUser.Username);
             using var selectReader = selectCommand.ExecuteReader();
 

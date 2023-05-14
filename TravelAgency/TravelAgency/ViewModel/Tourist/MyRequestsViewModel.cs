@@ -23,7 +23,7 @@ namespace TravelAgency.ViewModel.Tourist
 
         public MyRequestsViewModel(NavigationService navigationService, TouristViewModel touristViewModel)
         {
-            var tourRequestService = new TourRequestService();
+            var tourRequestService = new RegularTourRequestService();
             _navigationService = navigationService;
             _touristViewModel = touristViewModel;
             _regularRequests = tourRequestService.GetAllAsCollection();
