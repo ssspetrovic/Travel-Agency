@@ -29,5 +29,13 @@
             Status = status;
             Type = type;
         }
+
+        public TouristNotification(string touristUsername, string notificationText, NotificationStatus status, NotificationType type)
+        {
+            TouristUsername = touristUsername;
+            NotificationText = notificationText;
+            Status = status;
+            Type = type;
+        }
     }
 }

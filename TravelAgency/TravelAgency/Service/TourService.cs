@@ -145,6 +145,12 @@ namespace TravelAgency.Service
             insertCommand.ExecuteNonQuery();
 
             _requestTourService.UpdateStatus(Status.Updating);
+            var notificationService = new TouristNotificationService();
+            notificationService.Add(new TouristNotification(
+                "tourist",
+                $"Your tour in {tour.Location} has been accepted. Selected date was: {tour.Date}",
+                NotificationStatus.Unread,
+                NotificationType.RequestAccepted));
         }
 
         public bool CheckIfDatesExist(string dates)
