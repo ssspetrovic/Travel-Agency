@@ -184,5 +184,22 @@ namespace TravelAgency.Repository
             return new ObservableCollection<string>(distinctYears);
         }
 
+        public void UpdateStatusById(int id, Status newStatus)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            using var updateCommand = databaseConnection.CreateCommand();
+            updateCommand.CommandText =
+                @"
+                    UPDATE RequestedTour
+                    SET Status = $newStatus
+                    WHERE Id = $id
+                ";
+            updateCommand.Parameters.AddWithValue("$newStatus", newStatus);
+            updateCommand.Parameters.AddWithValue("$id", id);
+
+            updateCommand.ExecuteNonQuery();
+        }
     }
 }

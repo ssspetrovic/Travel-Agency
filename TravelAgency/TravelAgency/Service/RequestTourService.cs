@@ -267,6 +267,11 @@ namespace TravelAgency.Service
             _requestTourRepository.UpdateStatus(newStatus);
         }
 
+        private void UpdateStatusById(int id, Status newStatus)
+        {
+            _requestTourRepository.UpdateStatusById(id, newStatus);
+        }
+
         public ObservableCollection<RequestTour> GetAllForSelectedYearAsCollection(string? year = null)
         {
             return _requestTourRepository.GetAllForSelectedYearAsCollection(year);
@@ -277,5 +282,18 @@ namespace TravelAgency.Service
             return _requestTourRepository.GetAllYearsAsCollection();
         }
 
+        public void UpdateAllRequestsStatuses()
+        {
+            var requests = GetAllForSelectedYearAsCollection();
+            foreach (var request in requests)
+            {
+                var startingDateString = request.DateRange[..10];
+                var startingDate = DateTime.ParseExact(startingDateString, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+                if (startingDate >= DateTime.Now.AddDays(2))
+                {
+                    UpdateStatusById(request.Id, Status.Invalid);
+                }
+            }
+        }
     }
 }
