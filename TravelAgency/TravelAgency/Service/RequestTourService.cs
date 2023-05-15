@@ -3,6 +3,7 @@ using Microsoft.Data.Sqlite;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using LiveCharts;
@@ -289,7 +290,7 @@ namespace TravelAgency.Service
             {
                 var startingDateString = request.DateRange[..10];
                 var startingDate = DateTime.ParseExact(startingDateString, "MM/dd/yyyy", CultureInfo.InvariantCulture);
-                if (startingDate >= DateTime.Now.AddDays(2))
+                if (startingDate <= DateTime.Now.AddDays(2))
                 {
                     UpdateStatusById(request.Id, Status.Invalid);
                 }
