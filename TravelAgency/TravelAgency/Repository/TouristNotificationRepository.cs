@@ -13,7 +13,7 @@ namespace TravelAgency.Repository
             using var insertCommand = databaseConnection.CreateCommand();
             insertCommand.CommandText =
                 @"
-                    INSERT INTO TouristNotification TouristUsername, NotificationText, Status, Type)
+                    INSERT INTO TouristNotification (TouristUsername, NotificationText, Status, Type)
                     VALUES ($TouristUsername, $NotificationText, $Status, $Type)
                 ";
             insertCommand.Parameters.AddWithValue("$TouristUsername", notification.TouristUsername);
