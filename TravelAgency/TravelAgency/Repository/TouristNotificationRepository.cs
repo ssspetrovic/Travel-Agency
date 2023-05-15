@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.Data;
 using TravelAgency.Model;
 
 namespace TravelAgency.Repository
