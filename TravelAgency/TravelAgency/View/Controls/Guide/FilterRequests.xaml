@@ -140,18 +140,29 @@
                             FontWeight="Bold"
                             Foreground="#4fc3f7"
                             Text="Filter by Language:" />
-                        <TextBox
-                            x:Name="LanguageBox"
+                        <ComboBox
                             Grid.Row="3"
                             Grid.Column="1"
+                            x:Name="LanguageBox"
                             Height="28"
-                            Margin="5"
+                            Margin="0,5,0,0"
                             VerticalContentAlignment="Center"
                             BorderThickness="0,0,0,1"
-                            CaretBrush="#4fc3f7"
                             FontSize="13"
                             FontWeight="Medium"
-                            Foreground="#68cbf8" />
+                            Foreground="#68cbf8">
+                            <ComboBoxItem>English</ComboBoxItem>
+                            <ComboBoxItem>Spanish</ComboBoxItem>
+                            <ComboBoxItem>French</ComboBoxItem>
+                            <ComboBoxItem>Italian</ComboBoxItem>
+                            <ComboBoxItem>Serbian</ComboBoxItem>
+                            <ComboBoxItem>Portuguese</ComboBoxItem>
+                            <ComboBoxItem>German</ComboBoxItem>
+                            <ComboBoxItem>Chinese</ComboBoxItem>
+                            <ComboBoxItem>Japanese</ComboBoxItem>
+                            <ComboBoxItem>Indian</ComboBoxItem>
+                        </ComboBox>
+
 
                         <TextBlock
                             Grid.Row="4"

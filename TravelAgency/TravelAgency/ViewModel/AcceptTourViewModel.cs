@@ -62,6 +62,7 @@ namespace TravelAgency.ViewModel
             dt = UpdateView == "" ? _requestTourService.GetAllAsDataTable(dt) : _requestTourService.UpdateDataTable(dt, UpdateView);
 
             ConvertTourColumn(dt, "Location_Id", typeof(string), "Location");
+            ConvertTourColumn(dt, "Language", typeof(string), "Language");
             return dt.DefaultView;
         }
 

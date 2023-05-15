@@ -74,7 +74,10 @@ namespace TravelAgency.Service
 
             var selectStatement = "select * from RequestedTour where " + parameterName + " = ";
             if (parameterName == "Language")
-                selectStatement += "'" + parameter + "'";
+            {
+                var language = (int) Enum.Parse(typeof(Language),parameter);
+                selectStatement += language;
+            }
             else
                 selectStatement += parameter;
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
