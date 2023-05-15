@@ -17,26 +17,27 @@ using TravelAgency.ViewModel;
 namespace TravelAgency.View.Controls.Guest1
 {
     /// <summary>
-    /// Interaction logic for AdvancedSearchView.xaml
+    /// Interaction logic for ProfileView.xaml
     /// </summary>
-    public partial class AdvancedSearchView : Window
+    public partial class ProfileView : Window
     {
-        private readonly AdvancedSearchViewModel _viewModel = new();
-        public AdvancedSearchView()
+        private readonly ProfileViewModel _viewModel = new();
+        public ProfileView()
         {
-            DataContext = _viewModel;
             InitializeComponent();
-        }
-        private void HomeButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            var GuestView = new Guest1View();
-            GuestView.Show();
-            Close();
+            DataContext = _viewModel;
         }
         private void Profile_OnClick(object sender, RoutedEventArgs e)
         {
             var ProfileView = new ProfileView();
             ProfileView.Show();
+            Close();
+        }
+
+        private void HomeButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var GuestView = new Guest1View();
+            GuestView.Show();
             Close();
         }
 
@@ -72,7 +73,6 @@ namespace TravelAgency.View.Controls.Guest1
         {
             Close();
         }
-
         private void RequestListButton_OnClick(object sender, RoutedEventArgs e)
         {
             var requestListView = new RequestListView();
@@ -80,16 +80,9 @@ namespace TravelAgency.View.Controls.Guest1
             Close();
         }
 
-        private void Search_OnClick(object sender, RoutedEventArgs e)
+        private void RequestSuper_OnClick(object sender, RoutedEventArgs e)
         {
-            var searchResultsView = new SearchResultsView();
-            searchResultsView.Show(); 
-            Close();
-        }
 
-        private void Clear_OnClick(object sender, RoutedEventArgs e)
-        {
-            _viewModel.Clear();
         }
     }
 }

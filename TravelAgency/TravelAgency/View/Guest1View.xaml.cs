@@ -32,6 +32,12 @@ namespace TravelAgency.View
             signInView.Show();
             Close();
         }
+        private void Profile_OnClick(object sender, RoutedEventArgs e)
+        {
+            var ProfileView = new ProfileView();
+            ProfileView.Show();
+            Close();
+        }
 
         private void HeaderThumb_OnDragDelta(object sender, DragDeltaEventArgs e)
         {

@@ -1,4 +1,4 @@
-﻿<Window x:Class="TravelAgency.View.Controls.Guest1.RequestListView"
+﻿<Window x:Class="TravelAgency.View.Controls.Guest1.ProfileView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,17 +7,16 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModel="clr-namespace:TravelAgency.ViewModel"
-    Title="Reservations"
+    Title="Single Reservation"
     Width="916"
     Height="616"
-    d:DataContext="{d:DesignInstance Type=viewModel:RequestListViewModel}"
+    d:DataContext="{d:DesignInstance Type=viewModel:ProfileViewModel}"
     AllowsTransparency="True"
     Background="Transparent"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
     mc:Ignorable="d">
-
     <Window.Resources>
         <ResourceDictionary Source="/Resources/Styles/GuestDictionary.xaml" />
     </Window.Resources>
@@ -69,7 +68,6 @@
                             Click="Reservation_OnClick"
                             Content="Reservations"
                             FontSize="17"
-
                             Foreground="White"
                             Style="{StaticResource MenuButtonStyle}" />
                         <RadioButton
@@ -78,11 +76,11 @@
                             Click="RequestListButton_OnClick"
                             Content="Requests"
                             FontSize="17"
-                                                        IsChecked="True"
                             Foreground="White"
                             Style="{StaticResource MenuButtonStyle}" />
                         <RadioButton
                             x:Name="Profile"
+                            IsChecked="True"
                             Height="50"
                             Click="Profile_OnClick"
                             Content="Profile"
@@ -117,9 +115,9 @@
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="45" />
-                    <RowDefinition Height="60"/>
-                    <RowDefinition Height="10"/>
+
                     <RowDefinition />
+
                 </Grid.RowDefinitions>
                 <WrapPanel Grid.Row="0">
                     <Border
@@ -138,58 +136,75 @@
                         FontSize="18"
                         Style="{StaticResource MaterialDesignFlatButton}" />
                 </WrapPanel>
-                <WrapPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Label Content="Requests"
-                           FontSize="25"
-                           Style="{StaticResource MaterialDesignLabel}"
-                           FontWeight="Medium"/>
-                </WrapPanel>
-                <Separator Grid.Row="2" Width="400"/>
-                <ListView
-                        Grid.Row="3"
-                        MaxHeight="600"
-                        x:Name ="ReservationListView"
-                        d:ItemsSource ="{d:SampleData ItemCount=5}"
-                        ItemsSource="{Binding RequestSourceCollection}"
-                        Style="{StaticResource MaterialDesignListView}"
-                        >
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="431*"/>
+                        <ColumnDefinition Width="285*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0">
+                            <DockPanel
+                                Margin="0 20 0 0">
+                                <Image Name="ImageViewer1"
+                                       Height="60" Width="60"
+                                       Source="/View/Controls/Guest1/Vector.png"
+                                       Margin="0 0 20 5"
+                                       HorizontalAlignment="Right"
+                                       Visibility="{Binding IsSuperGuest}"/>
+                                <Button
+                                    Margin="0 0 0 0"
+                                    x:Name="Delay"
+                                    Grid.Row="2"
+                                    Width="180"
+                                    Height="50"
+                                    Click="RequestSuper_OnClick"
+                                    d:Content="Request Super Guest"
+                                    Content="{Binding ButtonMessage}"
+                                    FontSize="12" />
 
-                    <ListView.View>
-                        <GridView x:Name="GridView" AllowsColumnReorder="False">
-
-                            <GridViewColumn
-                                    Width="Auto"
-                                    DisplayMemberBinding="{Binding RequestStatus}"
-                                    Header="Status"/>
+                            </DockPanel>
                             
-                            <GridViewColumn
-                                    Width="Auto"
-                                    DisplayMemberBinding="{Binding ReservationId}"
-                                    Header="Reservation Id"/>
-                            
-                            <GridViewColumn
-                                    Width="Auto"
-                                    DisplayMemberBinding="{Binding OldStartDate}"
-                                    Header="Old Start Date"/>
-                            
-                            <GridViewColumn
-                                    Width="Auto"
-                                    DisplayMemberBinding="{Binding OldEndDate}"
-                                    Header="Old End Date"/>
-                            <GridViewColumn
-                                    Width="Auto"
-                                    DisplayMemberBinding="{Binding NewStartDate}"
-                                    Header="New Start Date"/>
+                            <StackPanel
+                                Margin="0 20 0 0">
+                                <DockPanel>
 
-                            <GridViewColumn
-                                    Width="Auto"
-                                    DisplayMemberBinding="{Binding NewEndDate}"
-                                    Header="New End Date"/>
+                                        <Label
+                                            VerticalAlignment="Center"
+                                            FontSize="15"
+                                            Content="Your current credit balance is :"/>
+                                    <Label
+                                        FontSize="25"
+                                        Margin="0 0 10 0"
+                                        HorizontalAlignment="Center"
+                                        d:Content="0"
+                                        Content="{Binding NumberOfPoints}"/>
+                                </DockPanel>
+                                <DockPanel
+                                    Margin="0 20 0 0"
+                                    Visibility="{Binding IsSuperGuest}">
 
-                        </GridView>
+                                    <Label
+                                            
+                                            VerticalAlignment="Center"
+                                            FontSize="15"
+                                            Content="Your SuperG status runs out:"/>
+                                    <Label
+                                        FontSize="12"
+                                        Margin="0 0 10 0"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        d:Content="10/2/2020"
+                                        Content="{Binding ExperationDate}"/>
+                                </DockPanel>
+                            </StackPanel>
 
-                    </ListView.View>
-                </ListView>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
             </Grid>
 
         </Grid>
