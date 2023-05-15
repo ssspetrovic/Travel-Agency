@@ -254,6 +254,25 @@ namespace TravelAgency.Service
             return requestedTours;
         }
 
+        public void Add(RequestTour requestTour)
+        {
+            _requestTourRepository.Add(requestTour);
+        }
+
+        public void UpdateStatus(int id, Status newStatus)
+        {
+            _requestTourRepository.UpdateStatus(id, newStatus);
+        }
+
+        public ObservableCollection<RequestTour> GetAllForSelectedYearAsCollection(string? year = null)
+        {
+            return _requestTourRepository.GetAllForSelectedYearAsCollection(year);
+        }
+
+        public ObservableCollection<string> GetAllYearsAsCollection()
+        {
+            return _requestTourRepository.GetAllYearsAsCollection();
+        }
 
     }
 }

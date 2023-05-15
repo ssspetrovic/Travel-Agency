@@ -86,7 +86,7 @@ namespace TravelAgency.Repository
             insertCommand.ExecuteNonQuery();
         }
 
-        public void UpdateStatus(int id, RegularTourRequest.TourRequestStatus newStatus)
+        public void UpdateStatus(int id, Status newStatus)
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
