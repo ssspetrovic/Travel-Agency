@@ -49,7 +49,7 @@
                     x:Name="MyVouchersListView"
                     Height="440"
                     d:ItemsSource="{d:SampleData ItemCount=5}"
-                    ItemsSource="{Binding VouchersCollectionSource}">
+                    ItemsSource="{Binding NotificationsCollection}">
                     <ListView.ItemContainerStyle>
                         <Style BasedOn="{StaticResource MaterialDesignGridViewItem}" TargetType="ListViewItem">
                             <Setter Property="Focusable" Value="False" />
@@ -62,9 +62,9 @@
                                     <Setter Property="Visibility" Value="Collapsed" />
                                 </Style>
                             </GridView.ColumnHeaderContainerStyle>
-                            <GridViewColumn Width="Auto" />
-                            <GridViewColumn Width="Auto" />
-                            <GridViewColumn Width="Auto" />
+                            <GridViewColumn Width="Auto" DisplayMemberBinding="{Binding NotificationText}" />
+                            <!--<GridViewColumn Width="Auto" />-->
+                            <!--<GridViewColumn Width="Auto" />-->
                         </GridView>
                     </ListView.View>
                 </ListView>

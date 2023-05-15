@@ -11,6 +11,7 @@ namespace TravelAgency.View.Tourist
         public NotificationsView(NavigationService navigationService, TouristViewModel touristViewModel)
         {
             InitializeComponent();
+            DataContext = new NotificationsViewModel(navigationService, touristViewModel);
         }
     }
 }
