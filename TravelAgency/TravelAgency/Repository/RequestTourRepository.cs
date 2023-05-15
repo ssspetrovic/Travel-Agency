@@ -4,6 +4,7 @@ using System.Data;
 using System.Collections.ObjectModel;
 using System.Linq;
 using TravelAgency.Model;
+using TravelAgency.Service;
 
 namespace TravelAgency.Repository
 {
@@ -72,17 +73,16 @@ namespace TravelAgency.Repository
             using var insertCommand = databaseConnection.CreateCommand();
             insertCommand.CommandText =
                 @"
-                    INSERT INTO Req (TouristUsername, City, Country, Language, DateRange, GuestNumber, Description, Status)
-                    VALUES ($TouristUsername, $City, $Country, $Language, $DateRange, $GuestNumber, $Description, $Status)
+                    INSERT INTO RequestedTour (TouristUsername, Location, Language, DateRange, NumberOfQuests, Description, Status)
+                    VALUES ($TouristUsername, $Location, $Language, $DateRange, $GuestNumber, $Description, $Status)
                 ";
-            insertCommand.Parameters.AddWithValue("$TouristUsername", tourRequest.TouristUsername);
-            insertCommand.Parameters.AddWithValue("$City", tourRequest.Location.City);
-            insertCommand.Parameters.AddWithValue("$Country", tourRequest.Location.Country);
-            insertCommand.Parameters.AddWithValue("$Language", (int)tourRequest.Language!);
-            insertCommand.Parameters.AddWithValue("$DateRange", tourRequest.DateRange);
-            insertCommand.Parameters.AddWithValue("$GuestNumber", tourRequest.GuestNumber);
-            insertCommand.Parameters.AddWithValue("$Description", tourRequest.Description);
-            insertCommand.Parameters.AddWithValue("$Status", tourRequest.Status);
+            insertCommand.Parameters.AddWithValue("$TouristUsername", requestTour.TouristUsername);
+            insertCommand.Parameters.AddWithValue("$Location", requestTour.Location);
+            insertCommand.Parameters.AddWithValue("$Language", (int)requestTour.Language);
+            insertCommand.Parameters.AddWithValue("$DateRange", requestTour.DateRange);
+            insertCommand.Parameters.AddWithValue("$GuestNumber", requestTour.MaxGuests);
+            insertCommand.Parameters.AddWithValue("$Description", requestTour.Description);
+            insertCommand.Parameters.AddWithValue("$Status", requestTour.Status);
             insertCommand.ExecuteNonQuery();
         }
 
@@ -94,7 +94,7 @@ namespace TravelAgency.Repository
             using var updateCommand = databaseConnection.CreateCommand();
             updateCommand.CommandText =
                 @"
-                    UPDATE RegularTourRequest
+                    UPDATE RequestedTour
                     SET Status = $newStatus
                     WHERE Id = $id
                 ";
@@ -104,7 +104,7 @@ namespace TravelAgency.Repository
             updateCommand.ExecuteNonQuery();
         }
 
-        public ObservableCollection<RegularTourRequest> GetAllForSelectedYearAsCollection(string? year = null)
+        public ObservableCollection<RequestTour> GetAllForSelectedYearAsCollection(string? year = null)
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
@@ -113,30 +113,32 @@ namespace TravelAgency.Repository
 
             if (year is "All years" or null)
             {
-                selectCommand.CommandText = "SELECT * FROM RegularTourRequest WHERE TouristUsername = $CurrentUserUsername";
+                selectCommand.CommandText = "SELECT * FROM RequestedTour WHERE TouristUsername = $CurrentUserUsername";
             }
             else
             {
                 selectCommand.CommandText =
-                    "SELECT * FROM RegularTourRequest WHERE TouristUsername = $CurrentUserUsername AND SUBSTR(DateRange, 7, 4) = $year OR SUBSTR(DateRange, -4, 4) = $year";
+                    "SELECT * FROM RequestedTour WHERE TouristUsername = $CurrentUserUsername AND SUBSTR(DateRange, 7, 4) = $year OR SUBSTR(DateRange, -4, 4) = $year";
                 selectCommand.Parameters.AddWithValue("$year", year);
             }
 
             selectCommand.Parameters.AddWithValue("$CurrentUserUsername", CurrentUser.Username);
             using var selectReader = selectCommand.ExecuteReader();
+            var locationService = new LocationService();
 
-            var requests = new ObservableCollection<RegularTourRequest>();
+            var requests = new ObservableCollection<RequestTour>();
             while (selectReader.Read())
             {
-                requests.Add(new RegularTourRequest(
+                requests.Add(new RequestTour(
                     selectReader.GetInt32(0),
-                    selectReader.GetString(1),
-                    new Location(selectReader.GetString(2), selectReader.GetString(3)),
-                    (Language)selectReader.GetInt32(4),
-                    selectReader.GetInt32(5),
-                    selectReader.GetString(6),
+                    locationService.GetById(selectReader.GetInt32(1))!,
+                    selectReader.GetString(2),
+                    (Language)selectReader.GetInt32(3),
+                    selectReader.GetInt32(4),
+                    selectReader.GetString(5),
+                    (Status)selectReader.GetInt32(6),
                     selectReader.GetString(7),
-                    (RegularTourRequest.TourRequestStatus)selectReader.GetInt32(8)
+                    selectReader.GetString(8)
                 ));
             }
 
@@ -153,7 +155,7 @@ namespace TravelAgency.Repository
                 @"
                     SELECT DISTINCT
                     SUBSTR(DateRange, 7, 4) AS StartYear,
-                    SUBSTR(DateRange, -4, 4) AS EndYear FROM RegularTourRequest
+                    SUBSTR(DateRange, -4, 4) AS EndYear FROM RequestedTour
                     ORDER BY StartYear ASC, EndYear ASC
                 ";
             var selectReader = selectCommand.ExecuteReader();
