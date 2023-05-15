@@ -32,5 +32,43 @@
             FontWeight="Medium"
             Style="{StaticResource MaterialDesignHeadline1TextBlock}"
             Text="Notifications" />
+        <StackPanel Grid.Row="1" Margin="80,0">
+            <WrapPanel Margin="15,0,15,3">
+                <CheckBox
+                    Width="25"
+                    Height="25"
+                    Style="{StaticResource SquareCheckBoxStyle}" />
+            </WrapPanel>
+            <Border
+                Grid.Row="2"
+                Height="Auto"
+                BorderBrush="{StaticResource MaterialDesignDivider}"
+                BorderThickness="2"
+                CornerRadius="10">
+                <ListView
+                    x:Name="MyVouchersListView"
+                    Height="440"
+                    d:ItemsSource="{d:SampleData ItemCount=5}"
+                    ItemsSource="{Binding VouchersCollectionSource}">
+                    <ListView.ItemContainerStyle>
+                        <Style BasedOn="{StaticResource MaterialDesignGridViewItem}" TargetType="ListViewItem">
+                            <Setter Property="Focusable" Value="False" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.View>
+                        <GridView AllowsColumnReorder="False">
+                            <GridView.ColumnHeaderContainerStyle>
+                                <Style TargetType="{x:Type GridViewColumnHeader}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </Style>
+                            </GridView.ColumnHeaderContainerStyle>
+                            <GridViewColumn Width="Auto" />
+                            <GridViewColumn Width="Auto" />
+                            <GridViewColumn Width="Auto" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Border>
+        </StackPanel>
     </Grid>
 </Page>
