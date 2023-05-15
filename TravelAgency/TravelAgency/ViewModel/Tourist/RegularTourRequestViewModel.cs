@@ -17,7 +17,7 @@ namespace TravelAgency.ViewModel.Tourist
         private readonly NavigationService _navigationService;
         private readonly RequestTourService _requestTourService;
         private readonly LocationService _locationService;
-        private readonly RegularTourRequestService _tourRequestService;
+        //private readonly RegularTourRequestService _tourRequestService;
         private Language? _language;
         private string? _guestNumber;
         private DateTime? _startingDate;
@@ -127,7 +127,7 @@ namespace TravelAgency.ViewModel.Tourist
             IsTooltipsSwitchToggled = _touristViewModel.IsTooltipsSwitchToggled;
             _touristViewModel.PropertyChanged += TouristViewModel_PropertyChanged;
             _navigationService = navigationService;
-            _tourRequestService = new RegularTourRequestService();
+            //_tourRequestService = new RegularTourRequestService();
             _requestTourService = new RequestTourService();
             _languages = Enum.GetValues(typeof(Language));
             _selectedLocation = null;
@@ -145,14 +145,15 @@ namespace TravelAgency.ViewModel.Tourist
 
         private void Execute_SubmitRequestCommand(object parameter)
         {
-            //_tourRequestService.Add(new RegularTourRequest(
-                //CurrentUser.Username,
-                //_selectedLocation.Id,
-                //Language,
-                //int.Parse(GuestNumber!),
-                //$"{StartingDate?.ToString("MM/dd/yyyy")} - {EndingDate?.ToString("MM/dd/yyyy")}",
-                //Description!,
-                //RegularTourRequest.TourRequestStatus.OnHold));
+            _requestTourService.Add(new RequestTour(
+                SelectedLocation!,
+                Description!,
+                Language!,
+                int.Parse(GuestNumber!),
+                $"{StartingDate?.ToString("MM/dd/yyyy")} - {EndingDate?.ToString("MM/dd/yyyy")}",
+                Status.OnHold,
+                CurrentUser.Username
+            ));
 
             Dialog = new OkDialog
             {

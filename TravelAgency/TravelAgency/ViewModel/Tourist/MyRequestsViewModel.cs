@@ -13,8 +13,8 @@ namespace TravelAgency.ViewModel.Tourist
         private readonly TouristViewModel _touristViewModel;
         public RelayCommand NavigateToStatisticsCommand { get; set; }
 
-        private ObservableCollection<RegularTourRequest> _regularRequests;
-        public ObservableCollection<RegularTourRequest> RegularRequests
+        private ObservableCollection<RequestTour> _regularRequests;
+        public ObservableCollection<RequestTour> RegularRequests
         {
             get => _regularRequests;
             set
@@ -26,7 +26,7 @@ namespace TravelAgency.ViewModel.Tourist
 
         public MyRequestsViewModel(NavigationService navigationService, TouristViewModel touristViewModel)
         {
-            var tourRequestService = new RegularTourRequestService();
+            var tourRequestService = new RequestTourService();
             _navigationService = navigationService;
             _touristViewModel = touristViewModel;
             _regularRequests = tourRequestService.GetAllForSelectedYearAsCollection(null);

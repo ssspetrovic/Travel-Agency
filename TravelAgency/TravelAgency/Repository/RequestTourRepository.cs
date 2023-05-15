@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Data.Sqlite;
 using System.Data;
 using System.Collections.ObjectModel;
@@ -73,16 +74,16 @@ namespace TravelAgency.Repository
             using var insertCommand = databaseConnection.CreateCommand();
             insertCommand.CommandText =
                 @"
-                    INSERT INTO RequestedTour (TouristUsername, Location, Language, DateRange, NumberOfQuests, Description, Status)
-                    VALUES ($TouristUsername, $Location, $Language, $DateRange, $GuestNumber, $Description, $Status)
+                    INSERT INTO RequestedTour (Location, Language, DateRange, NumberOfQuests, Description, Status, TouristUsername)
+                    VALUES  ($Location, $Language, $DateRange, $GuestNumber, $Description, $Status, $TouristUsername)
                 ";
-            insertCommand.Parameters.AddWithValue("$TouristUsername", requestTour.TouristUsername);
             insertCommand.Parameters.AddWithValue("$Location", requestTour.Location);
             insertCommand.Parameters.AddWithValue("$Language", (int)requestTour.Language);
             insertCommand.Parameters.AddWithValue("$DateRange", requestTour.DateRange);
             insertCommand.Parameters.AddWithValue("$GuestNumber", requestTour.MaxGuests);
             insertCommand.Parameters.AddWithValue("$Description", requestTour.Description);
             insertCommand.Parameters.AddWithValue("$Status", requestTour.Status);
+            insertCommand.Parameters.AddWithValue("$TouristUsername", requestTour.TouristUsername);
             insertCommand.ExecuteNonQuery();
         }
 
@@ -129,6 +130,10 @@ namespace TravelAgency.Repository
             var requests = new ObservableCollection<RequestTour>();
             while (selectReader.Read())
             {
+                string? selectedDate = null;
+                if (!selectReader.IsDBNull(7))
+                    selectedDate = selectReader.GetString(7);
+
                 requests.Add(new RequestTour(
                     selectReader.GetInt32(0),
                     locationService.GetById(selectReader.GetInt32(1))!,
@@ -137,7 +142,7 @@ namespace TravelAgency.Repository
                     selectReader.GetInt32(4),
                     selectReader.GetString(5),
                     (Status)selectReader.GetInt32(6),
-                    selectReader.GetString(7),
+                    selectedDate,
                     selectReader.GetString(8)
                 ));
             }
