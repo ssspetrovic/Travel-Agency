@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Data.Sqlite;
 using System.Data;
 using System.Collections.ObjectModel;
@@ -74,15 +73,15 @@ namespace TravelAgency.Repository
             using var insertCommand = databaseConnection.CreateCommand();
             insertCommand.CommandText =
                 @"
-                    INSERT INTO RequestedTour (Location, Language, DateRange, NumberOfQuests, Description, Status, TouristUsername)
-                    VALUES  ($Location, $Language, $DateRange, $GuestNumber, $Description, $Status, $TouristUsername)
+                    INSERT INTO RequestedTour (Location_Id, Language, DateRange, NumberOfGuests, Description, Status, TouristUsername)
+                    VALUES  ($Location_Id, $Language, $DateRange, $GuestNumber, $Description, $Status, $TouristUsername)
                 ";
-            insertCommand.Parameters.AddWithValue("$Location", requestTour.Location);
+            insertCommand.Parameters.AddWithValue("$Location_Id", requestTour.Location.Id);
             insertCommand.Parameters.AddWithValue("$Language", (int)requestTour.Language);
             insertCommand.Parameters.AddWithValue("$DateRange", requestTour.DateRange);
             insertCommand.Parameters.AddWithValue("$GuestNumber", requestTour.MaxGuests);
             insertCommand.Parameters.AddWithValue("$Description", requestTour.Description);
-            insertCommand.Parameters.AddWithValue("$Status", requestTour.Status);
+            insertCommand.Parameters.AddWithValue("$Status", (int)requestTour.Status);
             insertCommand.Parameters.AddWithValue("$TouristUsername", requestTour.TouristUsername);
             insertCommand.ExecuteNonQuery();
         }

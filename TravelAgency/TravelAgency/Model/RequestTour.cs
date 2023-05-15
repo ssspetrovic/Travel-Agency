@@ -11,7 +11,7 @@
     {
         public string DateRange { get; set; }
         public Status Status { get; set; }
-        public string AcceptedDate { get; set; } = null!;
+        public string? AcceptedDate { get; set; }
         public string? TouristUsername { get; set; }
 
         public RequestTour(int id, Location location, string description, Language language, int maxGuests, string dateRange, Status status)
