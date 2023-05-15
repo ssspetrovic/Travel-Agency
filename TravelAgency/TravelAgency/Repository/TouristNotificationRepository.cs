@@ -13,12 +13,13 @@ namespace TravelAgency.Repository
             using var insertCommand = databaseConnection.CreateCommand();
             insertCommand.CommandText =
                 @"
-                    INSERT INTO TouristNotification TouristUsername, NotificationText, Status)
-                    VALUES ($TouristUsername, $NotificationText, $Status)
+                    INSERT INTO TouristNotification TouristUsername, NotificationText, Status, Type)
+                    VALUES ($TouristUsername, $NotificationText, $Status, $Type)
                 ";
             insertCommand.Parameters.AddWithValue("$TouristUsername", notification.TouristUsername);
             insertCommand.Parameters.AddWithValue("$NotificationText", notification.NotificationText);
             insertCommand.Parameters.AddWithValue("$TouristUsername", notification.Status);
+            insertCommand.Parameters.AddWithValue("$Type", notification.Type);
             insertCommand.ExecuteNonQuery();
         }
 
@@ -50,7 +51,8 @@ namespace TravelAgency.Repository
                     selectReader.GetInt32(0),
                     selectReader.GetString(1),
                     selectReader.GetString(2),
-                    (NotificationStatus)selectReader.GetInt32(3)
+                    (NotificationStatus)selectReader.GetInt32(3),
+                    (NotificationType)selectReader.GetInt32(4)
                 ));
             }
 
