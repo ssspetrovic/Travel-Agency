@@ -40,12 +40,19 @@
                         <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
                     </CheckBox.LayoutTransform>
                 </CheckBox>
-                <fa:IconImage
-                    Width="25"
-                    Height="25"
+                <Button
+                    Width="35"
+                    Height="35"
                     Margin="5,0,0,0"
-                    Foreground="Gray"
-                    Icon="TrashCan" />
+                    Style="{StaticResource MaterialDesignIconButton}">
+                    <Button.Content>
+                        <fa:IconImage
+                            Width="25"
+                            Height="25"
+                            Foreground="Gray"
+                            Icon="TrashCan" />
+                    </Button.Content>
+                </Button>
             </WrapPanel>
             <Border
                 Grid.Row="2"
@@ -81,22 +88,36 @@
                             <GridViewColumn Width="Auto">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <fa:IconImage
-                                            Width="20"
-                                            Height="15"
-                                            Margin="0,3,0,0"
-                                            Icon="Check" />
+                                        <Button
+                                            Width="25"
+                                            Height="25"
+                                            Style="{StaticResource MaterialDesignIconButton}">
+                                            <Button.Content>
+                                                <fa:IconImage
+                                                    Width="20"
+                                                    Height="20"
+                                                    Foreground="#444444"
+                                                    Icon="Check" />
+                                            </Button.Content>
+                                        </Button>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <GridViewColumn Width="Auto">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <fa:IconImage
-                                            Width="15"
-                                            Height="15"
-                                            Margin="0,3,0,0"
-                                            Icon="Xmark" />
+                                        <Button
+                                            Width="25"
+                                            Height="25"
+                                            Style="{StaticResource MaterialDesignIconButton}">
+                                            <Button.Content>
+                                                <fa:IconImage
+                                                    Width="15"
+                                                    Height="15"
+                                                    Foreground="#444444"
+                                                    Icon="Xmark" />
+                                            </Button.Content>
+                                        </Button>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
