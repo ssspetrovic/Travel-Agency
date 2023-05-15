@@ -184,10 +184,6 @@ namespace TravelAgency.ViewModel
                 AreGradesShown = "Hidden";
                 IsTextShown = "Visible";
                 GradeMessage = "You need to rate the owner before you can see your rating";
-                Reservation.GradeAccommodationClean = 0;
-                Reservation.GradeAccommodationOwner = 0;
-                Reservation.GradeGuestClean = 0;
-                Reservation.GradeGuestComplacent = 0;
                 RaisePropertyChanged("AreGradesShown");
                 RaisePropertyChanged("IsTextShown");
                 RaisePropertyChanged("GradeMessage");
@@ -199,8 +195,6 @@ namespace TravelAgency.ViewModel
                 AreGradesShown = "Hidden";
                 IsTextShown = "Visible";
                 GradeMessage = "You have not been rated";
-                Reservation.GradeGuestClean = 0;
-                Reservation.GradeGuestComplacent = 0;
                 RaisePropertyChanged("AreGradesShown");
                 RaisePropertyChanged("IsTextShown");
                 RaisePropertyChanged("GradeMessage");
