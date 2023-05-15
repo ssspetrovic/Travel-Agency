@@ -126,7 +126,6 @@ namespace TravelAgency.ViewModel.Tourist
             _navigationService = navigationService;
             _requestTourService = new RequestTourService();
             _languages = Enum.GetValues(typeof(Language));
-            _selectedLocation = null;
             var locationService = new LocationService();
             _locationsCollection = locationService.GetAll();
             SubmitRequestCommand = new RelayCommand(Execute_SubmitRequestCommand, CanExecute_SubmitRequestCommand);
