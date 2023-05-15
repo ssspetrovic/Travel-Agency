@@ -82,6 +82,10 @@ namespace TravelAgency.ViewModel
             ReservationService _reservationService = new();
             _reservationService.RemoveById(SelectedReservations.Id);
 
+            var accommodationActivityRepository = new AccommodationActivityRepository();
+            DateTime startDate = SelectedReservations.StartDate.ToDateTime(TimeOnly.Parse("00:00PM"));
+            AccommodationActivity a = new AccommodationActivity(SelectedReservations.AccommodationId, startDate, 1, 0, 0);
+            accommodationActivityRepository.Add(a);
         }
     }
 }

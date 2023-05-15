@@ -9,13 +9,13 @@
       Title="AccommodationStatisticsView">
 
     <Grid Style="{DynamicResource Grid}">
-        <ListView x:Name="PreviousRenovationsListView" d:ItemsSource="{d:SampleData ItemCount=3}" ItemsSource="{Binding PreviousRenovationsSourceCollection}" Margin="21,116,21,436" FontSize="12">
+        <ListView x:Name="StatsByYearListView" d:ItemsSource="{d:SampleData ItemCount=3}" Margin="21,116,21,436" FontSize="12">
             <ListView.View>
                 <GridView>
                     <GridViewColumn
                         Width="Auto"
-                        DisplayMemberBinding="{Binding Year}"
-                        Header="Year"
+                        DisplayMemberBinding="{Binding Period}"
+                        Header="Period"
                         HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
                     <GridViewColumn
                         Width="Auto"
@@ -40,7 +40,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <ComboBox x:Name="cmbAccName" HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Top" Width="324" ItemsSource="{Binding AccommodationsSourceCollection}"/>
+        <ComboBox x:Name="cmbAccName" HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Top" Width="324" ItemsSource="{Binding AccommodationsSourceCollection}" SelectionChanged="cmbAccName_SelectionChanged"/>
 
     </Grid>
 </Page>

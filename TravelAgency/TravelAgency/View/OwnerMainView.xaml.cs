@@ -157,5 +157,13 @@ namespace TravelAgency.View
             mainFrame.Navigate(renovationOverviewView);
             lblSelectedTab.Content = btnRenovationOverview.Content;
         }
+
+        private void btnAccommodationStatistics_Click(object sender, RoutedEventArgs e)
+        {
+            stekPanel.Visibility = Visibility.Hidden;
+            AccommodationStatisticsView accommodationStatisticsView = new AccommodationStatisticsView();
+            mainFrame.Navigate(accommodationStatisticsView);
+            lblSelectedTab.Content = btnAccommodationStatistics.Content;
+        }
     }
 }

@@ -37,17 +37,58 @@ namespace TravelAgency.Service
             ObservableCollection<AccommodationStatDTO> accList = new ObservableCollection<AccommodationStatDTO>();
 
             int yearStart = 2020;
-            AccommodationStatDTO statDTO = new AccommodationStatDTO();
+            AccommodationStatDTO statDTO;
             for (int i = yearStart; i <= 2023; i++) 
             {
-                statDTO.Period = i.ToString();
-                statDTO.ReservationCount = reservationService.GetReservationCountByYear(i, accID);
-
-
+                string period = i.ToString();
+                int reservationCount = reservationService.GetReservationCountByYear(i, accID);
+                int canceledReservations = GetCanceledReservationByYear(i, accID);
+                int delayedReseravations = GetDelayedReservationByYear(i, accID);
+                int renovationSuggestions = GetRenovationSuggReservationByYear(i, accID);
+                statDTO = new AccommodationStatDTO(period, reservationCount, canceledReservations, delayedReseravations, renovationSuggestions);
                 accList.Add(statDTO);
             }
 
             return accList;
+        }
+
+        private int GetCanceledReservationByYear(int year, int accID)
+        {
+            var accommodationActivityRepository = new AccommodationActivityRepository();
+            List<AccommodationActivity> accommodationActivities = accommodationActivityRepository.GetAllByAccommodationId(accID);
+            int count = 0;
+            foreach(AccommodationActivity acc in accommodationActivities)
+            {
+                if (acc.StartDate.Year == year)
+                    count += acc.CanceledReservation;
+            }
+            return count;
+        }
+
+        private int GetDelayedReservationByYear(int year, int accID)
+        {
+            var accommodationActivityRepository = new AccommodationActivityRepository();
+            List<AccommodationActivity> accommodationActivities = accommodationActivityRepository.GetAllByAccommodationId(accID);
+            int count = 0;
+            foreach (AccommodationActivity acc in accommodationActivities)
+            {
+                if (acc.StartDate.Year == year)
+                    count += acc.DelayedReseravation;
+            }
+            return count;
+        }
+
+        private int GetRenovationSuggReservationByYear(int year, int accID)
+        {
+            var accommodationActivityRepository = new AccommodationActivityRepository();
+            List<AccommodationActivity> accommodationActivities = accommodationActivityRepository.GetAllByAccommodationId(accID);
+            int count = 0;
+            foreach (AccommodationActivity acc in accommodationActivities)
+            {
+                if (acc.StartDate.Year == year)
+                    count += acc.RenovationSuggestion;
+            }
+            return count;
         }
     }
 }
