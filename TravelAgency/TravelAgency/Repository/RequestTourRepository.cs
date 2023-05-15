@@ -86,7 +86,7 @@ namespace TravelAgency.Repository
             insertCommand.ExecuteNonQuery();
         }
 
-        public void UpdateStatus(int id, Status newStatus)
+        public void UpdateStatus(Status oldStatus)
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
@@ -96,11 +96,20 @@ namespace TravelAgency.Repository
                 @"
                     UPDATE RequestedTour
                     SET Status = $newStatus
-                    WHERE Id = $id
+                    WHERE Status = $oldStatus
                 ";
 
-            updateCommand.Parameters.AddWithValue("$newStatus", (int)newStatus);
-            updateCommand.Parameters.AddWithValue("$id", id);
+            if (oldStatus == Status.Updating)
+            {
+                updateCommand.Parameters.AddWithValue("$oldStatus", (int)oldStatus);
+                updateCommand.Parameters.AddWithValue("$newStatus", (int)Status.Accepted);
+            }
+            else
+            {
+                updateCommand.Parameters.AddWithValue("$oldStatus", (int)oldStatus);
+                updateCommand.Parameters.AddWithValue("$newStatus", (int)Status.Invalid);
+            }
+
             updateCommand.ExecuteNonQuery();
         }
 

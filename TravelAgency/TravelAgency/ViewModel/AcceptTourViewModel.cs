@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows;
 using TravelAgency.DTO;
+using TravelAgency.Model;
 using TravelAgency.Service;
 using TravelAgency.View;
 using TravelAgency.View.Controls.Guide;
@@ -78,13 +79,14 @@ namespace TravelAgency.ViewModel
                 CreateAcceptedTourDto.DateList = selectRequestedTourDate.GetSelectedDates();
                 CreateAcceptedTourDto.Location = parameters["Location_id"].ToString()!.Split(", ")[0];
                 CreateAcceptedTourDto.Language = parameters["Language"].ToString()!;
-                CreateAcceptedTourDto.MaxGuests = parameters["MaxGuests"].ToString()!;
+                CreateAcceptedTourDto.MaxGuests = parameters["NumberOfGuests"].ToString()!;
 
                 var currentWindow = Application.Current.Windows.OfType<Guide>().FirstOrDefault();
                 var newWindow = new Guide();
                 if (newWindow.DataContext is not GuideViewModel guideViewModel) return;
                 guideViewModel.CurrentViewModel = new CreateTourViewModel();
                 newWindow.Title = "Create Tour";
+                _requestTourService.UpdateStatus(Status.Updating);
                 newWindow.Show();
                 currentWindow!.Close();
             }

@@ -259,9 +259,9 @@ namespace TravelAgency.Service
             _requestTourRepository.Add(requestTour);
         }
 
-        public void UpdateStatus(int id, Status newStatus)
+        public void UpdateStatus(Status newStatus)
         {
-            _requestTourRepository.UpdateStatus(id, newStatus);
+            _requestTourRepository.UpdateStatus(newStatus);
         }
 
         public ObservableCollection<RequestTour> GetAllForSelectedYearAsCollection(string? year = null)

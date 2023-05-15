@@ -4,7 +4,8 @@
     {
         OnHold,
         Accepted,
-        Invalid
+        Invalid,
+        Updating
     }
 
     public class RequestTour : Tour
