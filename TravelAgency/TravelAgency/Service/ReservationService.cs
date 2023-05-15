@@ -186,5 +186,20 @@ namespace TravelAgency.Service
 
             return finalFreeDates;
         }
+
+        public int GetReservationCountByYear(int year, int accID)
+        {
+            var reservationRepository = new ReservationRepository();
+            ObservableCollection<Reservation> reservations = reservationRepository.GetAllByAccommodationId(accID);
+            int count = 0;
+            foreach(Reservation reservation in reservations)
+            {
+                if(reservation.StartDate.Year == year)
+                {
+                    count++;
+                }
+            }
+            return count;
+        }
     }
 }

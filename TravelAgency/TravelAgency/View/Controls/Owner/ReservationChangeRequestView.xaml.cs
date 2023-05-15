@@ -27,6 +27,7 @@ namespace TravelAgency.View.Controls.Owner
         private readonly ReservationChangeRequestsViewModel _viewModel = new();
         ReservationRepository reservationRepository = new ReservationRepository();
         DelayRequestRepository delayRequestRepository = new DelayRequestRepository();
+        AccommodationActivityRepository accommodationActivityRepository = new AccommodationActivityRepository();
         public ReservationChangeRequestView()
         {
             InitializeComponent();
@@ -44,6 +45,11 @@ namespace TravelAgency.View.Controls.Owner
                 DateTime newEndDate = Convert.ToDateTime(lblNewEndDate.Content);
                 reservationRepository.AcceptReservationChangeRequest(reservationId, newStartDate, newEndDate);
                 delayRequestRepository.AcceptDelayRequest(reservationId);
+
+                DateTime oldStartDate = Convert.ToDateTime(lblOldStartDate.Content);
+                AccommodationActivity a = new AccommodationActivity(Convert.ToInt32(lblAccommodation.Content), oldStartDate, 0, 1, 0);
+                accommodationActivityRepository.Add(a);
+
                 if (CurrentLanguageAndTheme.languageId == 0)
                     MessageBox.Show("Reservation change request accepted successfully!", "Message");
                 else
