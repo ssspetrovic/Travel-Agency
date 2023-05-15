@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Data;
 using TravelAgency.Model;
 
 namespace TravelAgency.Repository
@@ -55,6 +56,24 @@ namespace TravelAgency.Repository
             }
 
             return vouchers;
+        }
+
+        public void UpdateStatus(int id, NotificationStatus newStatus)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            using var updateCommand = databaseConnection.CreateCommand();
+            updateCommand.CommandText =
+                @"
+                    UPDATE MyTourDto
+                    SET Status = $newStatus
+                    WHERE Id = $id
+                ";
+
+            updateCommand.Parameters.AddWithValue("$id", id);
+            updateCommand.Parameters.AddWithValue("$newStatus", newStatus);
+            updateCommand.ExecuteNonQuery();
         }
     }
 }
