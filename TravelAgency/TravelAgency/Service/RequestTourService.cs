@@ -3,7 +3,6 @@ using Microsoft.Data.Sqlite;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
-using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using LiveCharts;

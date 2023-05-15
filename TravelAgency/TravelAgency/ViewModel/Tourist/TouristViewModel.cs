@@ -1,7 +1,6 @@
 ﻿using System.Windows.Navigation;
 using TravelAgency.Command;
 using TravelAgency.Model;
-using TravelAgency.Service;
 using TravelAgency.View;
 using TravelAgency.View.Tourist;
 using TravelAgency.WindowHelpers;
@@ -50,9 +49,6 @@ namespace TravelAgency.ViewModel.Tourist
             NavigateToNotificationsPageCommand = new RelayCommand(Execute_NavigateToNotificationsPageCommand);
             CloseWindowCommand = new RelayCommand(Execute_CloseWindowCommand);
             SignOutCommand = new RelayCommand(Execute_SignOutCommand);
-
-            var service = new RequestTourService();
-            service.UpdateAllRequestsStatuses();
 
             Username = CurrentUser.DisplayName;
             _navigationService.Navigate(new HomeView(_navigationService, this));
