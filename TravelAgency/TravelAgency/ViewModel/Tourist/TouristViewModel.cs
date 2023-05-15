@@ -18,6 +18,7 @@ namespace TravelAgency.ViewModel.Tourist
         public RelayCommand NavigateToTourReservationPageCommand { get; set; }
         public RelayCommand NavigateToUserProfileCommand { get; set; }
         public RelayCommand NavigateToRequestTourPageCommand { get; set; }
+        public RelayCommand NavigateToNotificationsPageCommand { get; set; }
         public RelayCommand CloseWindowCommand { get; set; }
         public RelayCommand SignOutCommand { get; set; }
         public string? Username { get; set; }
@@ -45,6 +46,7 @@ namespace TravelAgency.ViewModel.Tourist
             NavigateToRequestTourPageCommand = new RelayCommand(Execute_NavigateToRequestTourPageCommand);
             NavigateToTourReservationPageCommand = new RelayCommand(Execute_NavigateToTourReservationPageCommand);
             NavigateToUserProfileCommand = new RelayCommand(Execute_NavigateToUserProfileCommand);
+            NavigateToNotificationsPageCommand = new RelayCommand(Execute_NavigateToNotificationsPageCommand);
             CloseWindowCommand = new RelayCommand(Execute_CloseWindowCommand);
             SignOutCommand = new RelayCommand(Execute_SignOutCommand);
 
@@ -85,6 +87,11 @@ namespace TravelAgency.ViewModel.Tourist
         private void Execute_NavigateToRequestTourPageCommand(object parameter)
         {
             _navigationService.Navigate(new RequestTourView(_navigationService, this));
+        }       
+        
+        private void Execute_NavigateToNotificationsPageCommand(object parameter)
+        {
+            _navigationService.Navigate(new NotificationsView(_navigationService, this));
         }
 
         private void Execute_CloseWindowCommand(object parameter)
