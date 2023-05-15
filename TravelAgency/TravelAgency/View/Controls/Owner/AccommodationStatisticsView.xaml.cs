@@ -47,7 +47,23 @@ namespace TravelAgency.View.Controls.Owner
                 {
                     this.StatsByYearListView.Items.Add(a);
                 }
+
+                lblMostBusyYear.Content = accommodationService.GetMostBusyByYear(accommodation.Id);
             }
+        }
+
+        private void StatsByYearListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            this.StatsByMonthListView.Items.Clear();
+
+            AccommodationDTO accommodation = accommodationRepository.GetByName(cmbAccName.SelectedItem.ToString());
+            ObservableCollection<AccommodationStatDTO> statList = accommodationService.GetAccommodationStatByMonth(accommodation.Id, Convert.ToInt32(lblYear.Content));
+            foreach (AccommodationStatDTO a in statList)
+            {
+                this.StatsByMonthListView.Items.Add(a);
+            }
+
+            lblMostBusyMonth.Content = accommodationService.GetMostBusyByMonth(Convert.ToInt32(lblYear.Content), accommodation.Id);
         }
     }
 }

@@ -15,8 +15,8 @@ namespace TravelAgency.ViewModel
         private readonly CollectionViewSource _accommodationsCollection;
         public new event PropertyChangedEventHandler? PropertyChanged;
 
-        //private FreeDatesDTO? _selectedFreeDate;
-        //private bool _isFreeDateSelected;
+        private AccommodationStatDTO? _selectedStat;
+        private bool _isStatSelected;
 
         private readonly AccommodationService _accommodationService;
         public ICollectionView AccommodationsSourceCollection => _accommodationsCollection.View;
@@ -30,26 +30,26 @@ namespace TravelAgency.ViewModel
             };
         }
 
-        /*public bool IsFreeDateSelected
+        public bool IsStatSelected
         {
-            get => _isFreeDateSelected;
+            get => _isStatSelected;
             set
             {
-                _isFreeDateSelected = value;
+                _isStatSelected = value;
                 OnPropertyChanged();
             }
         }
-        public FreeDatesDTO? SelectedFreeDate
+        public AccommodationStatDTO? SelectedStat
         {
-            get => _selectedFreeDate;
+            get => _selectedStat;
 
             set
             {
-                _selectedFreeDate = value;
-                IsFreeDateSelected = true;
+                _selectedStat = value;
+                IsStatSelected = true;
                 OnPropertyChanged();
             }
-        }*/
+        }
 
     }
 }

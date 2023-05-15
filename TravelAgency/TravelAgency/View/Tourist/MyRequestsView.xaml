@@ -71,7 +71,7 @@
                                 Header="Date range" />
                             <GridViewColumn
                                 Width="Auto"
-                                DisplayMemberBinding="{Binding Path=GuestNumber}"
+                                DisplayMemberBinding="{Binding Path=MaxGuests}"
                                 Header="Guests" />
                             <GridViewColumn
                                 Width="Auto"

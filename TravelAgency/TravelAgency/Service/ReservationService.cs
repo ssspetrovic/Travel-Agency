@@ -201,5 +201,63 @@ namespace TravelAgency.Service
             }
             return count;
         }
+
+        public int GetReservationCountByMonth(int year, int month, int accID)
+        {
+            var reservationRepository = new ReservationRepository();
+            ObservableCollection<Reservation> reservations = reservationRepository.GetAllByAccommodationId(accID);
+            int count = 0;
+            foreach (Reservation reservation in reservations)
+            {
+                if (reservation.StartDate.Year == year)
+                {
+                    if(reservation.StartDate.Month == month)
+                        count++;
+                }
+            }
+            return count;
+        }
+
+        public int GetReservationDaysByYear(int year, int accID)
+        {
+            var reservationRepository = new ReservationRepository();
+            ObservableCollection<Reservation> reservations = reservationRepository.GetAllByAccommodationId(accID);
+            int count = 0;
+            foreach (Reservation reservation in reservations)
+            {
+                if (reservation.StartDate.Year == year || reservation.EndDate.Year == year)
+                {
+                    for(DateTime d = reservation.StartDate; d <= reservation.EndDate; d = d.AddDays(1))
+                    {
+                        if(d.Year == year)
+                        {
+                            count++;
+                        }
+                    }
+                }
+            }
+            return count;
+        }
+
+        public int GetReservationDaysByMonth(int year, int month, int accID)
+        {
+            var reservationRepository = new ReservationRepository();
+            ObservableCollection<Reservation> reservations = reservationRepository.GetAllByAccommodationId(accID);
+            int count = 0;
+            foreach (Reservation reservation in reservations)
+            {
+                if (reservation.StartDate.Year == year || reservation.EndDate.Year == year)
+                {
+                    for (DateTime d = reservation.StartDate; d <= reservation.EndDate; d = d.AddDays(1))
+                    {
+                        if (d.Year == year && d.Month == month)
+                        {
+                            count++;
+                        }
+                    }
+                }
+            }
+            return count;
+        }
     }
 }

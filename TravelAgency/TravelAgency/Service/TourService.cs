@@ -14,11 +14,13 @@ namespace TravelAgency.Service
     {
         private readonly TourRepository _tourRepository;
         private readonly LocationService _locationService;
+        private readonly RequestTourService _requestTourService;
 
         public TourService()
         {
             _tourRepository = new TourRepository();
             _locationService = new LocationService();
+            _requestTourService = new RequestTourService();
         }
 
         public List<Location?> GetKeyPoints(string keyPoints)
@@ -124,7 +126,31 @@ namespace TravelAgency.Service
 
         public void Add(Tour tour)
         {
-            _tourRepository.Add(tour);
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            const string insertStatement =
+                @"insert into Tour(Name, Location_Id, Description, Language, MaxGuests, LocationList, Date, Duration, Images) 
+                    values ($Name, $Location_Id, $Description, $Language, $MaxGuests, $LocationList, $Date, $Duration, $Images)";
+            using var insertCommand = new SqliteCommand(insertStatement, databaseConnection);
+            insertCommand.Parameters.AddWithValue("$Name", tour.Name);
+            insertCommand.Parameters.AddWithValue("$Location_Id", tour.Location.Id);
+            insertCommand.Parameters.AddWithValue("$Description", tour.Description);
+            insertCommand.Parameters.AddWithValue("$Language", tour.Language);
+            insertCommand.Parameters.AddWithValue("$MaxGuests", tour.MaxGuests);
+            insertCommand.Parameters.AddWithValue("$LocationList", _tourRepository.GetIdList(tour));
+            insertCommand.Parameters.AddWithValue("Date", tour.Date);
+            insertCommand.Parameters.AddWithValue("$Duration", tour.Duration);
+            insertCommand.Parameters.AddWithValue("$Images", tour.Photos);
+            insertCommand.ExecuteNonQuery();
+
+            _requestTourService.UpdateStatus(Status.Updating);
+            var notificationService = new TouristNotificationService();
+            notificationService.Add(new TouristNotification(
+                "tourist",
+                $"Your tour in {tour.Location} has been accepted. Selected date was: {tour.Date}",
+                NotificationStatus.Unread,
+                NotificationType.RequestAccepted));
         }
 
         public bool CheckIfDatesExist(string dates)

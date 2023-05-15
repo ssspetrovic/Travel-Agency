@@ -9,7 +9,7 @@
       Title="AccommodationStatisticsView">
 
     <Grid Style="{DynamicResource Grid}">
-        <ListView x:Name="StatsByYearListView" d:ItemsSource="{d:SampleData ItemCount=3}" Margin="21,116,21,436" FontSize="12">
+        <ListView x:Name="StatsByYearListView" d:ItemsSource="{d:SampleData ItemCount=3}" Margin="21,116,21,436" FontSize="12" SelectedItem="{Binding SelectedStat}" SelectionChanged="StatsByYearListView_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn
@@ -41,6 +41,42 @@
             </ListView.View>
         </ListView>
         <ComboBox x:Name="cmbAccName" HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Top" Width="324" ItemsSource="{Binding AccommodationsSourceCollection}" SelectionChanged="cmbAccName_SelectionChanged"/>
+        <Label x:Name="lblYear" HorizontalAlignment="Left" DataContext="{Binding SelectedItem, ElementName=StatsByYearListView}" Content="{Binding Period}" Margin="40,328,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="14"/>
+        <ListView x:Name="StatsByMonthListView" d:ItemsSource="{d:SampleData ItemCount=7}" Margin="21,358,21,57" FontSize="12">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn
+                        Width="Auto"
+                        DisplayMemberBinding="{Binding Period}"
+                        Header="Period"
+                        HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
+                    <GridViewColumn
+                        Width="Auto"
+                        DisplayMemberBinding="{Binding ReservationCount}"
+                        Header="Reservation Count"
+                        HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
+                    <GridViewColumn
+                        Width="Auto"
+                        DisplayMemberBinding="{Binding CanceledReservations}"
+                        Header="Canceled Reservations"
+                        HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
+                    <GridViewColumn
+                        Width="Auto"
+                        DisplayMemberBinding="{Binding DelayedReseravations}"
+                        Header="Delayed Reseravations"
+                        HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
+                    <GridViewColumn
+                        Width="Auto"
+                        DisplayMemberBinding="{Binding RenovationSuggestions}"
+                        Header="Renovation Suggestions"
+                        HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Label Content="Most busy year:" HorizontalAlignment="Left" Margin="186,259,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblMostBusyYear" Content="####" HorizontalAlignment="Left" Margin="282,259,0,0" VerticalAlignment="Top"/>
+        <Label Content="Most busy month:" HorizontalAlignment="Left" Margin="204,647,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblMostBusyMonth" Content="####" HorizontalAlignment="Left" Margin="313,647,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Page>
