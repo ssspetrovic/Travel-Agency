@@ -18,7 +18,7 @@ namespace TravelAgency.Repository
                 ";
             insertCommand.Parameters.AddWithValue("$TouristUsername", notification.TouristUsername);
             insertCommand.Parameters.AddWithValue("$NotificationText", notification.NotificationText);
-            insertCommand.Parameters.AddWithValue("$TouristUsername", notification.Status);
+            insertCommand.Parameters.AddWithValue("$Status", notification.Status);
             insertCommand.Parameters.AddWithValue("$Type", notification.Type);
             insertCommand.ExecuteNonQuery();
         }
