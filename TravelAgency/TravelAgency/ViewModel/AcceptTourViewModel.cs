@@ -87,6 +87,7 @@ namespace TravelAgency.ViewModel
                 if (newWindow.DataContext is not GuideViewModel guideViewModel) return;
                 guideViewModel.CurrentViewModel = new CreateTourViewModel();
                 newWindow.Title = "Create Tour";
+                _requestTourService.UpdateAllRequestsStatuses();
                 _requestTourService.UpdateStatus(Status.Updating);
                 newWindow.Show();
                 currentWindow!.Close();
