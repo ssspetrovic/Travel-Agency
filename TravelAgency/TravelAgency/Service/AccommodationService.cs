@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,7 +46,27 @@ namespace TravelAgency.Service
                 int reservationCount = reservationService.GetReservationCountByYear(i, accID);
                 int canceledReservations = GetCanceledReservationByYear(i, accID);
                 int delayedReseravations = GetDelayedReservationByYear(i, accID);
-                int renovationSuggestions = GetRenovationSuggReservationByYear(i, accID);
+                int renovationSuggestions = GetRenovationSuggestionByYear(i, accID);
+                statDTO = new AccommodationStatDTO(period, reservationCount, canceledReservations, delayedReseravations, renovationSuggestions);
+                accList.Add(statDTO);
+            }
+
+            return accList;
+        }
+
+        public ObservableCollection<AccommodationStatDTO> GetAccommodationStatByMonth(int accID, int year)
+        {
+            ObservableCollection<AccommodationStatDTO> accList = new ObservableCollection<AccommodationStatDTO>();
+
+            int monthStart = 1;
+            AccommodationStatDTO statDTO;
+            for (int i = monthStart; i <= 12; i++)
+            {
+                string period = DateTimeFormatInfo.CurrentInfo.GetMonthName(i);
+                int reservationCount = reservationService.GetReservationCountByMonth(year, i, accID);
+                int canceledReservations = GetCanceledReservationByMonth(year, i, accID);
+                int delayedReseravations = GetDelayedReservationByMonth(year, i, accID);
+                int renovationSuggestions = GetRenovationSuggestionByMonth(year, i, accID);
                 statDTO = new AccommodationStatDTO(period, reservationCount, canceledReservations, delayedReseravations, renovationSuggestions);
                 accList.Add(statDTO);
             }
@@ -78,7 +100,7 @@ namespace TravelAgency.Service
             return count;
         }
 
-        private int GetRenovationSuggReservationByYear(int year, int accID)
+        private int GetRenovationSuggestionByYear(int year, int accID)
         {
             var accommodationActivityRepository = new AccommodationActivityRepository();
             List<AccommodationActivity> accommodationActivities = accommodationActivityRepository.GetAllByAccommodationId(accID);
@@ -89,6 +111,92 @@ namespace TravelAgency.Service
                     count += acc.RenovationSuggestion;
             }
             return count;
+        }
+
+        private int GetCanceledReservationByMonth(int year, int month, int accID)
+        {
+            var accommodationActivityRepository = new AccommodationActivityRepository();
+            List<AccommodationActivity> accommodationActivities = accommodationActivityRepository.GetAllByAccommodationId(accID);
+            int count = 0;
+            foreach (AccommodationActivity acc in accommodationActivities)
+            {
+                if (acc.StartDate.Year == year)
+                {
+                    if (acc.StartDate.Month == month)
+                        count += acc.CanceledReservation;
+                }
+            }
+            return count;
+        }
+
+        private int GetDelayedReservationByMonth(int year, int month, int accID)
+        {
+            var accommodationActivityRepository = new AccommodationActivityRepository();
+            List<AccommodationActivity> accommodationActivities = accommodationActivityRepository.GetAllByAccommodationId(accID);
+            int count = 0;
+            foreach (AccommodationActivity acc in accommodationActivities)
+            {
+                if (acc.StartDate.Year == year)
+                {
+                    if (acc.StartDate.Month == month)
+                        count += acc.DelayedReseravation;
+                }
+            }
+            return count;
+        }
+
+        private int GetRenovationSuggestionByMonth(int year, int month, int accID)
+        {
+            var accommodationActivityRepository = new AccommodationActivityRepository();
+            List<AccommodationActivity> accommodationActivities = accommodationActivityRepository.GetAllByAccommodationId(accID);
+            int count = 0;
+            foreach (AccommodationActivity acc in accommodationActivities)
+            {
+                if (acc.StartDate.Year == year)
+                {
+                    if (acc.StartDate.Month == month)
+                        count += acc.RenovationSuggestion;
+                }
+            }
+            return count;
+        }
+
+        public string GetMostBusyByYear(int accID)
+        {
+            int mostBusyYear = 2020;
+
+            int countMax = 0;
+
+            for (int i = 2020; i <= 2023; i++)
+            {
+                int temp = reservationService.GetReservationDaysByYear(i, accID);
+                if(temp > countMax)
+                {
+                    countMax = temp;
+                    mostBusyYear = i;
+                }
+            }
+
+            return mostBusyYear.ToString();
+        }
+
+        public string GetMostBusyByMonth(int year, int accID)
+        {
+            string mostBusyMonth = DateTimeFormatInfo.CurrentInfo.GetMonthName(1);
+
+            int countMax = 0;
+
+            for (int i = 1; i <= 12; i++)
+            {
+                int temp = reservationService.GetReservationDaysByMonth(year, i, accID);
+                if (temp > countMax)
+                {
+                    countMax = temp;
+                    mostBusyMonth = DateTimeFormatInfo.CurrentInfo.GetMonthName(i);
+                }
+            }
+
+            return mostBusyMonth;
         }
     }
 }
