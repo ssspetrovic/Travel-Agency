@@ -20,5 +20,16 @@ namespace TravelAgency.Repository
             insertCommand.Parameters.AddWithValue("$TouristUsername", notification.Status);
             insertCommand.ExecuteNonQuery();
         }
+
+        public void DeleteById(int id)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            using var deleteCommand = databaseConnection.CreateCommand();
+            deleteCommand.CommandText = "DELETE FROM TouristNotification WHERE Id = $Id";
+            deleteCommand.Parameters.AddWithValue("$Id", id);
+            deleteCommand.ExecuteNonQuery();
+        }
     }
 }
