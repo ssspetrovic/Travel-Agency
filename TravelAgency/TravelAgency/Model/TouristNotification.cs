@@ -9,8 +9,16 @@
     class TouristNotification
     {
         public int Id { get; set; }
-        public string? TouristUsername { get; set; }
-        public string? NotificationText { get; set; }
-        public NotificationStatus? Status { get; set; }
+        public string TouristUsername { get; set; }
+        public string NotificationText { get; set; }
+        public NotificationStatus Status { get; set; }
+
+        public TouristNotification(int id, string touristUsername, string notificationText, NotificationStatus status)
+        {
+            Id = id;
+            TouristUsername = touristUsername;
+            NotificationText = notificationText;
+            Status = status;
+        }
     }
 }

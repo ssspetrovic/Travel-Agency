@@ -1,4 +1,5 @@
-﻿using TravelAgency.Model;
+﻿using System.Collections.ObjectModel;
+using TravelAgency.Model;
 
 namespace TravelAgency.Repository
 {
@@ -30,6 +31,30 @@ namespace TravelAgency.Repository
             deleteCommand.CommandText = "DELETE FROM TouristNotification WHERE Id = $Id";
             deleteCommand.Parameters.AddWithValue("$Id", id);
             deleteCommand.ExecuteNonQuery();
+        }
+
+        public ObservableCollection<TouristNotification> GetAllAsCollection()
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            using var selectCommand = databaseConnection.CreateCommand();
+            selectCommand.CommandText = "SELECT * FROM TouristNotification WHERE TouristUsername = $CurrentUserUsername";
+            selectCommand.Parameters.AddWithValue("$CurrentUserUsername", CurrentUser.Username);
+            using var selectReader = selectCommand.ExecuteReader();
+
+            var vouchers = new ObservableCollection<TouristNotification>();
+            while (selectReader.Read())
+            {
+                vouchers.Add(new TouristNotification(
+                    selectReader.GetInt32(0),
+                    selectReader.GetString(1),
+                    selectReader.GetString(2),
+                    (NotificationStatus)selectReader.GetInt32(3)
+                ));
+            }
+
+            return vouchers;
         }
     }
 }
