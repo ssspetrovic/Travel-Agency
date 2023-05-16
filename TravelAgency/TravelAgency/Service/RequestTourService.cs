@@ -313,6 +313,7 @@ namespace TravelAgency.Service
             notificationService.Add(new TouristNotification(
                 "tourist",
                 $"Your tour for {request.Location} has been accepted. Accepted date was: {request.AcceptedDate}",
+                "",
                 NotificationStatus.Unread,
                 NotificationType.RequestAccepted));
         }
