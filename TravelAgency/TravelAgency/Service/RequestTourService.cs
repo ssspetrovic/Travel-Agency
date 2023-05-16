@@ -104,7 +104,7 @@ namespace TravelAgency.Service
             var selectStatement = "select * from RequestedTour where ";
             if (dataType.Split(":")[0] == "Location")
                 selectStatement += @"Location_Id = (select Location_Id from (select Location_Id, count(Location_Id) as 
-                        Location_Count from RequestedTour where Location_Id = " + _locationService.GetByCity(dataType.Split(":")[1].Split(", ")[0].Trim())!.Id +" group by Location_Id order by Location_Count desc limit 1) as Max_Location)";
+                    Language_Count from RequestedTour where Language = '" + (int)Enum.Parse(typeof(Language), dataType.Split(":")[1].Trim()) + "' group by Language order by Language_Count desc limit 1) as Max_Language)";
             else
                 selectStatement += @"Language = (select Language from (select Language, count(Language) as 
                         Language_Count from RequestedTour where Language = '" + dataType.Split(":")[1].Trim() + "' group by Language order by Language_Count desc limit 1) as Max_Language)";
@@ -168,7 +168,7 @@ namespace TravelAgency.Service
                 if (dataType == "Location")
                     comparisonList.Add(selectReader.GetInt32(0) + ":" + _locationService.GetById(selectReader.GetInt32(1))!.City);
                 else
-                    comparisonList.Add(selectReader.GetInt32(0) + ":" + selectReader.GetString(1));
+                    comparisonList.Add(selectReader.GetInt32(0) + ":" + (Language)selectReader.GetInt32(1));
             }
             return comparisonList;
         }
@@ -229,7 +229,7 @@ namespace TravelAgency.Service
             databaseConnection.Open();
             var columnName = dataType.Split(":")[0] == "Location" ? "Location_Id" : "Language";
             var columnData = columnName == "Language"
-                ? dataType.Split(":")[1].Trim()
+                ? ((int)Enum.Parse(typeof(Language), dataType.Split(":")[1].Trim())).ToString()
                 : _locationService.GetByCity(dataType.Split(":")[1].Split(", ")[0].Trim())!.Id.ToString();
 
             var selectStatement = "select * from RequestedTour where DateRange like '%' || $Month || '/%' || $Day || '%/' || '%' || $Year and " + columnName + " = $DataType";

@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Windows;
 using TravelAgency.DTO;
+using TravelAgency.Model;
 using TravelAgency.Service;
 using TravelAgency.View;
 
@@ -57,6 +58,6 @@ namespace TravelAgency.ViewModel
                 return location!.City + ", " + location.Country;
             }
         }
-        public string MostRequestedLanguage => _requestTourService.GetMostRequestedStat("Language");
+        public string MostRequestedLanguage => ((Language)int.Parse(_requestTourService.GetMostRequestedStat("Language"))).ToString();
     }
 }

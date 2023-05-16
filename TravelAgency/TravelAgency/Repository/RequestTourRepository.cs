@@ -16,7 +16,7 @@ namespace TravelAgency.Repository
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
 
-            const string selectStatement = "select * from RequestedTour";
+            const string selectStatement = "select * from RequestedTour where Status = 0";
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
 
             dt.Load(selectCommand.ExecuteReader());
