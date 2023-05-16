@@ -84,38 +84,23 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Width="510" DisplayMemberBinding="{Binding NotificationText}" />
+                            <GridViewColumn Width="550" DisplayMemberBinding="{Binding NotificationText}" />
                             <GridViewColumn Width="Auto">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <Button
+                                            x:Name="ViewNotificationButton"
                                             Width="25"
                                             Height="25"
+                                            Command="{Binding DataContext.ViewNotificationCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"
+                                            CommandParameter="{Binding}"
                                             Style="{StaticResource MaterialDesignIconButton}">
                                             <Button.Content>
                                                 <fa:IconImage
                                                     Width="20"
                                                     Height="20"
                                                     Foreground="#444444"
-                                                    Icon="Check" />
-                                            </Button.Content>
-                                        </Button>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Width="Auto">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Button
-                                            Width="25"
-                                            Height="25"
-                                            Style="{StaticResource MaterialDesignIconButton}">
-                                            <Button.Content>
-                                                <fa:IconImage
-                                                    Width="15"
-                                                    Height="15"
-                                                    Foreground="#444444"
-                                                    Icon="Xmark" />
+                                                    Icon="Eye" />
                                             </Button.Content>
                                         </Button>
                                     </DataTemplate>

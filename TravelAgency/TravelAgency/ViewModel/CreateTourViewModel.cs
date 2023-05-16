@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Windows.Media;
 using TravelAgency.DTO;
@@ -327,7 +325,6 @@ namespace TravelAgency.ViewModel
                     CreateAcceptedTourDto.RequestId = -1;
                 }
 
-                Debug.WriteLine(CreateAcceptedTourDto.IsFromStatistics);
                 if (CreateAcceptedTourDto.IsFromStatistics)
                 {
                     var notificationsService = new TouristNotificationService();
