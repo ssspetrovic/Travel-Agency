@@ -43,7 +43,7 @@ namespace TravelAgency.Repository
             databaseConnection.Open();
 
             var selectStatement = "select * from RequestedTour where Id in (" + ids + ")";
-            using var selectCommand = new SqliteCommand( selectStatement, databaseConnection);
+            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
 
             dt.Clear();
             dt.Load(selectCommand.ExecuteReader());
@@ -192,7 +192,7 @@ namespace TravelAgency.Repository
             using var selectCommand = databaseConnection.CreateCommand();
             selectCommand.CommandText = "SELECT * FROM RequestedTour WHERE Id = $id";
             selectCommand.Parameters.AddWithValue("$id", id);
-            
+
             using var selectReader = selectCommand.ExecuteReader();
             if (!selectReader.Read())
             {
@@ -200,7 +200,7 @@ namespace TravelAgency.Repository
             }
 
             var locationService = new LocationService();
-                
+
             string? selectedDate = null;
             if (!selectReader.IsDBNull(7))
                 selectedDate = selectReader.GetString(7);
