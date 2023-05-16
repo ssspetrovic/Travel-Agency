@@ -68,6 +68,8 @@ namespace TravelAgency.ViewModel
                 var minStartDate = tourList.Min(tour => DateTime.Parse(tour.DateRange.Split(" - ")[0]));
                 var maxEndDate = tourList.Max(tour => DateTime.Parse(tour.DateRange.Split(" - ")[1]));
 
+                if (minStartDate.Month > monthNumber || maxEndDate.Month < monthNumber)
+                    minStartDate = maxEndDate;
                 if (minStartDate.Month != monthNumber)
                     minStartDate = new DateTime(minStartDate.Year, monthNumber - 1, DateTime.DaysInMonth(minStartDate.Year, monthNumber - 1));
                 if (maxEndDate.Month != monthNumber)
@@ -117,8 +119,8 @@ namespace TravelAgency.ViewModel
                     NumberOfRequests = "Number of Requests: " + _tabAllData.Sum(tour =>
                     {
                         var dates = tour.DateRange.Split(" - ");
-                        var startDate = DateTime.ParseExact(dates[0], "MM/dd/yyyy", CultureInfo.InvariantCulture);
-                        var endDate = DateTime.ParseExact(dates[1], "MM/dd/yyyy", CultureInfo.InvariantCulture);
+                        var startDate = DateTime.Parse(dates[0]);
+                        var endDate = DateTime.Parse(dates[1]);
                         return (endDate - startDate).TotalDays;
                     }),
                     BarData = new SeriesCollection

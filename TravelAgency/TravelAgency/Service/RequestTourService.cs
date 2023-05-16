@@ -104,11 +104,10 @@ namespace TravelAgency.Service
             var selectStatement = "select * from RequestedTour where ";
             if (dataType.Split(":")[0] == "Location")
                 selectStatement += @"Location_Id = (select Location_Id from (select Location_Id, count(Location_Id) as 
-                    Language_Count from RequestedTour where Language = '" + (int)Enum.Parse(typeof(Language), dataType.Split(":")[1].Trim()) + "' group by Language order by Language_Count desc limit 1) as Max_Language)";
+                        Location_Count from RequestedTour where Location_Id = " + _locationService.GetByCity(dataType.Split(":")[1].Split(", ")[0].Trim())!.Id + " group by Location_Id order by Location_Count desc limit 1) as Max_Location)";
             else
                 selectStatement += @"Language = (select Language from (select Language, count(Language) as 
-                        Language_Count from RequestedTour where Language = '" + dataType.Split(":")[1].Trim() + "' group by Language order by Language_Count desc limit 1) as Max_Language)";
-            return selectStatement;
+ Language_Count from RequestedTour where Language = '" + (int)Enum.Parse(typeof(Language), dataType.Split(":")[1].Trim()) + "' group by Language order by Language_Count desc limit 1) as Max_Language)"; return selectStatement;
         }
 
         public ObservableCollection<RequestTour> GetAllTimeRequestedTour(string dataType)

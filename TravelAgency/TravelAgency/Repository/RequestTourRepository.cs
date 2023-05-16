@@ -61,7 +61,7 @@ namespace TravelAgency.Repository
 
             using var selectReader = selectCommand.ExecuteReader();
             while (selectReader.Read())
-                languages.Add(selectReader.GetString(0));
+                languages.Add(((Language)selectReader.GetInt32(0)).ToString());
 
             return languages;
         }
