@@ -94,24 +94,21 @@ namespace TravelAgency.Repository
 
             using var selectCommand = databaseConnection.CreateCommand();
 
-            if (year == null && touristUsername == null)
+            switch (year)
             {
-                selectCommand.CommandText = "SELECT * FROM RequestedTour";
-            }
-
-            if (year is "All years" or null)
-            {
-                selectCommand.CommandText = "SELECT * FROM RequestedTour WHERE TouristUsername = $CurrentUserUsername";
-                selectCommand.Parameters.AddWithValue("$CurrentUserUsername", CurrentUser.Username);
-
-            }
-            else
-            {
-                selectCommand.CommandText =
-                    "SELECT * FROM RequestedTour WHERE TouristUsername = $CurrentUserUsername AND SUBSTR(DateRange, 7, 4) = $year OR SUBSTR(DateRange, -4, 4) = $year";
-                selectCommand.Parameters.AddWithValue("$year", year);
-                selectCommand.Parameters.AddWithValue("$CurrentUserUsername", CurrentUser.Username);
-
+                case null when touristUsername == null:
+                    selectCommand.CommandText = "SELECT * FROM RequestedTour";
+                    break;
+                case "All years" or null:
+                    selectCommand.CommandText = "SELECT * FROM RequestedTour WHERE TouristUsername = $CurrentUserUsername";
+                    selectCommand.Parameters.AddWithValue("$CurrentUserUsername", CurrentUser.Username);
+                    break;
+                default:
+                    selectCommand.CommandText =
+                        "SELECT * FROM RequestedTour WHERE TouristUsername = $CurrentUserUsername AND SUBSTR(DateRange, 7, 4) = $year OR SUBSTR(DateRange, -4, 4) = $year";
+                    selectCommand.Parameters.AddWithValue("$year", year);
+                    selectCommand.Parameters.AddWithValue("$CurrentUserUsername", CurrentUser.Username);
+                    break;
             }
 
             using var selectReader = selectCommand.ExecuteReader();

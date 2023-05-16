@@ -117,8 +117,8 @@ namespace TravelAgency.ViewModel
                     NumberOfRequests = "Number of Requests: " + _tabAllData.Sum(tour =>
                     {
                         var dates = tour.DateRange.Split(" - ");
-                        var startDate = DateTime.Parse(dates[0]);
-                        var endDate = DateTime.Parse(dates[1]);
+                        var startDate = DateTime.ParseExact(dates[0], "MM/dd/yyyy", CultureInfo.InvariantCulture);
+                        var endDate = DateTime.ParseExact(dates[1], "MM/dd/yyyy", CultureInfo.InvariantCulture);
                         return (endDate - startDate).TotalDays;
                     }),
                     BarData = new SeriesCollection
