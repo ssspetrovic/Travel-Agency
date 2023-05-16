@@ -33,23 +33,7 @@ namespace TravelAgency.View.Controls.Owner
         {
             InitializeComponent();
             DataContext = _viewModel;
-        }
-
-        private void cmbAccName_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (cmbAccName.Text != "")
-            {
-                this.StatsByYearListView.Items.Clear();
-
-                AccommodationDTO accommodation = accommodationRepository.GetByName(cmbAccName.SelectedItem.ToString());
-                ObservableCollection<AccommodationStatDTO> statList = accommodationService.GetAccommodationStatByYear(accommodation.Id);
-                foreach (AccommodationStatDTO a in statList)
-                {
-                    this.StatsByYearListView.Items.Add(a);
-                }
-
-                lblMostBusyYear.Content = accommodationService.GetMostBusyByYear(accommodation.Id);
-            }
+            cmbAccName.Text = "";
         }
 
         private void StatsByYearListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -64,6 +48,20 @@ namespace TravelAgency.View.Controls.Owner
             }
 
             lblMostBusyMonth.Content = accommodationService.GetMostBusyByMonth(Convert.ToInt32(lblYear.Content), accommodation.Id);
+        }
+
+        private void btnCheck_Click(object sender, RoutedEventArgs e)
+        {
+            this.StatsByYearListView.Items.Clear();
+
+            AccommodationDTO accommodation = accommodationRepository.GetByName(cmbAccName.SelectedItem.ToString());
+            ObservableCollection<AccommodationStatDTO> statList = accommodationService.GetAccommodationStatByYear(accommodation.Id);
+            foreach (AccommodationStatDTO a in statList)
+            {
+                this.StatsByYearListView.Items.Add(a);
+            }
+
+            lblMostBusyYear.Content = accommodationService.GetMostBusyByYear(accommodation.Id);
         }
     }
 }
