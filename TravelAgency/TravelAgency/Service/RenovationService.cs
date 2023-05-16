@@ -54,5 +54,23 @@ namespace TravelAgency.Service
             renovationRepository.Remove(renovationId);
             return true;
         }
+
+        public bool IsBeingRenovated(int accommodationId, DateTime startDate, DateTime endDate)
+        {
+            var renovationRepository = new RenovationRepository();
+            bool available = true;
+            ObservableCollection<Renovation> renovations = renovationRepository.GetAll();
+
+            foreach(Renovation renovation in renovations)
+            {
+                if((startDate >= renovation.StartDate && startDate <= renovation.EndDate) || (endDate >= renovation.StartDate && endDate <= renovation.EndDate))
+                {
+                    available = false;
+                    break;
+                }
+            }
+
+            return available;
+        }
     }
 }

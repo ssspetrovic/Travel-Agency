@@ -199,6 +199,7 @@ namespace TravelAgency.ViewModel
         {
 
                 var _reservationService = new ReservationService();
+                var _renovationService = new RenovationService();
 
                 var ReservableDays = (EndDate - StartDate).TotalDays;
                if(!ValidateNumberInput(GuestNumber) && !ValidateSelect(SelectedAccommodation))
@@ -218,6 +219,10 @@ namespace TravelAgency.ViewModel
 
                    MessageBox.Show("The reservation is out of bounds!");
                }
+               else if (!_renovationService.IsBeingRenovated(SelectedAccommodation.Id, StartDate, EndDate))
+               {
+                   MessageBox.Show("There is a renovation during that period!");
+               }    
                else if(_reservationService.Reserve(EndDate, StartDate, SelectedAccommodation, int.Parse(GuestNumber)))
                {
                    MessageBox.Show("Accommodation Reserved");
