@@ -305,8 +305,10 @@ namespace TravelAgency.Service
         public void ConfirmRequest(int requestId, string acceptedDate)
         {
             UpdateAcceptedDateById(requestId, acceptedDate);
+
             var request = GetById(requestId);
             UpdateStatusById(requestId, Status.Accepted);
+            
             var notificationService = new TouristNotificationService();
             notificationService.Add(new TouristNotification(
                 "tourist",
