@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Navigation;
 using TravelAgency.Command;
@@ -131,7 +133,7 @@ namespace TravelAgency.ViewModel.Tourist
             SubmitRequestCommand = new RelayCommand(Execute_SubmitRequestCommand, CanExecute_SubmitRequestCommand);
             CancelRequestCommand = new RelayCommand(Execute_CancelRequestCommand);
         }
-        
+
         private void TouristViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName != nameof(TouristViewModel.IsTooltipsSwitchToggled)) return;
@@ -140,12 +142,15 @@ namespace TravelAgency.ViewModel.Tourist
 
         private void Execute_SubmitRequestCommand(object parameter)
         {
+            var formattedDateRange =
+                $"{StartingDate?.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture)} - {EndingDate?.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture)}";
+            
             _requestTourService.Add(new RequestTour(
                 SelectedLocation!,
                 Description!,
                 Language!,
                 int.Parse(GuestNumber!),
-                $"{StartingDate?.ToString("MM/dd/yyyy")} - {EndingDate?.ToString("MM/dd/yyyy")}",
+                formattedDateRange,
                 Status.OnHold,
                 CurrentUser.Username
             ));
