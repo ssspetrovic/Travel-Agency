@@ -29,7 +29,6 @@ namespace TravelAgency.ViewModel.Tourist
             var tourRequestService = new RequestTourService();
             _navigationService = navigationService;
             _touristViewModel = touristViewModel;
-            tourRequestService.UpdateAllRequestsStatuses();
             _regularRequests = tourRequestService.GetAllForSelectedYearAsCollection(null, CurrentUser.Username);
             NavigateToStatisticsCommand = new RelayCommand(Execute_NavigateToStatisticsCommand);
         }

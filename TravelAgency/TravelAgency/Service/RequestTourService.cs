@@ -20,6 +20,7 @@ namespace TravelAgency.Service
         {
             _requestTourRepository = new RequestTourRepository();
             _locationService = new LocationService();
+            UpdateAllRequestsStatuses();
         }
 
         public DataTable GetAllAsDataTable(DataTable dt)
