@@ -48,10 +48,12 @@
                     HorizontalContentAlignment="Center"
                     d:ItemsSource="{d:SampleData ItemCount=4}"
                     ItemsSource="{Binding RegularRequests}"
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                     Style="{StaticResource MaterialDesignListView}">
                     <ListView.ItemContainerStyle>
                         <Style BasedOn="{StaticResource MaterialDesignGridViewItem}" TargetType="ListViewItem">
                             <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            <Setter Property="VerticalContentAlignment" Value="Center" />
                             <Setter Property="Focusable" Value="False" />
                         </Style>
                     </ListView.ItemContainerStyle>
@@ -65,10 +67,17 @@
                                 Width="Auto"
                                 DisplayMemberBinding="{Binding Path=Language}"
                                 Header="Language" />
-                            <GridViewColumn
-                                Width="Auto"
-                                DisplayMemberBinding="{Binding Path=DateRange}"
-                                Header="Date range" />
+                            <GridViewColumn Width="140" Header="Date range">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label>
+                                            <Label.Content>
+                                                <TextBlock Text="{Binding Path=DateRange}" TextWrapping="Wrap" />
+                                            </Label.Content>
+                                        </Label>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
                             <GridViewColumn
                                 Width="Auto"
                                 DisplayMemberBinding="{Binding Path=MaxGuests}"
@@ -77,6 +86,10 @@
                                 Width="Auto"
                                 DisplayMemberBinding="{Binding Path=Status}"
                                 Header="Status" />
+                            <GridViewColumn
+                                Width="Auto"
+                                DisplayMemberBinding="{Binding Path=AcceptedDate}"
+                                Header="Date" />
                         </GridView>
                     </ListView.View>
                 </ListView>
