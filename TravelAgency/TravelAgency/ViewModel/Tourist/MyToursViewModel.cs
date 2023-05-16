@@ -117,7 +117,7 @@ namespace TravelAgency.ViewModel.Tourist
 
         private bool IsAttendanceConfirmed()
         {
-            var dialog = new AcceptInvitationDialog()
+            var dialog = new AcceptInvitationDialog
             {
                 Owner = Current.MainWindow,
                 DataContext = this
