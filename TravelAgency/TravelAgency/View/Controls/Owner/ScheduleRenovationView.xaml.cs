@@ -47,18 +47,18 @@ namespace TravelAgency.View.Controls.Owner
                 DateTime endDate = (DateTime)pickEndDate.SelectedDate;
                 int duration = Convert.ToInt32(txtDuration.Text);
 
-                List<FreeDatesDTO> freeDates = reservationService.GetFreeDates(acc.Id, duration, startDate, endDate);
+                List<FreeDatesDTO> freeDates = CheckFreeDates(acc.Id, duration, startDate, endDate);
 
-                string s = "";
+                //string s = "";
                 int countFreeDates = 0;
                 foreach (FreeDatesDTO fd in freeDates)
                 {
-                    s += fd.startDate.ToShortDateString() + " " + fd.endDate.ToShortDateString() + "\n";
+                    //s += fd.startDate.ToShortDateString() + " " + fd.endDate.ToShortDateString() + "\n";
                     this.FreeDatesListView.Items.Add(fd);
                     countFreeDates++;
                 }
                 lblCountFreeDates.Content = "Free: " + countFreeDates.ToString();
-                MessageBox.Show(s);
+                //MessageBox.Show(s);
             }
             else
             {
@@ -71,13 +71,12 @@ namespace TravelAgency.View.Controls.Owner
             if (lblStartDate.Content != null)
             {
                 AccommodationDTO acc = accommodationRepository.GetByName(cmbAccName.Text);
-                DateTime startDate = Convert.ToDateTime(lblStartDate.Content);
-                DateTime endDate = Convert.ToDateTime(lblEndDate.Content);
+                DateTime selectedStartDate = Convert.ToDateTime(lblStartDate.Content);
+                DateTime selectedEndDate = Convert.ToDateTime(lblEndDate.Content);
                 int duration = Convert.ToInt32(txtDuration.Text);
                 string description = txtDescription.Text;
 
-                Renovation renovation = new Renovation(acc.Id, startDate, endDate, duration, description);
-                renovationRepository.Add(renovation);
+                AppointRenovation(acc.Id, selectedStartDate, selectedEndDate, duration, description);
 
                 if (CurrentLanguageAndTheme.languageId == 0)
                     MessageBox.Show("Successfull appointed renovation!", "Message");
@@ -109,6 +108,19 @@ namespace TravelAgency.View.Controls.Owner
             Frame mainFrame = mainWindow.mainFrame;
             ScheduleRenovationView scheduleRenovationView = new ScheduleRenovationView();
             mainFrame.Navigate(scheduleRenovationView);
+        }
+
+
+        private List<FreeDatesDTO> CheckFreeDates(int accommodationId, int duration, DateTime startDate, DateTime endDate)
+        {
+            List<FreeDatesDTO> freeDates = reservationService.GetFreeDates(accommodationId, duration, startDate, endDate);
+            return freeDates;
+        }
+
+        private void AppointRenovation(int accommodationId, DateTime selectedStartDate, DateTime selectedEndDate, int duration, string description)
+        {
+            Renovation renovation = new Renovation(accommodationId, selectedStartDate, selectedEndDate, duration, description);
+            renovationRepository.Add(renovation);
         }
     }
 }
