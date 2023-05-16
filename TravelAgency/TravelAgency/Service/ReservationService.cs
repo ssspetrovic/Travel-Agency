@@ -10,6 +10,7 @@ using System.Collections.ObjectModel;
 using System.Drawing.Text;
 using System.Windows.Navigation;
 using System.Diagnostics;
+using System.Windows;
 
 namespace TravelAgency.Service
 {
@@ -142,33 +143,48 @@ namespace TravelAgency.Service
             var reservationRepository = new ReservationRepository();
             ObservableCollection<Reservation> reservations = reservationRepository.GetAllByAccommodationId(accId);
 
-            List<FreeDatesDTO> freeDates = new List<FreeDatesDTO>();
+            List<FreeDatesDTO> listOfDates = GetListOfDates(startDate, endDate, duration);
+
+            List<FreeDatesDTO> freeDates = GetFreeDates(listOfDates, reservations);
+
+            return freeDates;
+        }
+
+        private List<FreeDatesDTO> GetListOfDates(DateTime startDate, DateTime endDate, int duration)
+        {
+            List<FreeDatesDTO> listOfDates = new List<FreeDatesDTO>();
             FreeDatesDTO f;
 
             DateTime startTemp = startDate;
             DateTime endTemp = startTemp.AddDays(duration - 1);
             if (endTemp > endDate)
             {
-                return freeDates;
+                return listOfDates;
             }
 
             f = new FreeDatesDTO(startTemp, endTemp);
-            freeDates.Add(f);
+            listOfDates.Add(f);
 
             while (endTemp != endDate)
             {
                 startTemp = startTemp.AddDays(1);
                 endTemp = endTemp.AddDays(1);
                 f = new FreeDatesDTO(startTemp, endTemp);
-                freeDates.Add(f);
+                listOfDates.Add(f);
             }
 
-            List<FreeDatesDTO> finalFreeDates = new List<FreeDatesDTO>();
-            foreach (FreeDatesDTO fdto in freeDates)
+            return listOfDates;
+        }
+
+        private List<FreeDatesDTO> GetFreeDates(List<FreeDatesDTO> listOfDates, ObservableCollection<Reservation> reservations)
+        {
+            List<FreeDatesDTO> freeDates = new List<FreeDatesDTO>();
+            foreach (FreeDatesDTO fdto in listOfDates)
             {
                 bool available = true;
                 foreach (Reservation r in reservations)
                 {
+                    /*Checking if date is in scope of reservation*/
                     if ((fdto.startDate >= r.StartDate && fdto.startDate <= r.EndDate) || (fdto.endDate >= r.StartDate && fdto.endDate <= r.EndDate))
                     {
                         available = false;
@@ -181,11 +197,15 @@ namespace TravelAgency.Service
                     }
                 }
                 if (available)
-                    finalFreeDates.Add(fdto);
+                    freeDates.Add(fdto);
             }
-
-            return finalFreeDates;
+            return freeDates;
         }
+
+
+
+
+
 
         public int GetReservationCountByYear(int year, int accID)
         {
