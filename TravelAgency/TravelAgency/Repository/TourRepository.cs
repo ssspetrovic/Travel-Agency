@@ -21,28 +21,6 @@ namespace TravelAgency.Repository
             return idList;
         }
 
-        public void Add(Tour tour)
-        {
-            using var databaseConnection = GetConnection();
-            databaseConnection.Open();
-
-            const string insertStatement =
-                @"insert into Tour(Name, Location_Id, Description, Language, MaxGuests, LocationList, Date, Duration, Images) 
-                    values ($Name, $Location_Id, $Description, $Language, $MaxGuests, $LocationList, $Date, $Duration, $Images)";
-            using var insertCommand = new SqliteCommand(insertStatement, databaseConnection);
-            insertCommand.Parameters.AddWithValue("$Name", tour.Name);
-            insertCommand.Parameters.AddWithValue("$Location_Id", tour.Location.Id);
-            insertCommand.Parameters.AddWithValue("$Description", tour.Description);
-            insertCommand.Parameters.AddWithValue("$Language", tour.Language);
-            insertCommand.Parameters.AddWithValue("$MaxGuests", tour.MaxGuests);
-            insertCommand.Parameters.AddWithValue("$LocationList", GetIdList(tour));
-            insertCommand.Parameters.AddWithValue("Date", tour.Date);
-            insertCommand.Parameters.AddWithValue("$Duration", tour.Duration);
-            insertCommand.Parameters.AddWithValue("$Images", tour.Photos);
-            insertCommand.ExecuteNonQuery();
-
-        }
-
         public void Remove(int id)
         {
             using var databaseConnection = GetConnection();

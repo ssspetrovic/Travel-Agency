@@ -81,6 +81,14 @@
                                                         IsChecked="True"
                             Foreground="White"
                             Style="{StaticResource MenuButtonStyle}" />
+                        <RadioButton
+                            x:Name="Profile"
+                            Height="50"
+                            Click="Profile_OnClick"
+                            Content="Profile"
+                            FontSize="17"
+                            Foreground="White"
+                            Style="{StaticResource MenuButtonStyle}" />
                     </StackPanel>
                     <RadioButton
                         x:Name="SignOutButton"

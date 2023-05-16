@@ -74,7 +74,10 @@ namespace TravelAgency.Service
 
             var selectStatement = "select * from RequestedTour where " + parameterName + " = ";
             if (parameterName == "Language")
-                selectStatement += "'" + parameter + "'";
+            {
+                var language = (int) Enum.Parse(typeof(Language),parameter);
+                selectStatement += language;
+            }
             else
                 selectStatement += parameter;
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
@@ -254,5 +257,43 @@ namespace TravelAgency.Service
             return requestedTours;
         }
 
+        public void Add(RequestTour requestTour)
+        {
+            _requestTourRepository.Add(requestTour);
+        }
+
+        public void UpdateStatus(Status newStatus)
+        {
+            _requestTourRepository.UpdateStatus(newStatus);
+        }
+
+        private void UpdateStatusById(int id, Status newStatus)
+        {
+            _requestTourRepository.UpdateStatusById(id, newStatus);
+        }
+
+        public ObservableCollection<RequestTour> GetAllForSelectedYearAsCollection(string? year = null)
+        {
+            return _requestTourRepository.GetAllForSelectedYearAsCollection(year);
+        }
+
+        public ObservableCollection<string> GetAllYearsAsCollection()
+        {
+            return _requestTourRepository.GetAllYearsAsCollection();
+        }
+
+        public void UpdateAllRequestsStatuses()
+        {
+            var requests = GetAllForSelectedYearAsCollection();
+            foreach (var request in requests)
+            {
+                var startingDateString = request.DateRange[..10];
+                var startingDate = DateTime.ParseExact(startingDateString, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+                if (startingDate <= DateTime.Now.AddDays(2))
+                {
+                    UpdateStatusById(request.Id, Status.Invalid);
+                }
+            }
+        }
     }
 }

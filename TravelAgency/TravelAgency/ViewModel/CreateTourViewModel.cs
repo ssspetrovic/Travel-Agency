@@ -69,7 +69,7 @@ namespace TravelAgency.ViewModel
 
             if (_comboBoxLanguage != string.Empty)
             {
-                _languageIndex = (int) Enum.Parse(typeof(Language), _comboBoxLanguage); 
+                _languageIndex = (int) Enum.Parse(typeof(Language), _comboBoxLanguage);
                 _languageBackground = Brushes.Gray;
                 _languageFocus = false;
             }
@@ -87,6 +87,7 @@ namespace TravelAgency.ViewModel
                 _dateFocus = false;
             }
         }
+
         public int LanguageIndex
         {
             get => _languageIndex;

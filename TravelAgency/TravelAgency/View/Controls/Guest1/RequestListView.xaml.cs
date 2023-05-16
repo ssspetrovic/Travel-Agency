@@ -27,6 +27,12 @@ namespace TravelAgency.View.Controls.Guest1
             InitializeComponent();
             DataContext = _viewModel;
         }
+        private void Profile_OnClick(object sender, RoutedEventArgs e)
+        {
+            var ProfileView = new ProfileView();
+            ProfileView.Show();
+            Close();
+        }
 
         private void HomeButton_OnClick(object sender, RoutedEventArgs e)
         {

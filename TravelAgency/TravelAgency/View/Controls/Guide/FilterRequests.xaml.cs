@@ -14,12 +14,14 @@ namespace TravelAgency.View.Controls.Guide
     {
         private readonly LocationService _locationService;
         private readonly RequestTourService _requestTourService;
+        private readonly TourService _tourService;
 
         public FilterRequests()
         {
             InitializeComponent();
             _locationService = new LocationService();
             _requestTourService = new RequestTourService();
+            _tourService = new TourService();
             LocationBox.Focus();
         }
 
@@ -61,9 +63,6 @@ namespace TravelAgency.View.Controls.Guide
                 else
                     requestedTours = (from tour in requestedTours join found in foundTours
                             on tour.Id equals found.Id select tour).ToList();
-                
-
-
             }
 
             if (LanguageBox.Text.Length > 0)

@@ -33,6 +33,12 @@ namespace TravelAgency.View.Controls.Guest1
             GuestView.Show();
             Close();
         }
+        private void Profile_OnClick(object sender, RoutedEventArgs e)
+        {
+            var ProfileView = new ProfileView();
+            ProfileView.Show();
+            Close();
+        }
 
         private void Reservation_OnClick(object sender, RoutedEventArgs e)
         {

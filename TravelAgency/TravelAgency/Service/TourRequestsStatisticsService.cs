@@ -12,11 +12,11 @@ namespace TravelAgency.Service
     internal class TourRequestsStatisticsService
     {
         private const int PercentageMultiplier = 100;
-        private readonly RegularTourRequestService _tourRequestService;
+        private readonly RequestTourService _tourRequestService;
 
         public TourRequestsStatisticsService()
         {
-            _tourRequestService = new RegularTourRequestService();
+            _tourRequestService = new RequestTourService();
         }
 
         public ObservableCollection<string> GetAllYearsAsCollection()
@@ -50,7 +50,7 @@ namespace TravelAgency.Service
         private (int accepted, int total) GetAcceptedAndTotalRequests(string? year)
         {
             var requests = _tourRequestService.GetAllForSelectedYearAsCollection(year);
-            var acceptedRequests = requests.Count(r => r.Status == RegularTourRequest.TourRequestStatus.Accepted);
+            var acceptedRequests = requests.Count(r => r.Status == Status.Accepted);
             return (acceptedRequests, requests.Count);
         }
 
@@ -69,7 +69,7 @@ namespace TravelAgency.Service
         }
 
         public double GetAverageRequestsByStatus(string? year,
-            RegularTourRequest.TourRequestStatus status = RegularTourRequest.TourRequestStatus.Accepted)
+            Status status = Status.Accepted)
         {
             var requests = _tourRequestService.GetAllForSelectedYearAsCollection(year);
             var filteredRequests = requests.Where(request => request.Status == status);
@@ -77,7 +77,7 @@ namespace TravelAgency.Service
             var regularTourRequests = filteredRequests.ToList();
             if (!regularTourRequests.Any()) return 0;
 
-            return double.Round(regularTourRequests.Average(request => request.GuestNumber), 3);
+            return double.Round(regularTourRequests.Average(request => request.MaxGuests), 3);
         }
 
         public Dictionary<Language, int> GetLanguageCountDictionary(string? year)
@@ -87,11 +87,11 @@ namespace TravelAgency.Service
 
             foreach (var request in requests)
             {
-                if (!languageCountsDictionary.ContainsKey(request.Language ?? Language.Unknown))
-                    languageCountsDictionary.Add(request.Language ?? Language.Unknown, 1);
+                if (!languageCountsDictionary.ContainsKey(request.Language))
+                    languageCountsDictionary.Add(request.Language, 1);
                 else
-                    languageCountsDictionary[request.Language ?? Language.Unknown]++;
-            }
+                    languageCountsDictionary[request.Language]++;
+            }   
 
             return languageCountsDictionary;
         }

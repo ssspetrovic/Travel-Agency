@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Navigation;
@@ -13,15 +14,15 @@ namespace TravelAgency.ViewModel.Tourist
     {
         private readonly TouristViewModel _touristViewModel;
         private readonly NavigationService _navigationService;
-        private readonly RegularTourRequestService _tourRequestService;
-        private string? _country;
-        private string? _city;
+        private readonly RequestTourService _requestTourService;
         private Language? _language;
         private string? _guestNumber;
         private DateTime? _startingDate;
         private DateTime? _endingDate;
         private string? _description;
         private Array _languages;
+        private ObservableCollection<Location> _locationsCollection;
+        private Location? _selectedLocation;
         public RelayCommand SubmitRequestCommand { get; set; }
         public RelayCommand CancelRequestCommand { get; set; }
         private OkDialog? Dialog { get; set; }
@@ -37,22 +38,22 @@ namespace TravelAgency.ViewModel.Tourist
             }
         }
 
-        public string? Country
+        public Location? SelectedLocation
         {
-            get => _country;
+            get => _selectedLocation;
             set
             {
-                _country = value;
+                _selectedLocation = value;
                 OnPropertyChanged();
             }
         }
 
-        public string? City
+        public ObservableCollection<Location> LocationsCollection
         {
-            get => _city;
+            get => _locationsCollection;
             set
             {
-                _city = value;
+                _locationsCollection = value;
                 OnPropertyChanged();
             }
         }
@@ -123,8 +124,10 @@ namespace TravelAgency.ViewModel.Tourist
             IsTooltipsSwitchToggled = _touristViewModel.IsTooltipsSwitchToggled;
             _touristViewModel.PropertyChanged += TouristViewModel_PropertyChanged;
             _navigationService = navigationService;
-            _tourRequestService = new RegularTourRequestService();
+            _requestTourService = new RequestTourService();
             _languages = Enum.GetValues(typeof(Language));
+            var locationService = new LocationService();
+            _locationsCollection = locationService.GetAll();
             SubmitRequestCommand = new RelayCommand(Execute_SubmitRequestCommand, CanExecute_SubmitRequestCommand);
             CancelRequestCommand = new RelayCommand(Execute_CancelRequestCommand);
         }
@@ -137,14 +140,15 @@ namespace TravelAgency.ViewModel.Tourist
 
         private void Execute_SubmitRequestCommand(object parameter)
         {
-            _tourRequestService.Add(new RegularTourRequest(
-                CurrentUser.Username,
-                new Location(City!, Country!),
-                Language,
+            _requestTourService.Add(new RequestTour(
+                SelectedLocation!,
+                Description!,
+                Language!,
                 int.Parse(GuestNumber!),
                 $"{StartingDate?.ToString("MM/dd/yyyy")} - {EndingDate?.ToString("MM/dd/yyyy")}",
-                Description!,
-                RegularTourRequest.TourRequestStatus.OnHold));
+                Status.OnHold,
+                CurrentUser.Username
+            ));
 
             Dialog = new OkDialog
             {
@@ -174,8 +178,7 @@ namespace TravelAgency.ViewModel.Tourist
 
         private bool CanExecute_SubmitRequestCommand(object parameter)
         {
-            return !string.IsNullOrEmpty(Country) &&
-                   !string.IsNullOrEmpty(City) &&
+            return SelectedLocation != null &&
                    Language != null &&
                    IsDateRangeValid(StartingDate, EndingDate) &&
                    int.TryParse(GuestNumber, out _) &&

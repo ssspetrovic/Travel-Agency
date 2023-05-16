@@ -120,7 +120,10 @@
                             <ColumnDefinition />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <StackPanel Grid.Column="0" Margin="50,10,30,10">
+                        <StackPanel
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            Margin="50,10,50,10">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
@@ -128,45 +131,28 @@
                                 </Grid.ColumnDefinitions>
                                 <Label
                                     Grid.Column="0"
-                                    Content="City:"
+                                    Content="Location:"
                                     FontSize="14" />
                                 <Label
                                     Grid.Column="1"
-                                    Content="(text)"
+                                    Content="(selection)"
                                     FontSize="14"
                                     Foreground="#3F51B5"
                                     Style="{StaticResource AnimatedLabelStyle}"
                                     Visibility="{Binding IsTooltipsSwitchToggled, Converter={StaticResource BooleanToVisibilityConverter}}" />
                             </Grid>
-                            <TextBox
+                            <ComboBox
                                 x:Name="CityTextBox"
+                                Padding="5"
+                                materialDesign:HintAssist.Hint="Select a location"
+                                materialDesign:TextFieldAssist.TextFieldCornerRadius="3"
+                                materialDesign:TextFieldAssist.UnderlineCornerRadius="3"
+                                BorderBrush="{StaticResource MaterialDesignDivider}"
+                                BorderThickness="1"
                                 FontSize="14"
-                                Style="{StaticResource FilterTextBoxStyle}"
-                                Text="{Binding City, UpdateSourceTrigger=PropertyChanged}" />
-                        </StackPanel>
-                        <StackPanel Grid.Column="1" Margin="30,10,50,10">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Label
-                                    Grid.Column="0"
-                                    Content="Country:"
-                                    FontSize="14" />
-                                <Label
-                                    Grid.Column="1"
-                                    Content="(text)"
-                                    FontSize="14"
-                                    Foreground="#3F51B5"
-                                    Style="{StaticResource AnimatedLabelStyle}"
-                                    Visibility="{Binding IsTooltipsSwitchToggled, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                            </Grid>
-                            <TextBox
-                                x:Name="CountryTextBox"
-                                FontSize="14"
-                                Style="{StaticResource FilterTextBoxStyle}"
-                                Text="{Binding Country, UpdateSourceTrigger=PropertyChanged}" />
+                                ItemsSource="{Binding LocationsCollection}"
+                                MaxDropDownHeight="190"
+                                SelectedItem="{Binding SelectedLocation, UpdateSourceTrigger=PropertyChanged}" />
                         </StackPanel>
                     </Grid>
                     <Grid Grid.Row="2">
@@ -203,8 +189,7 @@
                                 FontSize="14"
                                 ItemsSource="{Binding Languages}"
                                 MaxDropDownHeight="190"
-                                SelectedItem="{Binding Language, UpdateSourceTrigger=PropertyChanged}"
-                                Style="{StaticResource MaterialDesignComboBox}" />
+                                SelectedItem="{Binding Language, UpdateSourceTrigger=PropertyChanged}" />
                         </StackPanel>
                         <StackPanel Grid.Column="1" Margin="30,10,50,10">
                             <Grid>
