@@ -324,6 +324,11 @@ namespace TravelAgency.ViewModel
 
                     CreateAcceptedTourDto.RequestId = -1;
                 }
+                
+                if (CreateAcceptedTourDto.IsFromStatistics)
+                {
+                    // TODO call the method when complete
+                }
             }
 
             else

@@ -87,33 +87,6 @@ namespace TravelAgency.Repository
             insertCommand.ExecuteNonQuery();
         }
 
-        public void UpdateStatus(Status oldStatus)
-        {
-            using var databaseConnection = GetConnection();
-            databaseConnection.Open();
-
-            using var updateCommand = databaseConnection.CreateCommand();
-            updateCommand.CommandText =
-                @"
-                    UPDATE RequestedTour
-                    SET Status = $newStatus
-                    WHERE Status = $oldStatus
-                ";
-
-            if (oldStatus == Status.Updating)
-            {
-                updateCommand.Parameters.AddWithValue("$oldStatus", (int)oldStatus);
-                updateCommand.Parameters.AddWithValue("$newStatus", (int)Status.Accepted);
-            }
-            else
-            {
-                updateCommand.Parameters.AddWithValue("$oldStatus", (int)oldStatus);
-                updateCommand.Parameters.AddWithValue("$newStatus", (int)Status.Invalid);
-            }
-
-            updateCommand.ExecuteNonQuery();
-        }
-
         public ObservableCollection<RequestTour> GetAllForSelectedYearAsCollection(string? year = null)
         {
             using var databaseConnection = GetConnection();
