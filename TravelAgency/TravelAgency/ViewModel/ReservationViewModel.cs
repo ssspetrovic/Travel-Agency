@@ -84,7 +84,7 @@ namespace TravelAgency.ViewModel
 
             var accommodationActivityRepository = new AccommodationActivityRepository();
             DateTime startDate = SelectedReservations.StartDate.ToDateTime(TimeOnly.Parse("00:00PM"));
-            AccommodationActivity a = new AccommodationActivity(SelectedReservations.AccommodationId, startDate, 1, 0, 0);
+            AccommodationActivity a = new AccommodationActivity(SelectedReservations.AccommodationId, startDate, 1, 0, 0);  //ZA RENOVATION 0, 0, 1
             accommodationActivityRepository.Add(a);
         }
     }
