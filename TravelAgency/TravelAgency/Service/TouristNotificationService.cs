@@ -33,10 +33,18 @@ namespace TravelAgency.Service
             _notificationRepository.UpdateStatus(id, newStatus);
         }
 
-        public void NotifyForNewTours(Location location, Language language)
+        public void NotifyForNewTours(string tourName, Location location, Language language)
         {
             var requestTourService = new RequestTourService();
+            var allRequests = requestTourService.GetAllForSelectedYearAsCollection();
 
+            foreach (var request in allRequests)
+            {
+                if (request.Location == location || request.Language == language)
+                {
+
+                }
+            }
         }
     }
 }
