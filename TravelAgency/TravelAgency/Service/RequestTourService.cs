@@ -292,14 +292,27 @@ namespace TravelAgency.Service
             }
         }
 
-        public void ConfirmRequest(int requestId, string selectedDate)
+        private RequestTour GetById(int id)
         {
+            return _requestTourRepository.GetById(id);
+        }
+
+        private void UpdateAcceptedDateById(int id, string acceptedDate)
+        {
+            _requestTourRepository.UpdateAcceptedDateById(id, acceptedDate);
+        }
+
+        public void ConfirmRequest(int requestId, string acceptedDate)
+        {
+            UpdateAcceptedDateById(requestId, acceptedDate);
+            var request = GetById(requestId);
+            UpdateStatusById(requestId, Status.Accepted);
             var notificationService = new TouristNotificationService();
-            //notificationService.Add(new TouristNotification(
-            //    "tourist",
-            //    $"Your tour in {currentLocation} has been accepted. Selected date is: {CreateAcceptedTourDto.DateList.Split(",")[0]}",
-            //    NotificationStatus.Unread,
-            //    NotificationType.RequestAccepted));
+            notificationService.Add(new TouristNotification(
+                "tourist",
+                $"Your tour for {request.Location} has been accepted. Accepted date was: {request.AcceptedDate}",
+                NotificationStatus.Unread,
+                NotificationType.RequestAccepted));
         }        
     }
 }

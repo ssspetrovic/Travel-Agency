@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Data.Sqlite;
 using System.Data;
 using System.Collections.ObjectModel;
@@ -199,6 +200,58 @@ namespace TravelAgency.Repository
             updateCommand.Parameters.AddWithValue("$newStatus", newStatus);
             updateCommand.Parameters.AddWithValue("$id", id);
 
+            updateCommand.ExecuteNonQuery();
+        }
+
+        public RequestTour GetById(int id)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            using var selectCommand = databaseConnection.CreateCommand();
+            selectCommand.CommandText = "SELECT * FROM RequestedTour WHERE Id = $id";
+            selectCommand.Parameters.AddWithValue("$id", id);
+            
+            using var selectReader = selectCommand.ExecuteReader();
+            if (!selectReader.Read())
+            {
+                throw new Exception("Failed to select data from table.");
+            }
+
+            var locationService = new LocationService();
+                
+            string? selectedDate = null;
+            if (!selectReader.IsDBNull(7))
+                selectedDate = selectReader.GetString(7);
+
+            return new RequestTour(
+                selectReader.GetInt32(0),
+                locationService.GetById(selectReader.GetInt32(1))!,
+                selectReader.GetString(2),
+                (Language)selectReader.GetInt32(3),
+                selectReader.GetInt32(4),
+                selectReader.GetString(5),
+                (Status)selectReader.GetInt32(6),
+                selectedDate,
+                selectReader.GetString(8)
+            );
+        }
+
+        public void UpdateAcceptedDateById(int id, string acceptedDate)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            using var updateCommand = databaseConnection.CreateCommand();
+            updateCommand.CommandText =
+                @"
+                    UPDATE RequestedTour
+                    SET AcceptedDate = $acceptedDate
+                    WHERE Id = $id
+                ";
+
+            updateCommand.Parameters.AddWithValue("$acceptedDate", acceptedDate);
+            updateCommand.Parameters.AddWithValue("$id", id);
             updateCommand.ExecuteNonQuery();
         }
     }

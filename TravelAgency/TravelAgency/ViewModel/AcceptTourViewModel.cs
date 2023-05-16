@@ -81,6 +81,7 @@ namespace TravelAgency.ViewModel
                 CreateAcceptedTourDto.Location = parameters["Location_id"].ToString()!.Split(", ")[0];
                 CreateAcceptedTourDto.Language = parameters["Language"].ToString()!;
                 CreateAcceptedTourDto.MaxGuests = parameters["NumberOfGuests"].ToString()!;
+                CreateAcceptedTourDto.RequestId = int.Parse(parameters["Id"].ToString()!);
 
                 var currentWindow = Application.Current.Windows.OfType<Guide>().FirstOrDefault();
                 var newWindow = new Guide();
