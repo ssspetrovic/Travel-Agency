@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Navigation;
+using TravelAgency.Command;
 using TravelAgency.Model;
 using TravelAgency.Service;
 
@@ -9,8 +10,7 @@ namespace TravelAgency.ViewModel.Tourist
     {
         private readonly NavigationService _navigationService;
         private readonly TouristViewModel _touristViewModel;
-        private readonly TouristNotificationService _touristNotificationService;
-
+        public RelayCommand ViewNotificationCommand { get; set; }
         private ObservableCollection<TouristNotification> _notificationsCollection;
         public ObservableCollection<TouristNotification> NotificationsCollection
         {
@@ -26,8 +26,19 @@ namespace TravelAgency.ViewModel.Tourist
         {
             _navigationService = navigationService;
             _touristViewModel = touristViewModel;
-            _touristNotificationService = new TouristNotificationService();
-            _notificationsCollection = _touristNotificationService.GetAllAsCollection();
+            
+            ViewNotificationCommand = new RelayCommand(Execute_ViewNotificationCommand);
+
+            var touristNotificationService = new TouristNotificationService();
+            _notificationsCollection = touristNotificationService.GetAllAsCollection();
+        }
+
+        private void Execute_ViewNotificationCommand(object parameter)
+        {
+            if (parameter is TouristNotification notification)
+            {
+                // TODO Implement method
+            }
         }
     }
 }
