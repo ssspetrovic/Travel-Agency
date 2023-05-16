@@ -1,13 +1,13 @@
 ﻿using System.Collections.ObjectModel;
+using TravelAgency.Model;
 
-namespace TravelAgency.Model
+namespace TravelAgency.Interface
 {
-    internal interface ITourReservationRepository
+    public interface ITourReservationRepository
     {
         void Add(TourReservation tourReservation);
         void DeleteById(int id);
-        TourReservation GetById(int id);
         Collection<TourReservation> GetAllAsCollection();
-
+        TourReservation GetById(int id);
     }
 }

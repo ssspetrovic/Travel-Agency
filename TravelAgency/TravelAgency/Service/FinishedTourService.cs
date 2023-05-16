@@ -5,6 +5,7 @@ using System.Linq;
 using LiveCharts;
 using LiveCharts.Defaults;
 using Microsoft.Data.Sqlite;
+using TravelAgency.Interface;
 using TravelAgency.Model;
 using TravelAgency.Repository;
 
@@ -12,7 +13,7 @@ namespace TravelAgency.Service
 {
     public class FinishedTourService : RepositoryBase
     {
-        private readonly FinishedTourRepository _finishedTourRepository;
+        private readonly IFinishedTourRepository _finishedTourRepository;
         private readonly LocationService _locationService;
         private readonly TouristService _touristService;
         public FinishedTourService()

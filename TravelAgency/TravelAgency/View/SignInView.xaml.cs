@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using TravelAgency.Interface;
 using TravelAgency.Model;
 using TravelAgency.Repository;
 using TravelAgency.View.Tourist;

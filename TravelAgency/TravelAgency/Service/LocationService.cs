@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using TravelAgency.Interface;
 using TravelAgency.Model;
 using TravelAgency.Repository;
 
@@ -7,7 +8,7 @@ namespace TravelAgency.Service
 {
     public class LocationService : RepositoryBase
     {
-        private readonly LocationRepository _locationRepository;
+        private readonly ILocationRepository _locationRepository;
 
         public LocationService()
         {

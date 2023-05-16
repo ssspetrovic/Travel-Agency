@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using TravelAgency.Interface;
 using TravelAgency.Model;
 using TravelAgency.Repository;
 
@@ -9,7 +10,7 @@ namespace TravelAgency.Service
 {
     public class TouristService : RepositoryBase
     {
-        private readonly TouristRepository _touristRepository;
+        private readonly ITouristRepository _touristRepository;
         private readonly TourService _tourService;
 
         public TouristService()

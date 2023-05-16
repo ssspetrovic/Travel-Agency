@@ -6,6 +6,7 @@ using System.Data;
 using System.Globalization;
 using System.Linq;
 using LiveCharts;
+using TravelAgency.Interface;
 using TravelAgency.Model;
 using TravelAgency.Repository;
 
@@ -13,7 +14,7 @@ namespace TravelAgency.Service
 {
     public class RequestTourService : RepositoryBase
     {
-        private readonly RequestTourRepository _requestTourRepository;
+        private readonly IRequestTourRepository _requestTourRepository;
         private readonly LocationService _locationService;
 
         public RequestTourService()

@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net;
+using TravelAgency.Interface;
 using TravelAgency.Model;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace TravelAgency.Repository
 {
@@ -37,21 +36,6 @@ namespace TravelAgency.Repository
             selectReader.Read();
             var role = (Role)Convert.ToInt32(selectReader["Role"]);
             return role;
-        }
-
-        public void Add(User user)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Edit(User user)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Remove(int id)
-        {
-            throw new NotImplementedException();
         }
 
         public User GetById(int id)
@@ -108,11 +92,6 @@ namespace TravelAgency.Repository
             }
 
             return user;
-        }
-
-        public IEnumerable<User> GetByAll()
-        {
-            throw new NotImplementedException();
         }
     }
 }

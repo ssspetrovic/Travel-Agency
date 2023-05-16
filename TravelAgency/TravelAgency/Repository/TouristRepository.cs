@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Data.Sqlite;
+using TravelAgency.Interface;
 using TravelAgency.Model;
 
 namespace TravelAgency.Repository
 {
-    internal class TouristRepository : RepositoryBase
+    internal class TouristRepository : RepositoryBase, ITouristRepository
     {
         public List<Tourist> GetByTour(Tour tour)
         {

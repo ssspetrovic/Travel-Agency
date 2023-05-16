@@ -2,11 +2,12 @@
 using Microsoft.Data.Sqlite;
 using System.Collections.ObjectModel;
 using System.Data;
+using TravelAgency.Interface;
 using TravelAgency.Model;
 
 namespace TravelAgency.Repository
 {
-    internal class FinishedTourRepository : RepositoryBase
+    internal class FinishedTourRepository : RepositoryBase, IFinishedTourRepository
     {
         public string GetAllKeyPoints(Tour finishedTour)
         {
@@ -73,7 +74,7 @@ namespace TravelAgency.Repository
             const string selectStatement = "select * from FinishedTour where Name = $Name";
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
 
-            selectCommand.Parameters.AddWithValue("$Id", tour.Name);
+            selectCommand.Parameters.AddWithValue("$Name", tour.Name);
             var selectReader = selectCommand.ExecuteReader();
 
             return selectReader.Read();

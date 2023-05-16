@@ -2,11 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using TravelAgency.Interface;
 using TravelAgency.Model;
 
 namespace TravelAgency.Repository
 {
-    internal class TourRepository : RepositoryBase
+    internal class TourRepository : RepositoryBase, ITourRepository
     {
         public string GetIdList(Tour tour)
         {

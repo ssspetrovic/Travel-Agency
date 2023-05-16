@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Data.Sqlite;
+using TravelAgency.Interface;
 using TravelAgency.Model;
 using TravelAgency.Repository;
 
@@ -7,7 +8,7 @@ namespace TravelAgency.Service
 {
     public class TourRatingService : RepositoryBase
     {
-        private readonly TourRatingRepository _tourRatingRepository;
+        private readonly ITourRatingRepository _tourRatingRepository;
         private readonly TouristService _touristService;
         private readonly LocationService _locationService;
         private readonly TourService _tourService;

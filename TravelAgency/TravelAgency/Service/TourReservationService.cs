@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
+using TravelAgency.Interface;
 using TravelAgency.Model;
 using TravelAgency.Repository;
 using TravelAgency.View.Tourist;
@@ -9,7 +10,7 @@ namespace TravelAgency.Service
 {
     public class TourReservationService
     {
-        private readonly TourReservationRepository _tourReservationRepository;
+        private readonly ITourReservationRepository _tourReservationRepository;
         private readonly TourReservationViewModel _tourReservationViewModel;
 
         public TourService TourService { get; }

@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using TravelAgency.DTO;
+using TravelAgency.Interface;
 using TravelAgency.Model;
 
 namespace TravelAgency.Repository
 {
-    internal class LocationRepository : RepositoryBase
+    internal class LocationRepository : RepositoryBase,  ILocationRepository
     {
         public Location? GetById(int id)
         {

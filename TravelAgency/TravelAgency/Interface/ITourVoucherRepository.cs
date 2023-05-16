@@ -1,8 +1,9 @@
 ﻿using System.Collections.ObjectModel;
+using TravelAgency.Model;
 
-namespace TravelAgency.Model
+namespace TravelAgency.Interface
 {
-    internal interface ITourVoucherRepository
+    public interface ITourVoucherRepository
     {
         void Add(TourVoucher tourVoucher);
         void DeleteById(int id);

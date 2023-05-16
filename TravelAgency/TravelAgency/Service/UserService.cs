@@ -1,4 +1,5 @@
-﻿using TravelAgency.Model;
+﻿using TravelAgency.Interface;
+using TravelAgency.Model;
 using TravelAgency.Repository;
 
 namespace TravelAgency.Service

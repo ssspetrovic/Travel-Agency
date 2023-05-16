@@ -2,6 +2,7 @@
 using Microsoft.Data.Sqlite;
 using System.Linq;
 using System.Windows.Forms;
+using TravelAgency.Interface;
 using TravelAgency.Model;
 using TravelAgency.Repository;
 using static System.Int32;
@@ -10,7 +11,7 @@ namespace TravelAgency.Service
 {
     public class ActiveTourService : RepositoryBase
     {
-        private readonly ActiveTourRepository _activeTourRepository;
+        private readonly IActiveTourRepository _activeTourRepository;
         private readonly LocationService _locationService;
 
         public string CurrentKeyPoint { get; set; } = null!;

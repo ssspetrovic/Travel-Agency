@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Data.Sqlite;
+using TravelAgency.Interface;
 using TravelAgency.Model;
 
 namespace TravelAgency.Repository
 {
-    internal class TourRatingRepository : RepositoryBase
+    internal class TourRatingRepository : RepositoryBase, ITourRatingRepository
     {
         public void Add(TourRating tourRating)
         {

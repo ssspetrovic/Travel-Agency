@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using TravelAgency.Interface;
 using TravelAgency.Model;
 using TravelAgency.Repository;
 
@@ -6,7 +7,7 @@ namespace TravelAgency.Service
 {
     public class TourVoucherService
     {
-        private readonly TourVoucherRepository _tourVoucherRepository;
+        private readonly ITourVoucherRepository _tourVoucherRepository;
 
         public TourVoucherService()
         {

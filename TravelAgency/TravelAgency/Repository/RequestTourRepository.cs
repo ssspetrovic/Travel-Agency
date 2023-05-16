@@ -4,12 +4,13 @@ using Microsoft.Data.Sqlite;
 using System.Data;
 using System.Collections.ObjectModel;
 using System.Linq;
+using TravelAgency.Interface;
 using TravelAgency.Model;
 using TravelAgency.Service;
 
 namespace TravelAgency.Repository
 {
-    internal class RequestTourRepository : RepositoryBase
+    internal class RequestTourRepository : RepositoryBase, IRequestTourRepository
     {
         public DataTable GetAllAsDataTable(DataTable dt)
         {

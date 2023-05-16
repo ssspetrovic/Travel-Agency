@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
 using iTextSharp.text;
+using TravelAgency.Interface;
 using TravelAgency.Model;
 using TravelAgency.Repository;
 
@@ -12,7 +13,7 @@ namespace TravelAgency.Service
 {
     public class TourService : RepositoryBase
     {
-        private readonly TourRepository _tourRepository;
+        private readonly ITourRepository _tourRepository;
         private readonly LocationService _locationService;
 
         public TourService()

@@ -1,10 +1,11 @@
 ﻿using Microsoft.Data.Sqlite;
 using System.Linq;
+using TravelAgency.Interface;
 using TravelAgency.Model;
 
 namespace TravelAgency.Repository
 {
-    internal class ActiveTourRepository : RepositoryBase
+    internal class ActiveTourRepository : RepositoryBase, IActiveTourRepository
     {
 
         public string GetAllKeyPoints(ActiveTour activeTour)
