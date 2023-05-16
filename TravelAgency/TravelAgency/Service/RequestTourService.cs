@@ -262,10 +262,6 @@ namespace TravelAgency.Service
             _requestTourRepository.Add(requestTour);
         }
 
-        public void UpdateStatus(Status newStatus)
-        {
-            _requestTourRepository.UpdateStatus(newStatus);
-        }
 
         private void UpdateStatusById(int id, Status newStatus)
         {
@@ -295,5 +291,15 @@ namespace TravelAgency.Service
                 }
             }
         }
+
+        public void ConfirmRequest(int requestId, string selectedDate)
+        {
+            var notificationService = new TouristNotificationService();
+            //notificationService.Add(new TouristNotification(
+            //    "tourist",
+            //    $"Your tour in {currentLocation} has been accepted. Selected date is: {CreateAcceptedTourDto.DateList.Split(",")[0]}",
+            //    NotificationStatus.Unread,
+            //    NotificationType.RequestAccepted));
+        }        
     }
 }

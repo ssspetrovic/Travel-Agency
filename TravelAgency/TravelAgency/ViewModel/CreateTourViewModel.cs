@@ -317,13 +317,8 @@ namespace TravelAgency.ViewModel
                     duration, ImagesList!));
                 MessageBox.Show("Tour Added Successfully.");
 
-                _requestTourService.UpdateStatus(Status.Updating);
-                var notificationService = new TouristNotificationService();
-                notificationService.Add(new TouristNotification(
-                    "tourist",
-                    $"Your tour in {currentLocation} has been accepted. Selected date is: {CreateAcceptedTourDto.DateList.Split(",")[0]}",
-                    NotificationStatus.Unread,
-                    NotificationType.RequestAccepted));
+                _requestTourService.ConfirmRequest(CreateAcceptedTourDto.RequestId,
+                    CreateAcceptedTourDto.DateList.Split(",")[0]);
             }
 
             else
