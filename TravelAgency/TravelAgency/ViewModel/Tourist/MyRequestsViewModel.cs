@@ -30,7 +30,7 @@ namespace TravelAgency.ViewModel.Tourist
             _navigationService = navigationService;
             _touristViewModel = touristViewModel;
             tourRequestService.UpdateAllRequestsStatuses();
-            _regularRequests = tourRequestService.GetAllForSelectedYearAsCollection(null);
+            _regularRequests = tourRequestService.GetAllForSelectedYearAsCollection(null, CurrentUser.Username);
             NavigateToStatisticsCommand = new RelayCommand(Execute_NavigateToStatisticsCommand);
         }
 

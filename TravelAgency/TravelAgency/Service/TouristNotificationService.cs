@@ -32,5 +32,11 @@ namespace TravelAgency.Service
         {
             _notificationRepository.UpdateStatus(id, newStatus);
         }
+
+        public void NotifyForNewTours(Location location, Language language)
+        {
+            var requestTourService = new RequestTourService();
+
+        }
     }
 }

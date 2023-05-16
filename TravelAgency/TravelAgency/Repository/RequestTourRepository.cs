@@ -87,25 +87,33 @@ namespace TravelAgency.Repository
             insertCommand.ExecuteNonQuery();
         }
 
-        public ObservableCollection<RequestTour> GetAllForSelectedYearAsCollection(string? year = null)
+        public ObservableCollection<RequestTour> GetAllForSelectedYearAsCollection(string? year = null, string? touristUsername = null)
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
 
             using var selectCommand = databaseConnection.CreateCommand();
 
+            if (year == null && touristUsername == null)
+            {
+                selectCommand.CommandText = "SELECT * FROM RequestedTour";
+            }
+
             if (year is "All years" or null)
             {
                 selectCommand.CommandText = "SELECT * FROM RequestedTour WHERE TouristUsername = $CurrentUserUsername";
+                selectCommand.Parameters.AddWithValue("$CurrentUserUsername", CurrentUser.Username);
+
             }
             else
             {
                 selectCommand.CommandText =
                     "SELECT * FROM RequestedTour WHERE TouristUsername = $CurrentUserUsername AND SUBSTR(DateRange, 7, 4) = $year OR SUBSTR(DateRange, -4, 4) = $year";
                 selectCommand.Parameters.AddWithValue("$year", year);
+                selectCommand.Parameters.AddWithValue("$CurrentUserUsername", CurrentUser.Username);
+
             }
 
-            selectCommand.Parameters.AddWithValue("$CurrentUserUsername", CurrentUser.Username);
             using var selectReader = selectCommand.ExecuteReader();
             var locationService = new LocationService();
 

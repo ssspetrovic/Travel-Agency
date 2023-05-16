@@ -49,7 +49,7 @@ namespace TravelAgency.Service
 
         private (int accepted, int total) GetAcceptedAndTotalRequests(string? year)
         {
-            var requests = _tourRequestService.GetAllForSelectedYearAsCollection(year);
+            var requests = _tourRequestService.GetAllForSelectedYearAsCollection(year, CurrentUser.Username);
             var acceptedRequests = requests.Count(r => r.Status == Status.Accepted);
             return (acceptedRequests, requests.Count);
         }
@@ -71,7 +71,7 @@ namespace TravelAgency.Service
         public double GetAverageRequestsByStatus(string? year,
             Status status = Status.Accepted)
         {
-            var requests = _tourRequestService.GetAllForSelectedYearAsCollection(year);
+            var requests = _tourRequestService.GetAllForSelectedYearAsCollection(year, CurrentUser.Username);
             var filteredRequests = requests.Where(request => request.Status == status);
 
             var regularTourRequests = filteredRequests.ToList();
@@ -82,7 +82,7 @@ namespace TravelAgency.Service
 
         public Dictionary<Language, int> GetLanguageCountDictionary(string? year)
         {
-            var requests = _tourRequestService.GetAllForSelectedYearAsCollection(year);
+            var requests = _tourRequestService.GetAllForSelectedYearAsCollection(year, CurrentUser.Username);
             var languageCountsDictionary = new Dictionary<Language, int>();
 
             foreach (var request in requests)
@@ -131,7 +131,7 @@ namespace TravelAgency.Service
 
         public Dictionary<string, int> GetLocationCountDictionary(string? year)
         {
-            var requests = _tourRequestService.GetAllForSelectedYearAsCollection(year);
+            var requests = _tourRequestService.GetAllForSelectedYearAsCollection(year, CurrentUser.Username);
             var locationCountDictionary = new Dictionary<string, int>();
 
             foreach (var request in requests)

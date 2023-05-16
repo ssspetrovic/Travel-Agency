@@ -262,15 +262,14 @@ namespace TravelAgency.Service
             _requestTourRepository.Add(requestTour);
         }
 
-
         private void UpdateStatusById(int id, Status newStatus)
         {
             _requestTourRepository.UpdateStatusById(id, newStatus);
         }
 
-        public ObservableCollection<RequestTour> GetAllForSelectedYearAsCollection(string? year = null)
+        public ObservableCollection<RequestTour> GetAllForSelectedYearAsCollection(string? year = null, string? touristUsername = null)
         {
-            return _requestTourRepository.GetAllForSelectedYearAsCollection(year);
+            return _requestTourRepository.GetAllForSelectedYearAsCollection(year, touristUsername);
         }
 
         public ObservableCollection<string> GetAllYearsAsCollection()
@@ -315,6 +314,6 @@ namespace TravelAgency.Service
                 $"Your tour for {request.Location} has been accepted. Accepted date was: {request.AcceptedDate}",
                 NotificationStatus.Unread,
                 NotificationType.RequestAccepted));
-        }        
+        }
     }
 }
