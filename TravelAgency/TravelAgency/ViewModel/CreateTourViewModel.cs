@@ -317,8 +317,13 @@ namespace TravelAgency.ViewModel
                     duration, ImagesList!));
                 MessageBox.Show("Tour Added Successfully.");
 
-                _requestTourService.ConfirmRequest(CreateAcceptedTourDto.RequestId,
-                    CreateAcceptedTourDto.DateList.Split(",")[0]);
+                if (CreateAcceptedTourDto.RequestId != -1)
+                {
+                    _requestTourService.ConfirmRequest(CreateAcceptedTourDto.RequestId,
+                        CreateAcceptedTourDto.DateList.Split(",")[0]);
+
+                    CreateAcceptedTourDto.RequestId = -1;
+                }
             }
 
             else
