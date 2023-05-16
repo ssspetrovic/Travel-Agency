@@ -21,8 +21,8 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="90" />
-            <RowDefinition Height="290" />
-            <RowDefinition Height="250" />
+            <RowDefinition Height="590" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <TextBlock
             Grid.Row="0"
@@ -43,7 +43,7 @@
                 CornerRadius="10">
                 <ListView
                     Width="720"
-                    Height="200"
+                    Height="400"
                     HorizontalAlignment="Center"
                     HorizontalContentAlignment="Center"
                     d:ItemsSource="{d:SampleData ItemCount=4}"
@@ -101,7 +101,7 @@
                 Command="{Binding NavigateToStatisticsCommand}"
                 Content="Statistics" />
         </StackPanel>
-        <StackPanel Grid.Row="2" Margin="40,0">
+        <!--<StackPanel Grid.Row="2" Margin="40,0">
             <Label
                 Margin="10,0"
                 Content="Complex requests"
@@ -130,6 +130,6 @@
                     </ListView.View>
                 </ListView>
             </Border>
-        </StackPanel>
+        </StackPanel>-->
     </Grid>
 </Page>

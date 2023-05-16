@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Navigation;
 using TravelAgency.Command;
 using TravelAgency.Model;
@@ -29,7 +30,18 @@ namespace TravelAgency.ViewModel.Tourist
             var tourRequestService = new RequestTourService();
             _navigationService = navigationService;
             _touristViewModel = touristViewModel;
+
             _regularRequests = tourRequestService.GetAllForSelectedYearAsCollection(null, CurrentUser.Username);
+            _regularRequests= new ObservableCollection<RequestTour>(
+                _regularRequests.Select(request =>
+                {
+                    if (string.IsNullOrEmpty(request.AcceptedDate))
+                    {
+                        request.AcceptedDate = "/";
+                    }
+                    return request;
+                }));
+
             NavigateToStatisticsCommand = new RelayCommand(Execute_NavigateToStatisticsCommand);
         }
 
