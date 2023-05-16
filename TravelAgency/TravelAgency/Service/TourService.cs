@@ -14,13 +14,11 @@ namespace TravelAgency.Service
     {
         private readonly TourRepository _tourRepository;
         private readonly LocationService _locationService;
-        private readonly RequestTourService _requestTourService;
 
         public TourService()
         {
             _tourRepository = new TourRepository();
             _locationService = new LocationService();
-            _requestTourService = new RequestTourService();
         }
 
         public List<Location?> GetKeyPoints(string keyPoints)
@@ -143,14 +141,6 @@ namespace TravelAgency.Service
             insertCommand.Parameters.AddWithValue("$Duration", tour.Duration);
             insertCommand.Parameters.AddWithValue("$Images", tour.Photos);
             insertCommand.ExecuteNonQuery();
-
-            _requestTourService.UpdateStatus(Status.Updating);
-            var notificationService = new TouristNotificationService();
-            notificationService.Add(new TouristNotification(
-                "tourist",
-                $"Your tour in {tour.Location} has been accepted. Selected date was: {tour.Date}",
-                NotificationStatus.Unread,
-                NotificationType.RequestAccepted));
         }
 
         public bool CheckIfDatesExist(string dates)

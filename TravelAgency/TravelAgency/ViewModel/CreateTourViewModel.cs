@@ -45,11 +45,13 @@ namespace TravelAgency.ViewModel
 
         private readonly TourService _tourService;
         private readonly LocationService _locationService;
+        private readonly RequestTourService _requestTourService;
 
         public CreateTourViewModel()
         {
             _tourService = new TourService();
             _locationService = new LocationService();
+            _requestTourService = new RequestTourService();
             CreateTourCommand = new MyICommand<string>(Confirm);
             KeyPointsCommands = new MyICommand<string>(KeyPoints);
             ImagesCommands = new MyICommand<string>(Images);
@@ -61,7 +63,7 @@ namespace TravelAgency.ViewModel
 
             if (_comboBoxLocation != string.Empty)
             {
-                _locationIndex = _locationService.GetByCity(_comboBoxLocation)!.Id -1;
+                _locationIndex = _locationService.GetByCity(_comboBoxLocation)!.Id - 1;
                 _keyPointsList = _comboBoxLocation;
                 _locationBackground = Brushes.Gray;
                 _locationFocus = false;
@@ -69,7 +71,7 @@ namespace TravelAgency.ViewModel
 
             if (_comboBoxLanguage != string.Empty)
             {
-                _languageIndex = (int) Enum.Parse(typeof(Language), _comboBoxLanguage);
+                _languageIndex = (int)Enum.Parse(typeof(Language), _comboBoxLanguage);
                 _languageBackground = Brushes.Gray;
                 _languageFocus = false;
             }
@@ -116,7 +118,7 @@ namespace TravelAgency.ViewModel
                 _locationBackground = value;
                 OnPropertyChanged();
             }
-        } 
+        }
         public SolidColorBrush LanguageBackground
         {
             get => _languageBackground;
@@ -125,7 +127,7 @@ namespace TravelAgency.ViewModel
                 _languageBackground = value;
                 OnPropertyChanged();
             }
-        } 
+        }
         public SolidColorBrush GuestsBackground
         {
             get => _guestsBackground;
@@ -197,7 +199,7 @@ namespace TravelAgency.ViewModel
                     if (KeyPointsList != null)
                         hasText = KeyPointsList.Contains(ComboBoxKeyPoints);
 
-                    if(KeyPointsList != null)
+                    if (KeyPointsList != null)
                         if (KeyPointsList.Contains(",, "))
                             ComboBoxKeyPoints = ComboBoxKeyPoints.Replace(",, ", ", ");
 
@@ -205,16 +207,16 @@ namespace TravelAgency.ViewModel
                     {
                         if (string.IsNullOrEmpty(KeyPointsList))
                             KeyPointsList = ComboBoxKeyPoints;
-                        
+
                         else
                             KeyPointsList += ", " + ComboBoxKeyPoints;
                     }
 
-                    if(KeyPointsList != null)
+                    if (KeyPointsList != null)
                         if (KeyPointsList.StartsWith(", "))
                             KeyPointsList = KeyPointsList.Substring(2, KeyPointsList.Length - 2);
 
-                    ComboBoxKeyPoints = ""; 
+                    ComboBoxKeyPoints = "";
                     break;
 
                 case "Delete":
@@ -231,10 +233,10 @@ namespace TravelAgency.ViewModel
                     if (ImagesText == null) break;
                     var hasText = false;
 
-                    if(ImagesList != null)
-                       hasText = ImagesList.Contains(ImagesText);
+                    if (ImagesList != null)
+                        hasText = ImagesList.Contains(ImagesText);
 
-                    if(ImagesList != null)
+                    if (ImagesList != null)
                         if (ImagesList.Contains(",, "))
                             ImagesList = ImagesList.Replace(",, ", ", ");
 
@@ -244,9 +246,9 @@ namespace TravelAgency.ViewModel
                             ImagesList = ImagesText;
                         else
                             ImagesList += ", " + ImagesText;
-                    }                        
+                    }
 
-                    if(ImagesList != null)
+                    if (ImagesList != null)
                         if (ImagesList.StartsWith(", "))
                             ImagesList = ImagesList.Substring(2, ImagesList.Length - 2);
 
@@ -268,10 +270,10 @@ namespace TravelAgency.ViewModel
                     var date = Convert.ToDateTime(DatePick).ToString("MM/dd/yyyy", new CultureInfo("en-US"));
                     var hasText = false;
 
-                    if(DateList != null)
+                    if (DateList != null)
                         hasText = DateList.Contains(date);
 
-                    if(DateList != null)
+                    if (DateList != null)
                         if (DateList.Contains(",, "))
                             DateList = DateList.Replace(",, ", ", ");
 
@@ -283,7 +285,7 @@ namespace TravelAgency.ViewModel
                             DateList += ", " + date;
                     }
 
-                    if(DateList != null)
+                    if (DateList != null)
                         if (DateList.StartsWith(", "))
                             DateList = DateList.Substring(2, DateList.Length - 2);
 
@@ -300,7 +302,7 @@ namespace TravelAgency.ViewModel
         private void Confirm(string create)
         {
             if (!IsCreateTourEnabled) return;
-            if (create != "Create" && create != "Button" ) return;
+            if (create != "Create" && create != "Button") return;
             var currentLocation = _locationService.GetByCity(ComboBoxLocation!);
             var maxGuests = int.Parse(MaxGuestsText!);
             var duration = float.Parse(DurationText!);
@@ -314,6 +316,14 @@ namespace TravelAgency.ViewModel
                     DescriptionText!, language, maxGuests, locationList, DateList!,
                     duration, ImagesList!));
                 MessageBox.Show("Tour Added Successfully.");
+
+                _requestTourService.UpdateStatus(Status.Updating);
+                var notificationService = new TouristNotificationService();
+                notificationService.Add(new TouristNotification(
+                    "tourist",
+                    $"Your tour in {currentLocation} has been accepted. Selected date is: {CreateAcceptedTourDto.DateList.Split(",")[0]}",
+                    NotificationStatus.Unread,
+                    NotificationType.RequestAccepted));
             }
 
             else
