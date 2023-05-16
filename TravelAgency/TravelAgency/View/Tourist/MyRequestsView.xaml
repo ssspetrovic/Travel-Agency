@@ -32,7 +32,7 @@
             FontWeight="Medium"
             Style="{StaticResource MaterialDesignHeadline1TextBlock}"
             Text="My requests" />
-        <StackPanel Grid.Row="1" Margin="40,0">
+        <StackPanel Grid.Row="1" Margin="30,0">
             <Label
                 Margin="10,0"
                 Content="Regular requests"
@@ -42,7 +42,7 @@
                 BorderThickness="2"
                 CornerRadius="10">
                 <ListView
-                    Width="720"
+                    Width="730"
                     Height="400"
                     HorizontalAlignment="Center"
                     HorizontalContentAlignment="Center"
