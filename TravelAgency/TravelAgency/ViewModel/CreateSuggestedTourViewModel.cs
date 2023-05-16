@@ -41,6 +41,7 @@ namespace TravelAgency.ViewModel
             var currentWindow = Application.Current.Windows.OfType<Guide>().FirstOrDefault();
             var newWindow = new Guide();
             if (newWindow.DataContext is not GuideViewModel guideViewModel) return;
+            CreateAcceptedTourDto.IsFromStatistics = true;
             guideViewModel.CurrentViewModel = new CreateTourViewModel();
             newWindow.Title = "Create Tour";
             newWindow.Show();
