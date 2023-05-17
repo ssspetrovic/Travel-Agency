@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Windows.Documents;
+﻿using System.Collections.Generic;
+using System.Linq;
 using TravelAgency.Model;
 using TravelAgency.Service;
 
@@ -15,12 +13,13 @@ namespace TravelAgency.ViewModel.Tourist
         public TourViewModel(Tour tour)
         {
             Tour = tour;
-            KeyPoints = Tour.KeyPoints.ToString()!;
+            KeyPoints = GetFormattedKeyPoints(tour.KeyPoints);
         }
 
-        private void GetFormattedKeyPoints(List<Location?> keyPoints)
+        private string GetFormattedKeyPoints(List<Location?> keyPoints)
         {
-
+            var locationService = new LocationService();
+            return keyPoints.Aggregate(string.Empty, (current, location) => current + " - " + locationService.GetById(location!.Id)! + "\r\n");
         }
     }
 }
