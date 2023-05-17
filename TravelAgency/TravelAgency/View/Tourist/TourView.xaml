@@ -24,7 +24,6 @@
             <RowDefinition Height="90" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-
         <TextBlock
             Grid.Row="0"
             HorizontalAlignment="Center"
@@ -33,7 +32,7 @@
             FontWeight="Medium"
             Style="{StaticResource MaterialDesignHeadline1TextBlock}"
             Text="Tour overview" />
-        <Grid Grid.Row="1" Margin="30,0,30,30">
+        <Grid Grid.Row="1" Margin="40,0,40,40">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -45,7 +44,7 @@
             <StackPanel
                 Grid.Row="0"
                 Grid.Column="0"
-                Margin="10,0,10,10">
+                Margin="10,0,20,10">
                 <Label
                     Margin="10,0"
                     Content="Basic information"
@@ -54,12 +53,87 @@
                     Height="220"
                     BorderBrush="{StaticResource MaterialDesignDivider}"
                     BorderThickness="2"
-                    CornerRadius="10" />
+                    CornerRadius="10">
+                    <Grid Margin="50,10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Label
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            Content="Name:" />
+                        <Label
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Right"
+                            d:Content="Name" />
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            Content="City:" />
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Right"
+                            d:Content="City" />
+                        <Label
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            Content="Country:" />
+                        <Label
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Right"
+                            d:Content="Country" />
+                        <Label
+                            Grid.Row="3"
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            Content="Language:" />
+                        <Label
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Right"
+                            d:Content="Language" />
+                        <Label
+                            Grid.Row="4"
+                            Grid.Column="0"
+                            Margin="0,5,0,0"
+                            VerticalAlignment="Center"
+                            VerticalContentAlignment="Bottom"
+                            Content="Description:" />
+                        <Label
+                            Grid.Row="5"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            VerticalAlignment="Center">
+                            <Label.Content>
+                                <TextBlock d:Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit." TextWrapping="Wrap" />
+                            </Label.Content>
+                        </Label>
+                    </Grid>
+                </Border>
             </StackPanel>
             <StackPanel
                 Grid.Row="0"
                 Grid.Column="1"
-                Margin="10,0,10,10">
+                Margin="20,0,10,10">
                 <Label
                     Margin="10,0"
                     Content="Details"
@@ -68,9 +142,59 @@
                     Height="220"
                     BorderBrush="{StaticResource MaterialDesignDivider}"
                     BorderThickness="2"
-                    CornerRadius="10" />
+                    CornerRadius="10">
+                    <Grid Margin="50,10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Label
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            Content="Available spots:" />
+                        <Label
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Right"
+                            d:Content="XX" />
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            Content="Duration:" />
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Right"
+                            d:Content="XX" />
+                        <Label
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            Margin="0,5,0,0"
+                            VerticalAlignment="Center"
+                            VerticalContentAlignment="Bottom"
+                            Content="Key points:" />
+                        <Label
+                            Grid.Row="3"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            VerticalAlignment="Center">
+                            <Label.Content>
+                                <TextBlock d:Text="Lorem" TextWrapping="Wrap" />
+                            </Label.Content>
+                        </Label>
+                    </Grid>
+                </Border>
             </StackPanel>
-
             <Border
                 Grid.Row="1"
                 Grid.Column="0"
@@ -79,7 +203,18 @@
                 Margin="10"
                 BorderBrush="{StaticResource MaterialDesignDivider}"
                 BorderThickness="2"
-                CornerRadius="10" />
+                CornerRadius="10">
+                <Grid Margin="10,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0" Margin="10,0" />
+                    <Image Grid.Column="1" Margin="10,0" />
+                    <Image Grid.Column="2" Margin="10,0" />
+                </Grid>
+            </Border>
         </Grid>
     </Grid>
 </Page>
