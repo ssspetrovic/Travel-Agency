@@ -313,9 +313,17 @@ namespace TravelAgency.ViewModel
 
             if (currentLocation != null)
             {
+                foreach(var tour in _tourService.GetAllAsCollection())
+                {
+                    if (tour.Name != NameText!) continue;
+                    NameText = "";
+                    ErrorMessageText = "Tour with the name " + NameText! + " already exists!";
+                    return;
+                }
+                
                 _tourService.Add(new Tour(NameText!, currentLocation,
-                    DescriptionText!, language, maxGuests, locationList, DateList!,
-                    duration, ImagesList!));
+                DescriptionText!, language, maxGuests, locationList, DateList!,
+                duration, ImagesList!));
                 MessageBox.Show("Tour Added Successfully.");
 
                 if (CreateAcceptedTourDto.RequestId != -1)
