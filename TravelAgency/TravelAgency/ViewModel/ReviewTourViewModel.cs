@@ -12,6 +12,7 @@ namespace TravelAgency.ViewModel
         private readonly TourService _tourService;
         private string _reportedComment;
         private string _reportedTourist;
+        private bool _isReportEnabled;
         public string CurrentReviewTourName;
 
         public ReviewTourViewModel()
@@ -31,7 +32,10 @@ namespace TravelAgency.ViewModel
         {
             if (ReportedComment.Length == 0)
                 if (SelectedTourIndex >= 0)
+                {
+                    IsReportEnabled = true;
                     SelectComment(Comments[SelectedTourIndex], Tourists[SelectedTourIndex]);
+                }                
                 else
                     MessageBox.Show("You have no comments selected!");
             else
@@ -40,6 +44,7 @@ namespace TravelAgency.ViewModel
                 OnPropertyChanged(nameof(Ratings));
                 OnPropertyChanged(nameof(AverageRating));
                 SelectComment("", "");
+                IsReportEnabled = false;
             }
         }
 
@@ -83,6 +88,16 @@ namespace TravelAgency.ViewModel
             set
             {
                 _reportedTourist = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool IsReportEnabled
+        {
+            get => _isReportEnabled;
+            set
+            {
+                _isReportEnabled = value;
                 OnPropertyChanged();
             }
         }

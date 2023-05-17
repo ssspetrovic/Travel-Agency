@@ -74,11 +74,13 @@ namespace TravelAgency.ViewModel
                     _touristService.UpdateAppearance(tourist.Id, TouristAppearance.Unknown);
                 }
                 _tourService.Remove(deletedTour.Id);
+                MessageBox.Show("The tour " + deletedTour.Name + " has been completely removed!");
             }
             else
             {
                 var cancelledDate = SelectedDate;
                 _tourService.RemoveDate(cancelledDate, tourDates, deletedTour.Id);
+                MessageBox.Show("The tour " + deletedTour.Name + " has been cancelled on " + cancelledDate);
             }
         }
 

@@ -105,7 +105,7 @@
             FontSize="14"
             FontWeight="DemiBold"
             Foreground="#4fc3f7"
-            Text="Use Tab to select a tour, Enter to select the tour you wish to start or press P to show its pictures!" />
+            Text="Pse Tab to select a tour, Enter to select the tour you wish to start or press P to show its pictures!" />
 
     </Grid>
 </UserControl>

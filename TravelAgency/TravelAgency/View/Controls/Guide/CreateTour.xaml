@@ -355,7 +355,6 @@
                 </b:Interaction.Triggers>
             </Button>
 
-
             <TextBlock
                 Name="ErrorMessageText"
                 Margin="0,0,0,0"
@@ -372,7 +371,7 @@
                 FontSize="14"
                 FontWeight="DemiBold"
                 Foreground="#4fc3f7"
-                Text="Use Tab to focus on the next parameter and Delete to clear a list!" />
+                Text="Press Tab to focus on the next parameter and Delete to clear a list!" />
         </StackPanel>
 
 

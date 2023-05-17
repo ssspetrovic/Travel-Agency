@@ -57,6 +57,7 @@ namespace TravelAgency.ViewModel
 
                     foreach (var date in dates)
                     {
+                        if (date == "DONE") break;
                         var convertedDate = DateTime.Parse(date, new CultureInfo("en-US"));
                         var twoDaysAgo = DateTime.Today.AddDays(2);
                         if (convertedDate < twoDaysAgo) continue;

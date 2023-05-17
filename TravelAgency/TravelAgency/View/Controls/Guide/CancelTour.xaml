@@ -12,69 +12,84 @@
     Background="Transparent"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     mc:Ignorable="d">
+    <StackPanel>
+        <ListView
+            Focusable="False"
+            Foreground="#68cbf8"
+            IsTabStop="True"
+            ItemsSource="{Binding CancelTours}"
+            KeyboardNavigation.TabIndex="0"
+            KeyboardNavigation.TabNavigation="Cycle"
+            SelectedIndex="{Binding SelectedTourIndex}"
+            SelectedItem="{Binding SelectedTour}">
+            <b:Interaction.Triggers>
+                <b:KeyTrigger Key="Tab">
+                    <b:InvokeCommandAction Command="{Binding TabPressedCommand}" />
+                </b:KeyTrigger>
+                <b:KeyTrigger Key="P" ActiveOnFocus="True">
+                    <b:InvokeCommandAction Command="{Binding CancelTourCommands}" CommandParameter="KeyPPressed" />
+                </b:KeyTrigger>
+                <b:KeyTrigger Key="Enter" ActiveOnFocus="True">
+                    <b:InvokeCommandAction Command="{Binding CancelTourCommands}" CommandParameter="EnterPressed" />
+                </b:KeyTrigger>
+            </b:Interaction.Triggers>
+            <ListView.View>
+                <GridView>
+                    <GridView.ColumnHeaderContainerStyle>
+                        <Style TargetType="{x:Type GridViewColumnHeader}">
+                            <Setter Property="Foreground" Value="#68cbf8" />
+                            <Setter Property="FontWeight" Value="Bold" />
+                            <Setter Property="FontSize" Value="15" />
+                        </Style>
+                    </GridView.ColumnHeaderContainerStyle>
+                    <GridViewColumn
+                        Width="200"
+                        DisplayMemberBinding="{Binding Path=Name}"
+                        Header="Name" />
+                    <GridViewColumn
+                        Width="200"
+                        DisplayMemberBinding="{Binding Path=Location_Id}"
+                        Header="Location" />
+                    <GridViewColumn
+                        Width="200"
+                        DisplayMemberBinding="{Binding Path=Date}"
+                        Header="Date" />
+                    <GridViewColumn
+                        Width="200"
+                        DisplayMemberBinding="{Binding Path=Language}"
+                        Header="Language" />
+                    <GridViewColumn
+                        Width="200"
+                        DisplayMemberBinding="{Binding Path=MaxGuests}"
+                        Header="Max Guests" />
+                    <GridViewColumn
+                        Width="200"
+                        DisplayMemberBinding="{Binding Path=LocationList}"
+                        Header="Key Points" />
+                    <GridViewColumn
+                        Width="200"
+                        DisplayMemberBinding="{Binding Path=Duration}"
+                        Header="Duration" />
+                </GridView>
+            </ListView.View>
+        </ListView>
 
-    <ListView
-        Focusable="False"
-        Foreground="#68cbf8"
-        IsTabStop="True"
-        ItemsSource="{Binding CancelTours}"
-        KeyboardNavigation.TabIndex="0"
-        KeyboardNavigation.TabNavigation="Cycle"
-        SelectedIndex="{Binding SelectedTourIndex}"
-        SelectedItem="{Binding SelectedTour}">
-        <b:Interaction.Triggers>
-            <b:KeyTrigger Key="Tab">
-                <b:InvokeCommandAction Command="{Binding TabPressedCommand}" />
-            </b:KeyTrigger>
-            <b:KeyTrigger Key="P" ActiveOnFocus="True">
-                <b:InvokeCommandAction Command="{Binding CancelTourCommands}" CommandParameter="KeyPPressed" />
-            </b:KeyTrigger>
-            <b:KeyTrigger Key="Enter" ActiveOnFocus="True">
-                <b:InvokeCommandAction Command="{Binding CancelTourCommands}" CommandParameter="EnterPressed" />
-            </b:KeyTrigger>
-        </b:Interaction.Triggers>
-        <ListView.View>
-            <GridView>
-                <GridView.ColumnHeaderContainerStyle>
-                    <Style TargetType="{x:Type GridViewColumnHeader}">
-                        <Setter Property="Foreground" Value="#68cbf8" />
-                        <Setter Property="FontWeight" Value="Bold" />
-                        <Setter Property="FontSize" Value="15" />
-                    </Style>
-                </GridView.ColumnHeaderContainerStyle>
-                <GridViewColumn
-                    Width="200"
-                    DisplayMemberBinding="{Binding Path=Name}"
-                    Header="Name" />
-                <GridViewColumn
-                    Width="200"
-                    DisplayMemberBinding="{Binding Path=Location_Id}"
-                    Header="Location" />
-                <GridViewColumn
-                    Width="200"
-                    DisplayMemberBinding="{Binding Path=Description}"
-                    Header="Description" />
-                <GridViewColumn
-                    Width="200"
-                    DisplayMemberBinding="{Binding Path=Language}"
-                    Header="Language" />
-                <GridViewColumn
-                    Width="200"
-                    DisplayMemberBinding="{Binding Path=MaxGuests}"
-                    Header="Max Guests" />
-                <GridViewColumn
-                    Width="200"
-                    DisplayMemberBinding="{Binding Path=LocationList}"
-                    Header="Key Points" />
-                <GridViewColumn
-                    Width="200"
-                    DisplayMemberBinding="{Binding Path=Date}"
-                    Header="Date" />
-                <GridViewColumn
-                    Width="200"
-                    DisplayMemberBinding="{Binding Path=Duration}"
-                    Header="Duration" />
-            </GridView>
-        </ListView.View>
-    </ListView>
+        <TextBlock
+            Padding="0,50"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="14"
+            FontWeight="DemiBold"
+            Foreground="#4fc3f7"
+            Text="Press Tab to select a tour, Enter to select the tour you wish to cancel or press P to show its pictures!" />
+        <TextBlock
+            Padding="0,110"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            FontSize="14"
+            FontWeight="DemiBold"
+            Foreground="#4fc3f7"
+            Text="*NOTE - You can only cancel dates that are 48 hours from Tour commencement!" />
+
+    </StackPanel>
 </UserControl>

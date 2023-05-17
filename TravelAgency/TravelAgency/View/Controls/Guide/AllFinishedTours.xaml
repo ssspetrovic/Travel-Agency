@@ -85,7 +85,7 @@
                                     Foreground="#fffafa"
                                     Icon="Home"
                                     Style="{StaticResource MenuButtonIcon}" />
-                                <TextBlock Style="{StaticResource MenuButtonText}" Text="Home Page" />
+                                <TextBlock Style="{StaticResource MenuButtonText}" Text="Home Page (F1)" />
                             </StackPanel>
                             <b:Interaction.Triggers>
                                 <b:KeyTrigger Key="F1">
@@ -104,7 +104,7 @@
                                     Foreground="#fffafa"
                                     Icon="ClipboardList"
                                     Style="{StaticResource MenuButtonIcon}" />
-                                <TextBlock Style="{StaticResource MenuButtonText}" Text="Back To Tour Stats" />
+                                <TextBlock Style="{StaticResource MenuButtonText}" Text="Back To Tour Stats (Esc)" />
                             </StackPanel>
                             <b:Interaction.Triggers>
                                 <b:KeyTrigger Key="F2">
@@ -133,6 +133,7 @@
                             <RowDefinition Height="25" />
                             <RowDefinition Height="35" />
                             <RowDefinition Height="*" />
+                            <RowDefinition Height="50" />
                         </Grid.RowDefinitions>
 
                         <StackPanel
@@ -214,7 +215,7 @@
 
                         </Grid>
 
-                        <Grid Grid.Row="2" Margin="25">
+                        <Grid Grid.Row="2" Margin="20">
                             <ListView
                                 x:Name="FinishedToursListView"
                                 Margin="10"
@@ -264,6 +265,14 @@
                             </ListView>
                         </Grid>
 
+                        <TextBlock
+                            Grid.Row="3"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="14"
+                            FontWeight="DemiBold"
+                            Foreground="#4fc3f7"
+                            Text="Press Tab to select a Tour, Enter to check its stats!" />
 
                     </Grid>
 

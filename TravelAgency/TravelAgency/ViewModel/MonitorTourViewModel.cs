@@ -65,12 +65,6 @@ namespace TravelAgency.ViewModel
                         selectedTour = _tourService.GetByName(SelectedTour!["Name"].ToString());
                 }
 
-                if (!selectedTour.Date.Contains(DateTime.Today.ToString("MM/dd/yyyy", new CultureInfo("en-US"))))
-                {
-                    MessageBox.Show("This tours is not reserved for today!");
-                    return;
-                }
-
                 var tourists = _touristService.GetByTour(selectedTour);
 
                 var activeKeyPoints = selectedTour.KeyPoints.ToDictionary(location => location!.Id, _ => false);

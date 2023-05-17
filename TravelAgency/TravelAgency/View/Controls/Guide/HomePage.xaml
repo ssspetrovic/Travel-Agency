@@ -82,7 +82,7 @@
             FontSize="14"
             FontWeight="DemiBold"
             Foreground="#4fc3f7"
-            Text="Use Tab to select a tour, and press enter to show its pictures!" />
+            Text="Press Tab to select a tour, and press Enter to show its pictures!" />
     </StackPanel>
 
 </UserControl>
