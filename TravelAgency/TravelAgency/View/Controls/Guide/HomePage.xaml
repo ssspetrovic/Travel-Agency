@@ -50,24 +50,24 @@
                         Header="Location" />
                     <GridViewColumn
                         Width="200"
-                        DisplayMemberBinding="{Binding Path=Description}"
-                        Header="Description" />
+                        DisplayMemberBinding="{Binding Path=Date}"
+                        Header="Date" />
                     <GridViewColumn
                         Width="200"
                         DisplayMemberBinding="{Binding Path=Language}"
                         Header="Language" />
                     <GridViewColumn
                         Width="200"
-                        DisplayMemberBinding="{Binding Path=MaxGuests}"
-                        Header="Max Guests" />
-                    <GridViewColumn
-                        Width="200"
                         DisplayMemberBinding="{Binding Path=LocationList}"
                         Header="Key Points" />
                     <GridViewColumn
                         Width="200"
-                        DisplayMemberBinding="{Binding Path=Date}"
-                        Header="Date" />
+                        DisplayMemberBinding="{Binding Path=Description}"
+                        Header="Description" />
+                    <GridViewColumn
+                        Width="200"
+                        DisplayMemberBinding="{Binding Path=MaxGuests}"
+                        Header="Max Guests" />
                     <GridViewColumn
                         Width="200"
                         DisplayMemberBinding="{Binding Path=Duration}"
