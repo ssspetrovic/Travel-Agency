@@ -107,11 +107,9 @@ namespace TravelAgency.Service
 
         public bool IsTourRateable(string? touristUsername, string? tourName)
         {
-            if (_touristService.GetTouristAppearance(touristUsername) != TouristAppearance.Present)
-                return false;
-
-            var finishedTourService = new FinishedTourService();
-            return !finishedTourService.CheckExistingTours(_tourService.GetByName(tourName));
+            return _touristService.GetTouristAppearance(touristUsername) == TouristAppearance.Present;
+            //var finishedTourService = new FinishedTourService();
+            //return !finishedTourService.CheckExistingTours(_tourService.GetByName(tourName));
         }
     }
 }

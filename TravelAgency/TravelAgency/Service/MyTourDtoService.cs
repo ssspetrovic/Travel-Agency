@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Globalization;
-using System.Windows.Controls;
 using System.Windows.Forms;
 using TravelAgency.DTO;
 using TravelAgency.Model;
 using TravelAgency.Repository;
-using TravelAgency.View.Tourist;
-using static System.Windows.Application;
 
 namespace TravelAgency.Service
 {
@@ -38,6 +35,11 @@ namespace TravelAgency.Service
         public void UpdateKeyPoint(string tourName, string newKeyPoint)
         {
             _myTourDtoRepository.UpdateKeyPoint(tourName, newKeyPoint);
+        }
+
+        public MyTourDto.TourStatus GetStatusByName(string name)
+        {
+            return _myTourDtoRepository.GetStatusByName(name);
         }
 
         public ObservableCollection<MyTourDto> GetAllAsCollection()
@@ -72,19 +74,7 @@ namespace TravelAgency.Service
 
         public void JoinTour(MyTourDto? selectedTour)
         {
-            if (selectedTour == null)
-            {
-                MessageBox.Show("No tour selected!", "Error");
-                return;
-            }
-
-            if (selectedTour.Status != MyTourDto.TourStatus.Active)
-            {
-                MessageBox.Show("Cannot join this tour!", "Error");
-                return;
-            }
-
-            UpdateStatus(selectedTour.Name, MyTourDto.TourStatus.Requested);
+            UpdateStatus(selectedTour!.Name, MyTourDto.TourStatus.Requested);
 
             var touristService = new TouristService();
             touristService.JoinTour(CurrentUser.Username, selectedTour.TourId, selectedTour.Location.City);

@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Data;
 using System.Windows.Navigation;
@@ -72,28 +73,43 @@ namespace TravelAgency.ViewModel.Tourist
         {
             if (parameter is not TouristNotification notification) return;
 
-            if (notification.Type == NotificationType.NewOffer)
+            switch (notification.Type)
             {
-                var tourService = new TourService();
-                Tour = tourService.GetByName(notification.TourName);
-                _navigationService.Navigate(new TourView(Tour));
-            }
-            else
-            {
-                var touristService = new TouristService();
+                case NotificationType.NewOffer:
+                {
+                    var tourService = new TourService();
+                    Tour = tourService.GetByName(notification.TourName);
+                    _navigationService.Navigate(new TourView(Tour));
+                    break;
+                }
+                case NotificationType.Attendance:
+                {
+                    var touristService = new TouristService();
 
-                if (!IsAttendanceConfirmed(notification.TourName)) return;
-                touristService.UpdateAppearanceByUsername(notification.TouristUsername, TouristAppearance.Present);
+                    if (!IsAttendanceConfirmed(notification.NotificationText)) return;
+                    touristService.UpdateAppearanceByUsername(notification.TouristUsername, TouristAppearance.Present);
 
-                var myTourDtoService = new MyTourDtoService();
-                myTourDtoService.UpdateStatus(notification.TourName, MyTourDto.TourStatus.Attending);
+                    var myTourDtoService = new MyTourDtoService();
+                    myTourDtoService.UpdateStatus(notification.TourName, MyTourDto.TourStatus.Attending);
+                    _touristNotificationService.UpdateType(notification.Id, NotificationType.NaN);
+                    _navigationService.Navigate(new MyToursView(_navigationService, _touristViewModel));
+                    break;
+                }
+                case NotificationType.RequestAccepted:
+                    _navigationService.Navigate(new MyRequestsView(_navigationService, _touristViewModel));
+                    break;
+                case NotificationType.NewVoucher:
+                    break;
+                case NotificationType.NaN:
+                default:
+                    break;
             }
         }
 
         private bool CanExecute_ViewNotificationCommand(object parameter)
         {
             if (parameter is TouristNotification notification)
-                return notification.Type != NotificationType.NewVoucher;
+                return notification.Type != NotificationType.NewVoucher && notification.Type != NotificationType.NaN;
 
             return false;
         }

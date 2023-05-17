@@ -10,7 +10,9 @@
     {
         NewOffer,
         RequestAccepted,
-        NewVoucher
+        NewVoucher,
+        Attendance,
+        NaN
     }
 
     internal class TouristNotification

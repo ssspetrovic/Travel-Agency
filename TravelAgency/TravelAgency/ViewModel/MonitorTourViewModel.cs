@@ -74,7 +74,10 @@ namespace TravelAgency.ViewModel
                 _activeTourService.Add(new ActiveTour(selectedTour.Name, activeKeyPoints, tourists, currentKeyPoint.City));
 
                 var myTourDtoService = new MyTourDtoService();
-                myTourDtoService.UpdateStatus(selectedTour.Name, MyTourDto.TourStatus.Active);
+
+                if (myTourDtoService.GetStatusByName(selectedTour.Name) == MyTourDto.TourStatus.Inactive)
+                    myTourDtoService.UpdateStatus(selectedTour.Name, MyTourDto.TourStatus.Active);
+                
                 myTourDtoService.UpdateKeyPoint(selectedTour.Name, currentKeyPoint.ToString());
             }
 

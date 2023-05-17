@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using Microsoft.Data.Sqlite;
 using TravelAgency.DTO;
 using TravelAgency.Model;
 
@@ -22,7 +23,15 @@ namespace TravelAgency.Repository
             insertCommand.Parameters.AddWithValue("$TourName", notification.TourName);
             insertCommand.Parameters.AddWithValue("$Status", notification.Status);
             insertCommand.Parameters.AddWithValue("$Type", notification.Type);
-            insertCommand.ExecuteNonQuery();
+
+            try
+            {
+                insertCommand.ExecuteNonQuery();
+            }
+            catch (SqliteException ex)
+            {
+                if (ex.SqliteErrorCode == 19) { /* nothing */ }
+            }
         }
 
         public void DeleteById(int id)
@@ -70,13 +79,31 @@ namespace TravelAgency.Repository
             using var updateCommand = databaseConnection.CreateCommand();
             updateCommand.CommandText =
                 @"
-                    UPDATE MyTourDto
+                    UPDATE TouristNotification
                     SET Status = $newStatus
                     WHERE Id = $id
                 ";
 
             updateCommand.Parameters.AddWithValue("$id", id);
             updateCommand.Parameters.AddWithValue("$newStatus", newStatus);
+            updateCommand.ExecuteNonQuery();
+        }
+
+        public void UpdateType(int id, NotificationType newType)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            using var updateCommand = databaseConnection.CreateCommand();
+            updateCommand.CommandText =
+                @"
+                    UPDATE TouristNotification
+                    SET Type = $newType
+                    WHERE Id = $id
+                ";
+
+            updateCommand.Parameters.AddWithValue("$id", id);
+            updateCommand.Parameters.AddWithValue("$newType", newType);
             updateCommand.ExecuteNonQuery();
         }
     }

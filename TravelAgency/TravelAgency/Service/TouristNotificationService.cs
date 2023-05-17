@@ -34,6 +34,11 @@ namespace TravelAgency.Service
             _notificationRepository.UpdateStatus(id, newStatus);
         }
 
+        public void UpdateType(int id, NotificationType newType)
+        {
+            _notificationRepository.UpdateType(id, newType);
+        }
+
         private bool IsLocationEqual(Location firstLocation, Location secondLocation)
         {
             return firstLocation.City == secondLocation.City && firstLocation.Country == secondLocation.Country;
@@ -74,7 +79,7 @@ namespace TravelAgency.Service
                 notificationText,
                 tourist.Tour.Name,
                 NotificationStatus.Unread,
-                NotificationType.NewVoucher
+                NotificationType.Attendance
             ));
         }
     }
