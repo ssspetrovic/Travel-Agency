@@ -175,5 +175,16 @@ namespace TravelAgency.Service
             return documentData;
         }
 
+        public string GetFormattedKeyPoints(IEnumerable<Location?> keyPoints)
+        {
+            var locationService = new LocationService();
+            return keyPoints.Aggregate(string.Empty, (current, location) => current + " - " + locationService.GetById(location!.Id)! + "\r\n");
+        }
+
+        public List<Uri> ParsePhotosUris(string photosString)
+        {
+            var uriStrings = photosString.Split(", ");
+            return uriStrings.Select(uriString => new Uri(uriString)).ToList();
+        }
     }
 }
