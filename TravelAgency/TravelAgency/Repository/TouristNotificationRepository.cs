@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using TravelAgency.Dto;
 using TravelAgency.Model;
 
 namespace TravelAgency.Repository
@@ -35,7 +36,7 @@ namespace TravelAgency.Repository
             deleteCommand.ExecuteNonQuery();
         }
 
-        public ObservableCollection<TouristNotification> GetAllAsCollection()
+        public ObservableCollection<TouristNotificationDto> GetAllDtoAsCollection()
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
@@ -45,10 +46,10 @@ namespace TravelAgency.Repository
             selectCommand.Parameters.AddWithValue("$CurrentUserUsername", CurrentUser.Username);
             using var selectReader = selectCommand.ExecuteReader();
 
-            var vouchers = new ObservableCollection<TouristNotification>();
+            var vouchers = new ObservableCollection<TouristNotificationDto>();
             while (selectReader.Read())
             {
-                vouchers.Add(new TouristNotification(
+                vouchers.Add(new TouristNotificationDto(
                     selectReader.GetInt32(0),
                     selectReader.GetString(1),
                     selectReader.GetString(2),

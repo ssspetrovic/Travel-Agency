@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows.Data;
 using System.Windows.Navigation;
 using TravelAgency.Command;
+using TravelAgency.Dto;
 using TravelAgency.Model;
 using TravelAgency.Service;
 using TravelAgency.View.Tourist;
@@ -19,8 +20,8 @@ namespace TravelAgency.ViewModel.Tourist
         public RelayCommand ViewNotificationCommand { get; set; }
         public RelayCommand DeleteNotificationCommand { get; set; }
 
-        private ObservableCollection<TouristNotification> _notificationsCollection;
-        public ObservableCollection<TouristNotification> NotificationsCollection
+        private ObservableCollection<TouristNotificationDto> _notificationsCollection;
+        public ObservableCollection<TouristNotificationDto> NotificationsCollection
         {
             get => _notificationsCollection;
             set
@@ -54,7 +55,7 @@ namespace TravelAgency.ViewModel.Tourist
             ViewNotificationCommand = new RelayCommand(Execute_ViewNotificationCommand, CanExecute_ViewNotificationCommand);
             DeleteNotificationCommand = new RelayCommand(Execute_DeleteNotificationCommand, CanExecute_DeleteNotificationCommand);
 
-            _notificationsCollection = _touristNotificationService.GetAllAsCollection();
+            _notificationsCollection = _touristNotificationService.GetAllDtoAsCollection();
         }
 
         private void Execute_ViewNotificationCommand(object parameter)

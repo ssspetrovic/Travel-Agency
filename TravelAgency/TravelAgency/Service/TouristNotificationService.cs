@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using TravelAgency.Dto;
 using TravelAgency.Model;
 using TravelAgency.Repository;
 
@@ -23,9 +24,9 @@ namespace TravelAgency.Service
             _notificationRepository.DeleteById(id);
         }
 
-        public ObservableCollection<TouristNotification> GetAllAsCollection()
+        public ObservableCollection<TouristNotificationDto> GetAllDtoAsCollection()
         {
-            return _notificationRepository.GetAllAsCollection();
+            return _notificationRepository.GetAllDtoAsCollection();
         }
 
         public void UpdateStatus(int id, NotificationStatus newStatus)
