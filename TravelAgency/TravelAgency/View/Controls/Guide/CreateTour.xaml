@@ -57,7 +57,7 @@
                     CaretBrush="#4fc3f7"
                     FontSize="13"
                     FontWeight="Medium"
-                    Foreground="{Binding NameTextColor}"
+                    Foreground="#68cbf8"
                     KeyboardNavigation.TabIndex="1"
                     Text="{Binding NameText, Mode=TwoWay}" />
 
@@ -362,9 +362,17 @@
                 HorizontalAlignment="Center"
                 FontSize="12"
                 FontWeight="Medium"
-                Foreground="DarkRed"
+                Foreground="{Binding ErrorTextColor}"
                 Text="{Binding ErrorMessageText, UpdateSourceTrigger=PropertyChanged}"
                 TextWrapping="Wrap" />
+            <TextBlock
+                Padding="0,5"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="14"
+                FontWeight="DemiBold"
+                Foreground="#4fc3f7"
+                Text="Use Tab to focus on the next parameter and Delete to clear a list!" />
         </StackPanel>
 
 

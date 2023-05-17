@@ -252,9 +252,7 @@
                     FontSize="14"
                     FontWeight="Bold"
                     Foreground="#4fc3f7"
-                    Text="Like how the tour ended up? Create another one!">
-                    <Hyperlink Click="CreateTourCopy_OnClick" />
-                </TextBlock>
+                    Text="Use Tab to select a comment, enter to focus on it, and confirm checkup with another enter!" />
             </Grid>
         </Grid>
     </Grid>

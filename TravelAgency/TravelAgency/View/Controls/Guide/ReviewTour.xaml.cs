@@ -13,10 +13,5 @@ namespace TravelAgency.View.Controls.Guide
             DataContext = new ReviewTourViewModel();
         }
 
-        private void CreateTourCopy_OnClick(object sender, RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
     }
 }
