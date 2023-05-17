@@ -25,7 +25,7 @@ namespace TravelAgency.ViewModel
         public ReservationViewModel() {
 
             var _reservationService = new ReservationService();
-            DaysToCancellation = 1;
+
 
             _reservationCollection = new CollectionViewSource
             {
@@ -73,6 +73,9 @@ namespace TravelAgency.ViewModel
 
         public void CancelSelectedReservation()
         {
+            var _accommodationService = new AccommodationService();
+            AccommodationDTO accommodationDto = _accommodationService.FindById(SelectedReservations.AccommodationId);
+            DaysToCancellation = accommodationDto.MinCancelationDays;
             var daysToReservation = (SelectedReservations.StartDate.DayNumber-DateOnly.FromDateTime(DateTime.Now).DayNumber);
             if (daysToReservation <= DaysToCancellation)
             {
