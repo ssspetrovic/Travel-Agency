@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows;
 using TravelAgency.Service;
 
 namespace TravelAgency.ViewModel
@@ -37,7 +36,10 @@ namespace TravelAgency.ViewModel
                     SelectComment(Comments[SelectedTourIndex], Tourists[SelectedTourIndex]);
                 }                
                 else
-                    MessageBox.Show("You have no comments selected!");
+                {
+                    IsReportEnabled = true;
+                    SelectComment(Comments[0], Tourists[0]);
+                }           
             else
             {
                 _tourRatingService.ReportValidation(ReportedComment, ReportedTourist);

@@ -14,14 +14,12 @@ namespace TravelAgency.View.Controls.Guide
     {
         private readonly LocationService _locationService;
         private readonly RequestTourService _requestTourService;
-        private readonly TourService _tourService;
 
         public FilterRequests()
         {
             InitializeComponent();
             _locationService = new LocationService();
             _requestTourService = new RequestTourService();
-            _tourService = new TourService();
             LocationBox.Focus();
         }
 
@@ -85,13 +83,15 @@ namespace TravelAgency.View.Controls.Guide
                             on tour.Id equals found.Id select tour).ToList();
             }
 
-            if (requestedTours.Count > 0)
+            if (requestedTours.Count == 0)
             {
-                UpdateViewBox.Text = "";
-                foreach (var tour in requestedTours)
-                    UpdateViewBox.Text += ", " + tour.Id;
-                UpdateViewBox.Text = UpdateViewBox.Text.Substring(2, UpdateViewBox.Text.Length - 2);
+                MessageBox.Show("Filter found no results!");
+                return;
             }
+            UpdateViewBox.Text = "";
+            foreach (var tour in requestedTours)
+                UpdateViewBox.Text += ", " + tour.Id;
+            UpdateViewBox.Text = UpdateViewBox.Text.Substring(2, UpdateViewBox.Text.Length - 2);
         }
 
         private void ConfirmButton_OnClick(object sender, RoutedEventArgs e)

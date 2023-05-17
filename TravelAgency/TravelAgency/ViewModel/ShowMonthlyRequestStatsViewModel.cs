@@ -33,7 +33,7 @@ namespace TravelAgency.ViewModel
         private string _numberOfRequests;
         public string NumberOfRequests
         {
-            get => _numberOfRequests;
+            get => _numberOfRequests == "0" ? "There weren't any requests!" : _numberOfRequests;
             set
             {
                 _numberOfRequests = value;

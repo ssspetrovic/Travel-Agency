@@ -43,7 +43,7 @@ namespace TravelAgency.ViewModel
         {
             DeletedTourName = tourName;
 
-            if (!AuthenticateDeletion(password) || DeletedTourName == "")
+            if (!AuthenticateDeletion(password) || DeletedTourName == "" || SelectedDate == "")
                 MessageBox.Show("Tour cancel was not successful");
             else
                 CancelTour();
