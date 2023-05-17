@@ -4,7 +4,6 @@ using TravelAgency.Command;
 using TravelAgency.Model;
 using TravelAgency.Service;
 using TravelAgency.View.Tourist;
-using static System.Windows.Application;
 
 namespace TravelAgency.ViewModel.Tourist
 {
@@ -12,10 +11,10 @@ namespace TravelAgency.ViewModel.Tourist
     {
         private readonly NavigationService _navigationService;
         private readonly TouristViewModel _touristViewModel;
-        private NewTourNotificationDialog? Dialog { get; set; }
-        public RelayCommand ViewNotificationCommand { get; set; }
-        public RelayCommand DialogOkCommand { get; set; }
+        
         public Tour? Tour { get; set; }
+        public RelayCommand ViewNotificationCommand { get; set; }
+
         private ObservableCollection<TouristNotification> _notificationsCollection;
         public ObservableCollection<TouristNotification> NotificationsCollection
         {
@@ -33,7 +32,6 @@ namespace TravelAgency.ViewModel.Tourist
             _touristViewModel = touristViewModel;
             
             ViewNotificationCommand = new RelayCommand(Execute_ViewNotificationCommand, CanExecute_ViewNotificationCommand);
-            DialogOkCommand = new RelayCommand(Execute_DialogOkCommand);
 
             var touristNotificationService = new TouristNotificationService();
             _notificationsCollection = touristNotificationService.GetAllAsCollection();
@@ -45,19 +43,7 @@ namespace TravelAgency.ViewModel.Tourist
 
             var tourService = new TourService();
             Tour = tourService.GetByName(notification.TourName);
-
-            Dialog = new NewTourNotificationDialog
-            {
-                Owner = Current.MainWindow,
-                DataContext = this
-            };
-
-            Dialog.Show();
-        }
-
-        private void Execute_DialogOkCommand(object parameter)
-        {
-            Dialog?.Close();
+            _navigationService.Navigate(new TourView(Tour));
         }
 
         private bool CanExecute_ViewNotificationCommand(object parameter)
