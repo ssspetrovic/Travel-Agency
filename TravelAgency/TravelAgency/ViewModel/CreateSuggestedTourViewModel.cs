@@ -26,6 +26,8 @@ namespace TravelAgency.ViewModel
         public void CreateLoc()
         {
             CreateAcceptedTourDto.Language = "";
+            CreateAcceptedTourDto.DateList = "";
+            CreateAcceptedTourDto.MaxGuests = "";
             CreateAcceptedTourDto.Location = MostRequestedLocation.Split(", ")[0];
             CreateTourView();
         }
@@ -33,6 +35,8 @@ namespace TravelAgency.ViewModel
         public void CreateLang()
         {
             CreateAcceptedTourDto.Location = "";
+            CreateAcceptedTourDto.DateList = "";
+            CreateAcceptedTourDto.MaxGuests = "";
             CreateAcceptedTourDto.Language = MostRequestedLanguage;
             CreateTourView();
         }
