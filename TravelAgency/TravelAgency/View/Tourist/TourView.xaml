@@ -72,7 +72,7 @@
                             Grid.Row="0"
                             Grid.Column="0"
                             VerticalAlignment="Center"
-                            FontSize="14">
+                            FontSize="15">
                             <Label.Content>
                                 <TextBlock FontWeight="Medium" Text="Name:" />
                             </Label.Content>
@@ -92,7 +92,7 @@
                             Grid.Row="1"
                             Grid.Column="0"
                             VerticalAlignment="Center"
-                            FontSize="14">
+                            FontSize="15">
                             <Label.Content>
                                 <TextBlock FontWeight="Medium" Text="City:" />
                             </Label.Content>
@@ -112,7 +112,7 @@
                             Grid.Row="2"
                             Grid.Column="0"
                             VerticalAlignment="Center"
-                            FontSize="14">
+                            FontSize="15">
                             <Label.Content>
                                 <TextBlock FontWeight="Medium" Text="Country:" />
                             </Label.Content>
@@ -132,7 +132,7 @@
                             Grid.Row="3"
                             Grid.Column="0"
                             VerticalAlignment="Center"
-                            FontSize="14">
+                            FontSize="15">
                             <Label.Content>
                                 <TextBlock FontWeight="Medium" Text="Language:" />
                             </Label.Content>
@@ -160,7 +160,7 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             VerticalContentAlignment="Bottom"
-                            FontSize="14">
+                            FontSize="15">
                             <Label.Content>
                                 <TextBlock FontWeight="Medium" Text="Description:" />
                             </Label.Content>
@@ -170,7 +170,7 @@
                             Grid.Column="0"
                             Grid.ColumnSpan="2"
                             VerticalAlignment="Center"
-                            FontSize="14">
+                            FontSize="15">
                             <Label.Content>
                                 <TextBlock
                                     d:Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
@@ -212,7 +212,7 @@
                             Grid.Row="0"
                             Grid.Column="0"
                             VerticalAlignment="Center"
-                            FontSize="14">
+                            FontSize="15">
                             <Label.Content>
                                 <TextBlock FontWeight="Medium" Text="Available spots:" />
                             </Label.Content>
@@ -232,7 +232,7 @@
                             Grid.Row="1"
                             Grid.Column="0"
                             VerticalAlignment="Center"
-                            FontSize="14">
+                            FontSize="15">
                             <Label.Content>
                                 <TextBlock FontWeight="Medium" Text="Duration:" />
                             </Label.Content>
@@ -252,7 +252,7 @@
                             Grid.Row="2"
                             Grid.Column="0"
                             VerticalAlignment="Center"
-                            FontSize="14">
+                            FontSize="15">
                             <Label.Content>
                                 <TextBlock FontWeight="Medium" Text="Starting date:" />
                             </Label.Content>
@@ -280,7 +280,7 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             VerticalContentAlignment="Bottom"
-                            FontSize="14">
+                            FontSize="15">
                             <Label.Content>
                                 <TextBlock FontWeight="Medium" Text="Key points:" />
                             </Label.Content>
