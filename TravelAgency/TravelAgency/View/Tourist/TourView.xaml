@@ -339,7 +339,7 @@
                                     Style="{StaticResource ImageHoverStyle}">
                                     <b:Interaction.Triggers>
                                         <b:EventTrigger EventName="MouseDown">
-                                            <b:InvokeCommandAction Command="{Binding OpenImageCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
+                                            <b:InvokeCommandAction Command="{Binding DataContext.OpenImageCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding}" />
                                         </b:EventTrigger>
                                     </b:Interaction.Triggers>
                                 </Image>
