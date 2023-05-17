@@ -199,6 +199,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="30" />
                             <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
@@ -247,13 +248,33 @@
                                 <TextBlock FontStyle="Italic" Text="{Binding Tour.Duration}" />
                             </Label.Content>
                         </Label>
-                        <Separator
+                        <Label
                             Grid.Row="2"
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            FontSize="14">
+                            <Label.Content>
+                                <TextBlock FontWeight="Medium" Text="Starting date:" />
+                            </Label.Content>
+                        </Label>
+                        <Label
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Right"
+                            d:Content="XX"
+                            FontSize="14">
+                            <Label.Content>
+                                <TextBlock FontStyle="Italic" Text="{Binding StartingDate}" />
+                            </Label.Content>
+                        </Label>
+                        <Separator
+                            Grid.Row="3"
                             Grid.Column="0"
                             Grid.ColumnSpan="2"
                             Foreground="{StaticResource MaterialDesignDivider}" />
                         <Label
-                            Grid.Row="3"
+                            Grid.Row="4"
                             Grid.Column="0"
                             Grid.ColumnSpan="2"
                             HorizontalAlignment="Center"
@@ -265,7 +286,7 @@
                             </Label.Content>
                         </Label>
                         <Label
-                            Grid.Row="4"
+                            Grid.Row="5"
                             Grid.Column="0"
                             Grid.ColumnSpan="2"
                             VerticalAlignment="Center"
