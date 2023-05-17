@@ -4,6 +4,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using TravelAgency.Model;
+using TravelAgency.Repository;
 
 namespace TravelAgency.ViewModel
 {
@@ -16,7 +19,7 @@ namespace TravelAgency.ViewModel
         private string _buttonMessage;
 
         public ProfileViewModel() {
-            
+            CheckUserSuperGuest();
         }
 
         public string ButtonMessage
@@ -53,6 +56,23 @@ namespace TravelAgency.ViewModel
                 _isSuperGuest = value;
                 OnPropertyChanged();
             }
+        }
+
+        public void CheckUserSuperGuest()
+        {
+            var _repository = new GuestRepository();
+            if(_repository.IsSuperGuest(CurrentUser.Id))
+            {
+                ButtonMessage = "Renew super guest status";
+                IsSuperGuest = "Visible";
+            }
+            else
+            {
+                ButtonMessage = "Request super guest status";
+                IsSuperGuest = "Hidden";
+            }
+            RaisePropertyChanged("ButtonMessage");
+            RaisePropertyChanged("IsSuperGuest");
         }
 
         private void RaisePropertyChanged(string propertyName)
