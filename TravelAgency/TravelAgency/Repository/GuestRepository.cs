@@ -64,5 +64,24 @@ namespace TravelAgency.Repository
             updateCommandCredits.ExecuteNonQuery();
 
         }
+
+
+        public void UpdateCredit(int id, int credit)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+            var updateCommand = databaseConnection.CreateCommand();
+            updateCommand.CommandText =
+                @"
+                    update Guest set superGuest = $credit where Id = $Id;
+                ";
+
+
+            updateCommand.Parameters.AddWithValue("$Id", id);
+            updateCommand.Parameters.AddWithValue("$credit", credit);
+
+            updateCommand.ExecuteNonQuery();
+
+        }
     }
 }

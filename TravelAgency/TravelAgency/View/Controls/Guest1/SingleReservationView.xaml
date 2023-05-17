@@ -274,6 +274,8 @@
                             Content="Delay"
                             FontSize="15" />
                     </StackPanel>
+                    <!--
+                    
                     <StackPanel Grid.Column="1" Margin="15 20 0 0">
                         <TextBox
                           x:Name="CommentTextBox"
@@ -289,6 +291,17 @@
                           TextWrapping="WrapWithOverflow"
                           materialDesign:HintAssist.Hint="Picture URL" />
                     </StackPanel>
+                    -->
+                    <Button
+                            Grid.Column="1"
+                            Margin="0 0 190 0"
+                            x:Name="Renovation"
+                            Grid.Row="2"
+                            Width="100"
+                            Height="50"
+                            Click="Renovate_OnClick"
+                            Content="Renovate"
+                            FontSize="15" />
                 </Grid>
 
             </Grid>

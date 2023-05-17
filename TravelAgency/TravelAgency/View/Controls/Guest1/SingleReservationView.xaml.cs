@@ -96,5 +96,11 @@ namespace TravelAgency.View.Controls.Guest1
             _viewModel.SendDelayRequest();
             MessageBox.Show("The delay request has been sent!");
         }
+
+        private void Renovate_OnClick(object sender, RoutedEventArgs e)
+        {
+            var RenovationRequestView = new RenovationRequestView();
+            RenovationRequestView.Show();
+        }
     }
 }
