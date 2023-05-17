@@ -16,7 +16,7 @@ namespace TravelAgency.ViewModel.Tourist
             KeyPoints = GetFormattedKeyPoints(tour.KeyPoints);
         }
 
-        private string GetFormattedKeyPoints(List<Location?> keyPoints)
+        private string GetFormattedKeyPoints(IEnumerable<Location?> keyPoints)
         {
             var locationService = new LocationService();
             return keyPoints.Aggregate(string.Empty, (current, location) => current + " - " + locationService.GetById(location!.Id)! + "\r\n");
