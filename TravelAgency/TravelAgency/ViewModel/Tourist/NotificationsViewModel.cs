@@ -10,7 +10,7 @@ using TravelAgency.View.Tourist;
 
 namespace TravelAgency.ViewModel.Tourist
 {
-    class NotificationsViewModel : BaseViewModel
+    internal class NotificationsViewModel : BaseViewModel
     {
         private readonly NavigationService _navigationService;
         private readonly TouristViewModel _touristViewModel;
