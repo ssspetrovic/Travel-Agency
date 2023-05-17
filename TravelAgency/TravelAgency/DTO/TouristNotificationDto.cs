@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using TravelAgency.Model;
 
-namespace TravelAgency.Dto
+namespace TravelAgency.DTO
 {
     internal sealed class TouristNotificationDto : TouristNotification, INotifyPropertyChanged
     {

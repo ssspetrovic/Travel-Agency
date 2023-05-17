@@ -101,10 +101,10 @@
                                             Style="{StaticResource MaterialDesignIconButton}">
                                             <Button.Content>
                                                 <fa:IconImage
-                                                    Width="20"
-                                                    Height="20"
-                                                    Foreground="#444444"
-                                                    Icon="Eye" />
+                                                    Width="15"
+                                                    Height="15"
+                                                    Foreground="#3F51B5"
+                                                    Icon="UpRightFromSquare" />
                                             </Button.Content>
                                         </Button>
                                     </DataTemplate>

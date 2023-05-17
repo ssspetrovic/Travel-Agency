@@ -27,12 +27,12 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             <TextBlock
+                x:Name="NotificationTextBlock"
                 Grid.Row="0"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 d:Text="Confirm attendance for TourName?"
                 FontSize="15"
-                Text="{Binding InvitationText}"
                 TextAlignment="Center"
                 TextWrapping="Wrap" />
             <WrapPanel
@@ -44,7 +44,7 @@
                     Width="110"
                     Height="35"
                     Margin="0,0,8,0"
-                    Click="CancelButton_OnClick"
+                    Command="{Binding AcceptAttendanceCommand}"
                     Content="Cancel"
                     FontSize="14"
                     Style="{StaticResource MaterialDesignFlatDarkButton}" />
@@ -54,7 +54,7 @@
                     Height="35"
                     Margin="8,0,0,0"
                     VerticalContentAlignment="Center"
-                    Click="ConfirmButton_OnClick"
+                    Command="{Binding DenyAttendanceCommand}"
                     Content="Confirm"
                     FontSize="14" />
             </WrapPanel>

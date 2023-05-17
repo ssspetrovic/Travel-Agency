@@ -3,10 +3,11 @@ using System.Linq;
 using System.Windows.Data;
 using System.Windows.Navigation;
 using TravelAgency.Command;
-using TravelAgency.Dto;
+using TravelAgency.DTO;
 using TravelAgency.Model;
 using TravelAgency.Service;
 using TravelAgency.View.Tourist;
+using static System.Windows.Application;
 
 namespace TravelAgency.ViewModel.Tourist
 {
@@ -17,8 +18,13 @@ namespace TravelAgency.ViewModel.Tourist
         private readonly TouristNotificationService _touristNotificationService;
 
         private Tour? Tour { get; set; }
+        private bool IsAttendanceAccepted { get; set; }
+        private AcceptInvitationDialog Dialog { get; set; }
+
         public RelayCommand ViewNotificationCommand { get; set; }
         public RelayCommand DeleteNotificationCommand { get; set; }
+        public RelayCommand ConfirmAttendanceCommand { get; set; }
+        public RelayCommand CancelAttendanceCommand { get; set; }
 
         private ObservableCollection<TouristNotificationDto> _notificationsCollection;
         public ObservableCollection<TouristNotificationDto> NotificationsCollection
@@ -52,8 +58,12 @@ namespace TravelAgency.ViewModel.Tourist
             _touristViewModel = touristViewModel;
             _touristNotificationService = new TouristNotificationService();
 
+            Dialog = new AcceptInvitationDialog();
+
             ViewNotificationCommand = new RelayCommand(Execute_ViewNotificationCommand, CanExecute_ViewNotificationCommand);
             DeleteNotificationCommand = new RelayCommand(Execute_DeleteNotificationCommand, CanExecute_DeleteNotificationCommand);
+            ConfirmAttendanceCommand = new RelayCommand(Execute_ConfirmAttendanceCommand);
+            CancelAttendanceCommand = new RelayCommand(Execute_CancelAttendanceCommand);
 
             _notificationsCollection = _touristNotificationService.GetAllDtoAsCollection();
         }
@@ -62,14 +72,28 @@ namespace TravelAgency.ViewModel.Tourist
         {
             if (parameter is not TouristNotification notification) return;
 
-            var tourService = new TourService();
-            Tour = tourService.GetByName(notification.TourName);
-            _navigationService.Navigate(new TourView(Tour));
+            if (notification.Type == NotificationType.NewOffer)
+            {
+                var tourService = new TourService();
+                Tour = tourService.GetByName(notification.TourName);
+                _navigationService.Navigate(new TourView(Tour));
+            }
+            else
+            {
+                var touristService = new TouristService();
+
+                if (!IsAttendanceConfirmed(notification.TourName)) return;
+                touristService.UpdateAppearanceByUsername(notification.TouristUsername, TouristAppearance.Present);
+
+                var myTourDtoService = new MyTourDtoService();
+                myTourDtoService.UpdateStatus(notification.TourName, MyTourDto.TourStatus.Attending);
+            }
         }
+
         private bool CanExecute_ViewNotificationCommand(object parameter)
         {
             if (parameter is TouristNotification notification)
-                return notification.Type == NotificationType.NewOffer;
+                return notification.Type != NotificationType.NewVoucher;
 
             return false;
         }
@@ -88,6 +112,33 @@ namespace TravelAgency.ViewModel.Tourist
         private bool CanExecute_DeleteNotificationCommand(object parameter)
         {
             return _notificationsCollection.Any(notification => notification.IsChecked);
+        }
+
+        private void Execute_ConfirmAttendanceCommand(object parameter)
+        {
+            IsAttendanceAccepted = true;
+            Dialog.Close();
+        }
+
+        private void Execute_CancelAttendanceCommand(object parameter)
+        {
+            IsAttendanceAccepted = false;
+            Dialog.Close();
+        }
+
+        private bool IsAttendanceConfirmed(string notificationText)
+        {
+            Dialog = new AcceptInvitationDialog
+            {
+                Owner = Current.MainWindow,
+                DataContext = this,
+                NotificationTextBlock = { Text = notificationText },
+                CancelButton = { Command = CancelAttendanceCommand },
+                ConfirmButton = { Command = ConfirmAttendanceCommand }
+            };
+
+            Dialog.ShowDialog();
+            return IsAttendanceAccepted;
         }
     }
 }

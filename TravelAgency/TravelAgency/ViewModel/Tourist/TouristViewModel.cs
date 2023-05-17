@@ -1,6 +1,7 @@
 ﻿using System.Windows.Navigation;
 using TravelAgency.Command;
 using TravelAgency.Model;
+using TravelAgency.Service;
 using TravelAgency.View;
 using TravelAgency.View.Tourist;
 using TravelAgency.WindowHelpers;
@@ -52,6 +53,9 @@ namespace TravelAgency.ViewModel.Tourist
 
             Username = CurrentUser.DisplayName;
             _navigationService.Navigate(new HomeView(_navigationService, this));
+
+            var notificationsService = new TouristNotificationService();
+            notificationsService.CheckForAttendanceInvitation(CurrentUser.Username!);
         }
 
         private void Execute_NavigateToHomePageCommand(object parameter)

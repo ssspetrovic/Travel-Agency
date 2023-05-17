@@ -1,5 +1,5 @@
 ﻿using System.Collections.ObjectModel;
-using TravelAgency.Dto;
+using TravelAgency.DTO;
 using TravelAgency.Model;
 
 namespace TravelAgency.Repository

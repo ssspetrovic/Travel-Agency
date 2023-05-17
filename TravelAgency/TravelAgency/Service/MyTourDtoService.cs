@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.Windows.Controls;
 using System.Windows.Forms;
 using TravelAgency.DTO;
 using TravelAgency.Model;
 using TravelAgency.Repository;
-using TravelAgency.ViewModel.Tourist;
+using TravelAgency.View.Tourist;
+using static System.Windows.Application;
 
 namespace TravelAgency.Service
 {
