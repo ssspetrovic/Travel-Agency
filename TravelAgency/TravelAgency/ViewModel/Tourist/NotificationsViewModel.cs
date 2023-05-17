@@ -49,7 +49,7 @@ namespace TravelAgency.ViewModel.Tourist
             set
             {
                 _isChecked = value;
-                OnPropertyChanged(); // Raise property changed event
+                OnPropertyChanged();
             }
         }
 
