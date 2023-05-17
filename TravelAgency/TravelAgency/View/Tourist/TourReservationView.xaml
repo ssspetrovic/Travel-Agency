@@ -185,6 +185,7 @@
                         d:ItemsSource="{d:SampleData ItemCount=3}"
                         ItemsSource="{Binding ToursSourceCollection}"
                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        ScrollViewer.VerticalScrollBarVisibility="Hidden"
                         SelectedItem="{Binding SelectedTour}"
                         Style="{StaticResource MaterialDesignListView}"
                         Visibility="{Binding IsListViewShown, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -227,10 +228,10 @@
                                                 Style="{StaticResource MaterialDesignIconButton}">
                                                 <Button.Content>
                                                     <fa:IconImage
-                                                        Width="20"
-                                                        Height="20"
+                                                        Width="15"
+                                                        Height="15"
                                                         Foreground="#3F51B5"
-                                                        Icon="CircleArrowRight" />
+                                                        Icon="ArrowUpRightFromSquare" />
                                                 </Button.Content>
                                             </Button>
                                         </DataTemplate>
