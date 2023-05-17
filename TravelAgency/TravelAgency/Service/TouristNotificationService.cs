@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using TravelAgency.DTO;
 using TravelAgency.Model;
 using TravelAgency.Repository;
 
@@ -23,14 +24,19 @@ namespace TravelAgency.Service
             _notificationRepository.DeleteById(id);
         }
 
-        public ObservableCollection<TouristNotification> GetAllAsCollection()
+        public ObservableCollection<TouristNotificationDto> GetAllDtoAsCollection()
         {
-            return _notificationRepository.GetAllAsCollection();
+            return _notificationRepository.GetAllDtoAsCollection();
         }
 
         public void UpdateStatus(int id, NotificationStatus newStatus)
         {
             _notificationRepository.UpdateStatus(id, newStatus);
+        }
+
+        public void UpdateType(int id, NotificationType newType)
+        {
+            _notificationRepository.UpdateType(id, newType);
         }
 
         private bool IsLocationEqual(Location firstLocation, Location secondLocation)
@@ -45,25 +51,36 @@ namespace TravelAgency.Service
 
             foreach (var request in allRequests)
             {
-                //Debug.WriteLine("-------------------------------");
-                //Debug.WriteLine($"suggested: {location} -- request: {request.Location}");
-                //Debug.WriteLine($"suggested: {language} -- request: {request.Language}");
-                //Debug.WriteLine($"status: {request.Status}");
-                //Debug.WriteLine("-------------------------------");
-                //Debug.WriteLine(request.Language);
                 if (request.Status != Status.Invalid) continue;
 
                 if (!IsLocationEqual(request.Location, location) && request.Language != language) continue;
-                //Debug.WriteLine($"Accepted tour: {tourName}\n Location: {request.Location} -- Language: {request.Language} -- status: {request.Status}");
 
                 Add(new TouristNotification(
                     request.TouristUsername!,
-                    $"You received a suggestion for tour: {tourName}",
+                    $"You have received a suggestion for tour: {tourName}",
                     tourName,
                     NotificationStatus.Unread,
                     NotificationType.NewOffer
                 ));
             }
+        }
+
+        public void CheckForAttendanceInvitation(string touristUsername)
+        {
+            var touristService = new TouristService();
+            var tourist = touristService.GetByUsername(touristUsername);
+
+            if (tourist.TouristAppearance != TouristAppearance.Pinged) return;
+            var notificationText = $"Guide is asking you to check in for '{tourist.Tour.Name}' tour!";
+
+            var notificationService = new TouristNotificationService();
+            notificationService.Add(new TouristNotification(
+                tourist.UserName,
+                notificationText,
+                tourist.Tour.Name,
+                NotificationStatus.Unread,
+                NotificationType.Attendance
+            ));
         }
     }
 }

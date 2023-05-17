@@ -35,7 +35,7 @@
             Text="Notifications" />
         <StackPanel Grid.Row="1" Margin="80,0">
             <WrapPanel Margin="15,0,15,3">
-                <CheckBox x:Name="MainCheckBox">
+                <CheckBox x:Name="MainCheckBox" IsChecked="{Binding IsMainCheckBoxChecked}">
                     <CheckBox.LayoutTransform>
                         <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
                     </CheckBox.LayoutTransform>
@@ -44,6 +44,7 @@
                     Width="35"
                     Height="35"
                     Margin="5,0,0,0"
+                    Command="{Binding DeleteNotificationCommand}"
                     Style="{StaticResource MaterialDesignIconButton}">
                     <Button.Content>
                         <fa:IconImage
@@ -83,7 +84,7 @@
                             <GridViewColumn Width="Auto">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <CheckBox x:Name="RowCheckBox" />
+                                        <CheckBox x:Name="RowCheckBox" IsChecked="{Binding IsChecked, Mode=TwoWay}" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -100,10 +101,10 @@
                                             Style="{StaticResource MaterialDesignIconButton}">
                                             <Button.Content>
                                                 <fa:IconImage
-                                                    Width="20"
-                                                    Height="20"
-                                                    Foreground="#444444"
-                                                    Icon="Eye" />
+                                                    Width="15"
+                                                    Height="15"
+                                                    Foreground="#3F51B5"
+                                                    Icon="UpRightFromSquare" />
                                             </Button.Content>
                                         </Button>
                                     </DataTemplate>

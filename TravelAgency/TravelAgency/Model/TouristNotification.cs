@@ -10,10 +10,12 @@
     {
         NewOffer,
         RequestAccepted,
-        NewVoucher
+        NewVoucher,
+        Attendance,
+        NaN
     }
 
-    class TouristNotification
+    internal class TouristNotification
     {
         public int Id { get; set; }
         public string TouristUsername { get; set; }
@@ -22,7 +24,7 @@
         public NotificationStatus Status { get; set; }
         public NotificationType Type { get; set; }
 
-        public TouristNotification(int id, string touristUsername, string notificationText, string tourName, NotificationStatus status, NotificationType type)
+        protected TouristNotification(int id, string touristUsername, string notificationText, string tourName, NotificationStatus status, NotificationType type)
         {
             Id = id;
             TouristUsername = touristUsername;
