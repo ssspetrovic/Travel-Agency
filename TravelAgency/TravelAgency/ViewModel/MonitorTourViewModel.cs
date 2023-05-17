@@ -67,6 +67,12 @@ namespace TravelAgency.ViewModel
 
                 var tourists = _touristService.GetByTour(selectedTour);
 
+                if (tourists.Count == 0)
+                {
+                    MessageBox.Show("This tour has no tourists!");
+                    return;
+                }
+
                 var activeKeyPoints = selectedTour.KeyPoints.ToDictionary(location => location!.Id, _ => false);
 
                 var currentKeyPoint = selectedTour.Location;

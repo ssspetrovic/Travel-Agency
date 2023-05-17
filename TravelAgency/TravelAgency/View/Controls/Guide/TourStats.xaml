@@ -125,7 +125,7 @@
                             Width="250"
                             Background="#68cbf8"
                             BorderThickness="0"
-                            Content="All Finished Tours"
+                            Content="All Finished Tours (Enter)"
                             Cursor="Hand"
                             FontSize="16"
                             FontWeight="Medium"

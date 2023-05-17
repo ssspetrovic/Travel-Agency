@@ -39,7 +39,7 @@ namespace TravelAgency.Service
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
 
-            const string selectStatement = "select * from RequestedTour";
+            const string selectStatement = "select * from RequestedTour where Status = 0";
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
 
             using var selectReader = selectCommand.ExecuteReader();
@@ -74,7 +74,7 @@ namespace TravelAgency.Service
             if (parameterName == "MaxGuests")
                 parameterName = "NumberOfGuests";
 
-            var selectStatement = "select * from RequestedTour where " + parameterName + " = ";
+            var selectStatement = "select * from RequestedTour where Status = 0 and " + parameterName + " = ";
             if (parameterName == "Language")
             {
                 var language = (int) Enum.Parse(typeof(Language),parameter);

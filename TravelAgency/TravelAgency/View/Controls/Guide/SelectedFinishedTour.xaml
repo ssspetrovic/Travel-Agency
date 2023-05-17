@@ -82,7 +82,7 @@
                                     Foreground="#fffafa"
                                     Icon="Home"
                                     Style="{StaticResource MenuButtonIcon}" />
-                                <TextBlock Style="{StaticResource MenuButtonText}" Text="Home Page" />
+                                <TextBlock Style="{StaticResource MenuButtonText}" Text="Home Page (F1)" />
                             </StackPanel>
                             <b:Interaction.Triggers>
                                 <b:KeyTrigger Key="F1">
@@ -101,7 +101,7 @@
                                     Foreground="#fffafa"
                                     Icon="ClipboardList"
                                     Style="{StaticResource MenuButtonIcon}" />
-                                <TextBlock Style="{StaticResource MenuButtonText}" Text="Go Back" />
+                                <TextBlock Style="{StaticResource MenuButtonText}" Text="Go Back (Esc)" />
                             </StackPanel>
                             <b:Interaction.Triggers>
                                 <b:KeyTrigger Key="F2">

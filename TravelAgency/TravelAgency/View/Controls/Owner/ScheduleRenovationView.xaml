@@ -35,6 +35,7 @@
         <TextBox x:Name="txtDescription" HorizontalAlignment="Center" Margin="0,571,0,0" TextWrapping="Wrap" Text="Description" VerticalAlignment="Top" Width="324"/>
         <Button x:Name="btnAppoint" Content="Appoint Renovation" HorizontalAlignment="Center" Margin="0,634,0,0" VerticalAlignment="Top" Width="162" Click="btnAppoint_Click"/>
         <Label x:Name="lblCountFreeDates" Content="Free: ##" HorizontalAlignment="Left" Margin="250,218,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding isRenovated}" HorizontalAlignment="Left" Margin="57,650,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Page>

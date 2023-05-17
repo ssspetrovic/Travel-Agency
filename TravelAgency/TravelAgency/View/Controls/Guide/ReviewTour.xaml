@@ -197,7 +197,8 @@
                 Command="{Binding Path=ConfirmReportCommand}"
                 Content="Report A Comment"
                 FontSize="12"
-                Foreground="#ffffff">
+                Foreground="#ffffff"
+                IsEnabled="{Binding IsReportEnabled}">
                 <b:Interaction.Triggers>
                     <b:KeyTrigger Key="Enter">
                         <b:InvokeCommandAction Command="{Binding ConfirmReportCommand}" />
@@ -208,8 +209,8 @@
 
         <Grid Grid.Row="4">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="3*" />
             </Grid.ColumnDefinitions>
             <Grid>
                 <Grid.RowDefinitions>
@@ -250,11 +251,9 @@
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
                     FontSize="14"
-                    FontWeight="Bold"
+                    FontWeight="DemiBold"
                     Foreground="#4fc3f7"
-                    Text="Like how the tour ended up? Create another one!">
-                    <Hyperlink Click="CreateTourCopy_OnClick" />
-                </TextBlock>
+                    Text="Press Tab to select a comment, Enter to focus on it and confirm checkup!" />
             </Grid>
         </Grid>
     </Grid>

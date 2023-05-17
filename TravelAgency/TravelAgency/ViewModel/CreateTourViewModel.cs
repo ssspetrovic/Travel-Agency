@@ -34,6 +34,7 @@ namespace TravelAgency.ViewModel
         private SolidColorBrush _languageBackground = Brushes.Transparent;
         private SolidColorBrush _guestsBackground = Brushes.Transparent;
         private SolidColorBrush _dateBackground = Brushes.Transparent;
+        private SolidColorBrush _errorTextColor = Brushes.DarkRed;
 
         private bool _locationFocus = true;
         private bool _languageFocus = true;
@@ -312,9 +313,17 @@ namespace TravelAgency.ViewModel
 
             if (currentLocation != null)
             {
+                foreach(var tour in _tourService.GetAllAsCollection())
+                {
+                    if (tour.Name != NameText!) continue;
+                    NameText = "";
+                    ErrorMessageText = "Tour with the name " + NameText! + " already exists!";
+                    return;
+                }
+                
                 _tourService.Add(new Tour(NameText!, currentLocation,
-                    DescriptionText!, language, maxGuests, locationList, DateList!,
-                    duration, ImagesList!));
+                DescriptionText!, language, maxGuests, locationList, DateList!,
+                duration, ImagesList!));
                 MessageBox.Show("Tour Added Successfully.");
 
                 if (CreateAcceptedTourDto.RequestId != -1)
@@ -346,8 +355,6 @@ namespace TravelAgency.ViewModel
 
         }
 
-        private SolidColorBrush _nameTextColor = new((Color)ColorConverter.ConvertFromString("#68cbf8"));
-
         public string? ErrorMessageText
         {
             get => _errorMessageText;
@@ -375,7 +382,6 @@ namespace TravelAgency.ViewModel
             {
                 _nameText = value;
                 OnPropertyChanged();
-                OnPropertyChanged(nameof(NameTextColor));
                 Validate();
             }
         }
@@ -550,20 +556,20 @@ namespace TravelAgency.ViewModel
             IsCreateTourEnabled = isImagesValid && isLocationValid && isLanguageValid && isMaxGuestsValid && isKeyPointsValid && isDateValid && isDurationValid && isNameValid;
 
             if (IsCreateTourEnabled)
+            {
                 ErrorMessageText = "Press Right Shift To Finalize Creation";
-
+                ErrorTextColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#68cbf8"));
+            }
             OnPropertyChanged(nameof(IsCreateTourEnabled));
             OnPropertyChanged(nameof(ErrorMessageText));
         }
 
-
-
-        public SolidColorBrush NameTextColor
+        public SolidColorBrush ErrorTextColor
         {
-            get => _nameTextColor;
+            get => _errorTextColor;
             set
             {
-                _nameTextColor = value;
+                _errorTextColor = value;
                 OnPropertyChanged();
             }
         }

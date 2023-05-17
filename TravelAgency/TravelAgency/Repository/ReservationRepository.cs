@@ -383,7 +383,10 @@ namespace TravelAgency.Repository
                 }
             }
             int count = CountGradesForOwner(ownerId);
-            average = gradeSum / count;
+            if (count != 0)
+                average = gradeSum / count;
+            else
+                average = 0;
 
             return average;
         }

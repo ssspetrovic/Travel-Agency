@@ -17,6 +17,7 @@
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="100" />
+            <RowDefinition Height="50" />
         </Grid.RowDefinitions>
 
         <ListView
@@ -62,24 +63,20 @@
                         Header="Location" />
                     <GridViewColumn
                         Width="200"
-                        DisplayMemberBinding="{Binding Path=Description}"
-                        Header="Description" />
+                        DisplayMemberBinding="{Binding Path=Date}"
+                        Header="Date" />
                     <GridViewColumn
                         Width="200"
                         DisplayMemberBinding="{Binding Path=Language}"
                         Header="Language" />
                     <GridViewColumn
                         Width="200"
-                        DisplayMemberBinding="{Binding Path=MaxGuests}"
-                        Header="Max Guests" />
-                    <GridViewColumn
-                        Width="200"
                         DisplayMemberBinding="{Binding Path=LocationList}"
                         Header="Key Points" />
                     <GridViewColumn
                         Width="200"
-                        DisplayMemberBinding="{Binding Path=Date}"
-                        Header="Date" />
+                        DisplayMemberBinding="{Binding Path=MaxGuests}"
+                        Header="Max Guests" />
                     <GridViewColumn
                         Width="200"
                         DisplayMemberBinding="{Binding Path=Duration}"
@@ -99,6 +96,16 @@
             FontSize="16"
             FontWeight="Medium"
             Foreground="#ffffff" />
-    </Grid>
 
+        <TextBlock
+            Grid.Row="2"
+            Padding="0,50"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="14"
+            FontWeight="DemiBold"
+            Foreground="#4fc3f7"
+            Text="Pse Tab to select a tour, Enter to select the tour you wish to start or press P to show its pictures!" />
+
+    </Grid>
 </UserControl>

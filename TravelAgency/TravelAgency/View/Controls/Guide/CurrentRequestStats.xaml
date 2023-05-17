@@ -11,10 +11,10 @@
     xmlns:viewModel="clr-namespace:TravelAgency.ViewModel"
     Title="Sign In"
     Width="1280"
-    PreviewKeyDown="CurrentRequestStats_OnPreviewKeyDown"
     Height="720"
     AllowsTransparency="True"
     Background="Transparent"
+    PreviewKeyDown="CurrentRequestStats_OnPreviewKeyDown"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
@@ -126,7 +126,7 @@
                                     Foreground="#fffafa"
                                     Icon="ArrowCircleLeft"
                                     Style="{StaticResource MenuButtonIcon}" />
-                                <TextBlock Style="{StaticResource MenuButtonText}" Text="Go Back" />
+                                <TextBlock Style="{StaticResource MenuButtonText}" Text="Go Back (Esc)" />
                             </StackPanel>
                             <b:Interaction.Triggers>
                                 <b:KeyTrigger Key="Escape">

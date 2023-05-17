@@ -57,7 +57,7 @@ namespace TravelAgency.Repository
             databaseConnection.Open();
 
             var languages = new List<string>();
-            const string selectStatement = "select distinct Language from RequestedTour";
+            const string selectStatement = "select distinct Language from RequestedTour where DateRange like '%2023%' or DateRange like '%2022%'";
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
 
             using var selectReader = selectCommand.ExecuteReader();

@@ -18,6 +18,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="80" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="40" />
         </Grid.RowDefinitions>
         <Button
             x:Name="BtnFilter"
@@ -73,10 +74,6 @@
                         Header="Location" />
                     <GridViewColumn
                         Width="200"
-                        DisplayMemberBinding="{Binding Path=Description}"
-                        Header="Description" />
-                    <GridViewColumn
-                        Width="200"
                         DisplayMemberBinding="{Binding Path=Language}"
                         Header="Language" />
                     <GridViewColumn
@@ -87,8 +84,22 @@
                         Width="200"
                         DisplayMemberBinding="{Binding Path=DateRange}"
                         Header="Date Range" />
+                    <GridViewColumn
+                        Width="200"
+                        DisplayMemberBinding="{Binding Path=Description}"
+                        Header="Description" />
                 </GridView>
             </ListView.View>
         </ListView>
+
+        <TextBlock
+            Grid.Row="2"
+            Padding="0,50"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="14"
+            FontWeight="DemiBold"
+            Foreground="#4fc3f7"
+            Text="Press Tab to select a request, and press Enter to confirm your choice!" />
     </Grid>
 </UserControl>

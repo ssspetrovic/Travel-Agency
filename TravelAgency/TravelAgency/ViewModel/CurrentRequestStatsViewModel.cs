@@ -121,13 +121,17 @@ namespace TravelAgency.ViewModel
                         var dates = tour.DateRange.Split(" - ");
                         var startDate = DateTime.Parse(dates[0]);
                         var endDate = DateTime.Parse(dates[1]);
+                        if (startDate.Year > 2023)
+                            return 0;
+                        if (endDate.Year > 2023)
+                            return (new DateTime(2023, 12, 31) - startDate).TotalDays;
                         return (endDate - startDate).TotalDays;
                     }),
                     BarData = new SeriesCollection
                     {
                         new ColumnSeries
                         {
-                            Title = "Current " + DataType.Split(":")[0] + " requests.",
+                            Title = "Comparison of our current " + DataType.Split(":")[0] + " with others.",
                             Values = _requestTourService.GetComparisons(_tabAllData, DataType.Split(":")[0], DataType.Split(":")[1])
                         }
                     },
@@ -144,6 +148,10 @@ namespace TravelAgency.ViewModel
                         var dates = tour.DateRange.Split(" - ");
                         var startDate = DateTime.Parse(dates[0]);
                         var endDate = DateTime.Parse(dates[1]);
+                        if (startDate.Year > 2023)
+                            return 0;
+                        if (endDate.Year > 2023)
+                            return (new DateTime(2023, 12, 31) - startDate).TotalDays;
                         return (endDate - startDate).TotalDays;
                     }),
                     BarData = new SeriesCollection
@@ -166,6 +174,10 @@ namespace TravelAgency.ViewModel
                         var dates = tour.DateRange.Split(" - ");
                         var startDate = DateTime.Parse(dates[0]);
                         var endDate = DateTime.Parse(dates[1]);
+                        if (startDate.Year > 2023)
+                            return 0;
+                        if (endDate.Year > 2023)
+                            return (new DateTime(2023, 12, 31) - startDate).TotalDays;
                         return (endDate - startDate).TotalDays;
                     }),
 

@@ -166,8 +166,16 @@ namespace TravelAgency.Service
                 {
                     var currentDate = DateTime.Parse(date);
                     if (currentDate <= startDate || currentDate >= endDate) continue;
-                    var paragraph = new Paragraph("Tour: " + selectReader.GetString(1) + ", Starting Location: " + _locationService.GetById(selectReader.GetInt32(2))!.City + ", Language: " + (Language)selectReader.GetInt32(4));
-                    documentData.Add(paragraph);
+
+                    var startingLocation = _locationService.GetById(selectReader.GetInt32(2))?.City;
+                    var keyPoints = GetKeyPoints(selectReader.GetString(6))
+                        .Select(location => $"{location!.City}, {location.Country}")
+                        .DefaultIfEmpty("No Key Points!")
+                        .Aggregate((current, next) => current + "; " + next);
+
+                    var data = new Paragraph($"Tour: {selectReader.GetString(1)}\nStarting Location: {startingLocation}\nKeyPoints: {keyPoints}\nLanguage: " +
+                                             $"{(Language)selectReader.GetInt32(4)}\nMaximum Number of Guests: {selectReader.GetInt32(5)}\n \n", FontFactory.GetFont(FontFactory.HELVETICA, 12));
+                    documentData.Add(data);
                     break;
                 }
             }

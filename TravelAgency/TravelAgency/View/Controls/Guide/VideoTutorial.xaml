@@ -48,7 +48,7 @@
                 Background="#68cbf8"
                 BorderThickness="0"
                 Command="{Binding CloseCommand}"
-                Content="Turn Off">
+                Content="Turn Off (Esc)">
                 <b:Interaction.Triggers>
                     <b:KeyTrigger Key="Escape">
                         <b:InvokeCommandAction Command="{Binding CloseCommand}" />
