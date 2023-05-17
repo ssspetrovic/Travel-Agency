@@ -10,4 +10,10 @@
     vml:GuideViewModelLocator.AutoHookedUpViewModel="True"
     Background="Transparent"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-    mc:Ignorable="d" />
+    mc:Ignorable="d">
+    <TextBlock
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        FontSize="25"
+        Text="NIJE DOVRSENO, FUNKCIONALNOST ZA 4. KONTROLNU TACKU" />
+</UserControl>
