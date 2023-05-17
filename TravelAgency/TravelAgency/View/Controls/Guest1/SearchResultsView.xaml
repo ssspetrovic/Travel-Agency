@@ -192,6 +192,10 @@
                 Margin="0"
                 Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
                 Text="{Binding Name}" />
+              <TextBlock
+                Margin="0"
+                Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                Text="{Binding isSuperOwner}" />
               <Viewbox
                 Height="16"
                 Margin="0,4,0,8"
@@ -207,7 +211,12 @@
                 Style="{StaticResource MaterialDesignBody1TextBlock}"
                 Text="After a gentle alien becomes stranded on Earth, the being is discovered and befriended by a young boy named Elliott."
                 TextWrapping="Wrap" />
-            </StackPanel>
+
+             <TextBlock
+                Margin="0"
+                Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                Text="{Binding isRenovated}" />
+          </StackPanel>
             <Separator
               Grid.Row="2"
               Margin="8,0,8,0"

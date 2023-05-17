@@ -34,6 +34,7 @@ namespace TravelAgency.ViewModel
             {
                 Source = _accommodationService.GetAccommodationNames()
             };
+            _isRenovated = "ADA";
         }
 
         /*public bool IsReservationSelected
@@ -74,6 +75,17 @@ namespace TravelAgency.ViewModel
             {
                 _selectedFreeDate = value;
                 IsFreeDateSelected = true;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _isRenovated;
+        public string isRenovated
+        {
+            get => _isRenovated;
+            set
+            {
+                _isRenovated = value;
                 OnPropertyChanged();
             }
         }

@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Data;
+using TravelAgency.DTO;
 using TravelAgency.Repository;
+using TravelAgency.Service;
 
 namespace TravelAgency.ViewModel
 {
@@ -15,12 +17,11 @@ namespace TravelAgency.ViewModel
 
         public SearchResultsViewModel()
         {
-            var _repository = new AccommodationRepository();
+            var _accommodationService = new AccommodationService();
             _collection = new CollectionViewSource
             {
-                Source = _repository.GetAll()
+                Source = _accommodationService.GetAllForSearchResult()
             };
-
         }
 
         public CollectionViewSource CollectionView

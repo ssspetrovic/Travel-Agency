@@ -279,5 +279,17 @@ namespace TravelAgency.Service
             }
             return count;
         }
+
+        public bool isSuperOwner(int ownerId)
+        {
+            var reservationRepository = new ReservationRepository();
+            int gradeCount = reservationRepository.CountGradesForOwner(CurrentUser.Id);
+            double averageGrade = reservationRepository.AverageGradeForOwner(CurrentUser.Id);
+
+            if (gradeCount >= 50 && averageGrade >= 9.5)
+                return true;
+            else
+                return false;
+        }
     }
 }

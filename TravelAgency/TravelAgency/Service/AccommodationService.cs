@@ -198,5 +198,47 @@ namespace TravelAgency.Service
 
             return mostBusyMonth;
         }
+
+        public ObservableCollection<AccommodationForSearch> GetAllForSearchResult()
+        {
+            var accommodationRepository = new AccommodationRepository();
+            var renovationService = new RenovationService();
+            var reservationService = new ReservationService();
+            ObservableCollection<AccommodationDTO> accommodations = accommodationRepository.GetAll();
+            ObservableCollection<AccommodationForSearch> notSuperOwner = new ObservableCollection<AccommodationForSearch>();
+
+            ObservableCollection<AccommodationForSearch> accList = new ObservableCollection<AccommodationForSearch>();  //return sortirana lista
+
+            string isRenovated;
+            string isSuperOwner;
+            foreach (AccommodationDTO accommodation in accommodations)
+            {
+                if (renovationService.IsRenovated(accommodation.Id))
+                    isRenovated = "Recently Renovated";
+                else
+                    isRenovated = "Not Recently Renovated";
+
+                if (reservationService.isSuperOwner(CurrentUser.Id))
+                {
+                    isSuperOwner = "Super Owner";
+                    AccommodationForSearch acc = new AccommodationForSearch(accommodation, isRenovated, isSuperOwner);
+                    accList.Add(acc);  //Prvo dodajemo super vlasnike u listu
+                }
+                else
+                {
+                    isSuperOwner = "Regular Owner";
+                    AccommodationForSearch acc = new AccommodationForSearch(accommodation, isRenovated, isSuperOwner);
+                    notSuperOwner.Add(acc);
+                }
+            }
+
+            //Dodajemo regularne vlasnike u finalnu listu
+            foreach(AccommodationForSearch acc in notSuperOwner)
+            {
+                accList.Add(acc);
+            }
+
+            return accList;
+        }
     }
 }
