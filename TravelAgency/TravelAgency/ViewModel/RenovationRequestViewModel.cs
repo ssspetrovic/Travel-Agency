@@ -56,6 +56,11 @@ namespace TravelAgency.ViewModel
             var _repository = new RenovationRequestRepository();
             RenovationRequest request = new RenovationRequest(Comment, Seriousness, AccId, 10);
             _repository.Add(request);
+
+            /////////////////////////////////
+            var accommodationActivityRepository = new AccommodationActivityRepository();
+            AccommodationActivity a = new AccommodationActivity(AccId, DateTime.Now, 0, 0, 1);  //ZA RENOVATION 0, 0, 1
+            accommodationActivityRepository.Add(a);
         }
         private void RaisePropertyChanged(string propertyName)
         {
