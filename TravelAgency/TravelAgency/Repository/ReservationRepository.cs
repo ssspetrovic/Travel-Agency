@@ -97,6 +97,25 @@ namespace TravelAgency.Repository
             return count;
         }
 
+        public int CountBeforeDate(DateTime date)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+            var prompt = date.ToString("yyyy-MM-dd");
+            const string selectStatement = @"select count(*) from Reservation where Reservation.startDate>datetime($date)";
+            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
+            selectCommand.Parameters.AddWithValue("$date", prompt);
+            using var selectReader = selectCommand.ExecuteReader();
+
+
+            if (selectReader.Read())
+            {
+                return selectReader.GetInt32(0);
+            }
+
+            return 0;
+        }
+
         public ObservableCollection<Reservation> GetAll()
         {
             using var databaseConnection = GetConnection();

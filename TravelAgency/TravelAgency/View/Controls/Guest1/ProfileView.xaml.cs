@@ -82,7 +82,10 @@ namespace TravelAgency.View.Controls.Guest1
 
         private void RequestSuper_OnClick(object sender, RoutedEventArgs e)
         {
-
+            _viewModel.RequestSuperGuest();
+            var ProfileView = new ProfileView();
+            ProfileView.Show();
+            Close();
         }
     }
 }

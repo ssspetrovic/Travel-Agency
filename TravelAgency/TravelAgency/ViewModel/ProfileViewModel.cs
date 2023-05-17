@@ -14,12 +14,12 @@ namespace TravelAgency.ViewModel
     {
         public new event PropertyChangedEventHandler? PropertyChanged;
         private string _isSuperGuest;
-        private DateTime _experationDate;
+        private string _experationDate;
         private string _numberOfPoints;
         private string _buttonMessage;
 
         public ProfileViewModel() {
-            CheckUserSuperGuest();
+            InitSuperGuest();
         }
 
         public string ButtonMessage
@@ -40,7 +40,7 @@ namespace TravelAgency.ViewModel
             }
         }
 
-        public DateTime ExperationDate
+        public string ExperationDate
         {
             get => _experationDate;
             set
@@ -58,7 +58,7 @@ namespace TravelAgency.ViewModel
             }
         }
 
-        public void CheckUserSuperGuest()
+        public void InitSuperGuest()
         {
             var _repository = new GuestRepository();
             if(_repository.IsSuperGuest(CurrentUser.Id))
@@ -71,8 +71,25 @@ namespace TravelAgency.ViewModel
                 ButtonMessage = "Request super guest status";
                 IsSuperGuest = "Hidden";
             }
+            NumberOfPoints = _repository.GetByUserId(CurrentUser.Id).Credits.ToString();
+            DateTime date = DateTime.Now.AddYears(-1);
+            ExperationDate = date.ToString("yyyy-dd-MM");
             RaisePropertyChanged("ButtonMessage");
             RaisePropertyChanged("IsSuperGuest");
+            RaisePropertyChanged("NumberOfPoints");
+            RaisePropertyChanged("ExperationDate");
+        }
+
+        public bool RequestSuperGuest()
+        {
+            var _repository = new ReservationRepository();
+            var _guestRepository = new GuestRepository();
+            DateTime limit = DateTime.Now.AddYears(-1);
+            if(_repository.CountBeforeDate(limit) >= 10)
+            {
+                _guestRepository.MakeSuperGuest(CurrentUser.Id);
+            }
+            return false;
         }
 
         private void RaisePropertyChanged(string propertyName)
