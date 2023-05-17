@@ -74,10 +74,6 @@
                         Header="Location" />
                     <GridViewColumn
                         Width="200"
-                        DisplayMemberBinding="{Binding Path=Description}"
-                        Header="Description" />
-                    <GridViewColumn
-                        Width="200"
                         DisplayMemberBinding="{Binding Path=Language}"
                         Header="Language" />
                     <GridViewColumn
@@ -88,6 +84,10 @@
                         Width="200"
                         DisplayMemberBinding="{Binding Path=DateRange}"
                         Header="Date Range" />
+                    <GridViewColumn
+                        Width="200"
+                        DisplayMemberBinding="{Binding Path=Description}"
+                        Header="Description" />
                 </GridView>
             </ListView.View>
         </ListView>
