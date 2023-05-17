@@ -1,4 +1,6 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows.Data;
 using System.Windows.Navigation;
 using TravelAgency.Command;
 using TravelAgency.Model;
@@ -11,9 +13,11 @@ namespace TravelAgency.ViewModel.Tourist
     {
         private readonly NavigationService _navigationService;
         private readonly TouristViewModel _touristViewModel;
-        
-        public Tour? Tour { get; set; }
+        private readonly TouristNotificationService _touristNotificationService;
+
+        private Tour? Tour { get; set; }
         public RelayCommand ViewNotificationCommand { get; set; }
+        public RelayCommand DeleteNotificationCommand { get; set; }
 
         private ObservableCollection<TouristNotification> _notificationsCollection;
         public ObservableCollection<TouristNotification> NotificationsCollection
@@ -27,28 +31,16 @@ namespace TravelAgency.ViewModel.Tourist
         }
 
         private bool _isMainCheckBoxChecked;
-
         public bool IsMainCheckBoxChecked
         {
             get => _isMainCheckBoxChecked;
             set
             {
                 _isMainCheckBoxChecked = value;
-                foreach (var item in NotificationsCollection)
-                {
-                    item.IsChecked = _isMainCheckBoxChecked;
-                }
-                OnPropertyChanged();
-            }
-        }
 
-        private bool _isChecked;
-        public bool IsChecked
-        {
-            get => _isChecked;
-            set
-            {
-                _isChecked = value;
+                foreach (var item in NotificationsCollection)
+                    item.IsChecked = _isMainCheckBoxChecked;
+
                 OnPropertyChanged();
             }
         }
@@ -57,11 +49,12 @@ namespace TravelAgency.ViewModel.Tourist
         {
             _navigationService = navigationService;
             _touristViewModel = touristViewModel;
-            
-            ViewNotificationCommand = new RelayCommand(Execute_ViewNotificationCommand, CanExecute_ViewNotificationCommand);
+            _touristNotificationService = new TouristNotificationService();
 
-            var touristNotificationService = new TouristNotificationService();
-            _notificationsCollection = touristNotificationService.GetAllAsCollection();
+            ViewNotificationCommand = new RelayCommand(Execute_ViewNotificationCommand, CanExecute_ViewNotificationCommand);
+            DeleteNotificationCommand = new RelayCommand(Execute_DeleteNotificationCommand, CanExecute_DeleteNotificationCommand);
+
+            _notificationsCollection = _touristNotificationService.GetAllAsCollection();
         }
 
         private void Execute_ViewNotificationCommand(object parameter)
@@ -72,13 +65,28 @@ namespace TravelAgency.ViewModel.Tourist
             Tour = tourService.GetByName(notification.TourName);
             _navigationService.Navigate(new TourView(Tour));
         }
-
         private bool CanExecute_ViewNotificationCommand(object parameter)
         {
             if (parameter is TouristNotification notification)
                 return notification.Type == NotificationType.NewOffer;
 
             return false;
+        }
+
+        private void Execute_DeleteNotificationCommand(object parameter)
+        {
+            foreach (var notification in _notificationsCollection.ToList().Where(notification => notification.IsChecked))
+            {
+                _touristNotificationService.DeleteById(notification.Id);
+                _notificationsCollection.Remove(notification);
+            }
+
+            CollectionViewSource.GetDefaultView(_notificationsCollection).Refresh();
+        }
+
+        private bool CanExecute_DeleteNotificationCommand(object parameter)
+        {
+            return _notificationsCollection.Any(notification => notification.IsChecked);
         }
     }
 }
