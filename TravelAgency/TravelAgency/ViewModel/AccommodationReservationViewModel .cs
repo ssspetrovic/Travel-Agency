@@ -200,6 +200,8 @@ namespace TravelAgency.ViewModel
 
                 var _reservationService = new ReservationService();
                 var _renovationService = new RenovationService();
+            var _guestService = new GuestService();
+            
 
                 var ReservableDays = (EndDate - StartDate).TotalDays;
                if(!ValidateNumberInput(GuestNumber) && !ValidateSelect(SelectedAccommodation))
@@ -231,7 +233,11 @@ namespace TravelAgency.ViewModel
                {
                    MessageBox.Show("Try this date: " + _reservationService.FindDate(EndDate, StartDate, SelectedAccommodation).AddDays(1).ToString());
                }
-            
+
+            if (_guestService.UseDiscountCoin())
+            {
+                MessageBox.Show("You had a discount!");
+            }
 
         }
 

@@ -73,7 +73,7 @@ namespace TravelAgency.Repository
             var updateCommand = databaseConnection.CreateCommand();
             updateCommand.CommandText =
                 @"
-                    update Guest set superGuest = $credit where Id = $Id;
+                    update Guest set credits = $credit where Id = $Id;
                 ";
 
 
