@@ -99,7 +99,7 @@ namespace TravelAgency.View.Controls.Guest1
 
         private void Renovate_OnClick(object sender, RoutedEventArgs e)
         {
-            var RenovationRequestView = new RenovationRequestView();
+            var RenovationRequestView = new RenovationRequestView(_viewModel.Accommodation.Id);
             RenovationRequestView.Show();
         }
     }

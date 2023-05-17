@@ -22,8 +22,9 @@ namespace TravelAgency.View.Controls.Guest1
     public partial class RenovationRequestView : Window
     {
         private readonly RenovationRequestViewModel _viewModel = new();
-        public RenovationRequestView()
+        public RenovationRequestView(int acc_id)
         {
+            _viewModel.AccId = acc_id;
             DataContext = _viewModel;
             InitializeComponent();
         }

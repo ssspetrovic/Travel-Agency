@@ -14,6 +14,17 @@ namespace TravelAgency.ViewModel
         public new event PropertyChangedEventHandler? PropertyChanged;
         private string _seriousness;
         private string _comment;
+        private int _accId;
+
+        public int AccId
+        {
+            get => _accId;
+            set
+            {
+                _accId = value;
+                OnPropertyChanged();
+            }
+        }
 
         public string Seriousness
         {
@@ -43,7 +54,7 @@ namespace TravelAgency.ViewModel
         public void SubmitRenovation()
         {
             var _repository = new RenovationRequestRepository();
-            RenovationRequest request = new RenovationRequest(Comment, Seriousness, 10, 10);
+            RenovationRequest request = new RenovationRequest(Comment, Seriousness, AccId, 10);
             _repository.Add(request);
         }
         private void RaisePropertyChanged(string propertyName)
