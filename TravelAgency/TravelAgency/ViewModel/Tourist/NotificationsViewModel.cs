@@ -26,6 +26,33 @@ namespace TravelAgency.ViewModel.Tourist
             }
         }
 
+        private bool _isMainCheckBoxChecked;
+
+        public bool IsMainCheckBoxChecked
+        {
+            get => _isMainCheckBoxChecked;
+            set
+            {
+                _isMainCheckBoxChecked = value;
+                foreach (var item in NotificationsCollection)
+                {
+                    item.IsChecked = _isMainCheckBoxChecked;
+                }
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _isChecked;
+        public bool IsChecked
+        {
+            get => _isChecked;
+            set
+            {
+                _isChecked = value;
+                OnPropertyChanged(); // Raise property changed event
+            }
+        }
+
         public NotificationsViewModel(NavigationService navigationService, TouristViewModel touristViewModel)
         {
             _navigationService = navigationService;

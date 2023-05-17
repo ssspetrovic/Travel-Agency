@@ -83,7 +83,7 @@
                             <GridViewColumn Width="Auto">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <CheckBox x:Name="RowCheckBox" />
+                                        <CheckBox x:Name="RowCheckBox" IsChecked="{Binding IsChecked}" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>

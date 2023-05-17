@@ -21,6 +21,7 @@
         public string TourName { get; set; }
         public NotificationStatus Status { get; set; }
         public NotificationType Type { get; set; }
+        public bool IsChecked { get; set; }
 
         public TouristNotification(int id, string touristUsername, string notificationText, string tourName, NotificationStatus status, NotificationType type)
         {
