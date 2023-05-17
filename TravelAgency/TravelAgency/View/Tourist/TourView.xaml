@@ -50,7 +50,7 @@
                     Content="Basic information"
                     FontSize="15" />
                 <Border
-                    Height="240"
+                    Height="255"
                     BorderBrush="{StaticResource MaterialDesignDivider}"
                     BorderThickness="2"
                     CornerRadius="10">
@@ -191,7 +191,7 @@
                     Content="Details"
                     FontSize="15" />
                 <Border
-                    Height="240"
+                    Height="255"
                     BorderBrush="{StaticResource MaterialDesignDivider}"
                     BorderThickness="2"
                     CornerRadius="10">
@@ -284,12 +284,13 @@
             <StackPanel
                 Grid.Row="1"
                 Grid.Column="0"
-                Grid.ColumnSpan="2">
+                Grid.ColumnSpan="2"
+                Margin="10,0">
                 <Label
                     Margin="10,0"
                     Content="Photos"
                     FontSize="15" />
-                <ItemsControl Height="180" ItemsSource="{Binding ParsedUris}">
+                <ItemsControl Height="150" ItemsSource="{Binding ParsedUris}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Orientation="Horizontal" />
@@ -298,12 +299,12 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border
-                                Margin="5"
+                                Margin="5,0"
                                 BorderBrush="Black"
                                 BorderThickness="1"
                                 CornerRadius="5">
                                 <Image
-                                    Width="Auto"
+                                    Width="221"
                                     Height="Auto"
                                     Source="{Binding}"
                                     Stretch="UniformToFill" />
