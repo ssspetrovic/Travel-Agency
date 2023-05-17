@@ -19,6 +19,67 @@
     <d:Page.Background>
         <SolidColorBrush Color="White" />
     </d:Page.Background>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="90" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
-    <Grid />
+        <TextBlock
+            Grid.Row="0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="25"
+            FontWeight="Medium"
+            Style="{StaticResource MaterialDesignHeadline1TextBlock}"
+            Text="Tour overview" />
+        <Grid Grid.Row="1" Margin="30,0,30,30">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <StackPanel
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="10,0,10,10">
+                <Label
+                    Margin="10,0"
+                    Content="Basic information"
+                    FontSize="15" />
+                <Border
+                    Height="220"
+                    BorderBrush="{StaticResource MaterialDesignDivider}"
+                    BorderThickness="2"
+                    CornerRadius="10" />
+            </StackPanel>
+            <StackPanel
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="10,0,10,10">
+                <Label
+                    Margin="10,0"
+                    Content="Details"
+                    FontSize="15" />
+                <Border
+                    Height="220"
+                    BorderBrush="{StaticResource MaterialDesignDivider}"
+                    BorderThickness="2"
+                    CornerRadius="10" />
+            </StackPanel>
+
+            <Border
+                Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Height="220"
+                Margin="10"
+                BorderBrush="{StaticResource MaterialDesignDivider}"
+                BorderThickness="2"
+                CornerRadius="10" />
+        </Grid>
+    </Grid>
 </Page>
