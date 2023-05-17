@@ -42,9 +42,9 @@ namespace TravelAgency.ViewModel
 
         public void SubmitRenovation()
         {
-            var _repository = new RenovationRepository();
-            var renovation = new Renovation();
-            //TODO
+            var _repository = new RenovationRequestRepository();
+            RenovationRequest request = new RenovationRequest(Comment, Seriousness, 10, 10);
+            _repository.Add(request);
         }
         private void RaisePropertyChanged(string propertyName)
         {

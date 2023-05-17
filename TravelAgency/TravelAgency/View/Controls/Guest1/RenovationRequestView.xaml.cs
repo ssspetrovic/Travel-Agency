@@ -40,7 +40,8 @@ namespace TravelAgency.View.Controls.Guest1
 
         private void Submit_OnClick(object sender, RoutedEventArgs e)
         {
-
+            _viewModel.SubmitRenovation();
+            MessageBox.Show("Success!");
         }
         private void Back_OnClick(object sender, RoutedEventArgs e)
         {
