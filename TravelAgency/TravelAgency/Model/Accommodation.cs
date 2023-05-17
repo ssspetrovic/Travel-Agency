@@ -25,6 +25,7 @@ namespace TravelAgency.Model
         public int ReservableDays { get; set; }
         public string Images { get; set; }  
         public string Description { get; set; }
+        public int MinCancelationDays { get; set; }
 
         public Accommodation()
         {
@@ -32,6 +33,7 @@ namespace TravelAgency.Model
         }
         public Accommodation(int id, string name, int locationId, AccommodationType type, int minReservationDays, int maxReservationDays, string address, int reservableDays, string images, string description)
         {
+            
             Id = id;
             Name = name;
             LocationId = locationId;
@@ -44,8 +46,9 @@ namespace TravelAgency.Model
             Description = description;
         }
 
-        public Accommodation(string name, int locationId, AccommodationType type, int minReservationDays, int maxReservationDays, string address, int reservableDays, string images, string description)
+        public Accommodation(string name, int locationId, AccommodationType type, int minReservationDays, int maxReservationDays, string address, int reservableDays, string images, string description, int ownerId, int mincalcelationdays)
         {
+            MinCancelationDays = mincalcelationdays;
             Name = name;
             LocationId = locationId;
             Type = type;

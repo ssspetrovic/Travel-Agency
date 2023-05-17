@@ -240,5 +240,12 @@ namespace TravelAgency.Service
 
             return accList;
         }
+
+        public AccommodationDTO FindById(int id)
+        {
+            var _repository = new AccommodationRepository();
+            var accommodation = _repository.GetById(id);
+            return accommodation;
+        }
     }
 }
