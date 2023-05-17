@@ -9,8 +9,14 @@
     Title="PicturePopUpDialog"
     Width="1000"
     Height="616"
+    AllowsTransparency="True"
+    Background="Transparent"
+    ResizeMode="NoResize"
+    ShowInTaskbar="False"
+    WindowStartupLocation="CenterOwner "
+    WindowStyle="None"
     mc:Ignorable="d">
-    <Border CornerRadius="15">
+    <Border d:Background="White" CornerRadius="15">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -26,7 +32,10 @@
                     <fa:IconImage Width="20" Icon="Xmark" />
                 </Button.Content>
             </Button>
-            <Image Grid.Row="1" Source="{Binding ImageSource}" />
+            <Image
+                Grid.Row="1"
+                Margin="30,0,30,30"
+                Source="{Binding ImageSourceUri}" />
         </Grid>
     </Border>
 </Window>

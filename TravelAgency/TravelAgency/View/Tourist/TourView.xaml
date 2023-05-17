@@ -62,6 +62,7 @@
                             <RowDefinition Height="30" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
@@ -71,60 +72,111 @@
                             Grid.Row="0"
                             Grid.Column="0"
                             VerticalAlignment="Center"
-                            Content="Name:" />
+                            FontSize="14">
+                            <Label.Content>
+                                <TextBlock FontWeight="Medium" Text="Name:" />
+                            </Label.Content>
+                        </Label>
                         <Label
                             Grid.Row="0"
                             Grid.Column="1"
                             VerticalAlignment="Center"
                             HorizontalContentAlignment="Right"
-                            d:Content="Name" />
+                            d:Content="Name"
+                            FontSize="14">
+                            <Label.Content>
+                                <TextBlock FontStyle="Italic" Text="{Binding Tour.Name}" />
+                            </Label.Content>
+                        </Label>
                         <Label
                             Grid.Row="1"
                             Grid.Column="0"
                             VerticalAlignment="Center"
-                            Content="City:" />
+                            FontSize="14">
+                            <Label.Content>
+                                <TextBlock FontWeight="Medium" Text="City:" />
+                            </Label.Content>
+                        </Label>
                         <Label
                             Grid.Row="1"
                             Grid.Column="1"
                             VerticalAlignment="Center"
                             HorizontalContentAlignment="Right"
-                            d:Content="City" />
+                            d:Content="City"
+                            FontSize="14">
+                            <Label.Content>
+                                <TextBlock FontStyle="Italic" Text="{Binding Tour.Location.City}" />
+                            </Label.Content>
+                        </Label>
                         <Label
                             Grid.Row="2"
                             Grid.Column="0"
                             VerticalAlignment="Center"
-                            Content="Country:" />
+                            FontSize="14">
+                            <Label.Content>
+                                <TextBlock FontWeight="Medium" Text="Country:" />
+                            </Label.Content>
+                        </Label>
                         <Label
                             Grid.Row="2"
                             Grid.Column="1"
                             VerticalAlignment="Center"
                             HorizontalContentAlignment="Right"
-                            d:Content="Country" />
+                            d:Content="Country"
+                            FontSize="14">
+                            <Label.Content>
+                                <TextBlock FontStyle="Italic" Text="{Binding Tour.Location.Country}" />
+                            </Label.Content>
+                        </Label>
                         <Label
                             Grid.Row="3"
                             Grid.Column="0"
                             VerticalAlignment="Center"
-                            Content="Language:" />
+                            FontSize="14">
+                            <Label.Content>
+                                <TextBlock FontWeight="Medium" Text="Language:" />
+                            </Label.Content>
+                        </Label>
                         <Label
                             Grid.Row="3"
                             Grid.Column="1"
                             VerticalAlignment="Center"
                             HorizontalContentAlignment="Right"
-                            d:Content="Language" />
-                        <Label
+                            d:Content="Language"
+                            FontSize="14">
+                            <Label.Content>
+                                <TextBlock FontStyle="Italic" Text="{Binding Tour.Language}" />
+                            </Label.Content>
+                        </Label>
+                        <Separator
                             Grid.Row="4"
                             Grid.Column="0"
-                            Margin="0,5,0,0"
-                            VerticalAlignment="Center"
-                            VerticalContentAlignment="Bottom"
-                            Content="Description:" />
+                            Grid.ColumnSpan="2"
+                            Foreground="{StaticResource MaterialDesignDivider}" />
                         <Label
                             Grid.Row="5"
                             Grid.Column="0"
                             Grid.ColumnSpan="2"
-                            VerticalAlignment="Center">
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            VerticalContentAlignment="Bottom"
+                            FontSize="14">
                             <Label.Content>
-                                <TextBlock d:Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit." TextWrapping="Wrap" />
+                                <TextBlock FontWeight="Medium" Text="Description:" />
+                            </Label.Content>
+                        </Label>
+                        <Label
+                            Grid.Row="6"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            VerticalAlignment="Center"
+                            FontSize="14">
+                            <Label.Content>
+                                <TextBlock
+                                    d:Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                                    FontStyle="Italic"
+                                    Text="{Binding Tour.Description}"
+                                    TextWrapping="Wrap" />
                             </Label.Content>
                         </Label>
                     </Grid>
@@ -147,7 +199,8 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="30" />
                             <RowDefinition Height="30" />
-                            <RowDefinition Height="30" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
@@ -158,38 +211,71 @@
                             Grid.Row="0"
                             Grid.Column="0"
                             VerticalAlignment="Center"
-                            Content="Available spots:" />
+                            FontSize="14">
+                            <Label.Content>
+                                <TextBlock FontWeight="Medium" Text="Available spots:" />
+                            </Label.Content>
+                        </Label>
                         <Label
                             Grid.Row="0"
                             Grid.Column="1"
                             VerticalAlignment="Center"
                             HorizontalContentAlignment="Right"
-                            d:Content="XX" />
+                            d:Content="XX"
+                            FontSize="14">
+                            <Label.Content>
+                                <TextBlock FontStyle="Italic" Text="{Binding Tour.MaxGuests}" />
+                            </Label.Content>
+                        </Label>
                         <Label
                             Grid.Row="1"
                             Grid.Column="0"
                             VerticalAlignment="Center"
-                            Content="Duration:" />
+                            FontSize="14">
+                            <Label.Content>
+                                <TextBlock FontWeight="Medium" Text="Duration:" />
+                            </Label.Content>
+                        </Label>
                         <Label
                             Grid.Row="1"
                             Grid.Column="1"
                             VerticalAlignment="Center"
                             HorizontalContentAlignment="Right"
-                            d:Content="XX" />
-                        <Label
+                            d:Content="XX"
+                            FontSize="14">
+                            <Label.Content>
+                                <TextBlock FontStyle="Italic" Text="{Binding Tour.Duration}" />
+                            </Label.Content>
+                        </Label>
+                        <Separator
                             Grid.Row="2"
                             Grid.Column="0"
-                            Margin="0,5,0,0"
-                            VerticalAlignment="Center"
-                            VerticalContentAlignment="Bottom"
-                            Content="Key points:" />
+                            Grid.ColumnSpan="2"
+                            Foreground="{StaticResource MaterialDesignDivider}" />
                         <Label
                             Grid.Row="3"
                             Grid.Column="0"
                             Grid.ColumnSpan="2"
-                            VerticalAlignment="Center">
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            VerticalContentAlignment="Bottom"
+                            FontSize="14">
                             <Label.Content>
-                                <TextBlock d:Text="Lorem" TextWrapping="Wrap" />
+                                <TextBlock FontWeight="Medium" Text="Key points:" />
+                            </Label.Content>
+                        </Label>
+                        <Label
+                            Grid.Row="4"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            VerticalAlignment="Center"
+                            FontSize="14">
+                            <Label.Content>
+                                <TextBlock
+                                    d:Text="Lorem"
+                                    FontStyle="Italic"
+                                    Text="{Binding KeyPoints}"
+                                    TextWrapping="Wrap" />
                             </Label.Content>
                         </Label>
                     </Grid>
@@ -210,9 +296,30 @@
                         <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <Image Grid.Column="0" Margin="10,0" />
-                    <Image Grid.Column="1" Margin="10,0" />
-                    <Image Grid.Column="2" Margin="10,0" />
+                    <Button
+                        Grid.Column="0"
+                        Margin="10,0"
+                        Style="{StaticResource MaterialDesignIconButton}">
+                        <Button.Content>
+                            <Image Source="{Binding FirstImageSource}" />
+                        </Button.Content>
+                    </Button>
+                    <Button
+                        Grid.Column="1"
+                        Margin="10,0"
+                        Style="{StaticResource MaterialDesignIconButton}">
+                        <Button.Content>
+                            <Image Source="{Binding SecondImageSource}" />
+                        </Button.Content>
+                    </Button>
+                    <Button
+                        Grid.Column="2"
+                        Margin="10,0"
+                        Style="{StaticResource MaterialDesignIconButton}">
+                        <Button.Content>
+                            <Image Source="{Binding ThirdImageSource}" />
+                        </Button.Content>
+                    </Button>
                 </Grid>
             </Border>
         </Grid>

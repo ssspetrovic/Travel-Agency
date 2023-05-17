@@ -224,17 +224,21 @@ namespace TravelAgency.ViewModel.Tourist
         public RelayCommand ApplyFilterCommand { get; set; }
         public RelayCommand ResetFilterCommand { get; set; }
         public RelayCommand SelectionChangedCommand { get; set; }
+        public RelayCommand ViewTourDetailsCommand { get; set; }
 
         public TourReservationViewModel(NavigationService navigationService, TouristViewModel touristViewModel)
         {
+            _navigationService = navigationService;
             _touristViewModel = touristViewModel;
+            
             IsTooltipsSwitchToggled = _touristViewModel.IsTooltipsSwitchToggled;
             _touristViewModel.PropertyChanged += TouristViewModel_PropertyChanged;
-            _navigationService = navigationService;
+
             MakeReservationCommand = new RelayCommand(Execute_MakeReservationCommand, CanExecute_MakeReservationCommand);
             ApplyFilterCommand = new RelayCommand(Execute_ApplyFilterCommand);
             ResetFilterCommand = new RelayCommand(Execute_ResetFilterCommand);
             SelectionChangedCommand = new RelayCommand(Execute_SelectionChangedCommand);
+            ViewTourDetailsCommand = new RelayCommand(Execute_ViewTourDetailsCommand, CanExecute_ViewTourDetailsCommand);
 
             TourReservationService = new TourReservationService(this);
             _toursCollection = new CollectionViewSource { Source = TourReservationService.TourService.GetAllAsCollection() };
@@ -271,9 +275,20 @@ namespace TravelAgency.ViewModel.Tourist
             IsTourSelected = SelectedTour != null;
         }
 
+        private void Execute_ViewTourDetailsCommand(object parameter)
+        {
+            if (parameter is not Tour tour) return;
+            _navigationService.Navigate(new TourView(tour));
+        }
+
         private bool CanExecute_MakeReservationCommand(object parameter)
         {
             return SelectedTour != null && int.TryParse(GuestNumber, out var guests) && guests > 0;
+        }
+
+        private bool CanExecute_ViewTourDetailsCommand(object parameter)
+        { 
+            return parameter is Tour;
         }
 
         private bool IsLocationEqual(Location location)
