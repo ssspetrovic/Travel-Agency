@@ -225,12 +225,13 @@ namespace TravelAgency.ViewModel.Tourist
         public RelayCommand ResetFilterCommand { get; set; }
         public RelayCommand SelectionChangedCommand { get; set; }
         public RelayCommand ViewTourDetailsCommand { get; set; }
+        public RelayCommand ClearVoucherSelectionCommand { get; set; }
 
         public TourReservationViewModel(NavigationService navigationService, TouristViewModel touristViewModel)
         {
             _navigationService = navigationService;
             _touristViewModel = touristViewModel;
-            
+
             IsTooltipsSwitchToggled = _touristViewModel.IsTooltipsSwitchToggled;
             _touristViewModel.PropertyChanged += TouristViewModel_PropertyChanged;
 
@@ -239,6 +240,7 @@ namespace TravelAgency.ViewModel.Tourist
             ResetFilterCommand = new RelayCommand(Execute_ResetFilterCommand);
             SelectionChangedCommand = new RelayCommand(Execute_SelectionChangedCommand);
             ViewTourDetailsCommand = new RelayCommand(Execute_ViewTourDetailsCommand, CanExecute_ViewTourDetailsCommand);
+            ClearVoucherSelectionCommand = new RelayCommand(Execute_ClearVoucherSelectionCommand, CanExecute_ClearVoucherSelectionCommand);
 
             TourReservationService = new TourReservationService(this);
             _toursCollection = new CollectionViewSource { Source = TourReservationService.TourService.GetAllAsCollection() };
@@ -286,8 +288,18 @@ namespace TravelAgency.ViewModel.Tourist
             return SelectedTour != null && int.TryParse(GuestNumber, out var guests) && guests > 0;
         }
 
+        private void Execute_ClearVoucherSelectionCommand(object parameter)
+        {
+            SelectedTourVoucher = null;
+        }
+
+        private bool CanExecute_ClearVoucherSelectionCommand(object parameter)
+        {
+            return SelectedTourVoucher != null;
+        }
+
         private bool CanExecute_ViewTourDetailsCommand(object parameter)
-        { 
+        {
             return parameter is Tour;
         }
 
