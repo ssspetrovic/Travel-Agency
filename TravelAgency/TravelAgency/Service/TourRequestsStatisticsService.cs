@@ -54,7 +54,7 @@ namespace TravelAgency.Service
             return (acceptedRequests, requests.Count);
         }
 
-        private List<int> GetAcceptanceRateForYear(string? year)
+        public List<int> GetAcceptanceRateForYear(string? year)
         {
             var (accepted, total) = GetAcceptedAndTotalRequests(year);
             if (total == 0)
@@ -91,7 +91,7 @@ namespace TravelAgency.Service
                     languageCountsDictionary.Add(request.Language, 1);
                 else
                     languageCountsDictionary[request.Language]++;
-            }   
+            }
 
             return languageCountsDictionary;
         }

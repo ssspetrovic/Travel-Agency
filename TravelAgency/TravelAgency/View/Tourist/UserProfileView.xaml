@@ -2,6 +2,7 @@
     x:Class="TravelAgency.View.Tourist.UserProfileView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -194,11 +195,19 @@
                             Margin="5,-3"
                             Foreground="#3F51B5"
                             Icon="FileExport" />
-                        <TextBlock
+                        <Label
                             FontSize="17"
                             Foreground="#3F51B5"
-                            Text="Export request statistics as a PDF"
-                            TextDecorations="Underline" />
+                            Style="{StaticResource LabelHoverStyle}">
+                            <Label.Content>
+                                <TextBlock Text="Export request statistics as a PDF" TextDecorations="Underline" />
+                            </Label.Content>
+                            <b:Interaction.Triggers>
+                                <b:EventTrigger EventName="MouseDown">
+                                    <b:InvokeCommandAction Command="{Binding GeneratePdfCommand}" />
+                                </b:EventTrigger>
+                            </b:Interaction.Triggers>
+                        </Label>
                     </WrapPanel>
                 </Border>
             </Grid>

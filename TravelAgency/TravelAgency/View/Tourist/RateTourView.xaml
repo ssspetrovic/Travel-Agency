@@ -142,7 +142,8 @@
                         x:Name="PhotosTextBlock"
                         Padding="5"
                         FontSize="14"
-                        Text="{Binding PhotoUrls, UpdateSourceTrigger=PropertyChanged}" />
+                        Text="{Binding PhotoUrls, UpdateSourceTrigger=PropertyChanged}"
+                        TextWrapping="Wrap" />
                 </Border>
                 <WrapPanel
                     Grid.Row="2"
