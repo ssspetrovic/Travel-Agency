@@ -32,13 +32,21 @@ namespace TravelAgency.Repository
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
 
-            const string selectStatement = "select Id, gradeComplacent, gradeClean, userId, credits, expDate from guest where Id = $Id";
+            const string selectStatement = "select Id, gradeComplacent, gradeClean, userId, credits, datetime(expDate) from guest where Id = $Id";
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
             selectCommand.Parameters.AddWithValue("$Id", id);
             using var selectReader = selectCommand.ExecuteReader();
-            
+
             if (selectReader.Read())
-                    return new Guest(selectReader.GetInt32(0), selectReader.GetInt32(3), selectReader.GetFloat(1), selectReader.GetFloat(2), selectReader.GetInt32(4), selectReader.GetInt32(5));
+                if(selectReader[5] != DBNull.Value)
+                {
+                    return new Guest(selectReader.GetInt32(0), selectReader.GetInt32(3), selectReader.GetFloat(1), selectReader.GetFloat(2), selectReader.GetInt32(4), selectReader.GetDateTime(5));
+                }
+                else
+                {
+                    return new Guest(selectReader.GetInt32(0), selectReader.GetInt32(3), selectReader.GetFloat(1), selectReader.GetFloat(2), selectReader.GetInt32(4));
+                }
+                    
             return new Guest();
         }
 

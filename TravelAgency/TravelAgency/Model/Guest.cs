@@ -13,7 +13,7 @@ namespace TravelAgency.Model
         public float GradeComplasent { get; set; }
         public float GradeClean { get; set; }
         public int Credits { get; set; }
-        public int SuperGuestExpDate{ get; set; }
+        public DateTime? SuperGuestExpDate{ get; set; }
 
         public Guest()
         {
@@ -27,10 +27,15 @@ namespace TravelAgency.Model
             GradeClean = gradeClean;
         }
 
-        public Guest(int id, int userId, float gradeComplasent, float gradeClean, int credits, int superGuestExpDate) : this(id, userId, gradeComplasent, gradeClean)
+        public Guest(int id, int userId, float gradeComplasent, float gradeClean, int credits, DateTime? superGuestExpDate) : this(id, userId, gradeComplasent, gradeClean)
         {
             Credits = credits;
             SuperGuestExpDate = superGuestExpDate;
+        }
+
+        public Guest(int id, int userId, float gradeComplasent, float gradeClean, int credits) : this(id, userId, gradeComplasent, gradeClean)
+        {
+            Credits = credits;
         }
     }
 }
