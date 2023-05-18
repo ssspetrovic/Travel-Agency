@@ -1,4 +1,6 @@
-﻿namespace TravelAgency.View.Tourist
+﻿using TravelAgency.ViewModel.Tourist;
+
+namespace TravelAgency.View.Tourist
 {
     /// <summary>
     /// Interaction logic for WizardDialogView.xaml
@@ -8,7 +10,7 @@
         public WizardDialogView()
         {
             InitializeComponent();
-            
+            DataContext = new WizardDialogViewModel();
         }
     }
 }

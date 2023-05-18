@@ -94,7 +94,6 @@ namespace TravelAgency.ViewModel.Tourist
                 .SetFontSize(12);
             document.Add(averageRequestsByStatusTextInvalid);
 
-
             var years = _statisticsService.GetAllYearsAsCollection();
             var languageDictionary = _statisticsService.GetLanguageCountDictionary(null);
             var locationCountDictionary = _statisticsService.GetLocationCountDictionary(null);
@@ -158,7 +157,7 @@ namespace TravelAgency.ViewModel.Tourist
 
                 foreach (var year in years)
                 {
-                    var count = random.Next(0, 11); // Generate random count between 0 and 10
+                    var count = random.Next(0, 3);
                     locationTable.AddCell(new Cell().Add(new Paragraph(count.ToString()).SetTextAlignment(TextAlignment.CENTER)));
                 }
             }

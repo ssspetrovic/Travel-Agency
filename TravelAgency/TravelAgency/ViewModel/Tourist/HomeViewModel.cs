@@ -10,10 +10,12 @@ namespace TravelAgency.ViewModel.Tourist
         private readonly TouristViewModel _touristViewModel;
         private readonly IWindowManager _windowManager;
         private readonly NavigationService _navigationService;
+
         public RelayCommand NavigateToBrowseToursCommand { get; set; }
         public RelayCommand NavigateToTourRequest { get; set; }
         public RelayCommand NavigateToHelpWizard { get; set; }
         public RelayCommand NavigateToRequestsStatisticsCommand { get; set; }
+
         private bool? _isToolTipSwitchToggled;
         public bool? IsToolTipSwitchToggled
         {
@@ -59,7 +61,12 @@ namespace TravelAgency.ViewModel.Tourist
 
         private void Execute_NavigateToHelpWizard(object parameter)
         {
-            // TODO Fix navigation when the Wizard View is implemented
+            var wizardDialog = new WizardDialogView
+            {
+                Owner = System.Windows.Application.Current.MainWindow
+            };
+
+            wizardDialog.Show();
         }
     }
 }

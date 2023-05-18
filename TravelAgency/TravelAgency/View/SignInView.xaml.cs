@@ -90,7 +90,7 @@ namespace TravelAgency.View
                             case Role.Tourist:
                             default:
                                 {
-                                    var touristView = new TouristView();
+                                    var touristView = new WizardDialogView();
                                     touristView.Show();
                                     break;
                                 }
