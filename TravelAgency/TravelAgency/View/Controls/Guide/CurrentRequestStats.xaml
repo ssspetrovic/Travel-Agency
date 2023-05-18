@@ -152,6 +152,7 @@
                             <RowDefinition Height="25" />
                             <RowDefinition Height="35" />
                             <RowDefinition Height="*" />
+                            <RowDefinition Height="40" />
                         </Grid.RowDefinitions>
 
                         <StackPanel
@@ -333,6 +334,16 @@
                                 </DataTemplate>
                             </TabControl.ContentTemplate>
                         </TabControl>
+
+                        <TextBlock
+                            Grid.Row="3"
+                            Padding="0,50"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="14"
+                            FontWeight="DemiBold"
+                            Foreground="#4fc3f7"
+                            Text="Press Function Key to get the corresponding month statistic! (ex. F3 = March)" />
                     </Grid>
 
                 </Border>
