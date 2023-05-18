@@ -65,6 +65,8 @@
             <ListView
                 d:ItemsSource="{d:SampleData ItemCount=5}"
                 ItemsSource="{Binding MyTours}"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                ScrollViewer.VerticalScrollBarVisibility="Hidden"
                 SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}">
                 <ListView.View>
                     <GridView>

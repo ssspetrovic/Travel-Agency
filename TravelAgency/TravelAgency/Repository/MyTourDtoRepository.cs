@@ -64,6 +64,22 @@ namespace TravelAgency.Repository
             updateCommand.ExecuteNonQuery();
         }
 
+        public MyTourDto.TourStatus GetStatusByName(string name)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            using var selectCommand = databaseConnection.CreateCommand();
+            selectCommand.CommandText = "SELECT Status FROM MyTourDto WHERE Name = $name";
+            selectCommand.Parameters.AddWithValue("$name", name);
+            using var selectReader = selectCommand.ExecuteReader();
+
+            if (selectReader.Read())
+                return (MyTourDto.TourStatus)selectReader.GetInt32(0);
+
+            return MyTourDto.TourStatus.Inactive;
+        }
+
         public ObservableCollection<MyTourDto> GetAllAsCollection()
         {
             using var databaseConnection = GetConnection();

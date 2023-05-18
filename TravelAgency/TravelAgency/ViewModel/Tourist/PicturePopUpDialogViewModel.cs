@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Controls;
 using TravelAgency.Command;
 using TravelAgency.View.Tourist;
 using TravelAgency.WindowHelpers;
@@ -7,23 +8,13 @@ namespace TravelAgency.ViewModel.Tourist
 {
     internal class PicturePopUpDialogViewModel : BaseViewModel
     {
+        public Uri ImageUri { get; set; }
+
         public RelayCommand CloseCommand { get; set; }
 
-        private Uri _imageSourceUri;
-
-        public Uri ImageSourceUri
+        public PicturePopUpDialogViewModel(Uri imageUri)
         {
-            get => _imageSourceUri;
-            set
-            {
-                _imageSourceUri = value;
-                OnPropertyChanged();
-            }
-        } 
-
-        public PicturePopUpDialogViewModel(Uri imageSourceUri)
-        {
-            _imageSourceUri = imageSourceUri;
+            ImageUri = imageUri;
             CloseCommand = new RelayCommand(Execute_CloseCommand);
         }
 

@@ -1,5 +1,5 @@
 ﻿using System;
-using TravelAgency.Model;
+using System.Windows.Controls;
 using TravelAgency.ViewModel.Tourist;
 
 namespace TravelAgency.View.Tourist
@@ -9,10 +9,10 @@ namespace TravelAgency.View.Tourist
     /// </summary>
     public partial class PicturePopUpDialog
     {
-        public PicturePopUpDialog(Uri imageSourceUri)
+        public PicturePopUpDialog(Uri imageUri)
         {
             InitializeComponent();
-            DataContext = new PicturePopUpDialogViewModel(imageSourceUri);
+            DataContext = new PicturePopUpDialogViewModel(imageUri);
         }
     }
 }

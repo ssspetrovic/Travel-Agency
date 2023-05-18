@@ -49,6 +49,7 @@
                     d:ItemsSource="{d:SampleData ItemCount=4}"
                     ItemsSource="{Binding RegularRequests}"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                    ScrollViewer.VerticalScrollBarVisibility="Hidden"
                     Style="{StaticResource MaterialDesignListView}">
                     <ListView.ItemContainerStyle>
                         <Style BasedOn="{StaticResource MaterialDesignGridViewItem}" TargetType="ListViewItem">
