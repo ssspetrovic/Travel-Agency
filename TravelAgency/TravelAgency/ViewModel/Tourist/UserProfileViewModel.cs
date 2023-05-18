@@ -89,7 +89,7 @@ namespace TravelAgency.ViewModel.Tourist
             document.Add(averageRequestsByStatusText);
 
             var averageRequestsByStatusInvalid = _statisticsService.GetAverageRequestsByStatus(null, Status.Invalid);
-            var averageRequestsByStatusTextInvalid = new Paragraph($"Average number of guests per accepted request: {averageRequestsByStatusInvalid}")
+            var averageRequestsByStatusTextInvalid = new Paragraph($"Average number of guests per denied request: {averageRequestsByStatusInvalid}")
                 .SetTextAlignment(TextAlignment.CENTER)
                 .SetFontSize(12);
             document.Add(averageRequestsByStatusTextInvalid);
