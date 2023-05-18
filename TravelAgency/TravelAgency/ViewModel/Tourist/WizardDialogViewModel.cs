@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows.Media.Imaging;
 using TravelAgency.Command;
@@ -11,8 +11,25 @@ namespace TravelAgency.ViewModel.Tourist
     internal class WizardDialogViewModel : BaseViewModel
     {
         private const string FolderString = @"..\..\..\Resources\Images\TouristWizardImages\";
-        private readonly ObservableCollection<string> _imagePaths;
+        private readonly List<string> _imagePaths;
         private int _currentImageIndex;
+
+        private readonly List<string> _imageNames = new()
+        {
+            "Navigation",
+            "User profile",
+            "Home page",
+            "Notifications",
+            "My tours",
+            "Rate a tour",
+            "My vouchers",
+            "My requests",
+            "Requests statistics",
+            "Browse tours",
+            "Tour overview",
+            "Request a tour",
+            "Regular tour request"
+        };
 
         public RelayCommand NextCommand { get; set; }
         public RelayCommand BackCommand { get; set; }
@@ -29,29 +46,32 @@ namespace TravelAgency.ViewModel.Tourist
             }
         }
 
+        private string _currentPageLabel;
+
+        public string CurrentPageLabel
+        {
+            get => _currentPageLabel;
+            set
+            {
+                _currentPageLabel = value;
+                OnPropertyChanged();
+            }
+        }
+
         public WizardDialogViewModel()
         {
             var folderPath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, FolderString));
 
-            _imagePaths = new ObservableCollection<string>
+            _imagePaths = new List<string>();
+
+            foreach (var photo in _imageNames)
             {
-                Path.Combine(folderPath, "Navigation.jpg"),
-                Path.Combine(folderPath, "User.jpg"),
-                Path.Combine(folderPath, "Home page.jpg"),
-                Path.Combine(folderPath, "Notifications.jpg"),
-                Path.Combine(folderPath, "My tours.jpg"),
-                Path.Combine(folderPath, "Rate a tour.jpg"),
-                Path.Combine(folderPath, "My vouchers.jpg"),
-                Path.Combine(folderPath, "My requests.jpg"),
-                Path.Combine(folderPath, "Requests statistics.jpg"),
-                Path.Combine(folderPath, "Browse tours.jpg"),
-                Path.Combine(folderPath, "Tour overview.jpg"),
-                Path.Combine(folderPath, "Request a tour.jpg"),
-                Path.Combine(folderPath, "Regular tour request.jpg"),
-            };
+                _imagePaths.Add(Path.Combine(folderPath, photo + ".jpg"));
+            }
 
             _currentImageIndex = 0;
             _currentImage = new BitmapImage(new Uri(_imagePaths[_currentImageIndex], UriKind.Absolute));
+            _currentPageLabel = _imageNames[_currentImageIndex];
 
             NextCommand = new RelayCommand(Execute_NextCommand, CanExecute_NextCommand);
             BackCommand = new RelayCommand(Execute_BackCommand, CanExecute_BackCommand);
@@ -84,6 +104,7 @@ namespace TravelAgency.ViewModel.Tourist
         {
             var imagePath = _imagePaths[_currentImageIndex];
             CurrentImage = new BitmapImage(new Uri(imagePath, UriKind.Absolute));
+            CurrentPageLabel = _imageNames[_currentImageIndex];
         }
 
         private void Execute_FinishCommand(object parameter)

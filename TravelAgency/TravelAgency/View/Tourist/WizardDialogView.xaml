@@ -8,7 +8,6 @@
     AllowsTransparency="True"
     Background="Transparent"
     ResizeMode="NoResize"
-    ShowInTaskbar="False"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None">
     <Border Background="{StaticResource MaterialDesignCardBackground}" CornerRadius="15">
@@ -59,8 +58,11 @@
                         Content="Finish" />
                     <Label
                         Grid.Column="1"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
                         Content="{Binding CurrentPageLabel}"
-                        FontSize="20" />
+                        FontSize="25"
+                        Foreground="#3F51B5" />
                     <WrapPanel
                         Grid.Column="2"
                         HorizontalAlignment="Right"
