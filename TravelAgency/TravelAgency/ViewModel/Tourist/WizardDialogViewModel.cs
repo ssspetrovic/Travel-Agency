@@ -2,6 +2,9 @@
 {
     internal class WizardDialogViewModel : BaseViewModel
     {
-
+        public WizardDialogViewModel()
+        {
+            
+        }
     }
 }

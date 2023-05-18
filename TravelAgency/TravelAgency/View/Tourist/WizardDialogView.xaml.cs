@@ -8,6 +8,7 @@
         public WizardDialogView()
         {
             InitializeComponent();
+            
         }
     }
 }

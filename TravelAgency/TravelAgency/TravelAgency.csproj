@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <Folder Include="Controller\" />
+    <Folder Include="Resources\Images\TouristWizardImages\" />
   </ItemGroup>
 
   <ItemGroup>
