@@ -10,6 +10,7 @@ namespace TravelAgency.Model
     internal interface IReservationRepository
     {
         ObservableCollection<Reservation> GetAll();
+        ObservableCollection<Reservation> GetAllByOwnerId(int ownerId);
         ObservableCollection<Reservation> GetReservationsToGrade();
 
         ObservableCollection<Reservation> GetGuestsGradesToDisplay();

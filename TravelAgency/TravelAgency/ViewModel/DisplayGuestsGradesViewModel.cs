@@ -12,6 +12,8 @@ using TravelAgency.Repository;
 using TravelAgency.View.Controls.Owner;
 using TravelAgency.View;
 using TravelAgency.DTO;
+using System.Data;
+using TravelAgency.Service;
 
 namespace TravelAgency.ViewModel
 {
@@ -19,23 +21,24 @@ namespace TravelAgency.ViewModel
     {
         private readonly CollectionViewSource _guestsGradesCollection;
         public new event PropertyChangedEventHandler? PropertyChanged;
-        private Reservation? _selectedGuestsGrade;
+        private ReservationDisplayReviewsDTO? _selectedGuestsGrade;
         private bool _isGuestsGradeSelected;
 
         private readonly ReservationRepository _reservationRepository;
+        private readonly ReservationService _reservationService;
         public ICollectionView GuestsGradesSourceCollection => _guestsGradesCollection.View;
 
         private string _guestName;
         private string _accommodationName;
         public DisplayGuestsGradesViewModel()
         {
-            _reservationRepository = new ReservationRepository();
+            _reservationService = new ReservationService();
+            AccommodationRepository _acc = new AccommodationRepository();
 
             _guestsGradesCollection = new CollectionViewSource
             {
-                Source = _reservationRepository.GetGuestsGradesToDisplay()
+                Source = _reservationService.GetGuestsGradesToDisplay()
             };
-            _reservationRepository = new ReservationRepository();
 
         }
 
@@ -49,7 +52,7 @@ namespace TravelAgency.ViewModel
             }
         }
         
-        public Reservation? SelectedGuestsGrade
+        public ReservationDisplayReviewsDTO? SelectedGuestsGrade
         {
             get => _selectedGuestsGrade;
 
@@ -82,7 +85,7 @@ namespace TravelAgency.ViewModel
             }
         }
 
-        private void SetNames(Reservation? r)
+        private void SetNames(ReservationDisplayReviewsDTO? r)
         {
             UserRepository userRepository = new UserRepository();
             User u = userRepository.GetById(r.GuestId);

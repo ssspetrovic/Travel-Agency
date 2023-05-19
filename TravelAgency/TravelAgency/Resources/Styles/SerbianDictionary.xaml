@@ -78,5 +78,6 @@
     <!--DISPLAY GUESTS REVIEWS-->
     <System:String x:Key="Grade Owner">Ocena Vlasnika</System:String>
     <System:String x:Key="Guests comment">Gostov komentar</System:String>
+    <System:String x:Key="Selected Review">Gostova Ocena</System:String>
 
 </ResourceDictionary>

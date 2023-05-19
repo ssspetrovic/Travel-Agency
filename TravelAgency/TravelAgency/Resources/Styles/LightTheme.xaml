@@ -42,4 +42,7 @@
         <Setter Property="Foreground" Value="Black"/>
         <Setter Property="Background" Value="White"/>
     </Style>
+    <Style x:Key="Rectangle" TargetType="{x:Type Rectangle}">
+        <Setter Property="Stroke" Value="Black"/>
+    </Style>
 </ResourceDictionary>
