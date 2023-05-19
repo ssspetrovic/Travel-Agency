@@ -50,7 +50,7 @@
     <System:String x:Key="Reservation ID">Reservation ID</System:String>
     <System:String x:Key="Accommodation ID">Accommodation ID</System:String>
     <System:String x:Key="Guest">Guest</System:String>
-    <System:String x:Key="Selected Accommodation ID">Selected Accommodation ID</System:String>
+    <System:String x:Key="Selected Accommodation">Selected Accommodation:</System:String>
     <System:String x:Key="Selected Reservation ID">Selected Reservation ID</System:String>
     <System:String x:Key="Old Start Date">Old Start Date</System:String>
     <System:String x:Key="New Start Date">New Start Date</System:String>

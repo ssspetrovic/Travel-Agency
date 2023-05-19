@@ -50,7 +50,7 @@
     <System:String x:Key="Reservation ID">Rezervacija ID</System:String>
     <System:String x:Key="Accommodation ID">Smeštaj ID</System:String>
     <System:String x:Key="Guest">Gost</System:String>
-    <System:String x:Key="Selected Accommodation ID">Izabrani smeštaj ID</System:String>
+    <System:String x:Key="Selected Accommodation">Izabrani smeštaj:</System:String>
     <System:String x:Key="Selected Reservation ID">Izabrana rezervacija ID</System:String>
     <System:String x:Key="Old Start Date">Stari Početni Datum</System:String>
     <System:String x:Key="New Start Date">Novi Početni Datum</System:String>

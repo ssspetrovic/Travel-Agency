@@ -31,6 +31,7 @@ namespace TravelAgency.View
             btnLightTheme.Visibility = Visibility.Visible;
             btnDarkTheme.Visibility = Visibility.Hidden;
             stekPanel.Visibility = Visibility.Hidden;
+            menuRectangle.Visibility = Visibility.Hidden;
         }
 
         private void mainFrame_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
@@ -41,11 +42,12 @@ namespace TravelAgency.View
         private void btnMenu_Click(object sender, RoutedEventArgs e)
         {
             stekPanel.Visibility= Visibility.Visible;
+            menuRectangle.Visibility = Visibility.Visible;
         }
 
         private void btnHomePage_Click(object sender, RoutedEventArgs e)
         {
-            stekPanel.Visibility = Visibility.Hidden;
+            HideMenu();
             HomePageView homePageView = new HomePageView();
             mainFrame.Navigate(homePageView);
             lblSelectedTab.Content = btnHomePage.Content;
@@ -53,7 +55,7 @@ namespace TravelAgency.View
 
         private void btnRegisterAccommodation_Click(object sender, RoutedEventArgs e)
         {
-            stekPanel.Visibility = Visibility.Hidden;
+            HideMenu();
             RegisterAccommodationView registerAccommodationView = new RegisterAccommodationView();
             mainFrame.Navigate(registerAccommodationView);
             lblSelectedTab.Content = btnRegisterAccommodation.Content;
@@ -61,7 +63,7 @@ namespace TravelAgency.View
 
         private void btnReservationChangeRequest_Click(object sender, RoutedEventArgs e)
         {
-            stekPanel.Visibility = Visibility.Hidden;
+            HideMenu();
             ReservationChangeRequestView reservationChangeRequestView = new ReservationChangeRequestView();
             mainFrame.Navigate(reservationChangeRequestView);
             lblSelectedTab.Content = btnReservationChangeRequest.Content;
@@ -69,7 +71,7 @@ namespace TravelAgency.View
 
         private void btnGradeGuest_Click(object sender, RoutedEventArgs e)
         {
-            stekPanel.Visibility = Visibility.Hidden;
+            HideMenu();
             GradeGuestsView gradeGuestsView = new GradeGuestsView();
             mainFrame.Navigate(gradeGuestsView);
             lblSelectedTab.Content = btnGradeGuest.Content;
@@ -77,7 +79,7 @@ namespace TravelAgency.View
 
         private void btnDisplayGuestReviews_Click(object sender, RoutedEventArgs e)
         {
-            stekPanel.Visibility = Visibility.Hidden;
+            HideMenu();
             DisplayGuestReviewsView displayGuestReviewsView = new DisplayGuestReviewsView();
             mainFrame.Navigate(displayGuestReviewsView);
             lblSelectedTab.Content = btnDisplayGuestReviews.Content;
@@ -144,7 +146,7 @@ namespace TravelAgency.View
 
         private void btnScheduleRenovation_Click(object sender, RoutedEventArgs e)
         {
-            stekPanel.Visibility = Visibility.Hidden;
+            HideMenu();
             ScheduleRenovationView scheduleRenovationView = new ScheduleRenovationView();
             mainFrame.Navigate(scheduleRenovationView);
             lblSelectedTab.Content = btnScheduleRenovation.Content;
@@ -152,7 +154,7 @@ namespace TravelAgency.View
 
         private void btnRenovationOverview_Click(object sender, RoutedEventArgs e)
         {
-            stekPanel.Visibility = Visibility.Hidden;
+            HideMenu();
             RenovationOverviewView renovationOverviewView = new RenovationOverviewView();
             mainFrame.Navigate(renovationOverviewView);
             lblSelectedTab.Content = btnRenovationOverview.Content;
@@ -160,10 +162,16 @@ namespace TravelAgency.View
 
         private void btnAccommodationStatistics_Click(object sender, RoutedEventArgs e)
         {
-            stekPanel.Visibility = Visibility.Hidden;
+            HideMenu();
             AccommodationStatisticsView accommodationStatisticsView = new AccommodationStatisticsView();
             mainFrame.Navigate(accommodationStatisticsView);
             lblSelectedTab.Content = btnAccommodationStatistics.Content;
+        }
+
+        private void HideMenu()
+        {
+            stekPanel.Visibility = Visibility.Hidden;
+            menuRectangle.Visibility = Visibility.Hidden;
         }
     }
 }

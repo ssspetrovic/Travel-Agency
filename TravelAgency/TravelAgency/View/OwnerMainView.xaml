@@ -32,6 +32,8 @@
                 <Button x:Name="btnDarkTheme" Style="{DynamicResource Batn}" Content="{DynamicResource DarkTheme}" Click="btnDarkTheme_Click" Margin="252,361,10,96" FontSize="16" RenderTransformOrigin="0.476,0.747"/>
             </Grid>
         </StackPanel>
+        <Rectangle x:Name="menuRectangle" Style="{DynamicResource Rectangle}" HorizontalAlignment="Left" Height="750" VerticalAlignment="Center" Width="380"/>
+        <Rectangle Style="{DynamicResource Rectangle}" HorizontalAlignment="Center" Height="750" VerticalAlignment="Center" Width="430"/>
 
     </Grid>
 </Window>
