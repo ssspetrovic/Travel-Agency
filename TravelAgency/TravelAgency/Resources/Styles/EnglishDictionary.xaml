@@ -78,5 +78,6 @@
     <!--DISPLAY GUESTS REVIEWS-->
     <System:String x:Key="Grade Owner">Grade Owner</System:String>
     <System:String x:Key="Guests comment">Guest's comment</System:String>
+    <System:String x:Key="Selected Review">Selected Review</System:String>
 
 </ResourceDictionary>

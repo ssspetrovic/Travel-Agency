@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using TravelAgency.DTO;
 using TravelAgency.Model;
 using TravelAgency.Service;
 
@@ -426,6 +427,44 @@ namespace TravelAgency.Repository
             updateCommand.Parameters.AddWithValue("$endDate", newEndDate);
             updateCommand.Parameters.AddWithValue("$id", reservationId);
             updateCommand.ExecuteNonQuery();
+        }
+
+        public ObservableCollection<Reservation> GetAllByOwnerId(int ownerId)
+        {
+            var accommodationRepository = new AccommodationRepository();
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            const string selectStatement = @"select Id, userId, accId, userComment, date(startDate), date(endDate), gradeUserComplacent, gradeUserClean, reviewImages, gradeAccommodationClean, gradeAccommodationOwner, accommodationComment from Reservation";
+            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
+            using var selectReader = selectCommand.ExecuteReader();
+
+            var reservationList = new ObservableCollection<Reservation>();
+
+            while (selectReader.Read())
+            {
+                var id = selectReader.GetInt32(0);
+                var guestId = selectReader.GetInt32(1);
+                var accommodationId = selectReader.GetInt32(2);
+                var comment = selectReader.GetString(3);
+                var startDate = selectReader.GetDateTime(4);
+                var endDate = selectReader.GetDateTime(5);
+                var gradeComplacent = selectReader.GetFloat(6);
+                var gradeClean = selectReader.GetFloat(7);
+                var reviewImages = selectReader.GetString(8);
+                var gradeAccommodationClean = selectReader.GetFloat(9);
+                var gradeAccommodationOwner = selectReader.GetFloat(10);
+                var accommodationComment = selectReader.GetString(11);
+
+                int owner = accommodationRepository.GetOwnerIdByAccommodationId(accommodationId);
+                if (owner == CurrentUser.Id)
+                {
+                    Reservation res = new Reservation(id, comment, startDate, endDate, gradeComplacent, gradeClean, guestId, accommodationId, accommodationComment, gradeAccommodationClean, gradeAccommodationOwner, reviewImages);
+                    reservationList.Add(res);
+                }
+            }
+
+            return reservationList;
         }
     }
 }
