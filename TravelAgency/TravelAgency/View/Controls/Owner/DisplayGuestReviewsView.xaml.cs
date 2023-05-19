@@ -45,16 +45,5 @@ namespace TravelAgency.View.Controls.Owner
                 GuestListView.Foreground = Brushes.White;
             }
         }
-
-        private void GuestListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            UserRepository userRepository = new UserRepository();
-            User user = userRepository.GetById(Convert.ToInt32(txtGuest.Text));
-            txtGuest.Text = user.Name + " " + user.Surname;
-
-            AccommodationRepository accommodationRepository = new AccommodationRepository();
-            AccommodationDTO acc = accommodationRepository.GetById(Convert.ToInt32(txtAccommodation.Text));
-            txtAccommodation.Text = acc.Name;
-        }
     }
 }
