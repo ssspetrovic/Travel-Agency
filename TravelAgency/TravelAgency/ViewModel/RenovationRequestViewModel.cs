@@ -54,7 +54,7 @@ namespace TravelAgency.ViewModel
         public void SubmitRenovation()
         {
             var _repository = new RenovationRequestRepository();
-            RenovationRequest request = new RenovationRequest(Comment, Seriousness, AccId, 10);
+            RenovationRequest request = new RenovationRequest(Comment, Seriousness, AccId, DateTime.Now);
             _repository.Add(request);
 
             /////////////////////////////////

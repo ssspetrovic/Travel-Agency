@@ -12,11 +12,11 @@ namespace TravelAgency.Model
         public string? Comment { get; set; }
         public string? Type { get; set; }
         public int AccId { get; set; }
-        public int Date { get; set; }
+        public DateTime Date { get; set; }
 
         public RenovationRequest() { }
 
-        public RenovationRequest( string? comment, string? type, int accId, int date)
+        public RenovationRequest( string? comment, string? type, int accId, DateTime date)
         {
             Comment = comment;
             Type = type;
