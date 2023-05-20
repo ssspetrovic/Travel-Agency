@@ -323,5 +323,38 @@ namespace TravelAgency.Service
             }
             return resToDisplay;
         }
+
+        public ObservableCollection<ReservationDisplayReviewsDTO> GetGuestsToGrade()
+        {
+            var reservationRepository = new ReservationRepository();
+            var accommodationRepository = new AccommodationRepository();
+            ObservableCollection<Reservation> reservations = reservationRepository.GetAllByOwnerId(CurrentUser.Id);
+            ObservableCollection<ReservationDisplayReviewsDTO> resToDisplay = new ObservableCollection<ReservationDisplayReviewsDTO>();
+            foreach (Reservation reservation in reservations)
+            {
+                ReservationDisplayReviewsDTO r = new ReservationDisplayReviewsDTO();
+                r.Id = reservation.Id;
+                r.StartDate = reservation.StartDate.ToShortDateString();
+                r.EndDate = reservation.EndDate.ToShortDateString();
+                r.AccommodationId = reservation.AccommodationId;
+                r.GuestId = reservation.GuestId;
+                r.GradeAccommodationClean = reservation.GradeAccommodationClean;
+                r.GradeAccommodationOwner = reservation.GradeAccommodationOwner;
+                r.AccommodationComment = reservation.AccommodationComment;
+                AccommodationDTO a = accommodationRepository.GetById(reservation.AccommodationId);
+                r.AccommodationName = a.Name;
+
+                if (reservation.GradeGuestComplacent == -1 && reservation.GradeGuestClean == -1)
+                {
+                    double days = (DateTime.Now - reservation.EndDate).TotalDays;
+                    days = 4; //DELETE THIS
+                    if (days <= 5)
+                    {
+                        resToDisplay.Add(r);
+                    }
+                }
+            }
+            return resToDisplay;
+        }
     }
 }

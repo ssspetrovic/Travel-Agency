@@ -12,15 +12,15 @@ namespace TravelAgency.Command
     {           
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-                var radioButtonContent = (string)parameter;
-                var isChecked = (bool)value;
-
-                return isChecked ? radioButtonContent : null;
+            return value?.ToString() == parameter?.ToString();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            if ((bool)value)
+                return parameter?.ToString();
+
+            return Binding.DoNothing;
         }
     }
 }

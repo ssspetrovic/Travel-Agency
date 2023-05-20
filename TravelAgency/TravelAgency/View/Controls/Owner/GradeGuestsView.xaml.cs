@@ -25,39 +25,11 @@ namespace TravelAgency.View.Controls.Owner
     public partial class GradeGuestsView : Page
     {
         private readonly GradeGuestViewModel _viewModel = new();
-        private ReservationRepository reservationRepository = new ReservationRepository();
         public GradeGuestsView()
         {
             InitializeComponent();
             DataContext = _viewModel;
             ChangeColorListView();
-
-            lblGuests.Content = lblGuests.Content + " (" + reservationRepository.CountReservationsToGrade().ToString() + ")";
-        }
-
-        private void btnGrade_Click(object sender, RoutedEventArgs e)
-        {
-            if (txtReservationId.Text != "")
-            {
-                int reservationId = Convert.ToInt32(txtReservationId.Text);
-                string comment = txtComment.Text;
-                float gradeComplaisent = Convert.ToInt32(grid.Children.OfType<RadioButton>().FirstOrDefault(r => r.GroupName == "grade_complaisent" && r.IsChecked.HasValue && r.IsChecked.Value).Content);
-                float gradeClean = Convert.ToInt32(grid.Children.OfType<RadioButton>().FirstOrDefault(r => r.GroupName == "grade_clean" && r.IsChecked.HasValue && r.IsChecked.Value).Content);
-
-                reservationRepository.UpdateReservationAfterGrading(reservationId, comment, gradeComplaisent, gradeClean);
-                if (CurrentLanguageAndTheme.languageId == 0)
-                    MessageBox.Show("Guest graded successfully!", "Message");
-                else
-                    MessageBox.Show("Gost ocenjen uspešno!", "Poruka");
-                Refresh();
-            }
-            else
-            {
-                if (CurrentLanguageAndTheme.languageId == 0)
-                    MessageBox.Show("No reservation selected...", "Message");
-                else
-                    MessageBox.Show("Nije izabrana ni jedna rezervacija", "Poruka");
-            }
         }
 
         private void ChangeColorListView()
@@ -72,30 +44,6 @@ namespace TravelAgency.View.Controls.Owner
                 GuestListView.Background = Brushes.Black;
                 GuestListView.Foreground = Brushes.White;
             }
-        }
-
-        private void GuestListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            UserRepository userRepository = new UserRepository();
-            User user = userRepository.GetById(Convert.ToInt32(txtReservationId_Copy.Text));
-            txtReservationId_Copy.Text = user.Name + " " + user.Surname;
-        }
-
-        private void Refresh()
-        {
-            OwnerMainView mainWindow = null;
-            foreach (Window window in Application.Current.Windows)
-            {
-                if (window is OwnerMainView)
-                {
-                    mainWindow = (OwnerMainView)window;
-                    break;
-                }
-            }
-
-            Frame mainFrame = mainWindow.mainFrame;
-            GradeGuestsView gradeGuestsView = new GradeGuestsView();
-            mainFrame.Navigate(gradeGuestsView);
         }
     }
 }
