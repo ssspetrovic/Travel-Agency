@@ -61,7 +61,7 @@
                     <PasswordBox
                         x:Name="PasswordBox"
                         Width="300"
-                        Height="45"
+                        Height="55"
                         materialDesign:HintAssist.Hint="Enter your password"
                         BorderBrush="{DynamicResource MaterialDesignDivider}"
                         BorderThickness="2"
@@ -71,7 +71,7 @@
                         x:Name="PasswordBoxConfirm"
                         Grid.Row="1"
                         Width="300"
-                        Height="45"
+                        Height="55"
                         materialDesign:HintAssist.Hint="Enter your password again"
                         BorderBrush="{DynamicResource MaterialDesignDivider}"
                         BorderThickness="2"

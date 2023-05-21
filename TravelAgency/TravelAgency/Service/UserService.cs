@@ -17,5 +17,10 @@ namespace TravelAgency.Service
         {
             return _userRepository.GetByUsername(username);
         }
+
+        public void RemoveByUsername(string? username)
+        {
+            _userRepository.RemoveByUsername(username);
+        }
     }
 }

@@ -85,6 +85,31 @@ namespace TravelAgency.Service
             return tour;
         }
 
+        public List<Tour> GetAllByUsername(string? username)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+            var tours = new List<Tour>();
+
+            const string selectStatement = "select * from Tour where GuideName = $GuideName";
+            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
+            selectCommand.Parameters.AddWithValue("$GuideName", username);
+
+            using var selectReader = selectCommand.ExecuteReader();
+            while(selectReader.Read())
+            {
+                var location = _locationService.GetById(selectReader.GetInt32(2));
+
+                var tour = new Tour(selectReader.GetInt32(0), selectReader.GetString(1),
+                    location!, selectReader.GetString(3), (Language)selectReader.GetInt32(4), selectReader.GetInt32(5),
+                    GetKeyPoints(selectReader.GetString(6)), selectReader.GetString(7), selectReader.GetFloat(8),
+                    selectReader.GetString(9));
+
+                tours.Add(tour);
+            }
+            return tours;
+        }
+
         public ObservableCollection<Tour> GetAllAsCollection()
         {
             using var databaseConnection = GetConnection();

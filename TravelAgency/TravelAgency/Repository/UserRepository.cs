@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using Microsoft.Data.Sqlite;
 using TravelAgency.Interface;
 using TravelAgency.Model;
 
@@ -92,6 +93,16 @@ namespace TravelAgency.Repository
             }
 
             return user;
+        }
+
+        public void RemoveByUsername(string? username)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+            const string deleteStatement = "delete from User where Username = $Username";
+            using var deleteCommand = new SqliteCommand(deleteStatement, databaseConnection);
+            deleteCommand.Parameters.AddWithValue("$Username", username);
+            deleteCommand.ExecuteNonQuery();
         }
     }
 }

@@ -9,5 +9,6 @@ namespace TravelAgency.Interface
         Role GetRole(string username);
         User GetById(int id);
         User GetByUsername(string? username);
+        void RemoveByUsername(string? username);
     }
 }
