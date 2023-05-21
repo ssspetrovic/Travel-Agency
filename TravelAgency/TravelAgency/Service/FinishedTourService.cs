@@ -108,10 +108,9 @@ namespace TravelAgency.Service
 
             foreach (var tourist in finishedTour.Tourists)
             {
-                const string selectStatement = "select * from TourVoucher where TouristId = $TouristId and GuideId = $GuideId";
+                const string selectStatement = "select * from TourVoucher where TouristId = $TouristId";
                 using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
                 selectCommand.Parameters.AddWithValue("$TouristId", tourist.Id);
-                selectCommand.Parameters.AddWithValue("$GuideId", 0);
                 using var selectReader = selectCommand.ExecuteReader();
                 if (!selectReader.Read()) continue;
                 if ((TourVoucher.VoucherStatus)selectReader.GetInt32(6) == TourVoucher.VoucherStatus.Valid)
@@ -150,8 +149,9 @@ namespace TravelAgency.Service
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
 
-            const string selectStatement = @"select * from FinishedTour where TouristNumber = (select max(TouristNumber) from FinishedTour)";
+            const string selectStatement = @"select * from FinishedTour where TouristNumber = (select max(TouristNumber) from FinishedTour where GuideName = $GuideName)";
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
+            selectCommand.Parameters.AddWithValue("$GuideName", CurrentUser.Username);
             return GetBestTour(selectCommand);
         }
 
@@ -160,8 +160,9 @@ namespace TravelAgency.Service
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
 
-            const string selectStatement = @"select * from FinishedTour";
+            const string selectStatement = @"select * from FinishedTour where GuideName = $GuideName";
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
+            selectCommand.Parameters.AddWithValue("$GuideName", CurrentUser.Username);
             return _finishedTourRepository.FindBestTourByYear(GetBestTour(selectCommand), "2022");
         }
 
@@ -170,8 +171,9 @@ namespace TravelAgency.Service
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
 
-            const string selectStatement = @"select * from FinishedTour";
+            const string selectStatement = @"select * from FinishedTour where GuideName = $GuideName";
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
+            selectCommand.Parameters.AddWithValue("$GuideName", CurrentUser.Username);
             return _finishedTourRepository.FindBestTourByYear(GetBestTour(selectCommand), "2023");
         }
 

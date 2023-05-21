@@ -129,8 +129,8 @@ namespace TravelAgency.Service
             databaseConnection.Open();
 
             const string insertStatement =
-                @"insert into Tour(Name, Location_Id, Description, Language, MaxGuests, LocationList, Date, Duration, Images) 
-                    values ($Name, $Location_Id, $Description, $Language, $MaxGuests, $LocationList, $Date, $Duration, $Images)";
+                @"insert into Tour(Name, Location_Id, Description, Language, MaxGuests, LocationList, Date, Duration, Images, GuideName) 
+                    values ($Name, $Location_Id, $Description, $Language, $MaxGuests, $LocationList, $Date, $Duration, $Images, $GuideName)";
             using var insertCommand = new SqliteCommand(insertStatement, databaseConnection);
             insertCommand.Parameters.AddWithValue("$Name", tour.Name);
             insertCommand.Parameters.AddWithValue("$Location_Id", tour.Location.Id);
@@ -141,6 +141,7 @@ namespace TravelAgency.Service
             insertCommand.Parameters.AddWithValue("Date", tour.Date);
             insertCommand.Parameters.AddWithValue("$Duration", tour.Duration);
             insertCommand.Parameters.AddWithValue("$Images", tour.Photos);
+            insertCommand.Parameters.AddWithValue("$GuideName", CurrentUser.Username);
             insertCommand.ExecuteNonQuery();
         }
 
@@ -156,8 +157,9 @@ namespace TravelAgency.Service
 
             var documentData = new List<Paragraph>();
 
-            const string selectStatement = "select * from Tour";
+            const string selectStatement = "select * from Tour where GuideName = $GuideName";
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
+            selectCommand.Parameters.AddWithValue("$GuideName", CurrentUser.Username);
             using var selectReader = selectCommand.ExecuteReader();
 
             while (selectReader.Read())

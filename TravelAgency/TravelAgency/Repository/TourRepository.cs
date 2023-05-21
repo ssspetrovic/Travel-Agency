@@ -39,8 +39,9 @@ namespace TravelAgency.Repository
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
 
-            const string selectStatement = "select * from Tour";
+            const string selectStatement = "select * from Tour where GuideName = $GuideName";
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
+            selectCommand.Parameters.AddWithValue("$GuideName", CurrentUser.Username);
 
             dt.Load(selectCommand.ExecuteReader());
             return dt;

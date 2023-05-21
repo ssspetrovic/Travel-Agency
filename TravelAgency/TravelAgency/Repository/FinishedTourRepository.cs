@@ -44,7 +44,7 @@ namespace TravelAgency.Repository
             databaseConnection.Open();
 
             const string insertStatement =
-                @"insert into FinishedTour(Name, KeyPointsList, Tourists, Date, TouristNumber) values ($Name, $KeyPointsList, $Tourists, $Date, $TouristNumber)";
+                @"insert into FinishedTour(Name, KeyPointsList, Tourists, Date, TouristNumber, GuideName) values ($Name, $KeyPointsList, $Tourists, $Date, $TouristNumber, $GuideName)";
             using var insertCommand = new SqliteCommand(insertStatement, databaseConnection);
 
             insertCommand.Parameters.AddWithValue("$Name", finishedTour.Name);
@@ -52,6 +52,7 @@ namespace TravelAgency.Repository
             insertCommand.Parameters.AddWithValue("$Tourists", GetAllTourists(finishedTour));
             insertCommand.Parameters.AddWithValue("$Date", finishedTour.Date);
             insertCommand.Parameters.AddWithValue("$TouristNumber", finishedTour.Tourists.Count);
+            insertCommand.Parameters.AddWithValue("$GuideName", CurrentUser.Username);
             insertCommand.ExecuteNonQuery();
         }
 
@@ -118,8 +119,9 @@ namespace TravelAgency.Repository
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
 
-            const string selectStatement = "select * from FinishedTour";
+            const string selectStatement = "select * from FinishedTour where GuideName = $GuideName";
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
+            selectCommand.Parameters.AddWithValue("$GuideName", CurrentUser.Username);
 
             dt.Load(selectCommand.ExecuteReader());
             return dt;
