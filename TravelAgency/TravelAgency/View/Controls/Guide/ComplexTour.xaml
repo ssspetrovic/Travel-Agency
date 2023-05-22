@@ -9,11 +9,74 @@
     Height="500"
     vml:GuideViewModelLocator.AutoHookedUpViewModel="True"
     Background="Transparent"
+    PreviewKeyDown="ComplexTour_OnPreviewKeyDown"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     mc:Ignorable="d">
-    <TextBlock
-        HorizontalAlignment="Center"
-        VerticalAlignment="Center"
-        FontSize="25"
-        Text="NIJE DOVRSENO, FUNKCIONALNOST ZA 4. KONTROLNU TACKU" />
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+        <TextBox
+            x:Name="UpdateViewBox"
+            Grid.Row="0"
+            Text="{Binding UpdateView, Mode=TwoWay}"
+            Visibility="Hidden" />
+        <ListView
+            Name="ComplexTourRequestListView"
+            Grid.Row="0"
+            Margin="10"
+            Focusable="False"
+            Foreground="#68cbf8"
+            IsTabStop="True"
+            ItemsSource="{Binding ComplexTourRequestData}"
+            KeyboardNavigation.TabIndex="0"
+            KeyboardNavigation.TabNavigation="Cycle"
+            SelectedIndex="{Binding ComplexTourIndex}"
+            SelectedItem="{Binding ComplexTour}">
+            <ListView.View>
+                <GridView>
+                    <GridView.ColumnHeaderContainerStyle>
+                        <Style TargetType="{x:Type GridViewColumnHeader}">
+                            <Setter Property="Foreground" Value="#68cbf8" />
+                            <Setter Property="FontWeight" Value="Bold" />
+                            <Setter Property="FontSize" Value="15" />
+                        </Style>
+                    </GridView.ColumnHeaderContainerStyle>
+                    <GridViewColumn
+                        Width="200"
+                        DisplayMemberBinding="{Binding Path=Location_Id}"
+                        Header="Starting Location" />
+                    <GridViewColumn
+                        Width="200"
+                        DisplayMemberBinding="{Binding Path=Language}"
+                        Header="Language" />
+                    <GridViewColumn
+                        Width="200"
+                        DisplayMemberBinding="{Binding Path=NumberOfGuests}"
+                        Header="Number of Guests" />
+                    <GridViewColumn
+                        Width="200"
+                        DisplayMemberBinding="{Binding Path=DateRange}"
+                        Header="Date Range" />
+                    <GridViewColumn
+                        Width="200"
+                        DisplayMemberBinding="{Binding Path=Description}"
+                        Header="Description" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <TextBlock
+            Grid.Row="1"
+            Padding="0,50"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="14"
+            FontWeight="DemiBold"
+            Foreground="#4fc3f7"
+            Text="Press Tab to select a request, and press Enter to confirm your choice!" />
+    </Grid>
 </UserControl>

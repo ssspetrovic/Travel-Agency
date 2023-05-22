@@ -12,14 +12,26 @@ namespace TravelAgency.Repository
 {
     internal class RequestTourRepository : RepositoryBase, IRequestTourRepository
     {
-        public DataTable GetAllAsDataTable(DataTable dt)
+        public DataTable GetAllAsDataTable(DataTable dt, bool isComplex)
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
 
-            const string selectStatement = "select * from RequestedTour where IsComplex = 0 and Status = 0";
+            const string selectStatement = "select * from RequestedTour where IsComplex = $IsComplex and Status = 0";
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
+            selectCommand.Parameters.AddWithValue("$IsComplex", isComplex ? 1 : 0);
 
+            dt.Load(selectCommand.ExecuteReader());
+            return dt;
+        }
+
+        public DataTable GetAllComplexAsDataTable(DataTable dt)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            const string selectStatement = "select * from ComplexTour where Status = 0";
+            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
             dt.Load(selectCommand.ExecuteReader());
             return dt;
         }
@@ -44,6 +56,19 @@ namespace TravelAgency.Repository
             databaseConnection.Open();
 
             var selectStatement = "select * from RequestedTour where Id in (" + ids + ")";
+            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
+
+            dt.Clear();
+            dt.Load(selectCommand.ExecuteReader());
+            return dt;
+        }
+
+        public DataTable UpdateComplexDataTable(DataTable dt, string ids)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            var selectStatement = "select * from ComplexTour where Id in (" + ids + ")";
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
 
             dt.Clear();

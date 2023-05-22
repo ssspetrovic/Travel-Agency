@@ -7,9 +7,11 @@ namespace TravelAgency.Interface
 {
     public interface IRequestTourRepository
     {
-        DataTable GetAllAsDataTable(DataTable dt);
+        DataTable GetAllAsDataTable(DataTable dt, bool isComplex);
+        DataTable GetAllComplexAsDataTable(DataTable dt);
         string GetMostRequestedStat(string column);
         DataTable UpdateDataTable(DataTable dt, string ids);
+        DataTable UpdateComplexDataTable(DataTable dt, string ids);
         List<string> GetAllRequestedLanguages();
         void Add(RequestTour requestTour);
         ObservableCollection<RequestTour> GetAllForSelectedYearAsCollection(string? year = null, string? touristUsername = null);

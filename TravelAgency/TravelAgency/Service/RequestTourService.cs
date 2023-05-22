@@ -24,9 +24,14 @@ namespace TravelAgency.Service
             UpdateAllRequestsStatuses();
         }
 
-        public DataTable GetAllAsDataTable(DataTable dt)
+        public DataTable GetAllAsDataTable(DataTable dt, bool isComplex)
         {
-            return _requestTourRepository.GetAllAsDataTable(dt);
+            return _requestTourRepository.GetAllAsDataTable(dt, isComplex);
+        }
+
+        public DataTable GetAllComplexAsDataTable(DataTable dt)
+        {
+            return _requestTourRepository.GetAllComplexAsDataTable(dt);
         }
 
         public string GetMostRequestedStat(string column)
@@ -101,6 +106,11 @@ namespace TravelAgency.Service
         public DataTable UpdateDataTable(DataTable dt, string ids)
         {
             return ids == "Empty" ? dt : _requestTourRepository.UpdateDataTable(dt, ids);
+        }
+        
+        public DataTable UpdateComplexDataTable(DataTable dt, string ids)
+        {
+            return ids == "Empty" ? dt : _requestTourRepository.UpdateComplexDataTable(dt, ids);
         }
 
         public string GetSelectStatementForCollection(string dataType)

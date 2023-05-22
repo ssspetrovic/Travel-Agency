@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Windows;
 using TravelAgency.DTO;
-using TravelAgency.Model;
 using TravelAgency.Service;
 using TravelAgency.View;
 using TravelAgency.View.Controls.Guide;
@@ -59,7 +58,7 @@ namespace TravelAgency.ViewModel
         public DataView GetTourRequestData()
         {
             var dt = new DataTable();
-            dt = UpdateView == "" ? _requestTourService.GetAllAsDataTable(dt) : _requestTourService.UpdateDataTable(dt, UpdateView);
+            dt = UpdateView == "" ? _requestTourService.GetAllAsDataTable(dt, false) : _requestTourService.UpdateDataTable(dt, UpdateView);
 
             ConvertTourColumn(dt, "Location_Id", typeof(string), "Location");
             ConvertTourColumn(dt, "Language", typeof(string), "Language");
