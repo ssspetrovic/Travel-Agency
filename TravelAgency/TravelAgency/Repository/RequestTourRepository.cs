@@ -17,7 +17,7 @@ namespace TravelAgency.Repository
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
 
-            const string selectStatement = "select * from RequestedTour where Status = 0";
+            const string selectStatement = "select * from RequestedTour where IsComplex = 0 and Status = 0";
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
 
             dt.Load(selectCommand.ExecuteReader());
@@ -30,7 +30,7 @@ namespace TravelAgency.Repository
             databaseConnection.Open();
 
             var selectStatement =
-                "select " + column + ", count(*) as RequestedLocation from RequestedTour group by " + column + " order by RequestedLocation desc limit 1";
+                "select " + column + ", count(*) as RequestedLocation from RequestedTour where IsComplex = 0 group by " + column + " order by RequestedLocation desc limit 1";
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
             using var selectReader = selectCommand.ExecuteReader();
 
@@ -57,7 +57,7 @@ namespace TravelAgency.Repository
             databaseConnection.Open();
 
             var languages = new List<string>();
-            const string selectStatement = "select distinct Language from RequestedTour where DateRange like '%2023%' or DateRange like '%2022%'";
+            const string selectStatement = "select distinct Language from RequestedTour where IsComplex = 0 and DateRange like '%2023%' or DateRange like '%2022%'";
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
 
             using var selectReader = selectCommand.ExecuteReader();
@@ -98,15 +98,15 @@ namespace TravelAgency.Repository
             switch (year)
             {
                 case null when touristUsername == null:
-                    selectCommand.CommandText = "SELECT * FROM RequestedTour";
+                    selectCommand.CommandText = "SELECT * FROM RequestedTour where IsComplex = 0";
                     break;
                 case "All years" or null:
-                    selectCommand.CommandText = "SELECT * FROM RequestedTour WHERE TouristUsername = $CurrentUserUsername";
+                    selectCommand.CommandText = "SELECT * FROM RequestedTour WHERE IsComplex = 0 and TouristUsername = $CurrentUserUsername";
                     selectCommand.Parameters.AddWithValue("$CurrentUserUsername", CurrentUser.Username);
                     break;
                 default:
                     selectCommand.CommandText =
-                        "SELECT * FROM RequestedTour WHERE TouristUsername = $CurrentUserUsername AND SUBSTR(DateRange, 7, 4) = $year OR SUBSTR(DateRange, -4, 4) = $year";
+                        "SELECT * FROM RequestedTour WHERE IsComplex = 0 and TouristUsername = $CurrentUserUsername AND SUBSTR(DateRange, 7, 4) = $year OR SUBSTR(DateRange, -4, 4) = $year";
                     selectCommand.Parameters.AddWithValue("$year", year);
                     selectCommand.Parameters.AddWithValue("$CurrentUserUsername", CurrentUser.Username);
                     break;
@@ -131,7 +131,8 @@ namespace TravelAgency.Repository
                     selectReader.GetString(5),
                     (Status)selectReader.GetInt32(6),
                     selectedDate,
-                    selectReader.GetString(8)
+                    selectReader.GetString(8),
+                    selectReader.GetInt32(9) == 1
                 ));
             }
 
@@ -149,6 +150,7 @@ namespace TravelAgency.Repository
                     SELECT DISTINCT
                     SUBSTR(DateRange, 7, 4) AS StartYear,
                     SUBSTR(DateRange, -4, 4) AS EndYear FROM RequestedTour
+                    WHERE IsComplex = 0
                     ORDER BY StartYear ASC, EndYear ASC
                 ";
             var selectReader = selectCommand.ExecuteReader();
@@ -212,7 +214,8 @@ namespace TravelAgency.Repository
                 selectReader.GetString(5),
                 (Status)selectReader.GetInt32(6),
                 selectedDate,
-                selectReader.GetString(8)
+                selectReader.GetString(8),
+                selectReader.GetInt32(9) == 1
             );
         }
 

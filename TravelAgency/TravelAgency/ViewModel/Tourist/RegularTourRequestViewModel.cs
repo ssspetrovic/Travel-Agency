@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Navigation;
@@ -152,7 +151,8 @@ namespace TravelAgency.ViewModel.Tourist
                 int.Parse(GuestNumber!),
                 formattedDateRange,
                 Status.OnHold,
-                CurrentUser.Username
+                CurrentUser.Username,
+                false
             ));
 
             Dialog = new OkDialog

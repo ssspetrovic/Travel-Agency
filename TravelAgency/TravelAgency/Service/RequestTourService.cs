@@ -39,7 +39,7 @@ namespace TravelAgency.Service
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
 
-            const string selectStatement = "select * from RequestedTour where Status = 0";
+            const string selectStatement = "select * from RequestedTour where Status = 0 and IsComplex = 0";
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
 
             using var selectReader = selectCommand.ExecuteReader();
@@ -57,7 +57,7 @@ namespace TravelAgency.Service
                 if (date >= formattedStartDate && date <= formattedEndDate)
                     requestedTours.Add(new RequestTour(selectReader.GetInt32(0), _locationService.GetById(selectReader.GetInt32(1))!, selectReader.GetString(2),
                         (Language)Enum.Parse(typeof(Language), selectReader.GetString(3)), selectReader.GetInt32(4), selectReader.GetString(5),
-                        (Status)selectReader.GetInt32(6), selectReader.IsDBNull(7) ? "Empty" : selectReader.GetString(7)));
+                        (Status)selectReader.GetInt32(6), selectReader.IsDBNull(7) ? "Empty" : selectReader.GetString(7), selectReader.GetString(8), selectReader.GetInt32(9) == 1));
             }
 
             return requestedTours;
@@ -74,7 +74,7 @@ namespace TravelAgency.Service
             if (parameterName == "MaxGuests")
                 parameterName = "NumberOfGuests";
 
-            var selectStatement = "select * from RequestedTour where Status = 0 and " + parameterName + " = ";
+            var selectStatement = "select * from RequestedTour where Status = 0 and IsComplex = 0 and " + parameterName + " = ";
             if (parameterName == "Language")
             {
                 var language = (int) Enum.Parse(typeof(Language),parameter);
@@ -88,9 +88,12 @@ namespace TravelAgency.Service
             var requestedTours = new List<RequestTour>();
 
             while (selectReader.Read())
-                requestedTours.Add(new RequestTour(selectReader.GetInt32(0), _locationService.GetById(selectReader.GetInt32(1))!, selectReader.GetString(2),
-                    (Language)Enum.Parse(typeof(Language), selectReader.GetString(3)), selectReader.GetInt32(4), selectReader.GetString(5), 
-                    (Status)selectReader.GetInt32(6), selectReader.IsDBNull(7) ? "Empty" : selectReader.GetString(7)));
+                requestedTours.Add(new RequestTour(selectReader.GetInt32(0),
+                    _locationService.GetById(selectReader.GetInt32(1))!, selectReader.GetString(2),
+                    (Language)Enum.Parse(typeof(Language), selectReader.GetString(3)), selectReader.GetInt32(4),
+                    selectReader.GetString(5),
+                    (Status)selectReader.GetInt32(6), selectReader.IsDBNull(7) ? "Empty" : selectReader.GetString(7),
+                    selectReader.GetString(8), selectReader.GetInt32(9) == 1));
 
             return requestedTours;
         }
@@ -102,7 +105,7 @@ namespace TravelAgency.Service
 
         public string GetSelectStatementForCollection(string dataType)
         {
-            var selectStatement = "select * from RequestedTour where ";
+            var selectStatement = "select * from RequestedTour where IsComplex = 0 and ";
             if (dataType.Split(":")[0] == "Location")
                 selectStatement += @"Location_Id = (select Location_Id from (select Location_Id, count(Location_Id) as 
                         Location_Count from RequestedTour where Location_Id = " + _locationService.GetByCity(dataType.Split(":")[1].Split(", ")[0].Trim())!.Id + " group by Location_Id order by Location_Count desc limit 1) as Max_Location)";
@@ -124,7 +127,7 @@ namespace TravelAgency.Service
             while (selectReader.Read())
                 requestedTours.Add(new RequestTour(selectReader.GetInt32(0), _locationService.GetById(selectReader.GetInt32(1))!, selectReader.GetString(2),
                     (Language)Enum.Parse(typeof(Language), selectReader.GetString(3)), selectReader.GetInt32(4), selectReader.GetString(5),
-                    (Status)selectReader.GetInt32(6), selectReader.IsDBNull(7) ? "Empty" : selectReader.GetString(7)));
+                    (Status)selectReader.GetInt32(6), selectReader.IsDBNull(7) ? "Empty" : selectReader.GetString(7), selectReader.GetString(8), selectReader.GetInt32(9) == 1));
 
             return requestedTours;
         }
@@ -142,7 +145,7 @@ namespace TravelAgency.Service
             while (selectReader.Read())
                 requestedTours.Add(new RequestTour(selectReader.GetInt32(0), _locationService.GetById(selectReader.GetInt32(1))!, selectReader.GetString(2),
                     (Language)Enum.Parse(typeof(Language), selectReader.GetString(3)), selectReader.GetInt32(4), selectReader.GetString(5),
-                    (Status)selectReader.GetInt32(6), selectReader.IsDBNull(7) ? "Empty" : selectReader.GetString(7)));
+                    (Status)selectReader.GetInt32(6), selectReader.IsDBNull(7) ? "Empty" : selectReader.GetString(7), selectReader.GetString(8), selectReader.GetInt32(9) == 1));
 
             return requestedTours;
         }
@@ -156,9 +159,9 @@ namespace TravelAgency.Service
             var selectStatement = "select count(*), ";
 
             if (dataType == "Location")
-                selectStatement += "Location_Id from RequestedTour group by Location_Id order by case Location_Id when " + _locationService.GetByCity(dataContent.Split(",")[0].Trim())!.Id + " then 0 else 1 end";
+                selectStatement += "Location_Id from RequestedTour where IsComplex = 0 group by Location_Id order by case Location_Id when " + _locationService.GetByCity(dataContent.Split(",")[0].Trim())!.Id + " then 0 else 1 end";
             else
-                selectStatement += "Language from RequestedTour group by Language order by case Language when '" + dataContent.Trim() + "' then 0 else 1 end";
+                selectStatement += "Language from RequestedTour where IsComplex = 0 group by Language order by case Language when '" + dataContent.Trim() + "' then 0 else 1 end";
 
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
             using var selectReader = selectCommand.ExecuteReader();
@@ -205,7 +208,7 @@ namespace TravelAgency.Service
             databaseConnection.Open();
 
             var locations = new List<Location>();
-            const string selectStatement = "select distinct Location_Id from RequestedTour";
+            const string selectStatement = "select distinct Location_Id from RequestedTour where IsComplex = 0";
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
             using var selectReader = selectCommand.ExecuteReader();
 
@@ -232,7 +235,7 @@ namespace TravelAgency.Service
                 ? ((int)Enum.Parse(typeof(Language), dataType.Split(":")[1].Trim())).ToString()
                 : _locationService.GetByCity(dataType.Split(":")[1].Split(", ")[0].Trim())!.Id.ToString();
 
-            var selectStatement = "select * from RequestedTour where DateRange like '%' || $Month || '/%' || $Day || '%/' || '%' || $Year and " + columnName + " = $DataType";
+            var selectStatement = "select * from RequestedTour where IsComplex = 0 and DateRange like '%' || $Month || '/%' || $Day || '%/' || '%' || $Year and " + columnName + " = $DataType";
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
             selectCommand.Parameters.AddWithValue("$Month", month);
             selectCommand.Parameters.AddWithValue("$Day", day);
@@ -244,7 +247,7 @@ namespace TravelAgency.Service
             while (selectReader.Read())
                 requestedTours.Add(new RequestTour(selectReader.GetInt32(0), _locationService.GetById(selectReader.GetInt32(1))!, selectReader.GetString(2),
                     (Language)Enum.Parse(typeof(Language), selectReader.GetString(3)), selectReader.GetInt32(4), selectReader.GetString(5),
-                    (Status)selectReader.GetInt32(6), selectReader.IsDBNull(7) ? "Empty" : selectReader.GetString(7)));
+                    (Status)selectReader.GetInt32(6), selectReader.IsDBNull(7) ? "Empty" : selectReader.GetString(7), selectReader.GetString(8), selectReader.GetInt32(9) == 1));
 
             requestedTours = requestedTours.Where(tour => {
                 var dateRange = tour.DateRange.Split(" - ");

@@ -14,6 +14,7 @@
         public Status Status { get; set; }
         public string? AcceptedDate { get; set; }
         public string? TouristUsername { get; set; }
+        public bool IsComplex { get; set; }
 
         public RequestTour(int id, Location location, string description, Language language, int maxGuests, string dateRange, Status status)
         {
@@ -25,7 +26,6 @@
             DateRange = dateRange;
             Status = status;
         }
-
         public RequestTour(int id, Location location, string description, Language language, int maxGuests, string dateRange, Status status, string acceptedDate)
         {
             Id = id;
@@ -38,7 +38,32 @@
             AcceptedDate = acceptedDate;
         }
 
-        public RequestTour(int id, Location location, string description, Language language, int maxGuests, string dateRange, Status status, string? acceptedDate, string? touristUsername)
+        public RequestTour(int id, Location location, string description, Language language, int maxGuests, string dateRange, Status status, bool isComplex)
+        {
+            Id = id;
+            Location = location;
+            Description = description;
+            Language = language;
+            MaxGuests = maxGuests;
+            DateRange = dateRange;
+            Status = status;
+            IsComplex = isComplex;
+        }
+
+        public RequestTour(int id, Location location, string description, Language language, int maxGuests, string dateRange, Status status, string acceptedDate, bool isComplex)
+        {
+            Id = id;
+            Location = location;
+            Description = description;
+            Language = language;
+            MaxGuests = maxGuests;
+            DateRange = dateRange;
+            Status = status;
+            AcceptedDate = acceptedDate;
+            IsComplex = isComplex;
+        }
+
+        public RequestTour(int id, Location location, string description, Language language, int maxGuests, string dateRange, Status status, string? acceptedDate, string? touristUsername, bool isComplex)
         {
             Id = id;
             Location = location;
@@ -49,9 +74,10 @@
             Status = status;
             AcceptedDate = acceptedDate;
             TouristUsername = touristUsername;
+            IsComplex = isComplex;
         }
 
-        public RequestTour(Location? location, string description, Language? language, int maxGuests, string dateRange, Status status,  string? touristUsername)
+        public RequestTour(Location? location, string description, Language? language, int maxGuests, string dateRange, Status status,  string? touristUsername, bool isComplex)
         {
             Location = location!;
             Description = description;
@@ -60,6 +86,7 @@
             DateRange = dateRange;
             Status = status;
             TouristUsername = touristUsername;
+            IsComplex = isComplex;
         }
     }
 }
