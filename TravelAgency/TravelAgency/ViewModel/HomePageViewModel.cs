@@ -26,11 +26,15 @@ namespace TravelAgency.ViewModel
             _locationService = new LocationService();
             _tourService = new TourService();
             var finishedTourService = new FinishedTourService();
+            var userService = new UserService();
             GetPictures = new MyICommand(Picture);
             _selectedTour = null;
             TabPressedCommand = new MyICommand(TabPressed);
-            _averageRating = "Guide's average rating: " + finishedTourService.GetAverageRating(CurrentUser.Username!);
-            _numberOfFinishedTours = "Number of finished tours: " + finishedTourService.GetNumberOfToursByUsername(CurrentUser.Username!);
+            var averageRating = finishedTourService.GetAverageRating(CurrentUser.Username!);
+            var numberOfFinishedTours = finishedTourService.GetNumberOfToursByUsername(CurrentUser.Username!);
+            _averageRating = "Guide's average rating: " + averageRating;
+            _numberOfFinishedTours = "Number of finished tours: " + numberOfFinishedTours;
+            userService.SetSuperGuide(CurrentUser.Username, averageRating >= 4.5 && numberOfFinishedTours >= 20);
         }
 
         public string NumberOfFinishedTours
