@@ -1,5 +1,6 @@
 ﻿using LiveCharts;
 using Microsoft.Data.Sqlite;
+using System;
 using System.Collections.ObjectModel;
 using System.Data;
 using TravelAgency.Interface;
@@ -138,6 +139,47 @@ namespace TravelAgency.Repository
 
             if (!selectReader.Read()) return "No Tour";
             return selectReader.GetString(1);
+        }
+
+        public float GetValues(string username, string dataType)
+        {
+            var retVal = 0.0;
+            var counter = 0;
+
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            const string selectStatement = "select * from FinishedTour where GuideName = $GuideName";
+            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
+            selectCommand.Parameters.AddWithValue("$GuideName", username);
+
+            using var selectReader = selectCommand.ExecuteReader();
+            while (selectReader.Read())
+            {
+                var dates = selectReader.GetString(4).Split(", ");
+                foreach (var dateStr in dates)
+                {
+                    if (!DateTime.TryParse(dateStr, out var date)) continue;
+                    if (date >= new DateTime(DateTime.Now.Year, 1, 1) && date <= new DateTime(DateTime.Now.Year, 12, 31))
+                    {
+                        counter++;
+                        retVal += selectReader.GetFloat(8);
+                        break;
+                    }
+                }
+            }
+
+            return dataType.Equals("Average Rating") ? float.Round((float)retVal/counter, 2) : counter;
+        }
+
+        public float GetAverageRating(string username)
+        {
+            return GetValues(username, "Average Rating");
+        }
+
+        public int GetNumberOfToursByUsername(string username)
+        {
+            return (int)GetValues(username, "Number of Tours");
         }
     }
 }

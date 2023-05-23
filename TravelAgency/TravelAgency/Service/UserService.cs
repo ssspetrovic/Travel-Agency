@@ -22,5 +22,10 @@ namespace TravelAgency.Service
         {
             _userRepository.RemoveByUsername(username);
         }
+
+        public void SetSuperGuide(string? username, bool isSuperGuide)
+        {
+            _userRepository.SetSuperGuide(username, isSuperGuide);
+        }
     }
 }

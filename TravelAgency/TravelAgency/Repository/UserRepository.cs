@@ -104,5 +104,17 @@ namespace TravelAgency.Repository
             deleteCommand.Parameters.AddWithValue("$Username", username);
             deleteCommand.ExecuteNonQuery();
         }
+
+        public void SetSuperGuide(string? username, bool isSuperGuide)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+            const string updateStatement = "update Guide set IsSuperGuide = $IsSuperGuide where Username = $Username";
+            using var updateCommand = new SqliteCommand(updateStatement, databaseConnection);
+
+            updateCommand.Parameters.AddWithValue("$IsSuperGuide", isSuperGuide ? 1 : 0);
+            updateCommand.Parameters.AddWithValue("$Username", username);
+            updateCommand.ExecuteNonQuery();
+        }
     }
 }

@@ -10,5 +10,6 @@ namespace TravelAgency.Interface
         User GetById(int id);
         User GetByUsername(string? username);
         void RemoveByUsername(string? username);
+        void SetSuperGuide(string? username, bool isSuperGuide);
     }
 }

@@ -181,5 +181,15 @@ namespace TravelAgency.Service
         {
             return _finishedTourRepository.GetNewTourName();
         }
+
+        public float GetAverageRating(string username)
+        {
+            return _finishedTourRepository.GetAverageRating(username);
+        }
+
+        public int GetNumberOfToursByUsername(string username)
+        {
+            return _finishedTourRepository.GetNumberOfToursByUsername(username);
+        }
     }
 }

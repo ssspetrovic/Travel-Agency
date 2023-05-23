@@ -16,5 +16,7 @@ namespace TravelAgency.Interface
         ChartValues<int> GetAgeGroup(Tour finishedTour);
         DataTable GetAllAsDataTable(DataTable dt);
         string GetNewTourName();
+        float GetAverageRating(string username);
+        int GetNumberOfToursByUsername(string username);
     }
 }

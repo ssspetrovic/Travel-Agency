@@ -15,6 +15,8 @@ namespace TravelAgency.ViewModel
         private readonly LocationService _locationService;
         private DataRowView? _selectedTour;
         private int _selectedTourIndex;
+        private string _averageRating;
+        private string _numberOfFinishedTours;
 
         public MyICommand GetPictures { get; private set; }
         public MyICommand TabPressedCommand { get; private set; }
@@ -23,9 +25,32 @@ namespace TravelAgency.ViewModel
         {
             _locationService = new LocationService();
             _tourService = new TourService();
+            var finishedTourService = new FinishedTourService();
             GetPictures = new MyICommand(Picture);
             _selectedTour = null;
             TabPressedCommand = new MyICommand(TabPressed);
+            _averageRating = "Guide's average rating: " + finishedTourService.GetAverageRating(CurrentUser.Username!);
+            _numberOfFinishedTours = "Number of finished tours: " + finishedTourService.GetNumberOfToursByUsername(CurrentUser.Username!);
+        }
+
+        public string NumberOfFinishedTours
+        {
+            get => _numberOfFinishedTours;
+            set
+            {
+                _numberOfFinishedTours = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string AverageRating
+        {
+            get => _averageRating;
+            set
+            {
+                _averageRating = value;
+                OnPropertyChanged();
+            }
         }
 
         public DataRowView? SelectedTour
