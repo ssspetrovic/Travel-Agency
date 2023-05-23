@@ -115,7 +115,7 @@ namespace TravelAgency.Service
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
 
-            const string selectStatement = @"select * from Tour";
+            const string selectStatement = @"select * from Tour order by case IsSuperGuide when 1 then 0 else 1 end";
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
             using var selectReader = selectCommand.ExecuteReader();
 
@@ -127,7 +127,7 @@ namespace TravelAgency.Service
 
                 tourList.Add(new Tour(selectReader.GetInt32(0), selectReader.GetString(1),
                     location!, selectReader.GetString(3), (Language)selectReader.GetInt32(4), selectReader.GetInt32(5),
-                    GetKeyPoints(selectReader.GetString(6)), selectReader.GetString(7), selectReader.GetFloat(8), selectReader.GetString(9), selectReader.GetString(10)));
+                    GetKeyPoints(selectReader.GetString(6)), selectReader.GetString(7), selectReader.GetFloat(8), selectReader.GetString(9), selectReader.GetString(10), selectReader.GetInt32(11) == 1));
             }
 
             return tourList;

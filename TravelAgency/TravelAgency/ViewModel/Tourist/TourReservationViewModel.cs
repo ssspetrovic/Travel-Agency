@@ -243,7 +243,11 @@ namespace TravelAgency.ViewModel.Tourist
             ClearVoucherSelectionCommand = new RelayCommand(Execute_ClearVoucherSelectionCommand, CanExecute_ClearVoucherSelectionCommand);
 
             TourReservationService = new TourReservationService(this);
-            _toursCollection = new CollectionViewSource { Source = TourReservationService.TourService.GetAllAsCollection() };
+            var tours = TourReservationService.TourService.GetAllAsCollection();
+            foreach (var tour in tours)
+                if (tour.IsSuperGuide)
+                    tour.Name += " STAR";
+            _toursCollection = new CollectionViewSource { Source = tours };
             _toursCollection.Filter += ToursCollection_Filter;
             _filterLanguages = Enum.GetValues(typeof(Language));
             _tourVouchers = TourReservationService.TourVoucherService.GetAllValidAsCollection();

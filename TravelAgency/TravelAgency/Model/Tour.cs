@@ -32,6 +32,7 @@ namespace TravelAgency.Model
         public string Photos { get; set; } = null!;
         public List<Tourist> Tourists { get; set; } = null!;
         public string GuideName { get; set; } = null!;
+        public bool IsSuperGuide { get; set; }
 
         public Tour()
         {
@@ -82,7 +83,7 @@ namespace TravelAgency.Model
             Photos = photos;
         }
 
-        public Tour(int id, string name, Location location, string? description, Language language, int maxGuests, List<Location?> keyPoints, string date, float duration, string photos, string guideName)
+        public Tour(int id, string name, Location location, string? description, Language language, int maxGuests, List<Location?> keyPoints, string date, float duration, string photos, string guideName, bool isSuperGuide)
         {
             Id = id;
             Name = name;
@@ -95,6 +96,7 @@ namespace TravelAgency.Model
             Duration = duration;
             Photos = photos;
             GuideName = guideName;
+            IsSuperGuide = isSuperGuide;
         }
 
         public Tour(int id, string name, Location location, string? description, Language language, int maxGuests, List<Location?> keyPoints, string date, float duration, string photos, List<Tourist> tourists)
