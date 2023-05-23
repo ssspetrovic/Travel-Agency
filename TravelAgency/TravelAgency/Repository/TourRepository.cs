@@ -124,5 +124,16 @@ namespace TravelAgency.Repository
                 selectCommand.Parameters.AddWithValue("$Date" + i, "%" + similarDates[i] + "%");
             return selectCommand.ExecuteReader().Read();
         }
+
+        public void UpdateSuperGuide(string username, bool isSuperGuide)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+            const string updateStatement = "update Tour set IsSuperGuide = $IsSuperGuide where GuideName = $GuideName";
+            var updateCommand = new SqliteCommand(updateStatement, databaseConnection);
+            updateCommand.Parameters.AddWithValue("$IsSuperGuide", isSuperGuide);
+            updateCommand.Parameters.AddWithValue("$GuideName", username);
+            updateCommand.ExecuteNonQuery();
+        }
     }
 }

@@ -13,5 +13,6 @@ namespace TravelAgency.Interface
         void RemoveDate(string dateToday, List<string> tourDates, int id);
         void UpdateMaxGuests(int id, int maxGuests);
         bool CheckIfDatesExist(string dates);
+        void UpdateSuperGuide(string username, bool isSuperGuide);
     }
 }

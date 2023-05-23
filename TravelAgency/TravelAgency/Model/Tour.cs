@@ -31,9 +31,12 @@ namespace TravelAgency.Model
         public float Duration { get; set; }
         public string Photos { get; set; } = null!;
         public List<Tourist> Tourists { get; set; } = null!;
+        public string GuideName { get; set; } = null!;
 
+        public Tour()
+        {
 
-        public Tour() {}
+        }
 
         public Tour(string name, List<Location?> keyPoints, List<Tourist> tourists, string date)
         {
@@ -77,6 +80,21 @@ namespace TravelAgency.Model
             Date = date;
             Duration = duration;
             Photos = photos;
+        }
+
+        public Tour(int id, string name, Location location, string? description, Language language, int maxGuests, List<Location?> keyPoints, string date, float duration, string photos, string guideName)
+        {
+            Id = id;
+            Name = name;
+            Location = location;
+            Description = description;
+            Language = language;
+            MaxGuests = maxGuests;
+            KeyPoints = keyPoints;
+            Date = date;
+            Duration = duration;
+            Photos = photos;
+            GuideName = guideName;
         }
 
         public Tour(int id, string name, Location location, string? description, Language language, int maxGuests, List<Location?> keyPoints, string date, float duration, string photos, List<Tourist> tourists)

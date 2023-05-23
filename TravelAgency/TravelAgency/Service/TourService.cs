@@ -127,7 +127,7 @@ namespace TravelAgency.Service
 
                 tourList.Add(new Tour(selectReader.GetInt32(0), selectReader.GetString(1),
                     location!, selectReader.GetString(3), (Language)selectReader.GetInt32(4), selectReader.GetInt32(5),
-                    GetKeyPoints(selectReader.GetString(6)), selectReader.GetString(7), selectReader.GetFloat(8), selectReader.GetString(9)));
+                    GetKeyPoints(selectReader.GetString(6)), selectReader.GetString(7), selectReader.GetFloat(8), selectReader.GetString(9), selectReader.GetString(10)));
             }
 
             return tourList;
@@ -220,6 +220,11 @@ namespace TravelAgency.Service
         {
             var uriStrings = photosString.Split(", ");
             return uriStrings.Select(uriString => new Uri(uriString)).ToList();
+        }
+
+        public void UpdateSuperGuide(string username, bool isSuperGuide)
+        {
+            _tourRepository.UpdateSuperGuide(username, isSuperGuide);
         }
     }
 }

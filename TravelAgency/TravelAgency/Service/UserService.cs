@@ -7,10 +7,12 @@ namespace TravelAgency.Service
     internal class UserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly TourService _tourService;
 
         public UserService()
         {
             _userRepository = new UserRepository();
+            _tourService = new TourService();
         }
 
         public User GetByUsername(string? username)
@@ -26,6 +28,7 @@ namespace TravelAgency.Service
         public void SetSuperGuide(string? username, bool isSuperGuide)
         {
             _userRepository.SetSuperGuide(username, isSuperGuide);
+            _tourService.UpdateSuperGuide(username, isSuperGuide);
         }
     }
 }
