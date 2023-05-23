@@ -181,6 +181,7 @@
                     BorderThickness="0,2">
                     <ListView
                         x:Name="ToursListView"
+                        Width="575"
                         Height="Auto"
                         HorizontalAlignment="Center"
                         d:ItemsSource="{d:SampleData ItemCount=3}"
@@ -218,6 +219,7 @@
                                     Width="Auto"
                                     DisplayMemberBinding="{Binding Path=MaxGuests}"
                                     Header="Available" />
+                                <GridViewColumn Width="40" DisplayMemberBinding="{Binding Path=GuideName}" />
                                 <GridViewColumn Width="Auto">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
