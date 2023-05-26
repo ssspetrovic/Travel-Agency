@@ -142,11 +142,13 @@ namespace TravelAgency.Service
         public List<FreeDatesDTO> GetFreeDates(int accId, int duration, DateTime startDate, DateTime endDate) 
         {
             var reservationRepository = new ReservationRepository();
+            var renovationRepository = new RenovationRepository();
             ObservableCollection<Reservation> reservations = reservationRepository.GetAllByAccommodationId(accId);
+            ObservableCollection<Renovation> renovations = renovationRepository.GetAllByAccommodationId(accId);
 
             List<FreeDatesDTO> listOfDates = GetListOfDates(startDate, endDate, duration);
 
-            List<FreeDatesDTO> freeDates = GetFreeDates(listOfDates, reservations);
+            List<FreeDatesDTO> freeDates = GetFreeDates(listOfDates, reservations, renovations);
 
             return freeDates;
         }
@@ -177,7 +179,7 @@ namespace TravelAgency.Service
             return listOfDates;
         }
 
-        private List<FreeDatesDTO> GetFreeDates(List<FreeDatesDTO> listOfDates, ObservableCollection<Reservation> reservations)
+        private List<FreeDatesDTO> GetFreeDates(List<FreeDatesDTO> listOfDates, ObservableCollection<Reservation> reservations, ObservableCollection<Renovation> renovations)
         {
             List<FreeDatesDTO> freeDates = new List<FreeDatesDTO>();
             foreach (FreeDatesDTO fdto in listOfDates)
@@ -186,6 +188,20 @@ namespace TravelAgency.Service
                 foreach (Reservation r in reservations)
                 {
                     /*Checking if date is in scope of reservation*/
+                    if ((fdto.startDate >= r.StartDate && fdto.startDate <= r.EndDate) || (fdto.endDate >= r.StartDate && fdto.endDate <= r.EndDate))
+                    {
+                        available = false;
+                        break;
+                    }
+                    if ((r.StartDate >= fdto.startDate && r.StartDate <= fdto.endDate) || (r.EndDate >= fdto.startDate && r.EndDate <= fdto.endDate))
+                    {
+                        available = false;
+                        break;
+                    }
+                }
+                foreach(Renovation r in renovations)
+                {
+                    /*Checking if date is in scope of other renovations*/
                     if ((fdto.startDate >= r.StartDate && fdto.startDate <= r.EndDate) || (fdto.endDate >= r.StartDate && fdto.endDate <= r.EndDate))
                     {
                         available = false;
