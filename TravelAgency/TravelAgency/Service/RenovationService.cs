@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TravelAgency.DTO;
 using TravelAgency.Model;
 using TravelAgency.Repository;
 
@@ -11,33 +12,47 @@ namespace TravelAgency.Service
 {
     public class RenovationService
     {
-        public ObservableCollection<Renovation> GetPreviousRenovations()
+        public ObservableCollection<RenovationForDisplayDTO> GetPreviousRenovations()
         {
             var renovationRepository = new RenovationRepository();
-            ObservableCollection<Renovation> previousRenovations = new ObservableCollection<Renovation>();
+            var accommodationRepository = new AccommodationRepository();
+            ObservableCollection<RenovationForDisplayDTO> previousRenovations = new ObservableCollection<RenovationForDisplayDTO>();
 
             ObservableCollection<Renovation> temp = renovationRepository.GetAll();
             foreach(Renovation renovation in temp)
             {
                 if(renovation.StartDate <= DateTime.Now)
                 {
-                    previousRenovations.Add(renovation);
+                    if (renovation.AccommodationId != 0)  //ZBOG BAZE 
+                    {
+                        AccommodationDTO acc = accommodationRepository.GetById(renovation.AccommodationId);
+                        string accName = acc.Name;
+                        RenovationForDisplayDTO r = new RenovationForDisplayDTO(renovation, accName);
+                        previousRenovations.Add(r);
+                    }
                 }
             }
             return previousRenovations;
         }
 
-        public ObservableCollection<Renovation> GetFutureRenovations()
+        public ObservableCollection<RenovationForDisplayDTO> GetFutureRenovations()
         {
             var renovationRepository = new RenovationRepository();
-            ObservableCollection<Renovation> futureRenovations = new ObservableCollection<Renovation>();
+            var accommodationRepository = new AccommodationRepository();
+            ObservableCollection<RenovationForDisplayDTO> futureRenovations = new ObservableCollection<RenovationForDisplayDTO>();
 
             ObservableCollection<Renovation> temp = renovationRepository.GetAll();
             foreach (Renovation renovation in temp)
             {
                 if (renovation.StartDate > DateTime.Now)
                 {
-                    futureRenovations.Add(renovation);
+                    if (renovation.AccommodationId != 0)
+                    {
+                        AccommodationDTO acc = accommodationRepository.GetById(renovation.AccommodationId);
+                        string accName = acc.Name;
+                        RenovationForDisplayDTO r = new RenovationForDisplayDTO(renovation, accName);
+                        futureRenovations.Add(r);
+                    }
                 }
             }
             return futureRenovations;

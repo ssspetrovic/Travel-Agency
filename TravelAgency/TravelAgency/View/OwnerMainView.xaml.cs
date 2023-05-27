@@ -67,6 +67,9 @@ namespace TravelAgency.View
             ReservationChangeRequestView reservationChangeRequestView = new ReservationChangeRequestView();
             mainFrame.Navigate(reservationChangeRequestView);
             lblSelectedTab.Content = btnReservationChangeRequest.Content;
+
+            ListView RequestListView = reservationChangeRequestView.RequestListView;
+            ChangeColorListView(RequestListView);
         }
 
         private void btnGradeGuest_Click(object sender, RoutedEventArgs e)
@@ -75,6 +78,9 @@ namespace TravelAgency.View
             GradeGuestsView gradeGuestsView = new GradeGuestsView();
             mainFrame.Navigate(gradeGuestsView);
             lblSelectedTab.Content = btnGradeGuest.Content;
+
+            ListView GuestListView = gradeGuestsView.GuestListView;
+            ChangeColorListView(GuestListView);
         }
 
         private void btnDisplayGuestReviews_Click(object sender, RoutedEventArgs e)
@@ -83,6 +89,9 @@ namespace TravelAgency.View
             DisplayGuestReviewsView displayGuestReviewsView = new DisplayGuestReviewsView();
             mainFrame.Navigate(displayGuestReviewsView);
             lblSelectedTab.Content = btnDisplayGuestReviews.Content;
+
+            ListView GuestListView = displayGuestReviewsView.GuestListView;
+            ChangeColorListView(GuestListView);
         }
 
         private void btnLanguage_Click(object sender, RoutedEventArgs e)
@@ -158,6 +167,11 @@ namespace TravelAgency.View
             RenovationOverviewView renovationOverviewView = new RenovationOverviewView();
             mainFrame.Navigate(renovationOverviewView);
             lblSelectedTab.Content = btnRenovationOverview.Content;
+
+            ListView PreviousRenovationsListView = renovationOverviewView.PreviousRenovationsListView;
+            ListView FutureRenovationsListView = renovationOverviewView.FutureRenovationsListView;
+            ChangeColorListView(PreviousRenovationsListView);
+            ChangeColorListView(FutureRenovationsListView);
         }
 
         private void btnAccommodationStatistics_Click(object sender, RoutedEventArgs e)
@@ -172,6 +186,20 @@ namespace TravelAgency.View
         {
             stekPanel.Visibility = Visibility.Hidden;
             menuRectangle.Visibility = Visibility.Hidden;
+        }
+
+        private void ChangeColorListView(ListView list)
+        {
+            if (CurrentLanguageAndTheme.themeId == 0)
+            {
+                list.Background = Brushes.White;
+                list.Foreground = Brushes.Black;
+            }
+            else
+            {
+                list.Background = Brushes.Black;
+                list.Foreground = Brushes.White;
+            }
         }
     }
 }
