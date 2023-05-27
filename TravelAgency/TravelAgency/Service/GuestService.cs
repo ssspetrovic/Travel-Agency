@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LiveCharts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,7 +18,9 @@ namespace TravelAgency.Service
         
         public bool UseDiscountCoin()
         {
-            var credits = _repository.GetByUserId(CurrentUser.Id).Credits;
+            Guest guest = _repository.GetByUserId(CurrentUser.Id);
+            UpdateState(guest);
+            int credits = guest.Credits;
             if(credits > 0)
             {
                 _repository.UpdateCredit(CurrentUser.Id, credits - 1);
@@ -25,5 +28,15 @@ namespace TravelAgency.Service
             }
             return false;
         }
+
+        public void UpdateState(Guest guest)
+        {
+            if(guest.SuperGuestExpDate != null)
+            {
+                //TODO: ADD UPDATE STATE
+            }
+        }
+
+
     }
 }
