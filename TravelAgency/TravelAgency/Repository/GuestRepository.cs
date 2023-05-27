@@ -73,6 +73,28 @@ namespace TravelAgency.Repository
 
         }
 
+        public void ResignSuperGuest(int id)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+            var updateCommand = databaseConnection.CreateCommand();
+            var updateCommandCredits = databaseConnection.CreateCommand();
+            updateCommand.CommandText =
+                @"
+                    update Guest set superGuest = 0 where Id = $Id;
+                ";
+            updateCommandCredits.CommandText =
+                @"
+                    update Guest set Credits = 0 where Id = $Id;
+                ";
+
+            updateCommand.Parameters.AddWithValue("$Id", id);
+            updateCommandCredits.Parameters.AddWithValue("$Id", id);
+
+            updateCommand.ExecuteNonQuery();
+            updateCommandCredits.ExecuteNonQuery();
+        }
+
 
         public void UpdateCredit(int id, int credit)
         {

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using TravelAgency.Model;
 using TravelAgency.Repository;
+using TravelAgency.Service;
 
 namespace TravelAgency.ViewModel
 {
@@ -20,6 +21,10 @@ namespace TravelAgency.ViewModel
 
         public ProfileViewModel() {
             InitSuperGuest();
+            var _service = new GuestService();
+            var _repository = new GuestRepository();
+            Guest guest = _repository.GetByUserId(CurrentUser.Id);
+            _service.UpdateState(guest);
         }
 
         public string ButtonMessage

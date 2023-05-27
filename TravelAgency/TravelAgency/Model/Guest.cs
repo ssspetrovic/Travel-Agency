@@ -14,6 +14,7 @@ namespace TravelAgency.Model
         public float GradeClean { get; set; }
         public int Credits { get; set; }
         public DateTime? SuperGuestExpDate{ get; set; }
+        public int IsSuperGuest { get; set; }
 
         public Guest()
         {
@@ -36,6 +37,11 @@ namespace TravelAgency.Model
         public Guest(int id, int userId, float gradeComplasent, float gradeClean, int credits) : this(id, userId, gradeComplasent, gradeClean)
         {
             Credits = credits;
+        }
+
+        public Guest(int id, int userId, float gradeComplasent, float gradeClean, int credits, DateTime? superGuestExpDate, int isSuperGuest) : this(id, userId, gradeComplasent, gradeClean, credits, superGuestExpDate)
+        {
+            IsSuperGuest = isSuperGuest;
         }
     }
 }
