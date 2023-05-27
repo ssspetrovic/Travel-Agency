@@ -22,9 +22,9 @@
             <Button x:Name="btnReservationChangeRequest" Style="{DynamicResource Batn}" Content="{DynamicResource ReservationChangeRequests}" Click="btnReservationChangeRequest_Click" Height="35" FontSize="16"/>
             <Button x:Name="btnGradeGuest" Style="{DynamicResource Batn}" Content="{DynamicResource GradeGuests}" Click="btnGradeGuest_Click" Height="35" FontSize="16"/>
             <Button x:Name="btnDisplayGuestReviews" Style="{DynamicResource Batn}" Content="{DynamicResource DisplayGuestReviews}" Click="btnDisplayGuestReviews_Click" Height="35" FontSize="16"/>
-            <Button Style="{DynamicResource Batn}" x:Name="btnScheduleRenovation" Content="Schedule Renovation" Click="btnScheduleRenovation_Click" Height="35" FontSize="16"/>
-            <Button Style="{DynamicResource Batn}" x:Name="btnRenovationOverview" Content="Renovation Overview" Click="btnRenovationOverview_Click" Height="35" FontSize="16"/>
-            <Button Style="{DynamicResource Batn}" x:Name="btnAccommodationStatistics" Content="Accommodation Statistics" Click="btnAccommodationStatistics_Click" Height="35" FontSize="16"/>
+            <Button Style="{DynamicResource Batn}" x:Name="btnScheduleRenovation" Content="{DynamicResource Schedule Renovation}" Click="btnScheduleRenovation_Click" Height="35" FontSize="16"/>
+            <Button Style="{DynamicResource Batn}" x:Name="btnRenovationOverview" Content="{DynamicResource Renovation Overview}" Click="btnRenovationOverview_Click" Height="35" FontSize="16"/>
+            <Button Style="{DynamicResource Batn}" x:Name="btnAccommodationStatistics" Content="{DynamicResource Accommodation Statistics}" Click="btnAccommodationStatistics_Click" Height="35" FontSize="16"/>
             <Button Style="{DynamicResource Batn}" x:Name="btnLogOut" Content="{DynamicResource LogOut}" Click="btnLogOut_Click" Height="35" FontSize="16"/>
             <Grid Height="503">
                 <Button x:Name="btnLightTheme" Style="{DynamicResource Batn}" Content="{DynamicResource LightTheme}" Click="btnLightTheme_Click" Margin="252,361,10,96" FontSize="16"/>

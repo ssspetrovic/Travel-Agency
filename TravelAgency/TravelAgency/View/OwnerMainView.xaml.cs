@@ -159,6 +159,10 @@ namespace TravelAgency.View
             ScheduleRenovationView scheduleRenovationView = new ScheduleRenovationView();
             mainFrame.Navigate(scheduleRenovationView);
             lblSelectedTab.Content = btnScheduleRenovation.Content;
+            ListView FreeDatesListView = scheduleRenovationView.FreeDatesListView;
+            ChangeColorListView(FreeDatesListView);
+            ComboBox cmbAccName = scheduleRenovationView.cmbAccName;
+            ChangeColorComboBox(cmbAccName);
         }
 
         private void btnRenovationOverview_Click(object sender, RoutedEventArgs e)
@@ -199,6 +203,26 @@ namespace TravelAgency.View
             {
                 list.Background = Brushes.Black;
                 list.Foreground = Brushes.White;
+            }
+        }
+
+        private void ChangeColorComboBox(ComboBox comboBox)
+        {
+            if (CurrentLanguageAndTheme.themeId == 0)
+            {
+                comboBox.Background = Brushes.White; comboBox.Foreground = Brushes.Black;
+                foreach (ComboBoxItem item in comboBox.Items)
+                {
+                    item.Background = Brushes.White; item.Foreground = Brushes.Black;
+                }
+            }
+            else
+            {
+                comboBox.Background = Brushes.Black; comboBox.Foreground = Brushes.White;
+                foreach (ComboBoxItem item in comboBox.Items)
+                {
+                    item.Background = Brushes.Black; item.Foreground = Brushes.White;
+                }
             }
         }
     }

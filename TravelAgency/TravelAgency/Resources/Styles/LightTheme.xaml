@@ -45,4 +45,11 @@
     <Style x:Key="Rectangle" TargetType="{x:Type Rectangle}">
         <Setter Property="Stroke" Value="Black"/>
     </Style>
+
+    <Style x:Key="DatePicker" TargetType="DatePicker">
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="Background" Value="White" />
+        <Setter Property="BorderBrush" Value="Black" />
+    </Style>
+
 </ResourceDictionary>

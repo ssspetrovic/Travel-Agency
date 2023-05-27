@@ -112,17 +112,26 @@ namespace TravelAgency.ViewModel
             {
                 if (_renovationService.RemoveFutureRenovation(SelectedRenovation.Id, SelectedRenovation.StartDate))
                 {
-                    MessageBox.Show("Renovation canceled successfully!", "Message");
+                    if(CurrentLanguageAndTheme.languageId == 0)
+                        MessageBox.Show("Renovation canceled successfully!", "Message");
+                    else
+                        MessageBox.Show("Uspešno otkazano renoviranje!", "Poruka");
                     Refresh();
                 }
                 else
                 {
-                    MessageBox.Show("Renovation is within 5 days. Cannot cancel..", "Message");
+                    if(CurrentLanguageAndTheme.languageId == 0)
+                        MessageBox.Show("Renovation is within 5 days. Cannot cancel..", "Message");
+                    else
+                        MessageBox.Show("Renoviranje je unutar 5 dana. Ne moguće otkazati..", "Poruka");
                 }
             }
             else
             {
-                MessageBox.Show("You need to select a renovation to cancel..", "Message");
+                if(CurrentLanguageAndTheme.languageId == 0)
+                    MessageBox.Show("You need to select a renovation to cancel..", "Message");
+                else
+                    MessageBox.Show("Morati izabrati renoviranje da bi otkazali..", "Poruka");
             }
         }
 
