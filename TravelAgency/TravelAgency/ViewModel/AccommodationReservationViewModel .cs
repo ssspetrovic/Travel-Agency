@@ -200,8 +200,10 @@ namespace TravelAgency.ViewModel
 
                 var _reservationService = new ReservationService();
                 var _renovationService = new RenovationService();
+            var _guestRepository = new GuestRepository();
             var _guestService = new GuestService();
-            
+
+            _guestService.UpdateState(_guestRepository.GetByUserId(CurrentUser.Id));
 
                 var ReservableDays = (EndDate - StartDate).TotalDays;
                if(!ValidateNumberInput(GuestNumber) && !ValidateSelect(SelectedAccommodation))

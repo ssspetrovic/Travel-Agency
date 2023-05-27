@@ -56,6 +56,7 @@ namespace TravelAgency.Repository
             databaseConnection.Open();
             var updateCommand = databaseConnection.CreateCommand();
             var updateCommandCredits = databaseConnection.CreateCommand();
+            var updateDateCommand = databaseConnection.CreateCommand();
             updateCommand.CommandText =
                 @"
                     update Guest set superGuest = 1 where Id = $Id;
@@ -64,10 +65,17 @@ namespace TravelAgency.Repository
                 @"
                     update Guest set Credits = 5 where Id = $Id;
                 ";
+            updateDateCommand.CommandText =
+                @"
+                    update Guest set expDate = $date where Id = $Id;
+                ";
 
+            updateDateCommand.Parameters.AddWithValue("$date", DateTime.Now);
+            updateDateCommand.Parameters.AddWithValue("$Id", id);
             updateCommand.Parameters.AddWithValue("$Id", id);
             updateCommandCredits.Parameters.AddWithValue("$Id", id);
 
+            updateDateCommand.ExecuteNonQuery();
             updateCommand.ExecuteNonQuery();
             updateCommandCredits.ExecuteNonQuery();
 

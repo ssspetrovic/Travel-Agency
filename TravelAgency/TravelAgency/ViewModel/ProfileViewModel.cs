@@ -66,6 +66,8 @@ namespace TravelAgency.ViewModel
         public void InitSuperGuest()
         {
             var _repository = new GuestRepository();
+            Guest guest = _repository.GetByUserId(CurrentUser.Id);
+
             if(_repository.IsSuperGuest(CurrentUser.Id))
             {
                 ButtonMessage = "Renew super guest status";
@@ -77,7 +79,7 @@ namespace TravelAgency.ViewModel
                 IsSuperGuest = "Hidden";
             }
             NumberOfPoints = _repository.GetByUserId(CurrentUser.Id).Credits.ToString();
-            DateTime date = DateTime.Now.AddYears(-1);
+            DateTime date = guest.SuperGuestExpDate ?? DateTime.Now;
             ExperationDate = date.ToString("yyyy-dd-MM");
             RaisePropertyChanged("ButtonMessage");
             RaisePropertyChanged("IsSuperGuest");
