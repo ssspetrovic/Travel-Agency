@@ -80,7 +80,7 @@
         <Button Style="{DynamicResource Batn}" x:Name="btnCheck" Content="Check" HorizontalAlignment="Left" Margin="300,52,0,0" VerticalAlignment="Top" Click="btnCheck_Click" Width="109" Height="35" FontSize="14"/>
         <Label Style="{DynamicResource Label}" Content="{DynamicResource Accommodation}" HorizontalAlignment="Left" Margin="21,30,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <Label Style="{DynamicResource Label}" Content="Selected year:" HorizontalAlignment="Left" Margin="21,309,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="14"/>
-        <Label Content="______________________________________________________________________________________________________________________________________________________" HorizontalAlignment="Center" Margin="0,284,0,0" VerticalAlignment="Top"/>
+        <Label Style="{DynamicResource Label}" Content="______________________________________________________________________________________________________________________________________________________" HorizontalAlignment="Center" Margin="0,284,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Page>

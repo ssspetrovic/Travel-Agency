@@ -12,6 +12,8 @@ namespace TravelAgency.Model
         void Add(Renovation renovation);
         ObservableCollection<Renovation> GetAll();
 
+        ObservableCollection<Renovation> GetAllByAccommodationId(int accommodationId);
+
         void Remove(int renovationId);
     }
 }

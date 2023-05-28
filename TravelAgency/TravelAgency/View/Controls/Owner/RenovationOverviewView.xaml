@@ -9,73 +9,79 @@
       Title="RenovationOverviewView">
 
     <Grid Style="{DynamicResource Grid}">
-        <ListView x:Name="PreviousRenovationsListView" d:ItemsSource="{d:SampleData ItemCount=3}" ItemsSource="{Binding PreviousRenovationsSourceCollection}" Margin="22,58,21,494" FontSize="12">
+        <ListView x:Name="PreviousRenovationsListView" d:ItemsSource="{d:SampleData ItemCount=3}" ItemsSource="{Binding PreviousRenovationsSourceCollection}" Margin="22,62,22,500" FontSize="12">
             <ListView.View>
                 <GridView>
                     <GridViewColumn
                         Width="Auto"
                         DisplayMemberBinding="{Binding Id}"
-                        Header="RenovationId"
+                        Header="{DynamicResource Renovation ID}"
                         HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
                     <GridViewColumn
                         Width="Auto"
-                        DisplayMemberBinding="{Binding AccommodationId}"
-                        Header="Accommodation"
+                        DisplayMemberBinding="{Binding AccName}"
+                        Header="{DynamicResource Accommodation}"
                         HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
                     <GridViewColumn
                         Width="Auto"
-                        DisplayMemberBinding="{Binding StartDate}"
-                        Header="Start Date"
+                        DisplayMemberBinding="{Binding StringStartDate}"
+                        Header="{DynamicResource Start Date}"
                         HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
                     <GridViewColumn
                         Width="Auto"
-                        DisplayMemberBinding="{Binding EndDate}"
-                        Header="End Date"
+                        DisplayMemberBinding="{Binding StringEndDate}"
+                        Header="{DynamicResource End Date}"
                         HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
                     <GridViewColumn
                         Width="Auto"
                         DisplayMemberBinding="{Binding Duration}"
-                        Header="Duration"
+                        Header="{DynamicResource Duration}"
                         HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <ListView x:Name="FutureRenovationsListView" d:ItemsSource="{d:SampleData ItemCount=3}" ItemsSource="{Binding FutureRenovationsSourceCollection}" SelectedItem="{Binding SelectedRenovation}" Margin="22,321,22,231" FontSize="12" SelectionChanged="FutureRenovationsListView_SelectionChanged">
+        <ListView x:Name="FutureRenovationsListView" d:ItemsSource="{d:SampleData ItemCount=3}" ItemsSource="{Binding FutureRenovationsSourceCollection}" SelectedItem="{Binding SelectedRenovation}" Margin="22,284,22,278" FontSize="12">
             <ListView.View>
                 <GridView>
                     <GridViewColumn
                         Width="Auto"
                         DisplayMemberBinding="{Binding Id}"
-                        Header="RenovationId"
+                        Header="{DynamicResource Renovation ID}"
                         HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
                     <GridViewColumn
                         Width="Auto"
-                        DisplayMemberBinding="{Binding AccommodationId}"
-                        Header="Accommodation"
+                        DisplayMemberBinding="{Binding AccName}"
+                        Header="{DynamicResource Accommodation}"
                         HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
                     <GridViewColumn
                         Width="Auto"
-                        DisplayMemberBinding="{Binding StartDate}"
-                        Header="Start Date"
+                        DisplayMemberBinding="{Binding StringStartDate}"
+                        Header="{DynamicResource Start Date}"
                         HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
                     <GridViewColumn
                         Width="Auto"
-                        DisplayMemberBinding="{Binding EndDate}"
-                        Header="End Date"
+                        DisplayMemberBinding="{Binding StringEndDate}"
+                        Header="{DynamicResource End Date}"
                         HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
                     <GridViewColumn
                         Width="Auto"
                         DisplayMemberBinding="{Binding Duration}"
-                        Header="Duration"
+                        Header="{DynamicResource Duration}"
                         HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Label Content="Renovation ID:" HorizontalAlignment="Left" Margin="51,501,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtRenovationID" HorizontalAlignment="Left" Margin="141,500,0,0" DataContext="{Binding SelectedItem, ElementName=FutureRenovationsListView}" TextWrapping="Wrap" Text="{Binding Id}" VerticalAlignment="Top" Width="30" IsEnabled="False"/>
-        <Button x:Name="btnCancelRenovation" Content="Cancel Renovation" HorizontalAlignment="Center" Margin="0,563,0,0" VerticalAlignment="Top" Width="178" Click="btnCancelRenovation_Click"/>
-        <Label Content="Start Date:" HorizontalAlignment="Left" Margin="213,501,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblStartDate" HorizontalAlignment="Left" Margin="281,500,0,0" DataContext="{Binding SelectedItem, ElementName=FutureRenovationsListView}" Content="{Binding StartDate}" VerticalAlignment="Top"/>
+        <Button Style="{DynamicResource Batn}" x:Name="btnCancelRenovation" Content="{DynamicResource Cancel Renovation}" HorizontalAlignment="Center" Margin="0,591,0,0" VerticalAlignment="Top" Width="178" Command="{Binding BtnCancel}" Height="37" FontSize="14"/>
+        <Label x:Name="lblRequests" Style="{DynamicResource Label}" Content="{DynamicResource Previous renovations}" HorizontalAlignment="Left" Margin="23,21,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Width="189"/>
+        <Rectangle Style="{DynamicResource Rectangle}" HorizontalAlignment="Center" Height="128" Margin="0,62,0,0" VerticalAlignment="Top" Width="388"/>
+        <Label x:Name="lblRequests_Copy" Style="{DynamicResource Label}" Content="{DynamicResource Future renovations (select a renovation to cancel)}" HorizontalAlignment="Center" Margin="0,243,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Width="384"/>
+        <Rectangle Style="{DynamicResource Rectangle}" HorizontalAlignment="Center" Height="128" Margin="0,284,0,0" VerticalAlignment="Top" Width="388"/>
+        <Label Style="{DynamicResource Label}" Content="{DynamicResource Accommodation name:}" HorizontalAlignment="Left" Margin="23,452,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Label Style="{DynamicResource Label}" Content="{DynamicResource Renovation start date:}" HorizontalAlignment="Left" Margin="23,486,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Label Style="{DynamicResource Label}" Content="{DynamicResource Renovation end date:}" HorizontalAlignment="Left" Margin="23,520,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Label Style="{DynamicResource Label}" Content="{Binding LblAccName}" HorizontalAlignment="Left" Margin="263,452,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <Label Style="{DynamicResource Label}" Content="{Binding LblStartDate}" HorizontalAlignment="Left" Margin="263,486,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <Label Style="{DynamicResource Label}" Content="{Binding LblEndDate}" HorizontalAlignment="Left" Margin="263,520,0,0" VerticalAlignment="Top" FontSize="14"/>
 
     </Grid>
 </Page>

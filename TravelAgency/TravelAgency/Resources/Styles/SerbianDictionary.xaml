@@ -13,6 +13,9 @@
     <System:String x:Key="GradeGuests">Oceni Goste</System:String>
     <System:String x:Key="DisplayGuestReviews">Prikaz Ocena Gostiju</System:String>
     <System:String x:Key="LogOut">Izloguj Se</System:String>
+    <System:String x:Key="Schedule Renovation">Zakaži Renoviranje</System:String>
+    <System:String x:Key="Renovation Overview">Pregled Renoviranja</System:String>
+    <System:String x:Key="Accommodation Statistics">Statistika Smeštaja</System:String>
 
     <!--HOME PAGE-->
     <System:String x:Key="WelcomeOwner">Dobrodošli Vlasnik</System:String>
@@ -79,5 +82,23 @@
     <System:String x:Key="Grade Owner">Ocena Vlasnika</System:String>
     <System:String x:Key="Guests comment">Gostov komentar</System:String>
     <System:String x:Key="Selected Review">Gostova Ocena</System:String>
+
+    
+    <!--RENOVATION OVERVIEW-->
+    <System:String x:Key="Previous renovations">Prethodna renoviranja</System:String>
+    <System:String x:Key="Future renovations (select a renovation to cancel)">Buduća renoviranja (izabrati za otkazati)</System:String>
+    <System:String x:Key="Accommodation name:">Ime smeštaja:</System:String>
+    <System:String x:Key="Renovation start date:">Datum početka renoviranja:</System:String>
+    <System:String x:Key="Renovation end date:">Datum kraja renoviranja:</System:String>
+    <System:String x:Key="Cancel Renovation">Otkaži Renoviranje</System:String>
+    <System:String x:Key="Renovation ID">Renoviranje ID</System:String>
+    <System:String x:Key="Duration">Trajanje</System:String>
+
+    
+    <!--RENOVATION OVERVIEW-->
+    <System:String x:Key="Range begin">Početak perioda</System:String>
+    <System:String x:Key="Range end">Kraj perioda</System:String>
+    <System:String x:Key="Check Availibility">Proveri Dostupnost</System:String>
+    <System:String x:Key="Free:">Slobodno:</System:String>
 
 </ResourceDictionary>

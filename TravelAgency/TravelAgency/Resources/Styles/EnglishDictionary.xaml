@@ -13,6 +13,9 @@
     <System:String x:Key="GradeGuests">Grade Guests</System:String>
     <System:String x:Key="DisplayGuestReviews">Display Guest Reviews</System:String>
     <System:String x:Key="LogOut">Log Out</System:String>
+    <System:String x:Key="Schedule Renovation">Schedule Renovation</System:String>
+    <System:String x:Key="Renovation Overview">Renovation Overview</System:String>
+    <System:String x:Key="Accommodation Statistics">Accommodation Statistics</System:String>
     
     <!--HOME PAGE-->
     <System:String x:Key="WelcomeOwner">Welcome Owner</System:String>
@@ -79,5 +82,22 @@
     <System:String x:Key="Grade Owner">Grade Owner</System:String>
     <System:String x:Key="Guests comment">Guest's comment</System:String>
     <System:String x:Key="Selected Review">Selected Review</System:String>
+
+    <!--RENOVATION OVERVIEW-->
+    <System:String x:Key="Previous renovations">Previous renovations</System:String>
+    <System:String x:Key="Future renovations (select a renovation to cancel)">Future renovations (select a renovation to cancel)</System:String>
+    <System:String x:Key="Accommodation name:">Accommodation name:</System:String>
+    <System:String x:Key="Renovation start date:">Renovation start date:</System:String>
+    <System:String x:Key="Renovation end date:">Renovation end date:</System:String>
+    <System:String x:Key="Cancel Renovation">Cancel Renovation</System:String>
+    <System:String x:Key="Renovation ID">Renovation ID</System:String>
+    <System:String x:Key="Duration">Duration</System:String>
+
+
+    <!--RENOVATION OVERVIEW-->
+    <System:String x:Key="Range begin">Range begin</System:String>
+    <System:String x:Key="Range end">Range end</System:String>
+    <System:String x:Key="Check Availibility">Check Availibility</System:String>
+    <System:String x:Key="Free:">Free:</System:String>
 
 </ResourceDictionary>

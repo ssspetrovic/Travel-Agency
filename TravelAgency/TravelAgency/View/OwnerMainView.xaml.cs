@@ -67,6 +67,9 @@ namespace TravelAgency.View
             ReservationChangeRequestView reservationChangeRequestView = new ReservationChangeRequestView();
             mainFrame.Navigate(reservationChangeRequestView);
             lblSelectedTab.Content = btnReservationChangeRequest.Content;
+
+            ListView RequestListView = reservationChangeRequestView.RequestListView;
+            ChangeColorListView(RequestListView);
         }
 
         private void btnGradeGuest_Click(object sender, RoutedEventArgs e)
@@ -75,6 +78,9 @@ namespace TravelAgency.View
             GradeGuestsView gradeGuestsView = new GradeGuestsView();
             mainFrame.Navigate(gradeGuestsView);
             lblSelectedTab.Content = btnGradeGuest.Content;
+
+            ListView GuestListView = gradeGuestsView.GuestListView;
+            ChangeColorListView(GuestListView);
         }
 
         private void btnDisplayGuestReviews_Click(object sender, RoutedEventArgs e)
@@ -83,6 +89,9 @@ namespace TravelAgency.View
             DisplayGuestReviewsView displayGuestReviewsView = new DisplayGuestReviewsView();
             mainFrame.Navigate(displayGuestReviewsView);
             lblSelectedTab.Content = btnDisplayGuestReviews.Content;
+
+            ListView GuestListView = displayGuestReviewsView.GuestListView;
+            ChangeColorListView(GuestListView);
         }
 
         private void btnLanguage_Click(object sender, RoutedEventArgs e)
@@ -150,6 +159,10 @@ namespace TravelAgency.View
             ScheduleRenovationView scheduleRenovationView = new ScheduleRenovationView();
             mainFrame.Navigate(scheduleRenovationView);
             lblSelectedTab.Content = btnScheduleRenovation.Content;
+            ListView FreeDatesListView = scheduleRenovationView.FreeDatesListView;
+            ChangeColorListView(FreeDatesListView);
+            ComboBox cmbAccName = scheduleRenovationView.cmbAccName;
+            ChangeColorComboBox(cmbAccName);
         }
 
         private void btnRenovationOverview_Click(object sender, RoutedEventArgs e)
@@ -158,6 +171,11 @@ namespace TravelAgency.View
             RenovationOverviewView renovationOverviewView = new RenovationOverviewView();
             mainFrame.Navigate(renovationOverviewView);
             lblSelectedTab.Content = btnRenovationOverview.Content;
+
+            ListView PreviousRenovationsListView = renovationOverviewView.PreviousRenovationsListView;
+            ListView FutureRenovationsListView = renovationOverviewView.FutureRenovationsListView;
+            ChangeColorListView(PreviousRenovationsListView);
+            ChangeColorListView(FutureRenovationsListView);
         }
 
         private void btnAccommodationStatistics_Click(object sender, RoutedEventArgs e)
@@ -172,6 +190,40 @@ namespace TravelAgency.View
         {
             stekPanel.Visibility = Visibility.Hidden;
             menuRectangle.Visibility = Visibility.Hidden;
+        }
+
+        private void ChangeColorListView(ListView list)
+        {
+            if (CurrentLanguageAndTheme.themeId == 0)
+            {
+                list.Background = Brushes.White;
+                list.Foreground = Brushes.Black;
+            }
+            else
+            {
+                list.Background = Brushes.Black;
+                list.Foreground = Brushes.White;
+            }
+        }
+
+        private void ChangeColorComboBox(ComboBox comboBox)
+        {
+            if (CurrentLanguageAndTheme.themeId == 0)
+            {
+                comboBox.Background = Brushes.White; comboBox.Foreground = Brushes.Black;
+                foreach (ComboBoxItem item in comboBox.Items)
+                {
+                    item.Background = Brushes.White; item.Foreground = Brushes.Black;
+                }
+            }
+            else
+            {
+                comboBox.Background = Brushes.Black; comboBox.Foreground = Brushes.White;
+                foreach (ComboBoxItem item in comboBox.Items)
+                {
+                    item.Background = Brushes.Black; item.Foreground = Brushes.White;
+                }
+            }
         }
     }
 }

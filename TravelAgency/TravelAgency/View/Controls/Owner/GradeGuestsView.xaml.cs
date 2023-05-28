@@ -29,21 +29,6 @@ namespace TravelAgency.View.Controls.Owner
         {
             InitializeComponent();
             DataContext = _viewModel;
-            ChangeColorListView();
-        }
-
-        private void ChangeColorListView()
-        {
-            if (CurrentLanguageAndTheme.themeId == 0)
-            {
-                GuestListView.Background = Brushes.White;
-                GuestListView.Foreground = Brushes.Black;
-            }
-            else
-            {
-                GuestListView.Background = Brushes.Black;
-                GuestListView.Foreground = Brushes.White;
-            }
         }
     }
 }

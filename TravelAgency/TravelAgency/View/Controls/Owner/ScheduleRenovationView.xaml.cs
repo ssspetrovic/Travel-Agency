@@ -57,7 +57,7 @@ namespace TravelAgency.View.Controls.Owner
                     this.FreeDatesListView.Items.Add(fd);
                     countFreeDates++;
                 }
-                lblCountFreeDates.Content = "Free: " + countFreeDates.ToString();
+                lblCountFreeDates.Content = countFreeDates.ToString();
                 //MessageBox.Show(s);
             }
             else

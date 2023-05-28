@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TravelAgency.Model;
+using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
 
 namespace TravelAgency.Repository
 {
@@ -50,6 +51,35 @@ namespace TravelAgency.Repository
 
                 Renovation r = new Renovation(id,accId,startDate,endDate,duration,description);
                 
+                renovationList.Add(r);
+            }
+
+            return renovationList;
+        }
+
+        public ObservableCollection<Renovation> GetAllByAccommodationId(int accommodationId)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            const string selectStatement = @"select Id, AccommodationId, date(StartDate), date(EndDate), Duration, Description from Renovation where AccommodationId = $accId";
+            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
+            selectCommand.Parameters.AddWithValue("$accId", accommodationId);
+            using var selectReader = selectCommand.ExecuteReader();
+
+            var renovationList = new ObservableCollection<Renovation>();
+
+            while (selectReader.Read())
+            {
+                var id = selectReader.GetInt32(0);
+                var accId = selectReader.GetInt32(1);
+                var startDate = selectReader.GetDateTime(2);
+                var endDate = selectReader.GetDateTime(3);
+                var duration = selectReader.GetInt32(4);
+                var description = selectReader.GetString(5);
+
+                Renovation r = new Renovation(id, accId, startDate, endDate, duration, description);
+
                 renovationList.Add(r);
             }
 
