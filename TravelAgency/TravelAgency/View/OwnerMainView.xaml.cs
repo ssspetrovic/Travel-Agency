@@ -32,6 +32,7 @@ namespace TravelAgency.View
             btnDarkTheme.Visibility = Visibility.Hidden;
             stekPanel.Visibility = Visibility.Hidden;
             menuRectangle.Visibility = Visibility.Hidden;
+            btnBack.Visibility = Visibility.Hidden;
         }
 
         private void mainFrame_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
@@ -43,6 +44,8 @@ namespace TravelAgency.View
         {
             stekPanel.Visibility= Visibility.Visible;
             menuRectangle.Visibility = Visibility.Visible;
+            btnBack.Visibility = Visibility.Visible;
+            btnMenu.Visibility = Visibility.Hidden;
         }
 
         private void btnHomePage_Click(object sender, RoutedEventArgs e)
@@ -190,6 +193,8 @@ namespace TravelAgency.View
         {
             stekPanel.Visibility = Visibility.Hidden;
             menuRectangle.Visibility = Visibility.Hidden;
+            btnMenu.Visibility = Visibility.Visible;
+            btnBack.Visibility = Visibility.Hidden;
         }
 
         private void ChangeColorListView(ListView list)
@@ -224,6 +229,11 @@ namespace TravelAgency.View
                     item.Background = Brushes.Black; item.Foreground = Brushes.White;
                 }
             }
+        }
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            HideMenu();
         }
     }
 }

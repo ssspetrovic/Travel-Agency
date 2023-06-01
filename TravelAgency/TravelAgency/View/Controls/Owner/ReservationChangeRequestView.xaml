@@ -11,7 +11,7 @@
         <Grid Style="{DynamicResource Grid}" Height="732">
             <Rectangle Style="{DynamicResource Rectangle}" HorizontalAlignment="Left" Height="197" Margin="26,242,0,0" VerticalAlignment="Top" Width="382"/>
             <Label x:Name="lblRequests" Style="{DynamicResource Label}" Content="{DynamicResource Requests}" HorizontalAlignment="Left" Margin="26,21,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Width="77"/>
-            <ListView x:Name="RequestListView" d:ItemsSource="{d:SampleData ItemCount=3}" ItemsSource="{Binding ReservationRequestSourceCollection}" SelectedItem="{Binding SelectedRequest}" Margin="26,59,22,510" FontSize="12">
+            <ListView x:Name="RequestListView" d:ItemsSource="{d:SampleData ItemCount=3}" ItemsSource="{Binding ReservationRequestSourceCollection}" SelectedItem="{Binding SelectedRequest}" Margin="26,59,22,552" FontSize="12">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn 
