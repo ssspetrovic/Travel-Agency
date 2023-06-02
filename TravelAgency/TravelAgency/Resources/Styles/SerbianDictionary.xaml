@@ -101,4 +101,16 @@
     <System:String x:Key="Check Availibility">Proveri Dostupnost</System:String>
     <System:String x:Key="Free:">Slobodno:</System:String>
 
+
+    <!--ACC STAT-->
+    <System:String x:Key="Check">Proveri</System:String>
+    <System:String x:Key="Most busy year:">Najprometnija godina:</System:String>
+    <System:String x:Key="Selected year:">Izabrana godina:</System:String>
+    <System:String x:Key="Most busy month:">Najprometniji mesec:</System:String>
+    <System:String x:Key="Res Count">Broj Rez</System:String>
+    <System:String x:Key="Canceled Res">Otkazane Rez</System:String>
+    <System:String x:Key="Delayed Res">Pomerene Rez</System:String>
+    <System:String x:Key="Renovation Sugg">Renoviranje Sug</System:String>
+    <System:String x:Key="Generate PDF">Generiši PDF</System:String>
+
 </ResourceDictionary>

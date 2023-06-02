@@ -8,79 +8,84 @@
       d:DesignHeight="690" d:DesignWidth="430"
       Title="AccommodationStatisticsView">
 
-    <Grid Style="{DynamicResource Grid}">
-        <ListView x:Name="StatsByYearListView" d:ItemsSource="{d:SampleData ItemCount=3}" Margin="21,116,21,436" FontSize="12" SelectedItem="{Binding SelectedStat}" SelectionChanged="StatsByYearListView_SelectionChanged">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn
+    <ScrollViewer>
+        <Grid Style="{DynamicResource Grid}" Height="840">
+            <ListView x:Name="StatsByYearListView" d:ItemsSource="{d:SampleData ItemCount=3}" Margin="21,116,21,582" FontSize="12" SelectedItem="{Binding SelectedStat}" SelectionChanged="StatsByYearListView_SelectionChanged">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn
                         Width="Auto"
                         DisplayMemberBinding="{Binding Period}"
                         Header="Period"
                         HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
-                    <GridViewColumn
+                        <GridViewColumn
                         Width="Auto"
                         DisplayMemberBinding="{Binding ReservationCount}"
-                        Header="Res Count"
+                        Header="{DynamicResource Res Count}"
                         HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
-                    <GridViewColumn
+                        <GridViewColumn
                         Width="Auto"
                         DisplayMemberBinding="{Binding CanceledReservations}"
-                        Header="Canceled Res"
+                        Header="{DynamicResource Canceled Res}"
                         HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
-                    <GridViewColumn
+                        <GridViewColumn
                         Width="Auto"
                         DisplayMemberBinding="{Binding DelayedReseravations}"
-                        Header="Delayed Res"
+                        Header="{DynamicResource Delayed Res}"
                         HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
-                    <GridViewColumn
+                        <GridViewColumn
                         Width="Auto"
                         DisplayMemberBinding="{Binding RenovationSuggestions}"
-                        Header="Renovation Sugg"
+                        Header="{DynamicResource Renovation Sugg}"
                         HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <ComboBox x:Name="cmbAccName" HorizontalAlignment="Left" Margin="21,59,0,0" VerticalAlignment="Top" Width="250" ItemsSource="{Binding AccommodationsSourceCollection}" FontSize="14"/>
-        <Label Style="{DynamicResource Label}" x:Name="lblYear" HorizontalAlignment="Left" DataContext="{Binding SelectedItem, ElementName=StatsByYearListView}" Content="{Binding Period}" Margin="127,309,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="14" RenderTransformOrigin="-1.3,1.1"/>
-        <ListView x:Name="StatsByMonthListView" d:ItemsSource="{d:SampleData ItemCount=7}" Margin="21,351,21,64" FontSize="12">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <ComboBox x:Name="cmbAccName" HorizontalAlignment="Left" Margin="21,59,0,0" VerticalAlignment="Top" Width="250" ItemsSource="{Binding AccommodationsSourceCollection}" FontSize="14"/>
+            <Label Style="{DynamicResource Label}" x:Name="lblYear" HorizontalAlignment="Left" DataContext="{Binding SelectedItem, ElementName=StatsByYearListView}" Content="{Binding Period}" Margin="138,387,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="14" RenderTransformOrigin="-1.3,1.1"/>
+            <ListView x:Name="StatsByMonthListView" d:ItemsSource="{d:SampleData ItemCount=7}" Margin="21,441,21,127" FontSize="12">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn
                         Width="Auto"
                         DisplayMemberBinding="{Binding Period}"
                         Header="Period"
                         HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
-                    <GridViewColumn
+                        <GridViewColumn
                         Width="Auto"
                         DisplayMemberBinding="{Binding ReservationCount}"
-                        Header="Res Count"
+                        Header="{DynamicResource Res Count}"
                         HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
-                    <GridViewColumn
+                        <GridViewColumn
                         Width="Auto"
                         DisplayMemberBinding="{Binding CanceledReservations}"
-                        Header="Canceled Res"
+                        Header="{DynamicResource Canceled Res}"
                         HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
-                    <GridViewColumn
+                        <GridViewColumn
                         Width="Auto"
                         DisplayMemberBinding="{Binding DelayedReseravations}"
-                        Header="Delayed Res"
+                        Header="{DynamicResource Delayed Res}"
                         HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
-                    <GridViewColumn
+                        <GridViewColumn
                         Width="Auto"
                         DisplayMemberBinding="{Binding RenovationSuggestions}"
-                        Header="Renovation Sugg"
+                        Header="{DynamicResource Renovation Sugg}"
                         HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <Label Style="{DynamicResource Label}" Content="Most busy year:" HorizontalAlignment="Left" Margin="21,263,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="14"/>
-        <Label Style="{DynamicResource Label}" x:Name="lblMostBusyYear" Content="####" HorizontalAlignment="Left" Margin="141,263,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
-        <Label Style="{DynamicResource Label}" Content="Most busy month:" HorizontalAlignment="Left" Margin="21,641,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
-        <Label Style="{DynamicResource Label}" x:Name="lblMostBusyMonth" Content="####" HorizontalAlignment="Left" Margin="156,641,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
-        <Button Style="{DynamicResource Batn}" x:Name="btnCheck" Content="Check" HorizontalAlignment="Left" Margin="300,52,0,0" VerticalAlignment="Top" Click="btnCheck_Click" Width="109" Height="35" FontSize="14"/>
-        <Label Style="{DynamicResource Label}" Content="{DynamicResource Accommodation}" HorizontalAlignment="Left" Margin="21,30,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
-        <Label Style="{DynamicResource Label}" Content="Selected year:" HorizontalAlignment="Left" Margin="21,309,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="14"/>
-        <Label Style="{DynamicResource Label}" Content="______________________________________________________________________________________________________________________________________________________" HorizontalAlignment="Center" Margin="0,284,0,0" VerticalAlignment="Top"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Label Style="{DynamicResource Label}" Content="{DynamicResource Most busy year:}" HorizontalAlignment="Left" Margin="21,291,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="14"/>
+            <Label Style="{DynamicResource Label}" x:Name="lblMostBusyYear" Content="" HorizontalAlignment="Left" Margin="171,291,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+            <Label Style="{DynamicResource Label}" Content="{DynamicResource Most busy month:}" HorizontalAlignment="Left" Margin="21,737,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+            <Label Style="{DynamicResource Label}" x:Name="lblMostBusyMonth" Content="" HorizontalAlignment="Left" Margin="166,737,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+            <Button Style="{DynamicResource Batn}" x:Name="btnCheck" Content="{DynamicResource Check}" HorizontalAlignment="Left" Margin="300,52,0,0" VerticalAlignment="Top" Click="btnCheck_Click" Width="92" Height="35" FontSize="14"/>
+            <Label Style="{DynamicResource Label}" Content="{DynamicResource Accommodation}" HorizontalAlignment="Left" Margin="21,30,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+            <Label Style="{DynamicResource Label}" Content="{DynamicResource Selected year:}" HorizontalAlignment="Left" Margin="21,387,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="14"/>
+            <Label Style="{DynamicResource Label}" Content="______________________________________________________________________________________________________________________________________________________" HorizontalAlignment="Center" Margin="0,329,0,0" VerticalAlignment="Top"/>
+            <Button Style="{DynamicResource Batn}" x:Name="btnGeneratePdf" Content="{DynamicResource Generate PDF}" HorizontalAlignment="Left" Margin="279,383,0,0" VerticalAlignment="Top" Click="btnGeneratePdf_Click" Width="113" Height="36" FontSize="14"/>
+            <Rectangle Style="{DynamicResource Rectangle}" HorizontalAlignment="Center" Height="142" Margin="0,116,0,0" VerticalAlignment="Top" Width="371"/>
+            <Rectangle Style="{DynamicResource Rectangle}" HorizontalAlignment="Center" Height="272" Margin="0,441,0,0" VerticalAlignment="Top" Width="371"/>
 
-    </Grid>
+        </Grid>
+    </ScrollViewer>
 </Page>

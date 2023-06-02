@@ -100,4 +100,16 @@
     <System:String x:Key="Check Availibility">Check Availibility</System:String>
     <System:String x:Key="Free:">Free:</System:String>
 
+
+    <!--ACC STAT-->
+    <System:String x:Key="Check">Check</System:String>
+    <System:String x:Key="Most busy year:">Most busy year:</System:String>
+    <System:String x:Key="Selected year:">Selected year:</System:String>
+    <System:String x:Key="Most busy month:">Most busy month:</System:String>
+    <System:String x:Key="Res Count">Res Count</System:String>
+    <System:String x:Key="Canceled Res">Canceled Res</System:String>
+    <System:String x:Key="Delayed Res">Delayed Res</System:String>
+    <System:String x:Key="Renovation Sugg">Renovation Sugg</System:String>
+    <System:String x:Key="Generate PDF">Generate PDF</System:String>
+
 </ResourceDictionary>

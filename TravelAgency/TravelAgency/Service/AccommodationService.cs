@@ -1,4 +1,6 @@
-﻿using System;
+﻿using iTextSharp.text;
+using Microsoft.Data.Sqlite;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -72,6 +74,43 @@ namespace TravelAgency.Service
             }
 
             return accList;
+        }
+
+        public List<Paragraph> CreateDocumentData(int accID, int year)
+        {
+            var documentData = new List<Paragraph>();
+
+            int monthStart = 1;
+            for (int i = monthStart; i <= 12; i++)
+            {
+                int reservationCount = reservationService.GetReservationCountByMonth(year, i, accID);
+                int canceledReservations = GetCanceledReservationByMonth(year, i, accID);
+                int delayedReseravations = GetDelayedReservationByMonth(year, i, accID);
+                int renovationSuggestions = GetRenovationSuggestionByMonth(year, i, accID);
+
+                if(CurrentLanguageAndTheme.languageId == 0)
+                {
+                    CultureInfo culture = new CultureInfo("en-US");
+                    string period = culture.DateTimeFormat.GetMonthName(i);
+                    var data1 = new Paragraph($"Period: {period}\n", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14));
+                    documentData.Add(data1);
+                    var data2 = new Paragraph($"  Reservation count: {reservationCount}\n  Canceled reservations: {canceledReservations}\n" +
+                        $"  Delayed reservations: {delayedReseravations}\n  Renovation suggestions: {renovationSuggestions}", FontFactory.GetFont(FontFactory.HELVETICA, 12));
+                    documentData.Add(data2);
+                }
+                else
+                {
+                    CultureInfo culture = new CultureInfo("sr-Latn-RS");
+                    string period = culture.DateTimeFormat.GetMonthName(i);
+                    var data1 = new Paragraph($"Period: {period}\n", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14));
+                    documentData.Add(data1);
+                    var data2 = new Paragraph($"  Broj rezervaicja: {reservationCount}\n  Otkazane rezervacije: {canceledReservations}\n" +
+                        $"  Pomerene rezervacije: {delayedReseravations}\n  Sugestije za renoviranje: {renovationSuggestions}", FontFactory.GetFont(FontFactory.HELVETICA, 12));
+                    documentData.Add(data2);
+                }
+            }
+
+            return documentData;
         }
 
         private int GetCanceledReservationByYear(int year, int accID)
