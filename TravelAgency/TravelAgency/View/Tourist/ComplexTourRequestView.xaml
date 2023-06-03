@@ -120,11 +120,13 @@
                             <Button
                                 Width="100"
                                 Margin="0,0,15,0"
+                                Command="{Binding CancelCommand}"
                                 Content="Cancel"
                                 Style="{StaticResource MaterialDesignFlatButton}" />
                             <Button
                                 Width="100"
                                 Margin="15,0,0,0"
+                                Command="{Binding SubmitCommand}"
                                 Content="Submit" />
                         </WrapPanel>
                     </Grid>
