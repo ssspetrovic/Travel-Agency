@@ -82,7 +82,7 @@ namespace TravelAgency.Service
             var selectStatement = "select * from RequestedTour where Status = 0 and IsComplex = 0 and " + parameterName + " = ";
             if (parameterName == "Language")
             {
-                var language = (int) Enum.Parse(typeof(Language),parameter);
+                var language = (int)Enum.Parse(typeof(Language), parameter);
                 selectStatement += language;
             }
             else
@@ -107,7 +107,7 @@ namespace TravelAgency.Service
         {
             return ids == "Empty" ? dt : _requestTourRepository.UpdateDataTable(dt, ids);
         }
-        
+
         public DataTable UpdateComplexDataTable(DataTable dt, string ids)
         {
             return ids == "Empty" ? dt : _requestTourRepository.UpdateComplexDataTable(dt, ids);
@@ -120,8 +120,12 @@ namespace TravelAgency.Service
                 selectStatement += @"Location_Id = (select Location_Id from (select Location_Id, count(Location_Id) as 
                         Location_Count from RequestedTour where Location_Id = " + _locationService.GetByCity(dataType.Split(":")[1].Split(", ")[0].Trim())!.Id + " group by Location_Id order by Location_Count desc limit 1) as Max_Location)";
             else
-                selectStatement += @"Language = (select Language from (select Language, count(Language) as 
- Language_Count from RequestedTour where Language = '" + (int)Enum.Parse(typeof(Language), dataType.Split(":")[1].Trim()) + "' group by Language order by Language_Count desc limit 1) as Max_Language)"; return selectStatement;
+                selectStatement += @"Language = (select Language from (select Language, count(Language) as
+                    Language_Count from RequestedTour where Language = '" + 
+                    (int)Enum.Parse(typeof(Language), dataType.Split(":")[1].Trim()) +
+                    "' group by Language order by Language_Count desc limit 1) as Max_Language)";
+            
+            return selectStatement;
         }
 
         public ObservableCollection<RequestTour> GetAllTimeRequestedTour(string dataType)
@@ -147,7 +151,7 @@ namespace TravelAgency.Service
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
 
-            var selectStatement = GetSelectStatementForCollection(dataType) + " and DateRange like \"%" + year +"%\"";
+            var selectStatement = GetSelectStatementForCollection(dataType) + " and DateRange like \"%" + year + "%\"";
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
             using var selectReader = selectCommand.ExecuteReader();
             var requestedTours = new ObservableCollection<RequestTour>();
@@ -259,7 +263,8 @@ namespace TravelAgency.Service
                     (Language)Enum.Parse(typeof(Language), selectReader.GetString(3)), selectReader.GetInt32(4), selectReader.GetString(5),
                     (Status)selectReader.GetInt32(6), selectReader.IsDBNull(7) ? "Empty" : selectReader.GetString(7), selectReader.GetString(8), selectReader.GetInt32(9) == 1));
 
-            requestedTours = requestedTours.Where(tour => {
+            requestedTours = requestedTours.Where(tour =>
+            {
                 var dateRange = tour.DateRange.Split(" - ");
                 var startDate = DateTime.Parse(dateRange[0]);
                 var endDate = DateTime.Parse(dateRange[1]);
@@ -321,7 +326,7 @@ namespace TravelAgency.Service
 
             var request = GetById(requestId);
             UpdateStatusById(requestId, Status.Accepted);
-            
+
             var notificationService = new TouristNotificationService();
             notificationService.Add(new TouristNotification(
                 "tourist",
@@ -329,6 +334,11 @@ namespace TravelAgency.Service
                 "",
                 NotificationStatus.Unread,
                 NotificationType.RequestAccepted));
+        }
+
+        public int GetLastId()
+        {
+            return _requestTourRepository.GetLastId();
         }
     }
 }

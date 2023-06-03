@@ -19,5 +19,6 @@ namespace TravelAgency.Interface
         void UpdateStatusById(int id, Status newStatus);
         RequestTour GetById(int id);
         void UpdateAcceptedDateById(int id, string acceptedDate);
+        public int GetLastId();
     }
 }

@@ -100,9 +100,10 @@ namespace TravelAgency.Repository
             using var insertCommand = databaseConnection.CreateCommand();
             insertCommand.CommandText =
                 @"
-                    INSERT INTO RequestedTour (Location_Id, Language, DateRange, NumberOfGuests, Description, Status, TouristUsername)
-                    VALUES  ($Location_Id, $Language, $DateRange, $GuestNumber, $Description, $Status, $TouristUsername)
+                    INSERT INTO RequestedTour (Location_Id, Language, DateRange, NumberOfGuests, Description, Status, TouristUsername, IsComplex, ComplexId)
+                    VALUES  ($Location_Id, $Language, $DateRange, $GuestNumber, $Description, $Status, $TouristUsername, $IsComplex, $ComplexId)
                 ";
+
             insertCommand.Parameters.AddWithValue("$Location_Id", requestTour.Location.Id);
             insertCommand.Parameters.AddWithValue("$Language", (int)requestTour.Language);
             insertCommand.Parameters.AddWithValue("$DateRange", requestTour.DateRange);
@@ -110,6 +111,8 @@ namespace TravelAgency.Repository
             insertCommand.Parameters.AddWithValue("$Description", requestTour.Description);
             insertCommand.Parameters.AddWithValue("$Status", (int)requestTour.Status);
             insertCommand.Parameters.AddWithValue("$TouristUsername", requestTour.TouristUsername);
+            insertCommand.Parameters.AddWithValue("$IsComplex", requestTour.IsComplex);
+            insertCommand.Parameters.AddWithValue("$ComplexId", requestTour.ComplexId);
             insertCommand.ExecuteNonQuery();
         }
 
@@ -260,6 +263,18 @@ namespace TravelAgency.Repository
             updateCommand.Parameters.AddWithValue("$acceptedDate", acceptedDate);
             updateCommand.Parameters.AddWithValue("$id", id);
             updateCommand.ExecuteNonQuery();
+        }
+
+        public int GetLastId()
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            using var selectCommand = databaseConnection.CreateCommand();
+            selectCommand.CommandText = "SELECT MAX(Id) FROM RequestedTour";
+
+            using var selectReader = selectCommand.ExecuteReader();
+            return !selectReader.Read() ? 0 : selectReader.GetInt32(0);
         }
     }
 }
