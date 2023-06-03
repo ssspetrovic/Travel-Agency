@@ -92,7 +92,7 @@ namespace TravelAgency.Repository
             selectCommand.CommandText = "SELECT MAX(Id) FROM ComplexTour";
 
             using var selectReader = selectCommand.ExecuteReader();
-            return !selectReader.Read() ? 0 : selectReader.GetInt32(0);
+            return !selectReader.Read() ? 1 : selectReader.GetInt32(0) + 1;
         }
     }
 }

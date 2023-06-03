@@ -16,9 +16,9 @@ namespace TravelAgency.Model
             RequestTourIds = requestTourIds;
         }
 
-        public ComplexRequestTour(int id, string requestedTourIds, string dateRange, Location location, string description, Language language, int maxGuests, Status status, string acceptedDate, string touristUsername) : base(id, location, description, language, maxGuests, dateRange, status, acceptedDate, touristUsername)
+        public ComplexRequestTour(int id, string requestTourIds, string dateRange, Location location, string description, Language language, int maxGuests, Status status, string acceptedDate, string touristUsername) : base(id, location, description, language, maxGuests, dateRange, status, acceptedDate, touristUsername)
         {
-            RequestTourIds = requestedTourIds;
+            RequestTourIds = requestTourIds;
         }
 
     }

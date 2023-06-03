@@ -141,6 +141,64 @@ namespace TravelAgency.ViewModel.Tourist
             RemoveTourPartCommand = new RelayCommand(Execute_RemoveTourPartCommand);
         }
 
+        private bool IsDateRangeValid(DateTime? startingDate, DateTime? endingDate)
+        {
+            if (startingDate < DateTime.Today || startingDate == null || endingDate == null) return false;
+            return startingDate < endingDate;
+        }
+
+        private bool IsDuplicateTourPart(Location? location)
+        {
+            return TourParts.Any(t => t.Location.Equals(location));
+        }
+
+        private void ShowLocationExistsDialog()
+        {
+            Dialog = new OkDialog
+            {
+                Owner = Current.MainWindow,
+                TextBlock =
+                {
+                    Text = "You already have a tour part with the same location."
+                },
+                Button =
+                {
+                    Command = new RelayCommand(Execute_CloseDialogCommand)
+                }
+            };
+
+            Dialog.ShowDialog();
+        }
+
+        private void AddTourPart()
+        {
+            var formattedDateRange =
+                $"{StartingDate?.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture)} - {EndingDate?.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture)}";
+
+            TourParts.Add(new RequestTour(
+                SelectedLocation!,
+                Description!,
+                Language!,
+                int.Parse(GuestNumber!),
+                formattedDateRange,
+                Status.OnHold,
+                CurrentUser.Username,
+                true
+            ));
+        }
+
+        private void HandleTourPartAddition()
+        {
+            if (IsDuplicateTourPart(SelectedLocation))
+            {
+                ShowLocationExistsDialog();
+            }
+            else
+            {
+                AddTourPart();
+            }
+        }
+
         private void Execute_CancelCommand(object parameter)
         {
             _navigationService.GoBack();
@@ -194,65 +252,6 @@ namespace TravelAgency.ViewModel.Tourist
             if (parameter is not RequestTour tourPart) return;
             TourParts.Remove(tourPart);
             CollectionViewSource.GetDefaultView(TourParts).Refresh();
-        }
-
-        private bool IsDateRangeValid(DateTime? startingDate, DateTime? endingDate)
-        {
-            if (startingDate < DateTime.Today || startingDate == null || endingDate == null) return false;
-            return startingDate < endingDate;
-        }
-
-        private bool IsDuplicateTourPart(Location? location)
-        {
-            return TourParts.Any(t => t.Location.Equals(location));
-        }
-
-        private void ShowLocationExistsDialog()
-        {
-            Dialog = new OkDialog
-            {
-                Owner = Current.MainWindow,
-                TextBlock =
-                {
-                    Text = "You already have a tour part with the same location."
-                },
-                Button =
-                {
-                    Command = new RelayCommand(Execute_CloseDialogCommand)
-                }
-            };
-
-            Dialog.ShowDialog();
-        }
-
-        private void AddTourPart()
-        {
-            var formattedDateRange =
-                $"{StartingDate?.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture)} - {EndingDate?.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture)}";
-
-
-            TourParts.Add(new RequestTour(
-                SelectedLocation!,
-                Description!,
-                Language!,
-                int.Parse(GuestNumber!),
-                formattedDateRange,
-                Status.OnHold,
-                CurrentUser.Username,
-                false
-            ));
-        }
-
-        private void HandleTourPartAddition()
-        {
-            if (IsDuplicateTourPart(SelectedLocation))
-            {
-                ShowLocationExistsDialog();
-            }
-            else
-            {
-                AddTourPart();
-            }
         }
     }
 }
