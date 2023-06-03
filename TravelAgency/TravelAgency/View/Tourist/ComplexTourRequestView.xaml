@@ -43,7 +43,7 @@
             <StackPanel Margin="5,10">
                 <Label
                     Margin="10,0"
-                    Content="Tour part information"
+                    Content="Complex tour"
                     FontSize="15" />
                 <Border
                     Height="450"
