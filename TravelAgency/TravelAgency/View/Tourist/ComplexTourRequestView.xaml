@@ -38,7 +38,7 @@
             FontSize="25"
             FontWeight="Medium"
             Style="{StaticResource MaterialDesignHeadline1TextBlock}"
-            Text="Regular tour request" />
+            Text="Complex tour request" />
         <StackPanel Grid.Row="1" Grid.Column="0">
             <StackPanel Margin="5,10">
                 <Label
@@ -67,7 +67,7 @@
                                 HorizontalAlignment="Center"
                                 HorizontalContentAlignment="Center"
                                 d:ItemsSource="{d:SampleData ItemCount=4}"
-                                ItemsSource="{Binding RegularRequests}"
+                                ItemsSource="{Binding TourParts}"
                                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                 ScrollViewer.VerticalScrollBarVisibility="Hidden"
                                 Style="{StaticResource MaterialDesignListView}">
@@ -132,7 +132,6 @@
                     </Grid>
                 </Border>
             </StackPanel>
-
         </StackPanel>
         <StackPanel
             Grid.Row="1"

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Data;
 using System.Windows.Navigation;
@@ -116,18 +115,18 @@ namespace TravelAgency.ViewModel.Tourist
 
         private void Execute_DeleteNotificationCommand(object parameter)
         {
-            foreach (var notification in _notificationsCollection.ToList().Where(notification => notification.IsChecked))
+            foreach (var notification in NotificationsCollection.ToList().Where(notification => notification.IsChecked))
             {
                 _touristNotificationService.DeleteById(notification.Id);
-                _notificationsCollection.Remove(notification);
+                NotificationsCollection.Remove(notification);
             }
 
-            CollectionViewSource.GetDefaultView(_notificationsCollection).Refresh();
+            CollectionViewSource.GetDefaultView(NotificationsCollection).Refresh();
         }
 
         private bool CanExecute_DeleteNotificationCommand(object parameter)
         {
-            return _notificationsCollection.Any(notification => notification.IsChecked);
+            return NotificationsCollection.Any(notification => notification.IsChecked);
         }
 
         private void Execute_ConfirmAttendanceCommand(object parameter)
