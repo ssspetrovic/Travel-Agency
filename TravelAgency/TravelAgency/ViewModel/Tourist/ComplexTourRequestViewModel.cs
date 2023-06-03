@@ -150,13 +150,17 @@ namespace TravelAgency.ViewModel.Tourist
 
         private void Execute_SubmitCommand(object parameter)
         {
-            // TODO Implement
+            int complexId = _requestTourService.GetLastId();
+
+            foreach (var tourPart in TourParts)
+            {
+                _requestTourService.Add(tourPart);
+            }
         }
 
         private bool CanExecute_SubmitCommand(object parameter)
         {
-            // TODO Implement
-            return false;
+            return TourParts.Count > 1;
         }
 
         private void Execute_CloseDialogCommand(object parameter)

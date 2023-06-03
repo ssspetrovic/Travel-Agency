@@ -271,7 +271,7 @@ namespace TravelAgency.Repository
             databaseConnection.Open();
 
             using var selectCommand = databaseConnection.CreateCommand();
-            selectCommand.CommandText = "SELECT MAX(Id) FROM RequestedTour";
+            selectCommand.CommandText = "SELECT MAX(Id) FROM ComplexTour";
 
             using var selectReader = selectCommand.ExecuteReader();
             return !selectReader.Read() ? 0 : selectReader.GetInt32(0);
