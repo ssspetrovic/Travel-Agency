@@ -23,11 +23,12 @@ namespace TravelAgency.ViewModel.Tourist
         private string? _description;
         private Array _languages;
         private ObservableCollection<Location> _locationsCollection;
+        private OkDialog? Dialog { get; set; }
         private Location? _selectedLocation;
+        private bool _isTooltipsSwitchToggled;
+
         public RelayCommand SubmitRequestCommand { get; set; }
         public RelayCommand CancelRequestCommand { get; set; }
-        private OkDialog? Dialog { get; set; }
-        private bool _isTooltipsSwitchToggled;
 
         public bool IsTooltipsSwitchToggled
         {
