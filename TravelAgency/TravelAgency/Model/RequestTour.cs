@@ -40,6 +40,20 @@
             AcceptedDate = acceptedDate;
         }
 
+
+        public RequestTour(int id, Location location, string description, Language language, int maxGuests, string dateRange, Status status, string acceptedDate, string touristUsername)
+        {
+            Id = id;
+            Location = location;
+            Description = description;
+            Language = language;
+            MaxGuests = maxGuests;
+            DateRange = dateRange;
+            Status = status;
+            AcceptedDate = acceptedDate;
+            TouristUsername = touristUsername;
+        }
+
         public RequestTour(int id, Location location, string description, Language language, int maxGuests, string dateRange, Status status, bool isComplex)
         {
             Id = id;

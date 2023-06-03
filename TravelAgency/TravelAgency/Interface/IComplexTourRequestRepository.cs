@@ -3,9 +3,9 @@ using TravelAgency.Model;
 
 namespace TravelAgency.Interface
 {
-    interface IComplexTourRequestRepository
+    internal interface IComplexTourRequestRepository
     {
-        void Add(TourVoucher tourVoucher);
+        void Add(ComplexRequestTour complexTourRequest);
         void DeleteById(int id);
         ObservableCollection<ComplexRequestTour> GetAllAsCollection();
         public int GetLastId();
