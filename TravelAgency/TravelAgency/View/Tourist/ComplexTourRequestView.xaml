@@ -41,10 +41,27 @@
             Text="Complex tour request" />
         <StackPanel Grid.Row="1" Grid.Column="0">
             <StackPanel Margin="5,10">
-                <Label
-                    Margin="10,0"
-                    Content="Complex tour"
-                    FontSize="15" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Label
+                        Grid.Column="0"
+                        Margin="10,0"
+                        Content="Complex tour parts"
+                        FontSize="15" />
+                    <Label
+                        Grid.Column="1"
+                        Margin="10,0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Content="Two or more are required"
+                        FontSize="14"
+                        Foreground="#3F51B5"
+                        Style="{StaticResource AnimatedLabelStyle}"
+                        Visibility="{Binding IsTooltipsSwitchToggled, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                </Grid>
                 <Border
                     Height="450"
                     Margin="5"
