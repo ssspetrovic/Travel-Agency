@@ -166,29 +166,18 @@ namespace TravelAgency.ViewModel.Tourist
 
         private void Execute_AddTourPartCommand(object parameter)
         {
-
             var formattedDateRange =
                 $"{StartingDate?.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture)} - {EndingDate?.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture)}";
 
-            var tourPart = new RequestTour(
-                SelectedLocation!,
-                Description!,
-                Language!,
-                int.Parse(GuestNumber!),
-                formattedDateRange,
-                Status.OnHold,
-                CurrentUser.Username,
-                true
-            );
 
-            if (IsDuplicateTourPart(tourPart))
+            if (IsDuplicateTourPart(SelectedLocation))
             {
                 Dialog = new OkDialog
                 {
                     Owner = Current.MainWindow,
-                    Label =
+                    TextBlock =
                     {
-                        Content = "You already have the same part added."
+                        Text = "You already have a tour part with the same location."
                     },
                     Button =
                     {
@@ -200,7 +189,16 @@ namespace TravelAgency.ViewModel.Tourist
             }
             else
             {
-                TourParts.Add(tourPart);
+                TourParts.Add(new RequestTour(
+                    SelectedLocation!,
+                    Description!,
+                    Language!,
+                    int.Parse(GuestNumber!),
+                    formattedDateRange,
+                    Status.OnHold,
+                    CurrentUser.Username,
+                    false
+                ));
             }
         }
 
@@ -226,9 +224,9 @@ namespace TravelAgency.ViewModel.Tourist
             return startingDate < endingDate;
         }
 
-        private bool IsDuplicateTourPart(RequestTour tourPart)
+        private bool IsDuplicateTourPart(Location? location)
         {
-            return TourParts.Any(t => t.Location.Equals(tourPart.Location));
+            return TourParts.Any(t => t.Location.Equals(location));
         }
     }
 }

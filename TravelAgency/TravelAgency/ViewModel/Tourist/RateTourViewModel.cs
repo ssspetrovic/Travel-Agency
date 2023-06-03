@@ -146,9 +146,9 @@ namespace TravelAgency.ViewModel.Tourist
             Dialog = new OkDialog
             {
                 Owner = Current.MainWindow,
-                Label =
+                TextBlock = 
                 {
-                    Content = "Tour successfully rated!"
+                    Text = "Tour successfully rated!"
                 },
                 Button =
                 {

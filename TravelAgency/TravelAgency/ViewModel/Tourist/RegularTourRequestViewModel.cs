@@ -159,9 +159,9 @@ namespace TravelAgency.ViewModel.Tourist
             Dialog = new OkDialog
             {
                 Owner = Application.Current.MainWindow,
-                Label =
+                TextBlock = 
                 {
-                    Content = "Request successfully created!"
+                    Text = "Request successfully created!"
                 },
                 Button =
                 {
