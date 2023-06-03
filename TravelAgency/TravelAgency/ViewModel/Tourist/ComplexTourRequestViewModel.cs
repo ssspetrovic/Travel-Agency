@@ -150,7 +150,7 @@ namespace TravelAgency.ViewModel.Tourist
 
         private void Execute_SubmitCommand(object parameter)
         {
-            int complexId = _requestTourService.GetLastId();
+            int complexId = _requestTourService.GetLastComplexId();
 
             foreach (var tourPart in TourParts)
             {

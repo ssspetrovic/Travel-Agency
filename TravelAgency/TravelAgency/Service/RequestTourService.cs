@@ -336,9 +336,9 @@ namespace TravelAgency.Service
                 NotificationType.RequestAccepted));
         }
 
-        public int GetLastId()
+        public int GetLastComplexId()
         {
-            return _requestTourRepository.GetLastId();
+            return _requestTourRepository.GetLastComplexId();
         }
     }
 }

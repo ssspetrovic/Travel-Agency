@@ -265,7 +265,7 @@ namespace TravelAgency.Repository
             updateCommand.ExecuteNonQuery();
         }
 
-        public int GetLastId()
+        public int GetLastComplexId()
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
