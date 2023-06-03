@@ -16,7 +16,6 @@ namespace TravelAgency.ViewModel.Tourist
     {
         private readonly NavigationService _navigationService;
         private readonly TouristViewModel _touristViewModel;
-        private readonly RequestTourService _requestTourService;
 
         private ObservableCollection<RequestTour> _tourParts;
         private Language? _language;
@@ -128,7 +127,6 @@ namespace TravelAgency.ViewModel.Tourist
         public ComplexTourRequestViewModel(NavigationService navigationService, TouristViewModel touristViewModel)
         {
             _navigationService = navigationService;
-            _requestTourService = new RequestTourService();
             _touristViewModel = touristViewModel;
 
             _tourParts = new ObservableCollection<RequestTour>();
@@ -150,7 +148,10 @@ namespace TravelAgency.ViewModel.Tourist
 
         private void Execute_SubmitCommand(object parameter)
         {
-            var complexId = _requestTourService.GetLastComplexId();
+            var regularTourRequestService = new RequestTourService();
+            var complexTourRequestService = new ComplexTourRequestService();
+            
+            var complexId = complexTourRequestService.GetLastId();
 
             TourParts = new ObservableCollection<RequestTour>(TourParts.Select(tourPart =>
             {
@@ -160,7 +161,7 @@ namespace TravelAgency.ViewModel.Tourist
 
             foreach (var tourPart in TourParts)
             {
-                _requestTourService.Add(tourPart);
+                regularTourRequestService.Add(tourPart);
             }
         }
 
@@ -176,40 +177,7 @@ namespace TravelAgency.ViewModel.Tourist
 
         private void Execute_AddTourPartCommand(object parameter)
         {
-            var formattedDateRange =
-                $"{StartingDate?.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture)} - {EndingDate?.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture)}";
-
-
-            if (IsDuplicateTourPart(SelectedLocation))
-            {
-                Dialog = new OkDialog
-                {
-                    Owner = Current.MainWindow,
-                    TextBlock =
-                    {
-                        Text = "You already have a tour part with the same location."
-                    },
-                    Button =
-                    {
-                        Command = new RelayCommand(Execute_CloseDialogCommand)
-                    }
-                };
-
-                Dialog.ShowDialog();
-            }
-            else
-            {
-                TourParts.Add(new RequestTour(
-                    SelectedLocation!,
-                    Description!,
-                    Language!,
-                    int.Parse(GuestNumber!),
-                    formattedDateRange,
-                    Status.OnHold,
-                    CurrentUser.Username,
-                    false
-                ));
-            }
+            HandleTourPartAddition();
         }
 
         private bool CanExecute_AddTourPartCommand(object parameter)
@@ -237,6 +205,54 @@ namespace TravelAgency.ViewModel.Tourist
         private bool IsDuplicateTourPart(Location? location)
         {
             return TourParts.Any(t => t.Location.Equals(location));
+        }
+
+        private void ShowLocationExistsDialog()
+        {
+            Dialog = new OkDialog
+            {
+                Owner = Current.MainWindow,
+                TextBlock =
+                {
+                    Text = "You already have a tour part with the same location."
+                },
+                Button =
+                {
+                    Command = new RelayCommand(Execute_CloseDialogCommand)
+                }
+            };
+
+            Dialog.ShowDialog();
+        }
+
+        private void AddTourPart()
+        {
+            var formattedDateRange =
+                $"{StartingDate?.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture)} - {EndingDate?.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture)}";
+
+
+            TourParts.Add(new RequestTour(
+                SelectedLocation!,
+                Description!,
+                Language!,
+                int.Parse(GuestNumber!),
+                formattedDateRange,
+                Status.OnHold,
+                CurrentUser.Username,
+                false
+            ));
+        }
+
+        private void HandleTourPartAddition()
+        {
+            if (IsDuplicateTourPart(SelectedLocation))
+            {
+                ShowLocationExistsDialog();
+            }
+            else
+            {
+                AddTourPart();
+            }
         }
     }
 }

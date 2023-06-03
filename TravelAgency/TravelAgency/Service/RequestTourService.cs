@@ -335,10 +335,5 @@ namespace TravelAgency.Service
                 NotificationStatus.Unread,
                 NotificationType.RequestAccepted));
         }
-
-        public int GetLastComplexId()
-        {
-            return _requestTourRepository.GetLastComplexId();
-        }
     }
 }
