@@ -28,7 +28,7 @@ namespace TravelAgency.ViewModel.Tourist
         
         private void Execute_NavigateToComplexTourRequestCommand(object parameter)
         {
-            // TODO Implement when view is done
+            _navigationService.Navigate(new ComplexTourRequestView(_navigationService, _touristViewModel));
         }
 
         private void Execute_NavigateToMyRequestsCommand(object parameter)
