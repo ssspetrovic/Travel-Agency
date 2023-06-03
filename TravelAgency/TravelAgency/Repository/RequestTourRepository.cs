@@ -264,5 +264,25 @@ namespace TravelAgency.Repository
             updateCommand.Parameters.AddWithValue("$id", id);
             updateCommand.ExecuteNonQuery();
         }
+
+        public string GetRequestedTourIdsById(int id)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            using var selectCommand = databaseConnection.CreateCommand();
+            selectCommand.CommandText = "SELECT Id FROM RequestedTour WHERE ComplexId = $id";
+            selectCommand.Parameters.AddWithValue("$id", id);
+
+            using var selectReader = selectCommand.ExecuteReader();
+            var ids = new List<int>();
+
+            while (selectReader.Read())
+            {
+                ids.Add(selectReader.GetInt32(0));
+            }
+
+            return string.Join(", ", ids);
+        }
     }
 }

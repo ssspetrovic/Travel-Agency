@@ -44,7 +44,7 @@ namespace TravelAgency.Repository
         }
 
         public ObservableCollection<ComplexRequestTour> GetAllAsCollection()
-        {
+        { 
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
 

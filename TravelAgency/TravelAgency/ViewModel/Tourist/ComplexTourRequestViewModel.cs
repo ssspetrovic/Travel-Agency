@@ -9,6 +9,7 @@ using TravelAgency.Service;
 using static System.Windows.Application;
 using TravelAgency.View.Tourist;
 using System.Linq;
+using System.Windows.Input;
 
 namespace TravelAgency.ViewModel.Tourist
 {
@@ -26,6 +27,7 @@ namespace TravelAgency.ViewModel.Tourist
         private Array _languages;
         private ObservableCollection<Location> _locationsCollection;
         private Location? _selectedLocation;
+        private OkDialog? Dialog { get; set; }
 
         public ObservableCollection<RequestTour> TourParts
         {
@@ -117,8 +119,6 @@ namespace TravelAgency.ViewModel.Tourist
             }
         }
 
-        public OkDialog? Dialog { get; set; }
-
         public RelayCommand CancelCommand { get; set; }
         public RelayCommand SubmitCommand { get; set; }
         public RelayCommand AddTourPartCommand { get; set; }
@@ -152,18 +152,18 @@ namespace TravelAgency.ViewModel.Tourist
             return TourParts.Any(t => t.Location.Equals(location));
         }
 
-        private void ShowLocationExistsDialog()
+        private void PopDialog(string text, ICommand command)
         {
             Dialog = new OkDialog
             {
                 Owner = Current.MainWindow,
                 TextBlock =
                 {
-                    Text = "You already have a tour part with the same location."
+                    Text = text
                 },
                 Button =
                 {
-                    Command = new RelayCommand(Execute_CloseDialogCommand)
+                    Command = command
                 }
             };
 
@@ -175,23 +175,27 @@ namespace TravelAgency.ViewModel.Tourist
             var formattedDateRange =
                 $"{StartingDate?.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture)} - {EndingDate?.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture)}";
 
-            TourParts.Add(new RequestTour(
-                SelectedLocation!,
-                Description!,
-                Language!,
-                int.Parse(GuestNumber!),
-                formattedDateRange,
-                Status.OnHold,
-                CurrentUser.Username,
-                true
-            ));
+            TourParts.Add(
+                new RequestTour(
+                    SelectedLocation!,
+                    Description!, 
+                    Language!,
+                    int.Parse(GuestNumber!),
+                    formattedDateRange,
+                    Status.OnHold,
+                    CurrentUser.Username,
+                    true
+                    )
+                );
         }
 
         private void HandleTourPartAddition()
         {
             if (IsDuplicateTourPart(SelectedLocation))
             {
-                ShowLocationExistsDialog();
+                const string text = "You already have a tour part with the same location.";
+                var command = new RelayCommand(Execute_CloseDialogCommand);
+                PopDialog(text, command);
             }
             else
             {
@@ -204,23 +208,20 @@ namespace TravelAgency.ViewModel.Tourist
             _navigationService.GoBack();
         }
 
+        private void Execute_NavigateToMyRequestsCommand(object parameter)
+        {
+            Dialog!.Close();
+            _navigationService.Navigate(new MyRequestsView(_navigationService, _touristViewModel));
+        }
+
         private void Execute_SubmitCommand(object parameter)
         {
-            var regularTourRequestService = new RequestTourService();
             var complexTourRequestService = new ComplexTourRequestService();
-            
-            var complexId = complexTourRequestService.GetLastId();
+            complexTourRequestService.HandleComplexRequest(TourParts);
 
-            TourParts = new ObservableCollection<RequestTour>(TourParts.Select(tourPart =>
-            {
-                tourPart.ComplexId = complexId;
-                return tourPart;
-            }));
-
-            foreach (var tourPart in TourParts)
-            {
-                regularTourRequestService.Add(tourPart);
-            }
+            const string text = "Complex tour successfully created!";
+            var command = new RelayCommand(Execute_NavigateToMyRequestsCommand);
+            PopDialog(text, command);
         }
 
         private bool CanExecute_SubmitCommand(object parameter)

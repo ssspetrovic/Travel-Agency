@@ -1,6 +1,4 @@
-﻿using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-
-namespace TravelAgency.Model
+﻿namespace TravelAgency.Model
 {
     public class ComplexRequestTour : RequestTour
     {
@@ -20,6 +18,9 @@ namespace TravelAgency.Model
         {
             RequestTourIds = requestTourIds;
         }
-
+        public ComplexRequestTour(string requestTourIds, string dateRange, Location location, string description, Language language, int maxGuests, Status status, string acceptedDate, string touristUsername) : base(location, description, language, maxGuests, dateRange, status, acceptedDate, touristUsername)
+        {
+            RequestTourIds = requestTourIds;
+        }
     }
 }

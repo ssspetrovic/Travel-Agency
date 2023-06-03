@@ -335,5 +335,10 @@ namespace TravelAgency.Service
                 NotificationStatus.Unread,
                 NotificationType.RequestAccepted));
         }
+
+        public string GetRequestedTourIdsById(int id)
+        {
+            return _requestTourRepository.GetRequestedTourIdsById(id);
+        }
     }
 }
