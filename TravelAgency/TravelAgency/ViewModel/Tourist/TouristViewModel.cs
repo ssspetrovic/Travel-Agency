@@ -54,6 +54,9 @@ namespace TravelAgency.ViewModel.Tourist
             Username = CurrentUser.DisplayName;
             _navigationService.Navigate(new HomeView(_navigationService, this));
 
+            var vouchersService = new TourVoucherService();
+            vouchersService.AddBonusVouchers();
+
             var notificationsService = new TouristNotificationService();
             notificationsService.CheckForAttendanceInvitation(CurrentUser.Username!);
         }
@@ -75,7 +78,7 @@ namespace TravelAgency.ViewModel.Tourist
 
         private void Execute_NavigateToMyRequestsCommand(object parameter)
         {
-            _navigationService.Navigate(new MyRequestsView(_navigationService, this));
+            _navigationService.Navigate(new MyRequestsView(_navigationService));
         }
 
         private void Execute_NavigateToTourReservationPageCommand(object parameter)

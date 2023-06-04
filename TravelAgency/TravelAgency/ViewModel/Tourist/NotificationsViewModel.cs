@@ -95,7 +95,7 @@ namespace TravelAgency.ViewModel.Tourist
                     break;
                 }
                 case NotificationType.RequestAccepted:
-                    _navigationService.Navigate(new MyRequestsView(_navigationService, _touristViewModel));
+                    _navigationService.Navigate(new MyRequestsView(_navigationService));
                     break;
                 case NotificationType.NewVoucher:
                     break;

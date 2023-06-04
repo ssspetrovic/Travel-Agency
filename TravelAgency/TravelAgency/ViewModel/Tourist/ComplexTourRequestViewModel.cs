@@ -231,7 +231,7 @@ namespace TravelAgency.ViewModel.Tourist
         private void Execute_NavigateToMyRequestsCommand(object parameter)
         {
             Dialog!.Close();
-            _navigationService.Navigate(new MyRequestsView(_navigationService, _touristViewModel));
+            _navigationService.Navigate(new MyRequestsView(_navigationService));
         }
 
         private void Execute_SubmitCommand(object parameter)

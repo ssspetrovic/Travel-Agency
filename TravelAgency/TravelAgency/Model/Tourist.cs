@@ -14,10 +14,16 @@
         public TouristAppearance TouristAppearance { get; set; }
         public int LocationId { get; set; }
         public int Age { get; set; }
+        public int CompletedToursCount { get; set; }
 
         public Tourist()
         {
 
+        }
+
+        public Tourist(int completedToursCount)
+        {
+            CompletedToursCount = completedToursCount;
         }
 
         public Tourist(Tour tour, TouristAppearance touristAppearance , int locationId, int age)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using TravelAgency.DTO;
 using TravelAgency.Interface;
 using TravelAgency.Model;
 using TravelAgency.Repository;
@@ -17,6 +18,11 @@ namespace TravelAgency.Service
         {
             _touristRepository = new TouristRepository();
             _tourService = new TourService();
+        }
+
+        public List<TouristCountersDto> GetAllDto()
+        {
+            return _touristRepository.GetAllDto();
         }
 
         public List<Tourist> GetByTour(Tour tour)
@@ -129,6 +135,16 @@ namespace TravelAgency.Service
         {
             var tourService = new TourService();
             return tourService.GetById(tourId).Name;
+        }
+
+        public int GetCompletedToursCountByUsername(string? username)
+        {
+            return _touristRepository.GetCompletedToursCountByUsername(username);
+        }
+
+        public void UpdateToursCount(string? username, int newCount)
+        {
+            _touristRepository.UpdateToursCount(username, newCount);
         }
     }
 }
