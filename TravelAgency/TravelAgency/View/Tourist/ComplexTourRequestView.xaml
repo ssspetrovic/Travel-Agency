@@ -39,120 +39,9 @@
             FontWeight="Medium"
             Style="{StaticResource MaterialDesignHeadline1TextBlock}"
             Text="Complex tour request" />
-        <StackPanel Grid.Row="1" Grid.Column="0">
-            <StackPanel Margin="5,10">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <Label
-                        Grid.Column="0"
-                        Margin="10,0"
-                        Content="Complex tour parts"
-                        FontSize="15" />
-                    <Label
-                        Grid.Column="1"
-                        Margin="10,0"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        Content="Two or more are required"
-                        FontSize="14"
-                        Foreground="#3F51B5"
-                        Style="{StaticResource AnimatedLabelStyle}"
-                        Visibility="{Binding IsTooltipsSwitchToggled, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                </Grid>
-                <Border
-                    Height="450"
-                    Margin="5"
-                    BorderBrush="{StaticResource MaterialDesignDivider}"
-                    BorderThickness="2"
-                    CornerRadius="10">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition Height="60" />
-                        </Grid.RowDefinitions>
-                        <Border
-                            Grid.Row="0"
-                            Height="380"
-                            BorderBrush="{StaticResource MaterialDesignDivider}"
-                            BorderThickness="0,0,0,2">
-                            <ListView
-                                Width="360"
-                                Height="380"
-                                HorizontalAlignment="Center"
-                                HorizontalContentAlignment="Center"
-                                d:ItemsSource="{d:SampleData ItemCount=4}"
-                                ItemsSource="{Binding TourParts}"
-                                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                                Style="{StaticResource MaterialDesignListView}">
-                                <ListView.ItemContainerStyle>
-                                    <Style BasedOn="{StaticResource MaterialDesignGridViewItem}" TargetType="ListViewItem">
-                                        <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                        <Setter Property="VerticalContentAlignment" Value="Center" />
-                                        <Setter Property="Focusable" Value="False" />
-                                    </Style>
-                                </ListView.ItemContainerStyle>
-                                <ListView.View>
-                                    <GridView AllowsColumnReorder="False">
-                                        <GridViewColumn
-                                            Width="140"
-                                            DisplayMemberBinding="{Binding Path=Location}"
-                                            Header="Location" />
-                                        <GridViewColumn
-                                            Width="140"
-                                            DisplayMemberBinding="{Binding Path=Language}"
-                                            Header="Language" />
-                                        <GridViewColumn Width="Auto">
-                                            <GridViewColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <Button
-                                                        x:Name="RemoveTourPartButton"
-                                                        Width="25"
-                                                        Height="25"
-                                                        Command="{Binding DataContext.RemoveTourPartCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"
-                                                        CommandParameter="{Binding}"
-                                                        Style="{StaticResource MaterialDesignIconButton}">
-                                                        <Button.Content>
-                                                            <fa:IconImage
-                                                                Width="20"
-                                                                Height="20"
-                                                                Foreground="#3F51B5"
-                                                                Icon="TrashCan" />
-                                                        </Button.Content>
-                                                    </Button>
-                                                </DataTemplate>
-                                            </GridViewColumn.CellTemplate>
-                                        </GridViewColumn>
-                                    </GridView>
-                                </ListView.View>
-                            </ListView>
-                        </Border>
-                        <WrapPanel
-                            Grid.Row="1"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center">
-                            <Button
-                                Width="100"
-                                Margin="0,0,15,0"
-                                Command="{Binding CancelCommand}"
-                                Content="Cancel"
-                                Style="{StaticResource MaterialDesignFlatButton}" />
-                            <Button
-                                Width="100"
-                                Margin="15,0,0,0"
-                                Command="{Binding SubmitCommand}"
-                                Content="Submit" />
-                        </WrapPanel>
-                    </Grid>
-                </Border>
-            </StackPanel>
-        </StackPanel>
         <StackPanel
             Grid.Row="1"
-            Grid.Column="1"
+            Grid.Column="0"
             Margin="5,10">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -385,6 +274,117 @@
                         FontSize="14" />
                 </Grid>
             </Border>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <StackPanel Margin="5,10">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Label
+                        Grid.Column="0"
+                        Margin="10,0"
+                        Content="Complex tour parts"
+                        FontSize="15" />
+                    <Label
+                        Grid.Column="1"
+                        Margin="10,0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Content="Two or more are required"
+                        FontSize="14"
+                        Foreground="#3F51B5"
+                        Style="{StaticResource AnimatedLabelStyle}"
+                        Visibility="{Binding IsTooltipsSwitchToggled, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                </Grid>
+                <Border
+                    Height="450"
+                    Margin="5"
+                    BorderBrush="{StaticResource MaterialDesignDivider}"
+                    BorderThickness="2"
+                    CornerRadius="10">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition Height="60" />
+                        </Grid.RowDefinitions>
+                        <Border
+                            Grid.Row="0"
+                            Height="380"
+                            BorderBrush="{StaticResource MaterialDesignDivider}"
+                            BorderThickness="0,0,0,2">
+                            <ListView
+                                Width="360"
+                                Height="380"
+                                HorizontalAlignment="Center"
+                                HorizontalContentAlignment="Center"
+                                d:ItemsSource="{d:SampleData ItemCount=4}"
+                                ItemsSource="{Binding TourParts}"
+                                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                                Style="{StaticResource MaterialDesignListView}">
+                                <ListView.ItemContainerStyle>
+                                    <Style BasedOn="{StaticResource MaterialDesignGridViewItem}" TargetType="ListViewItem">
+                                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                        <Setter Property="VerticalContentAlignment" Value="Center" />
+                                        <Setter Property="Focusable" Value="False" />
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+                                <ListView.View>
+                                    <GridView AllowsColumnReorder="False">
+                                        <GridViewColumn
+                                            Width="140"
+                                            DisplayMemberBinding="{Binding Path=Location}"
+                                            Header="Location" />
+                                        <GridViewColumn
+                                            Width="140"
+                                            DisplayMemberBinding="{Binding Path=Language}"
+                                            Header="Language" />
+                                        <GridViewColumn Width="Auto">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Button
+                                                        x:Name="RemoveTourPartButton"
+                                                        Width="25"
+                                                        Height="25"
+                                                        Command="{Binding DataContext.RemoveTourPartCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"
+                                                        CommandParameter="{Binding}"
+                                                        Style="{StaticResource MaterialDesignIconButton}">
+                                                        <Button.Content>
+                                                            <fa:IconImage
+                                                                Width="20"
+                                                                Height="20"
+                                                                Foreground="#3F51B5"
+                                                                Icon="TrashCan" />
+                                                        </Button.Content>
+                                                    </Button>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </Border>
+                        <WrapPanel
+                            Grid.Row="1"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+                            <Button
+                                Width="100"
+                                Margin="0,0,15,0"
+                                Command="{Binding CancelCommand}"
+                                Content="Cancel"
+                                Style="{StaticResource MaterialDesignFlatButton}" />
+                            <Button
+                                Width="100"
+                                Margin="15,0,0,0"
+                                Command="{Binding SubmitCommand}"
+                                Content="Submit" />
+                        </WrapPanel>
+                    </Grid>
+                </Border>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Page>
