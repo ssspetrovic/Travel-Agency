@@ -14,6 +14,7 @@
         public TouristAppearance TouristAppearance { get; set; }
         public int LocationId { get; set; }
         public int Age { get; set; }
+        public int TourCounter { get; set; }
 
         public Tourist()
         {
