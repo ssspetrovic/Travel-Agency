@@ -13,6 +13,7 @@ namespace TravelAgency.Model
         public bool IsClosed { get; set; } = false;
         public int GuestCommentNumber { get; set; } = 0;
         public int OwnerCommentNumber { get; set; } = 0;
+        public int LocationId { get; set; }
 
         public Forum() { }
 

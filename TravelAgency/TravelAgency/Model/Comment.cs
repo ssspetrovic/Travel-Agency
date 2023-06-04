@@ -21,15 +21,32 @@ namespace TravelAgency.Model
         public int ForumId { get; set; }
         public string? Text { get; set; }
         public CommentType CommentType { get; set; }
+        public DateTime Date { get; set; }
 
         public Comment() { }
 
         public Comment(int guestId, int forumId, string text, CommentType commentType)
         {
+            Date = DateTime.Now;
             GuestId = guestId;
             ForumId = forumId;
             Text = text;
             CommentType = commentType;
+        }
+
+        public Comment(int guestId, int forumId, string? text, CommentType commentType, DateTime date) : this(guestId, forumId, text, commentType)
+        {
+            Date = date;
+        }
+
+        public Comment(int id, int guestId, int forumId, string? text, CommentType commentType, DateTime date)
+        {
+            Id = id;
+            GuestId = guestId;
+            ForumId = forumId;
+            Text = text;
+            CommentType = commentType;
+            Date = date;
         }
     }
 }
