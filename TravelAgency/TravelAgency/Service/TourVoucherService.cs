@@ -64,6 +64,7 @@ namespace TravelAgency.Service
             foreach (var tourist in tourists.Where(tourist => tourist.CompletedToursCount >= 5))
             {
                 Add(new TourVoucher(tourist.TouristId, tourist.TouristUsername, description, formattedDateTime, TourVoucher.VoucherStatus.Valid));
+                touristService.UpdateToursCount(tourist.TouristUsername, 0);
             }
         }
     }

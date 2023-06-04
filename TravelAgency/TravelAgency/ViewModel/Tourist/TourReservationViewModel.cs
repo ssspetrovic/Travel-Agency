@@ -244,7 +244,7 @@ namespace TravelAgency.ViewModel.Tourist
 
             TourReservationService = new TourReservationService(this);
             var tours = TourReservationService.TourService.GetAllAsCollection();
-            foreach(var tour in tours) tour.GuideName = tour.IsSuperGuide ? "✫" : "";
+            foreach(var tour in tours) tour.GuideName = tour.IsSuperGuide ? "✪" : "";
             _toursCollection = new CollectionViewSource { Source = tours };
             _toursCollection.Filter += ToursCollection_Filter;
             _filterLanguages = Enum.GetValues(typeof(Language));

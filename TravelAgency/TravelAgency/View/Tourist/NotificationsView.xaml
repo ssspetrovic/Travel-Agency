@@ -56,7 +56,6 @@
                 </Button>
             </WrapPanel>
             <Border
-                Grid.Row="2"
                 Height="Auto"
                 BorderBrush="{StaticResource MaterialDesignDivider}"
                 BorderThickness="2"

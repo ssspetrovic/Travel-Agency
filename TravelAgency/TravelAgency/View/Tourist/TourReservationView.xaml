@@ -203,6 +203,16 @@
                         </ListView.ItemContainerStyle>
                         <ListView.View>
                             <GridView x:Name="GridView" AllowsColumnReorder="False">
+                                <GridViewColumn Width="28">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                FontSize="20"
+                                                Foreground="#3F51B5"
+                                                Text="{Binding GuideName}" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
                                 <GridViewColumn
                                     Width="Auto"
                                     DisplayMemberBinding="{Binding Path=Name}"
@@ -219,7 +229,6 @@
                                     Width="Auto"
                                     DisplayMemberBinding="{Binding Path=MaxGuests}"
                                     Header="Available" />
-                                <GridViewColumn Width="40" DisplayMemberBinding="{Binding Path=GuideName}" />
                                 <GridViewColumn Width="Auto">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
