@@ -1,9 +1,6 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Numerics;
-using System.Text;
 using TravelAgency.Model;
 using TravelAgency.Repository;
 
@@ -63,7 +60,7 @@ namespace TravelAgency.Service
             var description = tourParts[0].Description;
             var language = tourParts[0].Language;
             var totalGuests = tourParts.Sum(t => t.MaxGuests);
-            var acceptedDate = string.Join(", ", Enumerable.Repeat("EMPTY", tourParts.Count));
+            var acceptedDate = string.Join(", ", Enumerable.Repeat("/", tourParts.Count));
 
             Add(
                 new ComplexRequestTour(

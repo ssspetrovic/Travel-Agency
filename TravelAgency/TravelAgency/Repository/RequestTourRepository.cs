@@ -134,7 +134,7 @@ namespace TravelAgency.Repository
                     break;
                 default:
                     selectCommand.CommandText =
-                        "SELECT * FROM RequestedTour WHERE IsComplex = 0 and TouristUsername = $CurrentUserUsername AND SUBSTR(DateRange, 7, 4) = $year OR SUBSTR(DateRange, -4, 4) = $year";
+                        "SELECT * FROM RequestedTour WHERE ComplexId = -1 and TouristUsername = $CurrentUserUsername AND SUBSTR(DateRange, 7, 4) = $year OR SUBSTR(DateRange, -4, 4) = $year";
                     selectCommand.Parameters.AddWithValue("$year", year);
                     selectCommand.Parameters.AddWithValue("$CurrentUserUsername", CurrentUser.Username);
                     break;
