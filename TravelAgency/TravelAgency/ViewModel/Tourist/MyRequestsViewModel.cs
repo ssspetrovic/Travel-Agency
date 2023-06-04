@@ -13,6 +13,7 @@ namespace TravelAgency.ViewModel.Tourist
         private readonly NavigationService _navigationService;
         private readonly TouristViewModel _touristViewModel;
         public RelayCommand NavigateToStatisticsCommand { get; set; }
+        public RelayCommand ViewComplexRequestDetailsCommand { get; set; }
 
         private ObservableCollection<RequestTour> _regularRequests;
         public ObservableCollection<RequestTour> RegularRequests
@@ -57,11 +58,22 @@ namespace TravelAgency.ViewModel.Tourist
             _complexRequests = complexTourRequestService.GetAllAsCollection();
 
             NavigateToStatisticsCommand = new RelayCommand(Execute_NavigateToStatisticsCommand);
+            ViewComplexRequestDetailsCommand = new RelayCommand(Execute_ViewComplexRequestDetailsCommand);
         }
 
         private void Execute_NavigateToStatisticsCommand(object parameter)
         {
             _navigationService.Navigate(new RequestsStatisticsView());
+        }
+
+        private void Execute_ViewComplexRequestDetailsCommand(object parameter)
+        {
+            // TODO Implement navigation
+        }
+
+        private bool CanExecute_ViewComplexRequestDetailsCommand(object parameter)
+        {
+            return parameter is ComplexRequestTour;
         }
     }
 }
