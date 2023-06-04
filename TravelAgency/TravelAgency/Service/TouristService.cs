@@ -130,5 +130,15 @@ namespace TravelAgency.Service
             var tourService = new TourService();
             return tourService.GetById(tourId).Name;
         }
+
+        public int GetCompletedToursCountByUsername(string? username)
+        {
+            return _touristRepository.GetCompletedToursCountByUsername(username);
+        }
+
+        public void UpdateToursCount(string? username, int newCount)
+        {
+            _touristRepository.UpdateToursCount(username, newCount);
+        }
     }
 }

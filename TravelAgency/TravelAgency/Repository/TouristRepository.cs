@@ -20,8 +20,8 @@ namespace TravelAgency.Repository
             using var selectReader = selectCommand.ExecuteReader();
             while (selectReader.Read())
                 tourists.Add(new Tourist(selectReader.GetInt32(0), selectReader.GetString(1), selectReader.GetString(2), selectReader.GetString(3),
-                    selectReader.GetString(4), selectReader.GetString(5), (Role) selectReader.GetInt32(6), 
-                    tour, (TouristAppearance) selectReader.GetInt32(8), selectReader.GetInt32(9), selectReader.GetInt32(10)));
+                    selectReader.GetString(4), selectReader.GetString(5), (Role)selectReader.GetInt32(6),
+                    tour, (TouristAppearance)selectReader.GetInt32(8), selectReader.GetInt32(9), selectReader.GetInt32(10)));
 
             return tourists;
         }
@@ -69,7 +69,7 @@ namespace TravelAgency.Repository
             using var selectCommand = databaseConnection.CreateCommand();
             selectCommand.CommandText = "SELECT IsChecked FROM Tourist WHERE Username = $username";
             selectCommand.Parameters.AddWithValue("$username", username);
-            using var selectReader =  selectCommand.ExecuteReader();
+            using var selectReader = selectCommand.ExecuteReader();
             selectReader.Read();
 
             return (TouristAppearance)selectReader.GetInt32(0);
@@ -95,5 +95,46 @@ namespace TravelAgency.Repository
             updateCommand.ExecuteNonQuery();
         }
 
+        public int GetCompletedToursCountByUsername(string? username)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            using var selectCommand = databaseConnection.CreateCommand();
+            selectCommand.CommandText =
+                @"
+                    SELECT CompletedToursCount
+                    FROM Tourist
+                    WHERE Username = $username
+                ";
+
+            selectCommand.Parameters.AddWithValue("$username", username);
+            using var selectReader = selectCommand.ExecuteReader();
+
+            if (!selectReader.Read())
+            {
+                throw new SqliteException("Cannot acquire db value", 16);
+            }
+
+            return selectReader.GetInt32(0);
+        }
+
+        public void UpdateToursCount(string? username, int newCount)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            using var updateCommand = databaseConnection.CreateCommand();
+            updateCommand.CommandText =
+                @"
+                    UPDATE Tourist
+                    SET CompletedToursCount = $newCount
+                    WHERE Username = $username
+                ";
+
+            updateCommand.Parameters.AddWithValue("$username", username);
+            updateCommand.Parameters.AddWithValue("$newCount", newCount);
+            updateCommand.ExecuteNonQuery();
+        }
     }
 }
