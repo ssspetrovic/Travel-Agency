@@ -152,11 +152,7 @@
                             Grid.Row="4"
                             Grid.Column="0"
                             Grid.ColumnSpan="2"
-                            Foreground="{StaticResource MaterialDesignDivider}">
-                            <Separator.LayoutTransform>
-                                <ScaleTransform ScaleX="2" ScaleY="2" />
-                            </Separator.LayoutTransform>
-                        </Separator>
+                            Foreground="{StaticResource MaterialDesignDivider}" />
                         <Label
                             Grid.Row="5"
                             Grid.Column="0"

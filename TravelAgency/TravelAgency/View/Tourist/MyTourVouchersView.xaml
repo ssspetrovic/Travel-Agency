@@ -71,7 +71,7 @@
                 <ListView.View>
                     <GridView AllowsColumnReorder="False">
                         <GridViewColumn
-                            Width="350"
+                            Width="385"
                             DisplayMemberBinding="{Binding Path=Description}"
                             Header="Description" />
                         <GridViewColumn

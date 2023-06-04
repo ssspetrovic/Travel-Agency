@@ -159,6 +159,19 @@ namespace TravelAgency.ViewModel
                 _finishedTourService.Add(new Tour(tour.Id, tour.Name, _tourService.GetKeyPoints(string.Join(", ", keyPointParts.Select(p => p[..p.IndexOf(':')]))), _touristService.GetByTour(tour), tour.Date.Split(", ")[0]));
 
             RemoveTour(tour.Date.Split(", ").ToList(), tourists);
+
+
+            // Update tourists tour attendance count
+            foreach (var tourist in tourists)
+            {
+                var touristObj = _touristService.GetByUsername(tourist);
+                _touristService.UpdateToursCount(tourist, touristObj.CompletedToursCount + 1);
+            }
+
+            // Upon updating count, check if there are vouchers ready to send
+            var voucherService = new TourVoucherService();
+            voucherService.AddBonusVouchers();
+
             _activeTourService.RemoveLastKeyPoint();
             var mainWindow = Application.Current.Windows.OfType<View.Guide>().FirstOrDefault();
             mainWindow!.Title = "Review Tour";
