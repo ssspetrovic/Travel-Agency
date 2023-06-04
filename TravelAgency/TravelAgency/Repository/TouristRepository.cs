@@ -94,5 +94,6 @@ namespace TravelAgency.Repository
             updateCommand.Parameters.AddWithValue("$locationId", locationId);
             updateCommand.ExecuteNonQuery();
         }
+
     }
 }
