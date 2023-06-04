@@ -126,10 +126,10 @@ namespace TravelAgency.Repository
             switch (year)
             {
                 case null when touristUsername == null:
-                    selectCommand.CommandText = "SELECT * FROM RequestedTour where IsComplex = 0";
+                    selectCommand.CommandText = "SELECT * FROM RequestedTour where ComplexId = -1";
                     break;
                 case "All years" or null:
-                    selectCommand.CommandText = "SELECT * FROM RequestedTour WHERE IsComplex = 0 and TouristUsername = $CurrentUserUsername";
+                    selectCommand.CommandText = "SELECT * FROM RequestedTour WHERE ComplexId = -1 and TouristUsername = $CurrentUserUsername";
                     selectCommand.Parameters.AddWithValue("$CurrentUserUsername", CurrentUser.Username);
                     break;
                 default:
@@ -147,8 +147,7 @@ namespace TravelAgency.Repository
             while (selectReader.Read())
             {
                 string? selectedDate = null;
-                if (!selectReader.IsDBNull(7))
-                    selectedDate = selectReader.GetString(7);
+                selectedDate = !selectReader.IsDBNull(7) ? selectReader.GetString(7) : null;
 
                 requests.Add(new RequestTour(
                     selectReader.GetInt32(0),
@@ -160,7 +159,46 @@ namespace TravelAgency.Repository
                     (Status)selectReader.GetInt32(6),
                     selectedDate,
                     selectReader.GetString(8),
-                    selectReader.GetInt32(9) == 1
+                    selectReader.GetInt32(9) == 1,
+                    selectReader.GetInt32(10)
+                ));
+            }
+
+            return requests;
+        }
+
+        public ObservableCollection<RequestTour> GetAllAsCollectionByComplexId(string? touristUsername, int complexId = -1)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            using var selectCommand = databaseConnection.CreateCommand();
+            selectCommand.CommandText =
+                "SELECT * FROM RequestedTour WHERE TouristUsername = $touristUsername AND ComplexId = $complexId";
+            selectCommand.Parameters.AddWithValue("$touristUsername", touristUsername);
+            selectCommand.Parameters.AddWithValue("$complexId", complexId);
+
+            using var selectReader = selectCommand.ExecuteReader();
+            var locationService = new LocationService();
+
+            var requests = new ObservableCollection<RequestTour>();
+            while (selectReader.Read())
+            {
+                string? selectedDate = null;
+                selectedDate = !selectReader.IsDBNull(7) ? selectReader.GetString(7) : "";
+
+                requests.Add(new RequestTour(
+                    selectReader.GetInt32(0),
+                    locationService.GetById(selectReader.GetInt32(1))!,
+                    selectReader.GetString(2),
+                    (Language)selectReader.GetInt32(3),
+                    selectReader.GetInt32(4),
+                    selectReader.GetString(5),
+                    (Status)selectReader.GetInt32(6),
+                    selectedDate,
+                    selectReader.GetString(8),
+                    selectReader.GetInt32(9) == 1,
+                    selectReader.GetInt32(10)
                 ));
             }
 

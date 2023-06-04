@@ -55,12 +55,12 @@
                     <GridView AllowsColumnReorder="False">
                         <GridViewColumn
                             Width="Auto"
-                            DisplayMemberBinding="{Binding Path=Description}"
+                            DisplayMemberBinding="{Binding Id}"
                             Header="Tour part" />
                         <GridViewColumn
                             Width="Auto"
                             DisplayMemberBinding="{Binding Location}"
-                            Header="Status" />
+                            Header="Starting location" />
                         <GridViewColumn
                             Width="Auto"
                             DisplayMemberBinding="{Binding Path=AcceptedDate, StringFormat={}{0:dd/MM/yyyy}}"

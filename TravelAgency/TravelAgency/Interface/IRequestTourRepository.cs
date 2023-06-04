@@ -20,5 +20,6 @@ namespace TravelAgency.Interface
         RequestTour GetById(int id);
         void UpdateAcceptedDateById(int id, string acceptedDate);
         string GetRequestedTourIdsById(int id);
+        ObservableCollection<RequestTour> GetAllAsCollectionByComplexId(string? touristUsername, int complexId = -1);
     }
 }

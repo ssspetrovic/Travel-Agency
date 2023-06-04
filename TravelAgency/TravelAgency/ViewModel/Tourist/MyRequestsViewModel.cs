@@ -11,7 +11,6 @@ namespace TravelAgency.ViewModel.Tourist
     internal class MyRequestsViewModel : BaseViewModel
     {
         private readonly NavigationService _navigationService;
-        private readonly TouristViewModel _touristViewModel;
         public RelayCommand NavigateToStatisticsCommand { get; set; }
         public RelayCommand ViewComplexRequestDetailsCommand { get; set; }
 
@@ -37,12 +36,11 @@ namespace TravelAgency.ViewModel.Tourist
             }
         }
 
-        public MyRequestsViewModel(NavigationService navigationService, TouristViewModel touristViewModel)
+        public MyRequestsViewModel(NavigationService navigationService)
         {
             var regularTourRequestService = new RequestTourService();
             var complexTourRequestService = new ComplexTourRequestService();
             _navigationService = navigationService;
-            _touristViewModel = touristViewModel;
 
             _regularRequests = regularTourRequestService.GetAllForSelectedYearAsCollection(null, CurrentUser.Username);
             _regularRequests = new ObservableCollection<RequestTour>(
@@ -68,12 +66,10 @@ namespace TravelAgency.ViewModel.Tourist
 
         private void Execute_ViewComplexRequestDetailsCommand(object parameter)
         {
-            // TODO Implement navigation
-        }
-
-        private bool CanExecute_ViewComplexRequestDetailsCommand(object parameter)
-        {
-            return parameter is ComplexRequestTour;
+            if (parameter is RequestTour tourPart)
+            {
+                _navigationService.Navigate(new ComplexTourRequestOverviewView(tourPart.Id));
+            }
         }
     }
 }

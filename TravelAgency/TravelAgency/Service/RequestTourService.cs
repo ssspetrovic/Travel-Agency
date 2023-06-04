@@ -121,10 +121,10 @@ namespace TravelAgency.Service
                         Location_Count from RequestedTour where Location_Id = " + _locationService.GetByCity(dataType.Split(":")[1].Split(", ")[0].Trim())!.Id + " group by Location_Id order by Location_Count desc limit 1) as Max_Location)";
             else
                 selectStatement += @"Language = (select Language from (select Language, count(Language) as
-                    Language_Count from RequestedTour where Language = '" + 
+                    Language_Count from RequestedTour where Language = '" +
                     (int)Enum.Parse(typeof(Language), dataType.Split(":")[1].Trim()) +
                     "' group by Language order by Language_Count desc limit 1) as Max_Language)";
-            
+
             return selectStatement;
         }
 
@@ -339,6 +339,11 @@ namespace TravelAgency.Service
         public string GetRequestedTourIdsById(int id)
         {
             return _requestTourRepository.GetRequestedTourIdsById(id);
+        }
+
+        public ObservableCollection<RequestTour> GetAllAsCollectionByComplexId(string? touristUsername, int complexId = -1)
+        {
+            return _requestTourRepository.GetAllAsCollectionByComplexId(touristUsername, complexId);
         }
     }
 }

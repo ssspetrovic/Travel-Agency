@@ -33,7 +33,7 @@ namespace TravelAgency.ViewModel.Tourist
 
         private void Execute_NavigateToMyRequestsCommand(object parameter)
         {
-            _navigationService.Navigate(new MyRequestsView(_navigationService, _touristViewModel));
+            _navigationService.Navigate(new MyRequestsView(_navigationService));
         }
     }
 }
