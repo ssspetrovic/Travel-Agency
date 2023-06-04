@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Microsoft.Data.Sqlite;
+using TravelAgency.DTO;
 using TravelAgency.Interface;
 using TravelAgency.Model;
 
@@ -8,10 +9,28 @@ namespace TravelAgency.Repository
 {
     internal class TouristRepository : RepositoryBase, ITouristRepository
     {
-        public List<Tourist> GetAllDto()
+        public List<TouristCountersDto> GetAllDto()
         {
-            // TODO Implement
-            return new List<Tourist>();
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            using var selectCommand = databaseConnection.CreateCommand();
+            selectCommand.CommandText = "SELECT Id, Username, CompletedToursCount FROM Tourist";
+            using var selectReader = selectCommand.ExecuteReader();
+
+            var dtoTourists = new List<TouristCountersDto>();
+            while (selectReader.Read())
+            {
+                dtoTourists.Add(
+                    new TouristCountersDto(
+                        selectReader.GetInt32(0),
+                        selectReader.GetString(1),
+                        selectReader.GetInt32(2)
+                        )
+                    );
+            }
+
+            return dtoTourists;
         }
 
         public List<Tourist> GetByTour(Tour tour)

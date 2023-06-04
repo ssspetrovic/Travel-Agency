@@ -1,4 +1,7 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Globalization;
+using System.Linq;
 using TravelAgency.Interface;
 using TravelAgency.Model;
 using TravelAgency.Repository;
@@ -52,8 +55,16 @@ namespace TravelAgency.Service
         public void AddBonusVouchers()
         {
             var touristService = new TouristService();
+            var tourists = touristService.GetAllDto();
 
-            //var tourists = 
+            const string description = "Congratulations on 5 completed tours. You have won a voucher!";
+            var formattedDate = DateTime.Now.AddMonths(6).ToString("yyyy-MM-dd");
+            var formattedDateTime = DateTime.ParseExact(formattedDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+
+            foreach (var tourist in tourists.Where(tourist => tourist.CompletedToursCount >= 5))
+            {
+                Add(new TourVoucher(tourist.TouristId, tourist.TouristUsername, description, formattedDateTime, TourVoucher.VoucherStatus.Valid));
+            }
         }
     }
 }

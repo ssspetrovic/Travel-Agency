@@ -54,6 +54,9 @@ namespace TravelAgency.ViewModel.Tourist
             Username = CurrentUser.DisplayName;
             _navigationService.Navigate(new HomeView(_navigationService, this));
 
+            var vouchersService = new TourVoucherService();
+            vouchersService.AddBonusVouchers();
+
             var notificationsService = new TouristNotificationService();
             notificationsService.CheckForAttendanceInvitation(CurrentUser.Username!);
         }

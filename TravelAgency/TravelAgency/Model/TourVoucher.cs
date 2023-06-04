@@ -13,12 +13,12 @@ namespace TravelAgency.Model
 
         public int Id { get; }
         public int TouristId { get; set; }
-        public string TouristUsername { get; set; }
+        public string? TouristUsername { get; set; }
         public string Description { get; set; }
         public DateTime ExpirationDate { get; set; }
         public VoucherStatus Status { get; set; }
 
-        public TourVoucher(int touristId, string touristUsername, string description, DateTime expirationDate, VoucherStatus status)
+        public TourVoucher(int touristId, string? touristUsername, string description, DateTime expirationDate, VoucherStatus status)
         {
             TouristId = touristId;
             TouristUsername = touristUsername;
@@ -27,7 +27,7 @@ namespace TravelAgency.Model
             Status = status;
         }
 
-        public TourVoucher(int id, int touristId, string touristUsername, string description, DateTime expirationDate, VoucherStatus status)
+        public TourVoucher(int id, int touristId, string? touristUsername, string description, DateTime expirationDate, VoucherStatus status)
         {
             Id = id;
             TouristUsername = touristUsername;
