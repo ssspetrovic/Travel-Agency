@@ -48,5 +48,12 @@ namespace TravelAgency.Service
         {
             return _tourVoucherRepository.GetVoucherByTouristId(touristId);
         }
+
+        public void AddBonusVouchers()
+        {
+            var touristService = new TouristService();
+
+            //var tourists = 
+        }
     }
 }

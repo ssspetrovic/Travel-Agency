@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Microsoft.Data.Sqlite;
 using TravelAgency.Interface;
 using TravelAgency.Model;
@@ -7,6 +8,12 @@ namespace TravelAgency.Repository
 {
     internal class TouristRepository : RepositoryBase, ITouristRepository
     {
+        public List<Tourist> GetAllDto()
+        {
+            // TODO Implement
+            return new List<Tourist>();
+        }
+
         public List<Tourist> GetByTour(Tour tour)
         {
             using var databaseConnection = GetConnection();

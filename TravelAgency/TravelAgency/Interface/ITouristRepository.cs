@@ -5,6 +5,7 @@ namespace TravelAgency.Interface
 {
     public interface ITouristRepository
     {
+        List<Tourist> GetAllDto();
         List<Tourist> GetByTour(Tour tour);
         void RemoveTour(int id);
         void UpdateAppearance(int id, TouristAppearance appearance);

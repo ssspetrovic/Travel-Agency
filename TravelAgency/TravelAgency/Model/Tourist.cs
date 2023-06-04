@@ -21,6 +21,11 @@
 
         }
 
+        public Tourist(int completedToursCount)
+        {
+            CompletedToursCount = completedToursCount;
+        }
+
         public Tourist(Tour tour, TouristAppearance touristAppearance , int locationId, int age)
         {
             Tour = tour;
