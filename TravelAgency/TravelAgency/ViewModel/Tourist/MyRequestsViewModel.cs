@@ -25,14 +25,26 @@ namespace TravelAgency.ViewModel.Tourist
             }
         }
 
+        private ObservableCollection<ComplexRequestTour> _complexRequests;
+        public ObservableCollection<ComplexRequestTour> ComplexRequests
+        {
+            get => _complexRequests;
+            set
+            {
+                _complexRequests = value;
+                OnPropertyChanged();
+            }
+        }
+
         public MyRequestsViewModel(NavigationService navigationService, TouristViewModel touristViewModel)
         {
-            var tourRequestService = new RequestTourService();
+            var regularTourRequestService = new RequestTourService();
+            var complexTourRequestService = new ComplexTourRequestService();
             _navigationService = navigationService;
             _touristViewModel = touristViewModel;
 
-            _regularRequests = tourRequestService.GetAllForSelectedYearAsCollection(null, CurrentUser.Username);
-            _regularRequests= new ObservableCollection<RequestTour>(
+            _regularRequests = regularTourRequestService.GetAllForSelectedYearAsCollection(null, CurrentUser.Username);
+            _regularRequests = new ObservableCollection<RequestTour>(
                 _regularRequests.Select(request =>
                 {
                     if (string.IsNullOrEmpty(request.AcceptedDate))
@@ -41,6 +53,8 @@ namespace TravelAgency.ViewModel.Tourist
                     }
                     return request;
                 }));
+
+            _complexRequests = complexTourRequestService.GetAllAsCollection();
 
             NavigateToStatisticsCommand = new RelayCommand(Execute_NavigateToStatisticsCommand);
         }
