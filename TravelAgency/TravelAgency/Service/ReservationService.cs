@@ -17,6 +17,7 @@ namespace TravelAgency.Service
 {
     public class ReservationService
     {
+        private ReservationRepository _reservationRepository = new(); 
         ObservableCollection<Reservation> GetAll() {
             var reservationRepository = new ReservationRepository();
             return reservationRepository.GetAll();
@@ -119,6 +120,12 @@ namespace TravelAgency.Service
  
             AccommodationRepository _accommodationRepository = new();
             return _accommodationRepository.GetById(reservationId);
+
+        }
+        public ObservableCollection<Reservation> GetReservationsByGuestId(int Id)
+        {
+            ObservableCollection<Reservation> reservations = _reservationRepository.GetAllByGuestId(Id);
+            return reservations;
 
         }
 

@@ -17,6 +17,7 @@ namespace TravelAgency.DTO
         public int MinGuest { get; set; }
         public int ReservableDays { get; set; }
         public string PictureUrl { get; set; } = null!;
+        public string ThumbnailUrl { get; set; } = null!;
         public int MinCancelationDays { get; set; }
 
         public AccommodationDTO()

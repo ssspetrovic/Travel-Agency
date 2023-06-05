@@ -25,6 +25,17 @@ namespace TravelAgency.Service
             reservationService = new ReservationService();
         }
 
+        public ObservableCollection<AccommodationDTO> GetReservedAccommodations()
+        {
+            ObservableCollection<Reservation> reservations = reservationService.GetReservationsByGuestId(CurrentUser.Id);
+            ObservableCollection<AccommodationDTO> accommodations = new();
+            foreach(Reservation reservation in reservations)
+            {
+                accommodations.Add(accommodationRepository.GetById(reservation.AccommodationId));
+            }
+            return accommodations;
+        }
+
         public ObservableCollection<string> GetAccommodationNames()
         {
             ObservableCollection<string> names = new ObservableCollection<string>();

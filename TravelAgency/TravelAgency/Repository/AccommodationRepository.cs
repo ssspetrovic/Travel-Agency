@@ -71,6 +71,7 @@ namespace TravelAgency.Repository
             return accommodationList;
         }
 
+
         public ObservableCollection<AccommodationDTO> GetAllByOwnerId()
         {
             using var databaseConnection = GetConnection();
