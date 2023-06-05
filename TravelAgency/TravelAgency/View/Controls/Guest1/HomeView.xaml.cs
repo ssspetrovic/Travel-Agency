@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -25,8 +26,8 @@ namespace TravelAgency.View.Controls.Guest1
         public HomeView(NavigationService navigationService, GuestViewModel guestViewModel)
         {
             InitializeComponent();
-            
-            
+            DataContext = new HomeViewModel(navigationService);
         }
+
     }
 }

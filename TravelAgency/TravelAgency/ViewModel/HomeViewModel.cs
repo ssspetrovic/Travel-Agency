@@ -9,6 +9,7 @@ namespace TravelAgency.ViewModel
 {
     internal class HomeViewModel: BaseViewModel
     {
+
         public HomeViewModel(NavigationService navigationService) { }
     }
 }
