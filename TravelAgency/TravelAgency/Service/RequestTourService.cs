@@ -310,7 +310,7 @@ namespace TravelAgency.Service
             }
         }
 
-        private RequestTour GetById(int id)
+        public RequestTour GetById(int id)
         {
             return _requestTourRepository.GetById(id);
         }

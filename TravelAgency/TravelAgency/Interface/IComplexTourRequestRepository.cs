@@ -9,5 +9,6 @@ namespace TravelAgency.Interface
         void DeleteById(int id);
         ObservableCollection<ComplexRequestTour> GetAllAsCollection();
         public int GetLastId();
+        void UpdateStatus(int id, Status newStatus);
     }
 }
