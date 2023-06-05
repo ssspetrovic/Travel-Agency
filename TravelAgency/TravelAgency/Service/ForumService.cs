@@ -70,9 +70,9 @@ namespace TravelAgency.Service
                         forumDTO.GuestName = u.Name + " " + u.Surname;
 
                         if (forum.IsClosed)
-                            forumDTO.Closed = "";
-                        else
                             forumDTO.Closed = "Closed";
+                        else
+                            forumDTO.Closed = "";
 
                         if (forum.VisitedByOwner == 0)
                             forumDTO.IsVisited = "NEW";

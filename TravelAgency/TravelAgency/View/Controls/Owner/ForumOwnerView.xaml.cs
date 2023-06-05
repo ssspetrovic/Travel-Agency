@@ -27,5 +27,10 @@ namespace TravelAgency.View.Controls.Owner
             InitializeComponent();
             DataContext = _viewModel;
         }
+
+        private void Card_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 }

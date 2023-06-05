@@ -4,7 +4,11 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+
       xmlns:local="clr-namespace:TravelAgency.View.Controls.Owner"
+      xmlns:viewModel="clr-namespace:TravelAgency.ViewModel"
+      d:DataContext="{d:DesignInstance Type=viewModel:ForumOwnerViewModel}"
       mc:Ignorable="d" 
       d:DesignHeight="690" d:DesignWidth="430"
       Title="ForumOwnerView">
@@ -23,8 +27,8 @@
             </ListView.ItemsPanel>
             <ListView.ItemTemplate>
                 <DataTemplate>
-
-                    <materialDesign:Card
+                   
+                        <materialDesign:Card
           Width="390">
                         <Grid>
                             <Grid.RowDefinitions>
@@ -86,8 +90,7 @@
                 Margin="8,4,8,8"
                 HorizontalAlignment="Left"
                 Content="TAKE A LOOK"
-                Command="{Binding BtnTakeALook}"
-                Style="{StaticResource MaterialDesignFlatButton}" />
+                Command="{Binding BtnTakeALook}" />
                             </DockPanel>
                         </Grid>
                     </materialDesign:Card>

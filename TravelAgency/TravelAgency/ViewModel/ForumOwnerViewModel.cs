@@ -14,6 +14,7 @@ using TravelAgency.Service;
 using TravelAgency.View.Controls.Owner;
 using TravelAgency.View;
 using System.Windows;
+using Prism.Commands;
 
 namespace TravelAgency.ViewModel
 {
@@ -26,10 +27,10 @@ namespace TravelAgency.ViewModel
 
         public ICollectionView ForumSourceCollection => _forumCollection.View;
 
-        public RelayCommand BtnTakeALook { get; set; }
+        public DelegateCommand BtnTakeALook { get; set; }
         public ForumOwnerViewModel()
         {
-            BtnTakeALook = new RelayCommand(Execute_BtnTakeALook);
+            BtnTakeALook = new DelegateCommand(Execute_BtnTakeALook);
 
             ForumService forumService = new ForumService();
 
@@ -40,7 +41,7 @@ namespace TravelAgency.ViewModel
 
         }
 
-        private void Execute_BtnTakeALook(object parameter)
+        private void Execute_BtnTakeALook()
         {
             MessageBox.Show(SelectedForum.GuestName);
         }

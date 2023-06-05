@@ -122,10 +122,10 @@ namespace TravelAgency.Repository
             {
                 var id = selectReader.GetInt32(0);
                 var guestId = selectReader.GetInt32(1);
-                var isClosed = selectReader.GetBoolean(2);
+                var locationId = selectReader.GetInt32(2);
                 var guestCommentNumber = selectReader.GetInt32(3);
                 var ownerCommentNumber = selectReader.GetInt32(4);
-                var locationId = selectReader.GetInt32(5);
+                var isClosed = selectReader.GetBoolean(5);
                 var visitedByOwner = selectReader.GetInt32(6);
 
                 Forum forum = new Forum(id, guestId, isClosed, guestCommentNumber, ownerCommentNumber, locationId, visitedByOwner);
