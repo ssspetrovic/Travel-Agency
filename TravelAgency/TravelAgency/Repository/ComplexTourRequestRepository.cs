@@ -94,5 +94,22 @@ namespace TravelAgency.Repository
             using var selectReader = selectCommand.ExecuteReader();
             return !selectReader.Read() ? 1 : selectReader.GetInt32(0) + 1;
         }
+
+        public void UpdateStatus(int id, Status newStatus)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            using var updateCommand = databaseConnection.CreateCommand();
+            updateCommand.CommandText =
+                @"
+                    UPDATE ComplexTour
+                    SET Status = $newStatus
+                    WHERE Id = $id
+                ";
+            updateCommand.Parameters.AddWithValue("$newStatus", newStatus);
+            updateCommand.Parameters.AddWithValue("$id", id);
+            updateCommand.ExecuteNonQuery();
+        }
     }
 }

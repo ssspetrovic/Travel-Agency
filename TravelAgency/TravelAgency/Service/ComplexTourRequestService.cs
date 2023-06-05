@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using TravelAgency.Model;
 using TravelAgency.Repository;
@@ -82,6 +85,40 @@ namespace TravelAgency.Service
             var complexId = GetLastId();
             AddTourParts(tourParts, complexId);
             CreateComplexTour(tourParts, complexId);
+        }
+
+        private void UpdateStatus(int id, Status newStatus)
+        {
+            _complexTourRequestRepository.UpdateStatus(id, newStatus);
+        }
+
+        private RequestTour GetFirstTourPart(ComplexRequestTour complexRequest)
+        {
+            var firstTourPartId = int.Parse(complexRequest.RequestTourIds.Split(", ")[0]);
+            var firstTourPart = _regularTourRequestService.GetById(firstTourPartId);
+            return firstTourPart;
+        }
+
+        private DateTime GetStartingDateTime(RequestTour tourPart)
+        {
+            var startingDateText = tourPart.DateRange.Split(" - ")[0];
+            var startingDate = DateTime.ParseExact(startingDateText, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+            return startingDate;
+        }
+
+        public void HandleComplexStatuses()
+        {
+            var complexRequests = GetAllAsCollection();
+            foreach (var complexRequest in complexRequests)
+            {
+                var firstTourPart = GetFirstTourPart(complexRequest);
+                var startingDate = GetStartingDateTime(firstTourPart);
+
+                if (startingDate <= DateTime.Now.AddHours(48) && firstTourPart.Status != Status.Accepted)
+                {
+                    UpdateStatus(complexRequest.Id, Status.Invalid);
+                }
+            }
         }
     }
 }

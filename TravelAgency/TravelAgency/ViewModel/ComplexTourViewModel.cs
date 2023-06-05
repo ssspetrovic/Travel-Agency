@@ -13,6 +13,7 @@ namespace TravelAgency.ViewModel
         {
             _requestTourService = new RequestTourService();
             _updateView = "";
+            CheckForComplexStatusUpdate();
             ComplexTourRequestData = GetTourRequestData();
         }
 
@@ -26,6 +27,12 @@ namespace TravelAgency.ViewModel
                 _updateView = value;
                 OnPropertyChanged(_updateView);
             }
+        }
+
+        private void CheckForComplexStatusUpdate()
+        {
+            var complexService = new ComplexTourRequestService();
+            complexService.HandleComplexStatuses();
         }
 
         public DataView GetTourRequestData()

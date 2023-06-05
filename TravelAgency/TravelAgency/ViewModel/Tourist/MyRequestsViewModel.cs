@@ -42,6 +42,8 @@ namespace TravelAgency.ViewModel.Tourist
             var complexTourRequestService = new ComplexTourRequestService();
             _navigationService = navigationService;
 
+            CheckForComplexStatusUpdate();
+
             _regularRequests = regularTourRequestService.GetAllForSelectedYearAsCollection(null, CurrentUser.Username);
             _regularRequests = new ObservableCollection<RequestTour>(
                 _regularRequests.Select(request =>
@@ -57,6 +59,13 @@ namespace TravelAgency.ViewModel.Tourist
 
             NavigateToStatisticsCommand = new RelayCommand(Execute_NavigateToStatisticsCommand);
             ViewComplexRequestDetailsCommand = new RelayCommand(Execute_ViewComplexRequestDetailsCommand);
+
+        }
+
+        private void CheckForComplexStatusUpdate()
+        {
+            var complexRequestService = new ComplexTourRequestService();
+            complexRequestService.HandleComplexStatuses();
         }
 
         private void Execute_NavigateToStatisticsCommand(object parameter)
