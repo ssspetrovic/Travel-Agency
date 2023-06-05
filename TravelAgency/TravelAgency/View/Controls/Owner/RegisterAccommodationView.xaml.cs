@@ -62,6 +62,46 @@ namespace TravelAgency.View.Controls.Owner
             lblAddressINC.Visibility = Visibility.Hidden;
         }
 
+        public RegisterAccommodationView(string city)
+        {
+            InitializeComponent();
+            if (CurrentLanguageAndTheme.themeId == 0)
+            {
+                cmbLocation.Background = Brushes.White; cmbLocation.Foreground = Brushes.Black;
+                cmbType.Background = Brushes.White; cmbType.Foreground = Brushes.Black;
+                foreach (ComboBoxItem item in cmbLocation.Items)
+                {
+                    item.Background = Brushes.White; item.Foreground = Brushes.Black;
+                }
+                foreach (ComboBoxItem item in cmbType.Items)
+                {
+                    item.Background = Brushes.White; item.Foreground = Brushes.Black;
+                }
+            }
+            else
+            {
+                cmbLocation.Background = Brushes.Black; cmbLocation.Foreground = Brushes.White;
+                cmbType.Background = Brushes.Black; cmbType.Foreground = Brushes.White;
+                foreach (ComboBoxItem item in cmbLocation.Items)
+                {
+                    item.Background = Brushes.Black; item.Foreground = Brushes.White;
+                }
+                foreach (ComboBoxItem item in cmbType.Items)
+                {
+                    item.Background = Brushes.Black; item.Foreground = Brushes.White;
+                }
+            }
+
+            lblNameINC.Visibility = Visibility.Hidden;
+            lblResINC.Visibility = Visibility.Hidden;
+            lblMaxINC.Visibility = Visibility.Hidden;
+            lblMinINC.Visibility = Visibility.Hidden;
+            lblDescINC.Visibility = Visibility.Hidden;
+            lblAddressINC.Visibility = Visibility.Hidden;
+
+            cmbLocation.Text = city;
+        }
+
         private AccommodationType findAccommodationType(string text)
         {
             if (text == "Apartment" || text == "Apartman")

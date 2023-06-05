@@ -24,6 +24,7 @@ namespace TravelAgency.ViewModel
         DelayRequestRepository _delayRequestRepository = new DelayRequestRepository();
         public RelayCommand BtnGradeGuest { get; set; }
         public RelayCommand BtnReservationChangeRequest { get; set; }
+        public RelayCommand BtnAccSuggestion { get; set; }  
 
         private string _ownerName;
         private string _lblNumReviews;
@@ -36,6 +37,7 @@ namespace TravelAgency.ViewModel
         {
             BtnGradeGuest = new RelayCommand(Execute_BtnGradeGuest);
             BtnReservationChangeRequest = new RelayCommand(Execute_BtnReservationChangeRequest);
+            BtnAccSuggestion = new RelayCommand(Execute_BtnAccSuggestion);
 
             _ownerName = GetOwnerName();
             _lblNumReviews = GetNumReviews();
@@ -75,8 +77,25 @@ namespace TravelAgency.ViewModel
             }
 
             Frame mainFrame = mainWindow.mainFrame;
-            ReservationChangeRequestView reservationChangeRequestView = new ReservationChangeRequestView();
-            mainFrame.Navigate(reservationChangeRequestView);
+            AccommodationSuggestionView accommodationSuggestionView = new AccommodationSuggestionView();
+            mainFrame.Navigate(accommodationSuggestionView);
+        }
+
+        private void Execute_BtnAccSuggestion(object parameter)
+        {
+            OwnerMainView mainWindow = null;
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window is OwnerMainView)
+                {
+                    mainWindow = (OwnerMainView)window;
+                    break;
+                }
+            }
+
+            Frame mainFrame = mainWindow.mainFrame;
+            AccommodationSuggestionView accommodationSuggestionView = new AccommodationSuggestionView();
+            mainFrame.Navigate(accommodationSuggestionView);
         }
         public string OwnerName
         {
