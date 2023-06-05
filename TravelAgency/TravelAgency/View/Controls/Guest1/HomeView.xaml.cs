@@ -22,7 +22,7 @@ namespace TravelAgency.View.Controls.Guest1
     public partial class HomeView : Page
     {
 
-        public HomeView()
+        public HomeView(NavigationService navigationService, GuestViewModel guestViewModel)
         {
             InitializeComponent();
             

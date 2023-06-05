@@ -14,6 +14,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TravelAgency.View.Controls.Guest1;
 using TravelAgency.View.Tourist;
+using TravelAgency.ViewModel;
+using System.Windows.Controls.Primitives;
+
 
 namespace TravelAgency.View
 {
@@ -25,18 +28,8 @@ namespace TravelAgency.View
         public Guest1View()
         {
             InitializeComponent();
-        }
-        private void SignOutButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            var signInView = new SignInView();
-            signInView.Show();
-            Close();
-        }
-        private void Profile_OnClick(object sender, RoutedEventArgs e)
-        {
-            var ProfileView = new ProfileView();
-            ProfileView.Show();
-            Close();
+            HomeButton.IsChecked = true;
+            DataContext = new GuestViewModel(ContentFrame.NavigationService);
         }
 
         private void HeaderThumb_OnDragDelta(object sender, DragDeltaEventArgs e)
@@ -45,45 +38,6 @@ namespace TravelAgency.View
             Top = Top + e.VerticalChange;
         }
 
-        private void CloseButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
-        private void TourReservationButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            var Reservation = new AccommodationReservationView();
-            Reservation.Show();
-            Close();
-        }
-
-        private void Reservation_OnClick(object sender, RoutedEventArgs e)
-        {
-            var ReservationView = new ReservatoinView();
-            ReservationView.Show();
-            Close();
-        }
-
-        private void RequestListButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            var requestListView = new RequestListView();
-            requestListView.Show();
-            Close();
-        }
-
-        private void HomeButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            var GuestView = new Guest1View();
-            GuestView.Show();
-            Close();
-        }
-
-
-        private void Accommodation_OnClick(object sender, RoutedEventArgs e)
-        {
-            var AccommodationReservationView = new AccommodationReservationView();
-            AccommodationReservationView.Show();
-            Close();
-        }
+        
     }
 }

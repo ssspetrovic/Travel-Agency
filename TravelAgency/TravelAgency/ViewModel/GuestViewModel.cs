@@ -9,8 +9,9 @@ using TravelAgency.Command;
 using TravelAgency.Model;
 using TravelAgency.Service;
 using TravelAgency.View;
-using TravelAgency.View.Tourist;
+using TravelAgency.View.Controls.Guest1;
 using TravelAgency.WindowHelpers;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace TravelAgency.ViewModel
 {
@@ -19,13 +20,10 @@ namespace TravelAgency.ViewModel
         private readonly IWindowManager _windowManager;
         private readonly NavigationService _navigationService;
         public RelayCommand NavigateToHomePageCommand { get; set; }
-        public RelayCommand NavigateToMyToursPageCommand { get; set; }
-        public RelayCommand NavigateToMyVouchersPageCommand { get; set; }
-        public RelayCommand NavigateToMyRequestsCommand { get; set; }
-        public RelayCommand NavigateToTourReservationPageCommand { get; set; }
-        public RelayCommand NavigateToUserProfileCommand { get; set; }
-        public RelayCommand NavigateToRequestTourPageCommand { get; set; }
-        public RelayCommand NavigateToNotificationsPageCommand { get; set; }
+        public RelayCommand NavigateToMyAccommodationsCommand { get; set; }
+        public RelayCommand NavigateToReservationsCommand { get; set; }
+        public RelayCommand NavigateToRequestsCommand { get; set; }
+        public RelayCommand NavigateToProfileCommand { get; set; }
         public RelayCommand CloseWindowCommand { get; set; }
         public RelayCommand SignOutCommand { get; set; }
 
@@ -33,6 +31,56 @@ namespace TravelAgency.ViewModel
         {
             _windowManager = new WindowManager();
             _navigationService = navigationService;
+
+            NavigateToHomePageCommand = new RelayCommand(Execute_NavigateToHomePageCommand);
+            NavigateToMyAccommodationsCommand = new RelayCommand(Execute_NavigateToMyAccommodationsCommand);
+            NavigateToReservationsCommand = new RelayCommand(Execute_NavigateToReservationsCommand);
+            NavigateToRequestsCommand = new RelayCommand(Execute_NavigateToRequestsCommand);
+            NavigateToProfileCommand = new RelayCommand(Execute_NavigateToProfileCommand);
+            CloseWindowCommand = new RelayCommand(Execute_CloseWindowCommand);
+            SignOutCommand = new RelayCommand(Execute_SignOutCommand);
+
+            _navigationService.Navigate(new HomeView(_navigationService, this));
+        }
+
+        private void Execute_NavigateToHomePageCommand(object parameter)
+        {
+            _navigationService.Navigate(new HomeView(_navigationService, this));
+        }
+
+        private void Execute_NavigateToMyAccommodationsCommand(object parameter)
+        {
+            _windowManager.ShowWindow<AccommodationReservationView>();
+            _windowManager.CloseWindow<Guest1View>();
+        }
+
+        private void Execute_NavigateToReservationsCommand(object parameter)
+        {
+            _windowManager.ShowWindow<ReservatoinView>();
+            _windowManager.CloseWindow<Guest1View>();
+        }
+
+        private void Execute_NavigateToRequestsCommand(object parameter)
+        {
+            _windowManager.ShowWindow<RequestListView>();
+            _windowManager.CloseWindow<Guest1View>();
+        }
+
+        private void Execute_NavigateToProfileCommand(object parameter)
+        {
+            _windowManager.ShowWindow<ProfileView>();
+            _windowManager.CloseWindow<Guest1View>();
+        }
+
+        private void Execute_CloseWindowCommand(object parameter)
+        {
+            _windowManager.CloseWindow<Guest1View>();
+        }
+
+        private void Execute_SignOutCommand(object parameter)
+        {
+            _windowManager.ShowWindow<SignInView>();
+            _windowManager.CloseWindow<Guest1View>();
         }
 
     }
