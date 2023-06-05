@@ -11,6 +11,7 @@ using TravelAgency.View.Tourist;
 using System.Linq;
 using System.Windows.Input;
 using System.ComponentModel;
+using System.Diagnostics;
 
 namespace TravelAgency.ViewModel.Tourist
 {
@@ -190,8 +191,27 @@ namespace TravelAgency.ViewModel.Tourist
             Dialog.ShowDialog();
         }
 
+        private bool IsDateRangeValid()
+        {
+            if (TourParts.Count <= 0) return true;
+
+            var lastPart = TourParts.Last();
+            var secondDateTextS = lastPart.DateRange.Split(" - ")[1];
+            var secondDate = DateTime.ParseExact(secondDateTextS, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+
+            return StartingDate >= secondDate;
+        }
+
         private void AddTourPart()
         {
+            if (!IsDateRangeValid())
+            {
+                const string text = "Starting date cannot be before the last part ending date!";
+                var command = new RelayCommand(Execute_CloseDialogCommand);
+                PopDialog(text, command);
+                return;
+            }
+
             var formattedDateRange =
                 $"{StartingDate?.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture)} - {EndingDate?.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture)}";
 
