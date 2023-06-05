@@ -334,11 +334,11 @@
                                 <ListView.View>
                                     <GridView AllowsColumnReorder="False">
                                         <GridViewColumn
-                                            Width="140"
+                                            Width="160"
                                             DisplayMemberBinding="{Binding Path=Location}"
                                             Header="Location" />
                                         <GridViewColumn
-                                            Width="140"
+                                            Width="130"
                                             DisplayMemberBinding="{Binding Path=Language}"
                                             Header="Language" />
                                         <GridViewColumn Width="Auto">
