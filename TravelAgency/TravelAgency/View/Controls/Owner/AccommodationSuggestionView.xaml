@@ -1,0 +1,43 @@
+﻿<Page x:Class="TravelAgency.View.Controls.Owner.AccommodationSuggestionView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TravelAgency.View.Controls.Owner"
+      mc:Ignorable="d" 
+      d:DesignHeight="690" d:DesignWidth="430"
+      Title="AccommodationSuggestionView">
+
+    <ScrollViewer>
+        <Grid Style="{DynamicResource Grid}" Height="1150">
+            <Label Style="{DynamicResource Label}" Content="Most reservations:" HorizontalAlignment="Left" Margin="30,74,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+            <Label Style="{DynamicResource Label}" Content="{Binding MostResAccName}" HorizontalAlignment="Left" Margin="69,108,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+            <Label Style="{DynamicResource Label}" Content="{Binding MostResAccLocation}" HorizontalAlignment="Left" Margin="69,195,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+            <Button Style="{DynamicResource Batn}" Content="Open accommodation at this locaiton" Command="{Binding BtnRegister1}" HorizontalAlignment="Center" Margin="0,229,0,0" VerticalAlignment="Top" Height="34" Width="372" FontSize="14"/>
+            <Label Style="{DynamicResource Label}" Content="{Binding MostResAccNumOfRes}" HorizontalAlignment="Left" Margin="69,137,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+            <Label Style="{DynamicResource Label}" Content="Suggestions for opening a new accommodation" HorizontalAlignment="Center" Margin="0,26,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+            <Label Style="{DynamicResource Label}" Content="Most occupied:" HorizontalAlignment="Left" Margin="30,302,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+            <Label Style="{DynamicResource Label}" Content="{Binding MostOccupiedAccName}" HorizontalAlignment="Left" Margin="69,337,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+            <Label Style="{DynamicResource Label}" Content="{Binding MostOccupiedAccLocation}" HorizontalAlignment="Left" Margin="69,424,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+            <Button Style="{DynamicResource ResourceKey=Batn}" Content="Open accommodation at this locaiton" Command="{Binding BtnRegister2}" HorizontalAlignment="Center" Margin="0,458,0,0" VerticalAlignment="Top" Height="34" Width="372" FontSize="14"/>
+            <Label Style="{DynamicResource Label}" Content="{Binding MostOccupiedAccOccupiedDays}" HorizontalAlignment="Left" Margin="69,395,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+            <Label Style="{DynamicResource Label}" Content="{Binding MostResAccOccupiedDays}" HorizontalAlignment="Left" Margin="69,166,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+            <Label Style="{DynamicResource Label}" Content="{Binding MostOccupiedAccNumOfRes}" HorizontalAlignment="Left" Margin="69,366,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+            <Label Style="{DynamicResource Label}" Content="Suggestions for closing an existing accommodation" HorizontalAlignment="Center" Margin="0,570,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+            <Label Style="{DynamicResource Label}" Content="______________________________________________________________________________________________________________________________________________________" HorizontalAlignment="Center" Margin="0,523,0,0" VerticalAlignment="Top"/>
+            <Label Style="{DynamicResource Label}" Content="Least reservations:" HorizontalAlignment="Left" Margin="30,625,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+            <Label Style="{DynamicResource Label}" Content="{Binding LeastResAccName}" HorizontalAlignment="Left" Margin="69,659,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+            <Label Style="{DynamicResource Label}" Content="{Binding LeastResAccLocation}" HorizontalAlignment="Left" Margin="69,746,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+            <Button Style="{DynamicResource Batn}" Content="Close this accommodation" Command="{Binding BtnDelete1}" HorizontalAlignment="Center" Margin="0,780,0,0" VerticalAlignment="Top" Height="34" Width="372" FontSize="14"/>
+            <Label Style="{DynamicResource Label}" Content="{Binding LeastResAccNumOfRes}" HorizontalAlignment="Left" Margin="69,688,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+            <Label Style="{DynamicResource Label}" Content="{Binding LeastResAccOccupiedDays}" HorizontalAlignment="Left" Margin="69,717,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+            <Label Style="{DynamicResource Label}" Content="Least occupied:" HorizontalAlignment="Left" Margin="30,856,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+            <Label Style="{DynamicResource Label}" Content="{Binding LeastOccupiedAccName}" HorizontalAlignment="Left" Margin="69,890,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+            <Label Style="{DynamicResource Label}" Content="{Binding LeastOccupiedAccLocation}" HorizontalAlignment="Left" Margin="69,977,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+            <Button Style="{DynamicResource Batn}" Content="Close this accommodation" Command="{Binding BtnDelete2}" HorizontalAlignment="Center" Margin="0,1011,0,0" VerticalAlignment="Top" Height="34" Width="371" FontSize="14"/>
+            <Label Style="{DynamicResource Label}" Content="{Binding LeastOccupiedAccNumOfRes}" HorizontalAlignment="Left" Margin="69,919,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+            <Label Style="{DynamicResource Label}" Content="{Binding LeastOccupiedAccOccupiedDays}" HorizontalAlignment="Left" Margin="69,948,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+
+        </Grid>
+    </ScrollViewer>
+</Page>

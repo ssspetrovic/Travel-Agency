@@ -286,5 +286,101 @@ namespace TravelAgency.Service
             var accommodation = _repository.GetById(id);
             return accommodation;
         }
+
+        public AccommodationSuggestionDTO GetMostReservationsAcc()
+        {
+            ObservableCollection<AccommodationDTO> accommodations = accommodationRepository.GetAll();
+            AccommodationDTO acc = accommodations[0];
+            int mostRes = reservationService.GetAccommodationNumOfRes(accommodations[0].Id);
+            foreach(AccommodationDTO accommodation in accommodations)
+            {
+                int temp = reservationService.GetAccommodationNumOfRes(accommodation.Id);
+                if(temp > mostRes)
+                {
+                    mostRes = temp;
+                    acc = accommodation;
+                }
+            }
+            AccommodationSuggestionDTO MostResAcc = new AccommodationSuggestionDTO();
+            MostResAcc.Id = acc.Id;
+            MostResAcc.Name = acc.Name;
+            MostResAcc.Location = acc.Location;
+            MostResAcc.NumOfReseservations = mostRes;
+            MostResAcc.NumOfOccupiedDays = reservationService.GetAccommodationOccupiedDays(MostResAcc.Id);
+
+            return MostResAcc;
+        }
+
+        public AccommodationSuggestionDTO GetMostOccupiedAcc()
+        {
+            ObservableCollection<AccommodationDTO> accommodations = accommodationRepository.GetAll();
+            AccommodationDTO acc = accommodations[0];
+            int mostOccupied = reservationService.GetAccommodationNumOfRes(accommodations[0].Id);
+            foreach (AccommodationDTO accommodation in accommodations)
+            {
+                int temp = reservationService.GetAccommodationOccupiedDays(accommodation.Id);
+                if (temp > mostOccupied)
+                {
+                    mostOccupied = temp;
+                    acc = accommodation;
+                }
+            }
+            AccommodationSuggestionDTO MostOccupiedAcc = new AccommodationSuggestionDTO();
+            MostOccupiedAcc.Id = acc.Id;
+            MostOccupiedAcc.Name = acc.Name;
+            MostOccupiedAcc.Location = acc.Location;
+            MostOccupiedAcc.NumOfReseservations = reservationService.GetAccommodationNumOfRes(MostOccupiedAcc.Id);
+            MostOccupiedAcc.NumOfOccupiedDays = mostOccupied;
+
+            return MostOccupiedAcc;
+        }
+
+        public AccommodationSuggestionDTO GetLeastReservationsAcc()
+        {
+            ObservableCollection<AccommodationDTO> accommodations = accommodationRepository.GetAll();
+            AccommodationDTO acc = accommodations[0];
+            int leastRes = reservationService.GetAccommodationNumOfRes(accommodations[0].Id);
+            foreach (AccommodationDTO accommodation in accommodations)
+            {
+                int temp = reservationService.GetAccommodationNumOfRes(accommodation.Id);
+                if (temp < leastRes)
+                {
+                    leastRes = temp;
+                    acc = accommodation;
+                }
+            }
+            AccommodationSuggestionDTO LeastResAcc = new AccommodationSuggestionDTO();
+            LeastResAcc.Id = acc.Id;
+            LeastResAcc.Name = acc.Name;
+            LeastResAcc.Location = acc.Location;
+            LeastResAcc.NumOfReseservations = leastRes;
+            LeastResAcc.NumOfOccupiedDays = reservationService.GetAccommodationOccupiedDays(LeastResAcc.Id);
+
+            return LeastResAcc;
+        }
+
+        public AccommodationSuggestionDTO GetLeastOccupiedAcc()
+        {
+            ObservableCollection<AccommodationDTO> accommodations = accommodationRepository.GetAll();
+            AccommodationDTO acc = accommodations[0];
+            int leastOccupied = reservationService.GetAccommodationNumOfRes(accommodations[0].Id);
+            foreach (AccommodationDTO accommodation in accommodations)
+            {
+                int temp = reservationService.GetAccommodationOccupiedDays(accommodation.Id);
+                if (temp < leastOccupied)
+                {
+                    leastOccupied = temp;
+                    acc = accommodation;
+                }
+            }
+            AccommodationSuggestionDTO LeastOccupiedAcc = new AccommodationSuggestionDTO();
+            LeastOccupiedAcc.Id = acc.Id;
+            LeastOccupiedAcc.Name = acc.Name;
+            LeastOccupiedAcc.Location = acc.Location;
+            LeastOccupiedAcc.NumOfReseservations = reservationService.GetAccommodationNumOfRes(LeastOccupiedAcc.Id);
+            LeastOccupiedAcc.NumOfOccupiedDays = leastOccupied;
+
+            return LeastOccupiedAcc;
+        }
     }
 }

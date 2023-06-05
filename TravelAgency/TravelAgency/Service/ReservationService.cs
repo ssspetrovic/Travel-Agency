@@ -372,5 +372,28 @@ namespace TravelAgency.Service
             }
             return resToDisplay;
         }
+
+        public int GetAccommodationNumOfRes(int accId)
+        {
+            var reservationRepository = new ReservationRepository();
+            ObservableCollection<Reservation> reservations = reservationRepository.GetAllByAccommodationId(accId);
+            int count = 0;
+            foreach (Reservation reservation in reservations)
+                count++;
+            return count;
+        }
+
+        public int GetAccommodationOccupiedDays(int accId)
+        {
+            var reservationRepository = new ReservationRepository();
+            ObservableCollection<Reservation> reservations = reservationRepository.GetAllByAccommodationId(accId);
+            int count = 0;
+            foreach (Reservation reservation in reservations)
+            {
+                for (DateTime d = reservation.StartDate; d <= reservation.EndDate; d = d.AddDays(1))
+                    count++;
+            }
+            return count;
+        }
     }
 }
