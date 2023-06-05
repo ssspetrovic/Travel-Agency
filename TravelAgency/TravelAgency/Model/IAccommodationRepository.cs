@@ -22,6 +22,7 @@ namespace TravelAgency.Model
         DataTable GetByAll(DataTable dt);
         Language FindLanguage(string language);
         ObservableCollection<AccommodationDTO> GetAll();
+        ObservableCollection<AccommodationDTO> GetAllByOwnerId();
 
         int GetOwnerIdByAccommodationId(int accommodationId);
 
