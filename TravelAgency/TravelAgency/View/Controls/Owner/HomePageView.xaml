@@ -30,7 +30,7 @@
         <Label Style="{DynamicResource Label}" Content="{Binding LblGradeAverage}" HorizontalAlignment="Left" Margin="317,300,0,0" Grid.RowSpan="2" VerticalAlignment="Top" FontSize="20" FontWeight="Bold"/>
         <Label Style="{DynamicResource Label}" Content="{Binding LblGuestsToGrade}" HorizontalAlignment="Left" Margin="249,455,0,0" Grid.RowSpan="2" VerticalAlignment="Top" FontSize="20" FontWeight="Bold"/>
         <Label Style="{DynamicResource Label}" Content="{Binding LblRequests}" HorizontalAlignment="Left" Margin="336,490,0,0" Grid.RowSpan="2" VerticalAlignment="Top" FontSize="20" FontWeight="Bold"/>
-        <Label Style="{DynamicResource Label}" Content="0" HorizontalAlignment="Left" Margin="233,525,0,0" VerticalAlignment="Top" FontSize="20" Grid.Row="1" FontWeight="Bold"/>
+        <Label Style="{DynamicResource Label}" Content="{Binding LblNewForums}" HorizontalAlignment="Left" Margin="233,525,0,0" VerticalAlignment="Top" FontSize="20" Grid.Row="1" FontWeight="Bold"/>
         <Button Style="{DynamicResource Batn}" Content="Suggestions for opening/closing an accommodation" HorizontalAlignment="Left" Command="{Binding BtnAccSuggestion}" CommandParameter="{Binding ElementName=mainWindow}" Margin="22,590,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Height="36" Width="376" FontSize="15"/>
 
     </Grid>

@@ -32,6 +32,7 @@ namespace TravelAgency.ViewModel
         private string _lblTitle;
         private string _lblGuestsToGrade;
         private string _lblRequests;
+        private string _lblNewForums;
 
         public HomePageOwnerViewModel() 
         {
@@ -45,6 +46,7 @@ namespace TravelAgency.ViewModel
             _lblTitle = GetTitle();
             _lblGuestsToGrade = GetGuestsToGrade();
             _lblRequests = GetRequests();
+            _lblNewForums = GetNewForums();
         }
 
         private void Execute_BtnGradeGuest(object parameter)
@@ -157,6 +159,16 @@ namespace TravelAgency.ViewModel
             }
         }
 
+        public string LblNewForums
+        {
+            get => _lblNewForums;
+            set
+            {
+                _lblNewForums = value;
+                OnPropertyChanged();
+            }
+        }
+
         private string GetOwnerName()
         {
             return CurrentUser.DisplayName;
@@ -203,6 +215,12 @@ namespace TravelAgency.ViewModel
             ObservableCollection<DelayRequest> delayRequests = _delayRequestRepository.GetDelayRequests(CurrentUser.Id);
             int count = delayRequests.Count;
             return count.ToString();
+        }
+
+        private string GetNewForums()
+        {
+            ForumService forumService = new ForumService();
+            return forumService.GetCountForumNotVisited().ToString();
         }
     }
 }

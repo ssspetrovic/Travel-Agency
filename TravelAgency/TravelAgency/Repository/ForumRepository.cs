@@ -3,8 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using TravelAgency.Model;
 using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
 
@@ -67,6 +69,22 @@ namespace TravelAgency.Repository
             updateOwnerCommentNum.ExecuteNonQuery();
         }
 
+        public void UpdateVisitedByOwner(int forumId)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+            var updateClosed = databaseConnection.CreateCommand();
+            updateClosed.CommandText =
+                @"
+                    update Forum set visitedByOwner = $value where Id = $forumId;
+                ";
+
+            updateClosed.Parameters.AddWithValue("$value", 1);
+            updateClosed.Parameters.AddWithValue("$forumId", forumId);
+
+            updateClosed.ExecuteNonQuery();
+        }
+
         public ObservableCollection<Comment> GetByForumId(int id)
         {
             using var databaseConnection = GetConnection();
@@ -87,6 +105,35 @@ namespace TravelAgency.Repository
             }
 
             return commentList;
+        }
+
+        public ObservableCollection<Forum> GetAll()
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            const string selectStatement = @"select * from Forum";
+            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
+            using var selectReader = selectCommand.ExecuteReader();
+
+            var forumList = new ObservableCollection<Forum>();
+
+            while (selectReader.Read())
+            {
+                var id = selectReader.GetInt32(0);
+                var guestId = selectReader.GetInt32(1);
+                var isClosed = selectReader.GetBoolean(2);
+                var guestCommentNumber = selectReader.GetInt32(3);
+                var ownerCommentNumber = selectReader.GetInt32(4);
+                var locationId = selectReader.GetInt32(5);
+                var visitedByOwner = selectReader.GetInt32(6);
+
+                Forum forum = new Forum(id, guestId, isClosed, guestCommentNumber, ownerCommentNumber, locationId, visitedByOwner);
+
+                forumList.Add(forum);
+            }
+
+            return forumList;
         }
     }
 }
