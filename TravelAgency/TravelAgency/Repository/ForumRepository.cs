@@ -107,6 +107,36 @@ namespace TravelAgency.Repository
             return commentList;
         }
 
+        public ObservableCollection<Forum> GetByLocationId(int Id)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            const string selectStatement = @"select * from Forum where locationId = $Id";
+            using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
+            selectCommand.Parameters.AddWithValue("$Id", Id);
+            using var selectReader = selectCommand.ExecuteReader();
+
+            var forumList = new ObservableCollection<Forum>();
+
+            while (selectReader.Read())
+            {
+                var id = selectReader.GetInt32(0);
+                var guestId = selectReader.GetInt32(1);
+                var locationId = selectReader.GetInt32(2);
+                var guestCommentNumber = selectReader.GetInt32(3);
+                var ownerCommentNumber = selectReader.GetInt32(4);
+                var isClosed = selectReader.GetBoolean(5);
+                var visitedByOwner = selectReader.GetInt32(6);
+
+                Forum forum = new Forum(id, guestId, isClosed, guestCommentNumber, ownerCommentNumber, locationId, visitedByOwner);
+
+                forumList.Add(forum);
+            }
+
+            return forumList;
+        }
+
         public ObservableCollection<Forum> GetAll()
         {
             using var databaseConnection = GetConnection();

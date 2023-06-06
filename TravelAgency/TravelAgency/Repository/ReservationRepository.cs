@@ -158,7 +158,7 @@ namespace TravelAgency.Repository
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
 
-            const string selectStatement = @"select Id, userId, accId, userComment, date(startDate), date(endDate), gradeUserComplacent, gradeUserClean, reviewImages, gradeAccommodationClean, gradeAccommodationOwner, accommodationComment from Reservation where userId = $id";
+            const string selectStatement = @"select Id, userId, accId, userComment, date(startDate), date(endDate), gradeUserComplacent, gradeUserClean, reviewImages, gradeAccommodationClean, gradeAccommodationOwner, accommodationComment from Reservation where userId = $Id";
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
             selectCommand.Parameters.AddWithValue("$Id", Id);
             using var selectReader = selectCommand.ExecuteReader();

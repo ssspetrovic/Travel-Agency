@@ -73,7 +73,7 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <Border Width="110" Height="110">
-                                    <Image Source="{Binding Image}" Stretch="UniformToFill"/>
+                                    <Image Source="{Binding PictureUrl}" Stretch="UniformToFill"/>
                                 </Border>
                                 <StackPanel Grid.Column="1" VerticalAlignment="Top" Margin="10,0,0,0">
                                     <TextBlock Text="{Binding Name}" TextWrapping="NoWrap" Margin="0 0 0 5" FontSize="20"/>
@@ -130,6 +130,7 @@
            x:Name="VisitForum"
            Width="120"
            Height="40"
+           Command="{Binding ForumCommand}"
            Content="Location Forum"
            Margin="0 30 0 0"
            VerticalAlignment="Center"
