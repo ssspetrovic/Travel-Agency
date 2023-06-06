@@ -90,7 +90,7 @@
                 Margin="8,4,8,8"
                 HorizontalAlignment="Left"
                 Content="TAKE A LOOK"
-                Command="{Binding BtnTakeALook}" />
+                Click="BtnTakeALook_Click" />
                             </DockPanel>
                         </Grid>
                     </materialDesign:Card>

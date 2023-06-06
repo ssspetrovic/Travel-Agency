@@ -27,10 +27,8 @@ namespace TravelAgency.ViewModel
 
         public ICollectionView ForumSourceCollection => _forumCollection.View;
 
-        public DelegateCommand BtnTakeALook { get; set; }
         public ForumOwnerViewModel()
         {
-            BtnTakeALook = new DelegateCommand(Execute_BtnTakeALook);
 
             ForumService forumService = new ForumService();
 
@@ -41,9 +39,24 @@ namespace TravelAgency.ViewModel
 
         }
 
-        private void Execute_BtnTakeALook()
+        public void BtnTakeALook_Click()
         {
-            MessageBox.Show(SelectedForum.GuestName);
+            if (IsForumSelected)
+            {
+                OwnerMainView mainWindow = null;
+                foreach (Window window in Application.Current.Windows)
+                {
+                    if (window is OwnerMainView)
+                    {
+                        mainWindow = (OwnerMainView)window;
+                        break;
+                    }
+                }
+
+                Frame mainFrame = mainWindow.mainFrame;
+                SingleForumView singleForumView = new SingleForumView(SelectedForum);
+                mainFrame.Navigate(singleForumView);
+            }
         }
 
         public bool IsForumSelected

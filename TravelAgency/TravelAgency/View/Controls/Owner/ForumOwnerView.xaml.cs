@@ -28,9 +28,12 @@ namespace TravelAgency.View.Controls.Owner
             DataContext = _viewModel;
         }
 
-        private void Card_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void BtnTakeALook_Click(object sender, RoutedEventArgs e)
         {
-
+            if(DataContext is ForumOwnerViewModel viewModel)
+            {
+                viewModel.BtnTakeALook_Click();
+            }
         }
     }
 }
