@@ -42,6 +42,7 @@
                 x:Name="MyVouchersListView"
                 d:ItemsSource="{d:SampleData ItemCount=5}"
                 ItemsSource="{Binding ForumCollectionSource}"
+                SelectedItem="{Binding SelectedForum}"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                 ScrollViewer.VerticalScrollBarVisibility="Hidden">
             <ListView.ItemContainerStyle>
@@ -62,7 +63,7 @@
                     <GridViewColumn
                             Width="200"
                             DisplayMemberBinding="{Binding IsClosed}"
-                            Header="Status" />
+                            Header="Canceled" />
                 </GridView>
             </ListView.View>
         </ListView>
