@@ -33,6 +33,7 @@ namespace TravelAgency.ViewModel.Tourist
 
         private void Execute_NavigateToMyRequestsCommand(object parameter)
         {
+            _touristViewModel.IsMyRequestsRadioButtonChecked = true;
             _navigationService.Navigate(new MyRequestsView(_navigationService));
         }
     }

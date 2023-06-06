@@ -1,4 +1,5 @@
-﻿using System.Windows.Navigation;
+﻿using System.Windows.Controls;
+using System.Windows.Navigation;
 using TravelAgency.Command;
 using TravelAgency.Model;
 using TravelAgency.Service;
@@ -35,6 +36,18 @@ namespace TravelAgency.ViewModel.Tourist
             }
         }
 
+        private bool _isMyRequestsRadioButtonChecked;
+
+        public bool IsMyRequestsRadioButtonChecked
+        {
+            get => _isMyRequestsRadioButtonChecked;
+            set
+            {
+                _isMyRequestsRadioButtonChecked = value;
+                OnPropertyChanged();
+            }
+        }
+
         public TouristViewModel(NavigationService navigationService)
         {
             _windowManager = new WindowManager();
@@ -53,7 +66,11 @@ namespace TravelAgency.ViewModel.Tourist
 
             Username = CurrentUser.DisplayName;
             _navigationService.Navigate(new HomeView(_navigationService, this));
+            CheckForUpdates();
+        }
 
+        private void CheckForUpdates()
+        {
             var vouchersService = new TourVoucherService();
             vouchersService.AddBonusVouchers();
 
