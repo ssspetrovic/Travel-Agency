@@ -28,5 +28,15 @@ namespace TravelAgency.Model
             LocationId = locationId;
             VisitedByOwner = visitedByOwner;
         }
+
+        public Forum(int guestId, bool isClosed, int guestCommentNumber, int ownerCommentNumber, int locationId, int visitedByOwner)
+        {
+            GuestId = guestId;
+            IsClosed = isClosed;
+            GuestCommentNumber = guestCommentNumber;
+            OwnerCommentNumber = ownerCommentNumber;
+            LocationId = locationId;
+            VisitedByOwner = visitedByOwner;
+        }
     }
 }

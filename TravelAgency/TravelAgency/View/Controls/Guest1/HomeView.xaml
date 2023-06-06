@@ -128,10 +128,10 @@
                 </ListView>
                 <Button
            x:Name="VisitForum"
-           Width="120"
+           Width="123"
            Height="40"
            Command="{Binding ForumCommand}"
-           Content="Location Forum"
+           Content="Location Forums"
            Margin="0 30 0 0"
            VerticalAlignment="Center"
            HorizontalAlignment="Center"

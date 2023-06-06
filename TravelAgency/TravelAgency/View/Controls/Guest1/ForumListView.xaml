@@ -24,8 +24,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="67*"></RowDefinition>
             <RowDefinition Height="23*"></RowDefinition>
-            <RowDefinition Height="449*"></RowDefinition>
-            <RowDefinition Height="77*"></RowDefinition>
+            <RowDefinition Height="416*"></RowDefinition>
+            <RowDefinition Height="110*"></RowDefinition>
         </Grid.RowDefinitions>
         <Label
             HorizontalAlignment="Center"
@@ -42,14 +42,8 @@
                 x:Name="MyVouchersListView"
                 d:ItemsSource="{d:SampleData ItemCount=5}"
                 ItemsSource="{Binding ForumCollectionSource}"
-                SelectedItem="{Binding SelectedForum}"
-                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                ScrollViewer.VerticalScrollBarVisibility="Hidden">
-            <ListView.ItemContainerStyle>
-                <Style BasedOn="{StaticResource MaterialDesignGridViewItem}" TargetType="ListViewItem">
-                    <Setter Property="Focusable" Value="False" />
-                </Style>
-            </ListView.ItemContainerStyle>
+                SelectedItem="{Binding SelectedForum}">
+
             <ListView.View>
                 <GridView AllowsColumnReorder="False">
                     <GridViewColumn
@@ -67,5 +61,27 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <DockPanel Grid.Row="3"
+                   HorizontalAlignment="Center">
+            <Button
+           x:Name="VisitForum"
+           Width="123"
+           Command="{Binding EnterForumCommand}"
+           Height="40"
+           Content="Visit Forum"
+           VerticalAlignment="Center"
+           Margin="0 0 300 0"
+           HorizontalAlignment="Center"
+           FontSize="12" />
+            <Button
+           x:Name="CreateForum"
+           Width="123"
+           Height="40"
+           Command="{Binding CreateForumCommand}"
+           Content="Open Forum"
+           VerticalAlignment="Center"
+           HorizontalAlignment="Center"
+           FontSize="12" />
+        </DockPanel>
     </Grid>
 </Page>
