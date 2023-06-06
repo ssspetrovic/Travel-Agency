@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TravelAgency.DTO;
+using TravelAgency.Model;
+using TravelAgency.Repository;
 
 namespace TravelAgency.View.Controls.Owner
 {
@@ -26,9 +28,11 @@ namespace TravelAgency.View.Controls.Owner
             InitializeComponent();
         }
 
+        ForumDTO forumDTO;
         public SingleForumView(ForumDTO forum)
         {
             InitializeComponent();
+            forumDTO = forum;
             lblLocation.Content = "Location: " + forum.Location;
             lblGuest.Content = "Forum opened by: " + forum.GuestName;
         }
@@ -48,6 +52,16 @@ namespace TravelAgency.View.Controls.Owner
             Frame mainFrame = mainWindow.mainFrame;
             ForumOwnerView forumOwnerView = new ForumOwnerView();
             mainFrame.Navigate(forumOwnerView);
+        }
+
+        private void btnPost_Click(object sender, RoutedEventArgs e)
+        {
+            if (txtComment.Text != null)
+            {
+                CommentRepository commentRepository = new CommentRepository();
+                Comment comment = new Comment(CurrentUser.Id, forumDTO.Id, txtComment.Text, CommentType.OwnerAtLocation);
+                commentRepository.Add(comment);
+            }
         }
     }
 }
