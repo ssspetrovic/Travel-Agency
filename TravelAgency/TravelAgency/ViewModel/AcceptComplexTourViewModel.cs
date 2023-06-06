@@ -5,6 +5,7 @@ using TravelAgency.DTO;
 using TravelAgency.Service;
 using TravelAgency.View;
 using TravelAgency.View.Controls.Guide;
+using TravelAgency.WindowHelpers;
 
 namespace TravelAgency.ViewModel
 {
@@ -73,6 +74,7 @@ namespace TravelAgency.ViewModel
                 newWindow.Title = "Create Tour";
                 newWindow.Show();
                 currentWindow!.Close();
+                new WindowManager().CloseWindow<AcceptComplexTour>();
             }
             else
                 MessageBox.Show("You already have a tour in the selected date range!");
