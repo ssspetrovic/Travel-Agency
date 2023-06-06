@@ -32,7 +32,7 @@ namespace TravelAgency.ViewModel
             TabPressedCommand = new MyICommand(TabPressed);
             var averageRating = finishedTourService.GetAverageRating(CurrentUser.Username!);
             var numberOfFinishedTours = finishedTourService.GetNumberOfToursByUsername(CurrentUser.Username!);
-            _averageRating = "Guide's average rating: " + averageRating;
+            _averageRating = "Guide's average rating: " + averageRating*2;
             _numberOfFinishedTours = "Number of finished tours: " + numberOfFinishedTours;
             userService.SetSuperGuide(CurrentUser.Username, averageRating >= 4.5 && numberOfFinishedTours >= 20);
         }

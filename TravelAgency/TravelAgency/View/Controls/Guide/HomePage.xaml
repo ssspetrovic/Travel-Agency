@@ -13,7 +13,13 @@
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     mc:Ignorable="d">
 
-    <StackPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
         <ListView
             Focusable="False"
             Foreground="#68cbf8"
@@ -76,7 +82,27 @@
             </ListView.View>
         </ListView>
 
-        <Grid>
+        <TextBlock
+            Grid.Row="1"
+            Padding="0,50"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="14"
+            FontWeight="DemiBold"
+            Foreground="#4fc3f7"
+            Text="Press Tab to select a tour, and press Enter to show its pictures!" />
+
+        <TextBlock
+            x:Name="IsSuperGuide"
+            Grid.Row="2"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="24"
+            FontWeight="DemiBold"
+            Foreground="#4fc3f7"
+            Text="CONGRATULATIONS, YOU ARE OUR SUPER GUIDE!" />
+
+        <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
@@ -84,7 +110,7 @@
             <TextBlock
                 x:Name="AverageRating"
                 Padding="0,25"
-                HorizontalAlignment="Center"
+                HorizontalAlignment="Left"
                 VerticalAlignment="Center"
                 FontSize="20"
                 FontWeight="DemiBold"
@@ -93,32 +119,13 @@
             <TextBlock
                 x:Name="FinishedToursCounter"
                 Grid.Column="1"
-                Padding="0,25"
-                HorizontalAlignment="Center"
+                HorizontalAlignment="Right"
                 VerticalAlignment="Center"
                 FontSize="20"
                 FontWeight="DemiBold"
                 Foreground="#4fc3f7"
                 Text="{Binding NumberOfFinishedTours}" />
         </Grid>
-
-        <TextBlock
-            x:Name="IsSuperGuide"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            FontSize="20"
-            FontWeight="DemiBold"
-            Foreground="#4fc3f7"
-            Text="CONGRATULATIONS, YOU ARE OUR SUPER GUIDE!" />
-
-        <TextBlock
-            Padding="0,50"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            FontSize="14"
-            FontWeight="DemiBold"
-            Foreground="#4fc3f7"
-            Text="Press Tab to select a tour, and press Enter to show its pictures!" />
-    </StackPanel>
+    </Grid>
 
 </UserControl>
