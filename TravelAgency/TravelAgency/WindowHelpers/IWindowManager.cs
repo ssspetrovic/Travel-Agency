@@ -1,6 +1,4 @@
 ﻿using System.Windows;
-using TravelAgency.View.Tourist;
-using TravelAgency.ViewModel.Tourist;
 
 namespace TravelAgency.WindowHelpers
 {

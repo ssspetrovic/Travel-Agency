@@ -11,7 +11,6 @@ using TravelAgency.View.Tourist;
 using System.Linq;
 using System.Windows.Input;
 using System.ComponentModel;
-using System.Diagnostics;
 
 namespace TravelAgency.ViewModel.Tourist
 {
@@ -251,6 +250,7 @@ namespace TravelAgency.ViewModel.Tourist
         private void Execute_NavigateToMyRequestsCommand(object parameter)
         {
             Dialog!.Close();
+            _touristViewModel.IsMyRequestsRadioButtonChecked = true;
             _navigationService.Navigate(new MyRequestsView(_navigationService));
         }
 

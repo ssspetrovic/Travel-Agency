@@ -22,6 +22,8 @@ namespace TravelAgency.ViewModel.Tourist
         public TourVouchersViewModel(TouristViewModel touristViewModel)
         {
             var tourVoucherService = new TourVoucherService();
+            tourVoucherService.AddBonusVouchers();
+
             _vouchersCollectionViewSource = new CollectionViewSource { Source = tourVoucherService.GetAllAsCollection() };
             _touristViewModel = touristViewModel;
             IsTooltipsSwitchToggled = _touristViewModel.IsTooltipsSwitchToggled;

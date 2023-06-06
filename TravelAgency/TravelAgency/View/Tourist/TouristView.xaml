@@ -94,6 +94,7 @@
                                 Content="My requests"
                                 FontSize="19"
                                 Foreground="White"
+                                IsChecked="{Binding IsMyRequestsRadioButtonChecked}"
                                 Style="{StaticResource MenuButtonStyle}" />
                             <RadioButton
                                 x:Name="TourReservationButton"

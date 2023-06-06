@@ -59,7 +59,6 @@ namespace TravelAgency.ViewModel.Tourist
 
             NavigateToStatisticsCommand = new RelayCommand(Execute_NavigateToStatisticsCommand);
             ViewComplexRequestDetailsCommand = new RelayCommand(Execute_ViewComplexRequestDetailsCommand);
-
         }
 
         private void CheckForComplexStatusUpdate()
