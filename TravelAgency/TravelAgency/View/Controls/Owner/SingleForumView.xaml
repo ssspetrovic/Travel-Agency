@@ -5,6 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:TravelAgency.View.Controls.Owner"
       mc:Ignorable="d" 
+      xmlns:viewModel="clr-namespace:TravelAgency.ViewModel"
+      d:DataContext="{d:DesignInstance Type=viewModel:SingleReservationViewModel}"
       d:DesignHeight="690" d:DesignWidth="430"
       Title="SingleForumView">
 
@@ -40,6 +42,11 @@
                         DisplayMemberBinding="{Binding CommentType}"
                         Header="Special"
                         HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
+                    <GridViewColumn
+                        Width="Auto"
+                        DisplayMemberBinding="{Binding Reports}"
+                        Header="Reports"
+                        HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
                 </GridView>
             </ListView.View>
         </ListView>
@@ -47,6 +54,8 @@
         <Button Style="{DynamicResource Batn}" x:Name="btnPost" Content="Post" HorizontalAlignment="Left" Margin="320,501,0,0" VerticalAlignment="Top" Height="30" Width="91" FontSize="14" Click="btnPost_Click"/>
         <Label Style="{DynamicResource Label}" Content="Leave a comment" HorizontalAlignment="Left" Margin="17,474,0,0" VerticalAlignment="Top" FontSize="14"/>
         <Label x:Name="lblGuest_Copy" Content="Comments:" HorizontalAlignment="Left" Margin="36,171,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Label x:Name="lblGuest_Copy1" Content="Selected comment:" HorizontalAlignment="Left" Margin="36,371,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Label x:Name="lblGuest_Copy2" DataContext="{Binding SelectedComment, ElementName=CommentsListView}" Content="{Binding Id}" HorizontalAlignment="Left" Margin="174,371,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
 
     </Grid>
 </Page>

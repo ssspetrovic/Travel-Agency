@@ -22,6 +22,7 @@ namespace TravelAgency.Model
         public string? Text { get; set; }
         public CommentType CommentType { get; set; }
         public DateTime Date { get; set; }
+        public int Reports { get; set; }
 
         public Comment() { }
 
@@ -39,7 +40,7 @@ namespace TravelAgency.Model
             Date = date;
         }
 
-        public Comment(int id, int guestId, int forumId, string? text, CommentType commentType, DateTime date)
+        public Comment(int id, int guestId, int forumId, string? text, CommentType commentType, DateTime date, int reports)
         {
             Id = id;
             GuestId = guestId;
@@ -47,6 +48,7 @@ namespace TravelAgency.Model
             Text = text;
             CommentType = commentType;
             Date = date;
+            Reports = reports;
         }
     }
 }
