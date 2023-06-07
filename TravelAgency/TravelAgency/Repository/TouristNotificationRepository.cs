@@ -71,6 +71,20 @@ namespace TravelAgency.Repository
             return vouchers;
         }
 
+        public bool IsDuplicate(string? username, string? text)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            using var selectCommand = databaseConnection.CreateCommand();
+            selectCommand.CommandText = "SELECT * FROM TouristNotification WHERE TouristUsername = $username AND NotificationText = $text";
+            selectCommand.Parameters.AddWithValue("$username", username);
+            selectCommand.Parameters.AddWithValue("$text", text);
+            using var selectReader = selectCommand.ExecuteReader();
+
+            return selectReader.Read();
+        }
+
         public void UpdateStatus(int id, NotificationStatus newStatus)
         {
             using var databaseConnection = GetConnection();
