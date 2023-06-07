@@ -21,20 +21,83 @@
     </d:Page.Background>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="35*"></RowDefinition>
-            <RowDefinition Height="12*"></RowDefinition>
-            <RowDefinition Height="244*"></RowDefinition>
+            <RowDefinition Height="63*"></RowDefinition>
+            <RowDefinition Height="22*"></RowDefinition>
+            <RowDefinition Height="457*"></RowDefinition>
+            <RowDefinition Height="74*"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Label
-            HorizontalAlignment="Center"
+            HorizontalAlignment="Left"
             VerticalAlignment="Center"
             Content="Forum"
             FontSize="30"
             FontWeight="Medium"
-            Margin="30 0 0 0"
+            Margin="327,0,0,0"
             Style="{StaticResource MaterialDesignLabel}" Height="48" Width="166" />
+        <Button
+            Grid.Row="0"
+           x:Name="Close"
+           Width="70"
+           Height="30"
+           Content="Close"
+           Margin="0 10 60 0"
+           VerticalAlignment="Center"
+           Visibility="{Binding IsClosed}"
+           Command="{Binding CloseCommand}"
+           HorizontalAlignment="Right"
+           FontSize="11" />
         <Separator Grid.Row="1" Margin="200,0,200,0"
-                   VerticalAlignment="Top"/>
+                   VerticalAlignment="Top" Height="1"/>
+        <Border Grid.Row="3">
+            <DockPanel
+                Visibility="{Binding IsClosed}">
+                <TextBox
+                x:Name="CommentTextBox"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                Text="{Binding Comment, Mode=TwoWay}"
+                Margin="30 0 0 0"
+                materialDesign:HintAssist.HelperTextFontSize="16"
+                materialDesign:HintAssist.Hint="Comment" Width="560" Height="40" />
+                <Button
+           x:Name="Submit"
+           Width="70"
+           Height="30"
+           Content="Submit"
+           Margin="0 10 60 0"
+           VerticalAlignment="Center"
+           Command="{Binding SubmitCommand}"
+           HorizontalAlignment="Right"
+           FontSize="11" />
+            </DockPanel>
+        </Border>
+        <ListView
+                    Grid.Row="2"
+                    x:Name="CommentList"
+                    d:ItemsSource="{d:SampleData ItemCount=5}"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Left"
+            Margin="70 0 0 0"
+                    ItemsSource="{Binding CommentSourceCollection}"
+                    Style="{StaticResource MaterialDesignListView}"
+                    Height="452" Width="720" >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border CornerRadius="10" BorderThickness="2" BorderBrush="#3F51B5" Width="498">
+                    <StackPanel>
+                        
+                            <TextBlock
+                                Text="{Binding Text}"
+                                FontSize ="16" Width="479" 
+                                Height="auto"
+                                TextWrapping="WrapWithOverflow"/>
+                            <Label Content="{Binding CommentType}"
+                                       FontSize ="8"/>
+                    </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </Page>

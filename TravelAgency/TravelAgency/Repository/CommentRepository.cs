@@ -18,7 +18,6 @@ namespace TravelAgency.Repository
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
-
             const string insertStatement =
                 @"insert into Comment(guestId, forumId, text, date, type) 
                     values ($guestId, $forumId, $text, $date, $type)";
@@ -26,8 +25,8 @@ namespace TravelAgency.Repository
             insertCommand.Parameters.AddWithValue("$guestId", comment.GuestId);
             insertCommand.Parameters.AddWithValue("$forumId", comment.ForumId);
             insertCommand.Parameters.AddWithValue("$text", comment.Text);
-            insertCommand.Parameters.AddWithValue("$date", comment.Date);
-            insertCommand.Parameters.AddWithValue("$type", comment.CommentType.ToString());
+            insertCommand.Parameters.AddWithValue("$date", DateTime.Now);
+            insertCommand.Parameters.AddWithValue("$type", comment.CommentType);
             insertCommand.ExecuteNonQuery();
         }
 

@@ -17,7 +17,8 @@ namespace TravelAgency.Service
 {
     public class ReservationService
     {
-        private ReservationRepository _reservationRepository = new(); 
+        private ReservationRepository _reservationRepository = new();
+        private AccommodationRepository _accommodationRepository = new();
         ObservableCollection<Reservation> GetAll() {
             var reservationRepository = new ReservationRepository();
             return reservationRepository.GetAll();
@@ -28,6 +29,18 @@ namespace TravelAgency.Service
             return reservationRepository.GetAllByAccommodationId(Id);
         }
 
+        public bool HasBeenToLocation(int id)
+        {
+            ObservableCollection<Reservation> reservations = _reservationRepository.GetAllByGuestId(CurrentUser.Id);
+            foreach(Reservation reservation in reservations)
+            {
+                if(_accommodationRepository.GetById(reservation.AccommodationId).Location.Id == id)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         public bool IsReservationValid(DateTime? startDate, DateTime? endDate, int maxDays)
         {
             DateTime convertedStartDate = Convert.ToDateTime(startDate);
