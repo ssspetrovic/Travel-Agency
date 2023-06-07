@@ -11,6 +11,7 @@
     Height="350"
     AllowsTransparency="True"
     Background="Transparent"
+    PreviewKeyDown="Resign_OnPreviewKeyDown"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
@@ -51,7 +52,7 @@
                     FontSize="30"
                     FontWeight="Bold"
                     Foreground="#4fc3f7"
-                    Text="Resignation (4. KT!)" />
+                    Text="Resignation" />
 
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
