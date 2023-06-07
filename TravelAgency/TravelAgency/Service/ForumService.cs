@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using TravelAgency.DTO;
 using TravelAgency.Model;
 using TravelAgency.Repository;
@@ -83,12 +84,38 @@ namespace TravelAgency.Service
                         Location l = locationRepository.GetById(forum.LocationId);
                         forumDTO.Location = l.Country + ", " + l.City;
 
+                        if (forum.OwnerCommentNumber >= 10)
+                        {
+                            if (forum.GuestCommentNumber >= 20)
+                            {
+                                int guestVisited = GetCommentCountGuestVisited(forum.Id);
+                                if (guestVisited >= 20)
+                                    forumDTO.VeryUseful = "Very Useful";
+                            }
+                        }
+                        else
+                            forumDTO.VeryUseful = "";
+
                         forumsForOwner.Add(forumDTO);
                         break;
                     }
                 }
             }
             return forumsForOwner;
+        }
+
+
+        private int GetCommentCountGuestVisited(int forumId)
+        {
+            CommentRepository commentRepository = new CommentRepository();
+            ObservableCollection<Comment> comments = commentRepository.GetByForumId(forumId);
+            int count = 0;
+            foreach (Comment comment in comments)
+            {
+                if (comment.CommentType == CommentType.GuestVisited)
+                    count++;
+            }
+            return count;
         }
     }
 }

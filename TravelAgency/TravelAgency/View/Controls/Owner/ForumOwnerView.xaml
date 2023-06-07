@@ -77,6 +77,10 @@
                 Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
                 Text="{Binding Comments}" />
                                 </DockPanel>
+                                <TextBlock
+                Margin="0"
+                Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                Text="{Binding VeryUseful}" FontWeight="Bold"/>
                             </StackPanel>
                             
                             <Separator

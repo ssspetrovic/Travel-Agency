@@ -14,10 +14,10 @@ namespace TravelAgency.DTO
         public string Closed { get; set; } = string.Empty;
         public string Location { get; set; } = string.Empty;
         public string IsVisited { get; set; } = string.Empty;
-
+        public string VeryUseful { get; set; } = string.Empty;
         public ForumDTO() { }
 
-        public ForumDTO(int id, int comments, string guestName, string closed, string location, string isVisited)
+        public ForumDTO(int id, int comments, string guestName, string closed, string location, string isVisited, string veryUseful)
         {
             Id = id;
             Comments = comments;
@@ -25,6 +25,7 @@ namespace TravelAgency.DTO
             Closed = closed;
             Location = location;
             IsVisited = isVisited;
+            VeryUseful = veryUseful;
         }
     }
 }
