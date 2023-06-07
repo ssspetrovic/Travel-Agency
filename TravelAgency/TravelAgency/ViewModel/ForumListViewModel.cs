@@ -26,18 +26,20 @@ namespace TravelAgency.ViewModel
         private Forum _selectedForum;
         private Location _location;
         private CollectionViewSource _forumCollection;
+        private HomeViewModel _homeViewModel;
 
         public RelayCommand EnterForumCommand { get; set; }
         public RelayCommand CreateForumCommand { get; set; }
 
-        public ForumListViewModel(NavigationService navigationService, Location location)
+        public ForumListViewModel(NavigationService navigationService, HomeViewModel _viewModel)
         {
             _navigationService = navigationService;
-            _location = location;
+            _location = _viewModel.SelectedLocation;
+            _homeViewModel = _viewModel;
 
             _forumCollection = new CollectionViewSource
             {
-                Source = _repository.GetByLocationId(location.Id)
+                Source = _repository.GetByLocationId(_viewModel.SelectedLocation.Id)
             };
 
             EnterForumCommand = new RelayCommand(Exacute_EnterForumCommand);
@@ -65,7 +67,7 @@ namespace TravelAgency.ViewModel
         {
             Forum forum = new Forum(CurrentUser.Id, false, 0, 0, _location.Id, 0);
             _repository.Add(forum);
-            _navigationService.Navigate(new SingleForumView(_navigationService, forum));
+            _navigationService.Navigate(new ForumListView(_navigationService, _homeViewModel));
             //todo navigate to the createdForum
         }
 

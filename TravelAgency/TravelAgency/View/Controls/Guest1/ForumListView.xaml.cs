@@ -25,7 +25,7 @@ namespace TravelAgency.View.Controls.Guest1
         public ForumListView(NavigationService navigationService, HomeViewModel _viewModel)
         {
             InitializeComponent();
-            DataContext = new ForumListViewModel(navigationService, _viewModel.SelectedLocation);
+            DataContext = new ForumListViewModel(navigationService, _viewModel);
         }
     }
 }
