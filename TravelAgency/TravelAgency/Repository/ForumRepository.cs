@@ -85,6 +85,21 @@ namespace TravelAgency.Repository
             updateClosed.ExecuteNonQuery();
         }
 
+        public void UpdateOwnerCommentNumber(int forumId)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+            var updateClosed = databaseConnection.CreateCommand();
+            updateClosed.CommandText =
+                @"
+                    update Forum set ownerCommentNumber = ownerCommentNumber + 1 where Id = $forumId;
+                ";
+
+            updateClosed.Parameters.AddWithValue("$forumId", forumId);
+
+            updateClosed.ExecuteNonQuery();
+        }
+
         public ObservableCollection<Comment> GetByForumId(int id)
         {
             using var databaseConnection = GetConnection();

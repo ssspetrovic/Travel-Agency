@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using TravelAgency.DTO;
 using TravelAgency.Model;
 using TravelAgency.Repository;
+using TravelAgency.ViewModel;
 
 namespace TravelAgency.View.Controls.Owner
 {
@@ -26,12 +27,14 @@ namespace TravelAgency.View.Controls.Owner
         public SingleForumView()
         {
             InitializeComponent();
-        }
+    }
 
         ForumDTO forumDTO;
         public SingleForumView(ForumDTO forum)
         {
             InitializeComponent();
+            SingleForumOwnerViewModel _viewModel = new SingleForumOwnerViewModel(forum.Id);
+            DataContext = _viewModel;
             forumDTO = forum;
             lblLocation.Content = "Location: " + forum.Location;
             lblGuest.Content = "Forum opened by: " + forum.GuestName;
@@ -61,7 +64,27 @@ namespace TravelAgency.View.Controls.Owner
                 CommentRepository commentRepository = new CommentRepository();
                 Comment comment = new Comment(CurrentUser.Id, forumDTO.Id, txtComment.Text, CommentType.OwnerAtLocation);
                 commentRepository.Add(comment);
+                ForumRepository forumRepository = new ForumRepository();
+                forumRepository.UpdateOwnerCommentNumber(forumDTO.Id);
+                Refresh();
             }
+        }
+
+        private void Refresh()
+        {
+            OwnerMainView mainWindow = null;
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window is OwnerMainView)
+                {
+                    mainWindow = (OwnerMainView)window;
+                    break;
+                }
+            }
+
+            Frame mainFrame = mainWindow.mainFrame;
+            SingleForumView singleForumView = new SingleForumView(forumDTO);
+            mainFrame.Navigate(singleForumView);
         }
     }
 }

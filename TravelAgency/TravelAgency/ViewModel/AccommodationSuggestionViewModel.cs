@@ -10,6 +10,7 @@ using TravelAgency.Service;
 using TravelAgency.View.Controls.Owner;
 using TravelAgency.View;
 using System.Windows;
+using TravelAgency.Repository;
 
 namespace TravelAgency.ViewModel
 {
@@ -86,11 +87,15 @@ namespace TravelAgency.ViewModel
         }
         private void Execute_BtnDelete1(object parameter)
         {
-
+            AccommodationRepository accommodationRepository = new AccommodationRepository();
+            accommodationRepository.RemoveByName(LeastResAccName);
+            Refresh();
         }
         private void Execute_BtnDelete2(object parameter)
         {
-
+            AccommodationRepository accommodationRepository = new AccommodationRepository();
+            accommodationRepository.RemoveByName(LeastOccupiedAccName);
+            Refresh();
         }
 
         public string MostResAccName
@@ -289,6 +294,23 @@ namespace TravelAgency.ViewModel
             LeastOccupiedAccLocation = "Location: " + acc.Location.Country + ", " + acc.Location.City;
             LeastOccupiedAccNumOfRes = "Number of reservations: " + acc.NumOfReseservations.ToString();
             LeastOccupiedAccOccupiedDays = "Number of occupied days: " + acc.NumOfOccupiedDays.ToString();
+        }
+
+        private void Refresh()
+        {
+            OwnerMainView mainWindow = null;
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window is OwnerMainView)
+                {
+                    mainWindow = (OwnerMainView)window;
+                    break;
+                }
+            }
+
+            Frame mainFrame = mainWindow.mainFrame;
+            AccommodationSuggestionView accommodationSuggestionView = new AccommodationSuggestionView();
+            mainFrame.Navigate(accommodationSuggestionView);
         }
     }
 }

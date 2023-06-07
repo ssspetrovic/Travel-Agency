@@ -12,9 +12,41 @@
         <Button Style="{DynamicResource Batn}" x:Name="btnBack" Content="Back" HorizontalAlignment="Center" Margin="0,635,0,0" VerticalAlignment="Top" Click="btnBack_Click" Height="35" Width="392" FontSize="16"/>
         <Label x:Name="lblLocation" Content="Label" HorizontalAlignment="Center" Margin="0,62,0,0" VerticalAlignment="Top" FontSize="16"/>
         <Label x:Name="lblGuest" Content="Label" HorizontalAlignment="Center" Margin="0,96,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <ListView x:Name="CommentsListView" d:ItemsSource="{d:SampleData ItemCount=3}" ItemsSource="{Binding CommentSourceCollection}" SelectedItem="{Binding SelectedComment}" Margin="36,210,36,340" FontSize="12">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn
+                        Width="Auto"
+                        DisplayMemberBinding="{Binding Id}"
+                        Header="CommentId"
+                        HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
+                    <GridViewColumn
+                        Width="Auto"
+                        DisplayMemberBinding="{Binding GuestId}"
+                        Header="UserId"
+                        HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
+                    <GridViewColumn
+                        Width="Auto"
+                        DisplayMemberBinding="{Binding Text}"
+                        Header="Comment"
+                        HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
+                    <GridViewColumn
+                        Width="Auto"
+                        DisplayMemberBinding="{Binding Date}"
+                        Header="Date"
+                        HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
+                    <GridViewColumn
+                        Width="Auto"
+                        DisplayMemberBinding="{Binding CommentType}"
+                        Header="Special"
+                        HeaderContainerStyle="{DynamicResource myHeaderStyle}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
         <TextBox x:Name="txtComment" HorizontalAlignment="Left" Margin="19,506,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="279"/>
         <Button Style="{DynamicResource Batn}" x:Name="btnPost" Content="Post" HorizontalAlignment="Left" Margin="320,501,0,0" VerticalAlignment="Top" Height="30" Width="91" FontSize="14" Click="btnPost_Click"/>
         <Label Style="{DynamicResource Label}" Content="Leave a comment" HorizontalAlignment="Left" Margin="17,474,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <Label x:Name="lblGuest_Copy" Content="Comments:" HorizontalAlignment="Left" Margin="36,171,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
 
     </Grid>
 </Page>
