@@ -85,12 +85,27 @@ namespace TravelAgency.Repository
             updateClosed.ExecuteNonQuery();
         }
 
+        public void UpdateOwnerCommentNumber(int forumId)
+        {
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+            var updateClosed = databaseConnection.CreateCommand();
+            updateClosed.CommandText =
+                @"
+                    update Forum set ownerCommentNumber = ownerCommentNumber + 1 where Id = $forumId;
+                ";
+
+            updateClosed.Parameters.AddWithValue("$forumId", forumId);
+
+            updateClosed.ExecuteNonQuery();
+        }
+
         public ObservableCollection<Comment> GetByForumId(int id)
         {
             using var databaseConnection = GetConnection();
             databaseConnection.Open();
 
-            const string selectStatement = @"select Id, guestId, forumId, text, type, date(date) from Comment where forumId = $id";
+            const string selectStatement = @"select Id, guestId, forumId, text, type, date(date), reports from Comment where forumId = $id";
             using var selectCommand = new SqliteCommand(selectStatement, databaseConnection);
             selectCommand.Parameters.AddWithValue("$id", id);
             using var selectReader = selectCommand.ExecuteReader();
@@ -101,7 +116,7 @@ namespace TravelAgency.Repository
             while (selectReader.Read())
             {
                 var type = Enum.Parse<CommentType>(selectReader.GetString(4));
-                commentList.Add(new Comment(selectReader.GetInt32(0), selectReader.GetInt32(1), selectReader.GetInt32(2), selectReader.GetString(3), type, selectReader.GetDateTime(5)));
+                commentList.Add(new Comment(selectReader.GetInt32(0), selectReader.GetInt32(1), selectReader.GetInt32(2), selectReader.GetString(3), type, selectReader.GetDateTime(5), selectReader.GetInt32(6)));
             }
 
             return commentList;
