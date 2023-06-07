@@ -16,7 +16,7 @@ namespace TravelAgency.Model
     {
         void Add(Accommodation accommodation);
         void Edit(Accommodation accommodation);
-        void Remove(int id);
+        void RemoveByName(string accName);
         AccommodationDTO GetById(int id);
         AccommodationDTO GetByName(string name);
         DataTable GetByAll(DataTable dt);

@@ -106,17 +106,35 @@ namespace TravelAgency.Service
             return startingDate;
         }
 
+        private bool IsComplexExpired(ComplexRequestTour complexRequest)
+        {
+            var firstTourPart = GetFirstTourPart(complexRequest);
+            var startingDate = GetStartingDateTime(firstTourPart);
+
+            return startingDate <= DateTime.Now.AddHours(48) && firstTourPart.Status != Status.Accepted;
+        }
+
+        private bool IsComplexAccepted(ComplexRequestTour complexRequest)
+        {
+            var partIdsStr = complexRequest.RequestTourIds.Split(", ");
+            var partIds = partIdsStr.Select(int.Parse).ToArray();
+
+            return partIds.Select(id => _regularTourRequestService.GetById(id)).All(part => part.Status == Status.Accepted);
+        }
+
         public void HandleComplexStatuses()
         {
             var complexRequests = GetAllAsCollection();
             foreach (var complexRequest in complexRequests)
             {
-                var firstTourPart = GetFirstTourPart(complexRequest);
-                var startingDate = GetStartingDateTime(firstTourPart);
-
-                if (startingDate <= DateTime.Now.AddHours(48) && firstTourPart.Status != Status.Accepted)
+                if (IsComplexExpired(complexRequest))
                 {
                     UpdateStatus(complexRequest.Id, Status.Invalid);
+                }
+
+                if (IsComplexAccepted(complexRequest))
+                {
+                    UpdateStatus(complexRequest.Id, Status.Accepted);
                 }
             }
         }

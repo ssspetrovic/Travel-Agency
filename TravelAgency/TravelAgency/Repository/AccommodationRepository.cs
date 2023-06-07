@@ -166,9 +166,19 @@ namespace TravelAgency.Repository
             return ownerId;
         }
 
-        public void Remove(int id)
+        public void RemoveByName(string accName)
         {
-            throw new NotImplementedException();
+            using var databaseConnection = GetConnection();
+            databaseConnection.Open();
+
+            var updateCommand = databaseConnection.CreateCommand();
+            updateCommand.CommandText =
+                @"
+                    UPDATE Accommodation SET removed = 1
+                    WHERE name = '$name';
+                ";
+            updateCommand.Parameters.AddWithValue("$name", accName);
+            updateCommand.ExecuteNonQuery();
         }
     }
 }

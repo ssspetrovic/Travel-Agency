@@ -55,6 +55,8 @@ namespace TravelAgency.ViewModel
 
                 Frame mainFrame = mainWindow.mainFrame;
                 SingleForumView singleForumView = new SingleForumView(SelectedForum);
+                ForumRepository forumRepository = new ForumRepository();
+                forumRepository.UpdateVisitedByOwner(SelectedForum.Id);
                 mainFrame.Navigate(singleForumView);
             }
         }
