@@ -21,9 +21,11 @@ namespace TravelAgency.View.Controls.Guest1
     /// </summary>
     public partial class SearchResultsView : Window
     {
-        private readonly SearchResultsViewModel _viewModel = new();
-        public SearchResultsView()
+        private readonly SearchResultsViewModel _viewModel;
+        public SearchResultsView(AdvancedSearchViewModel advancedSearchViewModel)
         {
+            
+            _viewModel = new SearchResultsViewModel(advancedSearchViewModel);
             DataContext = _viewModel;
             InitializeComponent();
         }

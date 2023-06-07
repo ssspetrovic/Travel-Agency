@@ -82,7 +82,7 @@ namespace TravelAgency.View.Controls.Guest1
 
         private void Search_OnClick(object sender, RoutedEventArgs e)
         {
-            var searchResultsView = new SearchResultsView();
+            var searchResultsView = new SearchResultsView(_viewModel);
             searchResultsView.Show(); 
             Close();
         }

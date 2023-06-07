@@ -15,7 +15,7 @@ using TravelAgency.Service;
 
 namespace TravelAgency.ViewModel
 {
-    internal class AdvancedSearchViewModel:BaseViewModel, INotifyPropertyChanged
+    public class AdvancedSearchViewModel:BaseViewModel, INotifyPropertyChanged
     {
 
         public new event PropertyChangedEventHandler? PropertyChanged;
@@ -117,7 +117,7 @@ namespace TravelAgency.ViewModel
 
         public void Search()
         {
-            MessageBox.Show(SelectedLocation + " " + GuestNumber);
+            
         }
 
         public void Clear()
