@@ -5,11 +5,16 @@
     <TargetFramework>net7.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Resources\Images\logo.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Resources\Images\user.png" />
     <None Remove="View\Controls\Guest1\Vector.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\Images\logo.ico" />
   </ItemGroup>
 
   <ItemGroup>
