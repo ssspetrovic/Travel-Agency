@@ -47,5 +47,42 @@
                                     >
         </fa:IconImage>
 
+        <fa:IconImage Style="{DynamicResource fa}" x:Name="icSignOut" MouseLeftButtonDown="btnBack_Click"
+                                    Icon="SignOut" Height="20" Width="20" Margin="136,344,274,386"
+                                    >
+        </fa:IconImage>
+        <fa:IconImage Style="{DynamicResource fa}" x:Name="icStat" MouseLeftButtonDown="btnBack_Click"
+                                    Icon="ChartColumn" Height="20" Width="20" Margin="73,309,337,421"
+                                    >
+        </fa:IconImage>
+        <fa:IconImage Style="{DynamicResource fa}" x:Name="icMagni" MouseLeftButtonDown="btnBack_Click"
+                                    Icon="MagnifyingGlass" Height="20" Width="20" Margin="89,274,321,456"
+                                    >
+        </fa:IconImage>
+        <fa:IconImage Style="{DynamicResource fa}" x:Name="icCalendar" MouseLeftButtonDown="btnBack_Click"
+                                    Icon="Calendar" Height="20" Width="20" Margin="89,238,321,492"
+                                    >
+        </fa:IconImage>
+        <fa:IconImage Style="{DynamicResource fa}" x:Name="icComments" MouseLeftButtonDown="btnBack_Click"
+                                    Icon="Comments" Height="20" Width="20" Margin="87,203,323,527"
+                                    >
+        </fa:IconImage>
+        <fa:IconImage Style="{DynamicResource fa}" x:Name="icPencil" MouseLeftButtonDown="btnBack_Click"
+                                    Icon="PencilAlt" Height="20" Width="20" Margin="118,168,292,562"
+                                    >
+        </fa:IconImage>
+        <fa:IconImage Style="{DynamicResource fa}" x:Name="icUserCheck" MouseLeftButtonDown="btnBack_Click"
+                                    Icon="UserCheck" Height="20" Width="20" Margin="61,133,349,597"
+                                    >
+        </fa:IconImage>
+        <fa:IconImage Style="{DynamicResource fa}" x:Name="icFilePen" MouseLeftButtonDown="btnBack_Click"
+                                    Icon="FilePen" Height="20" Width="20" Margin="76,99,334,631"
+                                    >
+        </fa:IconImage>
+        <fa:IconImage Style="{DynamicResource fa}" x:Name="icHome" MouseLeftButtonDown="btnBack_Click"
+                                    Icon="Home" Height="20" Width="20" Margin="125,63,285,667"
+                                    >
+        </fa:IconImage>
+
     </Grid>
 </Window>

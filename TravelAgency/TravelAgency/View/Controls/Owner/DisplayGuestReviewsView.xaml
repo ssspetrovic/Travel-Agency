@@ -30,7 +30,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Label Style="{DynamicResource Label}" Content="{DynamicResource Guests}" HorizontalAlignment="Left" Margin="22,21,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+        <Label Style="{DynamicResource Label}" Content="{DynamicResource Guests}" HorizontalAlignment="Left" Margin="19,23,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <TextBox Style="{DynamicResource TextBox}" x:Name="txtAccommodationComment" DataContext="{Binding SelectedItem, ElementName=GuestListView}" HorizontalAlignment="Left" Margin="220,425,0,0" TextWrapping="Wrap" Text="{Binding AccommodationComment}" VerticalAlignment="Top" Width="160" FontWeight="Bold" IsEnabled="False" Height="129"/>
         <Label Style="{DynamicResource Label}" Content="{DynamicResource Guests comment}" HorizontalAlignment="Left" Margin="36,417,0,0" VerticalAlignment="Top" FontSize="14"/>
         <Label Style="{DynamicResource Label}" Content="{DynamicResource Accommodation}" HorizontalAlignment="Left" Margin="36,262,0,0" VerticalAlignment="Top" FontSize="14"/>
@@ -41,7 +41,7 @@
         <TextBox Style="{DynamicResource TextBox}" x:Name="txtGradeClean" DataContext="{Binding SelectedItem, ElementName=GuestListView}" Margin="220,346,50,0" TextWrapping="Wrap" Text="{Binding GradeAccommodationClean}" VerticalAlignment="Top" Width="159" FontWeight="Bold" IsEnabled="False"/>
         <Label Style="{DynamicResource Label}" Content="{DynamicResource Grade Owner}" HorizontalAlignment="Left" Margin="36,379,0,0" VerticalAlignment="Top" FontSize="14"/>
         <TextBox Style="{DynamicResource TextBox}" x:Name="txtGradeOwner" DataContext="{Binding SelectedItem, ElementName=GuestListView}" Margin="220,384,50,0" TextWrapping="Wrap" Text="{Binding GradeAccommodationOwner}" VerticalAlignment="Top" Width="159" FontWeight="Bold" IsEnabled="False"/>
-        <Label Style="{DynamicResource Label}" Content="{DynamicResource Selected Review}" HorizontalAlignment="Left" Margin="22,212,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+        <Label Style="{DynamicResource Label}" Content="{DynamicResource Selected Review}" HorizontalAlignment="Left" Margin="22,212,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <Rectangle Style="{DynamicResource Rectangle}" HorizontalAlignment="Left" Height="126" Margin="22,57,0,0" VerticalAlignment="Top" Width="359"/>
 
     </Grid>

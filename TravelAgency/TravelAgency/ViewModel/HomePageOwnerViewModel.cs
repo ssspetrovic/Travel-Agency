@@ -104,7 +104,7 @@ namespace TravelAgency.ViewModel
 
         private void Execute_BtnForumOwner(object parameter)
         {
-            OwnerMainView mainWindow = null;
+            /*OwnerMainView mainWindow = null;
             foreach (Window window in Application.Current.Windows)
             {
                 if (window is OwnerMainView)
@@ -116,7 +116,7 @@ namespace TravelAgency.ViewModel
 
             Frame mainFrame = mainWindow.mainFrame;
             ForumOwnerView forumOwnerView = new ForumOwnerView();
-            mainFrame.Navigate(forumOwnerView);
+            mainFrame.Navigate(forumOwnerView);*/
         }
         public string OwnerName
         {

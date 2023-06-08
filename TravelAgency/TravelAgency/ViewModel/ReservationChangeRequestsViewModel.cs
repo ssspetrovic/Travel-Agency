@@ -56,25 +56,35 @@ namespace TravelAgency.ViewModel
         {
             if(IsRequestSelected)
             {
-                ReservationRepository reservationRepository = new ReservationRepository();
-                DelayRequestRepository delayRequestRepository = new DelayRequestRepository();
-                AccommodationActivityRepository accommodationActivityRepository = new AccommodationActivityRepository();
+                if (string.IsNullOrWhiteSpace(RejectReason))
+                {
+                    ReservationRepository reservationRepository = new ReservationRepository();
+                    DelayRequestRepository delayRequestRepository = new DelayRequestRepository();
+                    AccommodationActivityRepository accommodationActivityRepository = new AccommodationActivityRepository();
 
-                int reservationId = SelectedRequest.ReservationId;
-                DateTime newStartDate = SelectedRequest.NewStartDate;
-                DateTime newEndDate = SelectedRequest.NewEndDate;
-                reservationRepository.AcceptReservationChangeRequest(reservationId, newStartDate, newEndDate);
-                delayRequestRepository.AcceptDelayRequest(reservationId);
+                    int reservationId = SelectedRequest.ReservationId;
+                    DateTime newStartDate = SelectedRequest.NewStartDate;
+                    DateTime newEndDate = SelectedRequest.NewEndDate;
+                    reservationRepository.AcceptReservationChangeRequest(reservationId, newStartDate, newEndDate);
+                    delayRequestRepository.AcceptDelayRequest(reservationId);
 
-                DateTime oldStartDate = SelectedRequest.OldStartDate;
-                AccommodationActivity a = new AccommodationActivity(SelectedRequest.AccommodationId, oldStartDate, 0, 1, 0);
-                accommodationActivityRepository.Add(a);
+                    DateTime oldStartDate = SelectedRequest.OldStartDate;
+                    AccommodationActivity a = new AccommodationActivity(SelectedRequest.AccommodationId, oldStartDate, 0, 1, 0);
+                    accommodationActivityRepository.Add(a);
 
-                if (CurrentLanguageAndTheme.languageId == 0)
-                    MessageBox.Show("Reservation change request accepted successfully!", "Message");
+                    if (CurrentLanguageAndTheme.languageId == 0)
+                        MessageBox.Show("Reservation change request accepted successfully!", "Message");
+                    else
+                        MessageBox.Show("Zahtev za izmenu rezervacije uspeštno prihvaćen!", "Poruka");
+                    Refresh();
+                }
                 else
-                    MessageBox.Show("Zahtev za izmenu rezervacije uspeštno prihvaćen!", "Poruka");
-                Refresh();
+                {
+                    if (CurrentLanguageAndTheme.languageId == 0)
+                        MessageBox.Show("Cannot accept and have a reject reason!", "Message");
+                    else
+                        MessageBox.Show("Ne možete prihvatiti zahtev, a imati razlog za odbijanje!", "Poruka");
+                }
             }
             else
             {
