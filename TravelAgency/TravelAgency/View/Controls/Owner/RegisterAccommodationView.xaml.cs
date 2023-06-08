@@ -164,27 +164,30 @@ namespace TravelAgency.View.Controls.Owner
         private void txtAddUrl_Click(object sender, RoutedEventArgs e)
         {
             var hasText = false;
-            if (ImagesList.Text.Contains(txtImage.Text))
+            if (!string.IsNullOrWhiteSpace(txtImage.Text))
             {
+                if (ImagesList.Text.Contains(txtImage.Text))
+                {
+                    // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
+                    ImagesList.Text.Replace(txtImage.Text, "");
+                    hasText = true;
+                }
+
                 // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-                ImagesList.Text.Replace(txtImage.Text, "");
-                hasText = true;
+                if (ImagesList.Text.Contains(",, "))
+                    ImagesList.Text.Replace(",, ", ", ");
+
+                if (!hasText)
+                    if (ImagesList.Text.Length == 0)
+                        ImagesList.Text += txtImage.Text;
+                    else
+                        ImagesList.Text += ", " + txtImage.Text;
+
+                if (ImagesList.Text.StartsWith(", "))
+                    ImagesList.Text = ImagesList.Text.Substring(2, ImagesList.Text.Length - 2);
+
+                txtImage.Text = "";
             }
-
-            // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-            if (ImagesList.Text.Contains(",, "))
-                ImagesList.Text.Replace(",, ", ", ");
-
-            if (!hasText)
-                if (ImagesList.Text.Length == 0)
-                    ImagesList.Text += txtImage.Text;
-                else
-                    ImagesList.Text += ", " + txtImage.Text;
-
-            if (ImagesList.Text.StartsWith(", "))
-                ImagesList.Text = ImagesList.Text.Substring(2, ImagesList.Text.Length - 2);
-
-            txtImage.Text = "";
         }
 
         private void btnClearImages_Click(object sender, RoutedEventArgs e)
@@ -197,11 +200,19 @@ namespace TravelAgency.View.Controls.Owner
             if (string.IsNullOrWhiteSpace(txtName.Text))
             {
                 lblNameINC.Visibility = Visibility.Visible;
+                lblNameINC.Content = "Cannot leave empty, enter a name";
                 validate++;
             }
             else
             {
-                lblNameINC.Visibility = Visibility.Hidden;
+                if (txtName.Text.Length < 4)
+                {
+                    lblNameINC.Visibility = Visibility.Visible;
+                    lblNameINC.Content = "Name must be at least 3 characters long";
+                    validate++;
+                }
+                else
+                   lblNameINC.Visibility = Visibility.Hidden;
             }
         }
 
@@ -210,11 +221,19 @@ namespace TravelAgency.View.Controls.Owner
             if (string.IsNullOrWhiteSpace(txtAdress.Text))
             {
                 lblAddressINC.Visibility = Visibility.Visible;
+                lblAddressINC.Content = "Cannot leave empty, enter an address";
                 validate++;
             }
             else
             {
-                lblAddressINC.Visibility = Visibility.Hidden;
+                if (txtAdress.Text.Length < 4)
+                {
+                    lblAddressINC.Visibility = Visibility.Visible;
+                    lblAddressINC.Content = "Address must be at least 3 characters long";
+                    validate++;
+                }
+                else
+                    lblAddressINC.Visibility = Visibility.Hidden;
             }
         }
 
@@ -223,11 +242,19 @@ namespace TravelAgency.View.Controls.Owner
             if (string.IsNullOrWhiteSpace(txtDescription.Text))
             {
                 lblDescINC.Visibility = Visibility.Visible;
+                lblDescINC.Content = "Cannot leave empty, enter a description";
                 validate++;
             }
             else
             {
-                lblDescINC.Visibility = Visibility.Hidden;
+                if (txtDescription.Text.Length < 15)
+                {
+                    lblDescINC.Visibility = Visibility.Visible;
+                    lblDescINC.Content = "Description must be at least 14 characters long";
+                    validate++;
+                }
+                else
+                    lblDescINC.Visibility = Visibility.Hidden;
             }
         }
 
@@ -238,6 +265,7 @@ namespace TravelAgency.View.Controls.Owner
                 if (string.IsNullOrWhiteSpace(txtMinReservationDays.Text))
                 {
                     lblMinINC.Visibility = Visibility.Visible;
+                    lblMinINC.Content = "Can not leave empty, enter a number";
                     validate++;
                     return;
                 }
@@ -245,6 +273,7 @@ namespace TravelAgency.View.Controls.Owner
                 if (number < 1)
                 {
                     lblMinINC.Visibility = Visibility.Visible;
+                    lblMinINC.Content = "Number can not be less than 1";
                     validate++;
                     return;
                 }
@@ -254,6 +283,7 @@ namespace TravelAgency.View.Controls.Owner
             catch
             {
                 lblMinINC.Visibility = Visibility.Visible;
+                lblMinINC.Content = "You must enter a number";
                 validate++;
             }
         }
@@ -265,6 +295,7 @@ namespace TravelAgency.View.Controls.Owner
                 if (string.IsNullOrWhiteSpace(txtMaxReservationDays.Text))
                 {
                     lblMaxINC.Visibility = Visibility.Visible;
+                    lblMaxINC.Content = "Can not leave empty, enter a number";
                     validate++;
                     return;
                 }
@@ -272,15 +303,28 @@ namespace TravelAgency.View.Controls.Owner
                 if (number < 1)
                 {
                     lblMaxINC.Visibility = Visibility.Visible;
+                    lblMaxINC.Content = "Number can not be less than 1";
                     validate++;
                     return;
                 }
                 else
-                    lblMaxINC.Visibility = Visibility.Hidden;
+                {
+                    int min = Convert.ToInt32(txtMinReservationDays.Text);
+                    if(min > number)
+                    {
+                        lblMaxINC.Visibility = Visibility.Visible;
+                        lblMaxINC.Content = "Can not be less than minimum number";
+                        validate++;
+                        return;
+                    }
+                    else
+                        lblMaxINC.Visibility = Visibility.Hidden;
+                }
             }
             catch
             {
                 lblMaxINC.Visibility = Visibility.Visible;
+                lblMaxINC.Content = "You must enter a number";
                 validate++;
             }
         }
@@ -292,6 +336,7 @@ namespace TravelAgency.View.Controls.Owner
                 if (string.IsNullOrWhiteSpace(txtReservableDays.Text))
                 {
                     lblResINC.Visibility = Visibility.Visible;
+                    lblResINC.Content = "Can not leave empty, enter a number";
                     validate++;
                     return;
                 }
@@ -299,6 +344,7 @@ namespace TravelAgency.View.Controls.Owner
                 if (number < 1)
                 {
                     lblResINC.Visibility = Visibility.Visible;
+                    lblResINC.Content = "Number can not be less than 1";
                     validate++;
                     return;
                 }
@@ -308,6 +354,7 @@ namespace TravelAgency.View.Controls.Owner
             catch
             {
                 lblResINC.Visibility = Visibility.Visible;
+                lblResINC.Content = "You must enter a number";
                 validate++;
             }
         }

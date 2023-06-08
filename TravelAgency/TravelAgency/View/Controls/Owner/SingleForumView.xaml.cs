@@ -86,5 +86,26 @@ namespace TravelAgency.View.Controls.Owner
             SingleForumView singleForumView = new SingleForumView(forumDTO);
             mainFrame.Navigate(singleForumView);
         }
+
+        private void btnReport_Click(object sender, RoutedEventArgs e)
+        {
+            if (lblCommentId.Content != null)
+            {
+                if ((CommentType)lblCommentType.Content == CommentType.GuestNotVisited)
+                {
+                    CommentRepository commentRepository = new CommentRepository();
+                    commentRepository.IncreaseReports(Convert.ToInt32(lblCommentId.Content));
+                    Refresh();
+                }
+                else
+                {
+                    MessageBox.Show("Cannot report comment");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a comment");
+            }
+        }
     }
 }

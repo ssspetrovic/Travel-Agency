@@ -65,13 +65,21 @@ namespace TravelAgency.Service
             }
         }
 
+        private bool IsDuplicate(string? username, string? text)
+        {
+            return _notificationRepository.IsDuplicate(username, text);
+        }
+
         public void CheckForAttendanceInvitation(string touristUsername)
         {
             var touristService = new TouristService();
             var tourist = touristService.GetByUsername(touristUsername);
 
             if (tourist.TouristAppearance != TouristAppearance.Pinged) return;
+            
             var notificationText = $"Guide is asking you to check in for '{tourist.Tour.Name}' tour!";
+
+            if (IsDuplicate(touristUsername, notificationText)) return ;
 
             var notificationService = new TouristNotificationService();
             notificationService.Add(new TouristNotification(

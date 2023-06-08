@@ -30,9 +30,7 @@ namespace TravelAgency.View
             mainFrame.Navigate(homePageView);
             btnLightTheme.Visibility = Visibility.Visible;
             btnDarkTheme.Visibility = Visibility.Hidden;
-            stekPanel.Visibility = Visibility.Hidden;
-            menuRectangle.Visibility = Visibility.Hidden;
-            btnBack.Visibility = Visibility.Hidden;
+            HideMenu();
         }
 
         private void mainFrame_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
@@ -46,6 +44,15 @@ namespace TravelAgency.View
             menuRectangle.Visibility = Visibility.Visible;
             btnBack.Visibility = Visibility.Visible;
             btnMenu.Visibility = Visibility.Hidden;
+            icCalendar.Visibility = Visibility.Visible;
+            icComments.Visibility = Visibility.Visible;
+            icFilePen.Visibility = Visibility.Visible;
+            icHome.Visibility = Visibility.Visible;
+            icMagni.Visibility = Visibility.Visible;
+            icPencil.Visibility = Visibility.Visible;
+            icSignOut.Visibility = Visibility.Visible;
+            icStat.Visibility = Visibility.Visible;
+            icUserCheck.Visibility = Visibility.Visible;
         }
 
         private void btnHomePage_Click(object sender, RoutedEventArgs e)
@@ -195,6 +202,15 @@ namespace TravelAgency.View
             menuRectangle.Visibility = Visibility.Hidden;
             btnMenu.Visibility = Visibility.Visible;
             btnBack.Visibility = Visibility.Hidden;
+            icCalendar.Visibility = Visibility.Hidden;
+            icComments.Visibility = Visibility.Hidden;
+            icFilePen.Visibility = Visibility.Hidden;
+            icHome.Visibility = Visibility.Hidden;
+            icMagni.Visibility = Visibility.Hidden;
+            icPencil.Visibility = Visibility.Hidden;
+            icSignOut.Visibility = Visibility.Hidden;
+            icStat.Visibility = Visibility.Hidden;
+            icUserCheck.Visibility = Visibility.Hidden;
         }
 
         private void ChangeColorListView(ListView list)

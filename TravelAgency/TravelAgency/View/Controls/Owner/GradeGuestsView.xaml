@@ -14,7 +14,7 @@
     </Page.Resources>
 
     <Grid Style="{DynamicResource Grid}" Name="grid">
-        <Label x:Name="lblGuests" Style="{DynamicResource Label}" Content="{DynamicResource Guests}" HorizontalAlignment="Left" Margin="22,21,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+        <Label x:Name="lblGuests" Style="{DynamicResource Label}" Content="{DynamicResource Guests}" HorizontalAlignment="Left" Margin="18,24,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <ListView x:Name="GuestListView" d:ItemsSource="{d:SampleData ItemCount=3}" ItemsSource="{Binding ReservationsSourceCollection}" SelectedItem="{Binding SelectedReservation}" Margin="22,58,22,494" FontSize="12">
             <ListView.View>
                 <GridView>
@@ -53,10 +53,10 @@
         <RadioButton Style="{DynamicResource RadioButton}" x:Name="rbClean5" Content="5" HorizontalAlignment="Left" Margin="165,379,0,0" VerticalAlignment="Top" GroupName="grade_clean" IsChecked="{Binding SelectedOption2, Converter={StaticResource RadioButtonContentConverter}, ConverterParameter=5}" FontSize="14"/>
         <Label Style="{DynamicResource Label}" Content="{DynamicResource Grade Complacent}" HorizontalAlignment="Left" Margin="23,279,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <Label Style="{DynamicResource Label}" Content="{DynamicResource Grade Clean}" HorizontalAlignment="Left" Margin="23,345,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
-        <Label Style="{DynamicResource Label}" Content="{DynamicResource Comment}" HorizontalAlignment="Left" Margin="23,428,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
-        <Button Style="{DynamicResource Batn}" x:Name="btnGrade" Content="{DynamicResource Grade Guest}" HorizontalAlignment="Center" Margin="0,603,0,0" VerticalAlignment="Top" Width="142" Command="{Binding BtnGradeGuest}" FontSize="16" Height="40"/>
+        <Label Style="{DynamicResource Label}" Content="{DynamicResource Comment}" HorizontalAlignment="Left" Margin="19,428,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Button Style="{DynamicResource Batn}" x:Name="btnGrade" Content="{DynamicResource Grade Guest}" HorizontalAlignment="Center" Margin="0,603,0,0" VerticalAlignment="Top" Width="384" Command="{Binding BtnGradeGuest}" FontSize="16" Height="40" FontWeight="Bold"/>
         <TextBox Style="{DynamicResource TextBox}" x:Name="txtComment" HorizontalAlignment="Center" Margin="0,457,0,0" TextWrapping="Wrap" Text="{Binding Comment}" VerticalAlignment="Top" Width="385" Height="113" FontSize="14"/>
-        <Label Style="{DynamicResource Label}" HorizontalAlignment="Left" Margin="22,223,0,0" VerticalAlignment="Top" FontSize="14" Content="{DynamicResource Request From Guest}" FontWeight="Bold"/>
+        <Label Style="{DynamicResource Label}" HorizontalAlignment="Left" Margin="18,223,0,0" VerticalAlignment="Top" FontSize="14" Content="{DynamicResource Request From Guest}" FontWeight="Bold"/>
         <TextBox Style="{DynamicResource TextBox}" x:Name="txtReservationId_Copy" HorizontalAlignment="Left" Margin="172,227,0,0" TextWrapping="Wrap" Text="{Binding GuestName}" VerticalAlignment="Top" Width="236" FontWeight="Bold" IsEnabled="False" FontSize="14"/>
         <Label Style="{DynamicResource Label}" Content="{Binding LblResToGrade}" HorizontalAlignment="Left" Margin="82,21,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
         <Rectangle Style="{DynamicResource Rectangle}" HorizontalAlignment="Center" Height="138" Margin="0,58,0,0" VerticalAlignment="Top" Width="386"/>

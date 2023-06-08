@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Input;
 using TravelAgency.Model;
 using TravelAgency.Service;
 
@@ -59,6 +60,14 @@ namespace TravelAgency.View.Controls.Guide
             if (PasswordBox.Password != _userService.GetByUsername(CurrentUser.Username).Password)
                 return false;
             return true;
+        }
+
+        private void Resign_OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+                ResignButton_OnClick(sender, e);
+            if (e.Key == Key.Escape)
+                CancelButton_OnClick(sender, e);
         }
     }
 }
