@@ -69,9 +69,9 @@ namespace TravelAgency.ViewModel
             else
             {
                 if (CurrentLanguageAndTheme.languageId == 0)
-                    MessageBox.Show("No reservation selected...", "Message");
+                    MessageBox.Show("You have not filled out all the information", "Message");
                 else
-                    MessageBox.Show("Nije izabrana ni jedna rezervacija", "Poruka");
+                    MessageBox.Show("Niste ispunili sve potrebne informacije", "Poruka");
             }
         }
 

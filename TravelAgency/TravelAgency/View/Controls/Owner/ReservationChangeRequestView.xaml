@@ -44,7 +44,7 @@
             <Label Style="{DynamicResource Label}" Content="-&gt;" HorizontalAlignment="Left" Margin="184,350,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
             <Button Style="{DynamicResource Batn}" x:Name="btnAccept" Content="{DynamicResource Accept}" HorizontalAlignment="Left" Margin="26,661,0,0" VerticalAlignment="Top" Command="{Binding BtnAccept}" Height="40" Width="382" FontSize="16" FontWeight="Bold"/>
             <Button Style="{DynamicResource Batn}" x:Name="btnReject" Content="{DynamicResource Reject}" HorizontalAlignment="Left" Margin="26,714,0,0" VerticalAlignment="Top" Width="382" Command="{Binding BtnReject}" Height="40" FontSize="16" FontWeight="Bold"/>
-            <TextBox Style="{DynamicResource TextBox}" x:Name="txtRejection" HorizontalAlignment="Left" Margin="26,518,0,0" TextWrapping="Wrap" Text="{Binding RejectReason}" VerticalAlignment="Top" Width="254" FontSize="14" Height="117"/>
+            <TextBox Style="{DynamicResource TextBox}" x:Name="txtRejection" HorizontalAlignment="Left" Margin="26,518,0,0" TextWrapping="Wrap" Text="{Binding RejectReason}" VerticalAlignment="Top" Width="382" FontSize="14" Height="117"/>
             <Label Style="{DynamicResource Label}" Content="{DynamicResource Selected Accommodation}" HorizontalAlignment="Left" Margin="20,198,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
             <Label Style="{DynamicResource Label}" x:Name="lblAvailable" Content="{Binding Available}" HorizontalAlignment="Left" Margin="20,454,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
             <Rectangle Style="{DynamicResource Rectangle}" HorizontalAlignment="Left" Height="121" Margin="26,59,0,0" VerticalAlignment="Top" Width="382"/>
