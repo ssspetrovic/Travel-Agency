@@ -1,0 +1,141 @@
+﻿<UserControl
+    x:Class="TravelAgency.View.Controls.Guide.TourStats"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vml="clr-namespace:TravelAgency.VML"
+    Width="800"
+    Height="500"
+    vml:GuideViewModelLocator.AutoHookedUpViewModel="True"
+    Background="Transparent"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Lightblue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+                <ResourceDictionary Source="/Resources/Styles/Buttons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <b:Interaction.Triggers>
+        <b:KeyTrigger Key="Enter">
+            <b:InvokeCommandAction Command="{Binding GetMoreStats}" />
+        </b:KeyTrigger>
+    </b:Interaction.Triggers>
+
+    <TabControl
+        Background="#ffffff"
+        Focusable="True"
+        Foreground="#68cbf8"
+        ItemsSource="{Binding Tabs}"
+        KeyboardNavigation.TabIndex="0"
+        KeyboardNavigation.TabNavigation="Contained"
+        SelectedIndex="{Binding TabsIndex}">
+        <b:Interaction.Triggers>
+            <b:KeyTrigger Key="Tab" ActiveOnFocus="True">
+                <b:InvokeCommandAction Command="{Binding TabTourStats}" />
+            </b:KeyTrigger>
+        </b:Interaction.Triggers>
+        <TabControl.ItemTemplate>
+            <DataTemplate>
+                <TextBlock Text="{Binding Title}" />
+            </DataTemplate>
+        </TabControl.ItemTemplate>
+        <TabControl.ContentTemplate>
+            <DataTemplate>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock
+                        Margin="0,0,0,10"
+                        HorizontalAlignment="Center"
+                        FontSize="18"
+                        FontWeight="Bold"
+                        Text="{Binding Name}" />
+
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="3*" />
+                            <RowDefinition Height="5*" />
+                            <RowDefinition Height="60" />
+                        </Grid.RowDefinitions>
+
+                        <DataGrid
+                            HorizontalAlignment="Center"
+                            Background="Transparent"
+                            BorderBrush="Gainsboro"
+                            BorderThickness="1"
+                            ColumnWidth="*"
+                            ItemsSource="{Binding KeyPoints}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Binding="{Binding}" Header="Key Points" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                        <Grid Grid.Row="1" Margin="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <lvc:CartesianChart LegendLocation="Bottom" Series="{Binding BarData}">
+                                <lvc:CartesianChart.AxisX>
+                                    <lvc:Axis>
+                                        <lvc:Axis.Labels>
+                                            <Binding Path="BarLabels" />
+                                        </lvc:Axis.Labels>
+                                    </lvc:Axis>
+                                </lvc:CartesianChart.AxisX>
+                                <lvc:CartesianChart.AxisY>
+                                    <lvc:Axis Title="Number of Tourists" Foreground="#4fc3f7" />
+                                </lvc:CartesianChart.AxisY>
+                            </lvc:CartesianChart>
+
+                            <lvc:PieChart
+                                Name="PieVoucher"
+                                Grid.Column="1"
+                                LegendLocation="Right"
+                                Series="{Binding PieChartData}">
+                                <lvc:PieChart.ChartLegend>
+                                    <lvc:DefaultLegend
+                                        Margin="10"
+                                        FontSize="16"
+                                        Orientation="Vertical" />
+                                </lvc:PieChart.ChartLegend>
+                                <lvc:PieChart.DataTooltip>
+                                    <lvc:DefaultTooltip BulletSize="20" />
+                                </lvc:PieChart.DataTooltip>
+                            </lvc:PieChart>
+                        </Grid>
+
+                        <Button
+                            x:Name="BtnAllTours"
+                            Grid.Row="2"
+                            Width="250"
+                            Background="#68cbf8"
+                            BorderThickness="0"
+                            Content="All Finished Tours (Enter)"
+                            Cursor="Hand"
+                            FontSize="16"
+                            FontWeight="Medium"
+                            Foreground="#ffffff" />
+
+                    </Grid>
+
+                </Grid>
+            </DataTemplate>
+        </TabControl.ContentTemplate>
+    </TabControl>
+
+</UserControl>

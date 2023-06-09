@@ -1,0 +1,243 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:TravelAgency.Resources.Controls"
+    xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+    <Style x:Key="LogOutIconStyle" TargetType="fa:IconImage">
+        <Setter Property="Width" Value="20" />
+        <Setter Property="Height" Value="20" />
+        <Setter Property="Foreground" Value="White" />
+    </Style>
+
+    <Style
+        x:Key="MenuButtonStyle"
+        BasedOn="{StaticResource {x:Type ToggleButton}}"
+        TargetType="{x:Type RadioButton}">
+        <Style.Setters>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Grid
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Cursor" Value="Arrow" />
+            <Setter Property="Height" Value="50" />
+            <Setter Property="Width" Value="200" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+        </Style.Setters>
+        <Style.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Background" Value="#7986CB " />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="Background" Value="#5C6BC0 " />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style
+        x:Key="UserProfileButtonStyle"
+        BasedOn="{StaticResource {x:Type ToggleButton}}"
+        TargetType="{x:Type RadioButton}">
+        <Setter Property="Width" Value="55" />
+        <Setter Property="Height" Value="55" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RadioButton">
+                    <Border
+                        x:Name="UserBorder"
+                        Width="55"
+                        Height="55"
+                        Padding="0"
+                        BorderBrush="White"
+                        BorderThickness="3"
+                        CornerRadius="5">
+                        <fa:IconImage
+                            x:Name="UserIconImage"
+                            Width="30"
+                            Foreground="White"
+                            Icon="UserAlt" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="UserBorder" Property="Background" Value="#7986CB " />
+                            <Setter TargetName="UserIconImage" Property="Foreground" Value="White" />
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="False">
+                            <Setter TargetName="UserBorder" Property="Background" Value="Transparent" />
+                            <Setter TargetName="UserIconImage" Property="Foreground" Value="White" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style
+        x:Key="FilterTextBoxStyle"
+        BasedOn="{StaticResource {x:Type TextBox}}"
+        TargetType="{x:Type TextBox}">
+        <Style.Setters>
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Padding" Value="5,0" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="materialDesign:TextFieldAssist.TextFieldCornerRadius" Value="3" />
+            <Setter Property="materialDesign:TextFieldAssist.UnderlineCornerRadius" Value="3" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="{StaticResource MaterialDesignDivider}" />
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="ToggleSwitchBasicStyle" TargetType="{x:Type controls:ToggleSwitch}">
+        <Setter Property="MaxHeight" Value="20" />
+        <Setter Property="MaxWidth" Value="40" />
+        <Setter Property="MinHeight" Value="20" />
+        <Setter Property="MinWidth" Value="40" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:ToggleSwitch}">
+                    <Border
+                        x:Name="ToggleBackground"
+                        Background="DarkGray"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="10">
+                        <Ellipse
+                            x:Name="ToggleCircle"
+                            Width="16"
+                            Margin="2"
+                            HorizontalAlignment="Left"
+                            Fill="White" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="ToggleCircle" Property="HorizontalAlignment" Value="Right" />
+                            <Setter TargetName="ToggleBackground" Property="Background" Value="#333333" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style
+        x:Key="LabelHoverStyle"
+        BasedOn="{StaticResource MaterialDesignLabel}"
+        TargetType="Label">
+        <Setter Property="Cursor" Value="Arrow" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Cursor" Value="Hand" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="ImageHoverStyle" TargetType="Image">
+        <Setter Property="Cursor" Value="Arrow" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Cursor" Value="Hand" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style
+        x:Key="StatisticsComboBoxStyle"
+        BasedOn="{StaticResource MaterialDesignComboBox}"
+        TargetType="ComboBox">
+        <Setter Property="Width" Value="100" />
+        <Setter Property="Margin" Value="10" />
+        <Setter Property="Padding" Value="5" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="materialDesign:HintAssist.Hint" Value="All years" />
+        <Setter Property="materialDesign:TextFieldAssist.TextFieldCornerRadius" Value="3" />
+        <Setter Property="materialDesign:TextFieldAssist.UnderlineCornerRadius" Value="3" />
+        <Setter Property="BorderBrush" Value="{StaticResource MaterialDesignDivider}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="MaxDropDownHeight" Value="190" />
+    </Style>
+
+    <Style
+        x:Key="AnimatedLabelStyle"
+        BasedOn="{StaticResource MaterialDesignLabel}"
+        TargetType="Label">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Visibility, RelativeSource={RelativeSource Self}}" Value="Visible">
+                <DataTrigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="Opacity"
+                                From="0"
+                                To="1"
+                                Duration="0:0:0.2" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </DataTrigger.EnterActions>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="SquareCheckBoxStyle" TargetType="{x:Type CheckBox}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type CheckBox}">
+                    <Grid x:Name="checkboxGrid" Background="Transparent">
+                        <Border
+                            x:Name="checkBoxBorder"
+                            Background="White"
+                            BorderBrush="LightGray"
+                            BorderThickness="2"
+                            CornerRadius="5"
+                            Cursor="Arrow">
+                            <ContentPresenter
+                                x:Name="contentPresenter"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center" />
+                        </Border>
+                        <fa:IconImage
+                            x:Name="checkMark"
+                            Margin="3"
+                            Foreground="#333333"
+                            Icon="Check"
+                            Visibility="Collapsed" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="checkMark" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="checkBoxBorder" Property="Cursor" Value="Hand" />
+                            <Setter TargetName="checkboxGrid" Property="Cursor" Value="Hand" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="contentPresenter" Property="Opacity" Value="0.5" />
+                            <Setter TargetName="checkBoxBorder" Property="Opacity" Value="0.5" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+</ResourceDictionary>

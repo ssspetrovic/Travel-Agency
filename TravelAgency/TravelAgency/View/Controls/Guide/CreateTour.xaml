@@ -1,0 +1,381 @@
+﻿<UserControl
+    x:Class="TravelAgency.View.Controls.Guide.CreateTour"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vml="clr-namespace:TravelAgency.VML"
+    Width="800"
+    Height="500"
+    vml:GuideViewModelLocator.AutoHookedUpViewModel="True"
+    Background="Transparent"
+    FocusManager.FocusedElement="{Binding ElementName=NameText}"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Lightblue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+                <ResourceDictionary Source="/Resources/Styles/Buttons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid KeyboardNavigation.TabNavigation="Cycle">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <StackPanel
+                x:Name="CreateTourStackPanel"
+                Width="250"
+                Orientation="Vertical">
+                <TextBlock
+                    Margin="0,15,0,0"
+                    FontSize="12"
+                    FontWeight="Medium"
+                    Foreground="#68cbf8"
+                    Text="Tour Name"
+                    TextWrapping="Wrap" />
+                <TextBox
+                    x:Name="NameText"
+                    Height="28"
+                    Margin="0,5,0,0"
+                    VerticalContentAlignment="Center"
+                    BorderThickness="0,0,0,1"
+                    CaretBrush="#4fc3f7"
+                    FontSize="13"
+                    FontWeight="Medium"
+                    Foreground="#68cbf8"
+                    KeyboardNavigation.TabIndex="1"
+                    Text="{Binding NameText, Mode=TwoWay}" />
+
+                <TextBlock
+                    Margin="0,15,0,0"
+                    FontSize="12"
+                    FontWeight="Medium"
+                    Foreground="#68cbf8"
+                    Text="Location"
+                    TextWrapping="Wrap" />
+                <ComboBox
+                    x:Name="ComboBoxLocation"
+                    Height="28"
+                    Margin="0,5,0,0"
+                    VerticalContentAlignment="Center"
+                    Background="{Binding LocationBackground}"
+                    BorderThickness="0,0,0,1"
+                    Focusable="{Binding LocationFocus}"
+                    FontSize="13"
+                    FontWeight="Medium"
+                    Foreground="#68cbf8"
+                    KeyboardNavigation.TabIndex="2"
+                    SelectedIndex="{Binding LocationIndex}"
+                    Text="{Binding ComboBoxLocation, Mode=TwoWay}">
+                    <ComboBoxItem>Tokyo</ComboBoxItem>
+                    <ComboBoxItem>Delhi</ComboBoxItem>
+                    <ComboBoxItem>Shanghai</ComboBoxItem>
+                    <ComboBoxItem>Sao Paulo</ComboBoxItem>
+                    <ComboBoxItem>Mexico City</ComboBoxItem>
+                    <ComboBoxItem>Cairo</ComboBoxItem>
+                    <ComboBoxItem>Mumbai</ComboBoxItem>
+                    <ComboBoxItem>Beijing</ComboBoxItem>
+                    <ComboBoxItem>Osaka</ComboBoxItem>
+                    <ComboBoxItem>New York</ComboBoxItem>
+                    <ComboBoxItem>Buenos Aires</ComboBoxItem>
+                    <ComboBoxItem>Chongqing</ComboBoxItem>
+                    <ComboBoxItem>Istanbul</ComboBoxItem>
+                    <ComboBoxItem>Kolkata</ComboBoxItem>
+                    <ComboBoxItem>Manila</ComboBoxItem>
+                    <ComboBoxItem>Bar</ComboBoxItem>
+                </ComboBox>
+
+                <TextBlock
+                    Margin="0,15,0,0"
+                    FontSize="12"
+                    FontWeight="Medium"
+                    Foreground="#68cbf8"
+                    Text="Description"
+                    TextWrapping="Wrap" />
+                <TextBox
+                    x:Name="DescriptionText"
+                    Height="28"
+                    Margin="0,5,0,0"
+                    VerticalContentAlignment="Center"
+                    Background="Transparent"
+                    BorderThickness="0,0,0,1"
+                    CaretBrush="#4fc3f7"
+                    FontSize="13"
+                    FontWeight="Medium"
+                    Foreground="#68cbf8"
+                    KeyboardNavigation.TabIndex="3"
+                    Text="{Binding DescriptionText, Mode=TwoWay}" />
+
+                <TextBlock
+                    Margin="0,15,0,0"
+                    FontSize="12"
+                    FontWeight="Medium"
+                    Foreground="#68cbf8"
+                    Text="Language"
+                    TextWrapping="Wrap" />
+                <ComboBox
+                    x:Name="ComboBoxLanguage"
+                    Height="28"
+                    Margin="0,5,0,0"
+                    VerticalContentAlignment="Center"
+                    Background="{Binding LanguageBackground}"
+                    BorderThickness="0,0,0,1"
+                    Focusable="{Binding LanguageFocus}"
+                    FontSize="13"
+                    FontWeight="Medium"
+                    Foreground="#68cbf8"
+                    KeyboardNavigation.TabIndex="4"
+                    SelectedIndex="{Binding LanguageIndex}"
+                    Text="{Binding ComboBoxLanguage, Mode=TwoWay}">
+                    <ComboBoxItem>English</ComboBoxItem>
+                    <ComboBoxItem>Spanish</ComboBoxItem>
+                    <ComboBoxItem>French</ComboBoxItem>
+                    <ComboBoxItem>Italian</ComboBoxItem>
+                    <ComboBoxItem>Serbian</ComboBoxItem>
+                    <ComboBoxItem>Portuguese</ComboBoxItem>
+                    <ComboBoxItem>German</ComboBoxItem>
+                    <ComboBoxItem>Chinese</ComboBoxItem>
+                    <ComboBoxItem>Japanese</ComboBoxItem>
+                    <ComboBoxItem>Indian</ComboBoxItem>
+                </ComboBox>
+
+                <TextBlock
+                    Margin="0,15,0,0"
+                    FontSize="12"
+                    FontWeight="Medium"
+                    Foreground="#68cbf8"
+                    Text="Max. Number of Guests"
+                    TextWrapping="Wrap" />
+                <TextBox
+                    x:Name="MaxGuestsText"
+                    Height="28"
+                    Margin="0,5,0,0"
+                    VerticalContentAlignment="Center"
+                    Background="{Binding GuestsBackground}"
+                    BorderThickness="0,0,0,1"
+                    CaretBrush="#4fc3f7"
+                    Focusable="{Binding GuestsFocus}"
+                    FontSize="13"
+                    FontWeight="Medium"
+                    Foreground="#68cbf8"
+                    KeyboardNavigation.TabIndex="5"
+                    Text="{Binding MaxGuestsText, Mode=TwoWay}" />
+            </StackPanel>
+
+            <StackPanel
+                x:Name="CreateTourStackPanel2"
+                Grid.Column="1"
+                Width="250"
+                Orientation="Vertical">
+                <TextBlock
+                    Margin="0,15,0,0"
+                    FontSize="12"
+                    FontWeight="Medium"
+                    Foreground="#68cbf8"
+                    Text="Key Points (Press Enter to Add To The List)"
+                    TextWrapping="Wrap" />
+                <ComboBox
+                    x:Name="ComboBoxKeyPoints"
+                    Height="28"
+                    Margin="0,5,0,0"
+                    VerticalContentAlignment="Center"
+                    Background="Transparent"
+                    BorderThickness="0,0,0,1"
+                    FontSize="13"
+                    FontWeight="Medium"
+                    Foreground="#68cbf8"
+                    KeyboardNavigation.TabIndex="6"
+                    Text="{Binding ComboBoxKeyPoints, Mode=TwoWay}">
+                    <ComboBoxItem Content="Tokyo" />
+                    <ComboBoxItem Content="Delhi" />
+                    <ComboBoxItem Content="Shanghai" />
+                    <ComboBoxItem Content="Sao Paulo" />
+                    <ComboBoxItem Content="Mexico City" />
+                    <ComboBoxItem Content="Cairo" />
+                    <ComboBoxItem Content="Mumbai" />
+                    <ComboBoxItem Content="Beijing" />
+                    <ComboBoxItem Content="Osaka" />
+                    <ComboBoxItem Content="New York" />
+                    <ComboBoxItem Content="Buenos Aires" />
+                    <ComboBoxItem Content="Chongqing" />
+                    <ComboBoxItem Content="Istanbul" />
+                    <ComboBoxItem Content="Kolkata" />
+                    <ComboBoxItem Content="Manila" />
+                    <ComboBoxItem Content="Bar" />
+
+                    <ComboBox.InputBindings>
+                        <KeyBinding
+                            Key="Enter"
+                            Command="{Binding KeyPointsCommands}"
+                            CommandParameter="Add" />
+                        <KeyBinding
+                            Key="Delete"
+                            Command="{Binding KeyPointsCommands}"
+                            CommandParameter="Delete" />
+                    </ComboBox.InputBindings>
+                </ComboBox>
+                <TextBlock
+                    x:Name="KeyPointsList"
+                    Margin="0,15,0,0"
+                    FontSize="12"
+                    FontWeight="Medium"
+                    Foreground="#68cbf8"
+                    Text="{Binding KeyPointsList, Mode=TwoWay}"
+                    TextWrapping="Wrap" />
+
+                <TextBlock
+                    Margin="0,15,0,0"
+                    FontSize="12"
+                    FontWeight="Medium"
+                    Foreground="#68cbf8"
+                    Text="Date (Press Enter to Add To The List)"
+                    TextWrapping="Wrap" />
+                <DatePicker
+                    x:Name="DatePick"
+                    Height="28"
+                    Margin="0,5,0,0"
+                    VerticalContentAlignment="Center"
+                    Background="{Binding DateBackground}"
+                    BorderThickness="0,0,0,1"
+                    Focusable="{Binding DateFocus}"
+                    Foreground="#68cbf8"
+                    KeyboardNavigation.TabIndex="7"
+                    PreviewKeyDown="DatePick_PreviewKeyDown"
+                    PreviewKeyUp="DatePick_PreviewKeyUp"
+                    SelectedDate="{Binding DatePick, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock
+                    x:Name="DateList"
+                    Margin="0,15,0,0"
+                    FontSize="12"
+                    FontWeight="Medium"
+                    Foreground="#68cbf8"
+                    Text="{Binding DateList, Mode=TwoWay}"
+                    TextWrapping="Wrap" />
+
+                <TextBlock
+                    Margin="0,15,0,0"
+                    FontSize="12"
+                    FontWeight="Medium"
+                    Foreground="#68cbf8"
+                    Text="Duration"
+                    TextWrapping="Wrap" />
+                <TextBox
+                    x:Name="DurationText"
+                    Height="28"
+                    Margin="0,5,0,0"
+                    VerticalContentAlignment="Center"
+                    Background="Transparent"
+                    BorderThickness="0,0,0,1"
+                    CaretBrush="#4fc3f7"
+                    FontSize="13"
+                    FontWeight="Medium"
+                    Foreground="#68cbf8"
+                    KeyboardNavigation.TabIndex="8"
+                    Text="{Binding DurationText, Mode=TwoWay}" />
+
+                <TextBlock
+                    Margin="0,15,0,0"
+                    FontSize="12"
+                    FontWeight="Medium"
+                    Foreground="#68cbf8"
+                    Text="Images (Press Enter to Add To The List)"
+                    TextWrapping="Wrap" />
+                <TextBox
+                    x:Name="ImagesText"
+                    Height="28"
+                    Margin="0,5,0,0"
+                    VerticalContentAlignment="Center"
+                    Background="Transparent"
+                    BorderThickness="0,0,0,1"
+                    CaretBrush="#4fc3f7"
+                    FontSize="13"
+                    FontWeight="Medium"
+                    Foreground="#68cbf8"
+                    KeyboardNavigation.TabIndex="9"
+                    Text="{Binding ImagesText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.InputBindings>
+                        <KeyBinding
+                            Command="{Binding ImagesCommands}"
+                            CommandParameter="Add"
+                            Gesture="Enter" />
+                        <KeyBinding
+                            Command="{Binding ImagesCommands}"
+                            CommandParameter="Delete"
+                            Gesture="Delete" />
+                    </TextBox.InputBindings>
+                </TextBox>
+                <TextBlock
+                    x:Name="ImagesList"
+                    Margin="0,15,0,0"
+                    FontSize="12"
+                    FontWeight="Medium"
+                    Foreground="#68cbf8"
+                    Text="{Binding ImagesList, Mode=TwoWay}"
+                    TextWrapping="Wrap" />
+            </StackPanel>
+        </Grid>
+
+
+        <StackPanel Grid.Row="1">
+            <Button
+                x:Name="BtnConfirm"
+                Width="150"
+                Height="35"
+                Margin="0,0,0,10"
+                Background="#68cbf8"
+                BorderThickness="0"
+                Content="Create Tour"
+                Cursor="Hand"
+                FontSize="12"
+                FontWeight="Medium"
+                Foreground="#ffffff"
+                IsEnabled="{Binding IsCreateTourEnabled}">
+                <b:Interaction.Triggers>
+                    <b:KeyTrigger Key="RightShift">
+                        <b:InvokeCommandAction Command="{Binding CreateTourCommand}" CommandParameter="Create" />
+                    </b:KeyTrigger>
+                    <b:EventTrigger EventName="MouseLeftButtonDown">
+                        <b:InvokeCommandAction Command="{Binding CreateTourCommand}" CommandName="Button" />
+                    </b:EventTrigger>
+                </b:Interaction.Triggers>
+            </Button>
+
+            <TextBlock
+                Name="ErrorMessageText"
+                Margin="0,0,0,0"
+                HorizontalAlignment="Center"
+                FontSize="12"
+                FontWeight="Medium"
+                Foreground="{Binding ErrorTextColor}"
+                Text="{Binding ErrorMessageText, UpdateSourceTrigger=PropertyChanged}"
+                TextWrapping="Wrap" />
+            <TextBlock
+                Padding="0,5"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="14"
+                FontWeight="DemiBold"
+                Foreground="#4fc3f7"
+                Text="Press Tab to focus on the next parameter and Delete to clear a list!" />
+        </StackPanel>
+
+
+    </Grid>
+
+
+</UserControl>

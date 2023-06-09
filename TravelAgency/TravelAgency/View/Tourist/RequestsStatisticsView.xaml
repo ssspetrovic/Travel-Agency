@@ -1,0 +1,173 @@
+﻿<Page
+    x:Class="TravelAgency.View.Tourist.RequestsStatisticsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="RequestsStatisticsView"
+    d:DesignHeight="616"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <ResourceDictionary x:Name="Dictionary">
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Styles/TouristDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+    <d:Page.Background>
+        <SolidColorBrush Color="White" />
+    </d:Page.Background>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="90" />
+            <RowDefinition Height="239" />
+            <RowDefinition Height="278" />
+        </Grid.RowDefinitions>
+        <TextBlock
+            Grid.Row="0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="25"
+            FontWeight="Medium"
+            Style="{StaticResource MaterialDesignHeadline1TextBlock}"
+            Text="Requests statistics" />
+        <StackPanel Grid.Row="1" Margin="40,0">
+            <Label
+                Margin="10,0"
+                Content="Percentage of accepted/denied requests"
+                FontSize="15" />
+            <Border
+                Height="209"
+                BorderBrush="{StaticResource MaterialDesignDivider}"
+                BorderThickness="2"
+                CornerRadius="10">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <ComboBox
+                        x:Name="RequestsYearCombobox"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        ItemsSource="{Binding YearsCollection}"
+                        SelectedItem="{Binding SelectedPieYear, UpdateSourceTrigger=PropertyChanged}"
+                        Style="{StaticResource StatisticsComboBoxStyle}" />
+                    <lvc:PieChart
+                        Name="RequestsPieChart"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Width="300"
+                        Margin="10"
+                        DataTooltip="{x:Null}"
+                        LegendLocation="Right"
+                        Series="{Binding AcceptancePieSeriesCollection}">
+                        <lvc:PieChart.ChartLegend>
+                            <lvc:DefaultLegend
+                                Margin="10"
+                                FontSize="14"
+                                Orientation="Vertical" />
+                        </lvc:PieChart.ChartLegend>
+                    </lvc:PieChart>
+                    <WrapPanel
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                        <Label Content="Average number of guests in accepted tour requests:" FontSize="14" />
+                        <Label FontSize="14" FontWeight="DemiBold">
+                            <Label.Content>
+                                <TextBlock
+                                    d:Text="42.31"
+                                    Text="{Binding AverageRequests}"
+                                    TextDecorations="Underline" />
+                            </Label.Content>
+                        </Label>
+                    </WrapPanel>
+                </Grid>
+            </Border>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Margin="40,10,40,20">
+            <Label
+                Margin="10,0"
+                Content="Number of requests in regard of language/location"
+                FontSize="15" />
+            <Border
+                Height="219"
+                BorderBrush="{StaticResource MaterialDesignDivider}"
+                BorderThickness="2"
+                CornerRadius="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <ComboBox
+                        x:Name="LanguageLocationComboBox"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        ItemsSource="{Binding YearsCollection}"
+                        SelectedItem="{Binding SelectedCartesianYear, UpdateSourceTrigger=PropertyChanged}"
+                        Style="{StaticResource StatisticsComboBoxStyle}" />
+                    <lvc:CartesianChart
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Margin="5"
+                        DataTooltip="{x:Null}"
+                        Series="{Binding LanguageCartesianSeriesCollection}">
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis Title="Requests" FontSize="12" />
+                        </lvc:CartesianChart.AxisX>
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis
+                                Title="Language"
+                                FontSize="12"
+                                Labels="{Binding LanguageLabels}">
+                                <lvc:Axis.Separator>
+                                    <lvc:Separator Step="1" />
+                                </lvc:Axis.Separator>
+                            </lvc:Axis>
+                        </lvc:CartesianChart.AxisY>
+                    </lvc:CartesianChart>
+                    <GridSplitter
+                        Grid.Row="0"
+                        Grid.RowSpan="2"
+                        Grid.Column="0"
+                        Width="3" />
+                    <lvc:CartesianChart
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="5"
+                        DataTooltip="{x:Null}"
+                        Series="{Binding LocationCartesianSeriesCollection}">
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis Title="Requests" FontSize="12" />
+                        </lvc:CartesianChart.AxisX>
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis
+                                Title="Location"
+                                FontSize="12"
+                                Labels="{Binding LocationLabels}">
+                                <lvc:Axis.Separator>
+                                    <lvc:Separator Step="1" />
+                                </lvc:Axis.Separator>
+                            </lvc:Axis>
+                        </lvc:CartesianChart.AxisY>
+                    </lvc:CartesianChart>
+                </Grid>
+            </Border>
+        </StackPanel>
+    </Grid>
+</Page>

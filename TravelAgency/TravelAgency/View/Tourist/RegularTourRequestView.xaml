@@ -1,0 +1,277 @@
+﻿<Page
+    x:Class="TravelAgency.View.Tourist.RegularTourRequestView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="RegularTourRequestView"
+    d:DesignHeight="616"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <ResourceDictionary x:Name="Dictionary">
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Styles/TouristDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+    <d:Page.Background>
+        <SolidColorBrush Color="White" />
+    </d:Page.Background>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="90" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBlock
+            Grid.Row="0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="25"
+            FontWeight="Medium"
+            Style="{StaticResource MaterialDesignHeadline1TextBlock}"
+            Text="Regular tour request" />
+        <StackPanel Grid.Row="1" Margin="150,0,150,50">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Label
+                    Grid.Column="0"
+                    Margin="10,0"
+                    Content="Request information"
+                    FontSize="15" />
+                <Label
+                    Grid.Column="1"
+                    Margin="10,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Content="All fields are required"
+                    FontSize="14"
+                    Foreground="#3F51B5"
+                    Style="{StaticResource AnimatedLabelStyle}"
+                    Visibility="{Binding IsTooltipsSwitchToggled, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            </Grid>
+            <Border
+                BorderBrush="{StaticResource MaterialDesignDivider}"
+                BorderThickness="2"
+                CornerRadius="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition Height="140" />
+                        <RowDefinition Height="60" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" Margin="50,10,30,10">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Label
+                                    Grid.Column="0"
+                                    Content="Starting date:"
+                                    FontSize="14" />
+                                <Label
+                                    Grid.Column="1"
+                                    Content="(pick)"
+                                    FontSize="14"
+                                    Foreground="#3F51B5"
+                                    Style="{StaticResource AnimatedLabelStyle}"
+                                    Visibility="{Binding IsTooltipsSwitchToggled, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            </Grid>
+                            <DatePicker
+                                x:Name="StartingDateDatePicker"
+                                FontSize="14"
+                                SelectedDate="{Binding StartingDate, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Margin="30,10,50,10">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Label Content="Ending date:" FontSize="14" />
+                                <Label
+                                    Grid.Column="1"
+                                    Content="(pick)"
+                                    FontSize="14"
+                                    Foreground="#3F51B5"
+                                    Style="{StaticResource AnimatedLabelStyle}"
+                                    Visibility="{Binding IsTooltipsSwitchToggled, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            </Grid>
+                            <DatePicker
+                                x:Name="EndingDateDatePicker"
+                                FontSize="14"
+                                SelectedDate="{Binding EndingDate, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            Margin="50,10,50,10">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Label
+                                    Grid.Column="0"
+                                    Content="Location:"
+                                    FontSize="14" />
+                                <Label
+                                    Grid.Column="1"
+                                    Content="(selection)"
+                                    FontSize="14"
+                                    Foreground="#3F51B5"
+                                    Style="{StaticResource AnimatedLabelStyle}"
+                                    Visibility="{Binding IsTooltipsSwitchToggled, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            </Grid>
+                            <ComboBox
+                                x:Name="CityTextBox"
+                                Padding="5"
+                                materialDesign:HintAssist.Hint="Select a location"
+                                materialDesign:TextFieldAssist.TextFieldCornerRadius="3"
+                                materialDesign:TextFieldAssist.UnderlineCornerRadius="3"
+                                BorderBrush="{StaticResource MaterialDesignDivider}"
+                                BorderThickness="1"
+                                FontSize="14"
+                                ItemsSource="{Binding LocationsCollection}"
+                                MaxDropDownHeight="190"
+                                SelectedItem="{Binding SelectedLocation, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" Margin="50,10,30,10">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Label
+                                    Grid.Column="0"
+                                    Content="Language:"
+                                    FontSize="14" />
+                                <Label
+                                    Grid.Column="1"
+                                    Content="(selection)"
+                                    FontSize="14"
+                                    Foreground="#3F51B5"
+                                    Style="{StaticResource AnimatedLabelStyle}"
+                                    Visibility="{Binding IsTooltipsSwitchToggled, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            </Grid>
+                            <ComboBox
+                                x:Name="LanguageComboBox"
+                                Padding="5"
+                                materialDesign:HintAssist.Hint="Select a language"
+                                materialDesign:TextFieldAssist.TextFieldCornerRadius="3"
+                                materialDesign:TextFieldAssist.UnderlineCornerRadius="3"
+                                BorderBrush="{StaticResource MaterialDesignDivider}"
+                                BorderThickness="1"
+                                FontSize="14"
+                                ItemsSource="{Binding Languages}"
+                                MaxDropDownHeight="190"
+                                SelectedItem="{Binding Language, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Margin="30,10,50,10">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Label
+                                    Grid.Column="0"
+                                    Content="Guest number:"
+                                    FontSize="14" />
+                                <Label
+                                    Grid.Column="1"
+                                    Content="(integer)"
+                                    FontSize="14"
+                                    Foreground="#3F51B5"
+                                    Style="{StaticResource AnimatedLabelStyle}"
+                                    Visibility="{Binding IsTooltipsSwitchToggled, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            </Grid>
+                            <TextBox
+                                x:Name="GuestNumberTextBox"
+                                FontSize="14"
+                                Style="{StaticResource FilterTextBoxStyle}"
+                                Text="{Binding GuestNumber, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Row="3" Margin="50,15,50,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Label
+                                Grid.Column="0"
+                                Content="Description:"
+                                FontSize="14" />
+                            <Label
+                                Grid.Column="1"
+                                Content="(text)"
+                                FontSize="14"
+                                Foreground="#3F51B5"
+                                Style="{StaticResource AnimatedLabelStyle}"
+                                Visibility="{Binding IsTooltipsSwitchToggled, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        </Grid>
+                        <TextBox
+                            x:Name="DescriptionTextBox"
+                            Grid.Row="1"
+                            Height="Auto"
+                            Padding="5"
+                            VerticalContentAlignment="Top"
+                            FontSize="14"
+                            Style="{StaticResource FilterTextBoxStyle}"
+                            Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"
+                            TextWrapping="Wrap" />
+                    </Grid>
+                    <WrapPanel
+                        Grid.Row="4"
+                        Width="Auto"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                        <Button
+                            x:Name="CancelButton"
+                            Width="100"
+                            Margin="0,0,15,0"
+                            Command="{Binding CancelRequestCommand}"
+                            Content="Cancel"
+                            FontSize="14"
+                            Style="{StaticResource MaterialDesignFlatButton}" />
+                        <Button
+                            x:Name="SubmitButton"
+                            Width="100"
+                            Margin="15,0,0,0"
+                            Command="{Binding SubmitRequestCommand}"
+                            Content="Submit"
+                            FontSize="14" />
+                    </WrapPanel>
+                </Grid>
+            </Border>
+        </StackPanel>
+    </Grid>
+</Page>
