@@ -34,6 +34,7 @@ namespace TravelAgency.ViewModel
         private Location _selectedLocation;
 
         public RelayCommand ForumCommand { get; set; }
+        public RelayCommand VisitCommand { get; set; }
         public HomeViewModel(NavigationService navigationService)
         {
             _windowManager = new WindowManager();
@@ -50,6 +51,7 @@ namespace TravelAgency.ViewModel
             };
 
             ForumCommand = new RelayCommand(Exacute_ForumCommand);
+            VisitCommand = new RelayCommand(Exacute_VisitCommand);
         }
         public AccommodationDTO SelectedAccommodation
         {
@@ -93,6 +95,11 @@ namespace TravelAgency.ViewModel
         public void Exacute_ForumCommand(object parameter)
         {
             _navigationService.Navigate(new ForumListView(_navigationService, this));
+        }
+
+        public void Exacute_VisitCommand(object parameter)
+        {
+            _navigationService.Navigate(new SingleAccommodationView(_navigationService, this));
         }
 
     }

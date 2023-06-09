@@ -88,6 +88,7 @@
            x:Name="VisitAccommodationButton"
            Width="120"
            Height="40"
+           Command="{Binding VisitCommand}"
            Content="VISIT"
            Margin="0 30 0 0"
            VerticalAlignment="Center"

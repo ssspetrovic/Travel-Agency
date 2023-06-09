@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLitePCL;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -18,9 +19,21 @@ namespace TravelAgency.ViewModel
         private string _experationDate;
         private string _numberOfPoints;
         private string _buttonMessage;
+        private string phoneNumber;
+        private string userName;
+        private string email;
+        private string firstName;
+        private string lastName;
+
+
 
         public ProfileViewModel() {
             InitSuperGuest();
+            phoneNumber = "+381 63-198-745-0";
+            email = "dragana@gmail.com";
+            userName = "DraganaDraginic";
+            firstName = "Dragana";
+            lastName = "Draginic";
             var _service = new GuestService();
             var _repository = new GuestRepository();
             Guest guest = _repository.GetByUserId(CurrentUser.Id);
@@ -35,6 +48,52 @@ namespace TravelAgency.ViewModel
                 _buttonMessage = value;
             }
         }
+
+        public string PhoneNumber
+        {
+            get => phoneNumber;
+            set
+            {
+                phoneNumber = value;
+            }
+        }
+
+        public string Email
+        {
+            get => email;
+            set
+            {
+                email = value;
+            }
+        }
+
+        public string FirstName
+        {
+            get => firstName;
+            set
+            {
+                firstName = value;
+            }
+        }
+
+        public string LastName
+        {
+            get => lastName;
+            set
+            {
+                lastName = value;
+            }
+        }
+
+        public string UserName
+        {
+            get => userName;
+            set
+            {
+                userName = value;
+            }
+        }
+
         public string NumberOfPoints
         {
             get => _numberOfPoints;

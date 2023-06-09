@@ -166,12 +166,12 @@
                                     FontSize="12" />
 
                             </DockPanel>
-                            
+
                             <StackPanel
                                 Margin="0 20 0 0">
                                 <DockPanel>
 
-                                        <Label
+                                    <Label
                                             VerticalAlignment="Center"
                                             FontSize="15"
                                             Content="Your current credit balance is :"/>
@@ -202,6 +202,109 @@
                             </StackPanel>
 
                         </StackPanel>
+                    </Grid>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="109*"></RowDefinition>
+                            <RowDefinition Height="396*"></RowDefinition>
+                            <RowDefinition Height="66*"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <DockPanel Grid.Row="0">
+                            <Image
+
+                        VerticalAlignment="Top"
+                        Margin="30 0 0 0"
+                       Source="/View/Controls/Guest1/GuestProfile.jpg" 
+                        Height="100"/>
+                            <StackPanel Margin="30 30 0 0">
+                                <Label
+
+                            Content="{Binding UserName}"
+                            d:Content="User Name"
+                            FontSize="20"></Label>
+                            </StackPanel>
+                        </DockPanel>
+                        <StackPanel
+                        Grid.Row="1"
+                            Margin="10 30 0 0">
+                            <DockPanel>
+                                <Label
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Margin="0 0 20 0"
+                                VerticalAlignment="Center"
+                                Content="First Name:"
+                                FontSize="17"
+                                FontWeight="SemiBold"
+                                Foreground="#3F51B5" />
+                            <Label
+                            Content="{Binding FirstName}"
+                            d:Content="First Name"
+                                VerticalAlignment="Center"
+                            FontSize="20"
+                                ></Label>
+                            </DockPanel>
+                            <DockPanel>
+                                <Label
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Margin="0 0 20 0"
+                                VerticalAlignment="Center"
+                                Content="Last Name:"
+                                FontSize="17"
+                                FontWeight="SemiBold"
+                                Foreground="#3F51B5" />
+                                <Label
+
+                            Content="{Binding LastName}"
+                            d:Content="Last Name"
+                            FontSize="20"
+                                    VerticalAlignment="Center"></Label>
+                            </DockPanel>
+                            <DockPanel>
+                                <Label
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Margin="0 0 20 0"
+                                VerticalAlignment="Center"
+                                Content="Number:"
+                                FontSize="17"
+                                FontWeight="SemiBold"
+                                Foreground="#3F51B5" />
+                                <Label
+                            Content="{Binding PhoneNumber}"
+                            d:Content="065 167 8232"
+                            FontSize="20"
+                            VerticalAlignment="Center"></Label>
+                            </DockPanel>
+                            <DockPanel>
+                                <Label
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Margin="0 0 20 0"
+                                VerticalAlignment="Center"
+                                Content="Account type:"
+                                FontSize="17"
+                                FontWeight="SemiBold"
+                                Foreground="#3F51B5" />
+                                <Label
+                                    VerticalAlignment="Center"
+                            Content="{Binding FirstName}"
+                            d:Content="dragana@gmail.com"
+                            FontSize="20"></Label>
+                            </DockPanel>
+                        </StackPanel>
+                        <Button
+           x:Name="PDF"
+           Grid.Row="2"
+           Width="120"
+           Height="40"
+           Content="PDF"
+           Margin="0 0 0 10"
+           VerticalAlignment="Center"
+           HorizontalAlignment="Center"
+           FontSize="12" />
                     </Grid>
                 </Grid>
             </Grid>
