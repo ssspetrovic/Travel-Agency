@@ -50,7 +50,7 @@
                         <RadioButton
                             x:Name="HomeButton"
                             Height="50"
-                            Click="HomeButton_OnClick"
+                            Command="{Binding HomeCommand}"
                             Content="HomePage"
                             FontSize="17"
                             Foreground="White"
@@ -59,14 +59,14 @@
                             x:Name="TourReservationButton"
                             Height="50"
                             Content="Accommodations"
-                            Click="Accommodation_OnClick"
+                            Command="{Binding AccommodationCommand}"
                             FontSize="17"
                             Foreground="White"
                             Style="{StaticResource MenuButtonStyle}" />
                         <RadioButton
                             x:Name="Reservations"
                             Height="50"
-                            Click="Reservation_OnClick"
+                            Command="{Binding ReservationCommand}"
                             Content="Reservations"
                             FontSize="17"
 
@@ -75,7 +75,7 @@
                         <RadioButton
                             x:Name="Requests"
                             Height="50"
-                            Click="RequestListButton_OnClick"
+                            Command="{Binding RequestCommand}"
                             Content="Requests"
                             FontSize="17"
                                                         IsChecked="True"
@@ -84,7 +84,7 @@
                         <RadioButton
                             x:Name="Profile"
                             Height="50"
-                            Click="Profile_OnClick"
+                            Command="{Binding ProfileCommand}"
                             Content="Profile"
                             FontSize="17"
                             Foreground="White"
@@ -94,7 +94,7 @@
                         x:Name="SignOutButton"
                         Grid.Row="2"
                         Height="50"
-                        Click="SignOutButton_OnClick"
+                        Command="{Binding SignOutCommand}"
                         Style="{StaticResource MenuButtonStyle}">
                         <WrapPanel
                             Width="150"
@@ -126,14 +126,14 @@
                         x:Name="HeaderBorder"
                         Width="655"
                         HorizontalAlignment="Left">
-                        <Thumb x:Name="HeaderThumb" DragDelta="HeaderThumb_OnDragDelta" />
+                        
                     </Border>
                     <Button
                         x:Name="CloseButton"
                         Height="35"
                         Margin="5"
                         HorizontalAlignment="Right"
-                        Click="CloseButton_OnClick"
+                        Command="{Binding CloseCommand}"
                         Content="✕"
                         FontSize="18"
                         Style="{StaticResource MaterialDesignFlatButton}" />

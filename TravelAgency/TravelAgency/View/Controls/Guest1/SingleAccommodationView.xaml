@@ -1,0 +1,167 @@
+﻿<Page x:Class="TravelAgency.View.Controls.Guest1.SingleAccommodationView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+
+    Title="HomePage"
+    d:DesignHeight="616"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <ResourceDictionary x:Name="Dictionary">
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Styles/TouristDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+    <d:Page.Background>
+        <SolidColorBrush Color="White" />
+    </d:Page.Background>
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="274*" />
+                <RowDefinition Height="177*" />
+                <RowDefinition Height="165*" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" VerticalAlignment="Center"
+                        HorizontalAlignment="Center">
+                <StackPanel Orientation="Horizontal">
+                    <Border BorderBrush="#3F51B5" BorderThickness="5" Margin="70 0 0 0">
+                        <Image Name="ImageViewer1" 
+                               Height="150" Width="150" Source="{Binding Accommodation.PictureUrl}"/>
+                    </Border>
+                    <StackPanel Margin="180 0 0 0">
+                        <Label
+                                d:Content="Accommodatoin Name"
+                                Content="{Binding Accommodation.Name}" FontSize="30"></Label>
+                        <TextBlock 
+                                Margin="0 30 0 0"
+                                Width="300"
+                                TextWrapping="WrapWithOverflow"
+                                FontSize="16"
+                               >
+                                This is some text that will represent the description of the accommodation that I have not yet added.
+                        </TextBlock>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+
+            <Grid Grid.Row="1"   Margin="0,20,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0">
+                    <StackPanel Orientation="Vertical">
+                        <DatePicker
+                                Name="StartDateSelect"
+                                materialDesign:HintAssist.IsFloating="True"
+                                Grid.Row="2"
+                                materialDesign:HintAssist.Hint="Start Date"
+                                Width="150"
+                                Height="40"
+                                SelectedDate="{Binding Path=StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DatePicker
+                                Name="EndDateSelect"
+                                materialDesign:HintAssist.IsFloating="True"
+                                Grid.Row="2"
+                                materialDesign:HintAssist.Hint="End Date"
+                                Width="150"
+                                Height="40"
+                                Margin="0 30 0 0"
+                                SelectedDate="{Binding Path=EndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                    </StackPanel>
+
+                </StackPanel>
+
+                <Grid Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Vertical" Grid.Column="0" Margin="0 10 0 0">
+                        <StackPanel>
+                            <Label
+                                HorizontalAlignment="Center">
+                                Cleanliness rating
+                            </Label>
+                            <materialDesign:RatingBar
+                              x:Name="CleanGrade"
+                                IsReadOnly="True"
+                              HorizontalAlignment="Center"
+                              Value="{Binding Path = GradeClean, Mode=TwoWay, NotifyOnSourceUpdated=True}" />
+                        </StackPanel>
+                        <StackPanel>
+                            <Label
+                                HorizontalAlignment="Center"
+                                 Margin="0 30 0 0">
+                                Hospitality rating
+                            </Label>
+                            <materialDesign:RatingBar
+                             
+                              x:Name="OwnerGrade"
+                                IsReadOnly="True"
+                              HorizontalAlignment="Center"
+                              Value="{Binding Path = GradeOwner, Mode=TwoWay, NotifyOnSourceUpdated=True}" />
+                        </StackPanel>
+                    </StackPanel>
+
+                </Grid>
+
+            </Grid>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBox
+                        Name="GuestNumber"
+                        materialDesign:HintAssist.Hint="People"
+                        Text ="{Binding Path=GuestNumber, Mode=TwoWay, NotifyOnSourceUpdated=True}"
+                        Grid.Column="0"
+                        Width="100"
+                        Height="50"
+                        FontSize="16"
+                         />
+                <StackPanel Grid.Column="1" HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+                    <Button
+                            x:Name="QuickReserve"
+                            Margin="0 0 10 0 "
+                            Grid.Row="2"
+                            Command="{Binding ReserveCommand}"
+                            Width="100"
+                            Height="50"
+                            Content="Reserve"
+                            FontSize="15" />
+
+                </StackPanel>
+                
+                <!--
+                    
+                    <StackPanel Grid.Column="1" Margin="15 20 0 0">
+                        <TextBox
+                          x:Name="CommentTextBox"
+                          Height="50"
+                          Margin="0 0 0 20"
+                          TextWrapping="WrapWithOverflow"
+                          Text="{Binding Comment}"
+                          materialDesign:HintAssist.Hint="Comment" />
+                        <TextBox
+                          x:Name="PictureUrlTextBox"
+                          Height="50"
+                          Text="{Binding PictureUrl}"
+                          TextWrapping="WrapWithOverflow"
+                          materialDesign:HintAssist.Hint="Picture URL" />
+                    </StackPanel>
+                    -->
+
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

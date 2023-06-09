@@ -27,59 +27,7 @@ namespace TravelAgency.View.Controls.Guest1
             InitializeComponent();
             DataContext = _viewModel;
         }
-        private void Profile_OnClick(object sender, RoutedEventArgs e)
-        {
-            var ProfileView = new ProfileView();
-            ProfileView.Show();
-            Close();
-        }
-
-        private void HomeButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            var GuestView = new Guest1View();
-            GuestView.Show();
-            Close();
-        }
-
-        private void Reservation_OnClick(object sender, RoutedEventArgs e)
-        {
-            var ReservationView = new ReservatoinView();
-            ReservationView.Show();
-            Close();
-        }
-
-
-        private void Accommodation_OnClick(object sender, RoutedEventArgs e)
-        {
-            var AccommodationReservationView = new AccommodationReservationView();
-            AccommodationReservationView.Show();
-            Close();
-        }
-
-        private void SignOutButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            var signInView = new SignInView();
-            signInView.Show();
-            Close();
-        }
-
-        private void RequestListButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            var requestListView = new RequestListView();
-            requestListView.Show();
-            Close();
-        }
-
-        private void HeaderThumb_OnDragDelta(object sender, DragDeltaEventArgs e)
-        {
-            Left = Left + e.HorizontalChange;
-            Top = Top + e.VerticalChange;
-        }
-
-        private void CloseButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
+       
 
     }
 }
